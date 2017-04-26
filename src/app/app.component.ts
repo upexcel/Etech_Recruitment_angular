@@ -1,16 +1,17 @@
-import {Component} from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import {MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
-
+import { ImapemailsService } from './service/imapemails.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   firstlist: boolean=true;
   secondlist: boolean=false;
+  emaillist: any;
 
   users = [
     {
@@ -35,13 +36,19 @@ export class AppComponent {
   ];
 
   selectedUser = this.users[0];
-  isDarkTheme = false;
 
-  constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer) {
+  constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer,public getemails: ImapemailsService) {
     // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
     const avatarsSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('./assets/avatars.svg');
 
     iconRegistry.addSvgIconSetInNamespace('avatars', avatarsSafeUrl);
+  }
+
+  ngOnInit(): void {
+    this.getemails.getemaillist().subscribe((data)=>{
+      this.emaillist=data.data;
+      console.log(this.emaillist);
+    });
   }
 
 }

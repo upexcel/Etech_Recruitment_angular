@@ -148,16 +148,29 @@
                   <button md-raised-button color="white">Page no: 1</button>
                   <button md-raised-button color="white">»</button>
              </md-card> -->
-
-                <md-card>
+                <div *ngFor="let email of emaillist">
+                <md-card class="borderleftblue">
+                    <div size="20" color="#757575" class="roundcircleforemailcheckbox">
+                            <span>S</span>
+                    </div>
                     <!-- <md-icon svgIcon="avatars:{{selectedUser.avatar}}" class="avatar"></md-icon> -->
-                    <h2>{{selectedUser.name}}</h2>
-                    <p>{{selectedUser.details}}</p>
+                    <div>
+                      <h4 style="display: inline;">{{email.subject}}</h4>
+                      <h6 style="display: inline;">{{email.email_date}}</h6>
+                      <p>{{email.sender_mail}} - From {{email.from}}</p>
+                    </div>
+                     <div>
+                     <button md-icon-button [mdMenuTriggerFor]="themeMenu">
+                       <md-icon>more_vert</md-icon>
+                    </button>
+                    </div>
                 </md-card>
                 <br>
+                </div>
+
                  <md-card>
                     <!-- <md-icon svgIcon="avatars:{{selectedUser.avatar}}" class="avatar"></md-icon> -->
-                    <h2>{{selectedUser.name}}</h2>
+                    <h3>{{selectedUser.name}}</h3>
                     <p>{{selectedUser.details}}</p>
                 </md-card>
                 
@@ -178,6 +191,10 @@
 </md-grid-list> -->
             </div>
         </md-sidenav-container>
+
+  <md-menu #themeMenu x-position="before">
+    <button md-menu-item (click)="isDarkTheme = !isDarkTheme">Toggle Theme</button>
+  </md-menu>
 
     </div>
 

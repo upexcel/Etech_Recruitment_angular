@@ -9,6 +9,8 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 
 import {MdButtonModule, MdCheckboxModule,MdSidenavModule,MdIconModule} from '@angular/material';
+import { ImapemailsService } from './service/imapemails.service';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +28,7 @@ import {MdButtonModule, MdCheckboxModule,MdSidenavModule,MdIconModule} from '@an
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [ImapemailsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
