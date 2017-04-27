@@ -18,6 +18,11 @@ md-sidenav {
   cursor: pointer;
 }
 
+.emailcardstyle {
+	padding: 0px; 
+	margin-bottom: 5px;
+}
+
 .borderleftblue{
    border-left: 5px solid rgb(129, 212, 250);
 }
