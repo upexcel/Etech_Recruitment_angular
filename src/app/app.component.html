@@ -1,5 +1,5 @@
 <!-- ********** start ********* -->
-<md-sidenav-container>
+<md-sidenav-container class="width100">
     <md-sidenav #sidenav class="example-sidenav">
         <div class="mainlogostyle">
             <img src="assets/logo.png">
@@ -48,7 +48,6 @@
                     <md-list-item class="mainsidenavlist" (click)="firstlist=!firstlist">
                         <md-icon md-list-icon>inbox</md-icon>
                         <a md-line> Inbox </a>
-                        <!-- <md-icon>keyboard arrow up</md-icon> -->
                     </md-list-item>
                     <md-list *ngIf="firstlist">
                         <md-list-item class="sublistsidenav">
@@ -113,7 +112,6 @@
                 </md-list>
 
             </md-sidenav>
-            <!-- <div class="content" fxLayout="row" fxLayout.sm="column" fxLayoutGap="16px" style="background-color: #2e3e4e;"> -->
             <div class="content" style="background-color: #2e3e4e;">
                 <div>
                     <ul class="pagination pull-right">
@@ -129,7 +127,6 @@
                         </li>
                     </ul>
                 </div>
-                <!-- <div *ngFor="let email of emaillist"> -->
                 <md-card class="borderleftblue emailcardstyle" *ngFor="let email of emaillist">
                     <md-grid-list cols="8" rowHeight="100px">
                         <md-grid-tile [colspan]="'1'">
@@ -171,15 +168,6 @@
                         </md-grid-tile>
                     </md-grid-list>
                 </md-card>
-                <!-- </div> -->
-                <md-card class="borderleftblue emailcardstyle">
-                    <h3>{{selectedUser.name}}</h3>
-                    <p>{{selectedUser.details}}</p>
-                </md-card>
-                <!--  <md-card fxFlex fxLayout="column" fxLayoutGap="14px">
-                    <md-slide-toggle>Is Admin?</md-slide-toggle>
-                    <md-slide-toggle>Is Cool?</md-slide-toggle>
-                </md-card> -->
             </div>
         </md-sidenav-container>
     </div>
