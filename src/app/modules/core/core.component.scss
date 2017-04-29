@@ -1,0 +1,67 @@
+$width280: 280px;
+$backgroundwhite: #ffffff;
+$borderleftblue: #81d4fa;
+$value27px: 27px;
+$value54px: 54px;
+$value16px: 16px;
+
+:host {
+  display: flex;
+  flex: 1;
+}
+
+md-sidenav {
+  width: $width280;
+}
+
+md-toolbar {
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+}
+
+/*.example-sidenav {
+  padding: 20px;
+}*/
+
+.width100 {
+  width: 100%;
+}
+
+.mainsidenavlist{
+  margin-left: 15px;
+}
+
+.hovestyle{
+  padding: 10px 0px;
+  position: relative;
+  cursor: pointer;
+}
+
+.sublistsidenav{
+    margin-left: 36px;
+    padding: 13px 0px;
+    cursor: pointer;
+}
+
+md-sidenav-container{
+  md-sidenav{
+    hr {
+          margin: -1px 0px 0px;
+          height: 1px;
+          border: none;
+          background-color: rgb(224, 224, 224);
+    }
+    div.hovestyle:hover { 
+    background-color: #ecf5ef;
+   }
+  }
+}
+
+.mainlogostyle {
+  background-color: rgb(46, 62, 78);
+  text-align: center;
+  padding: 30px;
+}
+
+/deep/ .mat-list-item-content {
+  height: auto !important;
+}
