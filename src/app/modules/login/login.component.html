@@ -1,3 +1,48 @@
-<p>
-  login works!
-</p>
+<div class="outerbody">
+    <div class="logo">
+        <img src="assets/logo.png">
+    </div>
+    <div class="login-card">
+        <md-card>
+            <form [formGroup]="addForm" (ngSubmit)="login()">
+                <md-card-title>
+                    <h6>Sign In</h6>
+                </md-card-title>
+                <md-card-content>
+                    <table class="example-full-width">
+                        <tr>
+                            <td>
+                                <md-input-container class="example-full-width">
+                                    <input mdInput type="email" formControlName="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                                    <md-error>Plz Enter Email</md-error>
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <md-input-container class="example-full-width">
+                                    <input mdInput type="password" formControlName="password" placeholder="Password">
+                                    <md-error>Plz Enter Password</md-error>
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <md-checkbox formControlName="keeplogin">Keep me signed in</md-checkbox>
+                            </td>
+                        </tr>
+                    </table>
+                </md-card-content>
+                <md-card-actions>
+                    <button *ngIf="!loading" type="submit" md-raised-button color=primary class="large">LOG IN</button>
+                    <md-spinner *ngIf="loading" class="spin"></md-spinner>
+                </md-card-actions>
+            </form>
+        </md-card>
+        <br>
+        <div>
+            <a href="#" class="forpas">Forgot Password?</a>
+            <p class="hav-acc">Do not have an account ? <a href="#" class="signup">Sign Up</a></p>
+        </div>
+    </div>
+</div>
