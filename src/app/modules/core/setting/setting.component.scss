@@ -1,0 +1,35 @@
+
+$backgroundwhite: #ffffff;
+$borderleftblue: #81d4fa;
+
+:host {
+  display: flex;
+  flex: 1;
+}
+
+md-sidenav {
+  width: 280px;
+}
+
+md-list {  
+  md-list-item:hover { 
+    background-color: #ecf5ef;
+   }
+}
+
+.mainsidenavlist{
+  margin-left: 15px;
+  padding: 16px 0px;
+  position: relative;
+  cursor: pointer;
+}
+
+.sublistsidenav{
+    margin-left: 36px;
+    padding: 13px 0px;
+    cursor: pointer;
+}
+
+.content {
+  padding: 12px;
+}

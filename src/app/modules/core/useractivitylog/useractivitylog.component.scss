@@ -1,0 +1,62 @@
+.content {
+    background-color: white;
+    margin: 17px 50px;
+    border-radius: 3px;
+    min-height: 100px;
+}
+
+.h2pos {
+	position: inherit;
+    top: 0px;
+    left: 15px;
+}
+
+.activity {
+	min-height: 68px;
+    width: 100%;
+    border-left: cyan;
+    margin-left: 30px;
+    margin-top: 7px;
+}
+
+.subdetails {
+	margin-left: 12px;
+    border-left: 1px solid #356161;
+    margin-top: 24px;
+}
+
+.marlf-18 {
+	margin-left: 18px;
+	padding-bottom: 16px;
+}
+
+.opc06{
+	opacity: 0.6;
+}
+
+md-list {  
+  md-list-item:hover { 
+    background-color: #ecf5ef;
+    cursor: pointer;
+   }
+}
+
+.bolno {
+	margin-right: 10px;
+    position: absolute;
+    top: 10px;
+    margin-left: -20px;
+    width: 4px;
+    height: 4px;
+    border-color: #42acdc;
+    border-width: 3px;
+    border-style: solid;
+    background: #f8f8f8;
+    border-radius: 50%;
+    content: "";
+}
+
+.center {
+	position: absolute;
+	left: 44%;
+}

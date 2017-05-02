@@ -1,17 +1,10 @@
-$width280: 280px;
-$backgroundwhite: #ffffff;
-$borderleftblue: #81d4fa;
-$value27px: 27px;
-$value54px: 54px;
-$value16px: 16px;
-
 :host {
   display: flex;
   flex: 1;
 }
 
 md-sidenav {
-  width: $width280;
+  width: 280px;
 }
 
 md-toolbar {

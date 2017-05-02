@@ -5,23 +5,23 @@
             <img src="assets/logo.png">
         </div>
         <hr>
-        <div class="hovestyle" (click)="title='Dashboard';sidenav.close()">
+        <div class="hovestyle" (click)="goto('dashboard','Dashboard');sidenav.close()">
             <a class="mainsidenavlist">Dashboard</a>
         </div>
         <hr>
-        <div class="hovestyle" (click)="title='Inbox';sidenav.close()">
+        <div class="hovestyle" (click)="goto('inbox','Inbox');sidenav.close()">
             <a class="mainsidenavlist">Inbox</a>
         </div>
         <hr>
-        <div class="hovestyle" (click)="title='User Activity Logs';sidenav.close()">
+        <div class="hovestyle" (click)="goto('useractivity','User Activity Logs');sidenav.close()">
             <a class="mainsidenavlist">User Activity Logs</a>
         </div>
         <hr>
-        <div class="hovestyle" (click)="title='Settings';sidenav.close()">
+        <div class="hovestyle" (click)="goto('setting','Settings');sidenav.close()">
             <a class="mainsidenavlist">Settings</a>
         </div>
         <hr>
-        <div class="hovestyle" (click)="title='Change Password';sidenav.close()">
+        <div class="hovestyle" (click)="goto('changepassword','Change Password');sidenav.close()">
             <a class="mainsidenavlist">Change Password</a>
         </div>
         <hr>
@@ -30,7 +30,7 @@
         </div>
         <hr>
     </md-sidenav>
-    <div fxLayout="column" fxFlex>
+    <div fxLayout="column" fxFlex style="background-color: #2e3e4e;">
         <md-toolbar color="accent">
             <button md-icon-button (click)="sidenav.open()">
           <md-icon>menu</md-icon>
@@ -40,9 +40,8 @@
             <span fxFlex></span>
         </md-toolbar>
        <!-- **** our components code will come here **** -->
-       <app-inbox></app-inbox> 
+       <router-outlet></router-outlet>
     </div>
-
 </md-sidenav-container>
 
 <!-- ******** end ******** -->

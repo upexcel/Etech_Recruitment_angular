@@ -1,10 +1,5 @@
-$width280: 280px;
 $backgroundwhite: #ffffff;
 $borderleftblue: #81d4fa;
-$value27px: 27px;
-$value54px: 54px;
-$value16px: 16px;
-
 
 :host {
   display: flex;
@@ -12,16 +7,12 @@ $value16px: 16px;
 }
 
 md-sidenav {
-  width: $width280;
+  width: 280px;
 }
 
 md-toolbar {
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
 }
-
-/*.example-sidenav {
-  padding: 20px;
-}*/
 
 .width100 {
 	width: 100%;
@@ -95,8 +86,8 @@ md-toolbar {
 }
 
 .heightwidth27{
-	height: $value27px;
-	width: $value27px;
+	height: 27px;
+	width: 27px;
 }
 
 .logorednavlist{
@@ -120,14 +111,14 @@ md-toolbar {
 .roundcircleforemailcheckbox{
 	@extend .logodesign;
 	background-color: rgb(186, 33, 211);
-	height: $value54px;
-	width: $value54px;
+	height: 54px;
+	width: 54px;
 }
 
 .fab-bottom-right {
   position: fixed;
-  right: $value16px;
-  bottom: $value16px;
+  right: 16px;
+  bottom: 16px;
 }
 
 /deep/ .mat-list-item-content {
