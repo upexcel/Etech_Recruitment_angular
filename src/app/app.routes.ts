@@ -10,41 +10,41 @@ import {
 
 import {
     InboxComponent
-} from './modules/core/inbox/inbox.component';
+} from './modules/inbox/inbox.component';
 import {
     DashboardComponent
-} from './modules/core/dashboard/dashboard.component';
+} from './modules/dashboard/dashboard.component';
 import {
     UserActivityLogComponent
-} from './modules/core/useractivitylog/useractivitylog.component';
+} from './modules/useractivitylog/useractivitylog.component';
 import {
     SettingComponent
-} from './modules/core/setting/setting.component';
+} from './modules/setting/setting.component';
 import {
     ChangePasswordComponent
-} from './modules/core/changepassword/changepassword.component';
+} from './modules/changepassword/changepassword.component';
 
 import {
     ImapServerComponent
-} from './modules/core/setting/imap-server/imap-server.component';
+} from './modules/imap-server/imap-server.component';
 import {
     SmtpServerComponent
-} from './modules/core/setting/smtp-server/smtp-server.component';
+} from './modules/smtp-server/smtp-server.component';
 import {
     EmailTemplatesComponent
-} from './modules/core/setting/email-templates/email-templates.component';
+} from './modules/email-templates/email-templates.component';
 import {
     EmailVariablesComponent
-} from './modules/core/setting/email-variables/email-variables.component';
+} from './modules/email-variables/email-variables.component';
 import {
     TagSettingComponent
-} from './modules/core/setting/tag-setting/tag-setting.component';
+} from './modules/tag-setting/tag-setting.component';
 import {
     ActionsComponent
-} from './modules/core/setting/actions/actions.component';
+} from './modules/actions/actions.component';
 import {
     ManageUsersComponent
-} from './modules/core/setting/manage-users/manage-users.component';
+} from './modules/manage-users/manage-users.component';
 
 export const routes: Route[] = [{
         path: '',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImapMailsService } from '../../../service/imapemails.service';
+import { ImapMailsService } from '../../service/imapemails.service';
 import {MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 
