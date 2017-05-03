@@ -1,30 +1,30 @@
  <md-sidenav-container fxFlex>
             <md-sidenav mode="side" opened>
                 <md-list>
-                    <md-list-item class="mainsidenavlist" (click)="firstlist=!firstlist">
+                    <md-list-item class="mainnav" (click)="firstlist=!firstlist">
                         <md-icon md-list-icon>inbox</md-icon>
                         <a md-line> Inbox </a>
                         <md-icon>{{firstlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
                     </md-list-item>
                     <md-list *ngIf="firstlist">
-                        <md-list-item class="sublistsidenav">
+                        <md-list-item class="subenav">
                             <md-icon md-list-icon style="color:#81d4fa;">mail</md-icon>
                             Mails (10/100)
                         </md-list-item>
-                        <md-list-item class="sublistsidenav">
-                            <div size="20" color="#757575" class="logorednavlist">
+                        <md-list-item class="subenav">
+                            <div size="20" color="#757575" class="logored">
                                 <span>I</span>
                             </div>
                             <a>Ignore (29/34)</a>
                         </md-list-item>
-                        <md-list-item class="sublistsidenav">
-                            <div size="20" color="#757575" class="logoorangenavlist">
+                        <md-list-item class="subenav">
+                            <div size="20" color="#757575" class="logoorange">
                                 <span>R</span>
                             </div>
                             <a>Reject (7/10)</a>
                         </md-list-item>
-                        <md-list-item class="sublistsidenav">
-                            <div size="20" color="#757575" class="logobluenavlist">
+                        <md-list-item class="subenav">
+                            <div size="20" color="#757575" class="logoblue">
                                 <span>S</span>
                             </div>
                             <a>Schedule (12/30)</a>
@@ -32,45 +32,45 @@
                     </md-list>
 
 
-                    <md-list-item class="mainsidenavlist" (click)="secondlist=!secondlist">
+                    <md-list-item class="mainnav" (click)="secondlist=!secondlist">
                         <md-icon md-list-icon style="color: #2196f3;">assignment</md-icon>
                         <a md-line> Jobs </a>
                          <md-icon>{{secondlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
                     </md-list-item>
                     <md-list *ngIf="secondlist">
-                        <md-list-item class="sublistsidenav">
-                            <div size="20" color="#757575" class="logoorangenavlist">
+                        <md-list-item class="subenav">
+                            <div size="20" color="#757575" class="logoorange">
                                 <span>A</span>
                             </div>
                             <a>Angular JS</a>
                         </md-list-item>
-                        <md-list-item class="sublistsidenav">
-                            <div size="20" color="#757575" class="logobluenavlist">
+                        <md-list-item class="subenav">
+                            <div size="20" color="#757575" class="logoblue">
                                 <span>P</span>
                             </div>
                             <a>Php</a>
                         </md-list-item>
-                        <md-list-item class="sublistsidenav">
-                            <div size="20" color="#757575" class="logorednavlist">
+                        <md-list-item class="subenav">
+                            <div size="20" color="#757575" class="logored">
                                 <span>H</span>
                             </div>
                             <a>Hybrid Mobile Apps</a>
                         </md-list-item>
-                        <md-list-item class="sublistsidenav">
-                            <div size="20" color="#757575" class="logobluenavlist">
+                        <md-list-item class="subenav">
+                            <div size="20" color="#757575" class="logoblue">
                                 <span>T</span>
                             </div>
                             <a>testing</a>
                         </md-list-item>
                     </md-list>
-                    <md-list-item class="mainsidenavlist">
+                    <md-list-item class="mainnav">
                         <md-icon md-list-icon style="color: #ff4081">drafts</md-icon>
                         <a md-line>Candidates</a>
                     </md-list-item>
                 </md-list>
 
             </md-sidenav>
-            <div class="content" style="background-color: #2e3e4e;">
+            <div class="content">
                 <div>
                     <ul class="pagination pull-right">
                         <li>
@@ -87,10 +87,10 @@
                 </div>
                 <md-spinner *ngIf="loading" class="posload"></md-spinner>
                 <div *ngIf="!loading">
-                <md-card class="borderleftblue emailcardstyle" *ngFor="let email of emaillist">
+                <md-card class="bleftblue emailstyle" *ngFor="let email of emaillist">
                     <md-grid-list cols="8" rowHeight="100px">
                         <md-grid-tile [colspan]="'1'">
-                            <div size="20" color="#757575" class="roundcircleforemailcheckbox">
+                            <div size="20" color="#757575" class="emailcheckbox">
                                 <span>S</span>
                             </div>
                         </md-grid-tile>
@@ -107,19 +107,19 @@
                       </button>
                             <md-menu #themeMenu x-position="before">
                                 <button md-menu-item>
-                             <div size="20" color="#757575" class="logoorangenavlist">
+                             <div size="20" color="#757575" class="logoorange">
                                 <span>A</span>
                             </div>
                            <span>Angular JS</span>
                          </button>
                                 <button md-menu-item>
-                            <div size="20" color="#757575" class="logobluenavlist">
+                            <div size="20" color="#757575" class="logoblue">
                                 <span>P</span>
                             </div>
                            <span>Php</span>
                          </button>
                                 <button md-menu-item>
-                            <div size="20" color="#757575" class="logorednavlist">
+                            <div size="20" color="#757575" class="logored">
                                 <span>H</span>
                             </div>
                            <span>Hybrid Mobile Apps</span>

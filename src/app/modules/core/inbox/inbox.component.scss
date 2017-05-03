@@ -1,9 +1,13 @@
-$width280: 280px;
 $backgroundwhite: #ffffff;
 $borderleftblue: #81d4fa;
-$value27px: 27px;
-$value54px: 54px;
-$value16px: 16px;
+$mdlistitemhovercolcor: #ecf5ef;
+$pagincolor: #bdb1b1;
+$mainlogo: rgb(46, 62, 78);
+$contentcolor: #2e3e4e;
+$logoredcolor: rgb(239, 46, 70);
+$logoorangecolor: rgb(203, 137, 27);
+$logobluecolor: rgb(186, 33, 211);
+$roundcirclecolor: rgb(186, 33, 211);
 
 :host {
   display: flex;
@@ -11,16 +15,8 @@ $value16px: 16px;
 }
 
 md-sidenav {
-  width: $width280;
+  width: 280px;
 }
-
-md-toolbar {
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
-}
-
-/*.example-sidenav {
-  padding: 20px;
-}*/
 
 .width100 {
   width: 100%;
@@ -28,29 +24,29 @@ md-toolbar {
 
 md-list {  
   md-list-item:hover { 
-    background-color: #ecf5ef;
+    background-color: $mdlistitemhovercolcor;
    }
 }
 
-.mainsidenavlist{
+.mainnav{
   margin-left: 15px;
   padding: 10px 0px;
   position: relative;
   cursor: pointer;
 }
 
-.emailcardstyle {
+.emailstyle {
   padding: 0px; 
   margin-bottom: 5px;
 }
 
-.borderleftblue{
+.bleftblue {
    border-left: 5px solid $borderleftblue;
 }
 
 .pagination>li {
     display: inline-block;
-    border: 0.5px #bdb1b1 solid;
+    border: 0.5px $pagincolor solid;
     padding: 5px;
     border-radius: 4px !important;
     background-color: $backgroundwhite;
@@ -60,30 +56,23 @@ md-list {
     display: inline-block;
     padding-left: 0;
     margin: 20px 0;
-    /*border-radius: 4px;*/
 }
 
-.sublistsidenav{
+.subenav{
     margin-left: 36px;
     padding: 13px 0px;
     cursor: pointer;
 }
 
-.hrstyleformainsidenav {
-  margin: -1px 0px 0px;
-  height: 1px;
-  border: none;
-  background-color: rgb(224, 224, 224);
-}
-
 .mainlogostyle {
-  background-color: rgb(46, 62, 78);
+  background-color: $mainlogo;
   text-align: center;
   padding: 30px;
 }
 
 .content {
   padding: 12px;
+  background-color: $contentcolor;
 }
 
 .logodesign{
@@ -100,46 +89,36 @@ md-list {
 }
 
 .heightwidth27{
-  height: $value27px;
-  width: $value27px;
+  height: 27px;
+  width: 27px;
 }
 
-.logorednavlist{
+.logored{
   @extend .logodesign;
   @extend .heightwidth27;
-  background-color: rgb(239, 46, 70);
+  background-color: $logoredcolor;
 }
 
-.logoorangenavlist{
+.logoorange {
   @extend .logodesign;
   @extend .heightwidth27;
-  background-color: rgb(203, 137, 27);
+  background-color: $logoorangecolor;
 }
 
-.logobluenavlist{
+.logoblue {
   @extend .logodesign;
   @extend .heightwidth27;
-  background-color: rgb(186, 33, 211);
+  background-color: $logobluecolor;
 }
 
-.roundcircleforemailcheckbox{
+.emailcheckbox {
   @extend .logodesign;
-  background-color: rgb(186, 33, 211);
-  height: $value54px;
-  width: $value54px;
+  background-color: $roundcirclecolor;
+  height: 54px;
+  width: 54px;
 }
 
-.fab-bottom-right {
-  position: fixed;
-  right: $value16px;
-  bottom: $value16px;
-}
-
-/deep/ .mat-list-item-content {
-  height: auto !important;
-}
-
-.posload{
+.posload {
     left: 44%;
     position: relative;
 }

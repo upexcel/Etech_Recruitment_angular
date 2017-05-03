@@ -1,3 +1,8 @@
+$toolbarcolor: rgba(0,0,0,0.26);
+$hrlinecolor: rgb(224, 224, 224);
+$hovecolor: #ecf5ef;
+$mainlogocolor: rgb(46, 62, 78);
+
 :host {
   display: flex;
   flex: 1;
@@ -8,12 +13,8 @@ md-sidenav {
 }
 
 md-toolbar {
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+  box-shadow: 0 2px 5px 0 $toolbarcolor;
 }
-
-/*.example-sidenav {
-  padding: 20px;
-}*/
 
 .width100 {
   width: 100%;
@@ -41,16 +42,16 @@ md-sidenav-container{
           margin: -1px 0px 0px;
           height: 1px;
           border: none;
-          background-color: rgb(224, 224, 224);
+          background-color: $hrlinecolor;
     }
     div.hovestyle:hover { 
-    background-color: #ecf5ef;
+    background-color: $hovecolor;
    }
   }
 }
 
 .mainlogostyle {
-  background-color: rgb(46, 62, 78);
+  background-color: $mainlogocolor;
   text-align: center;
   padding: 30px;
 }
@@ -58,3 +59,4 @@ md-sidenav-container{
 /deep/ .mat-list-item-content {
   height: auto !important;
 }
+

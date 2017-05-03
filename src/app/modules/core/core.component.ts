@@ -11,7 +11,7 @@ export class CoreComponent implements OnInit {
    title = 'Inbox';
    constructor(private _router: Router) { }
 
-  ngOnInit(): void {
+ngOnInit(): void {
     this.title = 'Inbox';
   }
 

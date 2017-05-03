@@ -1,5 +1,6 @@
 $outercolor: #1e3750;
 $white: #ffffff;
+$linkcolor: rgb(0, 188, 212);
 
 .login-card {
     width: 315px;
@@ -38,7 +39,7 @@ md-card-actions {
 	margin-left: 28%;
 	font-size: 15px;
 	text-decoration: none;
-	color: rgb(0, 188, 212);
+	color: $linkcolor;
 }
 
 .hav-acc{
@@ -49,7 +50,7 @@ md-card-actions {
 
 .signup {
 	text-decoration: none;
-	color: rgb(0, 188, 212);
+	color: $linkcolor;
 }
 
 .spin {
