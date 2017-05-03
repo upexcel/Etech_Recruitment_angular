@@ -12,6 +12,7 @@ import { MdButtonModule, MdCheckboxModule, MdSidenavModule, MdIconModule, MdProg
 
 import { ImapMailsService } from './service/imapemails.service';
 import { routes } from './app.routes';
+import { LoginRouteGuard } from './service/login-route-guard';
 
 import { LoginComponent } from './modules/login/login.component';
 import { CoreComponent } from './modules/core/core.component';
@@ -62,7 +63,7 @@ import { ManageUsersComponent } from './modules/manage-users/manage-users.compon
     ReactiveFormsModule,
     HttpModule
   ],
-  providers: [ImapMailsService],
+  providers: [ImapMailsService, LoginRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

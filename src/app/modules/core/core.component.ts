@@ -13,7 +13,7 @@ export class CoreComponent implements OnInit {
 
 ngOnInit(): void {
     this.title = 'Inbox';
-  }
+ }
 
 goto( path: string, navtitle: string) {
  this.title = navtitle;

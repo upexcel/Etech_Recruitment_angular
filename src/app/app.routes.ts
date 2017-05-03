@@ -45,6 +45,9 @@ import {
 import {
     ManageUsersComponent
 } from './modules/manage-users/manage-users.component';
+import {
+   LoginRouteGuard
+} from './service/login-route-guard';
 
 export const routes: Route[] = [{
         path: '',
@@ -54,6 +57,7 @@ export const routes: Route[] = [{
     {
         path: 'core',
         component: CoreComponent,
+        canActivate: [LoginRouteGuard],
         children: [{
                 path: '',
                 redirectTo: 'inbox',
@@ -61,16 +65,20 @@ export const routes: Route[] = [{
             },
             {
                 path: 'inbox',
-                component: InboxComponent
+                component: InboxComponent,
+                canActivate: [LoginRouteGuard]
             }, {
                 path: 'dashboard',
-                component: DashboardComponent
+                component: DashboardComponent,
+                canActivate: [LoginRouteGuard]
             }, {
                 path: 'useractivity',
-                component: UserActivityLogComponent
+                component: UserActivityLogComponent,
+                canActivate: [LoginRouteGuard]
             }, {
                 path: 'setting',
                 component: SettingComponent,
+                canActivate: [LoginRouteGuard],
                 children: [{
                     path: '',
                     redirectTo: 'imap',
@@ -99,7 +107,8 @@ export const routes: Route[] = [{
                 }]
             }, {
                 path: 'changepassword',
-                component: ChangePasswordComponent
+                component: ChangePasswordComponent,
+                canActivate: [LoginRouteGuard]
             }
         ]
     },
