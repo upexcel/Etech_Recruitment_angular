@@ -1,34 +1,29 @@
-$backgroundwhite: #ffffff;
-$borderleftblue: #81d4fa;
-
+@import './../../variable.scss';
 :host {
-  display: flex;
-  flex: 1;
+    display: flex;
+    flex: 1;
 }
-
 md-sidenav {
-  width: 280px;
+    width: 280px;
 }
-
-md-list {  
-  md-list-item:hover { 
-    background-color: #ecf5ef;
-   }
+md-list {
+    md-list-item:hover {
+        background-color: $hovecolor;
+    }
 }
-
-.mainsidenavlist{
-  margin-left: 15px;
-  padding: 16px 0px;
-  position: relative;
-  cursor: pointer;
+.navlist {
+    margin-left: 15px;
+    padding: 16px 0px;
+    position: relative;
+    cursor: pointer;
 }
-
-.sublistsidenav{
+.subnavlist {
     margin-left: 36px;
     padding: 13px 0px;
     cursor: pointer;
 }
-
 .content {
-  padding: 12px;
+    padding: 12px;
+    background-color: #2e3e4e;
+    height: 100%;
 }

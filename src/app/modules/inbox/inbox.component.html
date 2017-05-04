@@ -8,23 +8,23 @@
                     </md-list-item>
                     <md-list *ngIf="firstlist">
                         <md-list-item class="subenav">
-                            <md-icon md-list-icon style="color:#81d4fa;">mail</md-icon>
+                            <md-icon md-list-icon class="blue">mail</md-icon>
                             Mails (10/100)
                         </md-list-item>
                         <md-list-item class="subenav">
-                            <div size="20" color="#757575" class="logored">
+                            <div class="logored">
                                 <span>I</span>
                             </div>
                             <a>Ignore (29/34)</a>
                         </md-list-item>
                         <md-list-item class="subenav">
-                            <div size="20" color="#757575" class="logoorange">
+                            <div class="logoorange">
                                 <span>R</span>
                             </div>
                             <a>Reject (7/10)</a>
                         </md-list-item>
                         <md-list-item class="subenav">
-                            <div size="20" color="#757575" class="logoblue">
+                            <div class="logoblue">
                                 <span>S</span>
                             </div>
                             <a>Schedule (12/30)</a>
@@ -33,38 +33,38 @@
 
 
                     <md-list-item class="mainnav" (click)="secondlist=!secondlist">
-                        <md-icon md-list-icon style="color: #2196f3;">assignment</md-icon>
+                        <md-icon md-list-icon class="assign">assignment</md-icon>
                         <a md-line> Jobs </a>
                          <md-icon>{{secondlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
                     </md-list-item>
                     <md-list *ngIf="secondlist">
                         <md-list-item class="subenav">
-                            <div size="20" color="#757575" class="logoorange">
+                            <div class="logoorange">
                                 <span>A</span>
                             </div>
                             <a>Angular JS</a>
                         </md-list-item>
                         <md-list-item class="subenav">
-                            <div size="20" color="#757575" class="logoblue">
+                            <div class="logoblue">
                                 <span>P</span>
                             </div>
                             <a>Php</a>
                         </md-list-item>
                         <md-list-item class="subenav">
-                            <div size="20" color="#757575" class="logored">
+                            <div class="logored">
                                 <span>H</span>
                             </div>
                             <a>Hybrid Mobile Apps</a>
                         </md-list-item>
                         <md-list-item class="subenav">
-                            <div size="20" color="#757575" class="logoblue">
+                            <div class="logoblue">
                                 <span>T</span>
                             </div>
                             <a>testing</a>
                         </md-list-item>
                     </md-list>
                     <md-list-item class="mainnav">
-                        <md-icon md-list-icon style="color: #ff4081">drafts</md-icon>
+                        <md-icon md-list-icon class="candcolor">drafts</md-icon>
                         <a md-line>Candidates</a>
                     </md-list-item>
                 </md-list>
@@ -90,14 +90,14 @@
                 <md-card class="bleftblue emailstyle" *ngFor="let email of emaillist">
                     <md-grid-list cols="8" rowHeight="100px">
                         <md-grid-tile [colspan]="'1'">
-                            <div size="20" color="#757575" class="emailcheckbox">
+                            <div class="emailcheckbox">
                                 <span>S</span>
                             </div>
                         </md-grid-tile>
                         <md-grid-tile [colspan]="'6'">
-                            <div style="position: absolute;left: 5px;">
-                                <h4 style="display: inline;">{{email.subject}}</h4>
-                                <h6 style="display: inline;">{{email.email_date}}</h6>
+                            <div class="detailloc">
+                                <h4 class="inline">{{email.subject}}</h4>
+                                <h6 class="inline">{{email.email_date}}</h6>
                                 <p>{{email.sender_mail}} - From {{email.from}}</p>
                             </div>
                         </md-grid-tile>
@@ -107,19 +107,19 @@
                       </button>
                             <md-menu #themeMenu x-position="before">
                                 <button md-menu-item>
-                             <div size="20" color="#757575" class="logoorange">
+                             <div class="logoorange">
                                 <span>A</span>
                             </div>
                            <span>Angular JS</span>
                          </button>
                                 <button md-menu-item>
-                            <div size="20" color="#757575" class="logoblue">
+                            <div class="logoblue">
                                 <span>P</span>
                             </div>
                            <span>Php</span>
                          </button>
                                 <button md-menu-item>
-                            <div size="20" color="#757575" class="logored">
+                            <div class="logored">
                                 <span>H</span>
                             </div>
                            <span>Hybrid Mobile Apps</span>

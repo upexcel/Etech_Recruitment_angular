@@ -1,3 +1,100 @@
-<p align="center">
-  imap-server component
-</p>
+<div class="main">
+<md-card>
+    <form #imapForm="ngForm" (ngSubmit)="addimap(imapForm)">
+        <md-card-subtitle class="cardsub">
+           IMAP/POP3 Server
+        </md-card-subtitle>
+        <md-card-content>
+            <table class="width-90">
+                <tr>
+                    <td>
+                        <md-input-container class="width-90">
+                            <input mdInput name="email" type="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required ngModel>
+                            <md-error>invalid email id</md-error>
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="width-90">
+                            <input mdInput name="password" type="password" placeholder="Password" required ngModel>
+                            <md-error>Plz Enter Password</md-error>
+                        </md-input-container>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        <md-input-container class="width-90">
+                            <input mdInput name="imapserver" placeholder="IMAP Server" required ngModel>
+                            <md-error>invalid Server id</md-error>
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container class="width-90">
+                            <input mdInput name="Server_port" type="number" placeholder="Server port" required ngModel>
+                        </md-input-container>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>
+                        <md-radio-group name="layer" id="layer" required ngModel>
+                            <md-radio-button value="ssl">SSL</md-radio-button>
+                            <md-radio-button value="tls">TLS</md-radio-button>
+                        </md-radio-group>
+                    </td>
+                    <td>
+                         <button type="submit" md-raised-button color=primary > Save </button>
+                         <button md-raised-button color=accent > Test </button>
+                    </td>
+                </tr>
+            </table>
+        </md-card-content>
+    </form>
+</md-card>
+<br>
+<md-card>
+    <form #imapForm="ngForm" (ngSubmit)="addimap(imapForm)">
+        <md-card-subtitle class="cardsub">
+            IMAP/POP3 Settings
+        </md-card-subtitle>
+        <md-card-content>
+            <table class="list">
+                <thead>
+                    <tr>
+                    <th>Email ID</th>
+                    <th>Server</th>
+                    <th>Port</th>
+                    <th>Encryption</th>
+                    <th>Status</th>
+                    <th>Active</th>
+                    <th>Test</th>
+                    <th>Remove</th>
+                    <th>Statistics</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let setting of imapsettingjson">
+                    <td>{{setting.email}}</td>
+                    <td>{{setting.Server}}</td>
+                    <td>{{setting.Port}}</td>
+                    <td>{{setting.Encryption}}</td>
+                    <td>
+                      <md-icon class="{{setting.Active ? 'on':'off'}}">{{setting.Status ? 'done' : 'clear'}}</md-icon>
+                    </td>
+                    <td>
+                      <md-icon class="{{setting.Active ? 'on':'off'}}">power_settings_new</md-icon>
+                    </td>
+                    <td>
+                      <button md-button class="chartcolor" (click)="test(setting._id)">TEST</button>
+                    </td>
+                    <td>
+                      <button md-button class="chartcolor" (click)="remove(setting._id)">REMOVE</button>
+                    </td>
+                    <td>
+                      <md-icon class="chartcolor">insert_chart</md-icon>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </md-card-content>
+    </form>
+</md-card>
+</div>

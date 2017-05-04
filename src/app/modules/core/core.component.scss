@@ -1,62 +1,51 @@
-$toolbarcolor: rgba(0,0,0,0.26);
-$hrlinecolor: rgb(224, 224, 224);
-$hovecolor: #ecf5ef;
-$mainlogocolor: rgb(46, 62, 78);
-
+@import './../../variable.scss';
 :host {
-  display: flex;
-  flex: 1;
+    display: flex;
+    flex: 1;
 }
-
 md-sidenav {
-  width: 280px;
+    width: 280px;
 }
-
 md-toolbar {
-  box-shadow: 0 2px 5px 0 $toolbarcolor;
+    box-shadow: 0 2px 5px 0 $toolbarcolor;
 }
-
 .width100 {
-  width: 100%;
+    width: 100%;
 }
-
-.mainsidenavlist{
-  margin-left: 15px;
+.mainsidenavlist {
+    margin-left: 15px;
 }
-
-.hovestyle{
-  padding: 10px 0px;
-  position: relative;
-  cursor: pointer;
+.hovestyle {
+    padding: 10px 0px;
+    position: relative;
+    cursor: pointer;
 }
-
-.sublistsidenav{
+.sublistsidenav {
     margin-left: 36px;
     padding: 13px 0px;
     cursor: pointer;
 }
-
-md-sidenav-container{
-  md-sidenav{
-    hr {
-          margin: -1px 0px 0px;
-          height: 1px;
-          border: none;
-          background-color: $hrlinecolor;
+md-sidenav-container {
+    md-sidenav {
+        hr {
+            margin: -1px 0px 0px;
+            height: 1px;
+            border: none;
+            background-color: $hrlinecolor;
+        }
+        div.hovestyle:hover {
+            background-color: $hovecolor;
+        }
     }
-    div.hovestyle:hover { 
-    background-color: $hovecolor;
-   }
-  }
 }
-
 .mainlogostyle {
-  background-color: $mainlogocolor;
-  text-align: center;
-  padding: 30px;
+    background-color: $mainlogo;
+    text-align: center;
+    padding: 30px;
 }
-
+.bgcolor {
+    background-color: $contentcolor;
+}
 /deep/ .mat-list-item-content {
-  height: auto !important;
+    height: auto !important;
 }
-

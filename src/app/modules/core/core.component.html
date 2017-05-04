@@ -1,4 +1,3 @@
-<!-- ********** start ********* -->
 <md-sidenav-container class="width100">
     <md-sidenav #sidenav class="example-sidenav">
         <div class="mainlogostyle">
@@ -30,18 +29,15 @@
         </div>
         <hr>
     </md-sidenav>
-    <div fxLayout="column" fxFlex style="background-color: #2e3e4e;">
+    <div fxLayout="column" fxFlex class="bgcolor">
         <md-toolbar color="accent">
             <button md-icon-button (click)="sidenav.open()">
           <md-icon>menu</md-icon>
           </button>
             <span>{{title}}</span>
-            <!-- Filler that pushes the menu button to the end of the toolbar -->
             <span fxFlex></span>
         </md-toolbar>
-       <!-- **** our components code will come here **** -->
        <router-outlet></router-outlet>
     </div>
 </md-sidenav-container>
 
-<!-- ******** end ******** -->
