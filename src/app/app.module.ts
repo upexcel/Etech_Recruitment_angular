@@ -28,6 +28,8 @@ import { EmailVariablesComponent } from './modules/email-variables/email-variabl
 import { TagSettingComponent } from './modules/tag-setting/tag-setting.component';
 import { ActionsComponent } from './modules/actions/actions.component';
 import { ManageUsersComponent } from './modules/manage-users/manage-users.component';
+import { InboxSideNavComponent } from './modules/inbox-side-nav/inbox-side-nav.component';
+import { EmailboxComponent } from './modules/emailbox/emailbox.component';
 
 
 @NgModule({
@@ -47,6 +49,8 @@ import { ManageUsersComponent } from './modules/manage-users/manage-users.compon
     TagSettingComponent,
     ActionsComponent,
     ManageUsersComponent,
+    InboxSideNavComponent,
+    EmailboxComponent,
   ],
   imports: [
     BrowserModule,

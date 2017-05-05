@@ -1,0 +1,71 @@
+<md-sidenav mode="side" opened fxFlex="20">
+    <md-list>
+        <md-list-item class="mainnav" (click)="firstlist=!firstlist">
+            <md-icon md-list-icon>inbox</md-icon>
+            <a md-line> Inbox </a>
+            <md-icon>{{firstlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
+        </md-list-item>
+        <md-list *ngIf="firstlist">
+            <md-list-item class="subenav">
+                <md-icon md-list-icon class="blue">mail</md-icon>
+                Mails (10/100)
+            </md-list-item>
+            <md-list-item class="subenav">
+                <div class="logored">
+                    <span>I</span>
+                </div>
+                <a>Ignore (29/34)</a>
+            </md-list-item>
+            <md-list-item class="subenav">
+                <div class="logoorange">
+                    <span>R</span>
+                </div>
+                <a>Reject (7/10)</a>
+            </md-list-item>
+            <md-list-item class="subenav">
+                <div class="logoblue">
+                    <span>S</span>
+                </div>
+                <a>Schedule (12/30)</a>
+            </md-list-item>
+        </md-list>
+
+
+        <md-list-item class="mainnav" (click)="secondlist=!secondlist">
+            <md-icon md-list-icon class="assign">assignment</md-icon>
+            <a md-line> Jobs </a>
+            <md-icon>{{secondlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
+        </md-list-item>
+        <md-list *ngIf="secondlist">
+            <md-list-item class="subenav">
+                <div class="logoorange">
+                    <span>A</span>
+                </div>
+                <a>Angular JS</a>
+            </md-list-item>
+            <md-list-item class="subenav">
+                <div class="logoblue">
+                    <span>P</span>
+                </div>
+                <a>Php</a>
+            </md-list-item>
+            <md-list-item class="subenav">
+                <div class="logored">
+                    <span>H</span>
+                </div>
+                <a>Hybrid Mobile Apps</a>
+            </md-list-item>
+            <md-list-item class="subenav">
+                <div class="logoblue">
+                    <span>T</span>
+                </div>
+                <a>testing</a>
+            </md-list-item>
+        </md-list>
+        <md-list-item class="mainnav">
+            <md-icon md-list-icon class="candcolor">drafts</md-icon>
+            <a md-line>Candidates</a>
+        </md-list-item>
+    </md-list>
+
+</md-sidenav>

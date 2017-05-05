@@ -2,7 +2,12 @@
     "rulesDirectory": [
         "node_modules/codelyzer"
     ],
+    "extends": [
+        "tslint-eslint-rules"
+    ],
     "rules": {
+        "no-multi-spaces": true,
+        "no-constant-condition": true,
         "callable-types": true,
         "class-name": true,
         "comment-format": [

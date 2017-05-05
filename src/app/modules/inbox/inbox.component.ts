@@ -9,8 +9,6 @@ import {DomSanitizer} from '@angular/platform-browser';
   styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit {
-  firstlist = true;
-  secondlist = false;
   emaillist: any;
   loading = false;
 
