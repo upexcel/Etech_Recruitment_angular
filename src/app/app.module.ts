@@ -30,44 +30,46 @@ import { ActionsComponent } from './modules/actions/actions.component';
 import { ManageUsersComponent } from './modules/manage-users/manage-users.component';
 import { InboxSideNavComponent } from './modules/inbox-side-nav/inbox-side-nav.component';
 import { EmailboxComponent } from './modules/emailbox/emailbox.component';
+import { ImapComponentFormComponent } from './modules/imap-component-form/imap-component-form.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    CoreComponent,
-    InboxComponent,
-    DashboardComponent,
-    UserActivityLogComponent,
-    SettingComponent,
-    ChangePasswordComponent,
-    ImapServerComponent,
-    SmtpServerComponent,
-    EmailTemplatesComponent,
-    EmailVariablesComponent,
-    TagSettingComponent,
-    ActionsComponent,
-    ManageUsersComponent,
-    InboxSideNavComponent,
-    EmailboxComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    FlexLayoutModule,
-    MdButtonModule,
-    MdCheckboxModule,
-    MdSidenavModule,
-    MdIconModule,
-    MdProgressSpinnerModule,
-    RouterModule.forRoot(routes),
-    FormsModule,
-    ReactiveFormsModule,
-    HttpModule
-  ],
-  providers: [ImapMailsService, LoginRouteGuard],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        CoreComponent,
+        InboxComponent,
+        DashboardComponent,
+        UserActivityLogComponent,
+        SettingComponent,
+        ChangePasswordComponent,
+        ImapServerComponent,
+        SmtpServerComponent,
+        EmailTemplatesComponent,
+        EmailVariablesComponent,
+        TagSettingComponent,
+        ActionsComponent,
+        ManageUsersComponent,
+        InboxSideNavComponent,
+        EmailboxComponent,
+        ImapComponentFormComponent,
+    ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        FlexLayoutModule,
+        MdButtonModule,
+        MdCheckboxModule,
+        MdSidenavModule,
+        MdIconModule,
+        MdProgressSpinnerModule,
+        RouterModule.forRoot(routes),
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule
+    ],
+    providers: [ImapMailsService, LoginRouteGuard],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

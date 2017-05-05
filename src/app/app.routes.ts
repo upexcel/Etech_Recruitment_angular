@@ -18,19 +18,19 @@ import { ManageUsersComponent } from './modules/manage-users/manage-users.compon
 import { LoginRouteGuard } from './service/login-route-guard';
 
 export const routes: Route[] = [{
-        path: '',
-        redirectTo: 'core',
-        pathMatch: 'full'
-    },
+    path: '',
+    redirectTo: 'core',
+    pathMatch: 'full'
+},
     {
         path: 'core',
         component: CoreComponent,
         canActivate: [LoginRouteGuard],
         children: [{
-                path: '',
-                redirectTo: 'inbox',
-                pathMatch: 'full'
-            },
+            path: '',
+            redirectTo: 'inbox',
+            pathMatch: 'full'
+        },
             {
                 path: 'inbox',
                 component: InboxComponent,

@@ -37,17 +37,6 @@
     @extend .heightwidth27;
     background-color: $logoorangecolor;
 }
-.logoblue {
-    @extend .logodesign;
-    @extend .heightwidth27;
-    background-color: $logobluecolor;
-}
-.emailcheckbox {
-    @extend .logodesign;
-    background-color: $roundcirclecolor;
-    height: 54px;
-    width: 54px;
-}
 .detailloc {
     position: absolute;
     left: 5px;

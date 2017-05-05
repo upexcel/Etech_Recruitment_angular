@@ -7,6 +7,7 @@
     ],
     "rules": {
         "no-multi-spaces": true,
+        "ter-indent": true,
         "no-constant-condition": true,
         "callable-types": true,
         "class-name": true,
