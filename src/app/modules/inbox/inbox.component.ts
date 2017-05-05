@@ -11,7 +11,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class InboxComponent implements OnInit {
     emaillist: any;
     loading = false;
-
+    tags: any[];
     constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, public getemails: ImapMailsService) {
       // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
         const uparrowSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/up_arrow.svg');
@@ -20,6 +20,10 @@ export class InboxComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
+        this.getemails.getTags().then((data) => {
+            this.tags = data;
+            console.log(this.tags);
+        });
         this.getemails.getEmailList().subscribe((data) => {
             this.emaillist = data.data;
             this.loading = false;

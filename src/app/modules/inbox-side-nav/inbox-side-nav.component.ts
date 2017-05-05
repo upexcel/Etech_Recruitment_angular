@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ImapMailsService } from '../../service/imapemails.service';
 
 @Component({
     selector: 'app-inbox-side-nav',
@@ -6,11 +7,15 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./inbox-side-nav.component.scss']
 })
 export class InboxSideNavComponent implements OnInit {
-    firstlist = true;
+    firstlist = false;
     secondlist = false;
-    constructor() { }
+    thirdlist = false;
+    @Input() tags: any[];
+
+    constructor(public getTag: ImapMailsService) { }
 
     ngOnInit() {
+
     }
 
 }

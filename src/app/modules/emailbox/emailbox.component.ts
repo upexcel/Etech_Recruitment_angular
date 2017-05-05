@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class EmailboxComponent implements OnInit {
     @Input() email: any;
+    @Input() tags: any[];
     constructor() { }
 
     ngOnInit() {

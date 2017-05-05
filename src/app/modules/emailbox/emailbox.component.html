@@ -2,7 +2,7 @@
     <md-grid-list cols="8" rowHeight="100px">
         <md-grid-tile [colspan]="'1'">
             <div class="emailcheckbox">
-                <span>S</span>
+                <span>{{email.subject.charAt(0)}}</span>
             </div>
         </md-grid-tile>
         <md-grid-tile [colspan]="'6'">
@@ -17,11 +17,11 @@
                        <md-icon>more_vert</md-icon>
                       </button>
             <md-menu #themeMenu x-position="before">
-                <button md-menu-item>
-                             <div class="logoorange">
-                                <span>A</span>
+                <button md-menu-item *ngFor="let tag of tags">
+                             <div class="logo" [style.background-color]="tag.color">
+                                <span>{{tag.title.charAt(0)}}</span>
                             </div>
-                           <span>Angular JS</span>
+                           <span>{{tag.title}}</span>
                          </button>
             </md-menu>
         </md-grid-tile>

@@ -4,15 +4,31 @@ import { Observable } from 'rxjs/Rx';
 import { config } from './../config/config';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import { TAGS, historylog, Emaillist, Imaplist } from './mock-data';
 
 @Injectable()
 export class ImapMailsService {
 
-    constructor(public http: Http) { }
+    constructor(public http: Http) {}
 
-    getEmailList(): Observable <any> {
+    getEmailList(): Observable < any > {
         return this.http.get(config)
-                .map((res: Response) => res.json())
-                .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+    getTags(): Promise < any[] > {
+        return Promise.resolve(TAGS);
+    }
+
+    getHistory(): Promise < any[] > {
+        return Promise.resolve(historylog);
+    }
+
+    getEmailName(): Promise < any[] > {
+        return Promise.resolve(Emaillist);
+    }
+
+    getImapList(): Promise < any[] > {
+        return Promise.resolve(Imaplist);
     }
 }

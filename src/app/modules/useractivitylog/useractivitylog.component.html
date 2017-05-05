@@ -14,28 +14,28 @@
   <button md-menu-item>
     <span>Show all logs</span>
   </button>
-  <button md-menu-item>
-    <span>abhishek@excellencetechnologies.in</span>
+  <button md-menu-item *ngFor="let email of emaillist">
+    <span>{{email.email_id}}</span>
   </button>
 </md-menu>
   </md-grid-tile>
 </md-grid-list>
 
 <md-list>
- <md-list-item> 
+ <md-list-item *ngFor="let activity of history"> 
     <div class="activity">
          <div class="bolno"></div>
-         <span>amit@gmail.com</span>    
-         <span class="opc06">(25/04/2017  15:15:50)</span>
+         <span>{{activity.email}}</span>    
+         <span class="opc06">{{activity.date}}</span>
          <div class="subdetails">
            <div class="marlf-18">
          	 <p>
          	  <b>
-         		Action:Candidate is moved to schedule tag
+         		{{activity.action}}
          	  </b>	
          	 </p>
          	 <p>
-         		Action apply on Candidate : Ambuj Sharma
+         		{{activity.actionsub}}
            </p>
           </div>	
          </div>

@@ -23,14 +23,14 @@
                     <tbody>
                         <tr *ngFor="let setting of imapsettingjson">
                             <td>{{setting.email}}</td>
-                            <td>{{setting.Server}}</td>
-                            <td>{{setting.Port}}</td>
-                            <td>{{setting.Encryption}}</td>
+                            <td>{{setting.imap_server}}</td>
+                            <td>{{setting.server_port}}</td>
+                            <td>{{setting.type}}</td>
                             <td>
-                                <md-icon class="{{setting.Active ? 'on':'off'}}">{{setting.Status ? 'done' : 'clear'}}</md-icon>
+                                <md-icon class="{{setting.status ? 'on':'off'}}">{{setting.status ? 'done' : 'clear'}}</md-icon>
                             </td>
                             <td>
-                                <md-icon class="{{setting.Active ? 'on':'off'}}">power_settings_new</md-icon>
+                                <md-icon class="{{setting.active ? 'on':'off'}}">power_settings_new</md-icon>
                             </td>
                             <td>
                                 <button md-button class="chartcolor" (click)="test(setting._id)">TEST</button>

@@ -42,20 +42,9 @@ md-list {
     height: 27px;
     width: 27px;
 }
-.logored {
+.logo {
     @extend .logodesign;
-    @extend .heightwidth27;
-    background-color: $logoredcolor;
-}
-.logoorange {
-    @extend .logodesign;
-    @extend .heightwidth27;
-    background-color: $logoorangecolor;
-}
-.logoblue {
-    @extend .logodesign;
-    @extend .heightwidth27;
-    background-color: $logobluecolor;
+    @extend .heightwidth27;  
 }
 .assign {
     color: $jobassigncolor;

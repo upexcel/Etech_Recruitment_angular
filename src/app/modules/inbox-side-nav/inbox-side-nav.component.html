@@ -10,62 +10,39 @@
                 <md-icon md-list-icon class="blue">mail</md-icon>
                 Mails (10/100)
             </md-list-item>
-            <md-list-item class="subenav">
-                <div class="logored">
-                    <span>I</span>
+            <md-list-item class="subenav" *ngFor="let tag of tags.Default">
+                <div class="logo" [style.background-color]="tag.color">
+                    <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>Ignore (29/34)</a>
-            </md-list-item>
-            <md-list-item class="subenav">
-                <div class="logoorange">
-                    <span>R</span>
-                </div>
-                <a>Reject (7/10)</a>
-            </md-list-item>
-            <md-list-item class="subenav">
-                <div class="logoblue">
-                    <span>S</span>
-                </div>
-                <a>Schedule (12/30)</a>
+                <a>{{tag.title}}</a>
             </md-list-item>
         </md-list>
-
-
         <md-list-item class="mainnav" (click)="secondlist=!secondlist">
             <md-icon md-list-icon class="assign">assignment</md-icon>
             <a md-line> Jobs </a>
             <md-icon>{{secondlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
         </md-list-item>
         <md-list *ngIf="secondlist">
-            <md-list-item class="subenav">
-                <div class="logoorange">
-                    <span>A</span>
+            <md-list-item class="subenav" *ngFor="let tag of tags.Automatic">
+                <div class="logo" [style.background-color]="tag.color">
+                    <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>Angular JS</a>
-            </md-list-item>
-            <md-list-item class="subenav">
-                <div class="logoblue">
-                    <span>P</span>
-                </div>
-                <a>Php</a>
-            </md-list-item>
-            <md-list-item class="subenav">
-                <div class="logored">
-                    <span>H</span>
-                </div>
-                <a>Hybrid Mobile Apps</a>
-            </md-list-item>
-            <md-list-item class="subenav">
-                <div class="logoblue">
-                    <span>T</span>
-                </div>
-                <a>testing</a>
+                <a>{{tag.title}}</a>
             </md-list-item>
         </md-list>
-        <md-list-item class="mainnav">
+        <md-list-item class="mainnav" (click)="thirdlist=!thirdlist">
             <md-icon md-list-icon class="candcolor">drafts</md-icon>
             <a md-line>Candidates</a>
+            <md-icon>{{thirdlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
         </md-list-item>
+        <md-list *ngIf="thirdlist">
+            <md-list-item class="subenav" *ngFor="let tag of tags.Manual">
+                <div class="logo" [style.background-color]="tag.color">
+                    <span>{{tag.title.charAt(0)}}</span>
+                </div>
+                <a>{{tag.title}}</a>
+            </md-list-item>
+        </md-list>
     </md-list>
 
 </md-sidenav>

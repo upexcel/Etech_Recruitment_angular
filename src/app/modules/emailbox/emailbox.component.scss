@@ -27,15 +27,15 @@
     height: 27px;
     width: 27px;
 }
-.logored {
+.logo {
     @extend .logodesign;
     @extend .heightwidth27;
-    background-color: $logoredcolor;
 }
-.logoorange {
+.emailcheckbox {
     @extend .logodesign;
-    @extend .heightwidth27;
-    background-color: $logoorangecolor;
+    background-color: $roundcirclecolor;
+    height: 54px;
+    width: 54px;
 }
 .detailloc {
     position: absolute;
