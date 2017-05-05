@@ -1,0 +1,37 @@
+<md-sidenav-container fxFlex>
+    <md-sidenav mode="side" opened>
+        <md-list>
+            <md-list-item class="navlist" (click)="goto('imap','IMAP Server Setting')">
+                <a md-line> IMAP Server Setting </a>
+            </md-list-item>
+            <md-list-item class="navlist" (click)="goto('smtp','SMTP Server Setting')">
+                <a md-line> SMTP Server Setting </a>
+            </md-list-item>
+
+            <md-list-item class="navlist" (click)="listopen=!listopen">
+                <a md-line>  Template Setting </a>
+                <md-icon>{{listopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
+            </md-list-item>
+            <md-list *ngIf="listopen">
+                <md-list-item class="subnavlist" (click)="goto('emailtemplate','Email Templates')">
+                    <a>Email Templates</a>
+                </md-list-item>
+                <md-list-item class="subnavlist" (click)="goto('emailvariable','Email Variables')">
+                    <a>Email Variables</a>
+                </md-list-item>
+            </md-list>
+            <md-list-item class="navlist" (click)="goto('tagsetting','Tag Setting')">
+                <a md-line> Tag Setting </a>
+            </md-list-item>
+            <md-list-item class="navlist" (click)="goto('action','Actions')">
+                <a md-line> Actions </a>
+            </md-list-item>
+            <md-list-item class="navlist" (click)="goto('manageuser','Manage Users')">
+                <a md-line> Manage Users </a>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
+</md-sidenav-container>

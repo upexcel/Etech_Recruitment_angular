@@ -1,0 +1,50 @@
+<div class="content">
+<md-grid-list cols="8" rowHeight="80px">
+  <md-grid-tile [colspan]="7">
+    <h2 class="h2pos">
+      Candidate Log
+    </h2>
+  </md-grid-tile>
+  <md-grid-tile [colspan]="1">
+   <button md-icon-button [mdMenuTriggerFor]="menu">
+   <md-icon>more_vert</md-icon>
+  </button>
+
+<md-menu #menu="mdMenu">
+  <button md-menu-item>
+    <span>Show all logs</span>
+  </button>
+  <button md-menu-item *ngFor="let email of emaillist">
+    <span>{{email.email_id}}</span>
+  </button>
+</md-menu>
+  </md-grid-tile>
+</md-grid-list>
+
+<md-list>
+ <md-list-item *ngFor="let activity of history"> 
+    <div class="activity">
+         <div class="bolno"></div>
+         <span>{{activity.email}}</span>    
+         <span class="opc06">{{activity.date}}</span>
+         <div class="subdetails">
+           <div class="marlf-18">
+         	 <p>
+         	  <b>
+         		{{activity.action}}
+         	  </b>	
+         	 </p>
+         	 <p>
+         		{{activity.actionsub}}
+           </p>
+          </div>	
+         </div>
+    </div>
+ </md-list-item>
+</md-list>
+<br>
+</div>
+
+<div class="center">
+ <button md-raised-button color="primary">LOAD MORE</button>
+</div>

@@ -1,0 +1,29 @@
+@import './../../variable.scss';
+:host {
+    display: flex;
+    flex: 1;
+}
+md-sidenav {
+    width: 280px;
+}
+md-list {
+    md-list-item:hover {
+        background-color: $hovecolor;
+    }
+}
+.navlist {
+    margin-left: 15px;
+    padding: 16px 0px;
+    position: relative;
+    cursor: pointer;
+}
+.subnavlist {
+    margin-left: 36px;
+    padding: 13px 0px;
+    cursor: pointer;
+}
+.content {
+    padding: 12px;
+    background-color: #2e3e4e;
+    height: 100%;
+}

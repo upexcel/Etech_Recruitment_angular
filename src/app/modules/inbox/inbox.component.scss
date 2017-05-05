@@ -1,0 +1,13 @@
+@import './../../variable.scss';
+:host {
+    display: flex;
+    flex: 1;
+}
+.content {
+    padding: 12px;
+    background-color: $contentcolor;
+}
+.posload {
+    left: 44%;
+    position: relative;
+}

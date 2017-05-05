@@ -1,0 +1,53 @@
+    <div class="mainform">
+        <md-card>
+            <form #imapForm="ngForm" (ngSubmit)="addimap(imapForm)">
+                <md-card-subtitle class="cardsub">
+                    IMAP/POP3 Server
+                </md-card-subtitle>
+                <md-card-content>
+                    <table class="width-90">
+                        <tr>
+                            <td>
+                                <md-input-container class="width-90">
+                                    <input mdInput name="email" type="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required ngModel>
+                                    <md-error>Invalid Email ID</md-error>
+                                </md-input-container>
+                            </td>
+                            <td>
+                                <md-input-container class="width-90">
+                                    <input mdInput name="password" type="password" placeholder="Password" required ngModel>
+                                    <md-error>Password Required</md-error>
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <md-input-container class="width-90">
+                                    <input mdInput name="imapserver" placeholder="IMAP Server" required ngModel>
+                                    <md-error>Invalid Server ID</md-error>
+                                </md-input-container>
+                            </td>
+                            <td>
+                                <md-input-container class="width-90">
+                                    <input mdInput name="Server_port" type="number" placeholder="Server port" required ngModel>
+                                    <md-error>Invalid Port</md-error>
+                                </md-input-container>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <md-radio-group name="layer" id="layer" required ngModel>
+                                    <md-radio-button value="ssl">SSL</md-radio-button>
+                                    <md-radio-button value="tls">TLS</md-radio-button>
+                                </md-radio-group>
+                            </td>
+                            <td>
+                                <button type="submit" md-raised-button color=primary> Save </button>
+                                <button md-raised-button color=accent> Test </button>
+                            </td>
+                        </tr>
+                    </table>
+                </md-card-content>
+            </form>
+        </md-card>
+    </div>
