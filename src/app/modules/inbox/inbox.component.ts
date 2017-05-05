@@ -22,11 +22,9 @@ export class InboxComponent implements OnInit {
         this.loading = true;
         this.getemails.getTags().then((data) => {
             this.tags = data;
-            console.log(this.tags);
         });
         this.getemails.getEmailList().subscribe((data) => {
             this.emaillist = data.data;
-            this.loading = false;
         });
     }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
     styleUrls: ['./setting.component.scss']
 })
 export class SettingComponent implements OnInit {
-  // @Output()	title =	new	EventEmitter<string>();
     listopen: boolean;
     constructor(private _router: Router) { }
 
@@ -16,7 +15,6 @@ export class SettingComponent implements OnInit {
     }
 
     goto( path: string, navtitle: string) {
-      // this.title.emit(navtitle);
         this._router.navigate(['/core/setting/' + path]);
     }
 }

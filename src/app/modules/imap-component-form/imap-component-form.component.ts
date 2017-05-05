@@ -15,7 +15,6 @@ export class ImapComponentFormComponent implements OnInit {
 
     addimap(form: NgForm) {
         if (form.valid) {
-            console.log(form);
         }
     }
 }

@@ -14,7 +14,6 @@ export class ImapServerComponent implements OnInit {
     ngOnInit() {
         this.imapservices.getImapList().then((data) => {
             this.imapsettingjson = data;
-            console.log(this.imapsettingjson);
         });
     }
 

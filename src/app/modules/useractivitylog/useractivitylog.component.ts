@@ -14,11 +14,9 @@ export class UserActivityLogComponent implements OnInit {
     ngOnInit() {
         this.emailactivity.getHistory().then((data) => {
             this.history = data;
-            console.log(this.history);
         });
         this.emailactivity.getEmailName().then((data) => {
             this.emaillist = data;
-            console.log(this.emaillist);
         });
     }
 
