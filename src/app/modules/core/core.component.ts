@@ -19,4 +19,9 @@ export class CoreComponent implements OnInit {
         this.title = navtitle;
         this._router.navigate(['/core/' + path]);
     }
+
+    logout() {
+        localStorage.removeItem('token');
+        this._router.navigate(['/login']);
+    }
 }
