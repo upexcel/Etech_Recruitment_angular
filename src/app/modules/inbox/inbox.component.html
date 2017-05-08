@@ -1,4 +1,5 @@
 <md-sidenav-container fxFlex>
+<div flexlayout>
     <app-inbox-side-nav *ngIf="tags" [tags]="tags"></app-inbox-side-nav>
     <div class="content" fxFlex>
         <md-spinner *ngIf="loading" class="posload"></md-spinner>
@@ -6,4 +7,5 @@
             <app-emailbox *ngFor="let emails of emaillist" [email]="emails" [tags]="tags.Automatic"></app-emailbox>
         </div>
     </div>
+</div>    
 </md-sidenav-container>

@@ -47,7 +47,7 @@ export class ImapMailsService {
     getImapList(): Observable <any> {
         return this.http.get(apibase + 'imap/get/1?accessToken=' + localStorage.getItem('token'), this.options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     login(id: string, password: string): Observable <any> {
@@ -58,6 +58,6 @@ export class ImapMailsService {
 
         return this.http.post(apibase + 'user/login', body, this.options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 }
