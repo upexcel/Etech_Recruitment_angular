@@ -19,13 +19,13 @@ export class TagSettingComponent implements OnInit {
         this.tags = [];
         this.gettags.getAllTags()
             .subscribe((data) => {
-                this.formattagsinarray(data);
+                this.formatTagsInArray(data);
             }, (err) => {
                 console.log(err);
                 this.loading = false;
             });
     }
-    removetag(id: string) { }
+    removeTag(id: string) { }
 
     open(tag: any) {
         this.dialogRef = this.dialog.open(ManualTagModalComponent, {
@@ -38,7 +38,7 @@ export class TagSettingComponent implements OnInit {
         });
     }
 
-    formattagsinarray(data: any) {
+    formatTagsInArray(data: any) {
         for (let i = 0; i < data.length; i++) {
             if (data[i].type === 'Default') {
                 if (!this.tags['Default']) {
