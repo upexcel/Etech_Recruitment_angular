@@ -2,4 +2,85 @@
 
 .mainform {
     margin-bottom: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.font-18 {
+	font-size: 18px;
+    margin: 5px 0px;
+}
+
+
+.tagbutton {
+	border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    cursor: default;
+    text-decoration: none;
+    margin: 4px;
+    padding: 0px;
+    outline: none;
+    background-color: rgb(203, 137, 27);
+    border-radius: 16px;
+    width: -webkit-fit-content;
+}
+
+.tagbutton1 {
+	border: 10px;
+    box-sizing: border-box;
+    display: inline-block;
+    font-family: Roboto, sans-serif;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    text-decoration: none;
+    margin: 4px;
+    padding: 0px;
+    outline: none;
+    background-color: rgb(203, 137, 27);
+    border-radius: 16px;
+    width: -webkit-fit-content;
+}
+
+.taglogo {
+	color: rgb(255, 255, 255);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    margin-right: -4px;
+    -webkit-user-select: none;
+}
+
+.tagname {
+	color: rgba(0, 0, 0, 0.870588);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 32px;
+    padding-left: 12px;
+    padding-right: 12px;
+    opacity: 0.6;
+    white-space: nowrap;
+    -webkit-user-select: none;
+}
+
+.linespace {
+	opacity: 0.5;
+    margin-bottom: 15px;
+}
+
+.iconset {
+	margin: 0px 4px 0px -8px;
+	opacity: 0.5;
+    position: relative;
+    top: 5px;
+}
+.iconset:hover, .tagname:hover {
+	opacity: 1;
 }

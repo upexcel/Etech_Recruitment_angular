@@ -24,6 +24,11 @@ export class ImapMailsService {
     getTags(): Promise < any[] > {
         return Promise.resolve(TAGS);
     }
+    getAllTags(): Observable <any> {
+        return this.http.get(apibase + 'tag/get?accessToken=' + localStorage.getItem('token'), this.options)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
 
     getHistory(): Promise < any[] > {
         return Promise.resolve(historylog);
