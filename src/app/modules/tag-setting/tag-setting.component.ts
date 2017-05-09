@@ -26,9 +26,7 @@ export class TagSettingComponent implements OnInit {
                 this.loading = false;
             });
     }
-    removetag(id: string) {
-        console.log(id);
-    }
+    removetag(id: string) { }
 
     open(id: string) {
         this.dialogRef = this.dialog.open(ManualTagModalComponent, {

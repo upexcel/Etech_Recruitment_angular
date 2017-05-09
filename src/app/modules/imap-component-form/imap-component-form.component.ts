@@ -17,7 +17,6 @@ export class ImapComponentFormComponent implements OnInit {
     addimap(form: NgForm) {
         if (form.valid) {
             this.imapservices.storeImap(form.value).subscribe((data) => {
-                console.log(data);
                 this.addedImap.emit();
                 form.resetForm();
             },
