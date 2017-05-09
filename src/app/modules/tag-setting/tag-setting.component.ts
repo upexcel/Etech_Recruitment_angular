@@ -19,7 +19,6 @@ export class TagSettingComponent implements OnInit {
         this.tags = [];
         this.gettags.getAllTags()
             .subscribe((data) => {
-                console.log(data);
                 this.formattagsinarray(data);
             }, (err) => {
                 console.log(err);
@@ -28,12 +27,12 @@ export class TagSettingComponent implements OnInit {
     }
     removetag(id: string) { }
 
-    open(id: string) {
+    open(tag: any) {
         this.dialogRef = this.dialog.open(ManualTagModalComponent, {
-            height: '200px',
-            width: '200px',
+            height: '300px',
+            width: '300px'
         });
-        this.dialogRef.componentInstance.id = id;
+        this.dialogRef.componentInstance.tag = tag;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
         });

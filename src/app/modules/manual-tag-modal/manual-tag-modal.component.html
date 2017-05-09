@@ -1,3 +1,16 @@
-<p>
-  manual-tag-modal works!
-</p>
+<div>
+	<h3>Edit Tag</h3>
+</div>
+<hr>
+<div class="body">
+<md-input-container>
+  <input mdInput placeholder="Title" [(ngModel)]="tag.title">
+</md-input-container>
+<md-input-container>
+  <input mdInput placeholder="Color" [(ngModel)]="tag.color">
+</md-input-container>
+</div>
+<div class="footer">
+	  <a md-raised-button>Close</a>
+	  <a md-raised-button color=primary>Save</a>
+</div>

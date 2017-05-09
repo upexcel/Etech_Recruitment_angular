@@ -7,8 +7,8 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
     styleUrls: ['./manual-tag-modal.component.scss']
 })
 export class ManualTagModalComponent implements OnInit {
-    id: string;
+    tag: any;
     constructor(public dialogRef: MdDialogRef<any>) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 }

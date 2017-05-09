@@ -38,6 +38,9 @@ import {
     ImapMailsService
 } from './service/imapemails.service';
 import {
+    LoginService
+} from './service/login.service';
+import {
     routes
 } from './app.routes';
 import {
@@ -137,7 +140,7 @@ import {
         ReactiveFormsModule,
         HttpModule
     ],
-    providers: [ImapMailsService, LoginRouteGuard],
+    providers: [ImapMailsService, LoginService, LoginRouteGuard],
     entryComponents: [ManualTagModalComponent],
     bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImapMailsService } from '../../service/imapemails.service';
+import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,33 +9,27 @@ import { Router } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
     title = 'Inbox';
-    login_time: any;
-    current_time: any;
-    diff: any;
-    constructor(private _router: Router) { }
+    constructor(private _router: Router, private access: LoginService) { }
 
     ngOnInit(): void {
         this.title = 'Inbox';
-        if (localStorage.getItem('token') !== '') {
-            this.login_time = new Date(localStorage.getItem('login_time'));
-            this.current_time = new Date();
-            this.diff = (this.current_time.getTime() - this.login_time.getTime()) / 1000;
-            if (this.diff > 3600) {
-                localStorage.removeItem('login_time');
-                localStorage.removeItem('token');
-                this._router.navigate(['/login']);
+        this.access.verifyAccess().subscribe((data) => {
+            if (data.status === false) {
+                this.logout();
             }
-        }
+        });
     }
 
-    goto( path: string, navtitle: string) {
+    goto(path: string, navtitle: string) {
         this.title = navtitle;
         this._router.navigate(['/core/' + path]);
     }
 
     logout() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('login_time');
-        this._router.navigate(['/login']);
+        this.access.removeToken().then((data) => {
+            if (data === true) {
+                this._router.navigate(['/login']);
+            }
+        });
     }
 }

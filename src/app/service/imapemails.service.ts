@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { config, apibase } from './../config/config';
+import { config } from './../config/config';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { TAGS, historylog, Emaillist } from './mock-data';
@@ -17,7 +17,7 @@ export class ImapMailsService {
     }
 
     getEmailList(): Observable <any> {
-        return this.http.get(config)
+        return this.http.get(config['imap'])
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
@@ -25,7 +25,7 @@ export class ImapMailsService {
         return Promise.resolve(TAGS);
     }
     getAllTags(): Observable <any> {
-        return this.http.get(apibase + 'tag/get?accessToken=' + localStorage.getItem('token'), this.options)
+        return this.http.get(config['apibase'] + 'tag/get?accessToken=' + localStorage.getItem('token'), this.options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
@@ -38,30 +38,19 @@ export class ImapMailsService {
         return Promise.resolve(Emaillist);
     }
     deleteImap(id: string): Observable <any> {
-        return this.http.delete(apibase + 'imap/delete/' + id + '?accessToken=' + localStorage.getItem('token'), this.options)
+        return this.http.delete(config['apibase'] + 'imap/delete/' + id + '?accessToken=' + localStorage.getItem('token'), this.options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     storeImap(body): Observable <any> {
-        return this.http.post(apibase + 'imap/save?accessToken=' + localStorage.getItem('token'), body, this.options)
+        return this.http.post(config['apibase'] + 'imap/save?accessToken=' + localStorage.getItem('token'), body, this.options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
     getImapList(): Observable <any> {
-        return this.http.get(apibase + 'imap/get/1?accessToken=' + localStorage.getItem('token'), this.options)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
-    }
-
-    login(id: string, password: string): Observable <any> {
-        const body = {
-            'email' : id,
-            'password' : password
-        };
-
-        return this.http.post(apibase + 'user/login', body, this.options)
+        return this.http.get(config['apibase'] + 'imap/get/1?accessToken=' + localStorage.getItem('token'), this.options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
