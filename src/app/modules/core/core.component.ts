@@ -14,7 +14,7 @@ export class CoreComponent implements OnInit {
     ngOnInit(): void {
         this.title = 'Inbox';
         this.access.verifyAccess().subscribe((data) => {
-            if (data.status === false) {
+            if (!data.status) {
                 this.logout();
             }
         });
@@ -27,7 +27,7 @@ export class CoreComponent implements OnInit {
 
     logout() {
         this.access.removeToken().then((data) => {
-            if (data === true) {
+            if (data) {
                 this._router.navigate(['/login']);
             }
         });
