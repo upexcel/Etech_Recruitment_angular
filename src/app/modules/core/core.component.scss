@@ -38,6 +38,12 @@ md-sidenav-container {
     text-align: center;
     padding: 30px;
 }
+.main {
+    text-decoration: none;
+    a:hover {
+       text-decoration: none;
+    }
+}
 .bgcolor {
     background-color: $contentcolor;
 }

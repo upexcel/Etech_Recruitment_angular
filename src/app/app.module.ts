@@ -9,7 +9,10 @@ import {
     ReactiveFormsModule
 } from '@angular/forms';
 import {
-    HttpModule
+    HttpModule,
+    Http,
+    XHRBackend,
+    RequestOptions
 } from '@angular/http';
 import {
     BrowserAnimationsModule
@@ -100,6 +103,18 @@ import {
 import {
     ManualTagModalComponent
 } from './modules/manual-tag-modal/manual-tag-modal.component';
+import {
+    AutomaticTagModalComponent
+} from './modules/automatic-tag-modal/automatic-tag-modal.component';
+import {
+    ColorPickerModule
+} from 'ng2-color-picker';
+import {
+    httpFactory
+} from './service/http.factory';
+import {
+    InterceptedHttp
+} from './service/http.interceptor';
 
 
 @NgModule({
@@ -123,6 +138,8 @@ import {
         EmailboxComponent,
         ImapComponentFormComponent,
         ManualTagModalComponent,
+        AutomaticTagModalComponent,
+        AutomaticTagModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -134,14 +151,27 @@ import {
         MdSidenavModule,
         MdIconModule,
         MdDialogModule,
+        ColorPickerModule,
         MdProgressSpinnerModule,
         RouterModule.forRoot(routes),
         FormsModule,
         ReactiveFormsModule,
         HttpModule
     ],
-    providers: [ImapMailsService, LoginService, LoginRouteGuard],
-    entryComponents: [ManualTagModalComponent],
+    providers: [
+        ImapMailsService,
+        LoginService,
+        LoginRouteGuard,
+        {
+            provide: InterceptedHttp,
+            useFactory: httpFactory,
+            deps: [XHRBackend, RequestOptions]
+        }
+    ],
+    entryComponents: [
+        ManualTagModalComponent,
+        AutomaticTagModalComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}

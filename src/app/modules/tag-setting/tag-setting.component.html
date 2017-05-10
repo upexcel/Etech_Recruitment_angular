@@ -15,26 +15,26 @@
         <p class="font-18">Manual tag(s)</p>
         <hr class="linespace">
         <div class="tagbutton1" [style.background-color]="tag.color" *ngFor="let tag of tags.Manual">
-            <div class="taglogo" (click)="open(tag)">
+            <div class="taglogo" (click)="openManual(tag)">
             {{tag.title.charAt(0)}}
             </div>
-            <span class="tagname" (click)="open(tag)">
+            <span class="tagname" (click)="openManual(tag)">
                 {{tag.title}}
             </span>  
-            <md-icon class="iconset" (click)="removeTag(tag.id)">cancel</md-icon>  
+            <md-icon class="iconset" (click)="removeTag(tag.id,'Manual')">cancel</md-icon>  
         </div>
 </div>
 
 <div class="mainform" *ngIf="!loading">
-        <p class="font-18">Manual tag(s)</p>
+        <p class="font-18">Automatic tag(s)</p>
         <hr class="linespace">
         <div class="tagbutton1" [style.background-color]="tag.color" *ngFor="let tag of tags.Automatic">
-            <div class="taglogo">
+            <div class="taglogo" (click)="openAutomatic(tag)">
             {{tag.title.charAt(0)}}
             </div>
-            <span class="tagname">
+            <span class="tagname" (click)="openAutomatic(tag)">
                 {{tag.title}}
             </span>  
-            <md-icon class="iconset" (click)="removeTag(tag.id)">cancel</md-icon>  
+            <md-icon class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>  
         </div>
 </div>

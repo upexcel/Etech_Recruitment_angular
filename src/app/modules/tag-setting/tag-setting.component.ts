@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ManualTagModalComponent } from '../manual-tag-modal/manual-tag-modal.component';
+import { AutomaticTagModalComponent } from '../automatic-tag-modal/automatic-tag-modal.component';
 
 @Component({
     selector: 'app-tag-setting',
@@ -16,7 +17,9 @@ export class TagSettingComponent implements OnInit {
 
     ngOnInit() {
         this.loading = true;
-        this.tags = [];
+        this.getAllTag();
+    }
+    getAllTag() {
         this.gettags.getAllTags()
             .subscribe((data) => {
                 this.formatTagsInArray(data);
@@ -25,12 +28,20 @@ export class TagSettingComponent implements OnInit {
                 this.loading = false;
             });
     }
-    removeTag(id: string) { }
 
-    open(tag: any) {
+    removeTag(id: string, type: string) {
+        this.gettags.deleteTag(id, type)
+            .subscribe((data) => {
+                this.getAllTag();
+            }, (err) => {
+                console.log(err);
+            });
+    }
+
+    openManual(tag: any) {
         this.dialogRef = this.dialog.open(ManualTagModalComponent, {
-            height: '300px',
-            width: '300px'
+            height: '430px',
+            width: '370px'
         });
         this.dialogRef.componentInstance.tag = tag;
         this.dialogRef.afterClosed().subscribe(result => {
@@ -38,7 +49,19 @@ export class TagSettingComponent implements OnInit {
         });
     }
 
+    openAutomatic(tag1: any) {
+        this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {
+            height: '400px',
+            width: '300px'
+        });
+        this.dialogRef.componentInstance.tag = tag1;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
+    }
+
     formatTagsInArray(data: any) {
+        this.tags = [];
         for (let i = 0; i < data.length; i++) {
             if (data[i].type === 'Default') {
                 if (!this.tags['Default']) {

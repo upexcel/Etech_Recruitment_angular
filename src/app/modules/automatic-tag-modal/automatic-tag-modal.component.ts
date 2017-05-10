@@ -3,14 +3,14 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 
 @Component({
-    selector: 'app-manual-tag-modal',
-    templateUrl: './manual-tag-modal.component.html',
-    styleUrls: ['./manual-tag-modal.component.scss']
+    selector: 'app-automatic-tag-modal',
+    templateUrl: './automatic-tag-modal.component.html',
+    styleUrls: ['./automatic-tag-modal.component.scss']
 })
-export class ManualTagModalComponent implements OnInit {
+export class AutomaticTagModalComponent implements OnInit {
     tag: any;
     originalcolor = 'blue';
-    originaltitle = 'title';
+    originaltitle = '#cb891b';
     availableColors = [ '#cb891b' , '#ef2e46' , '#ff5722' , '#ba21d3' , '#f3b08c' , '#f0793d' , '#eb7303' , '#db62e9' , '#ffeb3b' , '#3882b8'];
     constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
 

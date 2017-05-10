@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { InterceptedHttp } from './http.interceptor';
 import { Observable } from 'rxjs/Rx';
 import { config } from './../config/config';
 import 'rxjs/add/operator/map';
@@ -10,7 +11,7 @@ export class LoginService {
     headers: any;
     options: any;
 
-    constructor(public http: Http) {
+    constructor(public http: Http, public Intercepted: InterceptedHttp) {
         this.headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -31,7 +32,7 @@ export class LoginService {
     }
 
     verifyAccess(): Observable < any > {
-        return this.http.get(config['apibase'] + 'verify?accessToken=' + localStorage.getItem('token'), this.options)
+        return this.Intercepted.get(config['apibase'] + 'verify')
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

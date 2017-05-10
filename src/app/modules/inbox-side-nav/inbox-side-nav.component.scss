@@ -10,6 +10,9 @@ md-sidenav {
 md-list {
     md-list-item:hover {
         background-color: $hovecolor;
+        a:hover {
+          text-decoration: none;
+        }
     }
 }
 .blue {
