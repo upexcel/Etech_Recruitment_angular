@@ -76,12 +76,3 @@ export const Emaillist: any = [{
     }
 ];
 
-export const Imaplist: any = [{
-    'status': 'FALSE',
-    'active': 'FALSE',
-    'id': 98,
-    'email': 'test157@gmail.com',
-    'imap_server': 'imap.gmail.com',
-    'type': 'TLS',
-    'server_port': '8091'
-}];

@@ -1,0 +1,14 @@
+<div>
+    <h3>Edit Tag</h3>
+</div>
+<hr>
+<div class="body">
+    <md-input-container>
+        <input mdInput placeholder="Title" [(ngModel)]="originaltitle">
+    </md-input-container>
+      <color-picker [(ngModel)]="originalcolor" [availableColors]="availableColors"></color-picker>
+</div>
+<div class="footer">
+    <a md-raised-button (click)="close()">Close</a>
+    <a md-raised-button color=primary (click)="save()">Save</a>
+</div>

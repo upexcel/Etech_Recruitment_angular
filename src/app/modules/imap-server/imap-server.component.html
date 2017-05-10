@@ -1,5 +1,5 @@
 <div class="main">
-  <app-imap-component-form></app-imap-component-form>
+  <app-imap-component-form (addedImap)="getImapList()"></app-imap-component-form>
     <div>
         <md-card>
             <md-card-subtitle class="cardsub">
@@ -21,22 +21,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let setting of imapsettingjson">
+                        <tr *ngFor="let setting of imapSettingJson">
                             <td>{{setting.email}}</td>
                             <td>{{setting.imap_server}}</td>
                             <td>{{setting.server_port}}</td>
                             <td>{{setting.type}}</td>
                             <td>
-                                <md-icon class="{{setting.status ? 'on':'off'}}">{{setting.status ? 'done' : 'clear'}}</md-icon>
+                                <md-icon class="{{setting.status ? 'off':'on'}}">{{setting.status ? 'clear' : 'done'}}</md-icon>
                             </td>
                             <td>
-                                <md-icon class="{{setting.active ? 'on':'off'}}">power_settings_new</md-icon>
+                                <md-icon class="{{setting.active ? 'off':'on'}}">power_settings_new</md-icon>
                             </td>
                             <td>
-                                <button md-button class="chartcolor" (click)="test(setting._id)">TEST</button>
+                                <button md-button class="chartcolor" (click)="test(setting.id)">TEST</button>
                             </td>
                             <td>
-                                <button md-button class="chartcolor" (click)="remove(setting._id)">REMOVE</button>
+                                <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>
                             </td>
                             <td>
                                 <md-icon class="chartcolor">insert_chart</md-icon>

@@ -22,6 +22,11 @@ md-list {
     padding: 13px 0px;
     cursor: pointer;
 }
+md-list-item {
+    a:hover {
+        text-decoration: none;
+    }
+}
 .content {
     padding: 12px;
     background-color: #2e3e4e;

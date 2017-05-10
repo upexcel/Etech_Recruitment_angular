@@ -4,22 +4,37 @@ import { Observable } from 'rxjs/Rx';
 import { config } from './../config/config';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { TAGS, historylog, Emaillist, Imaplist } from './mock-data';
+import { TAGS, historylog, Emaillist } from './mock-data';
+import { InterceptedHttp } from './http.interceptor';
 
 @Injectable()
 export class ImapMailsService {
 
-    constructor(public http: Http) {}
+    constructor(public http: Http, public Intercepted: InterceptedHttp) {}
 
-    getEmailList(): Observable < any > {
-        return this.http.get(config)
+    getEmailList(): Observable <any> {
+        return this.http.get(config['imap'])
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
     getTags(): Promise < any[] > {
         return Promise.resolve(TAGS);
     }
-
+    getAllTags(): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + 'tag/get')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    updateTag(tag: any): Observable <any> {
+        return this.Intercepted.put(config['apibase'] + 'tag/update/Manual/' + tag.id, tag)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    deleteTag(tag: string, type: string): Observable <any> {
+        return this.Intercepted.delete(config['apibase'] + 'tag/delete/' + type + '/' + tag)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
     getHistory(): Promise < any[] > {
         return Promise.resolve(historylog);
     }
@@ -27,8 +42,21 @@ export class ImapMailsService {
     getEmailName(): Promise < any[] > {
         return Promise.resolve(Emaillist);
     }
+    deleteImap(id: string): Observable <any> {
+        return this.Intercepted.delete(config['apibase'] + 'imap/delete/' + id)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
 
-    getImapList(): Promise < any[] > {
-        return Promise.resolve(Imaplist);
+    storeImap(body): Observable <any> {
+        return this.Intercepted.post(config['apibase'] + 'imap/save', body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    getImapList(): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + 'imap/get/1')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 }

@@ -25,6 +25,7 @@ export class InboxComponent implements OnInit {
         });
         this.getemails.getEmailList().subscribe((data) => {
             this.emaillist = data.data;
+            this.loading = false;
         });
     }
 

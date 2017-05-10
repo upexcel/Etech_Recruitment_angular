@@ -1,7 +1,7 @@
 @import './../../variable.scss';
 :host {
     display: flex;
-    flex: 0.28;
+    flex: 0.26;
 }
 md-sidenav {
     width: 280px;
@@ -10,6 +10,9 @@ md-sidenav {
 md-list {
     md-list-item:hover {
         background-color: $hovecolor;
+        a:hover {
+          text-decoration: none;
+        }
     }
 }
 .blue {

@@ -7,13 +7,20 @@ import { ImapMailsService } from '../../service/imapemails.service';
     styleUrls: ['./imap-server.component.scss']
 })
 export class ImapServerComponent implements OnInit {
-    imapsettingjson: any[];
+    imapSettingJson: any[];
     loading: boolean;
-    constructor(public imapservices: ImapMailsService) {}
+    constructor(private imapServices: ImapMailsService) {}
 
     ngOnInit() {
-        this.imapservices.getImapList().then((data) => {
-            this.imapsettingjson = data;
+        this.getImapList();
+    }
+
+    getImapList() {
+        this.imapServices.getImapList().subscribe((data) => {
+            this.imapSettingJson = data;
+        },
+        (err) => {
+            console.log(err);
         });
     }
 
@@ -22,6 +29,12 @@ export class ImapServerComponent implements OnInit {
     }
 
     remove(id: string) {
-
+        this.imapServices.deleteImap(id).subscribe(
+       (data) => {
+           this.getImapList();
+       },
+        (err) => {
+            console.log(err);
+        });
     }
 }

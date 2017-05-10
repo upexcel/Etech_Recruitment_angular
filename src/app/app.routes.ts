@@ -19,7 +19,7 @@ import { LoginRouteGuard } from './service/login-route-guard';
 
 export const routes: Route[] = [{
     path: '',
-    redirectTo: 'core',
+    redirectTo: 'login',
     pathMatch: 'full'
 },
     {

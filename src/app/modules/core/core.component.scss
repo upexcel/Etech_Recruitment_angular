@@ -12,17 +12,12 @@ md-toolbar {
 .width100 {
     width: 100%;
 }
-.mainsidenavlist {
+.mainnav {
     margin-left: 15px;
 }
 .hovestyle {
     padding: 10px 0px;
     position: relative;
-    cursor: pointer;
-}
-.sublistsidenav {
-    margin-left: 36px;
-    padding: 13px 0px;
     cursor: pointer;
 }
 md-sidenav-container {
@@ -38,10 +33,16 @@ md-sidenav-container {
         }
     }
 }
-.mainlogostyle {
+.mainlogo {
     background-color: $mainlogo;
     text-align: center;
     padding: 30px;
+}
+.main {
+    text-decoration: none;
+    a:hover {
+       text-decoration: none;
+    }
 }
 .bgcolor {
     background-color: $contentcolor;

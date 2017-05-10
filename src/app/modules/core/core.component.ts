@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ImapMailsService } from '../../service/imapemails.service';
+import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,14 +9,27 @@ import { Router } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
     title = 'Inbox';
-    constructor(private _router: Router) { }
+    constructor(private _router: Router, private access: LoginService) { }
 
     ngOnInit(): void {
         this.title = 'Inbox';
+        this.access.verifyAccess().subscribe((data) => {
+            if (!data.status) {
+                this.logout();
+            }
+        });
     }
 
-    goto( path: string, navtitle: string) {
+    goto(path: string, navtitle: string) {
         this.title = navtitle;
         this._router.navigate(['/core/' + path]);
+    }
+
+    logout() {
+        this.access.removeToken().then((data) => {
+            if (data) {
+                this._router.navigate(['/login']);
+            }
+        });
     }
 }

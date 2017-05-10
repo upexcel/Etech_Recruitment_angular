@@ -1,6 +1,6 @@
     <div class="mainform">
         <md-card>
-            <form #imapForm="ngForm" (ngSubmit)="addimap(imapForm)">
+            <form #imapForm="ngForm" (ngSubmit)="addImap(imapForm)">
                 <md-card-subtitle class="cardsub">
                     IMAP/POP3 Server
                 </md-card-subtitle>
@@ -23,20 +23,20 @@
                         <tr>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="imapserver" placeholder="IMAP Server" required ngModel>
+                                    <input mdInput name="imap_server" placeholder="IMAP Server" required ngModel>
                                     <md-error>Invalid Server ID</md-error>
                                 </md-input-container>
                             </td>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="Server_port" type="number" placeholder="Server port" required ngModel>
+                                    <input mdInput name="server_port" type="number" placeholder="Server port" required ngModel>
                                     <md-error>Invalid Port</md-error>
                                 </md-input-container>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <md-radio-group name="layer" id="layer" required ngModel>
+                                <md-radio-group name="type" id="type" required ngModel>
                                     <md-radio-button value="ssl">SSL</md-radio-button>
                                     <md-radio-button value="tls">TLS</md-radio-button>
                                 </md-radio-group>
