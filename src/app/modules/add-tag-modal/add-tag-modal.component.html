@@ -13,27 +13,27 @@
             </md-grid-tile>
             <md-grid-tile [colspan]="2">
                 <md-radio-group class="pos-radio" name="type" [(ngModel)]="type" ngModel required>
-                    <md-radio-button name="type" value="Manual" (click)="types = 0">Manual Tag</md-radio-button>
-                    <md-radio-button name="type" value="Automatic" (click)="types = 1">Automatic Tag</md-radio-button>
+                    <md-radio-button name="type" value="Manual" (click)="types = 'Manual'">Manual Tag</md-radio-button>
+                    <md-radio-button name="type" value="Automatic" (click)="types = 'Automatic'">Automatic Tag</md-radio-button>
                 </md-radio-group>
             </md-grid-tile>
-            <md-grid-tile [colspan]="2" *ngIf="types">
+            <md-grid-tile [colspan]="2" *ngIf="types=='Automatic'">
                 <md-input-container>
                     <input mdInput name="email" type="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" ngModel>
                     <md-error>Invalid Email</md-error>
                 </md-input-container>
             </md-grid-tile>
-            <md-grid-tile [colspan]="2" *ngIf="types">
+            <md-grid-tile [colspan]="2" *ngIf="types=='Automatic'">
                 <md-input-container>
                     <input mdInput name="subject" placeholder="Subject" ngModel>
                 </md-input-container>
             </md-grid-tile>
-            <md-grid-tile [colspan]="2" *ngIf="types">
+            <md-grid-tile [colspan]="2" *ngIf="types=='Automatic'">
                 <md-input-container>
                     <input mdInput name="from" type="date" placeholder="From date" ngModel>
                 </md-input-container>
             </md-grid-tile>
-            <md-grid-tile [colspan]="2" *ngIf="types">
+            <md-grid-tile [colspan]="2" *ngIf="types=='Automatic'">
                 <md-input-container>
                     <input mdInput name="to" type="date" placeholder="To date" ngModel>
                 </md-input-container>

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { color_list } from '../../config/config';
 
 @Component({
     selector: 'app-manual-tag-modal',
@@ -9,9 +10,9 @@ import { ImapMailsService } from '../../service/imapemails.service';
 })
 export class ManualTagModalComponent implements OnInit {
     tag: any;
-    originalcolor = 'blue';
-    originaltitle = 'title';
-    availableColors = [ '#cb891b' , '#ef2e46' , '#ff5722' , '#ba21d3' , '#f3b08c' , '#f0793d' , '#eb7303' , '#db62e9' , '#ffeb3b' , '#3882b8'];
+    originalcolor = '';
+    originaltitle = '';
+    availableColors = color_list;
     constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
@@ -22,10 +23,11 @@ export class ManualTagModalComponent implements OnInit {
     save() {
         this.tag.title = this.originaltitle;
         this.tag.color = this.originalcolor;
-        this.tagupdate.updateTag(this.tag, 'Manual').subscribe((data) => {
-            console.log(data);
+        this.tagupdate.updateTag(this.tag, this.tag.type).subscribe((data) => {
+            this.dialogRef.close();
+        }, (err) => {
+            console.log(err);
         });
-        this.dialogRef.close();
     }
 
     close() {

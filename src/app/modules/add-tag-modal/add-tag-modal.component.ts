@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
+import { color_list } from '../../config/config';
 
 @Component({
     selector: 'app-add-tag-modal',
@@ -10,13 +11,13 @@ import { NgForm } from '@angular/forms';
 })
 export class AddTagModalComponent implements OnInit {
     tag: any;
-    types: number;
+    types: string;
     originalcolor = '#cb891b';
-    availableColors = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
+    availableColors = color_list;
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
-        this.types = 1;
+        this.types = 'Automatic';
     }
 
     registerUser(form: NgForm) {
