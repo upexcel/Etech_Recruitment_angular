@@ -22,7 +22,7 @@ export class ManualTagModalComponent implements OnInit {
     save() {
         this.tag.title = this.originaltitle;
         this.tag.color = this.originalcolor;
-        this.tagupdate.updateTag(this.tag).subscribe((data) => {
+        this.tagupdate.updateTag(this.tag, 'Manual').subscribe((data) => {
             console.log(data);
         });
         this.dialogRef.close();

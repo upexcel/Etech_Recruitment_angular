@@ -22,7 +22,7 @@ export class AutomaticTagModalComponent implements OnInit {
     save() {
         this.tag.title = this.originaltitle;
         this.tag.color = this.originalcolor;
-        this.tagupdate.updateTag(this.tag).subscribe((data) => {
+        this.tagupdate.updateTag(this.tag, 'Automatic').subscribe((data) => {
             console.log(data);
         });
         this.dialogRef.close();

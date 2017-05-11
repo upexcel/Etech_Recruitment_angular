@@ -25,8 +25,14 @@ export class ImapMailsService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
-    updateTag(tag: any): Observable <any> {
-        return this.Intercepted.put(config['apibase'] + 'tag/update/Manual/' + tag.id, tag)
+    addTag(body: any): Observable <any> {
+        console.log('adding tag to system');
+        return this.Intercepted.post(config['apibase'] + 'tag/add/' + body.type, body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    updateTag(tag: any, type: string): Observable <any> {
+        return this.Intercepted.put(config['apibase'] + 'tag/update/' + type + '/' + tag.id, tag)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

@@ -3,6 +3,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ManualTagModalComponent } from '../manual-tag-modal/manual-tag-modal.component';
 import { AutomaticTagModalComponent } from '../automatic-tag-modal/automatic-tag-modal.component';
+import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
 
 @Component({
     selector: 'app-tag-setting',
@@ -51,12 +52,23 @@ export class TagSettingComponent implements OnInit {
 
     openAutomatic(tag1: any) {
         this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {
-            height: '400px',
-            width: '300px'
+            height: '600px',
+            width: '350px'
         });
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+        });
+    }
+
+    addTag() {
+        this.dialogRef = this.dialog.open(AddTagModalComponent, {
+            height: '600px',
+            width: '450px'
+        });
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.getAllTag();
         });
     }
 
