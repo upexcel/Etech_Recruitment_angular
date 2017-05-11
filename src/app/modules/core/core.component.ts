@@ -14,7 +14,6 @@ export class CoreComponent implements OnInit {
     ngOnInit(): void {
         this.title = 'Inbox';
         this.access.verifyAccess().subscribe((data) => {
-            console.log(data);
             if (!data.status) {
                 this.logout();
             }
