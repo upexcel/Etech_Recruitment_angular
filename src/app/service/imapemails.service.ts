@@ -26,7 +26,6 @@ export class ImapMailsService {
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     addTag(body: any): Observable <any> {
-        console.log('adding tag to system');
         return this.Intercepted.post(config['apibase'] + 'tag/add/' + body.type, body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));

@@ -11,13 +11,13 @@ import { color_list } from '../../config/config';
 })
 export class AddTagModalComponent implements OnInit {
     tag: any;
-    types: string;
-    originalcolor = '#cb891b';
+    types: number;
+    originalcolor = color_list[0];
     availableColors = color_list;
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
-        this.types = 'Automatic';
+        this.types = 1;
     }
 
     registerUser(form: NgForm) {
