@@ -1,3 +1,4 @@
+<md-spinner class="center" *ngIf="loading"></md-spinner>
 <div class="mainform" *ngIf="!loading">
         <p class="font-18">Default tag(s)</p>
         <hr class="linespace">
@@ -37,4 +38,8 @@
             </span>  
             <md-icon class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>  
         </div>
+</div>
+
+<div class="pos-add" *ngIf="!loading">
+    <a md-fab (click)="addTag()"><md-icon>add</md-icon></a>
 </div>

@@ -3,11 +3,39 @@
 </div>
 <hr>
 <div class="body">
-    <md-input-container>
-        <input mdInput placeholder="Title" [(ngModel)]="originaltitle">
-    </md-input-container>
-      <color-picker [(ngModel)]="originalcolor" [availableColors]="availableColors"></color-picker>
+    <md-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+        <md-grid-tile [colspan]="1">
+            <md-input-container>
+                <input mdInput placeholder="Title" [(ngModel)]="originaltitle">
+            </md-input-container>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="1">
+            <md-input-container>
+                <input mdInput placeholder="Email" disabled [value]="tag.email">
+            </md-input-container>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="1">
+            <md-input-container>
+                <input mdInput placeholder="Subject" disabled [value]="tag.subject">
+            </md-input-container>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="1">
+            <md-input-container>
+                <input mdInput placeholder="From date" disabled [value]="tag.from">
+            </md-input-container>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="1">
+            <md-input-container>
+                <input mdInput placeholder="To date" disabled [value]="tag.to">
+            </md-input-container>
+        </md-grid-tile>
+    </md-grid-list>
+    <div>
+        <h4> Tag Color </h4>
+        <color-picker [(ngModel)]="originalcolor" [availableColors]="availableColors"></color-picker>
+    </div>
 </div>
+
 <div class="footer">
     <a md-raised-button (click)="close()">Close</a>
     <a md-raised-button color=primary (click)="save()">Save</a>

@@ -115,6 +115,7 @@ import {
 import {
     InterceptedHttp
 } from './service/http.interceptor';
+import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
 
 
 @NgModule({
@@ -140,6 +141,7 @@ import {
         ManualTagModalComponent,
         AutomaticTagModalComponent,
         AutomaticTagModalComponent,
+        AddTagModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -170,7 +172,8 @@ import {
     ],
     entryComponents: [
         ManualTagModalComponent,
-        AutomaticTagModalComponent
+        AutomaticTagModalComponent,
+        AddTagModalComponent
     ],
     bootstrap: [AppComponent]
 })
