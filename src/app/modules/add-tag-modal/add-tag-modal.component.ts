@@ -12,7 +12,6 @@ export class AddTagModalComponent implements OnInit {
     tag: any;
     types: number;
     originalcolor = '#cb891b';
-    originaltitle = '#cb891b';
     availableColors = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
