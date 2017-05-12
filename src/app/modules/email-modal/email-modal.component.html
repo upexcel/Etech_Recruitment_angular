@@ -1,0 +1,19 @@
+<div class="m-b">
+    <div class="example-button-row">
+        <a md-raised-button class="cyan" *ngFor="let tag of tags.Default" (click)="assignTag(tag.id)">{{tag.title}}</a>
+        <a md-raised-button class="cyan" (click)="assignTag(tags.Manual[0].id)">{{tags.Manual[0].title}}</a>
+        <a md-mini-fab class="cyan" (click)="close()">
+            <md-icon>X</md-icon>
+        </a>
+    </div>
+</div>
+<div class="b-b">
+    <h2 class="font-300">{{email.subject}}</h2>
+</div>
+<div class="p-y">
+    from
+    <a>{{email.from}}</a>
+    <span class="text-xs"> on {{email.date}}</span>
+</div>
+<div [innerHTML]="email.body | safeHtml">
+</div>

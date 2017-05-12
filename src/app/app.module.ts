@@ -116,6 +116,8 @@ import {
     InterceptedHttp
 } from './service/http.interceptor';
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
+import { EmailModalComponent } from './modules/email-modal/email-modal.component';
+import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
 
 
 @NgModule({
@@ -142,6 +144,8 @@ import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.comp
         AutomaticTagModalComponent,
         AutomaticTagModalComponent,
         AddTagModalComponent,
+        EmailModalComponent,
+        SafeHtmlPipe
     ],
     imports: [
         BrowserModule,
@@ -173,7 +177,8 @@ import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.comp
     entryComponents: [
         ManualTagModalComponent,
         AutomaticTagModalComponent,
-        AddTagModalComponent
+        AddTagModalComponent,
+        EmailModalComponent
     ],
     bootstrap: [AppComponent]
 })

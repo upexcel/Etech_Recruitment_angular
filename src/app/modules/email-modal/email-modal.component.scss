@@ -1,0 +1,49 @@
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+md-toolbar {
+	background-color: cyan;
+}
+.content {
+
+}
+.header {
+	margin-bottom: 30px;
+}
+.m-b {
+	margin-bottom: 1rem !important;
+}
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  align-content: space-around;
+}
+.cyan {
+	background-color: cyan;
+	margin-left: 1px;
+    margin-right: 5px;
+}
+.b-b {
+	border-bottom: 1px solid rgba(120,130,140,.13);
+}
+.p-y {
+	padding-bottom: 1 rem !important;
+	padding-top: 1 rem !important;
+	a {
+	   cursor: pointer;
+	   outlint: 0;
+	   text-decoration: none;
+	}
+}
+.text-xs {
+	font-size: .75rem;
+}
+.font-300 {
+	margin-bottom: 5px;
+	font-weight: 300;
+}

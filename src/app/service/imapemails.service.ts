@@ -12,10 +12,11 @@ export class ImapMailsService {
 
     constructor(public http: Http, public Intercepted: InterceptedHttp) {}
 
-    getEmailList(): Observable <any> {
-        return this.http.get(config['imap'])
+    getEmailList(body: any): Observable <any> {
+        console.log(body);
+        return this.Intercepted.post(config['apibase'] + 'email/fetch', body)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     getTags(): Promise < any[] > {
         return Promise.resolve(TAGS);
@@ -27,6 +28,11 @@ export class ImapMailsService {
     }
     addTag(body: any): Observable <any> {
         return this.Intercepted.post(config['apibase'] + 'tag/add/' + body.type, body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    assignTag(body: any): Observable <any> {
+        return this.Intercepted.post(config['apibase'] + 'email/assignTag', body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
@@ -50,13 +56,13 @@ export class ImapMailsService {
     deleteImap(id: string): Observable <any> {
         return this.Intercepted.delete(config['apibase'] + 'imap/delete/' + id)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     storeImap(body): Observable <any> {
         return this.Intercepted.post(config['apibase'] + 'imap/save', body)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     getImapList(): Observable <any> {
