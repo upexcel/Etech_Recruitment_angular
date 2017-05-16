@@ -1,7 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ImapMailsService } from '../../service/imapemails.service';
-import { MdIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
+import {
+    Component,
+    OnInit
+} from '@angular/core';
+import {
+    ImapMailsService
+} from '../../service/imapemails.service';
+import {
+    MdDialog,
+    MdDialogConfig,
+    MdDialogRef
+} from '@angular/material';
+import {
+    EmailModalComponent
+} from '../email-modal/email-modal.component';
 
 @Component({
     selector: 'app-inbox',
@@ -9,18 +20,18 @@ import { DomSanitizer } from '@angular/platform-browser';
     styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit {
+    dialogRef: MdDialogRef < any > ;
     emaillist: any;
     loading = false;
     tag_id: string;
     tags: any[];
     data: any;
-    constructor(iconRegistry: MdIconRegistry, sanitizer: DomSanitizer, public getemails: ImapMailsService) {
-        // To avoid XSS attacks, the URL needs to be trusted from inside of your application.
-        const uparrowSafeUrl = sanitizer.bypassSecurityTrustResourceUrl('../../../../assets/up_arrow.svg');
-        iconRegistry.addSvgIconSetInNamespace('up_arrow', uparrowSafeUrl);
-    }
+    selected: any;
+    emailIds: string[];
+    constructor(public dialog: MdDialog, public getemails: ImapMailsService) {}
 
     ngOnInit() {
+        this.emailIds = [];
         this.loading = true;
         this.getAllTag();
         this.data = {
@@ -30,6 +41,66 @@ export class InboxComponent implements OnInit {
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.emaillist = data.data;
             this.loading = false;
+        });
+    }
+
+    addEmail(id: string) {
+        this.emailIds.push(id);
+    }
+
+    removeEmails(id: string) {
+        this.emailIds.splice(this.emailIds.indexOf(id), 1);
+    }
+
+    ignore() {
+        this.selected = {
+            'tag_id': '2',
+            'mongo_id': this.emailIds
+        };
+        this.getemails.assignTag(this.selected).subscribe((data) => {
+            this.refresh();
+            this.emailIds.length = 0;
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    reject() {
+        this.selected = {
+            'tag_id': '1',
+            'mongo_id': this.emailIds
+        };
+        this.getemails.assignTag(this.selected).subscribe((data) => {
+            this.refresh();
+            this.emailIds.length = 0;
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    delete() {
+        this.selected = {
+            'tag_id': '1',
+            'mongo_id': this.emailIds
+        };
+        this.getemails.deleteEmail(this.selected).subscribe((data) => {
+            this.refresh();
+            this.emailIds.length = 0;
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    openEmails(email: any) {
+        this.dialogRef = this.dialog.open(EmailModalComponent, {
+            height: '550px',
+            width: '65%'
+        });
+        this.dialogRef.componentInstance.email = email;
+        this.dialogRef.componentInstance.tags = this.tags;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.refresh();
         });
     }
 
@@ -51,6 +122,7 @@ export class InboxComponent implements OnInit {
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.emaillist = data.data;
+            this.emailIds = [];
             this.loading = false;
         });
     }
@@ -67,8 +139,9 @@ export class InboxComponent implements OnInit {
         this.emaillists(this.data.tag_id, this.data.page);
     }
 
-    refresh(id: string) {
+    refresh(id?: string) {
         this.getemails.getEmailList(this.data).subscribe((data) => {
+            this.emailIds = [];
             this.emaillist = data.data;
         });
     }

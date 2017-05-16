@@ -12,6 +12,7 @@ import { color_list } from '../../config/config';
 export class AddTagModalComponent implements OnInit {
     tag: any;
     types: number;
+    type: any;
     originalcolor = color_list[0];
     availableColors = color_list;
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}

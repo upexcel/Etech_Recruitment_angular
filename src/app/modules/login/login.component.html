@@ -4,7 +4,7 @@
     </div>
     <div class="login-card">
         <md-card>
-            <form [formGroup]="addForm" (ngSubmit)="login()">
+            <form autoComplete="off" [formGroup]="addForm" (ngSubmit)="login()">
                 <md-card-title>
                     <h4>Sign In</h4>
                 </md-card-title>
@@ -14,16 +14,16 @@
                         <tr>
                             <td>
                                 <md-input-container class="width-100">
-                                    <input mdInput type="email" formControlName="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
-                                    <md-error>Plz Enter Email</md-error>
+                                    <input mdInput type="email" formControlName="email" placeholder="Email" autoComplete="off">
+                                    <md-error>Enter Valid Email</md-error>
                                 </md-input-container>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <md-input-container class="width-100">
-                                    <input mdInput type="password" formControlName="password" placeholder="Password">
-                                    <md-error>Plz Enter Password</md-error>
+                                    <input mdInput type="password" formControlName="password" placeholder="Password" autoComplete="off">
+                                    <md-error>Enter Valid Password</md-error>
                                 </md-input-container>
                             </td>
                         </tr>
@@ -35,7 +35,7 @@
                     </table>
                 </md-card-content>
                 <md-card-actions>
-                    <button *ngIf="!loading" type="submit" md-raised-button color=primary class="width-100">LOG IN</button>
+                    <button *ngIf="!loading" type="submit" md-raised-button color=primary class="width-100">Sign In</button>
                     <md-spinner *ngIf="loading" class="spin"></md-spinner>
                 </md-card-actions>
             </form>

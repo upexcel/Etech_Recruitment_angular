@@ -1,12 +1,13 @@
 <md-card class="bleftblue emailstyle">
     <md-grid-list cols="8" rowHeight="100px">
         <md-grid-tile [colspan]="'1'">
-            <div class="emailcheckbox">
-                <span>{{email.subject.charAt(0)}}</span>
+            <div class="emailcheckbox" (click)="emailSelection()">
+                <span *ngIf="!selected" >{{email.subject.charAt(0)}}</span>
+                <md-icon *ngIf="selected">check</md-icon>
             </div>
         </md-grid-tile>
-        <md-grid-tile [colspan]="'6'" (click)="openEmail(email)">
-            <div class="detailloc">
+        <md-grid-tile [colspan]="'6'" (click)="openEmails(email)">
+            <div class="detailloc {{!email.unread ? 'unchecked': 'checked'}}">
                 <h4 class="inline">{{email.subject}}</h4>
                 <h6 class="inline">{{email.email_date}}</h6>
                 <p>{{email.sender_mail}} - From {{email.from}}
@@ -21,7 +22,7 @@
                        <md-icon>more_vert</md-icon>
                       </button>
             <md-menu #themeMenu x-position="before">
-                <button md-menu-item *ngFor="let tag of tags.Automatic" (click)="assignToEmail(tag.id, email._id)">
+                <button md-menu-item *ngFor="let tag of tags['Automatic']" (click)="assignToEmail(tag.id, email._id)">
                              <div class="logo" [style.background-color]="tag.color">
                                 <span>{{tag.title.charAt(0)}}</span>
                             </div>

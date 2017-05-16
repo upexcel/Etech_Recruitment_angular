@@ -1,6 +1,6 @@
     <div class="mainform">
         <md-card>
-            <form #imapForm="ngForm" (ngSubmit)="addImap(imapForm)">
+            <form autoComplete="off" #imapForm="ngForm" (ngSubmit)="addImap(imapForm)">
                 <md-card-subtitle class="cardsub">
                     IMAP/POP3 Server
                 </md-card-subtitle>
@@ -9,13 +9,13 @@
                         <tr>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="email" type="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required ngModel>
+                                    <input mdInput name="email" type="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required ngModel autoComplete="off">
                                     <md-error>Invalid Email ID</md-error>
                                 </md-input-container>
                             </td>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="password" type="password" placeholder="Password" required ngModel>
+                                    <input mdInput name="password" type="password" placeholder="Password" required ngModel autoComplete="off">
                                     <md-error>Password Required</md-error>
                                 </md-input-container>
                             </td>
@@ -23,13 +23,13 @@
                         <tr>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="imap_server" placeholder="IMAP Server" required ngModel>
+                                    <input mdInput name="imap_server" placeholder="IMAP Server" required ngModel autoComplete="off">
                                     <md-error>Invalid Server ID</md-error>
                                 </md-input-container>
                             </td>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="server_port" type="number" placeholder="Server port" required ngModel>
+                                    <input mdInput name="server_port" type="number" placeholder="Server port" required ngModel autoComplete="off">
                                     <md-error>Invalid Port</md-error>
                                 </md-input-container>
                             </td>
@@ -37,12 +37,12 @@
                         <tr>
                             <td>
                                 <md-radio-group name="type" id="type" required ngModel>
-                                    <md-radio-button value="ssl">SSL</md-radio-button>
-                                    <md-radio-button value="tls">TLS</md-radio-button>
-                                </md-radio-group>
+                                    <md-radio-button name="type" value="ssl" checked>SSL</md-radio-button>
+                                    <md-radio-button name="type" value="tls">TLS</md-radio-button>
+                                </md-radio-group>                               
                             </td>
                             <td>
-                                <button type="submit" md-raised-button color=primary> Save </button>
+                                <button type="submit" md-raised-button color=primary [disabled]="imapForm.invalid"> Save </button>
                                 <button md-raised-button color=accent> Test </button>
                             </td>
                         </tr>

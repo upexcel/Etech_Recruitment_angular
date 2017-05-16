@@ -13,7 +13,6 @@ export class ImapMailsService {
     constructor(public http: Http, public Intercepted: InterceptedHttp) {}
 
     getEmailList(body: any): Observable <any> {
-        console.log(body);
         return this.Intercepted.post(config['apibase'] + 'email/fetch', body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
@@ -31,8 +30,18 @@ export class ImapMailsService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
+    UnreadStatus(body: any): Observable <any> {
+        return this.Intercepted.post(config['apibase'] + 'email/changeUnreadStatus', body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
     assignTag(body: any): Observable <any> {
-        return this.Intercepted.post(config['apibase'] + 'email/assignTag', body)
+        return this.Intercepted.post(config['apibase'] + 'email/assignMultiple', body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    deleteEmail(body: any): Observable <any> {
+        return this.Intercepted.post(config['apibase'] + 'email/deleteTag', body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

@@ -1,7 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { EmailModalComponent } from '../email-modal/email-modal.component';
 
 @Component({
     selector: 'app-emailbox',
@@ -9,33 +7,42 @@ import { EmailModalComponent } from '../email-modal/email-modal.component';
     styleUrls: ['./emailbox.component.scss']
 })
 export class EmailboxComponent implements OnInit {
-    dialogRef: MdDialogRef <any>;
     data: any;
+    selected = false;
+    selectedMid: string[];
     @Input() email: any;
     @Input() tags: any[];
     @Output() refresh = new EventEmitter<string>();
-    constructor(public dialog: MdDialog, private assignEmail: ImapMailsService) { }
+    @Output() openEmail = new EventEmitter<any>();
+    @Output() selectEmail = new EventEmitter<string>();
+    @Output() removeEmail = new EventEmitter<string>();
+
+    constructor(private assignEmail: ImapMailsService) { }
 
     ngOnInit() {
+        this.selectedMid = [];
     }
 
-    openEmail(email: any) {
-        this.dialogRef = this.dialog.open(EmailModalComponent, {
-            height: '550px',
-            width: '65%'
-        });
-        this.dialogRef.componentInstance.email = email;
-        this.dialogRef.componentInstance.tags = this.tags;
-        this.dialogRef.afterClosed().subscribe(result => {
-            this.dialogRef = null;
-        });
+    emailSelection() {
+        this.selected = !this.selected;
+        if (this.selected) {
+            this.selectEmail.emit(this.email._id);
+        } else {
+            this.removeEmail.emit(this.email._id);
+        }
     }
+    openEmails(email: any) {
+        this.openEmail.emit(this.email);
+    }
+
     assignToEmail(id: string, emailId: string) {
+        this.selectedMid.push(emailId);
         this.data = {
             'tag_id': id,
-            'mongo_id': emailId
+            'mongo_id': this.selectedMid
         };
         this.assignEmail.assignTag(this.data).subscribe((data) => {
+            this.selectedMid = [];
             this.refresh.emit(id);
         }, (err) => {
             console.log(err);

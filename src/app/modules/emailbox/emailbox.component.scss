@@ -36,10 +36,12 @@
     background-color: $roundcirclecolor;
     height: 54px;
     width: 54px;
+    cursor: pointer; 
 }
 .detailloc {
     position: absolute;
     left: 5px;
+    cursor: pointer; 
 }
 .inline {
     display: inline;
@@ -48,4 +50,10 @@
     width: 8px;
     height: 8px;
     font-size: 15px;
+}
+.checked {
+    opacity: 0.6;
+}
+.unchecked {
+    opacity: 1;
 }
