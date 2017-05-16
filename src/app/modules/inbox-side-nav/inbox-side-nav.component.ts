@@ -8,7 +8,6 @@ import { ImapMailsService } from '../../service/imapemails.service';
 })
 export class InboxSideNavComponent {
     firstlist = false;
-    secondlist = false;
     thirdlist = false;
     @Input() tags: any[];
     @Output() getEmails = new EventEmitter<string>();
