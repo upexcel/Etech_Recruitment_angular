@@ -20,6 +20,11 @@ export class ImapMailsService {
     getTags(): Promise < any[] > {
         return Promise.resolve(TAGS);
     }
+    getAllTagsMain(): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + 'email/countEmail')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
     getAllTags(): Observable <any> {
         return this.Intercepted.get(config['apibase'] + 'tag/get')
             .map((res: Response) => res.json())

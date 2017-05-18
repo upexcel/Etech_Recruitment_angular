@@ -6,15 +6,15 @@
             <md-icon>{{firstlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
         </md-list-item>
         <md-list *ngIf="!firstlist">
-            <md-list-item class="subenav" (click)="getEmail('0')">
+            <!-- <md-list-item class="subenav" (click)="getEmail('0')">
                 <md-icon md-list-icon class="blue">mail</md-icon>
                 <a>Mails</a>
-            </md-list-item>
+            </md-list-item> -->
             <md-list-item class="subenav" *ngFor="let tag of tags.Default" (click)="getEmail(tag.id)">
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>{{tag.title}}</a>
+                <a>{{tag.title}} {{tag.count_email}}/{{tag.unread}}</a>
             </md-list-item>
         </md-list>
         <md-list-item class="mainnav" (click)="thirdlist=!thirdlist">
@@ -27,13 +27,13 @@
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>{{tag.title}}</a>
+                <a>{{tag.title}} {{tag.count_email}}/{{tag.unread}}</a>
             </md-list-item>
             <md-list-item class="subenav" *ngFor="let tag of tags.Manual" (click)="getEmail(tag.id)">
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>{{tag.title}}</a>
+                <a>{{tag.title}} {{tag.count_email}}/{{tag.unread}}</a>
             </md-list-item>
         </md-list>
     </md-list>

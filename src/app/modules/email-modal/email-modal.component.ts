@@ -14,13 +14,12 @@ export class EmailModalComponent implements OnInit {
     tags: any;
     body: any;
     idlist: string[];
-
     constructor(public dialogRef: MdDialogRef <any> , sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
         this.idlist = [];
         this.body = {
-            'status': false,
+            'status': 'false',
             'mongo_id': this.email._id
         };
         this.tagUpdate.UnreadStatus(this.body).subscribe(

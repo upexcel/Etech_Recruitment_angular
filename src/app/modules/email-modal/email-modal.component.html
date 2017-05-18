@@ -15,5 +15,20 @@
     <a>{{email.from}}</a>
     <span class="text-xs"> on {{email.date}}</span>
 </div>
-<div [innerHTML]="email.body | safeHtml">
+
+<div class="both" *ngIf="email.attachment?.length > 0">
+    <md-grid-list cols="2" gutterSize="2px">
+        <md-grid-tile [colspan]="1" class="no-pos" [innerHTML]="email.body | safeHtml">
+        </md-grid-tile>
+        <md-grid-tile>
+            <iframe class="ifset" [src]="email.attachment[0].link | safeUrl">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+        </md-grid-tile>
+    </md-grid-list>
+</div>
+
+<div class="bod" *ngIf="email.attachment?.length == 0">
+    <div [innerHTML]="email.body | safeHtml">
+    </div>
 </div>

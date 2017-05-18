@@ -118,6 +118,8 @@ import {
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
 import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
+import { SafeUrlPipe } from './service/safe-url.pipe';
+
 
 
 @NgModule({
@@ -145,7 +147,8 @@ import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
         AutomaticTagModalComponent,
         AddTagModalComponent,
         EmailModalComponent,
-        SafeHtmlPipe
+        SafeHtmlPipe,
+        SafeUrlPipe
     ],
     imports: [
         BrowserModule,
@@ -159,7 +162,7 @@ import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
         MdDialogModule,
         ColorPickerModule,
         MdProgressSpinnerModule,
-        RouterModule.forRoot(routes),
+        RouterModule.forRoot(routes, { useHash: true }),
         FormsModule,
         ReactiveFormsModule,
         HttpModule

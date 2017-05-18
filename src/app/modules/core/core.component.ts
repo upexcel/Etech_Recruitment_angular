@@ -18,7 +18,9 @@ export class CoreComponent implements OnInit {
                 this.logout();
             }
         }, (err) => {
-            console.log(err);
+            if (!err.status) {
+                this.logout();
+            }
         });
     }
 

@@ -58,6 +58,7 @@ export class InboxComponent implements OnInit {
             'mongo_id': this.emailIds
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
+            this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
         }, (err) => {
@@ -71,6 +72,7 @@ export class InboxComponent implements OnInit {
             'mongo_id': this.emailIds
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
+            this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
         }, (err) => {
@@ -84,6 +86,7 @@ export class InboxComponent implements OnInit {
             'mongo_id': this.emailIds
         };
         this.getemails.deleteEmail(this.selected).subscribe((data) => {
+            this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
         }, (err) => {
@@ -94,20 +97,21 @@ export class InboxComponent implements OnInit {
     openEmails(email: any) {
         this.dialogRef = this.dialog.open(EmailModalComponent, {
             height: '550px',
-            width: '65%'
+            width: '80%'
         });
         this.dialogRef.componentInstance.email = email;
         this.dialogRef.componentInstance.tags = this.tags;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
             this.refresh();
+            this.getAllTag();
         });
     }
 
     getAllTag() {
-        this.getemails.getAllTags()
-            .subscribe((data) => {
-                this.formatTagsInArray(data);
+        this.getemails.getAllTagsMain()
+            .subscribe((res) => {
+                this.formatTagsInArray(res.data);
             }, (err) => {
                 console.log(err);
                 this.loading = false;
