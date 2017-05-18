@@ -24,7 +24,6 @@ export class ImapComponentFormComponent implements OnInit {
                 form.resetForm();
             },
             (err) => {
-                // console.log(err);
                 this.showmessage = true;
                 this.message = err.message;
             });

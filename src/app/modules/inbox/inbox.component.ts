@@ -186,8 +186,16 @@ export class InboxComponent implements OnInit {
                 } else {
                     this.tags['Automatic'].push(data[i]);
                 }
+            } else if (data[i].type === 'Main') {
+                if (!this.tags['Main']) {
+                    this.tags['Main'] = [];
+                    this.tags['Main'].push(data[i]);
+                } else {
+                    this.tags['Main'].push(data[i]);
+                }
             }
         }
+        console.log(this.tags);
         this.loading = false;
     }
 
