@@ -35,7 +35,8 @@ import {
     MdSidenavModule,
     MdIconModule,
     MdProgressSpinnerModule,
-    MdDialogModule
+    MdDialogModule,
+    MdSnackBarModule
 } from '@angular/material';
 import {
     ImapMailsService
@@ -122,6 +123,7 @@ import { SafeUrlPipe } from './service/safe-url.pipe';
 
 
 
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -162,6 +164,7 @@ import { SafeUrlPipe } from './service/safe-url.pipe';
         MdDialogModule,
         ColorPickerModule,
         MdProgressSpinnerModule,
+        MdSnackBarModule,
         RouterModule.forRoot(routes, { useHash: true }),
         FormsModule,
         ReactiveFormsModule,
