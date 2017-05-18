@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
 
 @Component({
@@ -6,16 +6,14 @@ import { ImapMailsService } from '../../service/imapemails.service';
     templateUrl: './inbox-side-nav.component.html',
     styleUrls: ['./inbox-side-nav.component.scss']
 })
-export class InboxSideNavComponent implements OnInit {
+export class InboxSideNavComponent {
     firstlist = false;
-    secondlist = false;
     thirdlist = false;
     @Input() tags: any[];
-
+    @Output() getEmails = new EventEmitter<string>();
     constructor(public getTag: ImapMailsService) { }
 
-    ngOnInit() {
-
+    getEmail(id: string) {
+        this.getEmails.emit(id);
     }
-
 }

@@ -19,7 +19,7 @@
             </md-grid-tile>
             <md-grid-tile [colspan]="2" *ngIf="types">
                 <md-input-container>
-                    <input mdInput name="email" type="email" placeholder="Email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" ngModel>
+                    <input mdInput name="email" type="email" placeholder="Email" ngModel>
                     <md-error>Invalid Email</md-error>
                 </md-input-container>
             </md-grid-tile>
@@ -47,6 +47,6 @@
 
     <div class="footer">
         <a md-raised-button (click)="close()">Close</a>
-        <a md-raised-button type="submit" color=primary (click)="registerUser(addForm)">Save</a>
+        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid" (click)="registerUser(addForm)">Save</a>
     </div>
 </form>

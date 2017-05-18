@@ -1,10 +1,26 @@
 <md-sidenav-container fxFlex>
 <div flexlayout>
-    <app-inbox-side-nav *ngIf="tags" [tags]="tags"></app-inbox-side-nav>
+    <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
     <div class="content" fxFlex>
+    <div class="m-b">
+    <div class="example-button-row">
+        <div *ngIf="emailIds.length > 0" class="options">
+            <a md-raised-button class="b-r" (click)="ignore()">Ignore</a>
+            <a md-raised-button class="b-r" (click)="reject()">Reject</a>
+            <a md-raised-button class="b-r" (click)="delete()">Delete</a>
+        </div>
+        <a md-mini-fab class="d-w" (click)="previous()">
+            <md-icon>keyboard_arrow_left</md-icon>
+        </a>
+        <a md-raised-button class="b-r">Page {{this.data.page}}</a>
+        <a md-mini-fab class="d-w" (click)="next()">
+            <md-icon>keyboard_arrow_right</md-icon>
+        </a>
+    </div>
+</div>
         <md-spinner *ngIf="loading" class="posload"></md-spinner>
         <div *ngIf="!loading">
-            <app-emailbox *ngFor="let emails of emaillist" [email]="emails" [tags]="tags.Automatic"></app-emailbox>
+            <app-emailbox *ngFor="let emails of emaillist" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tags"></app-emailbox>
         </div>
     </div>
 </div>    

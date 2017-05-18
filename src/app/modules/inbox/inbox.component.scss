@@ -12,3 +12,35 @@
     position: relative;
     min-height: 100%;
 }
+
+.m-b {
+	margin-bottom: 1rem !important;
+}
+.example-button-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  align-content: space-around;
+  a {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
+.cyan {
+	background-color: $cyan;
+}
+.white {
+	backgournd-color: $white;
+	color: inherit;
+}
+.d-w {
+	background-color: white;
+	color: inherit;
+}
+.b-r {
+	border-radius: 5%;
+}
+.options {
+	position: relative;
+    left: -54%;
+}

@@ -35,7 +35,8 @@ import {
     MdSidenavModule,
     MdIconModule,
     MdProgressSpinnerModule,
-    MdDialogModule
+    MdDialogModule,
+    MdSnackBarModule
 } from '@angular/material';
 import {
     ImapMailsService
@@ -116,6 +117,11 @@ import {
     InterceptedHttp
 } from './service/http.interceptor';
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
+import { EmailModalComponent } from './modules/email-modal/email-modal.component';
+import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
+import { SafeUrlPipe } from './service/safe-url.pipe';
+
+
 
 
 @NgModule({
@@ -142,6 +148,9 @@ import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.comp
         AutomaticTagModalComponent,
         AutomaticTagModalComponent,
         AddTagModalComponent,
+        EmailModalComponent,
+        SafeHtmlPipe,
+        SafeUrlPipe
     ],
     imports: [
         BrowserModule,
@@ -155,7 +164,8 @@ import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.comp
         MdDialogModule,
         ColorPickerModule,
         MdProgressSpinnerModule,
-        RouterModule.forRoot(routes),
+        MdSnackBarModule,
+        RouterModule.forRoot(routes, { useHash: true }),
         FormsModule,
         ReactiveFormsModule,
         HttpModule
@@ -173,7 +183,8 @@ import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.comp
     entryComponents: [
         ManualTagModalComponent,
         AutomaticTagModalComponent,
-        AddTagModalComponent
+        AddTagModalComponent,
+        EmailModalComponent
     ],
     bootstrap: [AppComponent]
 })
