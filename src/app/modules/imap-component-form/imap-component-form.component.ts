@@ -9,19 +9,23 @@ import { ImapMailsService } from '../../service/imapemails.service';
 })
 export class ImapComponentFormComponent implements OnInit {
     @Output() addedImap = new EventEmitter<any>();
+    showmessage: boolean;
+    message: string;
     constructor(private imapServices: ImapMailsService) { }
 
     ngOnInit() {
     }
 
     addImap(form: NgForm) {
+        this.showmessage = false;
         if (form.valid) {
             this.imapServices.storeImap(form.value).subscribe((data) => {
                 this.addedImap.emit();
                 form.resetForm();
             },
             (err) => {
-                console.log(err);
+                this.showmessage = true;
+                this.message = err.message;
             });
         }
     }

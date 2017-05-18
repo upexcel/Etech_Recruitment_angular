@@ -4,6 +4,7 @@
                 <md-card-subtitle class="cardsub">
                     IMAP/POP3 Server
                 </md-card-subtitle>
+                <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
                 <md-card-content>
                     <table class="width-90">
                         <tr>

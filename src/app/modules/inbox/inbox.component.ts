@@ -13,6 +13,9 @@ import {
 import {
     EmailModalComponent
 } from '../email-modal/email-modal.component';
+import {
+    MdSnackBar
+} from '@angular/material';
 
 @Component({
     selector: 'app-inbox',
@@ -28,7 +31,7 @@ export class InboxComponent implements OnInit {
     data: any;
     selected: any;
     emailIds: string[];
-    constructor(public dialog: MdDialog, public getemails: ImapMailsService) {}
+    constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {}
 
     ngOnInit() {
         this.emailIds = [];
@@ -61,6 +64,7 @@ export class InboxComponent implements OnInit {
             this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
+            this.notify('done', '');
         }, (err) => {
             console.log(err);
         });
@@ -75,6 +79,7 @@ export class InboxComponent implements OnInit {
             this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
+            this.notify('done', '');
         }, (err) => {
             console.log(err);
         });
@@ -82,15 +87,21 @@ export class InboxComponent implements OnInit {
 
     delete() {
         this.selected = {
-            'tag_id': '1',
             'mongo_id': this.emailIds
         };
         this.getemails.deleteEmail(this.selected).subscribe((data) => {
             this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
+            this.notify('done', '');
         }, (err) => {
             console.log(err);
+        });
+    }
+
+    notify(message: string, action: string) {
+        this.snackBar.open(message, action, {
+            duration: 2000,
         });
     }
 
@@ -144,6 +155,7 @@ export class InboxComponent implements OnInit {
     }
 
     refresh(id?: string) {
+        this.getAllTag();
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.emailIds = [];
             this.emaillist = data.data;
@@ -174,8 +186,16 @@ export class InboxComponent implements OnInit {
                 } else {
                     this.tags['Automatic'].push(data[i]);
                 }
+            } else if (data[i].type === 'Main') {
+                if (!this.tags['Main']) {
+                    this.tags['Main'] = [];
+                    this.tags['Main'].push(data[i]);
+                } else {
+                    this.tags['Main'].push(data[i]);
+                }
             }
         }
+        console.log(this.tags);
         this.loading = false;
     }
 
