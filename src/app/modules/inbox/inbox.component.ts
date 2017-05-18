@@ -195,7 +195,6 @@ export class InboxComponent implements OnInit {
                 }
             }
         }
-        console.log(this.tags);
         this.loading = false;
     }
 

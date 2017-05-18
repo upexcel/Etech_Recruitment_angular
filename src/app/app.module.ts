@@ -116,12 +116,13 @@ import {
 import {
     InterceptedHttp
 } from './service/http.interceptor';
+import {
+    SmtpComponentFormComponent
+} from './modules/smtp-component-form/smtp-component-form.component';
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
 import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
 import { SafeUrlPipe } from './service/safe-url.pipe';
-
-
 
 
 @NgModule({
@@ -150,7 +151,8 @@ import { SafeUrlPipe } from './service/safe-url.pipe';
         AddTagModalComponent,
         EmailModalComponent,
         SafeHtmlPipe,
-        SafeUrlPipe
+        SafeUrlPipe,
+        SmtpComponentFormComponent
     ],
     imports: [
         BrowserModule,
