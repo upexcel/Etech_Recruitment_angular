@@ -1,7 +1,42 @@
-<p align="center">
-  smtp-server component
-</p>
-
-<div>
-	form component
+<div class="main">
+  <app-smtp-component-form (addedSMTP)="getSmtpList()"></app-smtp-component-form>
+    <div>
+        <md-card>
+            <md-card-subtitle class="cardsub">
+                SMTP Settings
+            </md-card-subtitle>
+            <md-card-content>
+                <table class="list">
+                    <thead>
+                        <tr>
+                            <th>Email ID</th>
+                            <th>Server</th>
+                            <th>Port</th>
+                            <th>Encryption</th>
+                            <th>Status</th>
+                            <th>Test</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let setting of settingJson">
+                            <td>{{setting.email}}</td>
+                            <td>{{setting.imap_server}}</td>
+                            <td>{{setting.server_port}}</td>
+                            <td>{{setting.type}}</td>
+                            <td>
+                                <md-icon class="{{setting.status ? 'off':'on'}}">{{setting.status ? 'clear' : 'done'}}</md-icon>
+                            </td>
+                            <td>
+                                <button md-button class="chartcolor" (click)="test(setting.id)">TEST</button>
+                            </td>
+                            <td>
+                                <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-card-content>
+        </md-card>
+    </div>
 </div>
