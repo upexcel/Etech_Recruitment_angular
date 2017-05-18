@@ -19,7 +19,7 @@ export class EmailModalComponent implements OnInit {
     ngOnInit() {
         this.idlist = [];
         this.body = {
-            'status': 'false',
+            'status': false,
             'mongo_id': this.email._id
         };
         this.tagUpdate.UnreadStatus(this.body).subscribe(

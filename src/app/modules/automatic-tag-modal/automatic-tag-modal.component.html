@@ -21,12 +21,12 @@
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
             <md-input-container>
-                <input mdInput placeholder="From date" disabled [value]="tag.from">
+                <input mdInput placeholder="From date" disabled [value]="tag.from | date">
             </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
             <md-input-container>
-                <input mdInput placeholder="To date" disabled [value]="tag.to">
+                <input mdInput placeholder="To date" disabled [value]="tag.to | date">
             </md-input-container>
         </md-grid-tile>
     </md-grid-list>

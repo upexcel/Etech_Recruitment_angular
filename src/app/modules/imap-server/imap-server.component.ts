@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-imap-server',
@@ -9,7 +10,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 export class ImapServerComponent implements OnInit {
     imapSettingJson: any[];
     loading: boolean;
-    constructor(private imapServices: ImapMailsService) {}
+    constructor(private imapServices: ImapMailsService, public snackBar: MdSnackBar) {}
 
     ngOnInit() {
         this.getImapList();
@@ -32,6 +33,9 @@ export class ImapServerComponent implements OnInit {
         this.imapServices.deleteImap(id).subscribe(
        (data) => {
            this.getImapList();
+           this.snackBar.open(data.status, '', {
+               duration: 2000,
+           });
        },
         (err) => {
             console.log(err);

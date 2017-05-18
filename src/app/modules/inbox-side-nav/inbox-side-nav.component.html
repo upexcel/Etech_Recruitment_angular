@@ -14,7 +14,7 @@
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>{{tag.title}} {{tag.count_email}}/{{tag.unread}}</a>
+                <a>{{tag.title}} ({{tag.count_email}}/{{tag.unread}})</a>
             </md-list-item>
         </md-list>
         <md-list-item class="mainnav" (click)="thirdlist=!thirdlist">
@@ -27,13 +27,13 @@
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>{{tag.title}} {{tag.count_email}}/{{tag.unread}}</a>
+                <a>{{tag.title}} ({{tag.count_email}}/{{tag.unread}})</a>
             </md-list-item>
             <md-list-item class="subenav" *ngFor="let tag of tags.Manual" (click)="getEmail(tag.id)">
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
-                <a>{{tag.title}} {{tag.count_email}}/{{tag.unread}}</a>
+                <a>{{tag.title}} ({{tag.count_email}}/{{tag.unread}})</a>
             </md-list-item>
         </md-list>
     </md-list>
