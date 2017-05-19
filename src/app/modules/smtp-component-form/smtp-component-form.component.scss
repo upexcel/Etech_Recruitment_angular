@@ -24,15 +24,12 @@ table.list {
         }
     }
 }
-.off {
-    color: $offcolor;
-}
-.on {
-    color: $oncolor;
-}
-.chartcolor {
-    color: $charcolor;
-}
 .mainform {
     margin-bottom: 10px;
+}
+.error {
+    color: $red;
+    text-align: center;
+    position: relative;
+    left: -70px;
 }
