@@ -93,7 +93,7 @@ export class ImapMailsService {
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     deleteSmtp(id: string): Observable <any> {
-        return this.Intercepted.delete(config['apibase'] + 'smtp/delete' + id)
+        return this.Intercepted.delete(config['apibase'] + 'smtp/delete/' + id)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
