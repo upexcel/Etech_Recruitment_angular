@@ -119,10 +119,15 @@ import {
 import {
     SmtpComponentFormComponent
 } from './modules/smtp-component-form/smtp-component-form.component';
+import {
+    AddEmailTempComponent
+} from './modules/add-email-temp/add-email-temp.component';
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
 import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
 import { SafeUrlPipe } from './service/safe-url.pipe';
+import { CKEditorModule } from 'ng2-ckeditor';
+import { SingleTemplateComponent } from './modules/single-template/single-template.component';
 
 
 @NgModule({
@@ -152,7 +157,9 @@ import { SafeUrlPipe } from './service/safe-url.pipe';
         EmailModalComponent,
         SafeHtmlPipe,
         SafeUrlPipe,
-        SmtpComponentFormComponent
+        SmtpComponentFormComponent,
+        AddEmailTempComponent,
+        SingleTemplateComponent
     ],
     imports: [
         BrowserModule,
@@ -170,7 +177,8 @@ import { SafeUrlPipe } from './service/safe-url.pipe';
         RouterModule.forRoot(routes, { useHash: true }),
         FormsModule,
         ReactiveFormsModule,
-        HttpModule
+        HttpModule,
+        CKEditorModule
     ],
     providers: [
         ImapMailsService,
@@ -186,7 +194,8 @@ import { SafeUrlPipe } from './service/safe-url.pipe';
         ManualTagModalComponent,
         AutomaticTagModalComponent,
         AddTagModalComponent,
-        EmailModalComponent
+        EmailModalComponent,
+        AddEmailTempComponent
     ],
     bootstrap: [AppComponent]
 })
