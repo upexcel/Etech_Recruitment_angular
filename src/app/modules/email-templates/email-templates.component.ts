@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { AddEmailTempComponent } from '../add-email-temp/add-email-temp.component';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { TemplateEditComponent } from '../template-edit/template-edit.component';
 
 @Component({
     selector: 'app-email-templates',
@@ -38,5 +39,21 @@ export class EmailTemplatesComponent implements OnInit {
             this.dialogRef = null;
         });
     }
+
+    editTemp(temp: any) {
+        this.dialogRef = this.dialog.open(TemplateEditComponent, {
+            height: '90%',
+            width: '80%'
+        });
+        this.dialogRef.componentInstance.userVar = this.userVar;
+        this.dialogRef.componentInstance.sysVar = this.sysVar;
+        this.dialogRef.componentInstance.temp = temp;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
+    }
+
+
+
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-single-template',
@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SingleTemplateComponent implements OnInit {
     open: boolean;
     @Input() temp: any;
+    @Output() edits = new EventEmitter<any>();
     constructor() { }
 
     ngOnInit() {
@@ -18,11 +19,11 @@ export class SingleTemplateComponent implements OnInit {
 
     }
 
-    edit(id: string) {
-
+    edit(temp: any) {
+        this.edits.emit(temp);
     }
 
-    test(temp: any) {
+    test(id: string) {
 
     }
 }
