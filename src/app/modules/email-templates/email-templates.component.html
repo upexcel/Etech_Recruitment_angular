@@ -1,3 +1,6 @@
-<p align="center">
-  email-templates component
-</p>
+<div>
+    <a md-raised-button color=accent class="btn-pos" (click)="addTemp()">ADD NEW TEMPLATE</a>
+</div>
+<div class="cd-pos flex-container">
+<app-single-template *ngFor="let temps of tempData" [temp]="temps"></app-single-template>
+</div>

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { config } from './../config/config';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { TAGS, historylog, Emaillist } from './mock-data';
+import { TAGS, historylog, Emaillist, UserVariable, SystemVar, TempData } from './mock-data';
 import { InterceptedHttp } from './http.interceptor';
 
 @Injectable()
@@ -63,7 +63,12 @@ export class ImapMailsService {
     getHistory(): Promise < any[] > {
         return Promise.resolve(historylog);
     }
-
+    getUserVariable(): Promise < any[] > {
+        return Promise.resolve(UserVariable);
+    }
+    getSystemVariable(): Promise < any[] > {
+        return Promise.resolve(SystemVar);
+    }
     getEmailName(): Promise < any[] > {
         return Promise.resolve(Emaillist);
     }
@@ -96,5 +101,9 @@ export class ImapMailsService {
         return this.Intercepted.delete(config['apibase'] + 'smtp/delete/' + id)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    // *** Email template service functions ***
+    getTemplate(): Promise <any[]> {
+        return Promise.resolve(TempData);
     }
 }

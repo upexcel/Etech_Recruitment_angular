@@ -76,3 +76,73 @@ export const Emaillist: any = [{
     }
 ];
 
+export const UserVariable: any = [{
+    '_id': '4394dssdfj',
+    'variableCode': '#office_address',
+    'variableValue': 'noida'
+},
+    {
+        '_id': '43sdsssdfj',
+        'variableCode': '#page_header',
+        'variableValue': 'first round'
+    },
+    {
+        '_id': '4394dsdffj',
+        'variableCode': '#hr_signature',
+        'variableValue': 'birjesh'
+    },
+    {
+        '_id': '4394sdfdfj',
+        'variableCode': '#director_signature',
+        'variableValue': 'manish'
+    },
+    {
+        '_id': '4394sdfdfj',
+        'variableCode': '#page_footer',
+        'variableValue': 'footer'
+    },
+    {
+        '_id': '4394sdfdfj',
+        'variableCode': '#map_location',
+        'variableValue': 'noida'
+    },
+    {
+        '_id': '4394sdfdfj',
+        'variableCode': '#phone_number',
+        'variableValue': '2398492390'
+    }
+];
+export const SystemVar: any = [{
+    '_id': '4394dssdfj',
+    'variableCode': '#date'
+},
+    {
+        '_id': '43sdsssdfj',
+        'variableCode': '#candidate_name'
+    },
+    {
+        '_id': '4394dsdffj',
+        'variableCode': '#candidate_email_id'
+    },
+    {
+        '_id': '4394sdfdfj',
+        'variableCode': '#page_break'
+    },
+    {
+        '_id': '4394sdfdfj',
+        'variableCode': '#logo'
+    }
+];
+export const TempData: any = [{
+    'id': '09',
+    'body': '<p><strong>Body</strong>:<br />Dated #date|MMM Do YY|</p><p>Dear #candidate_name</p><p>We are pleased to inform you that you have been selected to appear first round interview with our Panel Members.</p><p>You are requested to come for a formal interview on #schedule_date|28-11-2017| at #office_address at #schedule_time|02:30 pm|</p><p>#page_break</p><p><strong>#hr_signature</strong></p><p><strong>#phone_number</strong></p><p><strong>#logo</strong>&nbsp;</p>',
+    'subject': 'First round Interview',
+    'templateName': 'First round Interviews'
+},
+    {
+        'id': '34',
+        'body': '<p><strong>Body</strong>:<br />Dated #date|MMM Do YY|</p><p>Dear #candidate_name</p><p>We are pleased to inform you that you have been selected to appear first round interview with our Panel Members.</p><p>You are requested to come for a formal interview on #schedule_date|28-11-2017| at #office_address at #schedule_time|02:30 pm|</p><p>#page_break</p><p><strong>#hr_signature</strong></p><p><strong>#phone_number</strong></p><p><strong>#logo</strong>&nbsp;</p>',
+        'subject': 'Second round Interview',
+        'templateName': 'second round Interviews'
+    }
+];
