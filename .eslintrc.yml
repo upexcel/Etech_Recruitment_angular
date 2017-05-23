@@ -1,0 +1,15 @@
+# env:
+#   browser: true
+#   es6: true
+extends: plugin:angular/johnpapa
+# plugins:
+#     - angular
+
+# rules:
+#     # Whichever rules you like
+
+# globals:
+#     angular: true
+
+# settings:
+#     angular: 2

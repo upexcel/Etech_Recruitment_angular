@@ -1,0 +1,52 @@
+<div>
+    <h3>Add Tag</h3>
+</div>
+<hr>
+<form #addForm="ngForm" (ngSubmit)="registerUser(addForm)">
+    <div class="body">
+        <md-grid-list cols="4" rowHeight="80px" gutterSize="10px">
+            <md-grid-tile [colspan]="2">
+                <md-input-container>
+                    <input mdInput name="title" placeholder="Title" ngModel required>
+                    <md-error>Title Is Required</md-error>
+                </md-input-container>
+            </md-grid-tile>
+            <md-grid-tile [colspan]="2">
+                <md-radio-group class="pos-radio" name="type" [(ngModel)]="type" ngModel required>
+                    <md-radio-button name="type" value="Manual" (click)="types = 0">Manual Tag</md-radio-button>
+                    <md-radio-button name="type" value="Automatic" (click)="types = 1">Automatic Tag</md-radio-button>
+                </md-radio-group>
+            </md-grid-tile>
+            <md-grid-tile [colspan]="2" *ngIf="types">
+                <md-input-container>
+                    <input mdInput name="email" type="email" placeholder="Email" ngModel>
+                    <md-error>Invalid Email</md-error>
+                </md-input-container>
+            </md-grid-tile>
+            <md-grid-tile [colspan]="2" *ngIf="types">
+                <md-input-container>
+                    <input mdInput name="subject" placeholder="Subject" ngModel>
+                </md-input-container>
+            </md-grid-tile>
+            <md-grid-tile [colspan]="2" *ngIf="types">
+                <md-input-container>
+                    <input mdInput name="from" type="date" placeholder="From date" ngModel>
+                </md-input-container>
+            </md-grid-tile>
+            <md-grid-tile [colspan]="2" *ngIf="types">
+                <md-input-container>
+                    <input mdInput name="to" type="date" placeholder="To date" ngModel>
+                </md-input-container>
+            </md-grid-tile>
+        </md-grid-list>
+        <div>
+            <h4> Tag Color </h4>
+            <color-picker name="color" [(ngModel)]="originalcolor" [availableColors]="availableColors" ngModel></color-picker>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a md-raised-button (click)="close()">Close</a>
+        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid" (click)="registerUser(addForm)">Save</a>
+    </div>
+</form>

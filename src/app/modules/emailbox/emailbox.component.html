@@ -1,0 +1,34 @@
+<md-card class="bleftblue emailstyle">
+    <md-grid-list cols="8" rowHeight="100px">
+        <md-grid-tile [colspan]="'1'">
+            <div class="emailcheckbox" (click)="emailSelection()">
+                <span *ngIf="!selected" >{{email.subject?.charAt(0)}}</span>
+                <md-icon *ngIf="selected">check</md-icon>
+            </div>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="'6'" (click)="openEmails(email)">
+            <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}">
+                <h4 class="inline">{{email.subject}}</h4>
+                <h6 class="inline">{{email.email_date}}</h6>
+                <p>{{email.sender_mail}} - From {{email.from}}
+                    <md-icon *ngIf="email.attachment?.length > 0" class="attach">
+                        attach_file
+                    </md-icon>
+                </p>
+            </div>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="'1'">
+            <button md-icon-button [mdMenuTriggerFor]="themeMenu">
+                       <md-icon>more_vert</md-icon>
+                      </button>
+            <md-menu #themeMenu x-position="before">
+                <button md-menu-item *ngFor="let tag of tags['Automatic']" (click)="assignToEmail(tag.id, email._id)">
+                             <div class="logo" [style.background-color]="tag.color">
+                                <span>{{tag.title?.charAt(0)}}</span>
+                            </div>
+                           <span>{{tag.title}}</span>
+                         </button>
+            </md-menu>
+        </md-grid-tile>
+    </md-grid-list>
+</md-card>

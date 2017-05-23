@@ -1,0 +1,28 @@
+@import './../../variable.scss';
+.example-card {
+    width: 430px;
+}
+md-card {
+	padding: 0px;
+	margin: 8px;
+}
+md-card-header {
+	background-color: $si-tem-color;
+	padding: 10px 0px 0px 12px;
+}
+.set-pos {
+	padding: 10px 0px 10px 42px !important;
+    margin: 0px 0px 0px 0px !important;
+}
+.e-c {
+    color: $emailbluecolor;
+}
+.m-e {
+    color: $emailtempedit;
+}
+.d-c {
+    color: $emailtempdelete;
+}
+.pad {
+	padding: 12px;
+}

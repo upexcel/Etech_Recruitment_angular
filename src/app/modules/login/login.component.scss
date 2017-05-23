@@ -1,0 +1,49 @@
+@import './../../variable.scss';
+.login-card {
+    width: 315px;
+    position: absolute;
+    left: 36%;
+    top: 25%;
+}
+.width-100 {
+    width: 100%;
+}
+md-card-actions {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.outerbody {
+    background-color: $outercolor;
+    width: 100%;
+    position: absolute;
+    height: 100%;
+}
+.logo {
+    position: inherit;
+    left: 41%;
+    top: 10%;
+}
+.forpas {
+    margin-left: 28%;
+    font-size: 15px;
+    text-decoration: none;
+    color: $linkcolor;
+}
+.hav-acc {
+    color: $white;
+    margin-left: 15%;
+    font-size: 15px;
+}
+.signup {
+    text-decoration: none;
+    color: $linkcolor;
+}
+.spin {
+    height: 50px;
+    width: 50px;
+    margin-left: 35%;
+}
+.error {
+    color: $red;
+    text-align: center;
+}

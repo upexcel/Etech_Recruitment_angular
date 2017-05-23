@@ -1,0 +1,44 @@
+@import './../../variable.scss';
+.btn-pos {
+	left: 80%;
+}
+
+.header {
+	margin: 20px 20px 20px 20px;
+}
+
+table.list {
+    width: 100%;
+    tr, th {
+        text-align: left;
+        padding: 5px 0px;
+        vertical-align: middle;
+    }
+    tbody {
+        tr:hover {
+            background: $tbodycolor;
+        }
+    }
+}
+tbody.sys {
+	tr {
+	    height: 48px;
+	}
+}
+.del-wid {
+	width: 20%;
+}
+.v-wid {
+	width: 33%;
+}
+.red {
+	color: $red;
+	cursor: pointer;
+}
+md-list-item {
+	padding: 10px 0px 10px 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+.txt-edit {
+	cursor: pointer;
+}

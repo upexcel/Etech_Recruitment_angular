@@ -1,0 +1,52 @@
+@import './../../variable.scss';
+:host {
+    display: flex;
+    flex: 1;
+}
+md-sidenav {
+    width: 280px;
+}
+md-toolbar {
+    box-shadow: 0 2px 5px 0 $toolbarcolor;
+}
+.width100 {
+    width: 100%;
+}
+.mainnav {
+    margin-left: 15px;
+}
+.hovestyle {
+    padding: 10px 0px;
+    position: relative;
+    cursor: pointer;
+}
+md-sidenav-container {
+    md-sidenav {
+        hr {
+            margin: -1px 0px 0px;
+            height: 1px;
+            border: none;
+            background-color: $hrlinecolor;
+        }
+        div.hovestyle:hover {
+            background-color: $hovecolor;
+        }
+    }
+}
+.mainlogo {
+    background-color: $mainlogo;
+    text-align: center;
+    padding: 30px;
+}
+.main {
+    text-decoration: none;
+    a:hover {
+       text-decoration: none;
+    }
+}
+.bgcolor {
+    background-color: $contentcolor;
+}
+/deep/ .mat-list-item-content {
+    height: auto !important;
+}

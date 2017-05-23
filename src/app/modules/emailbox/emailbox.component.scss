@@ -1,0 +1,59 @@
+@import './../../variable.scss';
+:host {
+    display: flex;
+    flex: 1;
+}
+.emailstyle {
+    padding: 0px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+.bleftblue {
+    border-left: 5px solid $borderleftblue;
+}
+.logodesign {
+    color: $white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    border-radius: 50%;
+    left: 4px;
+    -webkit-user-select: none;
+    margin-left: 4px;
+    margin-right: 3px;
+}
+.heightwidth27 {
+    height: 27px;
+    width: 27px;
+}
+.logo {
+    @extend .logodesign;
+    @extend .heightwidth27;
+}
+.emailcheckbox {
+    @extend .logodesign;
+    background-color: $roundcirclecolor;
+    height: 54px;
+    width: 54px;
+    cursor: pointer; 
+}
+.detailloc {
+    position: absolute;
+    left: 5px;
+    cursor: pointer; 
+}
+.inline {
+    display: inline;
+}
+.attach {
+    width: 8px;
+    height: 8px;
+    font-size: 15px;
+}
+.checked {
+    opacity: 0.6;
+}
+.unchecked {
+    opacity: 1;
+}
