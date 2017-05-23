@@ -27,4 +27,6 @@ export class AddVarComponent implements OnInit {
     close() {
         this.dialogRef.close();
     }
+
+
 }
