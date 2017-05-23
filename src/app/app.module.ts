@@ -128,6 +128,8 @@ import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
 import { SafeUrlPipe } from './service/safe-url.pipe';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { SingleTemplateComponent } from './modules/single-template/single-template.component';
+import { TemplateEditComponent } from './modules/template-edit/template-edit.component';
+import { AddVarComponent } from './modules/add-var/add-var.component';
 
 
 @NgModule({
@@ -159,7 +161,9 @@ import { SingleTemplateComponent } from './modules/single-template/single-templa
         SafeUrlPipe,
         SmtpComponentFormComponent,
         AddEmailTempComponent,
-        SingleTemplateComponent
+        SingleTemplateComponent,
+        TemplateEditComponent,
+        AddVarComponent
     ],
     imports: [
         BrowserModule,
@@ -195,7 +199,9 @@ import { SingleTemplateComponent } from './modules/single-template/single-templa
         AutomaticTagModalComponent,
         AddTagModalComponent,
         EmailModalComponent,
-        AddEmailTempComponent
+        AddEmailTempComponent,
+        TemplateEditComponent,
+        AddVarComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -94,17 +94,17 @@ export const UserVariable: any = [{
     {
         '_id': '4394sdfdfj',
         'variableCode': '#director_signature',
-        'variableValue': 'manish'
+        'variableValue': '<p><strong>Excellence Technologies,</strong></p><p><strong>Manish Prakash</strong></p><p><strong>(Director)&nbsp;</strong></p>'
     },
     {
         '_id': '4394sdfdfj',
         'variableCode': '#page_footer',
-        'variableValue': 'footer'
+        'variableValue': '<div id="footer"><table class = "tab3" style="border-top:3px solid; margin-bottom:8px;"><tbody><tr><td colspan="2"><div  style="background-color: #622423;height:5px;"></div><div  style="background-color: #622423;height:1px;margin-top:2px;"></div></td><tr><td><b>Excellence Technosoft Pvt Ltd</b></td><td style="text-align: right"><a href="http://www.excellencetechnologies.in">http://www.excellencetechnologies.in</a></td><tr> <td style="text-align: right"><b>CIN:</b> U72200DL2010PTC205087</td> </tr><tr> <td colspan="2"><b>Regd Office:</b> 328 GAGAN VIHAR IST MEZZAZINE,NEW DELHI-110051</td> </tr></tbody></table></div>'
     },
     {
         '_id': '4394sdfdfj',
         'variableCode': '#map_location',
-        'variableValue': 'noida'
+        'variableValue': '<p>HR&nbsp;</p><p>Birjesh Bhardwaj&nbsp;</p><p>Excellence Technologies</p><p>+91 - 9811065469</p><p>https://excellencetechnologies.in</p><p>C84A Second Floor, Sector 8 Noida&nbsp;</p>'
     },
     {
         '_id': '4394sdfdfj',
