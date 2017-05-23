@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 export class AddVarComponent implements OnInit {
     ckeditorContent: any;
     types: number;
+    type: any;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
