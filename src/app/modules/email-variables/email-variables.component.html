@@ -17,7 +17,7 @@
                     <tbody>
                         <tr *ngFor="let variable of userVar">
                             <td class="v-wid">{{variable.variableCode}}</td>
-                            <td class="txt-edit" (click)="edit(variable)"><p [innerHTML]="variable.variableValue | safeHtml"></p></td>
+                            <td class="txt-edit" (click)="editVariable(variable)"><p [innerHTML]="variable.variableValue | safeHtml"></p></td>
                             <td class="del-wid">
                                 <md-icon class="red" (click)="delete(variable._id)">delete</md-icon>
                             </td>

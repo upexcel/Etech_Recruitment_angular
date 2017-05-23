@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { AddVarComponent } from '../add-var/add-var.component';
+import { EditVariableComponent } from '../edit-variable/edit-variable.component';
 
 @Component({
     selector: 'app-email-variables',
@@ -38,6 +39,14 @@ export class EmailVariablesComponent implements OnInit {
     }
 
     editVariable(usr_var: any) {
+        this.dialogRef = this.dialog.open(EditVariableComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        this.dialogRef.componentInstance.userVar = usr_var;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
 
     }
 
