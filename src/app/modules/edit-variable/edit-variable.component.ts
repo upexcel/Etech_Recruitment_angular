@@ -4,12 +4,16 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
-    selector: 'app-add-var',
-    templateUrl: './add-var.component.html',
-    styleUrls: ['./add-var.component.scss']
+    selector: 'app-edit-variable',
+    templateUrl: './edit-variable.component.html',
+    styleUrls: ['./edit-variable.component.scss']
 })
-export class AddVarComponent implements OnInit {
-    ckeditorContent: any;
+export class EditVariableComponent implements OnInit {
+    userVar: any;
+
+    varCode: string;
+    varValue: string;
+
     types: number;
     type: any;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
@@ -17,9 +21,11 @@ export class AddVarComponent implements OnInit {
 
     ngOnInit() {
         this.types = 1;
+        this.varCode = this.userVar.variableCode;
+        this.varValue = this.userVar.variableValue;
     }
 
-    save(form: NgForm) {
+    update(form: NgForm) {
         form.reset();
         this.dialogRef.close();
     }
@@ -27,6 +33,5 @@ export class AddVarComponent implements OnInit {
     close() {
         this.dialogRef.close();
     }
-
 
 }
