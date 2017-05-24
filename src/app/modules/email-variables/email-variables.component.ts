@@ -41,7 +41,6 @@ export class EmailVariablesComponent implements OnInit {
 
     delete(id: string) {
         this.getVariable.deleteVariable(id).subscribe((data) => {
-            console.log(data);
             this.loadVariables();
         });
     }

@@ -22,14 +22,11 @@ export class AddVarComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
-            console.log(form);
             this.body = {
                 'variableCode': '#' + form.value['variableCode'],
                 'variableValue': form.value['variableValue']
             };
-            console.log(this.body);
             this.getVariable.addUserVariable(this.body).subscribe((data) => {
-                console.log(data);
                 form.reset();
                 this.dialogRef.close();
             }, (err) => {
