@@ -16,7 +16,11 @@ export class EmailVariablesComponent implements OnInit {
     constructor(public dialog: MdDialog, private getVariable: ImapMailsService) { }
 
     ngOnInit() {
-        this.getVariable.getUserVariable().then(data => {
+        this.loadVariables();
+    }
+
+    loadVariables() {
+        this.getVariable.getUserVariable().subscribe((data) => {
             this.userVar = data;
         });
         this.getVariable.getSystemVariable().then(data => {
@@ -31,11 +35,15 @@ export class EmailVariablesComponent implements OnInit {
         });
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.loadVariables();
         });
     }
 
     delete(id: string) {
-
+        this.getVariable.deleteVariable(id).subscribe((data) => {
+            console.log(data);
+            this.loadVariables();
+        });
     }
 
     editVariable(usr_var: any) {
@@ -46,6 +54,7 @@ export class EmailVariablesComponent implements OnInit {
         this.dialogRef.componentInstance.userVar = usr_var;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.loadVariables();
         });
 
     }

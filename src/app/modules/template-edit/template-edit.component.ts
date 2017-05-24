@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 export class TemplateEditComponent implements OnInit {
     userVar: any;
     sysVar: any;
+    updateData: any;
     ckeditorContent: any;
     tempName: string;
     subject: string;
@@ -24,9 +25,18 @@ export class TemplateEditComponent implements OnInit {
         this.ckeditorContent = this.temp.body;
     }
 
-    save(form: NgForm) {
-        form.reset();
-        this.dialogRef.close();
+    update(form: NgForm) {
+        this.updateData = {
+            'templateName': this.tempName,
+            'subject': this.subject,
+            'body': this.ckeditorContent
+        };
+        this.getVariable.updateTemplate(this.updateData, this.temp.id).subscribe((data) => {
+            form.reset();
+            this.dialogRef.close();
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     close() {

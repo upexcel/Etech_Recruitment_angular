@@ -9,6 +9,8 @@ export class SingleTemplateComponent implements OnInit {
     open: boolean;
     @Input() temp: any;
     @Output() edits = new EventEmitter<any>();
+    @Output() deleteTemp = new EventEmitter<string>();
+
     constructor() { }
 
     ngOnInit() {
@@ -16,7 +18,7 @@ export class SingleTemplateComponent implements OnInit {
     }
 
     delete(id: string) {
-
+        this.deleteTemp.emit(id);
     }
 
     edit(temp: any) {

@@ -1,7 +1,7 @@
 <div>
     <a md-raised-button color=accent class="btn-pos" (click)="addVariable()">ADD NEW VARIABLE</a>
 </div>
-<div class="header">
+<div class="header" *ngIf="userVar">
 	<md-card>
 	<h3>User Variable(s)</h3>
 	<md-divider></md-divider>
@@ -19,7 +19,7 @@
                             <td class="v-wid">{{variable.variableCode}}</td>
                             <td class="txt-edit" (click)="editVariable(variable)"><p [innerHTML]="variable.variableValue | safeHtml"></p></td>
                             <td class="del-wid">
-                                <md-icon class="red" (click)="delete(variable._id)">delete</md-icon>
+                                <md-icon class="red" (click)="delete(variable.id)">delete</md-icon>
                             </td>
                         </tr>
                     </tbody>
@@ -27,7 +27,7 @@
             </md-card-content>
 	</md-card>
 </div>
-<div class="header">
+<div class="header" *ngIf="sysVar">
 	<md-card>
 	<h3>System Variable(s)</h3>
 	<md-divider></md-divider>

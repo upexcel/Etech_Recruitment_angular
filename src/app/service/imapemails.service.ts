@@ -63,11 +63,33 @@ export class ImapMailsService {
     getHistory(): Promise < any[] > {
         return Promise.resolve(historylog);
     }
-    getUserVariable(): Promise < any[] > {
-        return Promise.resolve(UserVariable);
+    getUserVariable(): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + 'variable/get/1/')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     getSystemVariable(): Promise < any[] > {
         return Promise.resolve(SystemVar);
+    }
+    addUserVariable(body): Observable <any> {
+        return this.Intercepted.post(config['apibase'] + 'variable/add/', body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    deleteVariable(id: string): Observable <any> {
+        return this.Intercepted.delete(config['apibase'] + 'variable/delete/' + id)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    updateVariable(body: any, id: string): Observable <any> {
+        return this.Intercepted.put(config['apibase'] + 'variable/update/' + id, body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    addTemplate(body: any): Observable <any> {
+        return this.Intercepted.post(config['apibase'] + 'template/add/', body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     getEmailName(): Promise < any[] > {
         return Promise.resolve(Emaillist);
@@ -87,7 +109,7 @@ export class ImapMailsService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
-    storeSmtp(body): Observable <any> {
+    storeSmtp(body: any): Observable <any> {
         return this.Intercepted.post(config['apibase'] + 'smtp/save', body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
@@ -103,7 +125,19 @@ export class ImapMailsService {
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     // *** Email template service functions ***
-    getTemplate(): Promise <any[]> {
-        return Promise.resolve(TempData);
+    getTemplate(): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + 'template/get/1')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    updateTemplate(body: any, id: string): Observable <any> {
+        return this.Intercepted.put(config['apibase'] + 'template/update/' + id, body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    deleteTemplate(id: string): Observable <any> {
+        return this.Intercepted.delete(config['apibase'] + 'template/delete/' + id)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 }
