@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class EditVariableComponent implements OnInit {
     userVar: any;
-
+    body: any;
     varCode: string;
     varValue: string;
 
@@ -26,8 +26,16 @@ export class EditVariableComponent implements OnInit {
     }
 
     update(form: NgForm) {
-        form.reset();
-        this.dialogRef.close();
+        this.body = {
+            'variableCode': this.varCode,
+            'variableValue': this.varValue
+        };
+        this.getVariable.updateVariable(this.body, this.userVar.id).subscribe((data) => {
+            form.reset();
+            this.dialogRef.close();
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     close() {

@@ -12,6 +12,7 @@ export class AddVarComponent implements OnInit {
     ckeditorContent: any;
     types: number;
     type: any;
+    body: any;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
@@ -20,8 +21,19 @@ export class AddVarComponent implements OnInit {
     }
 
     save(form: NgForm) {
-        form.reset();
-        this.dialogRef.close();
+        if (form.valid) {
+            this.body = {
+                'variableCode': '#' + form.value['variableCode'],
+                'variableValue': form.value['variableValue']
+            };
+            this.getVariable.addUserVariable(this.body).subscribe((data) => {
+                form.reset();
+                this.dialogRef.close();
+            }, (err) => {
+                console.log(err);
+            });
+
+        }
     }
 
     close() {

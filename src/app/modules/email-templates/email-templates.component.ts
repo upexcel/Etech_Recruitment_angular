@@ -17,13 +17,17 @@ export class EmailTemplatesComponent implements OnInit {
     constructor(public dialog: MdDialog, private getVariable: ImapMailsService) { }
 
     ngOnInit() {
-        this.getVariable.getUserVariable().then(data => {
+        this.getVariable.getUserVariable().subscribe((data) => {
             this.userVar = data;
         });
         this.getVariable.getSystemVariable().then(data => {
             this.sysVar = data;
         });
-        this.getVariable.getTemplate().then(data => {
+        this.loadTemp();
+    }
+
+    loadTemp() {
+        this.getVariable.getTemplate().subscribe(data => {
             this.tempData = data;
         });
     }
@@ -37,6 +41,7 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.loadTemp();
         });
     }
 
@@ -50,10 +55,15 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.temp = temp;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.loadTemp();
         });
     }
 
-
-
-
+    deleteTempId(id: string) {
+        this.getVariable.deleteTemplate(id).subscribe((data) => {
+            this.loadTemp();
+        }, (err) => {
+            console.log(err);
+        });
+    }
 }

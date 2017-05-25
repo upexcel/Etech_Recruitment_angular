@@ -29,6 +29,13 @@
                 <input mdInput placeholder="To date" disabled [value]="tag.to | date">
             </md-input-container>
         </md-grid-tile>
+        <md-grid-tile [colspan]="1">
+            <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel>
+                <md-option *ngFor="let temp of tempList" [value]="temp.id">
+                    {{temp.templateName}}
+                </md-option>
+            </md-select>
+        </md-grid-tile>
     </md-grid-list>
     <div>
         <h4> Tag Color </h4>

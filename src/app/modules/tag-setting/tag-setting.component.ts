@@ -11,14 +11,23 @@ import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
     styleUrls: ['./tag-setting.component.scss']
 })
 export class TagSettingComponent implements OnInit {
-    dialogRef: MdDialogRef < any > ;
+    dialogRef: MdDialogRef <any> ;
     loading = false;
+    tempList: any;
     tags: any [];
     constructor(private gettags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) {}
 
     ngOnInit() {
         this.loading = true;
         this.getAllTag();
+        this.getAllTemp();
+    }
+    getAllTemp() {
+        this.gettags.getTemplate().subscribe((data) => {
+            this.tempList = data;
+        }, (err) => {
+            console.log(err);
+        });
     }
     getAllTag() {
         this.gettags.getAllTags()
@@ -56,6 +65,7 @@ export class TagSettingComponent implements OnInit {
             width: '350px'
         });
         this.dialogRef.componentInstance.tag = tag1;
+        this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
         });
@@ -66,6 +76,7 @@ export class TagSettingComponent implements OnInit {
             height: '600px',
             width: '450px'
         });
+        this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
             this.getAllTag();

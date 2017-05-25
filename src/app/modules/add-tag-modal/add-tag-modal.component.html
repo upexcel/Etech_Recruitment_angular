@@ -4,7 +4,7 @@
 <hr>
 <form #addForm="ngForm" (ngSubmit)="registerUser(addForm)">
     <div class="body">
-        <md-grid-list cols="4" rowHeight="80px" gutterSize="10px">
+        <md-grid-list cols="4" rowHeight="65px" gutterSize="10px">
             <md-grid-tile [colspan]="2">
                 <md-input-container>
                     <input mdInput name="title" placeholder="Title" ngModel required>
@@ -29,14 +29,21 @@
                 </md-input-container>
             </md-grid-tile>
             <md-grid-tile [colspan]="2" *ngIf="types">
-                <md-input-container>
+                <md-input-container class="width-100">
                     <input mdInput name="from" type="date" placeholder="From date" ngModel>
                 </md-input-container>
             </md-grid-tile>
             <md-grid-tile [colspan]="2" *ngIf="types">
-                <md-input-container>
+                <md-input-container class="width-100">
                     <input mdInput name="to" type="date" placeholder="To date" ngModel>
                 </md-input-container>
+            </md-grid-tile>
+             <md-grid-tile [colspan]="2" *ngIf="types">
+                <md-select class="width-100" placeholder="Select Template" name="template_id" ngModel>
+                    <md-option *ngFor="let temp of tempList" [value]="temp.id">
+                        {{temp.templateName}}
+                    </md-option>
+                </md-select>
             </md-grid-tile>
         </md-grid-list>
         <div>

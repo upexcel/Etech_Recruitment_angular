@@ -130,6 +130,7 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { SingleTemplateComponent } from './modules/single-template/single-template.component';
 import { TemplateEditComponent } from './modules/template-edit/template-edit.component';
 import { AddVarComponent } from './modules/add-var/add-var.component';
+import { EditVariableComponent } from './modules/edit-variable/edit-variable.component';
 
 
 @NgModule({
@@ -163,7 +164,8 @@ import { AddVarComponent } from './modules/add-var/add-var.component';
         AddEmailTempComponent,
         SingleTemplateComponent,
         TemplateEditComponent,
-        AddVarComponent
+        AddVarComponent,
+        EditVariableComponent
     ],
     imports: [
         BrowserModule,
@@ -201,7 +203,8 @@ import { AddVarComponent } from './modules/add-var/add-var.component';
         EmailModalComponent,
         AddEmailTempComponent,
         TemplateEditComponent,
-        AddVarComponent
+        AddVarComponent,
+        EditVariableComponent
     ],
     bootstrap: [AppComponent]
 })

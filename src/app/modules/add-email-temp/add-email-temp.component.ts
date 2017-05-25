@@ -19,8 +19,14 @@ export class AddEmailTempComponent implements OnInit {
     }
 
     save(form: NgForm) {
-        form.reset();
-        this.dialogRef.close();
+        if (form.valid) {
+            this.getVariable.addTemplate(form.value).subscribe((data) => {
+                form.reset();
+                this.dialogRef.close();
+            }, (err) => {
+                console.log(err);
+            });
+        }
     }
 
     close() {

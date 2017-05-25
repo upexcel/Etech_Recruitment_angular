@@ -10,9 +10,9 @@
                     <md-error>required</md-error>
                 </md-input-container>
             </p>
-               <md-radio-group class="pos-radio" name="type" [(ngModel)]="type" ngModel required>
-                    <md-radio-button name="type" value="Add header/footer" (click)="types = 0">Add header/footer</md-radio-button>
-                    <md-radio-button name="type" value="other than header" (click)="types = 1">Other than header/footer</md-radio-button>
+               <md-radio-group class="pos-radio" name="type" [(ngModel)]="types" ngModel>
+                    <md-radio-button [value]="0" (click)="types = 0">Add header/footer</md-radio-button>
+                    <md-radio-button [value]="1" (click)="types = 1">Other than header/footer</md-radio-button>
                 </md-radio-group>
                 <div class="editor" *ngIf="types">
                 <ckeditor name="variableValue" 
@@ -22,7 +22,7 @@
                 </div>
                 <div class="text-area" *ngIf="!types">
                 	<md-input-container class="width-100">
-                        <textarea mdInput name="variableValue" mdTextareaAutosize  mdAutosizeMinRows="5" placeholder=" Write html code for header/footer"></textarea>
+                        <textarea mdInput name="variableValue" mdTextareaAutosize  mdAutosizeMinRows="5" placeholder=" Write html code for header/footer" ngModel></textarea>
                     </md-input-container>
                 </div>
         </div>
