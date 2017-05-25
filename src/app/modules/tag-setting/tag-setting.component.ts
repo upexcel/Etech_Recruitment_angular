@@ -65,6 +65,7 @@ export class TagSettingComponent implements OnInit {
             width: '350px'
         });
         this.dialogRef.componentInstance.tag = tag1;
+        this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
         });

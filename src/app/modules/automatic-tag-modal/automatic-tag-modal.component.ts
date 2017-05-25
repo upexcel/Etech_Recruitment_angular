@@ -10,19 +10,23 @@ import { color_list } from '../../config/config';
 })
 export class AutomaticTagModalComponent implements OnInit {
     tag: any;
+    tempList: any;
     originalcolor = '';
     originaltitle = '';
+    temp_id: any;
     availableColors = color_list;
     constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
         this.originaltitle = this.tag.title;
         this.originalcolor = this.tag.color;
+        this.temp_id = this.tag.template_id;
     }
 
     save() {
         this.tag.title = this.originaltitle;
         this.tag.color = this.originalcolor;
+        this.tag.template_id = this.temp_id;
         this.tagupdate.updateTag(this.tag, this.tag.type).subscribe((data) => {
             this.dialogRef.close();
         }, (err) => {
