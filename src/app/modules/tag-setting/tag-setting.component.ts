@@ -62,7 +62,7 @@ export class TagSettingComponent implements OnInit {
     openAutomatic(tag1: any) {
         this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {
             height: '600px',
-            width: '350px'
+            width: '410px'
         });
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.componentInstance.tempList = this.tempList;

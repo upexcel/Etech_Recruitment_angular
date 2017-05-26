@@ -3,6 +3,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { AddEmailTempComponent } from '../add-email-temp/add-email-temp.component';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
+import { TestTemplateComponent } from '../test-template/test-template.component';
 
 @Component({
     selector: 'app-email-templates',
@@ -52,6 +53,20 @@ export class EmailTemplatesComponent implements OnInit {
         });
         this.dialogRef.componentInstance.userVar = this.userVar;
         this.dialogRef.componentInstance.sysVar = this.sysVar;
+        this.dialogRef.componentInstance.temp = temp;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.loadTemp();
+        });
+    }
+
+    testTemplate(temp: any) {
+        this.dialogRef = this.dialog.open(TestTemplateComponent, {
+            height: '40%',
+            width: '60%'
+        });
+        // this.dialogRef.componentInstance.userVar = this.userVar;
+        // this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.componentInstance.temp = temp;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
