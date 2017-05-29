@@ -131,6 +131,7 @@ import { SingleTemplateComponent } from './modules/single-template/single-templa
 import { TemplateEditComponent } from './modules/template-edit/template-edit.component';
 import { AddVarComponent } from './modules/add-var/add-var.component';
 import { EditVariableComponent } from './modules/edit-variable/edit-variable.component';
+import { TestTemplateComponent } from './modules/test-template/test-template.component';
 
 
 @NgModule({
@@ -165,7 +166,8 @@ import { EditVariableComponent } from './modules/edit-variable/edit-variable.com
         SingleTemplateComponent,
         TemplateEditComponent,
         AddVarComponent,
-        EditVariableComponent
+        EditVariableComponent,
+        TestTemplateComponent
     ],
     imports: [
         BrowserModule,
@@ -204,7 +206,8 @@ import { EditVariableComponent } from './modules/edit-variable/edit-variable.com
         AddEmailTempComponent,
         TemplateEditComponent,
         AddVarComponent,
-        EditVariableComponent
+        EditVariableComponent,
+        TestTemplateComponent
     ],
     bootstrap: [AppComponent]
 })
