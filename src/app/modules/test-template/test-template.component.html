@@ -26,10 +26,10 @@
 </form>
 </div>
 
-<div>
+<div *ngIf="!first">
 <h1 md-dialog-title>Send Mail</h1>
 <hr>
-<form class="m-p" autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
+<form class="m-p" autoComplete="off" #addTemp="ngForm" (ngSubmit)="setVariable(addTemp)">
     <div class="m-f">To: <span class="label">{{userDetails.CandidateName}}</span></div>
     <table class="full" cellspacing="0">
         <tr>

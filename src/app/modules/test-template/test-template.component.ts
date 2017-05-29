@@ -17,30 +17,21 @@ export class TestTemplateComponent implements OnInit {
     constructor(public dialogRef: MdDialogRef<any>) { }
 
     ngOnInit() {
-        this.first = false;
+        this.first = true;
         this.subject = this.temp.subject;
         this.templateName = this.temp.templateName;
-        // *** just for checking ***
-        this.userDetails = {
-            'CandidateEmail': 'amit@gmail.com',
-            'CandidateName': 'amit'
-        };
-        this.dialogRef.updateSize('80%', '80%');
-        // *** checking end ***
     }
 
     save(form: NgForm) {
         if (form.valid) {
-            console.log(form.value);
-        	// this.userDetails = form.value;
-            // this.getVariable.addTemplate(form.value).subscribe((data) => {
-            form.reset();
-            // this.dialogRef.close();
+            this.userDetails = form.value;
+            this.first = false;
             this.dialogRef.updateSize('80%', '80%');
-            // }, (err) => {
-            //     console.log(err);
-            // });
         }
+    }
+
+    setVariable() {
+
     }
 
     close() {
