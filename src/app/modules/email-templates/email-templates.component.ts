@@ -65,8 +65,6 @@ export class EmailTemplatesComponent implements OnInit {
             height: '40%',
             width: '60%'
         });
-        // this.dialogRef.componentInstance.userVar = this.userVar;
-        // this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.componentInstance.temp = temp;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;

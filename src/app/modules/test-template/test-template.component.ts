@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
-// import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 
 @Component({

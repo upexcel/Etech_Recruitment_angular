@@ -19,7 +19,6 @@ export class ImapServerComponent implements OnInit {
     getImapList() {
         this.imapServices.getImapList().subscribe((data) => {
             this.imapSettingJson = data;
-            console.log(this.imapSettingJson);
         },
         (err) => {
             console.log(err);
