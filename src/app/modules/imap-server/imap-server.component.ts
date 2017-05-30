@@ -25,10 +25,6 @@ export class ImapServerComponent implements OnInit {
         });
     }
 
-    test(id: string) {
-
-    }
-
     remove(id: string) {
         this.imapServices.deleteImap(id).subscribe(
        (data) => {

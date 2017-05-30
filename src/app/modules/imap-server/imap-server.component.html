@@ -14,7 +14,6 @@
                             <th>Port</th>
                             <th>Encryption</th>
                             <th>Active</th>
-                            <th>Test</th>
                             <th>Remove</th>
                             <th>Statistics</th>
                         </tr>
@@ -27,9 +26,6 @@
                             <td>{{setting.type}}</td>
                             <td>
                                 <md-icon class="{{setting.active == 'TRUE' ? 'on':'off'}}">power_settings_new</md-icon>
-                            </td>
-                            <td>
-                                <button md-button class="chartcolor" (click)="test(setting.id)">TEST</button>
                             </td>
                             <td>
                                 <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>

@@ -132,6 +132,7 @@ import { TemplateEditComponent } from './modules/template-edit/template-edit.com
 import { AddVarComponent } from './modules/add-var/add-var.component';
 import { EditVariableComponent } from './modules/edit-variable/edit-variable.component';
 import { TestTemplateComponent } from './modules/test-template/test-template.component';
+import { SetvaremailpreviewComponent } from './modules/setvaremailpreview/setvaremailpreview.component';
 
 
 @NgModule({
@@ -167,7 +168,8 @@ import { TestTemplateComponent } from './modules/test-template/test-template.com
         TemplateEditComponent,
         AddVarComponent,
         EditVariableComponent,
-        TestTemplateComponent
+        TestTemplateComponent,
+        SetvaremailpreviewComponent
     ],
     imports: [
         BrowserModule,
@@ -207,7 +209,8 @@ import { TestTemplateComponent } from './modules/test-template/test-template.com
         TemplateEditComponent,
         AddVarComponent,
         EditVariableComponent,
-        TestTemplateComponent
+        TestTemplateComponent,
+        SetvaremailpreviewComponent
     ],
     bootstrap: [AppComponent]
 })
