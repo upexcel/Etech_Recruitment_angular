@@ -28,7 +28,6 @@ export class SetvaremailpreviewComponent implements OnInit {
             this.body = this.temp.body;
             const self = this;
             _.forEach(form.value, function(value, key) {
-                const reg = new RegExp(key);
                 self.body = _.replace(self.body, key, value);
             });
             self.temp.body = self.body;
@@ -42,10 +41,10 @@ export class SetvaremailpreviewComponent implements OnInit {
     }
 
     sendEmail() {
-        this.dialogRef.close();
+        this.dialogRef.close('done');
     }
 
     close() {
-        this.dialogRef.close();
+        this.dialogRef.close('close');
     }
 }

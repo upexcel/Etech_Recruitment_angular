@@ -30,8 +30,13 @@ export class TestTemplateComponent implements OnInit {
             this.userDetails = form.value;
             this.first = false;
             this.dialogRef.updateSize('80%', '80%');
+            this.replaceUserName(this.userDetails.CandidateName);
             this.getUnsavedVariable();
         }
+    }
+
+    replaceUserName(candidateName: string) {
+        this.temp.body = _.replace(this.temp.body, '#candidate_name', candidateName);
     }
 
     setVariable() {
@@ -42,8 +47,11 @@ export class TestTemplateComponent implements OnInit {
         this.dialogConfig.componentInstance.pendingVariables = this.pendingVariables;
         this.dialogConfig.componentInstance.temp = this.temp;
         this.dialogConfig.afterClosed().subscribe(result => {
+            if (result === 'done') {
+                this.dialogConfig = null;
+                this.close();
+            }
             this.dialogConfig = null;
-            this.close();
         });
     }
 

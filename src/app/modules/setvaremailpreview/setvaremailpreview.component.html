@@ -6,7 +6,7 @@
             <tr *ngFor="let variable of pendingVariables">
                 <td>
                     <md-input-container class="full">
-                        <input mdInput placeholder="{{variable.name}}" [(ngModel)]="variable.value" autoComplete="off" name="{{variable.name}}">
+                        <input mdInput placeholder="{{variable.name}}" [(ngModel)]="variable.value" autoComplete="off" name="{{variable.name}}" required>
                     </md-input-container>
                 </td>
             </tr>
