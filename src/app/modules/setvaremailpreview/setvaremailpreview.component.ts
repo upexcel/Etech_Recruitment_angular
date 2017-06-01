@@ -44,7 +44,6 @@ export class SetvaremailpreviewComponent implements OnInit {
 
     sendEmail() {
         this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
-            console.log(data);
             this.dialogRef.close('done');
         }, (err) => {
             console.log(err);

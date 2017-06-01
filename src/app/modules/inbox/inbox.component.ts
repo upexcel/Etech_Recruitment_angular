@@ -90,7 +90,6 @@ export class InboxComponent implements OnInit {
         this.selected = {
             'mongo_id': this.emailIds
         };
-        console.log(this.selected);
         this.getemails.deleteEmail(this.selected).subscribe((data) => {
             this.getAllTag();
             this.refresh();
