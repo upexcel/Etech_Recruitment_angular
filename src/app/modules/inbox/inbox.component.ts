@@ -41,7 +41,7 @@ export class InboxComponent implements OnInit {
         this.getAllTag();
         this.data = {
             'page': 1,
-            'tag_id': null,
+            'tag_id': 0,
             'limit': 20
         };
         this.getemails.getEmailList(this.data).subscribe((data) => {
@@ -135,7 +135,7 @@ export class InboxComponent implements OnInit {
     emaillists(id: string, page?: number) {
         this.data = {
             'page': page || 1,
-            'tag_id': id,
+            'tag_id': id || 0,
             'limit': 20
         };
         this.loading = true;
