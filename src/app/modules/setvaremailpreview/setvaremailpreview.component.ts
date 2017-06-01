@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 
@@ -11,9 +12,10 @@ import * as _ from 'lodash';
 export class SetvaremailpreviewComponent implements OnInit {
     first: boolean;
     pendingVariables: any;
+    userDetails: any;
     temp: any;
     body = '';
-    constructor(public dialogRef: MdDialogRef<any>) { }
+    constructor(public dialogRef: MdDialogRef<any>, public apiServices: ImapMailsService) { }
 
     ngOnInit() {
         if (this.pendingVariables.length > 0) {
@@ -41,7 +43,12 @@ export class SetvaremailpreviewComponent implements OnInit {
     }
 
     sendEmail() {
-        this.dialogRef.close('done');
+        this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
+            console.log(data);
+            this.dialogRef.close('done');
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     close() {

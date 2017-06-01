@@ -4,6 +4,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ManualTagModalComponent } from '../manual-tag-modal/manual-tag-modal.component';
 import { AutomaticTagModalComponent } from '../automatic-tag-modal/automatic-tag-modal.component';
 import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-tag-setting',
@@ -11,11 +12,11 @@ import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
     styleUrls: ['./tag-setting.component.scss']
 })
 export class TagSettingComponent implements OnInit {
-    dialogRef: MdDialogRef <any> ;
+    dialogRef: MdDialogRef < any > ;
     loading = false;
     tempList: any;
-    tags: any [];
-    constructor(private gettags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef) {}
+    tags: any[];
+    constructor(private gettags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar) {}
 
     ngOnInit() {
         this.loading = true;
@@ -43,6 +44,9 @@ export class TagSettingComponent implements OnInit {
         this.gettags.deleteTag(id, type)
             .subscribe((data) => {
                 this.getAllTag();
+                this.snackBar.open('Tag Removed Successfully', '', {
+                    duration: 2000,
+                });
             }, (err) => {
                 console.log(err);
             });
@@ -55,7 +59,13 @@ export class TagSettingComponent implements OnInit {
         });
         this.dialogRef.componentInstance.tag = tag;
         this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'saved') {
+                this.snackBar.open('Tag Updated Successfully', '', {
+                    duration: 2000,
+                });
+            }
             this.dialogRef = null;
+            this.getAllTag();
         });
     }
 
@@ -67,7 +77,13 @@ export class TagSettingComponent implements OnInit {
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
-            this.dialogRef = null;
+            if (result === 'updated') {
+                this.snackBar.open('Tag Updated Successfully', '', {
+                    duration: 2000,
+                });
+                this.dialogRef = null;
+                this.getAllTag();
+            }
         });
     }
 
@@ -78,10 +94,16 @@ export class TagSettingComponent implements OnInit {
         });
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
-            this.dialogRef = null;
-            this.getAllTag();
+            if (result === 'Added') {
+                this.snackBar.open('Tag Added Successfully', '', {
+                    duration: 2000,
+                });
+                this.dialogRef = null;
+                this.getAllTag();
+            }
         });
     }
+
 
     formatTagsInArray(data: any) {
         this.tags = [];

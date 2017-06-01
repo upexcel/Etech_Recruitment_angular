@@ -27,7 +27,7 @@ export class AddTagModalComponent implements OnInit {
             form.value.color = this.originalcolor;
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
-                this.dialogRef.close();
+                this.dialogRef.close('Added');
             }, (err) => {
                 console.log(err);
             });

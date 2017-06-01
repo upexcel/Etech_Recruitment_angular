@@ -28,7 +28,7 @@ export class AutomaticTagModalComponent implements OnInit {
         this.tag.color = this.originalcolor;
         this.tag.template_id = this.temp_id;
         this.tagupdate.updateTag(this.tag, this.tag.type).subscribe((data) => {
-            this.dialogRef.close();
+            this.dialogRef.close('updated');
         }, (err) => {
             console.log(err);
         });

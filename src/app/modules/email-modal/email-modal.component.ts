@@ -13,10 +13,14 @@ export class EmailModalComponent implements OnInit {
     email: any;
     tags: any;
     body: any;
+    historyList: any;
+    selectedEmail: any;
     idlist: string[];
     constructor(public dialogRef: MdDialogRef <any> , sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
+        this.selectedEmail = this.email;
+        this.historyList = [];
         this.idlist = [];
         this.body = {
             'status': false,
@@ -27,6 +31,15 @@ export class EmailModalComponent implements OnInit {
         }, (err) => {
             console.log( err );
         });
+        this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
+            this.historyList = data;
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    showEmail(singlemail: any) {
+        this.selectedEmail = singlemail;
     }
 
     assignTag(id: string) {
@@ -37,7 +50,7 @@ export class EmailModalComponent implements OnInit {
             'mongo_id': this.idlist
         };
         this.tagUpdate.assignTag(this.body).subscribe((data) => {
-            this.idlist.length = 0;
+            this.idlist = [];
             this.dialogRef.close();
         }, (err) => {
             console.log(err);

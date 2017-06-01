@@ -7,28 +7,49 @@
         </a>
     </div>
 </div>
-<div class="b-b">
-    <h2 class="font-300">{{email.subject}}</h2>
-</div>
-<div class="p-y">
-    from
-    <a>{{email.from}}</a>
-    <span class="text-xs"> on {{email.date}}</span>
-</div>
 
-<div class="both" *ngIf="email.attachment?.length > 0">
+<button md-button md-raised-button class="c-his f-r" [mdMenuTriggerFor]="menu" *ngIf="historyList.data?.length > 1">
+Candidate History 
+<span class="labels">{{historyList?.data?.length ? historyList.data.length - 1: 0}}</span>
+</button>
+<md-menu #menu="mdMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
+    <div md-menu-item *ngFor="let email of historyList.data" (click)="showEmail(email)">
+    <span>{{email.email_date}}  {{email.subject}}</span>
+    </div>
+</md-menu>
+
+<div class="both" *ngIf="selectedEmail.attachment?.length > 0">
     <md-grid-list cols="2" gutterSize="2px">
-        <md-grid-tile [colspan]="1" class="no-pos" [innerHTML]="email.body | safeHtml">
+        <md-grid-tile [colspan]="1" class="no-pos" [innerHTML]="selectedEmail.body | safeHtml">
         </md-grid-tile>
         <md-grid-tile>
-            <iframe class="ifset" [src]="email.attachment[0].link | safeUrl">
+            <iframe class="ifset" [src]="selectedEmail.attachment[0].link | safeUrl">
   <p>Your browser does not support iframes.</p>
 </iframe>
         </md-grid-tile>
     </md-grid-list>
 </div>
 
-<div class="bod" *ngIf="email.attachment?.length == 0">
-    <div [innerHTML]="email.body | safeHtml">
+<div class="bod" *ngFor="let H_email of historyList.data">
+    <div class="b-b" *ngIf="H_email._id === selectedEmail._id">
+        <h2 class="font-300">{{H_email.subject}}</h2>
     </div>
+    <div class="p-y" *ngIf="H_email._id === selectedEmail._id">
+        from
+        <a>{{H_email.from}}</a>
+        <span class="text-xs" *ngIf="H_email._id === selectedEmail._id"> on {{H_email.date}}</span>
+    </div>
+    <div *ngIf="H_email._id === selectedEmail._id && !H_email.attachment?.length" [innerHTML]="H_email.body | safeHtml"></div>
+
+    <div class="both" *ngIf="H_email._id === selectedEmail._id && H_email?.attachment?.length">
+    <md-grid-list cols="2" gutterSize="2px">
+        <md-grid-tile [colspan]="1" class="no-pos" [innerHTML]="H_email.body | safeHtml">
+        </md-grid-tile>
+        <md-grid-tile>
+            <iframe class="ifset" [src]="H_email.attachment[0].link | safeUrl">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+        </md-grid-tile>
+    </md-grid-list>
+</div>
 </div>

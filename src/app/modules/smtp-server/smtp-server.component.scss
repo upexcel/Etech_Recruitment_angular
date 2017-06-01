@@ -26,9 +26,11 @@ table.list {
 }
 .off {
     color: $offcolor;
+    cursor: pointer;
 }
 .on {
     color: $oncolor;
+    cursor: pointer;
 }
 .chartcolor {
     color: $charcolor;

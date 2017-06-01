@@ -46,6 +46,7 @@ export class TestTemplateComponent implements OnInit {
         });
         this.dialogConfig.componentInstance.pendingVariables = this.pendingVariables;
         this.dialogConfig.componentInstance.temp = this.temp;
+        this.dialogConfig.componentInstance.userDetails = this.userDetails;
         this.dialogConfig.afterClosed().subscribe(result => {
             if (result === 'done') {
                 this.dialogConfig = null;

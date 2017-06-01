@@ -25,7 +25,7 @@
                             <td>{{setting.server_port}}</td>
                             <td>{{setting.type}}</td>
                             <td>
-                                <md-icon class="{{setting.active == 'TRUE' ? 'on':'off'}}">power_settings_new</md-icon>
+                                <md-icon class="{{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</md-icon>
                             </td>
                             <td>
                                 <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>
