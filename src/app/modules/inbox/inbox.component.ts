@@ -31,6 +31,8 @@ export class InboxComponent implements OnInit {
     data: any;
     selected: any;
     emailIds: string[];
+    readonly REJECTTAG = 2;
+    readonly IGNORETAG = 1;
     constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {}
 
     ngOnInit() {
@@ -58,7 +60,7 @@ export class InboxComponent implements OnInit {
 
     ignore() {
         this.selected = {
-            'tag_id': '1',
+            'tag_id': this.IGNORETAG,
             'mongo_id': this.emailIds
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
@@ -73,7 +75,7 @@ export class InboxComponent implements OnInit {
 
     reject() {
         this.selected = {
-            'tag_id': '2',
+            'tag_id': this.REJECTTAG,
             'mongo_id': this.emailIds
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {

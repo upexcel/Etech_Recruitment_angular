@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { config } from './../config/config';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import { historylog, Emaillist, UserVariable, SystemVar } from './mock-data';
+import { historylog, Emaillist, SystemVar } from './mock-data';
 import { InterceptedHttp } from './http.interceptor';
 
 @Injectable()
