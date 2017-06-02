@@ -25,11 +25,12 @@ export class TestTemplateComponent implements OnInit {
         this.first = true;
         this.subject = this.temp.subject;
         this.templateName = this.temp.templateName;
-        // this.getTemp.testTemplate(this.temp.id).subscribe((data) => {
-        //     console.log(data);
-        // }, (err) => {
-        //     console.log(err);
-        // });
+        this.getTemp.testTemplate(this.temp.id).subscribe((data) => {
+            this.filteredTemp = this.temp;
+            this.filteredTemp.body = data;
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     save(form: NgForm) {
@@ -52,7 +53,7 @@ export class TestTemplateComponent implements OnInit {
             width: '40%'
         });
         this.dialogConfig.componentInstance.pendingVariables = this.pendingVariables;
-        this.dialogConfig.componentInstance.temp = this.temp;
+        this.dialogConfig.componentInstance.temp = this.filteredTemp;
         this.dialogConfig.componentInstance.userDetails = this.userDetails;
         this.dialogConfig.afterClosed().subscribe(result => {
             if (result === 'done') {
@@ -64,7 +65,7 @@ export class TestTemplateComponent implements OnInit {
     }
 
     getUnsavedVariable() {
-        const stringtocheck = this.temp.body;
+        const stringtocheck = this.filteredTemp.body;
         const regx = /#[\w-]+\|[\w -\.,@$%&*!:%^\\\/]+\||#[\w-]+/ig;
         let result = stringtocheck.match(regx);
         this.pendingVariables = [];
