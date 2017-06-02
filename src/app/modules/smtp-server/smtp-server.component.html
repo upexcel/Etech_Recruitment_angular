@@ -31,7 +31,7 @@
                                 <button md-button class="chartcolor" (click)="test(setting.email)">TEST</button>
                             </td>
                             <td>
-                                <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>
+                                <button md-button class="chartcolor" [disabled]="setting.status" (click)="remove(setting.id)">REMOVE</button>
                             </td>
                         </tr>
                     </tbody>

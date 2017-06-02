@@ -3,6 +3,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 import { SetvaremailpreviewComponent } from '../setvaremailpreview/setvaremailpreview.component';
+import { ImapMailsService } from '../../service/imapemails.service';
 
 @Component({
     selector: 'app-test-template',
@@ -14,15 +15,21 @@ export class TestTemplateComponent implements OnInit {
     first: boolean;
     userDetails: any;
     temp: any;
+    filteredTemp: any;
     subject: string;
     templateName: string;
     pendingVariables: any;
-    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>) { }
+    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, public getTemp: ImapMailsService) { }
 
     ngOnInit() {
         this.first = true;
         this.subject = this.temp.subject;
         this.templateName = this.temp.templateName;
+        // this.getTemp.testTemplate(this.temp.id).subscribe((data) => {
+        //     console.log(data);
+        // }, (err) => {
+        //     console.log(err);
+        // });
     }
 
     save(form: NgForm) {
@@ -50,7 +57,7 @@ export class TestTemplateComponent implements OnInit {
         this.dialogConfig.afterClosed().subscribe(result => {
             if (result === 'done') {
                 this.dialogConfig = null;
-                this.close();
+                this.dialogRef.close('done');
             }
             this.dialogConfig = null;
         });

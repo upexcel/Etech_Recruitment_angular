@@ -65,8 +65,10 @@ export class ImapMailsService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
-    getSystemVariable(): Promise < any[] > {
-        return Promise.resolve(SystemVar);
+    getSystemVariable(): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + 'systemVariable/get/1/20')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     addUserVariable(body): Observable <any> {
         return this.Intercepted.post(config['apibase'] + 'variable/add/', body)
@@ -159,6 +161,11 @@ export class ImapMailsService {
     }
     getCandidateHistory(Email_id: string): Observable <any> {
         return this.Intercepted.get(config['apibase'] + `email/inbox/${Email_id}`)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    testTemplate(temp_id: string): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + `template/test/${temp_id}`)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

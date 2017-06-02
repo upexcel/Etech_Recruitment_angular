@@ -28,7 +28,7 @@
                                 <md-icon class="{{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</md-icon>
                             </td>
                             <td>
-                                <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>
+                                <button md-button class="chartcolor" [disabled]="setting.active" (click)="remove(setting.id)">REMOVE</button>
                             </td>
                             <td>
                                 <md-icon class="chartcolor">insert_chart</md-icon>
