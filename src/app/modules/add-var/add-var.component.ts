@@ -4,32 +4,41 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
-    selector: 'app-add-email-temp',
-    templateUrl: './add-email-temp.component.html',
-    styleUrls: ['./add-email-temp.component.scss'],
+    selector: 'app-add-var',
+    templateUrl: './add-var.component.html',
+    styleUrls: ['./add-var.component.scss']
 })
-export class AddEmailTempComponent implements OnInit {
-    userVar: any;
-    sysVar: any;
+export class AddVarComponent implements OnInit {
     ckeditorContent: any;
+    types: number;
+    type: any;
+    body: any;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {
+        this.types = 1;
     }
 
     save(form: NgForm) {
         if (form.valid) {
-            this.getVariable.addTemplate(form.value).subscribe((data) => {
+            this.body = {
+                'variableCode': '#' + form.value['variableCode'],
+                'variableValue': form.value['variableValue']
+            };
+            this.getVariable.addUserVariable(this.body).subscribe((data) => {
                 form.reset();
                 this.dialogRef.close();
             }, (err) => {
                 console.log(err);
             });
+
         }
     }
 
     close() {
         this.dialogRef.close();
     }
+
+
 }

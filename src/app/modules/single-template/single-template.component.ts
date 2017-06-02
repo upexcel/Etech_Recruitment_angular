@@ -9,6 +9,8 @@ export class SingleTemplateComponent implements OnInit {
     open: boolean;
     @Input() temp: any;
     @Output() edits = new EventEmitter<any>();
+    @Output() deleteTemp = new EventEmitter<string>();
+    @Output() testTemp = new EventEmitter<any>();
     constructor() { }
 
     ngOnInit() {
@@ -16,14 +18,14 @@ export class SingleTemplateComponent implements OnInit {
     }
 
     delete(id: string) {
-
+        this.deleteTemp.emit(id);
     }
 
     edit(temp: any) {
         this.edits.emit(temp);
     }
 
-    test(id: string) {
-
+    test(temp: any) {
+        this.testTemp.emit(temp);
     }
 }

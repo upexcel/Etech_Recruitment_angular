@@ -18,7 +18,7 @@ export class InterceptedHttp extends Http {
         return super.post(url, body, this.getRequestOptionArgs(options));
     }
 
-    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+    put(url: string, body?: any, options?: RequestOptionsArgs): Observable<Response> {
         url = this.updateUrl(url);
         return super.put(url, body, this.getRequestOptionArgs(options));
     }

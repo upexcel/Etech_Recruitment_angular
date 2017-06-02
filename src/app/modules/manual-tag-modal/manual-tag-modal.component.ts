@@ -24,13 +24,13 @@ export class ManualTagModalComponent implements OnInit {
         this.tag.title = this.originaltitle;
         this.tag.color = this.originalcolor;
         this.tagupdate.updateTag(this.tag, this.tag.type).subscribe((data) => {
-            this.dialogRef.close();
+            this.dialogRef.close('saved');
         }, (err) => {
             console.log(err);
         });
     }
 
     close() {
-        this.dialogRef.close();
+        this.dialogRef.close('closed');
     }
 }

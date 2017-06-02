@@ -1,3 +1,4 @@
+@import './../../variable.scss';
 .example-icon {
   padding: 0 14px;
 }
@@ -25,6 +26,11 @@ md-toolbar {
 }
 .cyan {
 	background-color: cyan;
+	margin-left: 1px;
+    margin-right: 5px;
+}
+.c-his {
+	background-color: $c-hs;
 	margin-left: 1px;
     margin-right: 5px;
 }
@@ -59,4 +65,23 @@ md-grid-tile {
 }
 .mat-grid-tile {
 	overflow: auto;
+}
+.f-r {
+    left: 83%;
+}
+.h-ps {
+	margin: 6px;
+}
+.labels {
+      background-color: #6887ff;
+      color: rgba(255,255,255,.87);
+      padding: .15em .35em;
+      font-size: 75%;
+      line-height: 1;
+      vertical-align: baseline;
+      font-weight: 700;
+      border-radius: .2rem;
+      text-align: center;
+      white-space: nowrap;
+      display: inline-block;
 }

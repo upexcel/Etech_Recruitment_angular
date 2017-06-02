@@ -13,6 +13,7 @@ export class AddTagModalComponent implements OnInit {
     tag: any;
     types: number;
     type: any;
+    tempList: any;
     originalcolor = color_list[0];
     availableColors = color_list;
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
@@ -26,7 +27,7 @@ export class AddTagModalComponent implements OnInit {
             form.value.color = this.originalcolor;
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
-                this.dialogRef.close();
+                this.dialogRef.close('Added');
             }, (err) => {
                 console.log(err);
             });

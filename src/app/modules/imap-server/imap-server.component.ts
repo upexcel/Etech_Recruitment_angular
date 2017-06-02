@@ -24,9 +24,20 @@ export class ImapServerComponent implements OnInit {
             console.log(err);
         });
     }
-
-    test(id: string) {
-
+    activateImap(email: string) {
+        this.imapServices.activateImap(email).subscribe(
+       (data) => {
+           this.getImapList();
+           this.snackBar.open(data.message, '', {
+               duration: 2000,
+           });
+       },
+        (err) => {
+            console.log(err);
+            this.snackBar.open(err.message, '', {
+                duration: 2000,
+            });
+        });
     }
 
     remove(id: string) {

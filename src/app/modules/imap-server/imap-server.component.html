@@ -13,9 +13,7 @@
                             <th>Server</th>
                             <th>Port</th>
                             <th>Encryption</th>
-                            <th>Status</th>
                             <th>Active</th>
-                            <th>Test</th>
                             <th>Remove</th>
                             <th>Statistics</th>
                         </tr>
@@ -27,13 +25,7 @@
                             <td>{{setting.server_port}}</td>
                             <td>{{setting.type}}</td>
                             <td>
-                                <md-icon class="{{setting.status ? 'off':'on'}}">{{setting.status ? 'clear' : 'done'}}</md-icon>
-                            </td>
-                            <td>
-                                <md-icon class="{{setting.active ? 'off':'on'}}">power_settings_new</md-icon>
-                            </td>
-                            <td>
-                                <button md-button class="chartcolor" (click)="test(setting.id)">TEST</button>
+                                <md-icon class="{{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</md-icon>
                             </td>
                             <td>
                                 <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>

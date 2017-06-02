@@ -3,6 +3,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { AddEmailTempComponent } from '../add-email-temp/add-email-temp.component';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
+import { TestTemplateComponent } from '../test-template/test-template.component';
 
 @Component({
     selector: 'app-email-templates',
@@ -17,13 +18,17 @@ export class EmailTemplatesComponent implements OnInit {
     constructor(public dialog: MdDialog, private getVariable: ImapMailsService) { }
 
     ngOnInit() {
-        this.getVariable.getUserVariable().then(data => {
+        this.getVariable.getUserVariable().subscribe((data) => {
             this.userVar = data;
         });
         this.getVariable.getSystemVariable().then(data => {
             this.sysVar = data;
         });
-        this.getVariable.getTemplate().then(data => {
+        this.loadTemp();
+    }
+
+    loadTemp() {
+        this.getVariable.getTemplate().subscribe(data => {
             this.tempData = data;
         });
     }
@@ -37,6 +42,7 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.loadTemp();
         });
     }
 
@@ -50,10 +56,27 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.temp = temp;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.loadTemp();
         });
     }
 
+    testTemplate(temp: any) {
+        this.dialogRef = this.dialog.open(TestTemplateComponent, {
+            height: '40%',
+            width: '60%'
+        });
+        this.dialogRef.componentInstance.temp = temp;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.loadTemp();
+        });
+    }
 
-
-
+    deleteTempId(id: string) {
+        this.getVariable.deleteTemplate(id).subscribe((data) => {
+            this.loadTemp();
+        }, (err) => {
+            console.log(err);
+        });
+    }
 }
