@@ -25,7 +25,7 @@
                             <td>{{setting.server_port}}</td>
                             <td>{{setting.type}}</td>
                             <td>
-                                <md-icon class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email)">{{setting.status ? 'done' : 'clear'}}</md-icon>
+                                <md-icon class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email, setting.status)">{{setting.status ? 'done' : 'clear'}}</md-icon>
                             </td>
                             <td>
                                 <button md-button class="chartcolor" (click)="test(setting.email)">TEST</button>
