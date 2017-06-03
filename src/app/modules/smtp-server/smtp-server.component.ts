@@ -35,7 +35,7 @@ export class SmtpServerComponent implements OnInit {
        },
         (err) => {
             console.log(err);
-            this.snackBar.open(err, '', {
+            this.snackBar.open(err.message, '', {
                 duration: 2000,
             });
         });
@@ -51,7 +51,7 @@ export class SmtpServerComponent implements OnInit {
        },
         (err) => {
             console.log(err);
-            this.snackBar.open(err, '', {
+            this.snackBar.open(err.message, '', {
                 duration: 2000,
             });
         });
