@@ -13,8 +13,10 @@ Candidate History
 <span class="labels">{{historyList?.data?.length ? historyList.data.length - 1: 0}}</span>
 </button>
 <md-menu #menu="mdMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-    <div md-menu-item *ngFor="let email of historyList.data" (click)="showEmail(email)">
-    <span>{{email.email_date}}  {{email.subject}}</span>
+    <div md-menu-item *ngFor="let email of historyList.data" (click)="showEmail(email)" 
+    style="line-height: 20px;width: 132px">
+    <span style="display: block;color: grey;">{{email.email_date | date: 'dd MMM y'}}</span>  
+        <span style="font-size: 12px;color: cornflowerblue;">{{email.subject}}</span>
     </div>
 </md-menu>
 

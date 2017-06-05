@@ -17,7 +17,7 @@
                 </p>
             </div>
         </md-grid-tile>
-        <md-grid-tile [colspan]="'1'">
+        <md-grid-tile [colspan]="'1'" *ngIf="tags && tags['Automatic']">
             <button md-icon-button [mdMenuTriggerFor]="themeMenu">
                        <md-icon>more_vert</md-icon>
                       </button>
