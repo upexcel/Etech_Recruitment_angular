@@ -2,8 +2,9 @@
     <h3>Add Tag</h3>
 </div>
 <hr>
-<form #addForm="ngForm" (ngSubmit)="registerUser(addForm)">
+<form #addForm="ngForm" (ngSubmit)="addTag(addForm)">
     <div class="body">
+    <span class="text-err" *ngIf="showMessage">{{message}}</span>
         <md-grid-list cols="4" rowHeight="65px" gutterSize="10px">
             <md-grid-tile [colspan]="2">
                 <md-input-container>
@@ -54,6 +55,6 @@
 
     <div class="footer">
         <a md-raised-button (click)="close()">Close</a>
-        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid" (click)="registerUser(addForm)">Save</a>
+        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid" (click)="addTag(addForm)">Save</a>
     </div>
 </form>

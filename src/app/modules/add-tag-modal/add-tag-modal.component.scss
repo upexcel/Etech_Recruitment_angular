@@ -1,7 +1,13 @@
+@import './../../variable.scss';
+
 .pos-radio {
 	position: relative;
     left: 20px;
 }
 .width-100 {
 	width: 100%;
+}
+.text-err {
+	color: red;
+    margin: 0px 0px 0px 76px;
 }

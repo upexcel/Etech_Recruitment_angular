@@ -1,7 +1,7 @@
 <div class="m-b">
     <div class="example-button-row">
         <a md-raised-button class="cyan" *ngFor="let tag of tags.Default" (click)="assignTag(tag.id)">{{tag.title}}</a>
-        <a md-raised-button class="cyan" (click)="assignTag(tags.Manual[0].id)">{{tags.Manual[0].title}}</a>
+        <a md-raised-button class="cyan" *ngIf="tags && tags.Manual && tags.Manual[0]" (click)="assignTag(tags.Manual[0].id)">{{tags.Manual[0].title}}</a>
         <a md-mini-fab class="cyan" (click)="close()">
             <md-icon>X</md-icon>
         </a>

@@ -14,15 +14,19 @@ export class AddTagModalComponent implements OnInit {
     types: number;
     type: any;
     tempList: any;
+    showMessage: boolean;
+    message: string;
     originalcolor = color_list[0];
     availableColors = color_list;
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
         this.types = 1;
+        this.showMessage = false;
     }
 
-    registerUser(form: NgForm) {
+    addTag(form: NgForm) {
+        this.showMessage = false;
         if (form.valid) {
             form.value.color = this.originalcolor;
             this.tagUpdate.addTag(form.value).subscribe((data) => {
@@ -30,6 +34,8 @@ export class AddTagModalComponent implements OnInit {
                 this.dialogRef.close('Added');
             }, (err) => {
                 console.log(err);
+                this.showMessage = true;
+                this.message = err.message;
             });
         }
     }
