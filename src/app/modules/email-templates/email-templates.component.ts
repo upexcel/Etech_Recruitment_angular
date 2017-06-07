@@ -42,6 +42,11 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.userVar = this.userVar;
         this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'added') {
+                this.snackBar.open('Template Added Successfully', '', {
+                    duration: 2000,
+                });
+            }
             this.dialogRef = null;
             this.loadTemp();
         });
@@ -56,6 +61,11 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.componentInstance.temp = temp;
         this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'updated') {
+                this.snackBar.open('Template Updated Successfully', '', {
+                    duration: 2000,
+                });
+            }
             this.dialogRef = null;
             this.loadTemp();
         });

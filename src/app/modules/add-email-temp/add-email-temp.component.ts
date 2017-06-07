@@ -12,19 +12,24 @@ export class AddEmailTempComponent implements OnInit {
     userVar: any;
     sysVar: any;
     ckeditorContent: any;
+    message: string;
+    showMessage: boolean;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {
+        this.showMessage = false;
     }
 
     save(form: NgForm) {
         if (form.valid) {
             this.getVariable.addTemplate(form.value).subscribe((data) => {
                 form.reset();
-                this.dialogRef.close();
+                this.dialogRef.close('added');
             }, (err) => {
                 console.log(err);
+                this.showMessage = true;
+                this.message = err.message;
             });
         }
     }

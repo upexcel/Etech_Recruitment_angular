@@ -39,7 +39,7 @@ Candidate History
     <div class="p-y" *ngIf="H_email._id === selectedEmail._id">
         from
         <a>{{H_email.from}} {{H_email.sender_mail}}</a>
-        <span class="text-xs" *ngIf="H_email._id === selectedEmail._id"> on {{H_email.date}}</span>
+        <span class="text-xs" *ngIf="H_email._id === selectedEmail._id"> on {{H_email.date | date: 'medium'}}</span>
     </div>
     <div *ngIf="H_email._id === selectedEmail._id && !H_email.attachment?.length" [innerHTML]="H_email.body | safeHtml"></div>
 

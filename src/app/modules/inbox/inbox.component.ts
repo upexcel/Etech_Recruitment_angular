@@ -31,8 +31,8 @@ export class InboxComponent implements OnInit {
     data: any;
     selected: any;
     emailIds: string[];
-    readonly REJECTTAG = 2;
-    readonly IGNORETAG = 1;
+    readonly REJECTTAG = 1;
+    readonly IGNORETAG = 2;
     constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {}
 
     ngOnInit() {

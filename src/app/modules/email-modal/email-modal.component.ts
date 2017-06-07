@@ -31,11 +31,19 @@ export class EmailModalComponent implements OnInit {
         }, (err) => {
             console.log( err );
         });
-        this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
-            this.historyList = data;
-        }, (err) => {
-            console.log(err);
-        });
+        if (this.email.sender_mail) {
+            this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
+                this.historyList = data;
+            }, (err) => {
+                console.log(err);
+            });
+        } else {
+            this.tagUpdate.getCandidateHistory(this.email._id).subscribe((data) => {
+                this.historyList = data;
+            }, (err) => {
+                console.log(err);
+            });
+        }
     }
 
     showEmail(singlemail: any) {
