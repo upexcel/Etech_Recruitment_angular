@@ -14,6 +14,7 @@ export class EmailModalComponent implements OnInit {
     tags: any;
     body: any;
     historyList: any;
+    selectedTag: any;
     selectedEmail: any;
     idlist: string[];
     constructor(public dialogRef: MdDialogRef <any> , sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {}

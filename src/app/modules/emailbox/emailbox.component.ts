@@ -12,6 +12,7 @@ export class EmailboxComponent implements OnInit {
     selectedMid: string[];
     @Input() email: any;
     @Input() tags: any[];
+    @Input() tagselected: any;
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();

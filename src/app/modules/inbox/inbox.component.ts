@@ -31,13 +31,15 @@ export class InboxComponent implements OnInit {
     data: any;
     selected: any;
     emailIds: string[];
-    readonly REJECTTAG = 1;
-    readonly IGNORETAG = 2;
+    selectedTag: any;
+    // readonly REJECTTAG = 1;
+    // readonly IGNORETAG = 2;
     constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {}
 
     ngOnInit() {
         this.emailIds = [];
         this.loading = true;
+        this.selectedTag = 0;
         this.getAllTag();
         this.data = {
             'page': 1,
@@ -58,24 +60,9 @@ export class InboxComponent implements OnInit {
         this.emailIds.splice(this.emailIds.indexOf(id), 1);
     }
 
-    ignore() {
+    assign(id: any) {
         this.selected = {
-            'tag_id': this.IGNORETAG,
-            'mongo_id': this.emailIds
-        };
-        this.getemails.assignTag(this.selected).subscribe((data) => {
-            this.getAllTag();
-            this.refresh();
-            this.emailIds.length = 0;
-            this.notify('done', '');
-        }, (err) => {
-            console.log(err);
-        });
-    }
-
-    reject() {
-        this.selected = {
-            'tag_id': this.REJECTTAG,
+            'tag_id': id,
             'mongo_id': this.emailIds
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
@@ -114,6 +101,7 @@ export class InboxComponent implements OnInit {
             width: '80%'
         });
         this.dialogRef.componentInstance.email = email;
+        this.dialogRef.componentInstance.selectedTag = this.selectedTag;
         this.dialogRef.componentInstance.tags = this.tags;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
@@ -132,7 +120,8 @@ export class InboxComponent implements OnInit {
             });
     }
 
-    emaillists(id: string, page?: number) {
+    emaillists(id: any, page?: number) {
+        this.selectedTag = id;
         this.data = {
             'page': page || 1,
             'tag_id': id || 0,
