@@ -91,8 +91,14 @@ export class EmailTemplatesComponent implements OnInit {
     deleteTempId(id: string) {
         this.getVariable.deleteTemplate(id).subscribe((data) => {
             this.loadTemp();
+            this.snackBar.open('Template Deleted Successfully', '', {
+                duration: 2000,
+            });
         }, (err) => {
             console.log(err);
+            this.snackBar.open(err.message, '', {
+                duration: 2000,
+            });
         });
     }
 }

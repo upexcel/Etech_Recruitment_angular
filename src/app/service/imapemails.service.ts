@@ -43,7 +43,7 @@ export class ImapMailsService {
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     deleteEmail(body: any): Observable <any> {
-        return this.Intercepted.post(config['apibase'] + 'email/deleteEmail', body)
+        return this.Intercepted.post(config['apibase'] + `email/deleteEmail/${body.tag_id}`, body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

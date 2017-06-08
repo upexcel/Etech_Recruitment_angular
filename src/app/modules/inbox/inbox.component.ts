@@ -63,7 +63,8 @@ export class InboxComponent implements OnInit {
     assign(id: any) {
         this.selected = {
             'tag_id': id,
-            'mongo_id': this.emailIds
+            'mongo_id': this.emailIds,
+            'selectedTag': this.selectedTag
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
             this.getAllTag();
@@ -77,6 +78,7 @@ export class InboxComponent implements OnInit {
 
     delete() {
         this.selected = {
+            'tag_id': this.selectedTag,
             'mongo_id': this.emailIds
         };
         this.getemails.deleteEmail(this.selected).subscribe((data) => {
