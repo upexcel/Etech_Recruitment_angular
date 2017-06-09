@@ -17,12 +17,12 @@
                 </p>
             </div>
         </md-grid-tile>
-        <md-grid-tile [colspan]="'1'" *ngIf="tags && tags['Automatic']">
+        <md-grid-tile [colspan]="'1'" *ngIf="tags">
             <button md-icon-button [mdMenuTriggerFor]="themeMenu">
                        <md-icon>more_vert</md-icon>
                       </button>
             <md-menu #themeMenu x-position="before">
-                <button md-menu-item *ngFor="let tag of tags['Automatic']" (click)="assignToEmail(tag.id, email._id)">
+                <button md-menu-item *ngFor="let tag of tags" (click)="assignToEmail(tag.id, email._id)">
                         <div class="logo" [style.background-color]="tag.color">
                             <span>{{tag.title?.charAt(0)}}</span>
                         </div>
