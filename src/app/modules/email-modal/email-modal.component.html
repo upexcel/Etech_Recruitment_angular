@@ -23,30 +23,18 @@ Candidate History
     </div>
 </md-menu>
 
-<div class="both" *ngIf="selectedEmail.attachment?.length > 0">
-    <md-grid-list cols="2" gutterSize="2px">
-        <md-grid-tile [colspan]="1" class="no-pos" [innerHTML]="selectedEmail.body | safeHtml">
-        </md-grid-tile>
-        <md-grid-tile>
-            <iframe class="ifset" [src]="selectedEmail.attachment[0].link | safeUrl">
-  <p>Your browser does not support iframes.</p>
-</iframe>
-        </md-grid-tile>
-    </md-grid-list>
-</div>
-
 <div class="bod" *ngFor="let H_email of historyList.data">
-    <div class="b-b" *ngIf="H_email._id === selectedEmail._id">
+    <div class="b-b" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
         <h2 class="font-300">{{H_email.subject}}</h2>
     </div>
-    <div class="p-y" *ngIf="H_email._id === selectedEmail._id">
+    <div class="p-y" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
         from
         <a>{{H_email.from}} {{H_email.sender_mail}}</a>
         <span class="text-xs" *ngIf="H_email._id === selectedEmail._id"> on {{H_email.date | date: 'medium'}}</span>
     </div>
-    <div *ngIf="H_email._id === selectedEmail._id && !H_email.attachment?.length" [innerHTML]="H_email.body | safeHtml"></div>
+    <div *ngIf="selectedEmail && H_email._id === selectedEmail._id && !H_email.attachment?.length" [innerHTML]="H_email.body | safeHtml"></div>
 
-    <div class="both" *ngIf="H_email._id === selectedEmail._id && H_email?.attachment?.length">
+    <div class="both" *ngIf="selectedEmail && H_email._id === selectedEmail._id && H_email?.attachment?.length">
     <md-grid-list cols="2" gutterSize="2px">
         <md-grid-tile [colspan]="1" class="no-pos" [innerHTML]="H_email.body | safeHtml">
         </md-grid-tile>

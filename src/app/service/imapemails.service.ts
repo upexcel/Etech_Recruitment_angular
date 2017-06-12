@@ -37,6 +37,11 @@ export class ImapMailsService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
+    emailAttachment(id: string): Observable <any> {
+        return this.Intercepted.put(config['apibase'] + `email/mailAttachment/${id}`)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
     assignTag(body: any): Observable <any> {
         return this.Intercepted.put(config['apibase'] + `email/assignMultiple/${body.tag_id}`, body)
             .map((res: Response) => res.json())

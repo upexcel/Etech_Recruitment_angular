@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
@@ -17,7 +17,7 @@ export class EmailModalComponent implements OnInit {
     selectedTag: any;
     selectedEmail: any;
     idlist: string[];
-    constructor(public dialogRef: MdDialogRef <any> , sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {}
+    constructor(private ngZone: NgZone, public dialogRef: MdDialogRef <any> , sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
         this.selectedEmail = this.email;
@@ -32,9 +32,29 @@ export class EmailModalComponent implements OnInit {
         }, (err) => {
             console.log( err );
         });
+
+        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0) {
+            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe (
+            (data) => {
+                // console.log(data);
+            //     this.ngZone.run(() => {
+            //     this.selectedEmail = data.data;
+            //     console.log(this.selectedEmail);
+            // });
+                this.showEmail(data.data);
+                this.getCandiatehistory();
+            }, (err) => {
+                console.log(err);
+            });
+        }
+        this.getCandiatehistory();
+    }
+
+    getCandiatehistory() {
         if (this.email.sender_mail) {
             this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
                 this.historyList = data;
+
             }, (err) => {
                 console.log(err);
             });
@@ -48,6 +68,7 @@ export class EmailModalComponent implements OnInit {
     }
 
     showEmail(singlemail: any) {
+        this.selectedEmail = '';
         this.selectedEmail = singlemail;
     }
 
