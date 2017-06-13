@@ -24,6 +24,7 @@ import {
 })
 export class InboxComponent implements OnInit {
     dialogRef: MdDialogRef < any > ;
+    Math: any;
     emaillist: any;
     loading = false;
     tag_id: string;
@@ -32,9 +33,9 @@ export class InboxComponent implements OnInit {
     selected: any;
     emailIds: string[];
     selectedTag: any;
-    // readonly REJECTTAG = 1;
-    // readonly IGNORETAG = 2;
-    constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {}
+    constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
+        this.Math = Math;
+    }
 
     ngOnInit() {
         this.emailIds = [];
@@ -47,7 +48,8 @@ export class InboxComponent implements OnInit {
             'limit': 20
         };
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data.data;
+            this.emaillist = data;
+            console.log(this.emaillist);
             this.loading = false;
         });
     }
@@ -131,7 +133,7 @@ export class InboxComponent implements OnInit {
         };
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data.data;
+            this.emaillist = data;
             this.emailIds = [];
             this.loading = false;
         });
@@ -145,15 +147,17 @@ export class InboxComponent implements OnInit {
     }
 
     next() {
-        this.data.page = this.data.page + 1;
-        this.emaillists(this.data.tag_id, this.data.page);
+        if (this.data.page < this.emaillist.count / this.data.limit) {
+            this.data.page = this.data.page + 1;
+            this.emaillists(this.data.tag_id, this.data.page);
+        }
     }
 
     refresh(id?: string) {
         this.getAllTag();
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.emailIds = [];
-            this.emaillist = data.data;
+            this.emaillist = data;
         });
     }
 

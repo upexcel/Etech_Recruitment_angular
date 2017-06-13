@@ -3,7 +3,7 @@
     <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
     <div class="content" fxFlex>
     <div class="m-b">
-    <div class="example-button-row">
+    <div class="example-button-row" *ngIf="emaillist && emaillist.count > 0">
         <div *ngIf="emailIds.length > 0" class="{{!selectedTag ? 'options-main': 'options-sub'}}">
             <span *ngFor="let tag of tags.Default | slice:0:3">
                 <a md-raised-button class="b-r" *ngIf="tag.id != selectedTag" (click)="assign(tag.id)">
@@ -17,15 +17,15 @@
         <a md-mini-fab class="d-w" (click)="previous()">
             <md-icon>keyboard_arrow_left</md-icon>
         </a>
-        <a md-raised-button class="b-r">Page {{this.data.page}}</a>
+        <a md-raised-button class="b-r" >Page {{data.page}} / {{Math.ceil(emaillist.count/data.limit)}}</a>
         <a md-mini-fab class="d-w" (click)="next()">
             <md-icon>keyboard_arrow_right</md-icon>
         </a>
     </div>
 </div>
         <md-spinner *ngIf="loading" class="posload"></md-spinner>
-        <div *ngIf="!loading">
-            <app-emailbox *ngFor="let emails of emaillist" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tags.Automatic"></app-emailbox>
+        <div *ngIf="!loading && emaillist">
+            <app-emailbox *ngFor="let emails of emaillist.data" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tags.Automatic"></app-emailbox>
         </div>
     </div>
 </div>    

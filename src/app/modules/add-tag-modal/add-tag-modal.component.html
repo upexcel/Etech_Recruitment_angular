@@ -46,6 +46,9 @@
                     </md-option>
                 </md-select>
             </md-grid-tile>
+            <md-grid-tile [colspan]="2" *ngIf="types">
+                    <md-slide-toggle name="assign" ngModel>Assign To All Email</md-slide-toggle>
+            </md-grid-tile>
         </md-grid-list>
         <div>
             <h4> Tag Color </h4>
