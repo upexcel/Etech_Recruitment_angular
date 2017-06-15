@@ -6,13 +6,13 @@
             <md-icon>{{firstlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
         </md-list-item>
         <md-list *ngIf="!firstlist">
-            <md-list-item class="subenav" *ngFor="let tag of tags.Automatic" (click)="getEmail(tag.id)">
+            <md-list-item class="subenav" *ngFor="let tag of tags.Automatic" (click)="getEmail(tag.id)" [class.active]="selectedId == tag.id">
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
                 <a>{{tag.title}} ({{tag.unread}}/{{tag.count_email}})</a>
             </md-list-item>
-            <md-list-item class="subenav" *ngFor="let tag of tags.Manual" (click)="getEmail(tag.id)">
+            <md-list-item class="subenav" *ngFor="let tag of tags.Manual" (click)="getEmail(tag.id)" [class.active]="selectedId == tag.id">
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
@@ -25,13 +25,13 @@
             <md-icon>{{thirdlist? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
         </md-list-item>
         <md-list *ngIf="thirdlist">
-            <md-list-item class="subenav" *ngFor="let tag of tags.Main" (click)="getEmail(tag.id)">
+            <md-list-item class="subenav" *ngFor="let tag of tags.Main" (click)="getEmail(tag.id)" [class.active]="selectedId == tag.id">
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>
                 <a>{{tag.title}} ({{tag.unread}}/{{tag.count_email}})</a>
             </md-list-item>
-            <md-list-item class="subenav" *ngFor="let tag of tags.Default" (click)="getEmail(tag.id)">
+            <md-list-item class="subenav" *ngFor="let tag of tags.Default" (click)="getEmail(tag.id)" [class.active]="selectedId == tag.id">
                 <div class="logo" [style.background-color]="tag.color">
                     <span>{{tag.title.charAt(0)}}</span>
                 </div>

@@ -13,9 +13,15 @@ export class ImapMailsService {
     constructor(public http: Http, public Intercepted: InterceptedHttp) {}
 
     getEmailList(body: any): Observable <any> {
-        return this.Intercepted.get(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+        if (!!body.type) {
+            return this.Intercepted.put(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
+                .map((res: Response) => res.json())
+                .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+        } else {
+            return this.Intercepted.put(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`)
+                .map((res: Response) => res.json())
+                .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+        }
     }
     getAllTagsMain(): Observable <any> {
         return this.Intercepted.get(config['apibase'] + 'email/countEmail')

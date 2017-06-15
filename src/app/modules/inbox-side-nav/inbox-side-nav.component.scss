@@ -15,6 +15,9 @@ md-list {
         }
     }
 }
+.active {
+  background-color: $hovecolor;  
+}
 .blue {
     color:$borderleftblue;
 }

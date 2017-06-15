@@ -70,8 +70,30 @@ export class InboxComponent implements OnInit {
             });
     }
 
-    searchEmail(form: NgForm) {
-        console.log(form.value);
+    searchEmail(searchform: NgForm) {
+        if (!!searchform.value['currentTag']) {
+            this.data = {
+                'page': 1,
+                'tag_id': this.selectedTag,
+                'limit': 20,
+                'type': searchform.value['option'],
+                'keyword': searchform.value['keyword']
+            };
+        } else {
+            this.data = {
+                'page': 1,
+                'limit': 20,
+                'type': searchform.value['option'],
+                'keyword': searchform.value['keyword']
+            };
+        }
+        searchform.reset();
+        this.loading = true;
+        this.getemails.getEmailList(this.data).subscribe((data) => {
+            this.emaillist = data;
+            this.emailIds = [];
+            this.loading = false;
+        });
     }
 
     addEmail(id: string) {
@@ -146,6 +168,7 @@ export class InboxComponent implements OnInit {
 
     emaillists(id: any, page?: number) {
         this.selectedTag = id;
+        this.data = null;
         this.data = {
             'page': page || 1,
             'tag_id': id || 0,

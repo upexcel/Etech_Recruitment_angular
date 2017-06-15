@@ -3,7 +3,7 @@
     <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
     <div class="content" fxFlex>
     <div class="m-b">
-    <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
+    
     <div class="example-button-row" *ngIf="emaillist && emaillist.count > 0">
 
         <div *ngIf="emailIds.length > 0" class="{{!selectedTag ? 'options-main': 'options-sub'}}">
@@ -17,15 +17,17 @@
             </span>
         </div>
         <md-card class="card-pos" *ngIf="emailIds.length == 0">
-            <md-select name="type" placeholder="Select Type" ngModel>
+        <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
+        <md-select name="option" placeholder="Select Type" ngModel>
             <md-option value="email">Search Email</md-option>
             <md-option value="subject">Search Subject</md-option>
         </md-select>
         <md-input-container class="mar-pos wid-300">
-            <input mdInput name="search-text" placeholder="Search" value="" ngModel>
+            <input mdInput name="keyword" placeholder="Search" ngModel>
         </md-input-container>
-        <a type="submit" md-raised-button (click)="searchEmail(searchForm)"> Search </a>
-        <md-checkbox name="currentTag" class="mar-pos" ngModel> Search current tag </md-checkbox>
+        <a name="searchbtn" type="submit" md-raised-button (click)="searchEmail(searchForm)"> Search </a>
+        <md-checkbox name="currentTag" class="mar-pos" value="false" ngModel> Search current tag </md-checkbox>
+        </form>
         </md-card>
 
         <a md-mini-fab class="d-w" (click)="previous()">
@@ -36,7 +38,7 @@
             <md-icon>keyboard_arrow_right</md-icon>
         </a>
     </div>
-    </form>
+
 </div>          
         <md-spinner *ngIf="loading" class="posload"></md-spinner>
         <div *ngIf="!loading && emaillist">
