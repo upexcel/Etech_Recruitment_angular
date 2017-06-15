@@ -16,6 +16,11 @@ import {
 import {
     MdSnackBar
 } from '@angular/material';
+import {
+    NgForm,
+    FormControl,
+    Validators
+} from '@angular/forms';
 
 @Component({
     selector: 'app-inbox',
@@ -47,11 +52,26 @@ export class InboxComponent implements OnInit {
             'tag_id': 0,
             'limit': 20
         };
-        this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data;
-            console.log(this.emaillist);
-            this.loading = false;
-        });
+        this.defaultOpen();
+    }
+
+    defaultOpen() {
+        this.getemails.getAllTagsMain()
+            .subscribe((res) => {
+                this.formatTagsInArray(res.data);
+                this.data.tag_id = this.tags['Automatic'][0].id;
+                this.getemails.getEmailList(this.data).subscribe((data) => {
+                    this.emaillist = data;
+                    this.loading = false;
+                });
+            }, (err) => {
+                console.log(err);
+                this.loading = false;
+            });
+    }
+
+    searchEmail(form: NgForm) {
+        console.log(form.value);
     }
 
     addEmail(id: string) {
