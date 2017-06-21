@@ -44,12 +44,12 @@
   margin-right: 42.7%;
 }
 .options-sub {
-  margin-right: 41%;
+  margin-right: 40%;
 }
 .card-pos {
   position: relative;
   padding: 10px 0px 0px 12px;
-  left: -7.4%;
+  left: -5.4%;
 }
 .wid-300 {
   width: 300px;
@@ -57,4 +57,12 @@
 .mar-pos {
   margin-left: 10px;
   margin-right: 10px;
+}
+.pos {
+    width: 116px;
+    overflow: hidden;
+}
+.m-s {
+    color: $white;
+    text-align: center;
 }

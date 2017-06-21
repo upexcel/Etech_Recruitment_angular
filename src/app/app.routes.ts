@@ -16,6 +16,7 @@ import { TagSettingComponent } from './modules/tag-setting/tag-setting.component
 import { ActionsComponent } from './modules/actions/actions.component';
 import { ManageUsersComponent } from './modules/manage-users/manage-users.component';
 import { LoginRouteGuard } from './service/login-route-guard';
+import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -83,5 +84,9 @@ export const routes: Route[] = [{
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'forget',
+        component: ForgetPasswordComponent
     }
 ];

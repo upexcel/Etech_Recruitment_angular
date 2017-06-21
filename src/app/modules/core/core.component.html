@@ -20,9 +20,9 @@
             <a class="mainnav">Settings</a>
         </div>
         <hr>
-        <div class="hovestyle" (click)="goto('changepassword','Change Password');sidenav.close()">
+<!--         <div class="hovestyle" (click)="goto('changepassword','Change Password');sidenav.close()">
             <a class="mainnav">Change Password</a>
-        </div>
+        </div> -->
         <hr>
         <div class="hovestyle" (click)="logout()">
             <a class="mainnav">Logout</a>
@@ -35,6 +35,12 @@
           <md-icon>menu</md-icon>
           </button>
             <span>{{title}}</span>
+            <span fxFlex="5%"> </span>
+            <a class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
+            <i>
+            <small>Fetch Latest Emails</small>
+            </i>
+            </a>
             <span fxFlex></span>
         </md-toolbar>
        <router-outlet></router-outlet>

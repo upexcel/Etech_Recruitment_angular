@@ -4,7 +4,7 @@
     <div class="content" fxFlex>
     <div class="m-b">
     
-    <div class="example-button-row" *ngIf="emaillist && emaillist.count > 0">
+    <div class="example-button-row" *ngIf="emaillist">
 
         <div *ngIf="emailIds.length > 0" class="{{!selectedTag ? 'options-main': 'options-sub'}}">
             <span *ngFor="let tag of tags.Default | slice:0:3">
@@ -18,14 +18,15 @@
         </div>
         <md-card class="card-pos" *ngIf="emailIds.length == 0">
         <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
-        <md-select name="option" placeholder="Select Type" ngModel>
+        <md-select name="option" placeholder="Select Type" required ngModel>
             <md-option value="email">Search Email</md-option>
             <md-option value="subject">Search Subject</md-option>
         </md-select>
+
         <md-input-container class="mar-pos wid-300">
-            <input mdInput name="keyword" placeholder="Search" ngModel>
+            <input mdInput name="keyword" placeholder="Search" required ngModel>
         </md-input-container>
-        <a name="searchbtn" type="submit" md-raised-button (click)="searchEmail(searchForm)"> Search </a>
+        <a name="searchbtn" type="submit" md-raised-button [disabled]="searchForm.invalid" (click)="searchEmail(searchForm)"> Search </a>
         <md-checkbox name="currentTag" class="mar-pos" value="false" ngModel> Search current tag </md-checkbox>
         </form>
         </md-card>
@@ -33,14 +34,16 @@
         <a md-mini-fab class="d-w" (click)="previous()">
             <md-icon>keyboard_arrow_left</md-icon>
         </a>
-        <a md-raised-button class="b-r" >Page {{data.page}} / {{Math.ceil(emaillist.count/data.limit)}}</a>
+        <a md-raised-button class="b-r pos">
+        Page {{data.page}} / {{emaillist.count? Math.ceil(emaillist.count/data.limit): '1'}}
+        </a>
         <a md-mini-fab class="d-w" (click)="next()">
             <md-icon>keyboard_arrow_right</md-icon>
         </a>
     </div>
-
 </div>          
         <md-spinner *ngIf="loading" class="posload"></md-spinner>
+        <h2 class="m-s" *ngIf="showmessage">{{message}}</h2>
         <div *ngIf="!loading && emaillist">
             <app-emailbox *ngFor="let emails of emaillist.data" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tags.Automatic"></app-emailbox>
         </div>

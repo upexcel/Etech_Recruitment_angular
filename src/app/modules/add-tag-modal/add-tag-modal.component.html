@@ -41,6 +41,9 @@
             </md-grid-tile>
              <md-grid-tile [colspan]="2" *ngIf="types">
                 <md-select class="width-100" placeholder="Select Template" name="template_id" ngModel>
+                    <md-option>
+                        None
+                    </md-option>
                     <md-option *ngFor="let temp of tempList" [value]="temp.id">
                         {{temp.templateName}}
                     </md-option>
@@ -58,6 +61,8 @@
 
     <div class="footer">
         <a md-raised-button (click)="close()">Close</a>
-        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid" (click)="addTag(addForm)">Save</a>
+        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
+        <span>Save </span><md-spinner *ngIf="showloading" class="s-ld"></md-spinner>
+        </a>
     </div>
 </form>

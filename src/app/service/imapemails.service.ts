@@ -6,12 +6,24 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { historylog, Emaillist, SystemVar } from './mock-data';
 import { InterceptedHttp } from './http.interceptor';
+import { Subject } from 'rxjs/Subject';
+
 
 @Injectable()
 export class ImapMailsService {
-
+    private childMethodCall = new Subject<any>();
+    // Observalbe string streams
+    componentMehtodCalled$ = this.childMethodCall.asObservable();
     constructor(public http: Http, public Intercepted: InterceptedHttp) {}
 
+    fetchNewEmail() {
+        this.childMethodCall.next();
+    }
+    refreshNewEmails() {
+        return this.Intercepted.get(config['apibase'] + 'email/fetchByButton')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
     getEmailList(body: any): Observable <any> {
         if (!!body.type) {
             return this.Intercepted.put(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
@@ -115,7 +127,7 @@ export class ImapMailsService {
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     getImapList(): Observable <any> {
-        return this.Intercepted.get(config['apibase'] + 'imap/get/1/10')
+        return this.Intercepted.get(config['apibase'] + 'imap/get')
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

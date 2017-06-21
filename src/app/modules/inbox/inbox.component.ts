@@ -38,14 +38,21 @@ export class InboxComponent implements OnInit {
     selected: any;
     emailIds: string[];
     selectedTag: any;
+    message: string;
+    showmessage: boolean;
+
     constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
+        this.getemails.componentMehtodCalled$.subscribe(
+        () => {
+            console.log('clicked');
+            this.fetchNewEmails();
+        });
     }
 
     ngOnInit() {
         this.emailIds = [];
         this.loading = true;
-        this.selectedTag = 0;
         this.getAllTag();
         this.data = {
             'page': 1,
@@ -60,6 +67,7 @@ export class InboxComponent implements OnInit {
             .subscribe((res) => {
                 this.formatTagsInArray(res.data);
                 this.data.tag_id = this.tags['Automatic'][0].id;
+                this.selectedTag = this.tags['Automatic'][0].id;
                 this.getemails.getEmailList(this.data).subscribe((data) => {
                     this.emaillist = data;
                     this.loading = false;
@@ -71,29 +79,38 @@ export class InboxComponent implements OnInit {
     }
 
     searchEmail(searchform: NgForm) {
-        if (!!searchform.value['currentTag']) {
-            this.data = {
-                'page': 1,
-                'tag_id': this.selectedTag,
-                'limit': 20,
-                'type': searchform.value['option'],
-                'keyword': searchform.value['keyword']
-            };
-        } else {
-            this.data = {
-                'page': 1,
-                'limit': 20,
-                'type': searchform.value['option'],
-                'keyword': searchform.value['keyword']
-            };
+        if (searchform.valid) {
+            if (!!searchform.value['currentTag']) {
+                this.data = {
+                    'page': 1,
+                    'tag_id': this.selectedTag,
+                    'limit': 20,
+                    'type': searchform.value['option'],
+                    'keyword': searchform.value['keyword']
+                };
+            } else {
+                this.data = {
+                    'page': 1,
+                    'limit': 20,
+                    'type': searchform.value['option'],
+                    'keyword': searchform.value['keyword']
+                };
+            }
+            searchform.reset();
+            this.loading = true;
+            this.getemails.getEmailList(this.data).subscribe((data) => {
+                if (data.data.length > 0) {
+                    this.emaillist = data;
+                    this.emailIds = [];
+                    this.loading = false;
+                } else {
+                    this.message = data.message;
+                    this.showmessage = true;
+                    this.emaillist = [];
+                    this.loading = false;
+                }
+            });
         }
-        searchform.reset();
-        this.loading = true;
-        this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data;
-            this.emailIds = [];
-            this.loading = false;
-        });
     }
 
     addEmail(id: string) {
@@ -144,7 +161,7 @@ export class InboxComponent implements OnInit {
     openEmails(email: any) {
         this.dialogRef = this.dialog.open(EmailModalComponent, {
             height: '550px',
-            width: '80%'
+            width: '70%'
         });
         this.dialogRef.componentInstance.email = email;
         this.dialogRef.componentInstance.selectedTag = this.selectedTag;
@@ -169,6 +186,7 @@ export class InboxComponent implements OnInit {
     emaillists(id: any, page?: number) {
         this.selectedTag = id;
         this.data = null;
+        this.showmessage = false;
         this.data = {
             'page': page || 1,
             'tag_id': id || 0,
@@ -182,18 +200,48 @@ export class InboxComponent implements OnInit {
         });
     }
 
+    searchEmailList(page: number) {
+        this.data.page = page || 1;
+        this.showmessage = false;
+        this.loading = true;
+        this.getemails.getEmailList(this.data).subscribe((data) => {
+            this.emaillist = data;
+            this.emailIds = [];
+            this.loading = false;
+        });
+    }
+
     previous() {
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
-            this.emaillists(this.data.tag_id, this.data.page);
+            if (!this.data.type) {
+                this.emaillists(this.data.tag_id, this.data.page);
+            } else {
+                this.searchEmailList(this.data.page);
+            }
         }
     }
 
     next() {
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
-            this.emaillists(this.data.tag_id, this.data.page);
+            if (!this.data.type) {
+                this.emaillists(this.data.tag_id, this.data.page);
+            } else {
+                this.searchEmailList(this.data.page);
+            }
         }
+    }
+
+    fetchNewEmails() {
+        this.loading = true;
+        this.getemails.refreshNewEmails().subscribe((data) => {
+            // this.emailIds = [];
+            // this.emaillist = data;
+            console.log(data);
+            this.refresh();
+            this.getAllTag();
+        });
     }
 
     refresh(id?: string) {

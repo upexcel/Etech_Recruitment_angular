@@ -5,6 +5,7 @@
 }
 md-sidenav {
     width: 280px;
+    overflow: inherit;
 }
 
 md-list {
@@ -45,8 +46,8 @@ md-list {
     margin-right: 3px;
 }
 .heightwidth27 {
-    height: 27px;
-    width: 27px;
+    min-height: 27px;
+    min-width: 27px;
 }
 .logo {
     @extend .logodesign;

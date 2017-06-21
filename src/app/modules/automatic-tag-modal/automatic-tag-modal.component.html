@@ -6,7 +6,7 @@
     <md-grid-list cols="2" rowHeight="80px" gutterSize="10px">
         <md-grid-tile [colspan]="1">
             <md-input-container>
-                <input mdInput placeholder="Title" [(ngModel)]="originaltitle">
+                <input mdInput placeholder="Title" disabled [(ngModel)]="originaltitle">
             </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
@@ -31,6 +31,9 @@
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
             <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel>
+                <md-option>
+                    None
+                </md-option>
                 <md-option *ngFor="let temp of tempList" [value]="temp.id">
                     {{temp.templateName}}
                 </md-option>
