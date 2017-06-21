@@ -45,7 +45,6 @@ export class InboxComponent implements OnInit {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
         () => {
-            console.log('clicked');
             this.fetchNewEmails();
         });
     }
@@ -73,7 +72,6 @@ export class InboxComponent implements OnInit {
                     this.loading = false;
                 });
             }, (err) => {
-                console.log(err);
                 this.loading = false;
             });
     }
@@ -178,7 +176,6 @@ export class InboxComponent implements OnInit {
             .subscribe((res) => {
                 this.formatTagsInArray(res.data);
             }, (err) => {
-                console.log(err);
                 this.loading = false;
             });
     }
@@ -236,9 +233,6 @@ export class InboxComponent implements OnInit {
     fetchNewEmails() {
         this.loading = true;
         this.getemails.refreshNewEmails().subscribe((data) => {
-            // this.emailIds = [];
-            // this.emaillist = data;
-            console.log(data);
             this.refresh();
             this.getAllTag();
         });

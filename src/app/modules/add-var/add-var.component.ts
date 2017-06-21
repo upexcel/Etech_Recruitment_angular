@@ -32,7 +32,6 @@ export class AddVarComponent implements OnInit {
                 form.reset();
                 this.dialogRef.close();
             }, (err) => {
-                console.log(err);
                 this.showMessage = true;
                 this.message = err.message;
             });

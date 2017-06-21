@@ -37,7 +37,6 @@ export class AddTagModalComponent implements OnInit {
                 this.showloading = true;
                 this.dialogRef.close('Added');
             }, (err) => {
-                console.log(err);
                 this.showMessage = true;
                 this.showloading = false;
                 this.message = err.message;

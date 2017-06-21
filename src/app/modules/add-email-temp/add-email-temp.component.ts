@@ -27,7 +27,6 @@ export class AddEmailTempComponent implements OnInit {
                 form.reset();
                 this.dialogRef.close('added');
             }, (err) => {
-                console.log(err);
                 this.showMessage = true;
                 this.message = err.message;
             });
