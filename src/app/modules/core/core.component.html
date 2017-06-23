@@ -4,18 +4,18 @@
             <img src="assets/logo.png">
         </div>
         <hr>
-        <div class="hovestyle" (click)="goto('dashboard','Dashboard');sidenav.close()">
+     <!--    <div class="hovestyle" (click)="goto('dashboard','Dashboard');sidenav.close()">
             <a class="mainnav">Dashboard</a>
         </div>
-        <hr>
+        <hr> -->
         <div class="hovestyle" (click)="goto('inbox','Inbox');sidenav.close()">
             <a class="mainnav">Inbox</a>
         </div>
         <hr>
-        <div class="hovestyle" (click)="goto('useractivity','User Activity Logs');sidenav.close()">
+  <!--       <div class="hovestyle" (click)="goto('useractivity','User Activity Logs');sidenav.close()">
             <a class="mainnav">User Activity Logs</a>
         </div>
-        <hr>
+        <hr> -->
         <div class="hovestyle" (click)="goto('setting','Settings');sidenav.close()">
             <a class="mainnav">Settings</a>
         </div>
@@ -35,10 +35,10 @@
           <md-icon>menu</md-icon>
           </button>
             <span>{{title}}</span>
-            <span fxFlex="5%"> </span>
+            <span fxFlex="88%"> </span>
             <a class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
             <i>
-            <small>Fetch Latest Emails</small>
+            <small><md-icon>system_update_alt</md-icon></small>
             </i>
             </a>
             <span fxFlex></span>

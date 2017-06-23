@@ -65,12 +65,14 @@ export class InboxComponent implements OnInit {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
                 this.formatTagsInArray(res.data);
-                this.data.tag_id = this.tags['Automatic'][0].id;
-                this.selectedTag = this.tags['Automatic'][0].id;
-                this.getemails.getEmailList(this.data).subscribe((data) => {
-                    this.emaillist = data;
-                    this.loading = false;
-                });
+                if (this.tags && !!this.tags['Automatic']) {
+                    this.data.tag_id = this.tags['Automatic'][0].id || 1;
+                    this.selectedTag = this.tags['Automatic'][0].id || 1;
+                    this.getemails.getEmailList(this.data).subscribe((data) => {
+                        this.emaillist = data;
+                        this.loading = false;
+                    });
+                }
             }, (err) => {
                 this.loading = false;
             });
@@ -84,18 +86,20 @@ export class InboxComponent implements OnInit {
                     'tag_id': this.selectedTag,
                     'limit': 20,
                     'type': searchform.value['option'],
-                    'keyword': searchform.value['keyword']
+                    'keyword': searchform.value['keyword'],
+                    'selected': searchform.value['currentTag']
                 };
             } else {
                 this.data = {
                     'page': 1,
                     'limit': 20,
                     'type': searchform.value['option'],
-                    'keyword': searchform.value['keyword']
+                    'keyword': searchform.value['keyword'],
+                    'selected': searchform.value['currentTag']
                 };
             }
-            searchform.reset();
             this.loading = true;
+            this.showmessage = false;
             this.getemails.getEmailList(this.data).subscribe((data) => {
                 if (data.data.length > 0) {
                     this.emaillist = data;

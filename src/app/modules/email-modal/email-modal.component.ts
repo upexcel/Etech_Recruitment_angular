@@ -32,7 +32,7 @@ export class EmailModalComponent implements OnInit {
         this.tagUpdate.UnreadStatus(this.body).subscribe(
         (data) => {
         }, (err) => {
-            console.log( err );
+            console.log(err);
         });
 
         if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0) {
@@ -92,7 +92,6 @@ export class EmailModalComponent implements OnInit {
         this.dialogConfig.componentInstance.link = link;
         this.dialogConfig.afterClosed().subscribe(result => {
             this.dialogConfig = null;
-            this.dialogRef.close();
         });
     }
 

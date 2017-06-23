@@ -14,7 +14,7 @@ export class InboxSideNavComponent implements OnInit {
     @Output() getEmails = new EventEmitter<string>();
     constructor(public getTag: ImapMailsService) { }
     ngOnInit() {
-        this.selectedId = this.tags['Automatic'][0].id;
+        this.selectedId = !!this.tags['Automatic'] ? this.tags['Automatic'][0].id : 1;
     }
     getEmail(id: string) {
         this.selectedId = id;
