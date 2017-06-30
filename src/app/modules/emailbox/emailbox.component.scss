@@ -43,6 +43,9 @@
     left: 5px;
     cursor: pointer;
     padding-right: 10px;
+    p{
+        margin-bottom:0px;
+    }
 }
 .inline {
     display: inline;
@@ -57,4 +60,22 @@
 }
 .unchecked {
     opacity: 1;
+}
+    
+.default-tag-buttons{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height:100%;
+    .cyan{
+        line-height:20px!important;
+        margin: 0px 4px 0px 4px;
+        font-weight:bold;
+        color:#fff;
+        font-size: 12px;
+    }
+    .material-icons{
+        font-size: 14px!important;
+        line-height:1px;
+    }
 }
