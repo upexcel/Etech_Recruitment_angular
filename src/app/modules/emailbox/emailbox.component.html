@@ -9,7 +9,7 @@
         <md-grid-tile [colspan]="'6'" (click)="openEmails(email)">
             <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}">
                 <h4 class="inline">{{email.subject}}</h4>
-                <h6 class="inline">{{email.email_date}}</h6>
+                <h6 class="inline">{{email.date | date: 'medium'}}</h6>
                 <p>{{email.sender_mail}} - From {{email.from}}
                     <md-icon *ngIf="email.attachment?.length > 0" class="attach">
                         attach_file
@@ -17,17 +17,17 @@
                 </p>
             </div>
         </md-grid-tile>
-        <md-grid-tile [colspan]="'1'">
+        <md-grid-tile [colspan]="'1'" *ngIf="tags">
             <button md-icon-button [mdMenuTriggerFor]="themeMenu">
                        <md-icon>more_vert</md-icon>
                       </button>
             <md-menu #themeMenu x-position="before">
-                <button md-menu-item *ngFor="let tag of tags['Automatic']" (click)="assignToEmail(tag.id, email._id)">
-                             <div class="logo" [style.background-color]="tag.color">
-                                <span>{{tag.title?.charAt(0)}}</span>
-                            </div>
-                           <span>{{tag.title}}</span>
-                         </button>
+                <button md-menu-item *ngFor="let tag of tags" (click)="assignToEmail(tag.id, email._id)">
+                        <div class="logo" [style.background-color]="tag.color">
+                            <span>{{tag.title?.charAt(0)}}</span>
+                        </div>
+                        <span>{{tag.title}}</span>
+                </button>
             </md-menu>
         </md-grid-tile>
     </md-grid-list>

@@ -16,6 +16,11 @@ import {
 import {
     MdSnackBar
 } from '@angular/material';
+import {
+    NgForm,
+    FormControl,
+    Validators
+} from '@angular/forms';
 
 @Component({
     selector: 'app-inbox',
@@ -24,6 +29,7 @@ import {
 })
 export class InboxComponent implements OnInit {
     dialogRef: MdDialogRef < any > ;
+    Math: any;
     emaillist: any;
     loading = false;
     tag_id: string;
@@ -31,9 +37,17 @@ export class InboxComponent implements OnInit {
     data: any;
     selected: any;
     emailIds: string[];
-    readonly REJECTTAG = 2;
-    readonly IGNORETAG = 1;
-    constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {}
+    selectedTag: any;
+    message: string;
+    showmessage: boolean;
+
+    constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
+        this.Math = Math;
+        this.getemails.componentMehtodCalled$.subscribe(
+        () => {
+            this.fetchNewEmails();
+        });
+    }
 
     ngOnInit() {
         this.emailIds = [];
@@ -44,10 +58,61 @@ export class InboxComponent implements OnInit {
             'tag_id': 0,
             'limit': 20
         };
-        this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data.data;
-            this.loading = false;
-        });
+        this.defaultOpen();
+    }
+
+    defaultOpen() {
+        this.getemails.getAllTagsMain()
+            .subscribe((res) => {
+                this.formatTagsInArray(res.data);
+                if (this.tags && !!this.tags['Automatic']) {
+                    this.data.tag_id = this.tags['Automatic'][0].id || 1;
+                    this.selectedTag = this.tags['Automatic'][0].id || 1;
+                    this.getemails.getEmailList(this.data).subscribe((data) => {
+                        this.emaillist = data;
+                        this.loading = false;
+                    });
+                }
+            }, (err) => {
+                this.loading = false;
+            });
+    }
+
+    searchEmail(searchform: NgForm) {
+        if (searchform.valid) {
+            if (!!searchform.value['currentTag']) {
+                this.data = {
+                    'page': 1,
+                    'tag_id': this.selectedTag,
+                    'limit': 20,
+                    'type': searchform.value['option'],
+                    'keyword': searchform.value['keyword'],
+                    'selected': searchform.value['currentTag']
+                };
+            } else {
+                this.data = {
+                    'page': 1,
+                    'limit': 20,
+                    'type': searchform.value['option'],
+                    'keyword': searchform.value['keyword'],
+                    'selected': searchform.value['currentTag']
+                };
+            }
+            this.loading = true;
+            this.showmessage = false;
+            this.getemails.getEmailList(this.data).subscribe((data) => {
+                if (data.data.length > 0) {
+                    this.emaillist = data;
+                    this.emailIds = [];
+                    this.loading = false;
+                } else {
+                    this.message = data.message;
+                    this.showmessage = true;
+                    this.emaillist = [];
+                    this.loading = false;
+                }
+            });
+        }
     }
 
     addEmail(id: string) {
@@ -58,25 +123,11 @@ export class InboxComponent implements OnInit {
         this.emailIds.splice(this.emailIds.indexOf(id), 1);
     }
 
-    ignore() {
+    assign(id: any) {
         this.selected = {
-            'tag_id': this.IGNORETAG,
-            'mongo_id': this.emailIds
-        };
-        this.getemails.assignTag(this.selected).subscribe((data) => {
-            this.getAllTag();
-            this.refresh();
-            this.emailIds.length = 0;
-            this.notify('done', '');
-        }, (err) => {
-            console.log(err);
-        });
-    }
-
-    reject() {
-        this.selected = {
-            'tag_id': this.REJECTTAG,
-            'mongo_id': this.emailIds
+            'tag_id': id,
+            'mongo_id': this.emailIds,
+            'selectedTag': this.selectedTag
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
             this.getAllTag();
@@ -90,6 +141,7 @@ export class InboxComponent implements OnInit {
 
     delete() {
         this.selected = {
+            'tag_id': this.selectedTag,
             'mongo_id': this.emailIds
         };
         this.getemails.deleteEmail(this.selected).subscribe((data) => {
@@ -111,9 +163,10 @@ export class InboxComponent implements OnInit {
     openEmails(email: any) {
         this.dialogRef = this.dialog.open(EmailModalComponent, {
             height: '550px',
-            width: '80%'
+            width: '70%'
         });
         this.dialogRef.componentInstance.email = email;
+        this.dialogRef.componentInstance.selectedTag = this.selectedTag;
         this.dialogRef.componentInstance.tags = this.tags;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
@@ -127,12 +180,14 @@ export class InboxComponent implements OnInit {
             .subscribe((res) => {
                 this.formatTagsInArray(res.data);
             }, (err) => {
-                console.log(err);
                 this.loading = false;
             });
     }
 
-    emaillists(id: string, page?: number) {
+    emaillists(id: any, page?: number) {
+        this.selectedTag = id;
+        this.data = null;
+        this.showmessage = false;
         this.data = {
             'page': page || 1,
             'tag_id': id || 0,
@@ -140,7 +195,18 @@ export class InboxComponent implements OnInit {
         };
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data.data;
+            this.emaillist = data;
+            this.emailIds = [];
+            this.loading = false;
+        });
+    }
+
+    searchEmailList(page: number) {
+        this.data.page = page || 1;
+        this.showmessage = false;
+        this.loading = true;
+        this.getemails.getEmailList(this.data).subscribe((data) => {
+            this.emaillist = data;
             this.emailIds = [];
             this.loading = false;
         });
@@ -149,20 +215,38 @@ export class InboxComponent implements OnInit {
     previous() {
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
-            this.emaillists(this.data.tag_id, this.data.page);
+            if (!this.data.type) {
+                this.emaillists(this.data.tag_id, this.data.page);
+            } else {
+                this.searchEmailList(this.data.page);
+            }
         }
     }
 
     next() {
-        this.data.page = this.data.page + 1;
-        this.emaillists(this.data.tag_id, this.data.page);
+        if (this.data.page < this.emaillist.count / this.data.limit) {
+            this.data.page = this.data.page + 1;
+            if (!this.data.type) {
+                this.emaillists(this.data.tag_id, this.data.page);
+            } else {
+                this.searchEmailList(this.data.page);
+            }
+        }
+    }
+
+    fetchNewEmails() {
+        this.loading = true;
+        this.getemails.refreshNewEmails().subscribe((data) => {
+            this.refresh();
+            this.getAllTag();
+        });
     }
 
     refresh(id?: string) {
         this.getAllTag();
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.emailIds = [];
-            this.emaillist = data.data;
+            this.emaillist = data;
         });
     }
 

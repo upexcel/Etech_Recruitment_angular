@@ -40,6 +40,8 @@ md-toolbar {
 .p-y {
 	padding-bottom: 1 rem !important;
 	padding-top: 1 rem !important;
+	margin-top: 15px;
+	margin-bottom: 15px;
 	a {
 	   cursor: pointer;
 	   outlint: 0;
@@ -84,4 +86,25 @@ md-grid-tile {
       text-align: center;
       white-space: nowrap;
       display: inline-block;
+}
+.attach {
+	margin-bottom: .5rem!important;
+	margin-right: .5rem!important;
+	border: 1px solid rgba(120,130,140,.13);
+	display: inline-block;
+	padding: 10px;
+	cursor: pointer;
+}
+.at-hd {
+	padding: .25rem!important;
+	border-bottom: 1px solid rgba(120,130,140,.13);
+	cursor: pointer;
+}
+.p-a-xs {
+	width: 120px;
+	padding: .25rem!important;
+}
+.at-hed {
+	text-align: center;
+    color: aqua;
 }

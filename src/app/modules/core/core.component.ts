@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
+import { ImapMailsService } from '../../service/imapemails.service';
 
 @Component({
     selector: 'app-core',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class CoreComponent implements OnInit {
     title = 'Inbox';
-    constructor(private _router: Router, private access: LoginService) { }
+    constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService) { }
 
     ngOnInit(): void {
         this.title = 'Inbox';
@@ -22,6 +23,10 @@ export class CoreComponent implements OnInit {
                 this.logout();
             }
         });
+    }
+
+    emailRefresh() {
+        this.getNewEmail.fetchNewEmail();
     }
 
     goto(path: string, navtitle: string) {

@@ -33,7 +33,7 @@ export class TemplateEditComponent implements OnInit {
         };
         this.getVariable.updateTemplate(this.updateData, this.temp.id).subscribe((data) => {
             form.reset();
-            this.dialogRef.close();
+            this.dialogRef.close('updated');
         }, (err) => {
             console.log(err);
         });

@@ -21,7 +21,7 @@ export class SetvaremailpreviewComponent implements OnInit {
         if (this.pendingVariables.length > 0) {
             this.first = true;
         } else {
-            this.first = false;
+            this.previewEmail();
         }
     }
 

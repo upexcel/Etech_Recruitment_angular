@@ -47,6 +47,9 @@ md-sidenav-container {
 .bgcolor {
     background-color: $contentcolor;
 }
+.cursor-pt {
+    cursor: pointer;
+}
 /deep/ .mat-list-item-content {
     height: auto !important;
 }

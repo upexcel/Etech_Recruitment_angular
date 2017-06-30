@@ -23,7 +23,7 @@ export class EmailVariablesComponent implements OnInit {
         this.getVariable.getUserVariable().subscribe((data) => {
             this.userVar = data;
         });
-        this.getVariable.getSystemVariable().then(data => {
+        this.getVariable.getSystemVariable().subscribe(data => {
             this.sysVar = data;
         });
     }

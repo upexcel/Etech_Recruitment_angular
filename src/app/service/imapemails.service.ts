@@ -6,16 +6,34 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { historylog, Emaillist, SystemVar } from './mock-data';
 import { InterceptedHttp } from './http.interceptor';
+import { Subject } from 'rxjs/Subject';
+
 
 @Injectable()
 export class ImapMailsService {
-
+    private childMethodCall = new Subject<any>();
+    // Observalbe string streams
+    componentMehtodCalled$ = this.childMethodCall.asObservable();
     constructor(public http: Http, public Intercepted: InterceptedHttp) {}
 
-    getEmailList(body: any): Observable <any> {
-        return this.Intercepted.get(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`)
+    fetchNewEmail() {
+        this.childMethodCall.next();
+    }
+    refreshNewEmails() {
+        return this.Intercepted.get(config['apibase'] + 'email/fetchByButton')
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    getEmailList(body: any): Observable <any> {
+        if (!!body.type) {
+            return this.Intercepted.put(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
+                .map((res: Response) => res.json())
+                .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+        } else {
+            return this.Intercepted.put(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`)
+                .map((res: Response) => res.json())
+                .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+        }
     }
     getAllTagsMain(): Observable <any> {
         return this.Intercepted.get(config['apibase'] + 'email/countEmail')
@@ -37,13 +55,18 @@ export class ImapMailsService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
+    emailAttachment(id: string): Observable <any> {
+        return this.Intercepted.put(config['apibase'] + `email/mailAttachment/${id}`)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
     assignTag(body: any): Observable <any> {
         return this.Intercepted.put(config['apibase'] + `email/assignMultiple/${body.tag_id}`, body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     deleteEmail(body: any): Observable <any> {
-        return this.Intercepted.post(config['apibase'] + 'email/deleteEmail', body)
+        return this.Intercepted.post(config['apibase'] + `email/deleteEmail/${body.tag_id}`, body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
@@ -65,8 +88,10 @@ export class ImapMailsService {
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
-    getSystemVariable(): Promise < any[] > {
-        return Promise.resolve(SystemVar);
+    getSystemVariable(): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + 'systemVariable/get/1/20')
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     addUserVariable(body): Observable <any> {
         return this.Intercepted.post(config['apibase'] + 'variable/add/', body)
@@ -102,7 +127,7 @@ export class ImapMailsService {
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
     getImapList(): Observable <any> {
-        return this.Intercepted.get(config['apibase'] + 'imap/get/1/10')
+        return this.Intercepted.get(config['apibase'] + 'imap/get')
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
@@ -159,6 +184,11 @@ export class ImapMailsService {
     }
     getCandidateHistory(Email_id: string): Observable <any> {
         return this.Intercepted.get(config['apibase'] + `email/inbox/${Email_id}`)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    testTemplate(temp_id: string): Observable <any> {
+        return this.Intercepted.get(config['apibase'] + `template/test/${temp_id}`)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

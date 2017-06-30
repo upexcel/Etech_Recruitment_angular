@@ -27,22 +27,22 @@ export class SmtpServerComponent implements OnInit {
 
     test(email: string) {
         this.apiServices.testSmtp(email).subscribe(
-       (data) => {
-           this.getSmtpList();
-           this.snackBar.open('SMTP Tested Successfully', '', {
-               duration: 2000,
-           });
-       },
+        (data) => {
+            this.getSmtpList();
+            this.snackBar.open('SMTP Tested Successfully', '', {
+                duration: 2000,
+            });
+        },
         (err) => {
-            console.log(err);
-            this.snackBar.open(err, '', {
+            this.snackBar.open(err.message, '', {
                 duration: 2000,
             });
         });
     }
 
-    changeStatus(email: string) {
-        this.apiServices.changeSmtpStatus(email).subscribe(
+    changeStatus(email: string, status: any) {
+        if (!status) {
+            this.apiServices.changeSmtpStatus(email).subscribe(
        (data) => {
            this.getSmtpList();
            this.snackBar.open(data.message, '', {
@@ -50,11 +50,15 @@ export class SmtpServerComponent implements OnInit {
            });
        },
         (err) => {
-            console.log(err);
-            this.snackBar.open(err, '', {
+            this.snackBar.open(err.message, '', {
                 duration: 2000,
             });
         });
+        } else {
+            this.snackBar.open('SMTP is already active', '', {
+                duration: 2000,
+            });
+        }
     }
 
     remove(id: string) {
@@ -66,7 +70,6 @@ export class SmtpServerComponent implements OnInit {
            });
        },
         (err) => {
-            console.log(err);
             this.snackBar.open(err.status, '', {
                 duration: 2000,
             });

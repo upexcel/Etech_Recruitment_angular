@@ -2,12 +2,13 @@
     <p class="h-text">Create Variable</p>
 </div>
 <form autoComplete="off" #add="ngForm" (ngSubmit)="save(add)">
+    <p *ngIf="showMessage" class="error-show">{{message}}</p>
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main" fxFlex="75%">
             <p>
                 <md-input-container class="width-100">
                     <input mdInput placeholder="Enter Variable" autoComplete="off" name="variableCode" required ngModel>
-                    <md-error>required</md-error>
+                    <md-error>Required</md-error>
                 </md-input-container>
             </p>
                <md-radio-group class="pos-radio" name="type" [(ngModel)]="types" ngModel>

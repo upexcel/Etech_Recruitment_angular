@@ -21,17 +21,17 @@
                     <tbody>
                         <tr *ngFor="let setting of settingJson">
                             <td>{{setting.email}}</td>
-                            <td>{{setting.imap_server}}</td>
+                            <td>{{setting.smtp_server}}</td>
                             <td>{{setting.server_port}}</td>
                             <td>{{setting.type}}</td>
                             <td>
-                                <md-icon class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email)">{{setting.status ? 'done' : 'clear'}}</md-icon>
+                                <md-icon class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email, setting.status)">{{setting.status ? 'done' : 'clear'}}</md-icon>
                             </td>
                             <td>
                                 <button md-button class="chartcolor" (click)="test(setting.email)">TEST</button>
                             </td>
                             <td>
-                                <button md-button class="chartcolor" (click)="remove(setting.id)">REMOVE</button>
+                                <button md-button class="chartcolor" [disabled]="setting.status" (click)="remove(setting.id)">REMOVE</button>
                             </td>
                         </tr>
                     </tbody>

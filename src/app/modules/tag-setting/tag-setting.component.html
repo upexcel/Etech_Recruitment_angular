@@ -2,7 +2,7 @@
 <div class="mainform" *ngIf="!loading">
         <p class="font-18">Default tag(s)</p>
         <hr class="linespace">
-        <div class="tagbutton" [style.background-color]="tag.color" *ngFor="let tag of tags.Default">
+        <div class="tagbutton" [style.background-color]="tag.color" *ngFor="let tag of tags?.Default">
             <div class="taglogo">
             {{tag.title.charAt(0)}}
             </div>
@@ -15,7 +15,7 @@
 <div class="mainform" *ngIf="!loading">
         <p class="font-18">Manual tag(s)</p>
         <hr class="linespace">
-        <div class="tagbutton1" [style.background-color]="tag.color" *ngFor="let tag of tags.Manual">
+        <div class="tagbutton1" [style.background-color]="tag.color" *ngFor="let tag of tags?.Manual">
             <div class="taglogo" (click)="openManual(tag)">
             {{tag.title.charAt(0)}}
             </div>
@@ -29,7 +29,7 @@
 <div class="mainform" *ngIf="!loading">
         <p class="font-18">Automatic tag(s)</p>
         <hr class="linespace">
-        <div class="tagbutton1" [style.background-color]="tag.color" *ngFor="let tag of tags.Automatic">
+        <div class="tagbutton1" [style.background-color]="tag.color" *ngFor="let tag of tags?.Automatic">
             <div class="taglogo" (click)="openAutomatic(tag)">
             {{tag.title.charAt(0)}}
             </div>

@@ -13,6 +13,8 @@ export class AddVarComponent implements OnInit {
     types: number;
     type: any;
     body: any;
+    message: string;
+    showMessage: boolean;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
@@ -30,7 +32,8 @@ export class AddVarComponent implements OnInit {
                 form.reset();
                 this.dialogRef.close();
             }, (err) => {
-                console.log(err);
+                this.showMessage = true;
+                this.message = err.message;
             });
 
         }

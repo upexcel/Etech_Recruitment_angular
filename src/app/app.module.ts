@@ -133,6 +133,8 @@ import { AddVarComponent } from './modules/add-var/add-var.component';
 import { EditVariableComponent } from './modules/edit-variable/edit-variable.component';
 import { TestTemplateComponent } from './modules/test-template/test-template.component';
 import { SetvaremailpreviewComponent } from './modules/setvaremailpreview/setvaremailpreview.component';
+import { OpenattachementComponent } from './modules/openattachement/openattachement.component';
+import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
 
 
 @NgModule({
@@ -169,7 +171,9 @@ import { SetvaremailpreviewComponent } from './modules/setvaremailpreview/setvar
         AddVarComponent,
         EditVariableComponent,
         TestTemplateComponent,
-        SetvaremailpreviewComponent
+        SetvaremailpreviewComponent,
+        OpenattachementComponent,
+        ForgetPasswordComponent
     ],
     imports: [
         BrowserModule,
@@ -210,7 +214,8 @@ import { SetvaremailpreviewComponent } from './modules/setvaremailpreview/setvar
         AddVarComponent,
         EditVariableComponent,
         TestTemplateComponent,
-        SetvaremailpreviewComponent
+        SetvaremailpreviewComponent,
+        OpenattachementComponent
     ],
     bootstrap: [AppComponent]
 })

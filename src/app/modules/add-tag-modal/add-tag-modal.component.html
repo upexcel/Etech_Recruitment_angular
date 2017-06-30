@@ -2,8 +2,9 @@
     <h3>Add Tag</h3>
 </div>
 <hr>
-<form #addForm="ngForm" (ngSubmit)="registerUser(addForm)">
+<form #addForm="ngForm" (ngSubmit)="addTag(addForm)">
     <div class="body">
+    <span class="text-err" *ngIf="showMessage">{{message}}</span>
         <md-grid-list cols="4" rowHeight="65px" gutterSize="10px">
             <md-grid-tile [colspan]="2">
                 <md-input-container>
@@ -40,10 +41,16 @@
             </md-grid-tile>
              <md-grid-tile [colspan]="2" *ngIf="types">
                 <md-select class="width-100" placeholder="Select Template" name="template_id" ngModel>
+                    <md-option>
+                        None
+                    </md-option>
                     <md-option *ngFor="let temp of tempList" [value]="temp.id">
                         {{temp.templateName}}
                     </md-option>
                 </md-select>
+            </md-grid-tile>
+            <md-grid-tile [colspan]="2" *ngIf="types">
+                    <md-slide-toggle name="assign" ngModel>Assign To All Email</md-slide-toggle>
             </md-grid-tile>
         </md-grid-list>
         <div>
@@ -54,6 +61,8 @@
 
     <div class="footer">
         <a md-raised-button (click)="close()">Close</a>
-        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid" (click)="registerUser(addForm)">Save</a>
+        <a md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
+        <span>Save </span><md-spinner *ngIf="showloading" class="s-ld"></md-spinner>
+        </a>
     </div>
 </form>

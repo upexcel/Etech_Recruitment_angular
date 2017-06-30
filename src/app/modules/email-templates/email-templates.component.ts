@@ -4,6 +4,7 @@ import { AddEmailTempComponent } from '../add-email-temp/add-email-temp.componen
 import { ImapMailsService } from '../../service/imapemails.service';
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
 import { TestTemplateComponent } from '../test-template/test-template.component';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-email-templates',
@@ -15,13 +16,13 @@ export class EmailTemplatesComponent implements OnInit {
     userVar: string[];
     sysVar: string[];
     tempData: string[];
-    constructor(public dialog: MdDialog, private getVariable: ImapMailsService) { }
+    constructor(public dialog: MdDialog, private getVariable: ImapMailsService, public snackBar: MdSnackBar) { }
 
     ngOnInit() {
         this.getVariable.getUserVariable().subscribe((data) => {
             this.userVar = data;
         });
-        this.getVariable.getSystemVariable().then(data => {
+        this.getVariable.getSystemVariable().subscribe(data => {
             this.sysVar = data;
         });
         this.loadTemp();
@@ -41,6 +42,11 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.userVar = this.userVar;
         this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'added') {
+                this.snackBar.open('Template Added Successfully', '', {
+                    duration: 2000,
+                });
+            }
             this.dialogRef = null;
             this.loadTemp();
         });
@@ -55,6 +61,11 @@ export class EmailTemplatesComponent implements OnInit {
         this.dialogRef.componentInstance.sysVar = this.sysVar;
         this.dialogRef.componentInstance.temp = temp;
         this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'updated') {
+                this.snackBar.open('Template Updated Successfully', '', {
+                    duration: 2000,
+                });
+            }
             this.dialogRef = null;
             this.loadTemp();
         });
@@ -67,6 +78,11 @@ export class EmailTemplatesComponent implements OnInit {
         });
         this.dialogRef.componentInstance.temp = temp;
         this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'done') {
+                this.snackBar.open('Email Send Successfully', '', {
+                    duration: 2000,
+                });
+            }
             this.dialogRef = null;
             this.loadTemp();
         });
@@ -75,8 +91,14 @@ export class EmailTemplatesComponent implements OnInit {
     deleteTempId(id: string) {
         this.getVariable.deleteTemplate(id).subscribe((data) => {
             this.loadTemp();
+            this.snackBar.open('Template Deleted Successfully', '', {
+                duration: 2000,
+            });
         }, (err) => {
             console.log(err);
+            this.snackBar.open(err.message, '', {
+                duration: 2000,
+            });
         });
     }
 }

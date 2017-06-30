@@ -10,8 +10,13 @@
                         <tr>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="email" type="email" placeholder="Email" required ngModel autoComplete="off">
-                                    <md-error>Invalid Email ID</md-error>
+                                    <input mdInput name="email" placeholder="Email" ngModel autoComplete="off" [formControl]="emailFormControl">
+                                    <md-error *ngIf="emailFormControl.hasError('required')">
+                                              This field is required
+                                    </md-error>
+                                    <md-error *ngIf="emailFormControl.hasError('pattern')">
+                                             Please enter a valid email address
+                                    </md-error>
                                 </md-input-container>
                             </td>
                             <td>
@@ -43,7 +48,7 @@
                                 </md-radio-group>                               
                             </td>
                             <td>
-                                <button type="submit" md-raised-button color=primary [disabled]="smtpForm.invalid"> Save </button>
+                                <button type="submit" md-raised-button color=primary [disabled]="smtpForm.invalid || emailFormControl.invalid"> Save </button>
                             </td>
                         </tr>
                     </table>
