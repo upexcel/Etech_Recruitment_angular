@@ -1,5 +1,5 @@
 <md-card class="bleftblue emailstyle">
-    <md-grid-list cols="8" rowHeight="100px">
+    <md-grid-list cols="8" rowHeight="80px">
         <md-grid-tile [colspan]="'1'">
             <div class="emailcheckbox">
                 <span *ngIf="!selected" >{{email.subject?.charAt(0)}}</span>
@@ -35,10 +35,10 @@
         <md-grid-tile [colspan]="'1'">
             <div class="default-tag-buttons">
                 <span *ngFor="let tag of allTags.Default">
-                    <a md-raised-button class="cyan" *ngIf="tag.id != tagselected" (click)="assignTag(tag.id, email._id)">{{tag.title}}
+                    <a md-raised-button class="cyan" [ngStyle]="getColor(tag.title)" *ngIf="tag.id != tagselected" (click)="assignTag(tag.id, email._id)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
                     </a>
                 </span>
-                <a md-raised-button class="cyan" *ngIf="allTags && allTags.Manual && allTags.Manual[0]" (click)="assignTag(allTags.Manual[0].id, email._id)">{{tags.Manual[0].title}}</a>
+                <a md-raised-button class="cyan" *ngIf="allTags && allTags.Manual && allTags.Manual[0]" (click)="assignTag(allTags.Manual[0].id, email._id)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tags.Manual[0].title}}</a>
             </div>
         </md-grid-tile>
     </md-grid-list>
