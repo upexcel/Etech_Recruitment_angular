@@ -13,6 +13,7 @@ export class EmailboxComponent implements OnInit {
     selectedMid: string[];
     @Input() email: any;
     @Input() tags: any[];
+    @Input() allTags: any[];
     @Input() tagselected: any;
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
@@ -43,6 +44,20 @@ export class EmailboxComponent implements OnInit {
     }
 
     assignToEmail(id: string, emailId: string) {
+        this.selectedMid.push(emailId);
+        this.data = {
+            'tag_id': id,
+            'mongo_id': this.selectedMid
+        };
+        this.assignEmail.assignTag(this.data).subscribe((data) => {
+            this.selectedMid = [];
+            this.refresh.emit(id);
+        }, (err) => {
+            console.log(err);
+        });
+    }
+
+    assignTag(id: string, emailId: string) {
         this.selectedMid.push(emailId);
         this.data = {
             'tag_id': id,

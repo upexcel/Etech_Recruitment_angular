@@ -45,7 +45,7 @@
         <md-spinner *ngIf="loading" class="posload"></md-spinner>
         <h2 class="m-s" *ngIf="showmessage">{{message}}</h2>
         <div *ngIf="!loading && emaillist">
-            <app-emailbox *ngFor="let emails of emaillist.data" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tags.Automatic"></app-emailbox>
+            <app-emailbox *ngFor="let emails of emaillist.data" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tags.Automatic" [allTags]="tags"></app-emailbox>
         </div>
     </div>
 </div>    

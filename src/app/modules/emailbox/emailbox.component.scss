@@ -58,3 +58,14 @@
 .unchecked {
     opacity: 1;
 }
+    
+.default-tag-buttons{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    .cyan{
+        background-color: cyan;
+        line-height:20px!important;
+        margin: 0px 2px 0px 2px;
+    }
+}
