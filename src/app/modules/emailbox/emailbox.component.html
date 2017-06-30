@@ -11,7 +11,7 @@
                 <h4 class="inline">{{email.subject}}</h4>
                 <h6 class="inline">{{email.date | date: 'medium'}}</h6>
                 <p>{{email.sender_mail}} - From {{email.from}}
-                    <md-icon *ngIf="email.attachment?.length > 0" class="attach">
+                    <md-icon *ngIf="email.is_attachment" class="attach">
                         attach_file
                     </md-icon>
                 </p>
