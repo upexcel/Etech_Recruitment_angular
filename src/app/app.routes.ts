@@ -17,6 +17,8 @@ import { ActionsComponent } from './modules/actions/actions.component';
 import { ManageUsersComponent } from './modules/manage-users/manage-users.component';
 import { LoginRouteGuard } from './service/login-route-guard';
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
+import { EmailModalComponent } from './modules/email-modal/email-modal.component';
+
 
 export const routes: Route[] = [{
     path: '',
@@ -35,7 +37,12 @@ export const routes: Route[] = [{
             {
                 path: 'inbox',
                 component: InboxComponent,
-                canActivate: [LoginRouteGuard]
+                canActivate: [LoginRouteGuard],
+                children: [{
+                    path: 'email/:id',
+                    pathMatch: 'full',
+                    component: EmailModalComponent
+                }]
             }, {
                 path: 'dashboard',
                 component: DashboardComponent,
