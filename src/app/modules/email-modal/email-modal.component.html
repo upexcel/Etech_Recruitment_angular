@@ -12,7 +12,7 @@
         </a>
     </div>
 </div>
-
+<md-spinner *ngIf="emailmodelSpinner" class="posload"></md-spinner>
 <button md-button md-raised-button class="c-his f-r" [mdMenuTriggerFor]="menu" *ngIf="historyList.data?.length > 1">
 Candidate History 
 <span class="labels">{{historyList?.data?.length ? historyList.data.length - 1: 0}}</span>

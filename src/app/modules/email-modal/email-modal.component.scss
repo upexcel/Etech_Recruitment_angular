@@ -5,7 +5,16 @@
 .background-white{
 	background-color: #fff;
 }
-
+.mat-spinner{
+	path{
+	 stroke: #3f51b5;
+	}
+}
+.posload {
+    left: 44%;
+    position: relative;
+    min-height: 100%;
+}
 .example-spacer {
   flex: 1 1 auto;
 }
