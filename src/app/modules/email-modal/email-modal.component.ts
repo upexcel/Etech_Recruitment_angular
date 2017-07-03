@@ -21,7 +21,6 @@ export class EmailModalComponent implements OnInit {
     selectedTag: any;
     selectedEmail: any;
     idlist: string[];
-    emailmodelSpinner = true;
     constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {
         this.email = JSON.parse(localStorage.getItem('email'));
         this.selectedTag = JSON.parse(localStorage.getItem('selectedTag'));
@@ -56,21 +55,16 @@ export class EmailModalComponent implements OnInit {
     }
 
     getCandiatehistory() {
-        this.emailmodelSpinner = true;
         if (this.email.sender_mail) {
             this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
                 this.historyList = data;
-                this.emailmodelSpinner = false;
             }, (err) => {
                 console.log(err);
-                this.emailmodelSpinner = false;
             });
         } else {
             this.tagUpdate.getCandidateHistory(this.email._id).subscribe((data) => {
                 this.historyList = data;
-                this.emailmodelSpinner = false;
             }, (err) => {
-                this.emailmodelSpinner = false;
                 console.log(err);
             });
         }
@@ -109,5 +103,33 @@ export class EmailModalComponent implements OnInit {
 
     close() {
         // this.dialogRef.close();
+    }
+
+    getColor(title) {
+        if (title === 'Ignore') {
+            return {'background-color': '#FF0000'};
+        } else if (title === 'Genuine Applicant') {
+            return {'background-color': '#41A317'};
+        } else if (title === 'Reject') {
+            return {'background-color': '#F1B2B2'};
+        } else if (title === 'Schedule') {
+            return {'background-color': '#FBB917'};
+        } else {
+            return {'background-color': 'cyan'};
+        }
+    }
+
+    getIcon(title) {
+        if (title === 'Ignore') {
+            return 'block';
+        } else if (title === 'Genuine Applicant') {
+            return 'done_all';
+        } else if (title === 'Reject') {
+            return 'highlight_off';
+        } else if (title === 'Schedule') {
+            return 'access_time';
+        } else {
+            return 'thumb_up';
+        }
     }
 }
