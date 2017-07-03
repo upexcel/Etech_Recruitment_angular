@@ -23,7 +23,11 @@ export class EmailModalComponent implements OnInit {
     idlist: string[];
     constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {
         this.email = JSON.parse(localStorage.getItem('email'));
-        this.selectedTag = JSON.parse(localStorage.getItem('selectedTag'));
+        if (localStorage.getItem('selectedTag')) {
+            this.selectedTag = -1;
+        } else {
+            this.selectedTag = JSON.parse(localStorage.getItem('selectedTag'));
+        }
         this.tags = JSON.parse(localStorage.getItem('tags'));
     }
 
@@ -103,6 +107,10 @@ export class EmailModalComponent implements OnInit {
 
     close() {
         // this.dialogRef.close();
+    }
+
+    back() {
+        this._location.back();
     }
 
     getColor(title) {

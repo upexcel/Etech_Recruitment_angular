@@ -128,7 +128,8 @@ md-grid-tile {
         color:#fff;
         font-size: 12px;
     }
-    .material-icons{
+}
+.material-icons{
         font-size: 14px!important;
         line-height:1px;
 	    font-family: 'Material Icons';
@@ -143,7 +144,6 @@ md-grid-tile {
 	    -webkit-font-feature-settings: 'liga';
 	    -webkit-font-smoothing: antialiased;
     }
-}
 .email-attachment{
 	height: 100px;
 	width: 100%;
@@ -157,4 +157,18 @@ md-grid-tile {
 	table{
 		margin: 0px;
 	}
+}
+.back-button{
+	position: absolute;
+	left: 22px;
+	background-color: #fff;
+	.material-icons{
+		font-weight: bolder;
+		color: #000;
+	}
+}
+.auto-tags{
+	font-size: 10px;
+	margin: 0px 2px 0px 2px;
+	vertical-align: bottom;
 }

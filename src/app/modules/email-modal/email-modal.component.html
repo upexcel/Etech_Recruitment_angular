@@ -1,7 +1,7 @@
 <md-card class="background-white">
-
 <div class="m-b">
     <div class="example-button-row default-tag-buttons" *ngIf="historyList.data">
+        <a md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></a>
         <span *ngFor="let tag of tags.Default">
             <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
             </a>
@@ -22,7 +22,7 @@
 
 <div class="bod" *ngFor="let H_email of historyList.data">
     <div class="b-b" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
-        <h2 class="font-300">{{H_email.subject}}</h2>
+        <h2 class="font-300">{{H_email.subject}} <span *ngFor="let autoTag of tags.Automatic" class="labels auto-tags">{{autoTag.title}}</span> </h2>
     </div>
     <div class="p-y" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
         from
