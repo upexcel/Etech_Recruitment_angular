@@ -3,6 +3,10 @@ import {
     OnInit
 } from '@angular/core';
 import {
+    Router,
+    NavigationStart
+} from '@angular/router';
+import {
     ImapMailsService
 } from '../../service/imapemails.service';
 import {
@@ -21,6 +25,7 @@ import {
     FormControl,
     Validators
 } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-inbox',
@@ -33,19 +38,30 @@ export class InboxComponent implements OnInit {
     emaillist: any;
     loading = false;
     tag_id: string;
-    tags: any[];
+    tags: any;
     data: any;
     selected: any;
     emailIds: string[];
     selectedTag: any;
     message: string;
     showmessage: boolean;
-
-    constructor(public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
+    showInboxEmailList = true;
+    constructor(public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
         () => {
             this.fetchNewEmails();
+        });
+        this._router.events.subscribe((event) => {
+            if (event instanceof NavigationStart) {
+                if (event['url'] === '/core/inbox') {
+                    this.showInboxEmailList = true;
+                    this.getAllTag();
+                    this.refresh();
+                } else {
+                    this.showInboxEmailList = false;
+                }
+            }
         });
     }
 
@@ -59,6 +75,13 @@ export class InboxComponent implements OnInit {
             'limit': 20
         };
         this.defaultOpen();
+        setTimeout(() => {
+            if (this._location.path().substr(0, 17) === '/core/inbox/email') {
+                this.showInboxEmailList = false;
+            } else {
+                this.showInboxEmailList = true;
+            }
+        });
     }
 
     defaultOpen() {
@@ -161,18 +184,11 @@ export class InboxComponent implements OnInit {
     }
 
     openEmails(email: any) {
-        this.dialogRef = this.dialog.open(EmailModalComponent, {
-            height: '550px',
-            width: '70%'
-        });
-        this.dialogRef.componentInstance.email = email;
-        this.dialogRef.componentInstance.selectedTag = this.selectedTag;
-        this.dialogRef.componentInstance.tags = this.tags;
-        this.dialogRef.afterClosed().subscribe(result => {
-            this.dialogRef = null;
-            this.refresh();
-            this.getAllTag();
-        });
+        this.showInboxEmailList = false;
+        this._router.navigate(['core/inbox/email', email._id]);
+        localStorage.setItem('email', JSON.stringify(email));
+        localStorage.setItem('selectedTag', JSON.stringify(this.selectedTag));
+        localStorage.setItem('tags', JSON.stringify(this.tags));
     }
 
     getAllTag() {
@@ -185,6 +201,10 @@ export class InboxComponent implements OnInit {
     }
 
     emaillists(id: any, page?: number) {
+        if (this._location.path().substr(0, 17) === '/core/inbox/email') {
+            this.showInboxEmailList = true;
+            this._location.back();
+        }
         this.selectedTag = id;
         this.data = null;
         this.showmessage = false;
@@ -251,7 +271,7 @@ export class InboxComponent implements OnInit {
     }
 
     formatTagsInArray(data: any) {
-        this.tags = [];
+        this.tags = {};
         for (let i = 0; i < data.length; i++) {
             if (data[i].type === 'Default') {
                 if (!this.tags['Default']) {
