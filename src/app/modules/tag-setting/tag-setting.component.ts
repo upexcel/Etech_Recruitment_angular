@@ -90,14 +90,14 @@ export class TagSettingComponent implements OnInit {
     addTag() {
         this.dialogRef = this.dialog.open(AddTagModalComponent, {
             height: '600px',
-            width: '450px'
+            width: '480px'
         });
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result === 'Added') {
-                this.snackBar.open('Tag Added Successfully', '', {
-                    duration: 2000,
-                });
+                // this.snackBar.open('Tag Added Successfully', '', {
+                //     duration: 2000,
+                // });
                 this.dialogRef = null;
                 this.getAllTag();
             }

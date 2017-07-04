@@ -306,4 +306,8 @@ export class InboxComponent implements OnInit {
         this.loading = false;
     }
 
+    trackByEmails(index, email) {
+        return email ? email._id : undefined;
+    }
+
 }
