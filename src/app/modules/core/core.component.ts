@@ -10,6 +10,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 })
 export class CoreComponent implements OnInit {
     title = 'Inbox';
+    progressSpinnner = false;
     constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService) { }
 
     ngOnInit(): void {
@@ -22,6 +23,13 @@ export class CoreComponent implements OnInit {
             if (!err.status) {
                 this.logout();
             }
+        });
+
+        this.getNewEmail.apiStartEvent.subscribe(() => {
+            this.progressSpinnner = true;
+        });
+        this.getNewEmail.apiEndEvent.subscribe(() => {
+            this.progressSpinnner = false;
         });
     }
 

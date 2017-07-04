@@ -22,7 +22,7 @@
 
 <div class="bod" *ngFor="let H_email of historyList.data">
     <div class="b-b" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
-        <h2 class="font-300">{{H_email.subject}} <span *ngFor="let autoTag of tags.Automatic" class="labels auto-tags">{{autoTag.title}}</span> </h2>
+        <h2 class="font-300">{{H_email.subject}} </h2>
     </div>
     <div class="p-y" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
         from

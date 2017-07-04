@@ -44,9 +44,9 @@ export class TagSettingComponent implements OnInit {
         this.gettags.deleteTag(id, type)
             .subscribe((data) => {
                 this.getAllTag();
-                this.snackBar.open('Tag Removed Successfully', '', {
-                    duration: 2000,
-                });
+                // this.snackBar.open('Tag Removed Successfully', '', {
+                //     duration: 2000,
+                // });
             }, (err) => {
                 console.log(err);
             });
@@ -72,7 +72,7 @@ export class TagSettingComponent implements OnInit {
     openAutomatic(tag1: any) {
         this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {
             height: '600px',
-            width: '410px'
+            width: '800px'
         });
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.componentInstance.tempList = this.tempList;
@@ -90,14 +90,14 @@ export class TagSettingComponent implements OnInit {
     addTag() {
         this.dialogRef = this.dialog.open(AddTagModalComponent, {
             height: '600px',
-            width: '450px'
+            width: '800px'
         });
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result === 'Added') {
-                this.snackBar.open('Tag Added Successfully', '', {
-                    duration: 2000,
-                });
+                // this.snackBar.open('Tag Added Successfully', '', {
+                //     duration: 2000,
+                // });
                 this.dialogRef = null;
                 this.getAllTag();
             }

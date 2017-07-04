@@ -9,7 +9,7 @@
         <md-grid-tile [colspan]="'7'" (click)="openEmails(email)">
             <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}">
                 <h4 class="inline">{{email.subject}} </h4>
-                <h6 class="inline">{{email.date | date: 'medium'}} <span *ngFor="let tag of tags" class="labels auto-tags">{{tag.title}}</span> </h6>
+                <h6 class="inline">{{email.date | date: 'medium'}} </h6>
                 <p>{{email.sender_mail}} - From {{email.from}}
                     <md-icon *ngIf="email.is_attachment" class="attach">
                         attach_file

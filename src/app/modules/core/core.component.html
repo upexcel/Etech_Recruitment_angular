@@ -35,12 +35,13 @@
           <md-icon>menu</md-icon>
           </button>
             <span>{{title}}</span>
-            <span fxFlex="88%"> </span>
-            <a class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
+            <span fxFlex="86%"> </span>
+            <a mdTooltip="Fetch Latest Emails" class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
             <i>
             <small><md-icon>system_update_alt</md-icon></small>
             </i>
             </a>
+            <md-spinner class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
             <span fxFlex></span>
         </md-toolbar>
        <router-outlet></router-outlet>

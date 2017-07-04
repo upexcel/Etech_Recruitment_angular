@@ -5,32 +5,32 @@
 <div class="body">
     <md-grid-list cols="2" rowHeight="80px" gutterSize="10px">
         <md-grid-tile [colspan]="1">
-            <md-input-container>
+            <md-input-container style="width: 100%">
                 <input mdInput placeholder="Title" disabled [(ngModel)]="originaltitle">
             </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
-            <md-input-container>
+            <md-input-container style="width: 100%">
                 <input mdInput placeholder="Email" disabled [value]="tag.email">
             </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
-            <md-input-container>
+            <md-input-container style="width: 100%">
                 <input mdInput placeholder="Subject" disabled [value]="tag.subject">
             </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
-            <md-input-container>
+            <md-input-container style="width: 100%">
                 <input mdInput placeholder="From date" disabled [value]="tag.from | date">
             </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
-            <md-input-container>
+            <md-input-container style="width: 100%">
                 <input mdInput placeholder="To date" disabled [value]="tag.to | date">
             </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
-            <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel>
+            <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel style="width: 100%">
                 <md-option>
                     None
                 </md-option>
