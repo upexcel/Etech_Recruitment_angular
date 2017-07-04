@@ -56,8 +56,6 @@ export class InboxComponent implements OnInit {
             if (event instanceof NavigationStart) {
                 if (event['url'] === '/core/inbox') {
                     this.showInboxEmailList = true;
-                    this.getAllTag();
-                    this.refresh();
                 } else {
                     this.showInboxEmailList = false;
                 }
@@ -186,6 +184,8 @@ export class InboxComponent implements OnInit {
     openEmails(email: any) {
         this.showInboxEmailList = false;
         this._router.navigate(['core/inbox/email', email._id]);
+        this.getAllTag();
+        this.refresh();
         localStorage.setItem('email', JSON.stringify(email));
         localStorage.setItem('selectedTag', JSON.stringify(this.selectedTag));
         localStorage.setItem('tags', JSON.stringify(this.tags));
