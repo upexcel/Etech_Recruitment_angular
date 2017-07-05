@@ -18,6 +18,7 @@ import { ManageUsersComponent } from './modules/manage-users/manage-users.compon
 import { LoginRouteGuard } from './service/login-route-guard';
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
+import { AutomaticTagComponent } from './modules/automatic-tag/automatic-tag.component';
 
 
 export const routes: Route[] = [{
@@ -80,6 +81,9 @@ export const routes: Route[] = [{
                 }, {
                     path: 'manageuser',
                     component: ManageUsersComponent
+                }, {
+                    path: 'automaticTags',
+                    component: AutomaticTagComponent
                 }]
             }, {
                 path: 'changepassword',

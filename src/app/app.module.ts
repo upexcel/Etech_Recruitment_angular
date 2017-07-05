@@ -87,6 +87,9 @@ import {
     TagSettingComponent
 } from './modules/tag-setting/tag-setting.component';
 import {
+    AutomaticTagComponent
+} from './modules/automatic-tag/automatic-tag.component';
+import {
     ActionsComponent
 } from './modules/actions/actions.component';
 import {
@@ -152,6 +155,7 @@ import { ForgetPasswordComponent } from './modules/forget-password/forget-passwo
         EmailTemplatesComponent,
         EmailVariablesComponent,
         TagSettingComponent,
+        AutomaticTagComponent,
         ActionsComponent,
         ManageUsersComponent,
         InboxSideNavComponent,
