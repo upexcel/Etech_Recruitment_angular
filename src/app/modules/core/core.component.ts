@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { LoginService } from '../../service/login.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 
 @Component({
@@ -11,7 +11,16 @@ import { ImapMailsService } from '../../service/imapemails.service';
 export class CoreComponent implements OnInit {
     title = 'Inbox';
     progressSpinnner = false;
-    constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService) { }
+    @Output() routerInboxPage: EventEmitter<any> = new EventEmitter(true);
+    constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService) {
+        this._router.events.subscribe((event) => {
+            if (event instanceof NavigationStart) {
+                if (event['url'] === '/core/inbox') {
+                    this.routerInboxPage.emit();
+                }
+            }
+        });
+    }
 
     ngOnInit(): void {
         this.title = 'Inbox';
