@@ -17,12 +17,19 @@ export class AddTagModalComponent implements OnInit {
     showMessage: boolean;
     showloading: boolean;
     message: string;
+    addTagType: string;
     originalcolor = color_list[0];
     availableColors = color_list;
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
-        this.types = 1;
+        if(this.addTagType === 'manual') {
+            this.types = 0;
+            this.type = 'Manual';
+        } else {
+            this.type = 'Automatic';
+            this.types = 1;
+        }
         this.showMessage = false;
         this.showloading = false;
     }

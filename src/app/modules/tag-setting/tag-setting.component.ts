@@ -93,6 +93,7 @@ export class TagSettingComponent implements OnInit {
             width: '800px'
         });
         this.dialogRef.componentInstance.tempList = this.tempList;
+        this.dialogRef.componentInstance.addTagType = 'manual';
         this.dialogRef.afterClosed().subscribe(result => {
             if (result === 'Added') {
                 // this.snackBar.open('Tag Added Successfully', '', {
