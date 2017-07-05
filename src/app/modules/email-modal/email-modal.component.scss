@@ -98,11 +98,15 @@ md-grid-tile {
 	cursor: pointer;
 	position: relative;
 	width: 100%;
-	.attach-click{
-		position: absolute;
-		width: 100%;
-		height: 100%;
-	}
+}
+.attach-click{
+	background-color: #fff;
+    font-weight: bold;
+    margin: 2px;
+    float: right;
+    position: relative;
+    top: 0;
+    right: 0px;
 }
 .at-hd {
 	padding: .25rem!important;
@@ -115,6 +119,7 @@ md-grid-tile {
 }
 .at-hed {
 	text-align: left;
+	margin-bottom: 0px;
 }
 .default-tag-buttons{
     display: flex;
@@ -145,7 +150,7 @@ md-grid-tile {
 	    -webkit-font-smoothing: antialiased;
     }
 .email-attachment{
-	height: 100px;
+	height: 750px;
 	width: 100%;
 }
 .clearfix{
@@ -153,9 +158,10 @@ md-grid-tile {
 }
 .email-body{
 	display: inline-block;
-	float: left;
+	float: right;
 	table{
-		//margin: 0px;
+		margin: 0px;
+		width: 100%;
 	}
 }
 .back-button{
