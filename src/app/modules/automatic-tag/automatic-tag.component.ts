@@ -7,7 +7,7 @@ import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
 import { MdSnackBar } from '@angular/material';
 
 @Component({
-    selector: 'automatic-tag',
+    selector: 'app-automatic-tag',
     templateUrl: './automatic-tag.component.html',
     styleUrls: ['./automatic-tag.component.scss']
 })

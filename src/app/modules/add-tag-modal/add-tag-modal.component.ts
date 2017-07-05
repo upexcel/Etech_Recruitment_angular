@@ -23,7 +23,7 @@ export class AddTagModalComponent implements OnInit {
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
-        if(this.addTagType === 'manual') {
+        if (this.addTagType === 'manual') {
             this.types = 0;
             this.type = 'Manual';
         } else {

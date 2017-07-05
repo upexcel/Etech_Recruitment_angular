@@ -38,7 +38,6 @@
                     <a md-raised-button class="cyan" [ngStyle]="getColor(tag.title)" *ngIf="tag.id != tagselected" (click)="assignTag(tag.id, email._id)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
                     </a>
                 </span>
-                <a md-raised-button class="cyan" *ngIf="allTags && allTags.Manual && allTags.Manual[0]" (click)="assignTag(allTags.Manual[0].id, email._id)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tags.Manual[0].title}}</a>
             </div>
         </md-grid-tile>
     </md-grid-list>
