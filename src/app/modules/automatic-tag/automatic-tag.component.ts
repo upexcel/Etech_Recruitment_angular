@@ -7,11 +7,11 @@ import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
 import { MdSnackBar } from '@angular/material';
 
 @Component({
-    selector: 'app-tag-setting',
-    templateUrl: './tag-setting.component.html',
-    styleUrls: ['./tag-setting.component.scss']
+    selector: 'automatic-tag',
+    templateUrl: './automatic-tag.component.html',
+    styleUrls: ['./automatic-tag.component.scss']
 })
-export class TagSettingComponent implements OnInit {
+export class AutomaticTagComponent implements OnInit {
     dialogRef: MdDialogRef < any > ;
     loading = false;
     tempList: any;
@@ -52,20 +52,21 @@ export class TagSettingComponent implements OnInit {
             });
     }
 
-    openManual(tag: any) {
-        this.dialogRef = this.dialog.open(ManualTagModalComponent, {
-            height: '430px',
-            width: '370px'
+    openAutomatic(tag1: any) {
+        this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {
+            height: '600px',
+            width: '800px'
         });
-        this.dialogRef.componentInstance.tag = tag;
+        this.dialogRef.componentInstance.tag = tag1;
+        this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
-            if (result === 'saved') {
+            if (result === 'updated') {
                 this.snackBar.open('Tag Updated Successfully', '', {
                     duration: 2000,
                 });
+                this.dialogRef = null;
+                this.getAllTag();
             }
-            this.dialogRef = null;
-            this.getAllTag();
         });
     }
 
@@ -75,7 +76,7 @@ export class TagSettingComponent implements OnInit {
             width: '800px'
         });
         this.dialogRef.componentInstance.tempList = this.tempList;
-        this.dialogRef.componentInstance.addTagType = 'manual';
+        this.dialogRef.componentInstance.addTagType = 'automatic';
         this.dialogRef.afterClosed().subscribe(result => {
             if (result === 'Added') {
                 // this.snackBar.open('Tag Added Successfully', '', {
