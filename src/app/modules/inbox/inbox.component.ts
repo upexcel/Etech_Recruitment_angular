@@ -26,6 +26,7 @@ import {
     Validators
 } from '@angular/forms';
 import { Location } from '@angular/common';
+import { CoreComponent } from './../../modules/core/core.component';
 
 @Component({
     selector: 'app-inbox',
@@ -46,21 +47,17 @@ export class InboxComponent implements OnInit {
     message: string;
     showmessage: boolean;
     showInboxEmailList = true;
-    constructor(public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
+    subscription: any;
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
         () => {
             this.fetchNewEmails();
         });
-        this._router.events.subscribe((event) => {
-            if (event instanceof NavigationStart) {
-                if (event['url'] === '/core/inbox') {
-                    this.showInboxEmailList = true;
-                } else {
-                    this.showInboxEmailList = false;
-                }
-            }
-        });
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     ngOnInit() {
@@ -79,6 +76,10 @@ export class InboxComponent implements OnInit {
             } else {
                 this.showInboxEmailList = true;
             }
+        });
+        this.subscription = this._core.routerInboxPage.subscribe(() => {
+            this.showInboxEmailList = true;
+            this.refresh();
         });
     }
 
@@ -151,7 +152,6 @@ export class InboxComponent implements OnInit {
             'selectedTag': this.selectedTag
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
-            this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
             this.notify('done', '');
@@ -166,7 +166,6 @@ export class InboxComponent implements OnInit {
             'mongo_id': this.emailIds
         };
         this.getemails.deleteEmail(this.selected).subscribe((data) => {
-            this.getAllTag();
             this.refresh();
             this.emailIds.length = 0;
             this.notify('done', '');
@@ -184,8 +183,6 @@ export class InboxComponent implements OnInit {
     openEmails(email: any) {
         this.showInboxEmailList = false;
         this._router.navigate(['core/inbox/email', email._id]);
-        this.getAllTag();
-        this.refresh();
         localStorage.setItem('email', JSON.stringify(email));
         localStorage.setItem('selectedTag', JSON.stringify(this.selectedTag));
         localStorage.setItem('tags', JSON.stringify(this.tags));
@@ -258,7 +255,6 @@ export class InboxComponent implements OnInit {
         this.loading = true;
         this.getemails.refreshNewEmails().subscribe((data) => {
             this.refresh();
-            this.getAllTag();
         });
     }
 
