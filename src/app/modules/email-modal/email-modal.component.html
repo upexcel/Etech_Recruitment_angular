@@ -29,19 +29,19 @@
         <a>{{H_email.from}} {{H_email.sender_mail}}</a>
         <span class="text-xs" *ngIf="H_email._id === selectedEmail._id"> on {{H_email.date | date: 'medium'}}</span>
     </div>
-    <div *ngIf="selectedEmail && H_email._id === selectedEmail._id" [innerHTML]="H_email.body | safeHtml" class="email-body" [ngStyle]="{ 'width': (selectedEmail && H_email._id === selectedEmail._id && H_email?.attachment?.length) ? '70%' : '100%'}">
-    </div>
-    <div *ngIf="selectedEmail && H_email._id === selectedEmail._id && H_email?.attachment?.length" style="width: 25%; display: inline-block;">
+    <div *ngIf="selectedEmail && H_email._id === selectedEmail._id && H_email?.attachment?.length" style="width: 60%; display: inline-block;">
         <h4 class="at-hed">Attachments</h4>
-        <div class="attach" *ngFor="let attach of H_email.attachment" >
-            <div class="attach-click" (click)="openAttachment(attach.link)"></div>
-            <iframe scrolling="no" class="email-attachment" [src]="attach.link | safeUrl">
+        <div class="attach" *ngFor="let attach of H_email.attachment" (click)="openAttachment(attach.link)">
+            <a class="attach-click"><i>View</i></a>
+            <iframe id="IframeId" class="email-attachment" [src]="attach.link | safeUrl">
               <p>Your browser does not support iframes.</p>
             </iframe>
             <div class="at-hd">
                 <a>{{attach.name}}</a>
             </div>
         </div>
+    </div>
+    <div *ngIf="selectedEmail && H_email._id === selectedEmail._id" [innerHTML]="H_email.body | safeHtml" class="email-body" [ngStyle]="{ 'width': (selectedEmail && H_email._id === selectedEmail._id && H_email?.attachment?.length) ? '36%' : '100%'}">
     </div>
     <div class="clearfix"></div>
 </div>
