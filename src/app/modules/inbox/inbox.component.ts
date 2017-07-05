@@ -1,6 +1,7 @@
 import {
     Component,
-    OnInit
+    OnInit,
+    OnDestroy
 } from '@angular/core';
 import {
     Router,
@@ -33,7 +34,7 @@ import { CoreComponent } from './../../modules/core/core.component';
     templateUrl: './inbox.component.html',
     styleUrls: ['./inbox.component.scss']
 })
-export class InboxComponent implements OnInit {
+export class InboxComponent implements OnInit, OnDestroy {
     dialogRef: MdDialogRef < any > ;
     Math: any;
     emaillist: any;
@@ -54,10 +55,6 @@ export class InboxComponent implements OnInit {
         () => {
             this.fetchNewEmails();
         });
-    }
-
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
     }
 
     ngOnInit() {
@@ -304,6 +301,10 @@ export class InboxComponent implements OnInit {
 
     trackByEmails(index, email) {
         return email ? email._id : undefined;
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
 }

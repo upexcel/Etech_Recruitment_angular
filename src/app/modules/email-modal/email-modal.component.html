@@ -6,7 +6,7 @@
             <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
             </a>
         </span>
-        <a md-raised-button class="cyan" *ngIf="tags && tags.Manual && tags.Manual[0]" (click)="assignTag(tags.Manual[0].id)">{{tags.Manual[0].title}}</a>
+        <!-- <a md-raised-button class="cyan" *ngIf="tags && tags.Manual && tags.Manual[0]" (click)="assignTag(tags.Manual[0].id)">{{tags.Manual[0].title}}</a> -->
         <a md-raised-button class="cyan c-his" [mdMenuTriggerFor]="menu" *ngIf="historyList.data?.length > 1"> Candidate History <span class="labels">{{historyList?.data?.length ? historyList.data.length - 1: 0}}</span>
         <i class="material-icons">keyboard_arrow_down</i>
         </a>
