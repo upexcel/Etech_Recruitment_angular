@@ -1,6 +1,6 @@
 <md-sidenav-container fxFlex>
 <div flexlayout>
-    <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
+    <app-inbox-side-nav fxFlex="15" *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
     <div class="content" fxFlex>
     <router-outlet></router-outlet>
     <div class="m-b" *ngIf="showInboxEmailList">

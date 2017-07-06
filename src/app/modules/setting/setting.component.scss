@@ -12,15 +12,22 @@ md-list {
     }
 }
 .navlist {
-    margin-left: 15px;
-    padding: 16px 0px;
+    //margin-left: 15px;
+    padding: 8px 0px;
     position: relative;
     cursor: pointer;
 }
+.navlist a {
+    font-size: 12px;
+    font-weight: bold;
+}
 .subnavlist {
-    margin-left: 36px;
-    padding: 13px 0px;
+    margin-left: 10px;
+    padding: 4px 0px;
     cursor: pointer;
+}
+.subnavlist a {
+    font-size: 12px;
 }
 md-list-item {
     a:hover {
