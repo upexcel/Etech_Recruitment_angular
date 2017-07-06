@@ -88,8 +88,8 @@ export class InboxComponent implements OnInit, OnDestroy {
                 if (res.data.length > 0) {
                     if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
                         if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
-                            this.data.tag_id = res.data[0]['data'][0]['id'] || 1;
-                            this.selectedTag = res.data[0]['data'][0]['id'] || 1;
+                            this.data.tag_id = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
+                            this.selectedTag = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
                             this.getemails.getEmailList(this.data).subscribe((data) => {
                                 this.emaillist = data;
                                 this.loading = false;
@@ -195,7 +195,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._router.navigate(['core/inbox/email', email._id]);
         localStorage.setItem('email', JSON.stringify(email));
         localStorage.setItem('selectedTag', JSON.stringify(this.selectedTag));
-        localStorage.setItem('tags', JSON.stringify(this.tags));
+        localStorage.setItem('tags', JSON.stringify(this.tagsForEmailListAndModel));
     }
 
     getAllTag() {
@@ -278,16 +278,6 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     formatTagsInArray(data: any) {
         this.tags = data;
-        for (let i = 0; i < data.length; i++) {
-            if (i === 0) {
-                data[i]['menuOpen'] = true;
-            } else {
-                data[i]['menuOpen'] = false;
-            }
-            for (let j = 0; j < data[i]['data'].length; j++) {
-                data[i]['data'][j]['menuOpen'] = false;
-            }
-        }
         this.tagsForEmailListAndModel = {};
         for (let i = 0; i < data.length; i++) {
             if (!this.tagsForEmailListAndModel['Default']) {
