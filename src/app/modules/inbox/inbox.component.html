@@ -8,7 +8,7 @@
         <div class="example-button-row" *ngIf="emaillist">
 
             <div *ngIf="emailIds.length > 0" class="{{!selectedTag ? 'options-main': 'options-sub'}}">
-                <span *ngFor="let tag of tags.Default | slice:0:3">
+                <span *ngFor="let tag of tagsForEmailListAndModel.Default | slice:0:3">
                     <a md-raised-button class="b-r" *ngIf="tag.id != selectedTag" (click)="assign(tag.id)">
                     {{tag.title}}
                     </a>
@@ -46,7 +46,7 @@
         <!-- <md-spinner *ngIf="loading && showInboxEmailList" class="posload"></md-spinner> -->
         <h2 class="m-s" *ngIf="showmessage && showInboxEmailList">{{message}}</h2>
         <div *ngIf="!loading && emaillist && showInboxEmailList">
-            <app-emailbox *ngFor="let emails of emaillist.data; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tags.Automatic" [allTags]="tags"></app-emailbox>
+            <app-emailbox *ngFor="let emails of emaillist.data; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel"></app-emailbox>
         </div>
     </div>
 </div>    

@@ -22,20 +22,40 @@ md-list {
 .blue {
     color:$borderleftblue;
 }
+.inbox-nav{
+   // margin-left: 2px;
+}
 .mainnav {
-    //margin-left: 15px;
-    //padding: 5px 0px;
+    margin-left: 6px;
+    padding: 4px 0px;
     position: relative;
     cursor: pointer;
 }
-.mainnav a {
-    font-size: 12px;
+.main-title{
     font-weight: bold;
 }
+.sub-title{
+    font-weight: bold;
+}
+.mainnav a {
+    font-size: 12px;
+    //font-weight: bold;
+    text-transform: capitalize;
+}
+.nav-arrow{
+    vertical-align: middle;
+    float: right;
+    position: absolute;
+    right: 0;
+}
 .subenav {
-    margin-left: 10px;
+    margin-left: 6px;
     padding: 4px 0px;
     cursor: pointer;
+}
+.subenav p {
+    margin: 0px;
+    position: relative;
 }
 .subenav a {
     font-size: 12px;
