@@ -49,6 +49,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     showmessage: boolean;
     showInboxEmailList = true;
     subscription: any;
+    tagsForEmailListAndModel: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
@@ -60,7 +61,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.emailIds = [];
         this.loading = true;
-        this.getAllTag();
+        // this.getAllTag();
         this.data = {
             'page': 1,
             'tag_id': 0,
@@ -84,14 +85,26 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
                 this.formatTagsInArray(res.data);
-                if (this.tags && !!this.tags['Automatic']) {
-                    this.data.tag_id = this.tags['Automatic'][0].id || 1;
-                    this.selectedTag = this.tags['Automatic'][0].id || 1;
-                    this.getemails.getEmailList(this.data).subscribe((data) => {
-                        this.emaillist = data;
-                        this.loading = false;
-                    });
+                if (res.data.length > 0) {
+                    if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
+                        if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
+                            this.data.tag_id = res.data[0]['data'][0]['id'] || 1;
+                            this.selectedTag = res.data[0]['data'][0]['id'] || 1;
+                            this.getemails.getEmailList(this.data).subscribe((data) => {
+                                this.emaillist = data;
+                                this.loading = false;
+                            });
+                        }
+                    }
                 }
+                // if (this.tags && !!this.tags['Automatic']) {
+                //     this.data.tag_id = this.tags['Automatic'][0].id || 1;
+                //     this.selectedTag = this.tags['Automatic'][0].id || 1;
+                //     this.getemails.getEmailList(this.data).subscribe((data) => {
+                //         this.emaillist = data;
+                //         this.loading = false;
+                //     });
+                // }
             }, (err) => {
                 this.loading = false;
             });
@@ -264,35 +277,35 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     formatTagsInArray(data: any) {
-        this.tags = {};
+        this.tags = data;
         for (let i = 0; i < data.length; i++) {
-            if (data[i].type === 'Default') {
-                if (!this.tags['Default']) {
-                    this.tags['Default'] = [];
-                    this.tags['Default'].push(data[i]);
-                } else {
-                    this.tags['Default'].push(data[i]);
-                }
-            } else if (data[i].type === 'Manual') {
-                if (!this.tags['Manual']) {
-                    this.tags['Manual'] = [];
-                    this.tags['Manual'].push(data[i]);
-                } else {
-                    this.tags['Manual'].push(data[i]);
-                }
-            } else if (data[i].type === 'Automatic') {
-                if (!this.tags['Automatic']) {
-                    this.tags['Automatic'] = [];
-                    this.tags['Automatic'].push(data[i]);
-                } else {
-                    this.tags['Automatic'].push(data[i]);
-                }
-            } else if (data[i].type === 'Main') {
-                if (!this.tags['Main']) {
-                    this.tags['Main'] = [];
-                    this.tags['Main'].push(data[i]);
-                } else {
-                    this.tags['Main'].push(data[i]);
+            if (i === 0) {
+                data[i]['menuOpen'] = true;
+            } else {
+                data[i]['menuOpen'] = false;
+            }
+            for (let j = 0; j < data[i]['data'].length; j++) {
+                data[i]['data'][j]['menuOpen'] = false;
+            }
+        }
+        this.tagsForEmailListAndModel = {};
+        for (let i = 0; i < data.length; i++) {
+            if (!this.tagsForEmailListAndModel['Default']) {
+                this.tagsForEmailListAndModel['Default'] = [];
+                this.tagsForEmailListAndModel['Default'] = data[0]['data'][0]['subchild'];
+            } else {
+                this.tagsForEmailListAndModel['Default'] = data[0]['data'][0]['subchild'];
+            }
+            if (data[i]['data'] && data[i]['data'].length > 0) {
+                for (let j = 0; j < data[i]['data'].length; j++) {
+                    if (data[i]['data'][j]['type'] === 'Automatic') {
+                        if (!this.tagsForEmailListAndModel['Automatic']) {
+                            this.tagsForEmailListAndModel['Automatic'] = [];
+                            this.tagsForEmailListAndModel['Automatic'].push(data[i]['data'][j]);
+                        } else {
+                            this.tagsForEmailListAndModel['Automatic'].push(data[i]['data'][j]);
+                        }
+                    }
                 }
             }
         }

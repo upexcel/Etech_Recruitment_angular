@@ -14,10 +14,27 @@ export class InboxSideNavComponent implements OnInit {
     @Output() getEmails = new EventEmitter<string>();
     constructor(public getTag: ImapMailsService) { }
     ngOnInit() {
-        this.selectedId = !!this.tags['Automatic'] ? this.tags['Automatic'][0].id : 1;
+        this.selectedId = !!this.tags[0]['data'][0]['id'] ? this.tags[0]['data'][0]['id'] : 1;
     }
     getEmail(id: string) {
         this.selectedId = id;
         this.getEmails.emit(id);
+    }
+    openSubMenu(title) {
+        for (let i = 0; i < this.tags.length; i++) {
+            if (this.tags[i]['title'] === title) {
+                this.tags[i]['menuOpen'] = !this.tags[i]['menuOpen'];
+                return;
+            }
+        }
+    }
+    openSubChildMenu(title) {
+        for (let i = 0; i < this.tags.length; i++) {
+            for (let j = 0; j < this.tags[i]['data'].length; j++) {
+                if (this.tags[i]['data'][j]['title'] === title) {
+                    this.tags[i]['data'][j]['menuOpen'] = !this.tags[i]['data'][j]['menuOpen'];
+                }
+            }
+        }
     }
 }
