@@ -16,6 +16,7 @@
                 <md-radio-group class="pos-radio" name="type" [(ngModel)]="type" ngModel required  style="width: 100%">
                     <md-radio-button *ngIf="addTagType == 'manual'" name="type" value="Manual" (click)="types = 0">Manual Tag</md-radio-button>
                     <md-radio-button *ngIf="addTagType == 'automatic'" name="type" value="Automatic" (click)="types = 1">Automatic Tag</md-radio-button>
+                    <md-radio-button *ngIf="addTagType == 'jobProfile'" name="type" value="Automatic" (click)="types = 1">Create Job Profile</md-radio-button>
                 </md-radio-group>
             </md-grid-tile>
             <md-grid-tile [colspan]="2" *ngIf="types">

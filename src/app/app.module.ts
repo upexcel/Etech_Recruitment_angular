@@ -90,6 +90,9 @@ import {
     AutomaticTagComponent
 } from './modules/automatic-tag/automatic-tag.component';
 import {
+    JobProfileTagComponent
+} from './modules/job-profile-tag/job-profile-tag.component';
+import {
     ActionsComponent
 } from './modules/actions/actions.component';
 import {
@@ -156,6 +159,7 @@ import { ForgetPasswordComponent } from './modules/forget-password/forget-passwo
         EmailVariablesComponent,
         TagSettingComponent,
         AutomaticTagComponent,
+        JobProfileTagComponent,
         ActionsComponent,
         ManageUsersComponent,
         InboxSideNavComponent,

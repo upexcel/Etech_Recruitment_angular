@@ -26,7 +26,7 @@ export class AddTagModalComponent implements OnInit {
         if (this.addTagType === 'manual') {
             this.types = 0;
             this.type = 'Manual';
-        } else {
+        } else if (this.addTagType === 'automatic' || this.addTagType === 'jobProfile') {
             this.type = 'Automatic';
             this.types = 1;
         }
@@ -38,6 +38,9 @@ export class AddTagModalComponent implements OnInit {
         this.showMessage = false;
         this.showloading = true;
         if (form.valid) {
+            if (this.addTagType === 'jobProfile') {
+                form.value.is_job_profile_tag = 1;
+            }
             form.value.color = this.originalcolor;
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
