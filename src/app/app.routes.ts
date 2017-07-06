@@ -19,6 +19,7 @@ import { LoginRouteGuard } from './service/login-route-guard';
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
 import { AutomaticTagComponent } from './modules/automatic-tag/automatic-tag.component';
+import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-tag.component';
 
 
 export const routes: Route[] = [{
@@ -84,6 +85,9 @@ export const routes: Route[] = [{
                 }, {
                     path: 'automaticTags',
                     component: AutomaticTagComponent
+                }, {
+                    path: 'jobProfileTags',
+                    component: JobProfileTagComponent
                 }]
             }, {
                 path: 'changepassword',
