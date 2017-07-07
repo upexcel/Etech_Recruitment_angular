@@ -11,7 +11,7 @@
                        <!--  <md-icon class="nav-arrow" (click)="openSubChildMenu(subTag.title)" *ngIf="subTag.subchild">{{subTag.menuOpen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon> -->
                     </p>
                     <div *ngIf="subTag.subchild">
-                        <div class="subenav" [class.active]="selectedId == subTagSubchild.id" *ngFor="let subTagSubchild of subTag.subchild" (click)="getEmail(subTagSubchild.id)">
+                        <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" *ngFor="let subTagSubchild of subTag.subchild" (click)="getEmail(subTagSubchild.id, subTag.id)">
                             <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
                         </div>
                     </div>
