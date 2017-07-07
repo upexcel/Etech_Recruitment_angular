@@ -32,28 +32,44 @@
     @extend .heightwidth27;
 }
 .emailcheckbox {
-    @extend .logodesign;
-    background-color: $roundcirclecolor;
-    height: 54px;
-    width: 54px;
-    //cursor: pointer; 
+    //@extend .logodesign;
+   // background-color: $roundcirclecolor;
+    //height: 54px;
+    //width: 54px;
+    //cursor: pointer;
+    position: absolute;
+    left: 0px;
+    padding: 2px;
 }
 .detailloc {
     position: absolute;
-    left: 5px;
+    left: 30px;
     cursor: pointer;
     padding-right: 10px;
+    width: 100%;
     p{
         margin-bottom:0px;
+        margin-top:0px;
+        font-size: 12px;
+        font-style: italic;
+    }
+    h4 {
+        max-width: 82%;
+        display: inline-block;
+        margin: 0;
     }
 }
 .inline {
-    display: inline;
+    position: absolute;
+    right: 46px;
+    margin: 0;
+    top: 0;
 }
 .attach {
     width: 8px;
     height: 8px;
     font-size: 15px;
+    padding-right: 10px;
 }
 .checked {
     opacity: 0.6;
