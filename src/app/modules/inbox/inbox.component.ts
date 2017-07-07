@@ -207,17 +207,18 @@ export class InboxComponent implements OnInit, OnDestroy {
             });
     }
 
-    emaillists(id: any, page?: number) {
+    emaillists(emailData: any, page?: number) {
         if (this._location.path().substr(0, 17) === '/core/inbox/email') {
             this.showInboxEmailList = true;
             this._location.back();
         }
-        this.selectedTag = id;
+        this.selectedTag = emailData.id || emailData;
         this.data = null;
         this.showmessage = false;
         this.data = {
             'page': page || 1,
-            'tag_id': id || 0,
+            'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || emailData || 0,
+            'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
             'limit': 20
         };
         this.loading = true;

@@ -46,7 +46,7 @@ export class ImapMailsService {
                     return Observable.throw(error.json() || 'Server error');
                 });
         } else {
-            return this.Intercepted.put(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`)
+            return this.Intercepted.put(config['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
                 .map((res: Response) => {
                     this.apiEndEvent.emit();
                     return res.json();
