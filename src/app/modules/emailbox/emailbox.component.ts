@@ -101,7 +101,7 @@ export class EmailboxComponent implements OnInit {
     }
 
     countEmailSubject(emailSubject) {
-        return (emailSubject.length > 135) ? emailSubject.substring(0, 135) + '...' : emailSubject;
+        return (emailSubject.length > 88) ? emailSubject.substring(0, 88) + '...' : emailSubject;
     }
 }
 

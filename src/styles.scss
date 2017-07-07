@@ -142,3 +142,13 @@ app-setting .mat-sidenav-content {
   width: 15px;
   height: 15px;
 }
+.toggle-green {
+  .mat-slide-toggle-bar {
+    background-color: #55ea55!important;
+    .mat-slide-toggle-thumb-container {
+      .mat-slide-toggle-thumb {
+        background-color: #07bf07!important;
+      }
+    }
+  }
+}
