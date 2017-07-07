@@ -1,5 +1,5 @@
 <md-card class="bleftblue emailstyle">
-    <md-grid-list cols="8" rowHeight="60px">
+    <md-grid-list cols="8" rowHeight="30px">
         <!-- <md-grid-tile [colspan]="'1'"> -->
             <!-- <div class="emailcheckbox">
                 <span *ngIf="!selected" >{{email.subject?.charAt(0)}}</span>
@@ -11,7 +11,7 @@
                 <md-checkbox (change)="emailSelection()" (ngModel)="selected"></md-checkbox>
             </div>
             <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
-                <h4>{{email.subject}}</h4>
+                <h5>{{countEmailSubject(email.subject)}}</h5>
                 <h6 class="inline">
                      <md-icon *ngIf="email.is_attachment" class="attach">attach_file</md-icon> {{email.date | date: 'medium'}}
                 </h6>
@@ -19,7 +19,7 @@
             </div>
         </md-grid-tile>
     </md-grid-list>
-    <md-grid-list cols="1" rowHeight="26px">
+    <md-grid-list cols="1" rowHeight="22px">
         <md-grid-tile [colspan]="'1'">
             <div class="default-tag-buttons">
                 <span *ngFor="let tag of allTags.Default">
