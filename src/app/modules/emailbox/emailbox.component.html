@@ -1,37 +1,25 @@
 <md-card class="bleftblue emailstyle">
-    <md-grid-list cols="8" rowHeight="80px">
-        <md-grid-tile [colspan]="'1'">
-            <div class="emailcheckbox">
+    <md-grid-list cols="8" rowHeight="34px">
+        <!-- <md-grid-tile [colspan]="'1'"> -->
+            <!-- <div class="emailcheckbox">
                 <span *ngIf="!selected" >{{email.subject?.charAt(0)}}</span>
                 <md-icon *ngIf="selected">check</md-icon>
+            </div> -->
+        <!-- </md-grid-tile> -->
+        <md-grid-tile [colspan]="'8'">
+            <div class="emailcheckbox">
+                <md-checkbox (change)="emailSelection()" (ngModel)="selected"></md-checkbox>
+            </div>
+            <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
+                <h5>{{countEmailSubject(email.subject)}}</h5>
+                <h6 class="inline">
+                     <md-icon *ngIf="email.is_attachment" class="attach">attach_file</md-icon> {{email.date | date: 'medium'}}
+                </h6>
+                <p>{{email.sender_mail}} - From {{email.from}}</p>
             </div>
         </md-grid-tile>
-        <md-grid-tile [colspan]="'7'" (click)="openEmails(email)">
-            <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}">
-                <h4 class="inline">{{email.subject}} </h4>
-                <h6 class="inline">{{email.date | date: 'medium'}} </h6>
-                <p>{{email.sender_mail}} - From {{email.from}}
-                    <md-icon *ngIf="email.is_attachment" class="attach">
-                        attach_file
-                    </md-icon>
-                </p>
-            </div>
-        </md-grid-tile>
-        <!-- <md-grid-tile [colspan]="'1'" *ngIf="tags">
-            <button md-icon-button [mdMenuTriggerFor]="themeMenu">
-                       <md-icon>more_vert</md-icon>
-                      </button>
-            <md-menu #themeMenu x-position="before">
-                <button md-menu-item *ngFor="let tag of tags" (click)="assignToEmail(tag.id, email._id)">
-                        <div class="logo" [style.background-color]="tag.color">
-                            <span>{{tag.title?.charAt(0)}}</span>
-                        </div>
-                        <span>{{tag.title}}</span>
-                </button>
-            </md-menu>
-        </md-grid-tile> -->
     </md-grid-list>
-    <md-grid-list cols="1" rowHeight="26px">
+    <md-grid-list cols="1" rowHeight="24px">
         <md-grid-tile [colspan]="'1'">
             <div class="default-tag-buttons">
                 <span *ngFor="let tag of allTags.Default">

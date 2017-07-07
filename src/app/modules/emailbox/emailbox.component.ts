@@ -29,11 +29,12 @@ export class EmailboxComponent implements OnInit {
 
     emailSelection() {
         this.selected = !this.selected;
-        if (this.selected) {
-            this.selectEmail.emit(this.email._id);
-        } else {
-            this.removeEmail.emit(this.email._id);
-        }
+        // do not delete
+        // if (this.selected) {
+        //     this.selectEmail.emit(this.email._id);
+        // } else {
+        //     this.removeEmail.emit(this.email._id);
+        // }
     }
     openEmails(email: any) {
         this.openEmail.emit(this.email);
@@ -97,6 +98,10 @@ export class EmailboxComponent implements OnInit {
         } else {
             return 'thumb_up';
         }
+    }
+
+    countEmailSubject(emailSubject) {
+        return (emailSubject.length > 88) ? emailSubject.substring(0, 88) + '...' : emailSubject;
     }
 }
 
