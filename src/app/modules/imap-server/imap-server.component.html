@@ -31,7 +31,8 @@
                                 <button md-button class="chartcolor" [disabled]="setting.active" (click)="remove(setting.id)">REMOVE</button>
                             </td>
                             <td>
-                                <md-icon class="chartcolor">insert_chart</md-icon>
+                                <md-icon class="chartcolor" style="vertical-align: middle;">insert_chart</md-icon>
+                                 {{setting.fetched_email_count}}/{{setting.total_emails}} 
                             </td>
                         </tr>
                     </tbody>

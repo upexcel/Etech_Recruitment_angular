@@ -141,6 +141,7 @@ import { TestTemplateComponent } from './modules/test-template/test-template.com
 import { SetvaremailpreviewComponent } from './modules/setvaremailpreview/setvaremailpreview.component';
 import { OpenattachementComponent } from './modules/openattachement/openattachement.component';
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
+import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
 
 
 @NgModule({
@@ -174,6 +175,7 @@ import { ForgetPasswordComponent } from './modules/forget-password/forget-passwo
         SafeUrlPipe,
         SmtpComponentFormComponent,
         AddEmailTempComponent,
+        ComposeEmailComponent,
         SingleTemplateComponent,
         TemplateEditComponent,
         AddVarComponent,
@@ -218,6 +220,7 @@ import { ForgetPasswordComponent } from './modules/forget-password/forget-passwo
         AddTagModalComponent,
         EmailModalComponent,
         AddEmailTempComponent,
+        ComposeEmailComponent,
         TemplateEditComponent,
         AddVarComponent,
         EditVariableComponent,
