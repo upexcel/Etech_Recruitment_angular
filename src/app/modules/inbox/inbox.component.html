@@ -6,7 +6,7 @@
     <div class="m-b" *ngIf="showInboxEmailList">
         <div class="example-button-row" *ngIf="emaillist">
 
-            <div *ngIf="emailIds.length > 0" class="{{!selectedTag ? 'options-main': 'options-sub'}}">
+            <!-- <div *ngIf="emailIds.length > 0" class="{{!selectedTag ? 'options-main': 'options-sub'}}">
                 <span *ngFor="let tag of tagsForEmailListAndModel.Default | slice:0:3">
                     <a md-raised-button class="b-r" *ngIf="tag.id != selectedTag" (click)="assign(tag.id)">
                     {{tag.title}}
@@ -15,8 +15,8 @@
                 <span>
                       <a md-raised-button class="b-r" (click)="delete()">Delete</a>
                 </span>
-            </div>
-            <md-card class="card-pos" *ngIf="emailIds.length == 0">
+            </div> -->
+            <md-card class="card-pos">
             <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
             <md-select name="option" placeholder="Search In" required ngModel>
                 <md-option value="email">Email</md-option>
@@ -44,6 +44,9 @@
     </div>          
         <!-- <md-spinner *ngIf="loading && showInboxEmailList" class="posload"></md-spinner> -->
         <h2 class="m-s" *ngIf="showmessage && showInboxEmailList">{{message}}</h2>
+        <div class="compose-email" *ngIf="showInboxEmailList">
+            <a *ngIf="emailIds.length > 0" (click)="composeEmail()">Send Emails</a>
+        </div>
         <div *ngIf="!loading && emaillist && showInboxEmailList">
             <app-emailbox *ngFor="let emails of emaillist.data; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel"></app-emailbox>
         </div>

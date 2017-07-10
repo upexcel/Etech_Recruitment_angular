@@ -79,3 +79,14 @@
     color: $white;
     text-align: center;
 }
+.compose-email {
+  color: #fff;
+  padding-bottom: 5px;
+  min-height: 18px;
+  cursor: pointer;
+  a {
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}

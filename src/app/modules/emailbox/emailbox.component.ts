@@ -29,12 +29,11 @@ export class EmailboxComponent implements OnInit {
 
     emailSelection() {
         this.selected = !this.selected;
-        // do not delete
-        // if (this.selected) {
-        //     this.selectEmail.emit(this.email._id);
-        // } else {
-        //     this.removeEmail.emit(this.email._id);
-        // }
+        if (this.selected) {
+            this.selectEmail.emit(this.email.sender_mail);
+        } else {
+            this.removeEmail.emit(this.email.sender_mail);
+        }
     }
     openEmails(email: any) {
         this.openEmail.emit(this.email);

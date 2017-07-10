@@ -28,6 +28,7 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 import { CoreComponent } from './../../modules/core/core.component';
+import { ComposeEmailComponent } from './../../modules/compose-email/compose-email.component';
 
 @Component({
     selector: 'app-inbox',
@@ -50,6 +51,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     showInboxEmailList = true;
     subscription: any;
     tagsForEmailListAndModel: any;
+    subject_for_genuine: string;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
@@ -153,6 +155,18 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     removeEmails(id: string) {
         this.emailIds.splice(this.emailIds.indexOf(id), 1);
+    }
+
+    composeEmail() {
+        this.dialogRef = this.dialog.open(ComposeEmailComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        this.dialogRef.componentInstance.emailList = this.emailIds;
+        this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
     }
 
     assign(id: any) {
@@ -281,6 +295,11 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.tags = data;
         this.tagsForEmailListAndModel = {};
         for (let i = 0; i < data.length; i++) {
+            if (data[i]['subject_for_genuine']) {
+                this.subject_for_genuine = data[i]['subject_for_genuine'];
+            } else {
+                this.subject_for_genuine = 'Revert Information';
+            }
             if (!this.tagsForEmailListAndModel['Default']) {
                 this.tagsForEmailListAndModel['Default'] = [];
                 this.tagsForEmailListAndModel['Default'] = data[0]['data'][0]['subchild'];
