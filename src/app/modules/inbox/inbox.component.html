@@ -18,9 +18,9 @@
             </div>
             <md-card class="card-pos" *ngIf="emailIds.length == 0">
             <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
-            <md-select name="option" placeholder="Select Type" required ngModel>
-                <md-option value="email">Search Email</md-option>
-                <md-option value="subject">Search Subject</md-option>
+            <md-select name="option" placeholder="Search In" required ngModel>
+                <md-option value="email">Email</md-option>
+                <md-option value="subject">Subject</md-option>
             </md-select>
 
             <md-input-container class="mar-pos wid-300">
@@ -31,15 +31,15 @@
             </form>
             </md-card>
 
-            <a md-mini-fab class="d-w" (click)="previous()">
-                <md-icon>keyboard_arrow_left</md-icon>
-            </a>
             <a md-raised-button class="b-r pos">
-            Page {{data.page}} / {{emaillist.count? Math.ceil(emaillist.count/data.limit): '1'}}
+            {{data.page}} / {{emaillist.count? Math.ceil(emaillist.count/data.limit): '1'}}
             </a>
-            <a md-mini-fab class="d-w" (click)="next()">
+            <button [disabled]="data.page == 1" md-button class="d-w" (click)="previous()">
+                <md-icon>keyboard_arrow_left</md-icon>
+            </button>
+            <button md-button class="d-w" (click)="next()">
                 <md-icon>keyboard_arrow_right</md-icon>
-            </a>
+            </button>
         </div>
     </div>          
         <!-- <md-spinner *ngIf="loading && showInboxEmailList" class="posload"></md-spinner> -->
