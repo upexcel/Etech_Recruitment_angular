@@ -11,6 +11,7 @@
         <i class="material-icons">keyboard_arrow_down</i>
         </a>
     </div>
+    <h4 *ngIf="error" style="color: red; text-align: center;">{{errorMessageText}}</h4>
 </div>
 <md-menu #menu="mdMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
     <div md-menu-item *ngFor="let email of historyList.data" (click)="showEmail(email)" 

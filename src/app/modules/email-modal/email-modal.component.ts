@@ -21,6 +21,8 @@ export class EmailModalComponent implements OnInit {
     selectedTag: any;
     selectedEmail: any;
     idlist: string[];
+    error = false;
+    errorMessageText: string;
     constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {
         this.email = JSON.parse(localStorage.getItem('email'));
         if (localStorage.getItem('selectedTag')) {
@@ -52,7 +54,8 @@ export class EmailModalComponent implements OnInit {
                 this.showEmail(data.data);
                 this.getCandiatehistory();
             }, (err) => {
-                console.log(err);
+                this.error = true;
+                this.errorMessageText = err.message;
             });
         }
         this.getCandiatehistory();
