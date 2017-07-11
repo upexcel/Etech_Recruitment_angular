@@ -8,7 +8,7 @@
         <!-- </md-grid-tile> -->
         <md-grid-tile [colspan]="'8'">
             <div class="emailcheckbox">
-                <md-checkbox (change)="emailSelection()" (ngModel)="selected"></md-checkbox>
+                <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
             </div>
             <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
                 <h5>{{countEmailSubject(email.subject)}}</h5>

@@ -93,23 +93,24 @@ export class InboxComponent implements OnInit, OnDestroy {
                             this.data.tag_id = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
                             this.selectedTag = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
                             this.getemails.getEmailList(this.data).subscribe((data) => {
-                                this.emaillist = data;
+                                this.addSelectedFieldInEmailList(data);
                                 this.loading = false;
                             });
                         }
                     }
                 }
-                // if (this.tags && !!this.tags['Automatic']) {
-                //     this.data.tag_id = this.tags['Automatic'][0].id || 1;
-                //     this.selectedTag = this.tags['Automatic'][0].id || 1;
-                //     this.getemails.getEmailList(this.data).subscribe((data) => {
-                //         this.emaillist = data;
-                //         this.loading = false;
-                //     });
-                // }
             }, (err) => {
                 this.loading = false;
             });
+    }
+
+    addSelectedFieldInEmailList(data) {
+        if (data && data['data'].length > 0) {
+            for (let i = 0; i < data['data'].length; i ++) {
+                data['data'][i]['selected'] = false;
+            }
+        }
+        this.emaillist = data;
     }
 
     searchEmail(searchform: NgForm) {
@@ -136,7 +137,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.showmessage = false;
             this.getemails.getEmailList(this.data).subscribe((data) => {
                 if (data.data.length > 0) {
-                    this.emaillist = data;
+                    this.addSelectedFieldInEmailList(data);
                     this.emailIds = [];
                     this.loading = false;
                 } else {
@@ -166,6 +167,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.emailIds = [];
+            this.addSelectedFieldInEmailList(this.emaillist);
         });
     }
 
@@ -237,7 +240,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         };
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data;
+            this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
         });
@@ -248,7 +251,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.showmessage = false;
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data;
+            this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
         });
@@ -287,7 +290,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.getAllTag();
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.emailIds = [];
-            this.emaillist = data;
+            this.addSelectedFieldInEmailList(data);
         });
     }
 
