@@ -235,7 +235,11 @@ export class InboxComponent implements OnInit, OnDestroy {
             this._location.back();
         }
         this.emailParentId = (emailData.parantTagId ? emailData.parantTagId.toString() : null);
-        this.emailChildId = emailData.id.toString() || '0';
+        if (emailData.id == null) {
+            this.emailChildId = null;
+        } else {
+            this.emailChildId = emailData.id.toString() || '0';
+        }
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
