@@ -28,8 +28,8 @@ export class EmailboxComponent implements OnInit {
     }
 
     emailSelection() {
-        this.selected = !this.selected;
-        if (this.selected) {
+        // this.email.selected = !this.email.selected;
+        if (this.email.selected) {
             this.selectEmail.emit(this.email.sender_mail);
         } else {
             this.removeEmail.emit(this.email.sender_mail);

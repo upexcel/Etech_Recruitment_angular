@@ -52,6 +52,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     subscription: any;
     tagsForEmailListAndModel: any;
     subject_for_genuine: string;
+    emailParentId: any;
+    emailChildId: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
@@ -92,24 +94,27 @@ export class InboxComponent implements OnInit, OnDestroy {
                         if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
                             this.data.tag_id = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
                             this.selectedTag = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
+                            this.emailParentId = res.data[0]['data'][0]['id'].toString() || '0';
+                            this.emailChildId = res.data[0]['data'][0]['subchild'][0]['id'].toString() || '0';
                             this.getemails.getEmailList(this.data).subscribe((data) => {
-                                this.emaillist = data;
+                                this.addSelectedFieldInEmailList(data);
                                 this.loading = false;
                             });
                         }
                     }
                 }
-                // if (this.tags && !!this.tags['Automatic']) {
-                //     this.data.tag_id = this.tags['Automatic'][0].id || 1;
-                //     this.selectedTag = this.tags['Automatic'][0].id || 1;
-                //     this.getemails.getEmailList(this.data).subscribe((data) => {
-                //         this.emaillist = data;
-                //         this.loading = false;
-                //     });
-                // }
             }, (err) => {
                 this.loading = false;
             });
+    }
+
+    addSelectedFieldInEmailList(data) {
+        if (data && data['data'].length > 0) {
+            for (let i = 0; i < data['data'].length; i ++) {
+                data['data'][i]['selected'] = false;
+            }
+        }
+        this.emaillist = data;
     }
 
     searchEmail(searchform: NgForm) {
@@ -117,7 +122,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             if (!!searchform.value['currentTag']) {
                 this.data = {
                     'page': 1,
-                    'tag_id': this.selectedTag,
+                    'tag_id': this.emailParentId,
+                    'default_id': this.emailChildId,
                     'limit': 20,
                     'type': searchform.value['option'],
                     'keyword': searchform.value['keyword'],
@@ -136,7 +142,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.showmessage = false;
             this.getemails.getEmailList(this.data).subscribe((data) => {
                 if (data.data.length > 0) {
-                    this.emaillist = data;
+                    this.addSelectedFieldInEmailList(data);
                     this.emailIds = [];
                     this.loading = false;
                 } else {
@@ -166,6 +172,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            this.emailIds = [];
+            this.addSelectedFieldInEmailList(this.emaillist);
         });
     }
 
@@ -226,18 +234,24 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.showInboxEmailList = true;
             this._location.back();
         }
-        this.selectedTag = emailData.id || emailData;
+        this.emailParentId = (emailData.parantTagId ? emailData.parantTagId.toString() : null);
+        if (emailData.id == null) {
+            this.emailChildId = null;
+        } else {
+            this.emailChildId = emailData.id.toString() || '0';
+        }
+        this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
         this.data = {
             'page': page || 1,
-            'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || emailData || 0,
+            'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
             'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
             'limit': 20
         };
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data;
+            this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
         });
@@ -248,7 +262,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.showmessage = false;
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.emaillist = data;
+            this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
         });
@@ -287,7 +301,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.getAllTag();
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.emailIds = [];
-            this.emaillist = data;
+            this.addSelectedFieldInEmailList(data);
         });
     }
 
@@ -302,9 +316,9 @@ export class InboxComponent implements OnInit, OnDestroy {
             }
             if (!this.tagsForEmailListAndModel['Default']) {
                 this.tagsForEmailListAndModel['Default'] = [];
-                this.tagsForEmailListAndModel['Default'] = data[0]['data'][0]['subchild'];
+                this.tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
             } else {
-                this.tagsForEmailListAndModel['Default'] = data[0]['data'][0]['subchild'];
+                this.tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
             }
             if (data[i]['data'] && data[i]['data'].length > 0) {
                 for (let j = 0; j < data[i]['data'].length; j++) {

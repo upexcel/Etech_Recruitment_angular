@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 
@@ -20,7 +20,7 @@ export class ComposeEmailComponent implements OnInit {
     sendFailedEmailList: any;
     formOpen = true;
     subject_for_genuine: any;
-    constructor(public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService) {
+    constructor(public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
     }
 
     ngOnInit() {
@@ -37,6 +37,9 @@ export class ComposeEmailComponent implements OnInit {
                 this.sendSuccessEmailList = data['data'][0]['email_send_success_list'];
                 this.sendFailedEmailList = data['data'][0]['email_send_fail_list'];
                 this.formOpen = false;
+                this.snackBar.open('Mail Send', '', {
+                    duration: 2000,
+                });
             }, (err) => {
                 this.showMessage = true;
                 this.message = err.message;

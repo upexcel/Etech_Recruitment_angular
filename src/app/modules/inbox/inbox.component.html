@@ -3,6 +3,7 @@
     <app-inbox-side-nav fxFlex="15" *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
     <div class="content" fxFlex>
     <router-outlet></router-outlet>
+    <h4 *ngIf="!emaillist" style="text-align: center; color: #fff;">No Emails Found</h4>
     <div class="m-b" *ngIf="showInboxEmailList">
         <div class="example-button-row" *ngIf="emaillist">
 
@@ -41,6 +42,7 @@
                 <md-icon>keyboard_arrow_right</md-icon>
             </button>
         </div>
+        <h4 *ngIf="emaillist && emaillist.data && emaillist.data.length == 0" style="text-align: center; color: #fff;">No Emails Found</h4>
     </div>          
         <!-- <md-spinner *ngIf="loading && showInboxEmailList" class="posload"></md-spinner> -->
         <h2 class="m-s" *ngIf="showmessage && showInboxEmailList">{{message}}</h2>
