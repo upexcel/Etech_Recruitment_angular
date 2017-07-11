@@ -18,9 +18,9 @@ export class InboxSideNavComponent implements OnInit {
         this.selectedId = !!this.tags[0]['data'][0]['id'] ? this.tags[0]['data'][0]['id'] : 1;
         this.parantTagId = !!this.tags[0]['data'][0]['id'] ? this.tags[0]['data'][0]['id'] : 1;
     }
-    getEmail(id: string, parantTagId) {
+    getEmail(id, parantTagId) {
         this.parantTagId = parantTagId;
-        this.selectedId = id;
+        this.selectedId = (id === 0 ? parantTagId : id);
         this.getEmails.emit({'id': id, 'parantTagId': parantTagId});
     }
     openSubMenu(title) {
