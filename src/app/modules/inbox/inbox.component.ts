@@ -316,9 +316,9 @@ export class InboxComponent implements OnInit, OnDestroy {
             }
             if (!this.tagsForEmailListAndModel['Default']) {
                 this.tagsForEmailListAndModel['Default'] = [];
-                this.tagsForEmailListAndModel['Default'] = data[0]['data'][0]['subchild'];
+                this.tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
             } else {
-                this.tagsForEmailListAndModel['Default'] = data[0]['data'][0]['subchild'];
+                this.tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
             }
             if (data[i]['data'] && data[i]['data'].length > 0) {
                 for (let j = 0; j < data[i]['data'].length; j++) {
