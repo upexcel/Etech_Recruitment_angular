@@ -272,7 +272,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
-                this.emaillists(this.data.tag_id, this.data.page);
+                // this.emaillists(this.data.tag_id, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -283,7 +284,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
-                this.emaillists(this.data.tag_id, this.data.page);
+                // this.emaillists(this.data.tag_id, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
