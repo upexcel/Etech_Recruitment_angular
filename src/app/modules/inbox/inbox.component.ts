@@ -313,8 +313,11 @@ export class InboxComponent implements OnInit, OnDestroy {
         for (let i = 0; i < data.length; i++) {
             if (data[i]['subject_for_genuine']) {
                 this.subject_for_genuine = data[i]['subject_for_genuine'];
+                localStorage.setItem('subject_for_genuine', data[i]['subject_for_genuine']);
             } else {
                 this.subject_for_genuine = 'Revert Information';
+                localStorage.setItem('subject_for_genuine', 'Revert Information');
+
             }
             if (!this.tagsForEmailListAndModel['Default']) {
                 this.tagsForEmailListAndModel['Default'] = [];

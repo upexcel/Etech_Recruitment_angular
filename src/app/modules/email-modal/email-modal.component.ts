@@ -47,8 +47,7 @@ export class EmailModalComponent implements OnInit {
         }, (err) => {
             console.log(err);
         });
-
-        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0) {
+        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
             this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe (
             (data) => {
                 this.showEmail(data.data);
