@@ -14,11 +14,13 @@ export class AddEmailTempComponent implements OnInit {
     ckeditorContent: any;
     message: string;
     showMessage: boolean;
+    subject_for_genuine: string;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {
         this.showMessage = false;
+        this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
     }
 
     save(form: NgForm) {

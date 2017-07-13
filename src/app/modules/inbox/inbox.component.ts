@@ -54,6 +54,9 @@ export class InboxComponent implements OnInit, OnDestroy {
     subject_for_genuine: string;
     emailParentId: any;
     emailChildId: any;
+    selectedTagTitle: string;
+    sendSuccessEmailListCount: any;
+    sendFailedEmailListCount: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
@@ -69,7 +72,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.data = {
             'page': 1,
             'tag_id': 0,
-            'limit': 20
+            'limit': 100
         };
         this.defaultOpen();
         setTimeout(() => {
@@ -94,6 +97,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                         if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
                             this.data.tag_id = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
                             this.selectedTag = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
+                            this.selectedTagTitle = res.data[0]['data'][0]['subchild'][0]['title'];
                             this.emailParentId = res.data[0]['data'][0]['id'].toString() || '0';
                             this.emailChildId = res.data[0]['data'][0]['subchild'][0]['id'].toString() || '0';
                             this.getemails.getEmailList(this.data).subscribe((data) => {
@@ -124,7 +128,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                     'page': 1,
                     'tag_id': this.emailParentId,
                     'default_id': this.emailChildId,
-                    'limit': 20,
+                    'limit': 100,
                     'type': searchform.value['option'],
                     'keyword': searchform.value['keyword'],
                     'selected': searchform.value['currentTag']
@@ -132,7 +136,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             } else {
                 this.data = {
                     'page': 1,
-                    'limit': 20,
+                    'limit': 100,
                     'type': searchform.value['option'],
                     'keyword': searchform.value['keyword'],
                     'selected': searchform.value['currentTag']
@@ -228,6 +232,14 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.loading = false;
             });
     }
+    sendEmailToPendingCandidates() {
+        this.getemails.sendEmailToPendingCandidates({'tag_id': this.selectedTag}).subscribe((data) => {
+            this.sendSuccessEmailListCount = data['data'][0]['email_send_success_list'].length;
+            this.sendFailedEmailListCount = data['data'][0]['email_send_fail_list'].length;
+        }, (err) => {
+            this.notify(err.message, '');
+        });
+    }
 
     emaillists(emailData: any, page?: number) {
         if (this._location.path().substr(0, 17) === '/core/inbox/email') {
@@ -240,6 +252,11 @@ export class InboxComponent implements OnInit, OnDestroy {
         } else {
             this.emailChildId = emailData.id.toString() || '0';
         }
+        if (emailData.title === 'All') {
+            this.selectedTagTitle = emailData.title;
+        } else {
+            this.selectedTagTitle = '';
+        }
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
@@ -247,7 +264,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             'page': page || 1,
             'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
             'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
-            'limit': 20
+            'limit': 100
         };
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
@@ -273,7 +290,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
                 // this.emaillists(this.data.tag_id, this.data.page);
-                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId}, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -285,7 +302,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
                 // this.emaillists(this.data.tag_id, this.data.page);
-                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId}, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -313,8 +330,11 @@ export class InboxComponent implements OnInit, OnDestroy {
         for (let i = 0; i < data.length; i++) {
             if (data[i]['subject_for_genuine']) {
                 this.subject_for_genuine = data[i]['subject_for_genuine'];
+                localStorage.setItem('subject_for_genuine', data[i]['subject_for_genuine']);
             } else {
                 this.subject_for_genuine = 'Revert Information';
+                localStorage.setItem('subject_for_genuine', 'Revert Information');
+
             }
             if (!this.tagsForEmailListAndModel['Default']) {
                 this.tagsForEmailListAndModel['Default'] = [];

@@ -1,4 +1,4 @@
-<md-card class="bleftblue emailstyle">
+<md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
     <md-grid-list cols="8" rowHeight="34px">
         <!-- <md-grid-tile [colspan]="'1'"> -->
             <!-- <div class="emailcheckbox">

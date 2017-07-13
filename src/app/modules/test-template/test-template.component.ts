@@ -18,6 +18,7 @@ export class TestTemplateComponent implements OnInit {
     filteredTemp: any;
     subject: string;
     templateName: string;
+    subject_for_genuine: string;
     pendingVariables: any;
     constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, public getTemp: ImapMailsService) { }
 
@@ -25,6 +26,7 @@ export class TestTemplateComponent implements OnInit {
         this.first = true;
         this.subject = this.temp.subject;
         this.templateName = this.temp.templateName;
+        this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.getTemp.testTemplate(this.temp.id).subscribe((data) => {
             this.filteredTemp = this.temp;
             this.filteredTemp.body = data;
@@ -52,6 +54,7 @@ export class TestTemplateComponent implements OnInit {
             height: '60%',
             width: '40%'
         });
+        this.filteredTemp.subject = this.subject_for_genuine + ' ' + this.filteredTemp.subject;
         this.dialogConfig.componentInstance.pendingVariables = this.pendingVariables;
         this.dialogConfig.componentInstance.temp = this.filteredTemp;
         this.dialogConfig.componentInstance.userDetails = this.userDetails;

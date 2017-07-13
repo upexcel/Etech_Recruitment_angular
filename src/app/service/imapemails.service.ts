@@ -71,6 +71,19 @@ export class ImapMailsService {
                 });
         }
     }
+    sendEmailToPendingCandidates(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(config['apibase'] + 'email/send_to_selected_tag', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     getAllTagsMain(): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.get(config['apibase'] + 'email/countEmail')
