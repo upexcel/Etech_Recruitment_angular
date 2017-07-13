@@ -7,6 +7,14 @@
     padding: 12px;
     background-color: $contentcolor;
 }
+.bblue {
+    background: $borderleftblue;
+    display: inline-block;
+    color: #000;
+    padding: 2px;
+    margin: 0px 0px 2px 0px;
+    font-size: 12px;
+}
 .posload {
     left: 44%;
     position: relative;

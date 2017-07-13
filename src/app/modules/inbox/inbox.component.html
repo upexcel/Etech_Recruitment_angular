@@ -3,6 +3,7 @@
     <app-inbox-side-nav fxFlex="15" *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
     <div class="content" fxFlex>
     <router-outlet></router-outlet>
+    <p class="bblue" *ngIf="emaillist">Job Profile Template Sent</p>
     <h4 *ngIf="!emaillist" style="text-align: center; color: #fff;">No Emails Found</h4>
     <div class="m-b" *ngIf="showInboxEmailList">
         <div class="example-button-row" *ngIf="emaillist">
