@@ -18,7 +18,7 @@
                         <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                     </p>
                     <div *ngIf="subTag.subchild">
-                        <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" *ngFor="let subTagSubchild of subTag.subchild" (click)="getEmail(subTagSubchild.id, subTag.id)">
+                        <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" *ngFor="let subTagSubchild of subTag.subchild" (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title)">
                             <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
                         </div>
                     </div>

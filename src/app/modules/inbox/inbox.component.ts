@@ -54,6 +54,9 @@ export class InboxComponent implements OnInit, OnDestroy {
     subject_for_genuine: string;
     emailParentId: any;
     emailChildId: any;
+    selectedTagTitle: string;
+    sendSuccessEmailListCount: any;
+    sendFailedEmailListCount: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
@@ -94,6 +97,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                         if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
                             this.data.tag_id = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
                             this.selectedTag = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
+                            this.selectedTagTitle = res.data[0]['data'][0]['subchild'][0]['title'];
                             this.emailParentId = res.data[0]['data'][0]['id'].toString() || '0';
                             this.emailChildId = res.data[0]['data'][0]['subchild'][0]['id'].toString() || '0';
                             this.getemails.getEmailList(this.data).subscribe((data) => {
@@ -228,6 +232,12 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.loading = false;
             });
     }
+    sendEmailToPendingCandidates() {
+        this.getemails.sendEmailToPendingCandidates({'tag_id': this.selectedTag}).subscribe((data) => {
+            this.sendSuccessEmailListCount = data['data'][0]['email_send_success_list'].length;
+            this.sendFailedEmailListCount = data['data'][0]['email_send_fail_list'].length;
+        });
+    }
 
     emaillists(emailData: any, page?: number) {
         if (this._location.path().substr(0, 17) === '/core/inbox/email') {
@@ -239,6 +249,11 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.emailChildId = null;
         } else {
             this.emailChildId = emailData.id.toString() || '0';
+        }
+        if (emailData.title === 'All') {
+            this.selectedTagTitle = emailData.title;
+        } else {
+            this.selectedTagTitle = '';
         }
         this.selectedTag = emailData.id;
         this.data = null;
