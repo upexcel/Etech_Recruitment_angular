@@ -72,7 +72,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.data = {
             'page': 1,
             'tag_id': 0,
-            'limit': 20
+            'limit': 100
         };
         this.defaultOpen();
         setTimeout(() => {
@@ -128,7 +128,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                     'page': 1,
                     'tag_id': this.emailParentId,
                     'default_id': this.emailChildId,
-                    'limit': 20,
+                    'limit': 100,
                     'type': searchform.value['option'],
                     'keyword': searchform.value['keyword'],
                     'selected': searchform.value['currentTag']
@@ -136,7 +136,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             } else {
                 this.data = {
                     'page': 1,
-                    'limit': 20,
+                    'limit': 100,
                     'type': searchform.value['option'],
                     'keyword': searchform.value['keyword'],
                     'selected': searchform.value['currentTag']
@@ -262,7 +262,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             'page': page || 1,
             'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
             'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
-            'limit': 20
+            'limit': 100
         };
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
@@ -288,7 +288,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
                 // this.emaillists(this.data.tag_id, this.data.page);
-                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId}, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -300,7 +300,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
                 // this.emaillists(this.data.tag_id, this.data.page);
-                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId}, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
