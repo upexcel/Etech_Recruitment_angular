@@ -24,14 +24,12 @@ export class ComposeEmailComponent implements OnInit {
     emailChildId: any;
     emailParenttitle: string;
     emailChildTitle: string;
-    tagTitle: string;
     constructor(public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
     }
 
     ngOnInit() {
         this.showMessage = false;
         this.emails = this.emailList ? this.emailList.toString() : false;
-        this.tagTitle = this.emailParenttitle + '-' + this.emailChildTitle;
     }
 
     save(form: NgForm) {
