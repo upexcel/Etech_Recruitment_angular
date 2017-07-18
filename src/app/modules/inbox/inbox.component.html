@@ -48,6 +48,7 @@
         <!-- <md-spinner *ngIf="loading && showInboxEmailList" class="posload"></md-spinner> -->
         <h2 class="m-s" *ngIf="showmessage && showInboxEmailList">{{message}}</h2>
         <div class="compose-email" *ngIf="showInboxEmailList">
+            <a style="margin-right: 4px;" *ngIf="emaillist && emailParentId && emaillist.data?.length > 0" (click)="sendEmailToAll()">Send Email To All</a>
             <a *ngIf="selectedTagTitle == 'All'" style="margin-right: 4px;" (click)="sendEmailToPendingCandidates()">Send Email To Pending  Candidates <span *ngIf="sendFailedEmailListCount || sendSuccessEmailListCount">Success: {{sendSuccessEmailListCount}}, Failed: {{sendFailedEmailListCount}} </span></a>
             <a *ngIf="emailIds.length > 0" (click)="composeEmail()"> Send Emails </a>
         </div>

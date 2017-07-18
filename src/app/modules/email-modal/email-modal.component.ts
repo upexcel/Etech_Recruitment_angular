@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
@@ -10,7 +10,18 @@ import { Location } from '@angular/common';
     selector: 'app-email-modal',
     templateUrl: './email-modal.component.html',
     styleUrls: ['./email-modal.component.scss'],
-    encapsulation: ViewEncapsulation.Native
+    encapsulation: ViewEncapsulation.Native,
+    animations: [
+        trigger('collapseChange', [
+            state('true' ,
+                style({ height: '0', overflow : 'hidden' }),
+            ),
+            state('false',
+                style({ height: '*' })
+            ),
+            transition('* => *', animate('.25s ease-in'))
+        ])
+    ]
 })
 export class EmailModalComponent implements OnInit {
     dialogConfig: MdDialogRef <any> ;
@@ -25,7 +36,7 @@ export class EmailModalComponent implements OnInit {
     errorMessageText: string;
     constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {
         this.email = JSON.parse(localStorage.getItem('email'));
-        if (localStorage.getItem('selectedTag')) {
+        if (!localStorage.getItem('selectedTag')) {
             this.selectedTag = -1;
         } else {
             this.selectedTag = JSON.parse(localStorage.getItem('selectedTag'));
@@ -63,12 +74,32 @@ export class EmailModalComponent implements OnInit {
     getCandiatehistory() {
         if (this.email.sender_mail) {
             this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
+                for (let i = 0; i < data['data'].length; i++) {
+                    if (data['data'][i]['body']) {
+                        data['data'][i]['body'] = data['data'][i]['body'].replace(/<a /g, '<a target="_blank" ');
+                    }
+                    if (i === 0) {
+                        data['data'][i]['accordianIsOpen'] = true;
+                    } else {
+                        data['data'][i]['accordianIsOpen'] = false;
+                    }
+                }
                 this.historyList = data;
             }, (err) => {
                 console.log(err);
             });
         } else {
             this.tagUpdate.getCandidateHistory(this.email._id).subscribe((data) => {
+                for (let i = 0; i < data['data'].length; i++) {
+                    if (data['data'][i]['body']) {
+                        data['data'][i]['body'] = data['data'][i]['body'].replace(/<a /g, '<a target="_blank" ');
+                    }
+                    if (i === 0) {
+                        data['data'][i]['accordianIsOpen'] = true;
+                    } else {
+                        data['data'][i]['accordianIsOpen'] = false;
+                    }
+                }
                 this.historyList = data;
             }, (err) => {
                 console.log(err);
@@ -81,9 +112,26 @@ export class EmailModalComponent implements OnInit {
         this.selectedEmail = singlemail;
     }
 
-    assignTag(id: string) {
+    openAccordian(singleEmail) {
+        this.selectedEmail = '';
+        this.selectedEmail = singleEmail;
+        for (let i = 0; i < this.historyList['data'].length; i++) {
+            if (this.historyList['data'][i]['_id'] === singleEmail['_id']) {
+                if (this.historyList['data'][i]['accordianIsOpen']) {
+                    this.historyList['data'][i]['accordianIsOpen'] = false;
+                } else {
+                    this.historyList['data'][i]['accordianIsOpen'] = true;
+                }
+            } else {
+                // do not delete this is for close all other accordian
+                // this.historyList['data'][i]['accordianIsOpen'] = false;
+            }
+        }
+    }
+
+    assignTag(id: string, emailId) {
         this.body = null;
-        this.idlist.push(this.email._id);
+        this.idlist.push(emailId);
         this.body = {
             'tag_id': id,
             'mongo_id': this.idlist

@@ -54,6 +54,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     subject_for_genuine: string;
     emailParentId: any;
     emailChildId: any;
+    emailParenttitle: string;
+    emailChildTitle: string;
     selectedTagTitle: string;
     sendSuccessEmailListCount: any;
     sendFailedEmailListCount: any;
@@ -100,6 +102,8 @@ export class InboxComponent implements OnInit, OnDestroy {
                             this.selectedTagTitle = res.data[0]['data'][0]['subchild'][0]['title'];
                             this.emailParentId = res.data[0]['data'][0]['id'].toString() || '0';
                             this.emailChildId = res.data[0]['data'][0]['subchild'][0]['id'].toString() || '0';
+                            this.emailParenttitle = res.data[0]['data'][0]['title'] || '';
+                            this.emailChildTitle = res.data[0]['data'][0]['subchild'][0]['title'] || '';
                             this.getemails.getEmailList(this.data).subscribe((data) => {
                                 this.addSelectedFieldInEmailList(data);
                                 this.loading = false;
@@ -240,8 +244,26 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.notify(err.message, '');
         });
     }
+    sendEmailToAll() {
+        this.dialogRef = this.dialog.open(ComposeEmailComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        this.dialogRef.componentInstance.emailParenttitle = this.emailParenttitle;
+        this.dialogRef.componentInstance.emailChildTitle = this.emailChildTitle;
+        this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        this.dialogRef.componentInstance.emailChildId = this.emailChildId;
+        this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.emailIds = [];
+            this.addSelectedFieldInEmailList(this.emaillist);
+        });
+    }
 
     emaillists(emailData: any, page?: number) {
+        this.emailParenttitle = emailData['parentTitle'];
+        this.emailChildTitle = emailData['title'];
         if (this._location.path().substr(0, 17) === '/core/inbox/email') {
             this.showInboxEmailList = true;
             this._location.back();

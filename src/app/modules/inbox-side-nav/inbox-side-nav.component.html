@@ -2,12 +2,11 @@
     <div class="inbox-nav">
         <div class="mainnav" *ngFor="let tag of tags; let i = index">
             <a md-line class="main-title">{{tag.title}}</a>
-            <!-- <md-icon class="nav-arrow" (click)="openSubMenu(tag.title)" *ngIf="tag.data && i !== 0">{{tag.menuOpen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon> -->
             <div *ngIf="tag.data">
                 <div class="subenav" *ngFor="let subTag of tag.data">
                     <p [class.active]="selectedId == subTag.id && i != 0" *ngIf="subTag.type == 'Automatic'">
                         <a *ngIf="i == 0" class="sub-title">{{subTag.title}}</a>
-                        <a (click)="getEmail(0, subTag.id, subTag.title);" *ngIf="i != 0 && subTag.type == 'Automatic'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
+                        <a (click)="getEmail(0, subTag.id, subTag.title, tag.title);" *ngIf="i != 0 && subTag.type == 'Automatic'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
 
                         <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                     </p>
@@ -18,7 +17,7 @@
                         <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                     </p>
                     <div *ngIf="subTag.subchild">
-                        <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" *ngFor="let subTagSubchild of subTag.subchild" (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title)">
+                        <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" *ngFor="let subTagSubchild of subTag.subchild" (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
                             <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
                         </div>
                     </div>
