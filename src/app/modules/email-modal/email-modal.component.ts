@@ -5,6 +5,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 
 @Component({
     selector: 'app-email-modal',
@@ -25,6 +26,7 @@ import { Location } from '@angular/common';
 })
 export class EmailModalComponent implements OnInit {
     dialogConfig: MdDialogRef <any> ;
+    dialogRef: MdDialogRef < any > ;
     email: any;
     tags: any;
     body: any;
@@ -34,7 +36,8 @@ export class EmailModalComponent implements OnInit {
     idlist: string[];
     error = false;
     errorMessageText: string;
-    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {
+    dataForInterviewScheduleRound: any;
+    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog) {
         this.email = JSON.parse(localStorage.getItem('email'));
         if (!localStorage.getItem('selectedTag')) {
             this.selectedTag = -1;
@@ -42,6 +45,7 @@ export class EmailModalComponent implements OnInit {
             this.selectedTag = JSON.parse(localStorage.getItem('selectedTag'));
         }
         this.tags = JSON.parse(localStorage.getItem('tags'));
+        this.dataForInterviewScheduleRound = JSON.parse(localStorage.getItem('dataForInterviewScheduleRound'));
     }
 
     ngOnInit() {
@@ -129,19 +133,37 @@ export class EmailModalComponent implements OnInit {
         }
     }
 
-    assignTag(id: string, emailId) {
-        this.body = null;
-        this.idlist.push(emailId);
-        this.body = {
-            'tag_id': id,
-            'mongo_id': this.idlist
-        };
-        this.tagUpdate.assignTag(this.body).subscribe((data) => {
-            this.idlist = [];
-            this._location.back();
-        }, (err) => {
-            console.log(err);
-        });
+    assignTag(id: string, emailId, title: string) {
+        if (title === 'Schedule') {
+            this.dialogRef = this.dialog.open(ScheduleInterviewComponent, {
+                height: '90%',
+                width: '70%'
+            });
+            this.dialogRef.componentInstance.tagId = id;
+            this.dialogRef.componentInstance.emailId = emailId;
+            this.dialogRef.componentInstance.dataForInterviewScheduleRound = this.dataForInterviewScheduleRound;
+            this.dialogRef.componentInstance.tagselected = this.selectedTag;
+            this.dialogRef.afterClosed().subscribe(result => {
+                this.dialogRef = null;
+                if (result && result === 'schedule') {
+                    // this.refresh.emit(id);
+                    this._location.back();
+                }
+            });
+        } else {
+            this.body = null;
+            this.idlist.push(emailId);
+            this.body = {
+                'tag_id': id,
+                'mongo_id': this.idlist
+            };
+            this.tagUpdate.assignTag(this.body).subscribe((data) => {
+                this.idlist = [];
+                this._location.back();
+            }, (err) => {
+                console.log(err);
+            });
+        }
     }
 
     openAttachment(link: string) {

@@ -1,0 +1,24 @@
+<div class="header">
+    <p class="h-text">Schedual Interviews</p>
+</div>
+
+<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm">
+    <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+        <div class="main">
+            <md-select placeholder="Interview Round" class="width-33" [formControl]="interviewForm.controls['selectedInterviewRound']" (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
+			   <md-option *ngFor="let interview of interviewRounds" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
+			</md-select>
+			<md-select placeholder="Select Date" class="width-33" [formControl]="interviewForm.controls['selectedInterviewDate']" (change)="changeInDate(interviewForm.value.selectedInterviewDate)">
+			   <md-option *ngFor="let dateData of scheduleData;" [value]="dateData.date">{{ dateData.date }}</md-option>
+			</md-select>
+			<md-select placeholder="Select Time" class="width-33" [formControl]="interviewForm.controls['selectedInterviewTime']">
+			   <md-option *ngFor="let timeData of timeListData;" [value]="timeData.time" [disabled]="!timeData.status">{{ timeData.time }}</md-option>
+			</md-select>
+        </div>
+    </div>
+    <hr>
+    <div class="pull-right">
+    	<button md-raised-button (click)="close()">Back</button>
+    	<button md-raised-button type="submit" color="accent" (click)="scheduleInterview(interviewForm)" [disabled]="!interviewForm.valid">Schedual</button>
+    </div>
+</form>

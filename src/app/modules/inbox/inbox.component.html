@@ -53,7 +53,7 @@
             <a *ngIf="emailIds.length > 0" (click)="composeEmail()"> Send Emails </a>
         </div>
         <div *ngIf="!loading && emaillist && showInboxEmailList">
-            <app-emailbox *ngFor="let emails of emaillist.data; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel"></app-emailbox>
+            <app-emailbox *ngFor="let emails of emaillist.data; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"></app-emailbox>
         </div>
     </div>
 </div>    

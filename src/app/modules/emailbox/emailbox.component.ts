@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import * as _ from 'lodash';
+import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 
 @Component({
     selector: 'app-emailbox',
@@ -8,6 +10,7 @@ import * as _ from 'lodash';
     styleUrls: ['./emailbox.component.scss']
 })
 export class EmailboxComponent implements OnInit {
+    dialogRef: MdDialogRef < any > ;
     data: any;
     selected = false;
     selectedMid: string[];
@@ -15,12 +18,13 @@ export class EmailboxComponent implements OnInit {
     @Input() tags: any[];
     @Input() allTags: any;
     @Input() tagselected: any;
+    @Input() dataForInterviewScheduleRound: any;
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
 
-    constructor(private assignEmail: ImapMailsService) { }
+    constructor(private assignEmail: ImapMailsService, public dialog: MdDialog) { }
 
     ngOnInit() {
         this.selectedMid = [];
@@ -57,18 +61,35 @@ export class EmailboxComponent implements OnInit {
         });
     }
 
-    assignTag(id: string, emailId: string) {
-        this.selectedMid.push(emailId);
-        this.data = {
-            'tag_id': id,
-            'mongo_id': this.selectedMid
-        };
-        this.assignEmail.assignTag(this.data).subscribe((data) => {
-            this.selectedMid = [];
-            this.refresh.emit(id);
-        }, (err) => {
-            console.log(err);
-        });
+    assignTag(id: string, emailId: string, title: string) {
+        if (title === 'Schedule') {
+            this.dialogRef = this.dialog.open(ScheduleInterviewComponent, {
+                height: '90%',
+                width: '70%'
+            });
+            this.dialogRef.componentInstance.tagId = id;
+            this.dialogRef.componentInstance.emailId = emailId;
+            this.dialogRef.componentInstance.dataForInterviewScheduleRound = this.dataForInterviewScheduleRound;
+            this.dialogRef.componentInstance.tagselected = this.tagselected;
+            this.dialogRef.afterClosed().subscribe(result => {
+                this.dialogRef = null;
+                if (result && result === 'schedule') {
+                    this.refresh.emit(id);
+                }
+            });
+        } else {
+            this.selectedMid.push(emailId);
+            this.data = {
+                'tag_id': id,
+                'mongo_id': this.selectedMid
+            };
+            this.assignEmail.assignTag(this.data).subscribe((data) => {
+                this.selectedMid = [];
+                this.refresh.emit(id);
+            }, (err) => {
+                console.log(err);
+            });
+        }
     }
 
     getColor(title) {

@@ -59,6 +59,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     selectedTagTitle: string;
     sendSuccessEmailListCount: any;
     sendFailedEmailListCount: any;
+    dataForInterviewScheduleRound = [];
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
@@ -226,6 +227,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         localStorage.setItem('email', JSON.stringify(email));
         localStorage.setItem('selectedTag', JSON.stringify(this.selectedTag));
         localStorage.setItem('tags', JSON.stringify(this.tagsForEmailListAndModel));
+        localStorage.setItem('dataForInterviewScheduleRound', JSON.stringify(this.dataForInterviewScheduleRound));
     }
 
     getAllTag() {
@@ -376,6 +378,20 @@ export class InboxComponent implements OnInit, OnDestroy {
                     }
                 }
             }
+        }
+        // code for removing schedule_first_round, schedule_second_round, schedule_third_round for tagsForEmailListAndModel
+        // also creating interview schedule array from here
+        if (this.tagsForEmailListAndModel && this.tagsForEmailListAndModel['Default'] && this.tagsForEmailListAndModel['Default'].length > 0) {
+            const tempArray = [];
+            for (let i = 0; i < this.tagsForEmailListAndModel['Default'].length; i ++) {
+                if (this.tagsForEmailListAndModel['Default'][i]['title'].substr(0, 9) === 'Schedule_') {
+                    this.dataForInterviewScheduleRound.push(this.tagsForEmailListAndModel['Default'][i]);
+                } else {
+                    tempArray.push(this.tagsForEmailListAndModel['Default'][i]);
+                }
+            }
+            tempArray.push({color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0});
+            this.tagsForEmailListAndModel['Default'] = tempArray;
         }
         this.loading = false;
     }
