@@ -80,7 +80,7 @@ export class EmailModalComponent implements OnInit {
             this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
                 for (let i = 0; i < data['data'].length; i++) {
                     if (data['data'][i]['body']) {
-                        data['data'][i]['body'] = data['data'][i]['body'].replace(/<a /g, '<a target="_blank" ');
+                        data['data'][i]['body'] = data['data'][i]['body'].replace(/<a/g, '<a target="_blank" ');
                     }
                     if (i === 0) {
                         data['data'][i]['accordianIsOpen'] = true;
