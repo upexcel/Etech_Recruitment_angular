@@ -145,6 +145,7 @@ import { ComposeEmailComponent } from './modules/compose-email/compose-email.com
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 
 import { CommonService } from './service/common.service';
+import { LocalStorageService } from './service/local-storage.service';
 
 @NgModule({
     declarations: [
@@ -211,6 +212,7 @@ import { CommonService } from './service/common.service';
         ImapMailsService,
         LoginService,
         CommonService,
+        LocalStorageService,
         LoginRouteGuard,
         {
             provide: InterceptedHttp,

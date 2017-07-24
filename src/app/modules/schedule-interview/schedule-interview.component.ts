@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import * as _ from 'lodash';
+import { config } from './../../config/config';
 
 @Component({
     selector: 'app-schedule-interview',
@@ -38,7 +39,7 @@ export class ScheduleInterviewComponent implements OnInit {
         });
         this.interviewForm.get('selectedInterviewDate').disable();
         this.interviewForm.get('selectedInterviewTime').disable();
-        this.interviewRounds = [{'name': 'First Round', 'value': 'first_round'}, {'name': 'Second Round', 'value': 'second_round'}, {'name': 'Third Round', 'value': 'third_round'}];
+        this.interviewRounds = config['interviewRounds'];
         for (let i = 0; i < this.interviewRounds.length; i ++) {
             this.interviewRounds[i]['id'] = this.dataForInterviewScheduleRound[i]['id'];
             if (this.dataForInterviewScheduleRound[i]['id'] === this.tagselected) {

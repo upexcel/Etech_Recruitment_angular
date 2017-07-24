@@ -29,6 +29,7 @@ import {
 import { Location } from '@angular/common';
 import { CoreComponent } from './../../modules/core/core.component';
 import { ComposeEmailComponent } from './../../modules/compose-email/compose-email.component';
+import { LocalStorageService } from './../../service/local-storage.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -61,7 +62,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     sendSuccessEmailListCount: any;
     sendFailedEmailListCount: any;
     dataForInterviewScheduleRound = [];
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
         () => {
@@ -224,10 +225,10 @@ export class InboxComponent implements OnInit, OnDestroy {
     openEmails(email: any) {
         this.showInboxEmailList = false;
         this._router.navigate(['core/inbox/email', email._id]);
-        localStorage.setItem('email', JSON.stringify(email));
-        localStorage.setItem('selectedTag', JSON.stringify(this.selectedTag));
-        localStorage.setItem('tags', JSON.stringify(this.tagsForEmailListAndModel));
-        localStorage.setItem('dataForInterviewScheduleRound', JSON.stringify(this.dataForInterviewScheduleRound));
+        this._localStorageService.setItem('email', email);
+        this._localStorageService.setItem('selectedTag', this.selectedTag);
+        this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
+        this._localStorageService.setItem('dataForInterviewScheduleRound', this.dataForInterviewScheduleRound);
     }
 
     getAllTag() {

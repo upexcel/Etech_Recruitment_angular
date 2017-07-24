@@ -7,6 +7,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 import { CommonService } from './../../service/common.service';
+import { LocalStorageService } from './../../service/local-storage.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -39,15 +40,15 @@ export class EmailModalComponent implements OnInit {
     error = false;
     errorMessageText: string;
     dataForInterviewScheduleRound: any;
-    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService) {
-        this.email = JSON.parse(localStorage.getItem('email'));
-        if (!localStorage.getItem('selectedTag')) {
+    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService) {
+        this.email = this._localStorageService.getItem('email');
+        if (!this._localStorageService.getItem('selectedTag')) {
             this.selectedTag = -1;
         } else {
-            this.selectedTag = JSON.parse(localStorage.getItem('selectedTag'));
+            this.selectedTag = this._localStorageService.getItem('selectedTag');
         }
-        this.tags = JSON.parse(localStorage.getItem('tags'));
-        this.dataForInterviewScheduleRound = JSON.parse(localStorage.getItem('dataForInterviewScheduleRound'));
+        this.tags = this._localStorageService.getItem('tags');
+        this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
     }
 
     ngOnInit() {
