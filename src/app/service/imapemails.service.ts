@@ -84,6 +84,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    getScheduleData(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(config['apibase'] + 'get/shedule')
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     getAllTagsMain(): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.get(config['apibase'] + 'email/countEmail')

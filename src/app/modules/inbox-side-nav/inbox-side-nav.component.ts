@@ -20,13 +20,13 @@ export class InboxSideNavComponent implements OnInit {
             this.parantTagId = !!this.tags[0]['data'][0]['id'] ? this.tags[0]['data'][0]['id'] : 1;
         }
     }
-    getEmail(id, parantTagId, title) {
+    getEmail(id, parantTagId, title, parentTitle) {
         this.parantTagId = parantTagId;
         this.selectedId = (id === 0 ? parantTagId : id);
         if (title === 'Mails') {
-            this.getEmails.emit({'id': null, 'parantTagId': null, 'title': title});
+            this.getEmails.emit({'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle});
         } else {
-            this.getEmails.emit({'id': id, 'parantTagId': parantTagId, 'title': title});
+            this.getEmails.emit({'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle});
         }
     }
     openSubMenu(title) {

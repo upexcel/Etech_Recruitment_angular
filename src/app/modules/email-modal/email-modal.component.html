@@ -2,35 +2,32 @@
 <div class="m-b">
     <div class="example-button-row default-tag-buttons" *ngIf="historyList.data">
         <a md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></a>
-        <span *ngFor="let tag of tags.Default">
-            <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-            </a>
-        </span>
-        <!-- <a md-raised-button class="cyan" *ngIf="tags && tags.Manual && tags.Manual[0]" (click)="assignTag(tags.Manual[0].id)">{{tags.Manual[0].title}}</a> -->
-        <a md-raised-button class="cyan c-his" [mdMenuTriggerFor]="menu" *ngIf="historyList.data?.length > 1"> Candidate History <span class="labels">{{historyList?.data?.length ? historyList.data.length - 1: 0}}</span>
-        <i class="material-icons">keyboard_arrow_down</i>
-        </a>
     </div>
     <h4 *ngIf="error" style="color: red; text-align: center;">{{errorMessageText}}</h4>
 </div>
-<md-menu #menu="mdMenu" yPosition="below" xPosition="after" [overlapTrigger]="false">
-    <div md-menu-item *ngFor="let email of historyList.data" (click)="showEmail(email)" 
-    style="line-height: 20px;width: 132px">
-    <span style="display: block;color: grey;">{{email.email_date | date: 'dd MMM y'}}</span>  
-        <span style="font-size: 12px;color: cornflowerblue;">{{email.subject}}</span>
-    </div>
-</md-menu>
-
 <div class="bod" *ngFor="let H_email of historyList.data">
-    <div class="b-b" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
-        <h2 class="font-300">{{H_email.subject}} </h2>
+    <div class="b-b" *ngIf="selectedEmail">
+        <h3 class="font-300" *ngIf="historyList.data.length == 1">{{H_email.subject}}</h3>
+        <h3 class="font-300 pointer" [ngStyle]="{ 'width': (!H_email.accordianIsOpen) ? '80%' : '100%'}" *ngIf="historyList.data.length > 1" (click)="openAccordian(H_email)">{{H_email.subject}}</h3>
+        <div class="accordian-icon-box" *ngIf="historyList.data.length > 1" (click)="openAccordian(H_email)">
+            <md-icon style="font-size: 24px!important;" *ngIf="H_email.accordianIsOpen">keyboard_arrow_up</md-icon>
+            <span *ngIf="!H_email.accordianIsOpen">{{H_email.date | date: 'medium'}} </span>
+            <md-icon style="font-size: 24px!important;" *ngIf="!H_email.accordianIsOpen">keyboard_arrow_down</md-icon>
+        </div>
     </div>
-    <div class="p-y" *ngIf="selectedEmail && H_email._id === selectedEmail._id">
+    <div [@collapseChange]="H_email.accordianIsOpen" *ngIf="H_email.accordianIsOpen">
+    <div class="p-y">
         from
         <a>{{H_email.from}} {{H_email.sender_mail}}</a>
-        <span class="text-xs" *ngIf="H_email._id === selectedEmail._id"> on {{H_email.date | date: 'medium'}}</span>
+        <span class="text-xs"> on {{H_email.date | date: 'medium'}}</span>
     </div>
-    <div *ngIf="selectedEmail && H_email._id === selectedEmail._id && H_email?.attachment?.length" style="width: 60%; display: inline-block;">
+    <div class="example-button-row default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen">
+        <span *ngFor="let tag of tags.Default">
+            <a md-raised-button class="cyan" *ngIf="tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+            </a>
+        </span>
+    </div>
+    <div *ngIf="H_email?.attachment?.length" style="width: 60%; display: inline-block;">
         <h4 class="at-hed">Attachments</h4>
         <div class="attach" *ngFor="let attach of H_email.attachment" (click)="openAttachment(attach.link)">
             <a class="attach-click"><i>View</i></a>
@@ -42,7 +39,8 @@
             </div>
         </div>
     </div>
-    <div *ngIf="selectedEmail && H_email._id === selectedEmail._id" [innerHTML]="H_email.body | safeHtml" class="email-body" [ngStyle]="{ 'width': (selectedEmail && H_email._id === selectedEmail._id && H_email?.attachment?.length) ? '36%' : '100%'}">
+    <div [innerHTML]="H_email.body | safeHtml" class="email-body" [ngStyle]="{ 'width': (H_email?.attachment?.length) ? '36%' : '100%'}">
+    </div>
     </div>
     <div class="clearfix"></div>
 </div>

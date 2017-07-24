@@ -6,10 +6,16 @@
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main">
             <p>
-                <md-input-container class="width-100">
+                <md-input-container class="width-100" *ngIf="emails">
                     <input mdInput type="text-area" [disabled]="true" placeholder="Email" autoComplete="off" name="email" required [(ngModel)]="emails">
                     <md-error>Required</md-error>
                 </md-input-container>
+                <md-card class="width-100" style="box-shadow: none;" *ngIf="emailParentId">
+                  <md-card-header>
+                    <md-card-subtitle>Tag <sup>*</sup></md-card-subtitle>
+                    <md-card-subtitle>{{emailParenttitle}} - <b>{{emailChildTitle}}</b></md-card-subtitle>
+                  </md-card-header>
+                </md-card>
                 <md-input-container class="width-25">
                     <input mdInput placeholder="Subject" [disabled]="true" autoComplete="off" name="fixedsubject" required [(ngModel)]="subject_for_genuine">
                     <md-error>Required</md-error>

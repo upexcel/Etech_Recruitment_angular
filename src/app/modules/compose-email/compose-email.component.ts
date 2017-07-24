@@ -20,31 +20,49 @@ export class ComposeEmailComponent implements OnInit {
     sendFailedEmailList: any;
     formOpen = true;
     subject_for_genuine: any;
+    emailParentId: any;
+    emailChildId: any;
+    emailParenttitle: string;
+    emailChildTitle: string;
     constructor(public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
     }
 
     ngOnInit() {
         this.showMessage = false;
-        this.emails = this.emailList.toString();
+        this.emails = this.emailList ? this.emailList.toString() : false;
     }
 
     save(form: NgForm) {
         if (form.valid) {
-            form.value.emails = this.emailList;
             form.value.subject = this.subject_for_genuine + ' ' + form.value.subject;
-            this.sendToManyEmail.sendEmail(form.value).subscribe((data) => {
-                form.reset();
-                this.sendSuccessEmailList = data['data'][0]['email_send_success_list'];
-                this.sendFailedEmailList = data['data'][0]['email_send_fail_list'];
-                this.formOpen = false;
-                this.snackBar.open('Mail Send', '', {
-                    duration: 2000,
-                });
-            }, (err) => {
-                this.showMessage = true;
-                this.message = err.message;
-            });
+            if (this.emails) {
+                form.value.emails = this.emailList;
+                this.sendToMany(form);
+            } else if (this.emailParentId && this.emailChildId) {
+                if (this.emailParentId === this.emailChildId) {
+                    form.value.tag_id = this.emailParentId;
+                } else {
+                    form.value.tag_id = this.emailParentId;
+                    form.value.default_id = this.emailChildId;
+                }
+                this.sendToMany(form);
+            }
         }
+    }
+
+    sendToMany(form) {
+        this.sendToManyEmail.sendEmail(form.value).subscribe((data) => {
+            form.reset();
+            this.sendSuccessEmailList = data['data'][0]['email_send_success_list'];
+            this.sendFailedEmailList = data['data'][0]['email_send_fail_list'];
+            this.formOpen = false;
+            this.snackBar.open('Mail Send', '', {
+                duration: 2000,
+            });
+        }, (err) => {
+            this.showMessage = true;
+            this.message = err.message;
+        });
     }
 
     close() {
