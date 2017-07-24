@@ -86,7 +86,7 @@ export class ImapMailsService {
     }
     getScheduleData(): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(config['apibase'] + 'get/shedule')
+        return this.Intercepted.get(environment['apibase'] + 'get/shedule')
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
