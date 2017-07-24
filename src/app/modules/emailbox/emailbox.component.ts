@@ -4,6 +4,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import * as _ from 'lodash';
 import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 import { CommonService } from './../../service/common.service';
+import { DialogService } from './../../service/dialog.service';
 
 @Component({
     selector: 'app-emailbox',
@@ -25,7 +26,7 @@ export class EmailboxComponent implements OnInit {
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
 
-    constructor(private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService) { }
+    constructor(private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
     ngOnInit() {
         this.selectedMid = [];
@@ -49,19 +50,12 @@ export class EmailboxComponent implements OnInit {
 
     assignTag(id: string, emailId: string, title: string) {
         if (title === 'Schedule') {
-            this.dialogRef = this.dialog.open(ScheduleInterviewComponent, {
-                height: '90%',
-                width: '70%'
-            });
-            this.dialogRef.componentInstance.tagId = id;
-            this.dialogRef.componentInstance.emailId = emailId;
-            this.dialogRef.componentInstance.dataForInterviewScheduleRound = this.dataForInterviewScheduleRound;
-            this.dialogRef.componentInstance.tagselected = this.tagselected;
-            this.dialogRef.afterClosed().subscribe(result => {
-                this.dialogRef = null;
-                if (result && result === 'schedule') {
+            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected}).then((res) => {
+                if (res && res === 'schedule') {
                     this.refresh.emit(id);
                 }
+            }, (err) => {
+                console.log(err);
             });
         } else {
             this.selectedMid.push(emailId);

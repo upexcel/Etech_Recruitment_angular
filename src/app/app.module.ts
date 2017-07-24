@@ -146,6 +146,7 @@ import { ScheduleInterviewComponent } from './modules/schedule-interview/schedul
 
 import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
+import { DialogService } from './service/dialog.service';
 
 @NgModule({
     declarations: [
@@ -213,6 +214,7 @@ import { LocalStorageService } from './service/local-storage.service';
         LoginService,
         CommonService,
         LocalStorageService,
+        DialogService,
         LoginRouteGuard,
         {
             provide: InterceptedHttp,

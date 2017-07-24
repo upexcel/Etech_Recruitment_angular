@@ -8,6 +8,7 @@ import { Location } from '@angular/common';
 import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 import { CommonService } from './../../service/common.service';
 import { LocalStorageService } from './../../service/local-storage.service';
+import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -40,7 +41,7 @@ export class EmailModalComponent implements OnInit {
     error = false;
     errorMessageText: string;
     dataForInterviewScheduleRound: any;
-    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService) {
+    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
             this.selectedTag = -1;
@@ -126,19 +127,12 @@ export class EmailModalComponent implements OnInit {
 
     assignTag(id: string, emailId, title: string) {
         if (title === 'Schedule') {
-            this.dialogRef = this.dialog.open(ScheduleInterviewComponent, {
-                height: '90%',
-                width: '70%'
-            });
-            this.dialogRef.componentInstance.tagId = id;
-            this.dialogRef.componentInstance.emailId = emailId;
-            this.dialogRef.componentInstance.dataForInterviewScheduleRound = this.dataForInterviewScheduleRound;
-            this.dialogRef.componentInstance.tagselected = this.selectedTag;
-            this.dialogRef.afterClosed().subscribe(result => {
-                this.dialogRef = null;
-                if (result && result === 'schedule') {
+            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag}).then((res) => {
+                if (res && res === 'schedule') {
                     this._location.back();
                 }
+            }, (err) => {
+                console.log(err);
             });
         } else {
             this.body = null;

@@ -1,6 +1,6 @@
 export const config = {
-    // 'apibase': 'http://144.76.34.244:8090/'
-    'apibase': 'http://192.168.1.126:8091/',
+    'apibase': 'http://144.76.34.244:8090/',
+    // 'apibase': 'http://192.168.1.126:8095/',
     'interviewRounds': [{'name': 'First Round', 'value': 'first_round'}, {'name': 'Second Round', 'value': 'second_round'}, {'name': 'Third Round', 'value': 'third_round'}]
 };
 
