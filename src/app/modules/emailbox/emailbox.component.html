@@ -1,11 +1,5 @@
 <md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
     <md-grid-list cols="8" rowHeight="34px">
-        <!-- <md-grid-tile [colspan]="'1'"> -->
-            <!-- <div class="emailcheckbox">
-                <span *ngIf="!selected" >{{email.subject?.charAt(0)}}</span>
-                <md-icon *ngIf="selected">check</md-icon>
-            </div> -->
-        <!-- </md-grid-tile> -->
         <md-grid-tile [colspan]="'8'">
             <div class="emailcheckbox">
                 <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>

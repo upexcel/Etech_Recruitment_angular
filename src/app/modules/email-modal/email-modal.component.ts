@@ -6,6 +6,8 @@ import { OpenattachementComponent } from '../openattachement/openattachement.com
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
+import { CommonService } from './../../service/common.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-email-modal',
@@ -37,7 +39,7 @@ export class EmailModalComponent implements OnInit {
     error = false;
     errorMessageText: string;
     dataForInterviewScheduleRound: any;
-    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog) {
+    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService) {
         this.email = JSON.parse(localStorage.getItem('email'));
         if (!localStorage.getItem('selectedTag')) {
             this.selectedTag = -1;
@@ -57,14 +59,12 @@ export class EmailModalComponent implements OnInit {
             'mongo_id': this.route.snapshot.paramMap.get('id')
         };
 
-        this.tagUpdate.UnreadStatus(this.body).subscribe(
-        (data) => {
+        this.tagUpdate.UnreadStatus(this.body).subscribe((data) => {
         }, (err) => {
             console.log(err);
         });
         if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
-            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe (
-            (data) => {
+            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe ((data) => {
                 this.showEmail(data.data);
                 this.getCandiatehistory();
             }, (err) => {
@@ -77,38 +77,28 @@ export class EmailModalComponent implements OnInit {
 
     getCandiatehistory() {
         if (this.email.sender_mail) {
-            this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
-                for (let i = 0; i < data['data'].length; i++) {
-                    if (data['data'][i]['body']) {
-                        data['data'][i]['body'] = data['data'][i]['body'].replace(/<a/g, '<a target="_blank" ');
-                    }
-                    if (i === 0) {
-                        data['data'][i]['accordianIsOpen'] = true;
-                    } else {
-                        data['data'][i]['accordianIsOpen'] = false;
-                    }
-                }
-                this.historyList = data;
-            }, (err) => {
-                console.log(err);
-            });
+            this.getCandidateHistoryApi(this.email.sender_mail);
         } else {
-            this.tagUpdate.getCandidateHistory(this.email._id).subscribe((data) => {
-                for (let i = 0; i < data['data'].length; i++) {
-                    if (data['data'][i]['body']) {
-                        data['data'][i]['body'] = data['data'][i]['body'].replace(/<a /g, '<a target="_blank" ');
-                    }
-                    if (i === 0) {
-                        data['data'][i]['accordianIsOpen'] = true;
-                    } else {
-                        data['data'][i]['accordianIsOpen'] = false;
-                    }
-                }
-                this.historyList = data;
-            }, (err) => {
-                console.log(err);
-            });
+            this.getCandidateHistoryApi(this.email._id);
         }
+    }
+
+    getCandidateHistoryApi(apiData) {
+        this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
+            _.forEach(data['data'], (value, key) => {
+                if (value['body']) {
+                    value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
+                }
+                if (key === 0) {
+                    value['accordianIsOpen'] = true;
+                } else {
+                    value['accordianIsOpen'] = false;
+                }
+            });
+            this.historyList = data;
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     showEmail(singlemail: any) {
@@ -146,7 +136,6 @@ export class EmailModalComponent implements OnInit {
             this.dialogRef.afterClosed().subscribe(result => {
                 this.dialogRef = null;
                 if (result && result === 'schedule') {
-                    // this.refresh.emit(id);
                     this._location.back();
                 }
             });
@@ -177,39 +166,15 @@ export class EmailModalComponent implements OnInit {
         });
     }
 
-    close() {
-        // this.dialogRef.close();
-    }
-
     back() {
         this._location.back();
     }
 
     getColor(title) {
-        if (title === 'Ignore') {
-            return {'background-color': '#FF0000'};
-        } else if (title === 'Genuine Applicant') {
-            return {'background-color': '#41A317'};
-        } else if (title === 'Reject') {
-            return {'background-color': '#F1B2B2'};
-        } else if (title === 'Schedule') {
-            return {'background-color': '#FBB917'};
-        } else {
-            return {'background-color': 'cyan'};
-        }
+        return this.commonService.getDefaultTagColor(title);
     }
 
     getIcon(title) {
-        if (title === 'Ignore') {
-            return 'block';
-        } else if (title === 'Genuine Applicant') {
-            return 'done_all';
-        } else if (title === 'Reject') {
-            return 'highlight_off';
-        } else if (title === 'Schedule') {
-            return 'access_time';
-        } else {
-            return 'thumb_up';
-        }
+        return this.commonService.getDefaultTagIcon(title);
     }
 }

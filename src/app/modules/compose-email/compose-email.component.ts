@@ -34,21 +34,10 @@ export class ComposeEmailComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
+            form.value.subject = this.subject_for_genuine + ' ' + form.value.subject;
             if (this.emails) {
                 form.value.emails = this.emailList;
-                form.value.subject = this.subject_for_genuine + ' ' + form.value.subject;
-                this.sendToManyEmail.sendEmail(form.value).subscribe((data) => {
-                    form.reset();
-                    this.sendSuccessEmailList = data['data'][0]['email_send_success_list'];
-                    this.sendFailedEmailList = data['data'][0]['email_send_fail_list'];
-                    this.formOpen = false;
-                    this.snackBar.open('Mail Send', '', {
-                        duration: 2000,
-                    });
-                }, (err) => {
-                    this.showMessage = true;
-                    this.message = err.message;
-                });
+                this.sendToMany(form);
             } else if (this.emailParentId && this.emailChildId) {
                 if (this.emailParentId === this.emailChildId) {
                     form.value.tag_id = this.emailParentId;
@@ -56,21 +45,24 @@ export class ComposeEmailComponent implements OnInit {
                     form.value.tag_id = this.emailParentId;
                     form.value.default_id = this.emailChildId;
                 }
-                form.value.subject = this.subject_for_genuine + ' ' + form.value.subject;
-                this.sendToManyEmail.sendEmail(form.value).subscribe((data) => {
-                    form.reset();
-                    this.sendSuccessEmailList = data['data'][0]['email_send_success_list'];
-                    this.sendFailedEmailList = data['data'][0]['email_send_fail_list'];
-                    this.formOpen = false;
-                    this.snackBar.open('Mail Send', '', {
-                        duration: 2000,
-                    });
-                }, (err) => {
-                    this.showMessage = true;
-                    this.message = err.message;
-                });
+                this.sendToMany(form);
             }
         }
+    }
+
+    sendToMany(form) {
+        this.sendToManyEmail.sendEmail(form.value).subscribe((data) => {
+            form.reset();
+            this.sendSuccessEmailList = data['data'][0]['email_send_success_list'];
+            this.sendFailedEmailList = data['data'][0]['email_send_fail_list'];
+            this.formOpen = false;
+            this.snackBar.open('Mail Send', '', {
+                duration: 2000,
+            });
+        }, (err) => {
+            this.showMessage = true;
+            this.message = err.message;
+        });
     }
 
     close() {

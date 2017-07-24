@@ -144,6 +144,7 @@ import { ForgetPasswordComponent } from './modules/forget-password/forget-passwo
 import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 
+import { CommonService } from './service/common.service';
 
 @NgModule({
     declarations: [
@@ -209,6 +210,7 @@ import { ScheduleInterviewComponent } from './modules/schedule-interview/schedul
     providers: [
         ImapMailsService,
         LoginService,
+        CommonService,
         LoginRouteGuard,
         {
             provide: InterceptedHttp,
