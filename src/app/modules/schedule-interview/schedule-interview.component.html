@@ -1,7 +1,8 @@
 <div class="header">
     <p class="h-text">Schedule Interviews</p>
 </div>
-
+<p class="no-pad-top"><b>Name</b>: {{emailData.from}}</p>
+<p><b>Email</b>: {{emailData.sender_mail}}</p>
 <form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm">
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main">

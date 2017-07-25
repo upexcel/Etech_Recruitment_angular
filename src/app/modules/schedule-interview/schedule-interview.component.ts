@@ -23,6 +23,7 @@ export class ScheduleInterviewComponent implements OnInit {
     tagselected: any;
     interviewRoundsDisableIndex = -1;
     templateData: string[];
+    emailData: any;
     constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
