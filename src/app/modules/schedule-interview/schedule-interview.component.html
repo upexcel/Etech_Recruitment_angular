@@ -10,7 +10,7 @@
 			   <md-option *ngFor="let interview of interviewRounds" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
 			</md-select>
             <md-input-container>
-              <input mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}">
+              <input mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}" [disabled]="!selectedInterviewRound">
               <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date" [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
               <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
             </md-input-container>
