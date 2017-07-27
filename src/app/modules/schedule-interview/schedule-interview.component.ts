@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import * as _ from 'lodash';
+import { config } from './../../config/config';
 
 @Component({
     selector: 'app-schedule-interview',
@@ -21,9 +22,12 @@ export class ScheduleInterviewComponent implements OnInit {
     dataForInterviewScheduleRound: any;
     tagselected: any;
     interviewRoundsDisableIndex = -1;
+    templateData: string[];
+    emailData: any;
     constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
+            'selectedInterviewTemplate': [null, Validators.compose([Validators.required])],
             'selectedInterviewDate': [{value: null, disabled: false}, Validators.compose([Validators.required])],
             'selectedInterviewTime': [{value: null, disabled: false}, Validators.compose([Validators.required])]
         });
@@ -32,13 +36,13 @@ export class ScheduleInterviewComponent implements OnInit {
     ngOnInit() {
         this.scheduleApi.getScheduleData().subscribe((data) => {
             this.scheduleData = data;
-            this.showForm = true;
+            this.getTeamplateList();
         }, (err) => {
             console.log(err);
         });
         this.interviewForm.get('selectedInterviewDate').disable();
         this.interviewForm.get('selectedInterviewTime').disable();
-        this.interviewRounds = [{'name': 'First Round', 'value': 'first_round'}, {'name': 'Second Round', 'value': 'second_round'}, {'name': 'Third Round', 'value': 'third_round'}];
+        this.interviewRounds = config['interviewRounds'];
         for (let i = 0; i < this.interviewRounds.length; i ++) {
             this.interviewRounds[i]['id'] = this.dataForInterviewScheduleRound[i]['id'];
             if (this.dataForInterviewScheduleRound[i]['id'] === this.tagselected) {
@@ -76,7 +80,8 @@ export class ScheduleInterviewComponent implements OnInit {
             'mongo_id': [this.emailId],
             'shedule_for': data.value.selectedInterviewRound.value,
             'shedule_date': data.value.selectedInterviewDate,
-            'shedule_time': data.value.selectedInterviewTime
+            'shedule_time': data.value.selectedInterviewTime,
+            'tamplate_id': data.value.selectedInterviewTemplate
         };
         this.scheduleApi.assignTag(apiData).subscribe((res) => {
             this.dialogRef.close('schedule');
@@ -87,6 +92,15 @@ export class ScheduleInterviewComponent implements OnInit {
 
     close() {
         this.dialogRef.close('back');
+    }
+
+    getTeamplateList() {
+        this.scheduleApi.getTemplate().subscribe(data => {
+            this.templateData = data;
+            this.showForm = true;
+        }, (err) => {
+            console.log(err);
+        });
     }
 
 }

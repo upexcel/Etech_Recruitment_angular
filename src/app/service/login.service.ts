@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { InterceptedHttp } from './http.interceptor';
 import { Observable } from 'rxjs/Rx';
-import { config } from './../config/config';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -26,13 +26,13 @@ export class LoginService {
             'password': password
         };
 
-        return this.http.post(config['apibase'] + 'user/login', body, this.options)
+        return this.http.post(environment['apibase'] + 'user/login', body, this.options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     verifyAccess(): Observable < any > {
-        return this.Intercepted.get(config['apibase'] + 'verify')
+        return this.Intercepted.get(environment['apibase'] + 'verify')
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
