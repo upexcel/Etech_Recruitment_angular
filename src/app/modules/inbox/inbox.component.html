@@ -3,7 +3,7 @@
     <app-inbox-side-nav fxFlex="15" *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)"></app-inbox-side-nav>
     <div class="content" fxFlex>
     <router-outlet></router-outlet>
-    <p class="bblue" *ngIf="emaillist">Job Profile Template Sent</p>
+    <p class="bblue" *ngIf="emaillist && showInboxEmailList">Job Profile Template Sent</p>
     <h4 *ngIf="!emaillist" style="text-align: center; color: #fff;">No Emails Found</h4>
     <div class="m-b" *ngIf="showInboxEmailList">
         <div class="example-button-row" *ngIf="emaillist">
@@ -48,11 +48,12 @@
         <!-- <md-spinner *ngIf="loading && showInboxEmailList" class="posload"></md-spinner> -->
         <h2 class="m-s" *ngIf="showmessage && showInboxEmailList">{{message}}</h2>
         <div class="compose-email" *ngIf="showInboxEmailList">
+            <a style="margin-right: 4px;" *ngIf="emaillist && emailParentId && emaillist.data?.length > 0" (click)="sendEmailToAll()">Send Email To All</a>
             <a *ngIf="selectedTagTitle == 'All'" style="margin-right: 4px;" (click)="sendEmailToPendingCandidates()">Send Email To Pending  Candidates <span *ngIf="sendFailedEmailListCount || sendSuccessEmailListCount">Success: {{sendSuccessEmailListCount}}, Failed: {{sendFailedEmailListCount}} </span></a>
             <a *ngIf="emailIds.length > 0" (click)="composeEmail()"> Send Emails </a>
         </div>
         <div *ngIf="!loading && emaillist && showInboxEmailList">
-            <app-emailbox *ngFor="let emails of emaillist.data; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel"></app-emailbox>
+            <app-emailbox *ngFor="let emails of emaillist.data; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)" [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"></app-emailbox>
         </div>
     </div>
 </div>    

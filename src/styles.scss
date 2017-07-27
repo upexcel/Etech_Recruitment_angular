@@ -168,3 +168,9 @@ app-setting .mat-sidenav-content {
     }
   }
 }
+.width-100 {
+  width: 100%;
+  .mat-card-header-text {
+    margin: 0px;
+  }
+}

@@ -18,7 +18,16 @@ import {
     BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
 import {
-    MaterialModule
+    MdButtonModule,
+    MdCheckboxModule,
+    MdSidenavModule,
+    MdIconModule,
+    MdProgressSpinnerModule,
+    MdDialogModule,
+    MdSnackBarModule,
+    MaterialModule,
+    MdDatepickerModule,
+    MdNativeDateModule
 } from '@angular/material';
 import {
     FlexLayoutModule
@@ -29,15 +38,6 @@ import {
 import {
     RouterModule
 } from '@angular/router';
-import {
-    MdButtonModule,
-    MdCheckboxModule,
-    MdSidenavModule,
-    MdIconModule,
-    MdProgressSpinnerModule,
-    MdDialogModule,
-    MdSnackBarModule
-} from '@angular/material';
 import {
     ImapMailsService
 } from './service/imapemails.service';
@@ -142,7 +142,11 @@ import { SetvaremailpreviewComponent } from './modules/setvaremailpreview/setvar
 import { OpenattachementComponent } from './modules/openattachement/openattachement.component';
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
 import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
+import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 
+import { CommonService } from './service/common.service';
+import { LocalStorageService } from './service/local-storage.service';
+import { DialogService } from './service/dialog.service';
 
 @NgModule({
     declarations: [
@@ -183,7 +187,8 @@ import { ComposeEmailComponent } from './modules/compose-email/compose-email.com
         TestTemplateComponent,
         SetvaremailpreviewComponent,
         OpenattachementComponent,
-        ForgetPasswordComponent
+        ForgetPasswordComponent,
+        ScheduleInterviewComponent
     ],
     imports: [
         BrowserModule,
@@ -202,11 +207,16 @@ import { ComposeEmailComponent } from './modules/compose-email/compose-email.com
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        CKEditorModule
+        CKEditorModule,
+        MdDatepickerModule,
+        MdNativeDateModule
     ],
     providers: [
         ImapMailsService,
         LoginService,
+        CommonService,
+        LocalStorageService,
+        DialogService,
         LoginRouteGuard,
         {
             provide: InterceptedHttp,
@@ -226,7 +236,8 @@ import { ComposeEmailComponent } from './modules/compose-email/compose-email.com
         EditVariableComponent,
         TestTemplateComponent,
         SetvaremailpreviewComponent,
-        OpenattachementComponent
+        OpenattachementComponent,
+        ScheduleInterviewComponent
     ],
     bootstrap: [AppComponent]
 })

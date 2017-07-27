@@ -29,6 +29,8 @@ import {
 import { Location } from '@angular/common';
 import { CoreComponent } from './../../modules/core/core.component';
 import { ComposeEmailComponent } from './../../modules/compose-email/compose-email.component';
+import { LocalStorageService } from './../../service/local-storage.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-inbox',
@@ -54,10 +56,13 @@ export class InboxComponent implements OnInit, OnDestroy {
     subject_for_genuine: string;
     emailParentId: any;
     emailChildId: any;
+    emailParenttitle: string;
+    emailChildTitle: string;
     selectedTagTitle: string;
     sendSuccessEmailListCount: any;
     sendFailedEmailListCount: any;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar) {
+    dataForInterviewScheduleRound = [];
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
         () => {
@@ -68,7 +73,6 @@ export class InboxComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.emailIds = [];
         this.loading = true;
-        // this.getAllTag();
         this.data = {
             'page': 1,
             'tag_id': 0,
@@ -100,6 +104,8 @@ export class InboxComponent implements OnInit, OnDestroy {
                             this.selectedTagTitle = res.data[0]['data'][0]['subchild'][0]['title'];
                             this.emailParentId = res.data[0]['data'][0]['id'].toString() || '0';
                             this.emailChildId = res.data[0]['data'][0]['subchild'][0]['id'].toString() || '0';
+                            this.emailParenttitle = res.data[0]['data'][0]['title'] || '';
+                            this.emailChildTitle = res.data[0]['data'][0]['subchild'][0]['title'] || '';
                             this.getemails.getEmailList(this.data).subscribe((data) => {
                                 this.addSelectedFieldInEmailList(data);
                                 this.loading = false;
@@ -114,9 +120,9 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     addSelectedFieldInEmailList(data) {
         if (data && data['data'].length > 0) {
-            for (let i = 0; i < data['data'].length; i ++) {
-                data['data'][i]['selected'] = false;
-            }
+            _.forEach(data['data'], (value, key) => {
+                value['selected'] = false;
+            });
         }
         this.emaillist = data;
     }
@@ -219,9 +225,10 @@ export class InboxComponent implements OnInit, OnDestroy {
     openEmails(email: any) {
         this.showInboxEmailList = false;
         this._router.navigate(['core/inbox/email', email._id]);
-        localStorage.setItem('email', JSON.stringify(email));
-        localStorage.setItem('selectedTag', JSON.stringify(this.selectedTag));
-        localStorage.setItem('tags', JSON.stringify(this.tagsForEmailListAndModel));
+        this._localStorageService.setItem('email', email);
+        this._localStorageService.setItem('selectedTag', this.selectedTag);
+        this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
+        this._localStorageService.setItem('dataForInterviewScheduleRound', this.dataForInterviewScheduleRound);
     }
 
     getAllTag() {
@@ -240,8 +247,26 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.notify(err.message, '');
         });
     }
+    sendEmailToAll() {
+        this.dialogRef = this.dialog.open(ComposeEmailComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        this.dialogRef.componentInstance.emailParenttitle = this.emailParenttitle;
+        this.dialogRef.componentInstance.emailChildTitle = this.emailChildTitle;
+        this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        this.dialogRef.componentInstance.emailChildId = this.emailChildId;
+        this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.emailIds = [];
+            this.addSelectedFieldInEmailList(this.emaillist);
+        });
+    }
 
     emaillists(emailData: any, page?: number) {
+        this.emailParenttitle = emailData['parentTitle'];
+        this.emailChildTitle = emailData['title'];
         if (this._location.path().substr(0, 17) === '/core/inbox/email') {
             this.showInboxEmailList = true;
             this._location.back();
@@ -289,7 +314,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
-                // this.emaillists(this.data.tag_id, this.data.page);
                 this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
@@ -301,7 +325,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
-                // this.emaillists(this.data.tag_id, this.data.page);
                 this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
@@ -327,14 +350,13 @@ export class InboxComponent implements OnInit, OnDestroy {
     formatTagsInArray(data: any) {
         this.tags = data;
         this.tagsForEmailListAndModel = {};
-        for (let i = 0; i < data.length; i++) {
-            if (data[i]['subject_for_genuine']) {
-                this.subject_for_genuine = data[i]['subject_for_genuine'];
-                localStorage.setItem('subject_for_genuine', data[i]['subject_for_genuine']);
+        _.forEach(data, (value, key) => {
+            if (value['subject_for_genuine']) {
+                this.subject_for_genuine = value['subject_for_genuine'];
+                localStorage.setItem('subject_for_genuine', value['subject_for_genuine']);
             } else {
                 this.subject_for_genuine = 'Revert Information';
                 localStorage.setItem('subject_for_genuine', 'Revert Information');
-
             }
             if (!this.tagsForEmailListAndModel['Default']) {
                 this.tagsForEmailListAndModel['Default'] = [];
@@ -342,18 +364,32 @@ export class InboxComponent implements OnInit, OnDestroy {
             } else {
                 this.tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
             }
-            if (data[i]['data'] && data[i]['data'].length > 0) {
-                for (let j = 0; j < data[i]['data'].length; j++) {
-                    if (data[i]['data'][j]['type'] === 'Automatic') {
+            if (value['data'] && value['data'].length > 0) {
+                _.forEach(value['data'], (value1, key1) => {
+                    if (value1['type'] === 'Automatic') {
                         if (!this.tagsForEmailListAndModel['Automatic']) {
                             this.tagsForEmailListAndModel['Automatic'] = [];
-                            this.tagsForEmailListAndModel['Automatic'].push(data[i]['data'][j]);
+                            this.tagsForEmailListAndModel['Automatic'].push(value1);
                         } else {
-                            this.tagsForEmailListAndModel['Automatic'].push(data[i]['data'][j]);
+                            this.tagsForEmailListAndModel['Automatic'].push(value1);
                         }
                     }
-                }
+                });
             }
+        });
+        // code for removing schedule_first_round, schedule_second_round, schedule_third_round for tagsForEmailListAndModel
+        // also creating interview schedule array from here
+        if (this.tagsForEmailListAndModel && this.tagsForEmailListAndModel['Default'] && this.tagsForEmailListAndModel['Default'].length > 0) {
+            const tempArray = [];
+            _.forEach(this.tagsForEmailListAndModel['Default'], (value, key) => {
+                if (value['title'].substr(0, 9) === 'Schedule_') {
+                    this.dataForInterviewScheduleRound.push(value);
+                } else {
+                    tempArray.push(value);
+                }
+            });
+            tempArray.push({color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0});
+            this.tagsForEmailListAndModel['Default'] = tempArray;
         }
         this.loading = false;
     }
