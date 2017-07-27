@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { config } from './../config/config';
+import * as _ from 'lodash';
 
 @Injectable()
 export class CommonService {
@@ -30,5 +32,31 @@ export class CommonService {
         } else {
             return 'thumb_up';
         }
+    }
+
+    formateDate(date) {
+        return date.getFullYear() + '-' + ((date.getMonth() * 1) > 9 ? '' : '0') + ((date.getMonth() * 1) + 1) + '-' + ((date.getDate() * 1) > 9 ? '' : '0') + date.getDate();
+    }
+
+    interviewRoundDisableCheck(dataForInterviewScheduleRound, tagselected) {
+        const interviewRounds = config['interviewRounds'];
+        let interviewRoundsDisableIndex = -1;
+        _.forEach(interviewRounds, (value, key) => {
+            value['id'] = dataForInterviewScheduleRound[key]['id'];
+            if (dataForInterviewScheduleRound[key]['id'] === tagselected) {
+                interviewRoundsDisableIndex = key;
+            }
+        });
+        // performing interview rounnd disable login as per select tag id from side nav
+        if (interviewRoundsDisableIndex >= 0) {
+            _.forEach(interviewRounds, (value, key) => {
+                if (interviewRoundsDisableIndex >= key) {
+                    value['disable'] = true;
+                } else {
+                    value['disable'] = false;
+                }
+            });
+        }
+        return interviewRounds;
     }
 }

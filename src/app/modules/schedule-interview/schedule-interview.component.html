@@ -9,9 +9,11 @@
             <md-select placeholder="Interview Round" class="width-33" [formControl]="interviewForm.controls['selectedInterviewRound']" (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
 			   <md-option *ngFor="let interview of interviewRounds" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
 			</md-select>
-			<md-select placeholder="Select Date" class="width-33" [formControl]="interviewForm.controls['selectedInterviewDate']" (change)="changeInDate(interviewForm.value.selectedInterviewDate)">
-			   <md-option *ngFor="let dateData of scheduleData;" [value]="dateData.date">{{ dateData.date }}</md-option>
-			</md-select>
+            <md-input-container>
+              <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date" [formControl]="interviewForm.controls['selectedInterviewDate']" (focus)="picker.open()">
+              <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
+            </md-input-container>
+            <md-datepicker #picker (selectedChanged)="changeInDate($event)"></md-datepicker>
             <md-select placeholder="Select Time" class="width-33" [formControl]="interviewForm.controls['selectedInterviewTime']">
                <md-option *ngFor="let timeData of timeListData;" [value]="timeData.time" [disabled]="!timeData.status">{{ timeData.time }}</md-option>
             </md-select><br/>
