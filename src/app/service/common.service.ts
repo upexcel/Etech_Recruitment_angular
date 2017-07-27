@@ -56,6 +56,10 @@ export class CommonService {
                     value['disable'] = false;
                 }
             });
+        } else {
+            _.forEach(interviewRounds, (value, key) => {
+                value['disable'] = false;
+            });
         }
         return interviewRounds;
     }
