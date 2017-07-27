@@ -17,6 +17,7 @@ export class DialogService {
             this.dialogRef.componentInstance.emailId = data.emailId;
             this.dialogRef.componentInstance.dataForInterviewScheduleRound = data.dataForInterviewScheduleRound;
             this.dialogRef.componentInstance.tagselected = data.tagselected;
+            this.dialogRef.componentInstance.emailData = data.emailData;
             this.dialogRef.afterClosed().subscribe(result => {
                 this.dialogRef = null;
                 if (result && result === 'schedule') {
