@@ -18,7 +18,16 @@ import {
     BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
 import {
-    MaterialModule
+    MdButtonModule,
+    MdCheckboxModule,
+    MdSidenavModule,
+    MdIconModule,
+    MdProgressSpinnerModule,
+    MdDialogModule,
+    MdSnackBarModule,
+    MaterialModule,
+    MdDatepickerModule,
+    MdNativeDateModule
 } from '@angular/material';
 import {
     FlexLayoutModule
@@ -29,15 +38,6 @@ import {
 import {
     RouterModule
 } from '@angular/router';
-import {
-    MdButtonModule,
-    MdCheckboxModule,
-    MdSidenavModule,
-    MdIconModule,
-    MdProgressSpinnerModule,
-    MdDialogModule,
-    MdSnackBarModule
-} from '@angular/material';
 import {
     ImapMailsService
 } from './service/imapemails.service';
@@ -207,7 +207,9 @@ import { DialogService } from './service/dialog.service';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        CKEditorModule
+        CKEditorModule,
+        MdDatepickerModule,
+        MdNativeDateModule
     ],
     providers: [
         ImapMailsService,

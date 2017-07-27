@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { CommonService } from '../../service/common.service';
 import * as _ from 'lodash';
-import { config } from './../../config/config';
 
 @Component({
     selector: 'app-schedule-interview',
@@ -21,10 +21,11 @@ export class ScheduleInterviewComponent implements OnInit {
     showForm = false;
     dataForInterviewScheduleRound: any;
     tagselected: any;
-    interviewRoundsDisableIndex = -1;
     templateData: string[];
     emailData: any;
-    constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService) {
+    minDate: any;
+    maxDate: any;
+    constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
             'selectedInterviewTemplate': [null, Validators.compose([Validators.required])],
@@ -36,29 +37,19 @@ export class ScheduleInterviewComponent implements OnInit {
     ngOnInit() {
         this.scheduleApi.getScheduleData().subscribe((data) => {
             this.scheduleData = data;
+            this.minDate = new Date(data[0]['date']);
+            this.maxDate = new Date(data[data.length - 1]['date']);
             this.getTeamplateList();
         }, (err) => {
             console.log(err);
         });
         this.interviewForm.get('selectedInterviewDate').disable();
         this.interviewForm.get('selectedInterviewTime').disable();
-        this.interviewRounds = config['interviewRounds'];
-        for (let i = 0; i < this.interviewRounds.length; i ++) {
-            this.interviewRounds[i]['id'] = this.dataForInterviewScheduleRound[i]['id'];
-            if (this.dataForInterviewScheduleRound[i]['id'] === this.tagselected) {
-                this.interviewRoundsDisableIndex = i;
-            }
-        }
-        // performing interview rounnd disable login as per select tag id from side nav
-        if (this.interviewRoundsDisableIndex >= 0) {
-            for (let i = 0; i < this.interviewRounds.length; i++) {
-                if (this.interviewRoundsDisableIndex >= i) {
-                    this.interviewRounds[i]['disable'] = true;
-                } else {
-                    this.interviewRounds[i]['disable'] = false;
-                }
-            }
-        }
+        this.interviewRounds = this._commonService.interviewRoundDisableCheck(this.dataForInterviewScheduleRound, this.tagselected);
+    }
+
+    dateFilter = (d: Date): boolean => {
+        return _.filter(this.scheduleData, {'date' : this._commonService.formateDate(d)}).length;
     }
 
     changeInInterviewRound(interviewRound) {
@@ -71,7 +62,7 @@ export class ScheduleInterviewComponent implements OnInit {
     changeInDate(selectedDate) {
         this.interviewForm.get('selectedInterviewTime').enable();
         this.interviewForm.get('selectedInterviewTime').setValue(null);
-        this.timeListData = _.filter(this.scheduleData, {'date' : selectedDate})[0]['time_slots'][this.selectedInterviewRound['value']];
+        this.timeListData = _.filter(this.scheduleData, {'date' : this._commonService.formateDate(selectedDate)})[0]['time_slots'][this.selectedInterviewRound['value']];
     }
 
     scheduleInterview(data) {
@@ -79,7 +70,7 @@ export class ScheduleInterviewComponent implements OnInit {
             'tag_id': data.value.selectedInterviewRound.id,
             'mongo_id': [this.emailId],
             'shedule_for': data.value.selectedInterviewRound.value,
-            'shedule_date': data.value.selectedInterviewDate,
+            'shedule_date': this._commonService.formateDate(data.value.selectedInterviewDate),
             'shedule_time': data.value.selectedInterviewTime,
             'tamplate_id': data.value.selectedInterviewTemplate
         };
