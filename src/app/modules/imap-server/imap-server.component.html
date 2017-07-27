@@ -16,7 +16,6 @@
                             <th>Active</th>
                             <th>Remove</th>
                             <th>Statistics</th>
-                            <th>Fetched Mail Till</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -33,10 +32,8 @@
                             </td>
                             <td>
                                 <md-icon class="chartcolor" style="vertical-align: middle;">insert_chart</md-icon>
-                                 {{setting.fetched_email_count}}/{{setting.total_emails}} 
-                            </td>
-                            <td>
-                                 {{setting.fetched_mail_till}} 
+                                 {{setting.fetched_email_count}}/{{setting.total_emails}} <br/>
+                                 <span class="fetch-till">Fetch Till : {{setting.fetched_mail_till}}</span> 
                             </td>
                         </tr>
                     </tbody>
