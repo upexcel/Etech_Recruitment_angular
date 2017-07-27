@@ -10,7 +10,8 @@
 			   <md-option *ngFor="let interview of interviewRounds" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
 			</md-select>
             <md-input-container>
-              <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date" [formControl]="interviewForm.controls['selectedInterviewDate']" (focus)="picker.open()">
+              <input mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}" [disabled]="!selectedInterviewRound">
+              <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date" [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
               <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
             </md-input-container>
             <md-datepicker #picker (selectedChanged)="changeInDate($event)"></md-datepicker>
@@ -25,6 +26,6 @@
     <hr>
     <div class="pull-right">
     	<button md-raised-button (click)="close()">Back</button>
-    	<button md-raised-button type="submit" color="accent" (click)="scheduleInterview(interviewForm)" [disabled]="!interviewForm.valid">Schedual</button>
+    	<button md-raised-button type="submit" color="accent" (click)="scheduleInterview(interviewForm)" [disabled]="!interviewForm.valid">Schedule</button>
     </div>
 </form>
