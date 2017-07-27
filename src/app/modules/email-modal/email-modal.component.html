@@ -23,7 +23,7 @@
     </div>
     <div class="example-button-row default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen">
         <span *ngFor="let tag of tags.Default">
-            <a md-raised-button class="cyan" *ngIf="tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+            <a md-raised-button class="cyan" *ngIf="tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
             </a>
         </span>
     </div>

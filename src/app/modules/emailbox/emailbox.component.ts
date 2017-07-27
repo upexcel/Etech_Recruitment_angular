@@ -48,9 +48,9 @@ export class EmailboxComponent implements OnInit {
         this.tags = _.reject(this.tags, { 'id': this.tagselected });
     }
 
-    assignTag(id: string, emailId: string, title: string) {
+    assignTag(id: string, emailId: string, title: string, emailData) {
         if (title === 'Schedule') {
-            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected}).then((res) => {
+            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected, 'emailData': emailData}).then((res) => {
                 if (res && res === 'schedule') {
                     this.refresh.emit(id);
                 }
