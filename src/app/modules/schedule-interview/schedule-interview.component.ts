@@ -25,6 +25,7 @@ export class ScheduleInterviewComponent implements OnInit {
     emailData: any;
     minDate: any;
     maxDate: any;
+    showSelectedDate = null;
     constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
@@ -57,11 +58,13 @@ export class ScheduleInterviewComponent implements OnInit {
         this.interviewForm.get('selectedInterviewDate').enable();
         this.interviewForm.get('selectedInterviewDate').setValue(null);
         this.interviewForm.get('selectedInterviewTime').setValue(null);
+        this.showSelectedDate = null;
     }
 
     changeInDate(selectedDate) {
         this.interviewForm.get('selectedInterviewTime').enable();
         this.interviewForm.get('selectedInterviewTime').setValue(null);
+        this.showSelectedDate = selectedDate;
         this.timeListData = _.filter(this.scheduleData, {'date' : this._commonService.formateDate(selectedDate)})[0]['time_slots'][this.selectedInterviewRound['value']];
     }
 
