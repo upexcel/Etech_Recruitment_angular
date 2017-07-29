@@ -20,8 +20,8 @@ export class DialogService {
             this.dialogRef.componentInstance.emailData = data.emailData;
             this.dialogRef.afterClosed().subscribe(result => {
                 this.dialogRef = null;
-                if (result && result === 'schedule') {
-                    resolve('schedule');
+                if (result) {
+                    resolve(result);
                 } else {
                     resolve();
                 }
