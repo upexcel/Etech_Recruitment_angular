@@ -141,6 +141,7 @@ import { TestTemplateComponent } from './modules/test-template/test-template.com
 import { SetvaremailpreviewComponent } from './modules/setvaremailpreview/setvaremailpreview.component';
 import { OpenattachementComponent } from './modules/openattachement/openattachement.component';
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './modules/reset-password/reset-password.component';
 import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 
@@ -188,6 +189,7 @@ import { DialogService } from './service/dialog.service';
         SetvaremailpreviewComponent,
         OpenattachementComponent,
         ForgetPasswordComponent,
+        ResetPasswordComponent,
         ScheduleInterviewComponent
     ],
     imports: [
