@@ -144,6 +144,7 @@ import { ForgetPasswordComponent } from './modules/forget-password/forget-passwo
 import { ResetPasswordComponent } from './modules/reset-password/reset-password.component';
 import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
+import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 
 import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
@@ -190,6 +191,7 @@ import { DialogService } from './service/dialog.service';
         OpenattachementComponent,
         ForgetPasswordComponent,
         ResetPasswordComponent,
+        AddNewUserComponent,
         ScheduleInterviewComponent
     ],
     imports: [
