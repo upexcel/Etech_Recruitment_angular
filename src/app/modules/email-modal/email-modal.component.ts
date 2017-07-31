@@ -127,9 +127,13 @@ export class EmailModalComponent implements OnInit {
 
     assignTag(id: string, emailId, title: string, emailData) {
         if (title === 'Schedule') {
-            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData}).then((res) => {
-                if (res && res === 'schedule') {
-                    this._location.back();
+            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData}).then((data: any) => {
+                if (data && data.tag_id) {
+                    this.tagUpdate.assignTag(data).subscribe((res) => {
+                        this._location.back();
+                    }, (err) => {
+                        console.log(err);
+                    });
                 }
             }, (err) => {
                 console.log(err);

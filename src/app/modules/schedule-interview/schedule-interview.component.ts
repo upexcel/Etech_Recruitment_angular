@@ -77,11 +77,7 @@ export class ScheduleInterviewComponent implements OnInit {
             'shedule_time': data.value.selectedInterviewTime,
             'tamplate_id': data.value.selectedInterviewTemplate
         };
-        this.scheduleApi.assignTag(apiData).subscribe((res) => {
-            this.dialogRef.close('schedule');
-        }, (err) => {
-            console.log(err);
-        });
+        this.dialogRef.close(apiData);
     }
 
     close() {
