@@ -101,7 +101,7 @@ export const routes: Route[] = [{
         component: LoginComponent
     },
     {
-        path: 'forget',
+        path: 'forgot',
         component: ForgetPasswordComponent
     }
 ];
