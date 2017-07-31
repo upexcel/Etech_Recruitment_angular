@@ -20,10 +20,11 @@ export class LoginService {
         });
     }
 
-    login(id: string, password: string): Observable < any > {
+    login(id: string, password: string, keepLogin: boolean): Observable < any > {
         const body = {
             'email': id,
-            'password': password
+            'password': password,
+            'remember_me': keepLogin
         };
 
         return this.http.post(environment['apibase'] + 'user/login', body, this.options)
