@@ -5,7 +5,7 @@
 <form #addForm="ngForm" (ngSubmit)="addTag(addForm)">
     <div class="body">
     <span class="text-err" *ngIf="showMessage">{{message}}</span>
-        <md-grid-list cols="4" rowHeight="65px" gutterSize="10px">
+        <md-grid-list cols="4" rowHeight="74px" gutterSize="10px">
             <md-grid-tile [colspan]="2">
                 <md-input-container  style="width: 100%">
                     <input mdInput name="title" placeholder="Title" ngModel required>
@@ -38,6 +38,12 @@
             <md-grid-tile [colspan]="2" *ngIf="types">
                 <md-input-container class="width-100">
                     <input mdInput name="to" type="date" placeholder="To date" ngModel>
+                </md-input-container>
+            </md-grid-tile>
+            <md-grid-tile [colspan]="4" *ngIf="types && addTagType == 'jobProfile'">
+                <md-input-container class="width-100">
+                    <textarea mdInput rows="1" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
+                    <md-error>Job Description Is Required</md-error>
                 </md-input-container>
             </md-grid-tile>
              <md-grid-tile [colspan]="2" *ngIf="types">

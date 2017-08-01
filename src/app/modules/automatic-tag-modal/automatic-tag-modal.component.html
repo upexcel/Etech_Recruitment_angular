@@ -3,7 +3,7 @@
 </div>
 <hr>
 <div class="body">
-    <md-grid-list cols="2" rowHeight="80px" gutterSize="10px">
+    <md-grid-list cols="2" rowHeight="82px" gutterSize="10px">
         <md-grid-tile [colspan]="1">
             <md-input-container style="width: 100%">
                 <input mdInput placeholder="Title" disabled [(ngModel)]="originaltitle">
@@ -38,6 +38,11 @@
                     {{temp.templateName}}
                 </md-option>
             </md-select>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="2" *ngIf="tag.job_description">
+            <md-input-container class="width-100">
+                <textarea mdInput placeholder="Job Description" [value]="tag.job_description" disabled></textarea>
+            </md-input-container>
         </md-grid-tile>
         <md-grid-tile [colspan]="1">
             <md-slide-toggle [disabled]="true" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}" name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
