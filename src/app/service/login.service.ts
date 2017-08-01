@@ -32,6 +32,12 @@ export class LoginService {
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
+    forgotPassword(body): Observable < any > {
+        return this.http.put(environment['apibase'] + `account/forgot_password/${body.email}`, body)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+
     verifyAccess(): Observable < any > {
         return this.Intercepted.get(environment['apibase'] + 'verify')
             .map((res: Response) => res.json())
