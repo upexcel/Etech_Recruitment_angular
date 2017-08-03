@@ -1,0 +1,33 @@
+@import './../../variable.scss';
+table.list {
+    width: 100%;
+    border-collapse: collapse;
+    tr, th, td {
+        text-align: center;
+        border-bottom: 1px solid $tablistcolor;
+        padding: 5px 0px;
+        vertical-align: middle;
+    }
+    th, td {
+    	height: 30px;
+    }
+    tbody {
+        tr:hover {
+            background: $tbodycolor;
+        }
+    }
+    .material-icons{
+    	cursor: pointer; 
+    }
+}
+.pos-add {
+    position: absolute;
+    left: 90%;
+    top: 85%;
+}
+.pagination {
+	text-align: right;
+	button {
+		background: none;
+	}
+}

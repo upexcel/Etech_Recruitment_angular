@@ -97,6 +97,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    getUserList(body): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `user/list/${body.page}/${body.limit}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     getAllTagsMain(): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + 'email/countEmail')
@@ -243,6 +256,19 @@ export class ImapMailsService {
     deleteTag(tag: string, type: string): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.delete(environment['apibase'] + 'tag/delete/' + type + '/' + tag)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    deleteUser(id): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.delete(environment['apibase'] + 'user/delete/' + id)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

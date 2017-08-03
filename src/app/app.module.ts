@@ -145,6 +145,8 @@ import { ResetPasswordComponent } from './modules/reset-password/reset-password.
 import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
+import { UsersListComponent } from './modules/users-list/users-list.component';
+import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confirmation-dialog.component';
 
 import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
@@ -192,7 +194,9 @@ import { DialogService } from './service/dialog.service';
         ForgetPasswordComponent,
         ResetPasswordComponent,
         AddNewUserComponent,
-        ScheduleInterviewComponent
+        UsersListComponent,
+        ScheduleInterviewComponent,
+        ConfirmationDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -241,7 +245,9 @@ import { DialogService } from './service/dialog.service';
         TestTemplateComponent,
         SetvaremailpreviewComponent,
         OpenattachementComponent,
-        ScheduleInterviewComponent
+        ScheduleInterviewComponent,
+        AddNewUserComponent,
+        ConfirmationDialogComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -22,7 +22,7 @@ import { EmailModalComponent } from './modules/email-modal/email-modal.component
 import { AutomaticTagComponent } from './modules/automatic-tag/automatic-tag.component';
 import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-tag.component';
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
-
+import { UsersListComponent } from './modules/users-list/users-list.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -94,8 +94,8 @@ export const routes: Route[] = [{
                     path: 'resetPassword',
                     component: ResetPasswordComponent
                 }, {
-                    path: 'addNewUser',
-                    component: AddNewUserComponent
+                    path: 'usersList',
+                    component: UsersListComponent
                 }]
             }, {
                 path: 'changepassword',

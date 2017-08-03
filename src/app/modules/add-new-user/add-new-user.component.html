@@ -1,50 +1,49 @@
 <div class="mainform">
-    <md-card>
-        <form autoComplete="off" [formGroup]="addNewUserForm">
-            <md-card-title class="cardsub">
-                Add New User
-            </md-card-title>
-            <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
-            <md-card-content>
-                <table class="width-100">
-                    <tr>
-                        <td class="width-50">
-                            <md-input-container class="width-100">
-                              <input mdInput placeholder="Email Id" type="text" [formControl]="addNewUserForm.controls['email']">
-                            </md-input-container>
-                            <md-error *ngIf="!addNewUserForm.controls['email'].valid && addNewUserForm.controls['email'].touched">
-                                Please enter a valid email
-                            </md-error>
-                        </td>
-                        <td class="width-50">
-                            <md-select placeholder="Select Role" class="width-100 role-select" [formControl]="addNewUserForm.controls['user_type']">
-                               <md-option *ngFor="let user of userType;" [value]="user">{{ user }}</md-option>
-                            </md-select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="width-50">
-                            <md-input-container class="width-100">
-                              <input mdInput placeholder="Password" type="password" [formControl]="addNewUserForm.controls['password']">
-                            </md-input-container>
-                            <md-error *ngIf="!addNewUserForm.controls['password'].valid && addNewUserForm.controls['password'].touched">
-                                Please enter password
-                            </md-error>
-                        </td>
-                        <td class="width-50">
-                            <md-input-container class="width-100">
-                              <input mdInput placeholder="Confirm Password" type="password" [formControl]="addNewUserForm.controls['confirm_password']">
-                            </md-input-container>
-                            <md-error *ngIf="addNewUserForm.controls['confirm_password'].touched && addNewUserForm.controls['confirm_password'].hasError('notEquivalent')">Password don't match</md-error>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button type="submit" md-raised-button color=primary [disabled]="addNewUserForm.invalid || loading" (click)="addUser(addNewUserForm)"> Add User </button>
-                        </td>
-                    </tr>
-                </table>
-            </md-card-content>
-        </form>
-    </md-card>
+    <form autoComplete="off" [formGroup]="addNewUserForm">
+        <md-card-title class="cardsub">
+            Add New User
+        </md-card-title>
+        <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
+        <md-card-content>
+            <table class="width-100">
+                <tr>
+                    <td class="width-50">
+                        <md-input-container class="width-100">
+                          <input mdInput placeholder="Email Id" type="text" [formControl]="addNewUserForm.controls['email']">
+                        </md-input-container>
+                        <md-error *ngIf="!addNewUserForm.controls['email'].valid && addNewUserForm.controls['email'].touched">
+                            Please enter a valid email
+                        </md-error>
+                    </td>
+                    <td class="width-50">
+                        <md-select placeholder="Select Role" class="width-100 role-select" [formControl]="addNewUserForm.controls['user_type']">
+                           <md-option *ngFor="let user of userType;" [value]="user">{{ user }}</md-option>
+                        </md-select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="width-50">
+                        <md-input-container class="width-100">
+                          <input mdInput placeholder="Password" type="password" [formControl]="addNewUserForm.controls['password']">
+                        </md-input-container>
+                        <md-error *ngIf="!addNewUserForm.controls['password'].valid && addNewUserForm.controls['password'].touched">
+                            Please enter password
+                        </md-error>
+                    </td>
+                    <td class="width-50">
+                        <md-input-container class="width-100">
+                          <input mdInput placeholder="Confirm Password" type="password" [formControl]="addNewUserForm.controls['confirm_password']">
+                        </md-input-container>
+                        <md-error *ngIf="addNewUserForm.controls['confirm_password'].touched && addNewUserForm.controls['confirm_password'].hasError('notEquivalent')">Password don't match</md-error>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button md-raised-button (click)="close()"> Close </button>
+                        <button type="submit" md-raised-button color=primary [disabled]="addNewUserForm.invalid || loading" (click)="addUser(addNewUserForm)"> Add User </button>
+                    </td>
+                </tr>
+            </table>
+        </md-card-content>
+    </form>
 </div>
