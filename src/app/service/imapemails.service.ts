@@ -136,6 +136,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    addUser(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + 'user/add_user', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     sendEmail(body: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + 'email/sendtomany', body)
