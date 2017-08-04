@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ImapMailsService } from './../../service/imapemails.service';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdDialogRef } from '@angular/material';
 import { config } from './../../config/config';
 
 @Component({
@@ -15,7 +15,7 @@ export class AddNewUserComponent implements OnInit {
     message: string;
     showmessage: boolean;
     userType: Array<string>;
-    constructor(private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(private dialogRef: MdDialogRef<any>, private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MdSnackBar) {
         this.addNewUserForm = this.formBuilder.group({
             'email' : [null, Validators.compose([
                 Validators.required,
@@ -51,9 +51,7 @@ export class AddNewUserComponent implements OnInit {
             this._imapMailsService.addUser(this.addNewUserForm.value).subscribe((res) => {
                 this.loading = false;
                 this.showmessage = false;
-                this.snackBar.open(res.message, '', {
-                    duration: 2000,
-                });
+                this.dialogRef.close(res);
                 this.addNewUserForm.reset();
             },
             (err) => {
@@ -62,5 +60,9 @@ export class AddNewUserComponent implements OnInit {
                 this.message = err.message;
             });
         }
+    }
+
+    close() {
+        this.dialogRef.close('back');
     }
 }
