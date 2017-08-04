@@ -17,6 +17,7 @@ import { ActionsComponent } from './modules/actions/actions.component';
 import { ManageUsersComponent } from './modules/manage-users/manage-users.component';
 import { LoginRouteGuard } from './service/login-route-guard';
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './modules/reset-password/reset-password.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
 import { AutomaticTagComponent } from './modules/automatic-tag/automatic-tag.component';
 import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-tag.component';
@@ -88,6 +89,9 @@ export const routes: Route[] = [{
                 }, {
                     path: 'jobProfileTags',
                     component: JobProfileTagComponent
+                }, {
+                    path: 'resetPassword',
+                    component: ResetPasswordComponent
                 }]
             }, {
                 path: 'changepassword',
