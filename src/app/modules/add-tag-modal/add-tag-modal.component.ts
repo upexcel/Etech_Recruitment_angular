@@ -41,6 +41,9 @@ export class AddTagModalComponent implements OnInit {
             if (this.addTagType === 'jobProfile') {
                 form.value.is_job_profile_tag = 1;
             }
+            if (form.value.assign === '') {
+                form.value.assign = false;
+            }
             form.value.color = this.originalcolor;
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
