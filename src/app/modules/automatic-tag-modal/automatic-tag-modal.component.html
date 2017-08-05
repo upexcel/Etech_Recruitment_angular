@@ -3,55 +3,71 @@
 </div>
 <hr>
 <div class="body">
-    <md-grid-list cols="2" rowHeight="82px" gutterSize="10px">
-        <md-grid-tile [colspan]="1">
-            <md-input-container style="width: 100%">
-                <input mdInput placeholder="Title" disabled [(ngModel)]="originaltitle">
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile [colspan]="1">
-            <md-input-container style="width: 100%">
-                <input mdInput placeholder="Email" disabled [value]="tag.email">
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile [colspan]="1">
-            <md-input-container style="width: 100%">
-                <input mdInput placeholder="Subject" disabled [value]="tag.subject">
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile [colspan]="1">
-            <md-input-container style="width: 100%">
-                <input mdInput placeholder="From date" disabled [value]="tag.from | date">
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile [colspan]="1">
-            <md-input-container style="width: 100%">
-                <input mdInput placeholder="To date" disabled [value]="tag.to | date">
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile [colspan]="1">
-            <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel style="width: 100%">
-                <md-option>
-                    None
-                </md-option>
-                <md-option *ngFor="let temp of tempList" [value]="temp.id">
-                    {{temp.templateName}}
-                </md-option>
-            </md-select>
-        </md-grid-tile>
-        <md-grid-tile [colspan]="2" *ngIf="tag.job_description">
-            <md-input-container class="width-100">
-                <textarea mdInput placeholder="Job Description" [value]="tag.job_description" disabled></textarea>
-            </md-input-container>
-        </md-grid-tile>
-        <md-grid-tile [colspan]="1">
-            <md-slide-toggle [disabled]="true" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}" name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
-        </md-grid-tile>
-    </md-grid-list>
-    <div>
-        <h4> Tag Color </h4>
-        <color-picker [(ngModel)]="originalcolor" [availableColors]="availableColors"></color-picker>
-    </div>
+    <table>
+        <colgroup>
+            <col style="width: 50%">
+            <col style="width: 50%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>
+                    <md-input-container style="width: 100%">
+                        <input mdInput placeholder="Title" disabled [(ngModel)]="originaltitle">
+                    </md-input-container>
+                </td>
+                <td>
+                    <md-input-container style="width: 100%">
+                        <input mdInput placeholder="Email" disabled [value]="tag.email">
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <md-input-container style="width: 100%">
+                        <input mdInput placeholder="Subject" disabled [value]="tag.subject">
+                    </md-input-container>
+                </td>
+                <td>
+                    <md-input-container style="width: 100%">
+                        <input mdInput placeholder="From date" disabled [value]="tag.from | date">
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <md-input-container style="width: 100%">
+                        <input mdInput placeholder="To date" disabled [value]="tag.to | date">
+                    </md-input-container>
+                </td>
+                <td>
+                    <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel style="width: 100%">
+                        <md-option>
+                            None
+                        </md-option>
+                        <md-option *ngFor="let temp of tempList" [value]="temp.id">
+                            {{temp.templateName}}
+                        </md-option>
+                    </md-select>
+                </td>
+            </tr>
+            <tr *ngIf="tag.job_description">
+                <td colspan="2">
+                    <md-input-container class="width-100">
+                        <textarea mdInput rows="6" placeholder="Job Description" [value]="tag.job_description" [(ngModel)]="tag.job_description"></textarea>
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <md-slide-toggle [disabled]="true" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}" name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
+                </td>
+                <td>
+                    <h4> Tag Color </h4>
+                    <color-picker [(ngModel)]="originalcolor" [availableColors]="availableColors"></color-picker>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 
 <div class="footer">
