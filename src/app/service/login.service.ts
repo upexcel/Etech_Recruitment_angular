@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { InterceptedHttp } from './http.interceptor';
 import { Observable } from 'rxjs/Rx';
-import { config } from './../config/config';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -20,19 +20,26 @@ export class LoginService {
         });
     }
 
-    login(id: string, password: string): Observable < any > {
+    login(id: string, password: string, keepLogin: boolean): Observable < any > {
         const body = {
             'email': id,
-            'password': password
+            'password': password,
+            'remember_me': keepLogin
         };
 
-        return this.http.post(config['apibase'] + 'user/login', body, this.options)
+        return this.http.post(environment['apibase'] + 'user/login', body, this.options)
+            .map((res: Response) => res.json())
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+
+    forgotPassword(body): Observable < any > {
+        return this.http.put(environment['apibase'] + `account/forgot_password/${body.email}`, body)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     verifyAccess(): Observable < any > {
-        return this.Intercepted.get(config['apibase'] + 'verify')
+        return this.Intercepted.get(environment['apibase'] + 'verify')
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

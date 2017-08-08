@@ -4,6 +4,7 @@
 }
 .background-white{
 	background-color: #fff;
+	pointer-events: all;
 }
 .example-spacer {
   flex: 1 1 auto;
@@ -37,7 +38,8 @@ md-toolbar {
     margin-right: 5px;
 }
 .b-b {
-	border-bottom: 1px solid rgba(120,130,140,.13);
+	border-bottom: 2px solid rgba(120,130,140,.13);
+	position: relative;
 }
 .p-y {
 	padding-bottom: 1 rem !important;
@@ -55,7 +57,7 @@ md-toolbar {
 }
 .font-300 {
 	margin-bottom: 5px;
-	font-weight: 300;
+	font-weight: bold;
 }
 .ifset {
 	height: 500px;
@@ -126,6 +128,7 @@ md-grid-tile {
     justify-content: flex-end;
     width: 100%;
     height:100%;
+    margin-bottom: 4px;
     .cyan{
         line-height:20px!important;
         margin: 0px 4px 0px 4px;
@@ -153,8 +156,24 @@ md-grid-tile {
 	height: 750px;
 	width: 100%;
 }
+.accordian-icon-box {
+	position: absolute;
+	cursor: pointer; 
+	right: 0;
+    top: 0;
+    .material-icons {
+    	line-height: 16px;
+    	vertical-align: text-top;
+    }
+}
+.pointer {
+	cursor: pointer;
+}
 .clearfix{
 	clear: both;
+}
+.bod {
+	margin-top: 4px;
 }
 .email-body{
 	display: inline-block;

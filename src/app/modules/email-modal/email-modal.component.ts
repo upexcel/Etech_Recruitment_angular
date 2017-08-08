@@ -1,19 +1,36 @@
-import { Component, OnInit, ViewEncapsulation, NgZone } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
+import { CommonService } from './../../service/common.service';
+import { LocalStorageService } from './../../service/local-storage.service';
+import { DialogService } from './../../service/dialog.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-email-modal',
     templateUrl: './email-modal.component.html',
     styleUrls: ['./email-modal.component.scss'],
-    encapsulation: ViewEncapsulation.Native
+    encapsulation: ViewEncapsulation.Native,
+    animations: [
+        trigger('collapseChange', [
+            state('true' ,
+                style({ height: '0', overflow : 'hidden' }),
+            ),
+            state('false',
+                style({ height: '*' })
+            ),
+            transition('* => *', animate('.25s ease-in'))
+        ])
+    ]
 })
 export class EmailModalComponent implements OnInit {
     dialogConfig: MdDialogRef <any> ;
+    dialogRef: MdDialogRef < any > ;
     email: any;
     tags: any;
     body: any;
@@ -23,14 +40,16 @@ export class EmailModalComponent implements OnInit {
     idlist: string[];
     error = false;
     errorMessageText: string;
-    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService) {
-        this.email = JSON.parse(localStorage.getItem('email'));
-        if (localStorage.getItem('selectedTag')) {
+    dataForInterviewScheduleRound: any;
+    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+        this.email = this._localStorageService.getItem('email');
+        if (!this._localStorageService.getItem('selectedTag')) {
             this.selectedTag = -1;
         } else {
-            this.selectedTag = JSON.parse(localStorage.getItem('selectedTag'));
+            this.selectedTag = this._localStorageService.getItem('selectedTag');
         }
-        this.tags = JSON.parse(localStorage.getItem('tags'));
+        this.tags = this._localStorageService.getItem('tags');
+        this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
     }
 
     ngOnInit() {
@@ -42,14 +61,12 @@ export class EmailModalComponent implements OnInit {
             'mongo_id': this.route.snapshot.paramMap.get('id')
         };
 
-        this.tagUpdate.UnreadStatus(this.body).subscribe(
-        (data) => {
+        this.tagUpdate.UnreadStatus(this.body).subscribe((data) => {
         }, (err) => {
             console.log(err);
         });
         if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
-            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe (
-            (data) => {
+            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe ((data) => {
                 this.showEmail(data.data);
                 this.getCandiatehistory();
             }, (err) => {
@@ -62,18 +79,28 @@ export class EmailModalComponent implements OnInit {
 
     getCandiatehistory() {
         if (this.email.sender_mail) {
-            this.tagUpdate.getCandidateHistory(this.email.sender_mail).subscribe((data) => {
-                this.historyList = data;
-            }, (err) => {
-                console.log(err);
-            });
+            this.getCandidateHistoryApi(this.email.sender_mail);
         } else {
-            this.tagUpdate.getCandidateHistory(this.email._id).subscribe((data) => {
-                this.historyList = data;
-            }, (err) => {
-                console.log(err);
-            });
+            this.getCandidateHistoryApi(this.email._id);
         }
+    }
+
+    getCandidateHistoryApi(apiData) {
+        this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
+            _.forEach(data['data'], (value, key) => {
+                if (value['body']) {
+                    value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
+                }
+                if (key === 0) {
+                    value['accordianIsOpen'] = true;
+                } else {
+                    value['accordianIsOpen'] = false;
+                }
+            });
+            this.historyList = data;
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     showEmail(singlemail: any) {
@@ -81,19 +108,50 @@ export class EmailModalComponent implements OnInit {
         this.selectedEmail = singlemail;
     }
 
-    assignTag(id: string) {
-        this.body = null;
-        this.idlist.push(this.email._id);
-        this.body = {
-            'tag_id': id,
-            'mongo_id': this.idlist
-        };
-        this.tagUpdate.assignTag(this.body).subscribe((data) => {
-            this.idlist = [];
-            this._location.back();
-        }, (err) => {
-            console.log(err);
-        });
+    openAccordian(singleEmail) {
+        this.selectedEmail = '';
+        this.selectedEmail = singleEmail;
+        for (let i = 0; i < this.historyList['data'].length; i++) {
+            if (this.historyList['data'][i]['_id'] === singleEmail['_id']) {
+                if (this.historyList['data'][i]['accordianIsOpen']) {
+                    this.historyList['data'][i]['accordianIsOpen'] = false;
+                } else {
+                    this.historyList['data'][i]['accordianIsOpen'] = true;
+                }
+            } else {
+                // do not delete this is for close all other accordian
+                // this.historyList['data'][i]['accordianIsOpen'] = false;
+            }
+        }
+    }
+
+    assignTag(id: string, emailId, title: string, emailData) {
+        if (title === 'Schedule') {
+            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData}).then((data: any) => {
+                if (data && data.tag_id) {
+                    this.tagUpdate.assignTag(data).subscribe((res) => {
+                        this._location.back();
+                    }, (err) => {
+                        console.log(err);
+                    });
+                }
+            }, (err) => {
+                console.log(err);
+            });
+        } else {
+            this.body = null;
+            this.idlist.push(emailId);
+            this.body = {
+                'tag_id': id,
+                'mongo_id': this.idlist
+            };
+            this.tagUpdate.assignTag(this.body).subscribe((data) => {
+                this.idlist = [];
+                this._location.back();
+            }, (err) => {
+                console.log(err);
+            });
+        }
     }
 
     openAttachment(link: string) {
@@ -107,39 +165,15 @@ export class EmailModalComponent implements OnInit {
         });
     }
 
-    close() {
-        // this.dialogRef.close();
-    }
-
     back() {
         this._location.back();
     }
 
     getColor(title) {
-        if (title === 'Ignore') {
-            return {'background-color': '#FF0000'};
-        } else if (title === 'Genuine Applicant') {
-            return {'background-color': '#41A317'};
-        } else if (title === 'Reject') {
-            return {'background-color': '#F1B2B2'};
-        } else if (title === 'Schedule') {
-            return {'background-color': '#FBB917'};
-        } else {
-            return {'background-color': 'cyan'};
-        }
+        return this.commonService.getDefaultTagColor(title);
     }
 
     getIcon(title) {
-        if (title === 'Ignore') {
-            return 'block';
-        } else if (title === 'Genuine Applicant') {
-            return 'done_all';
-        } else if (title === 'Reject') {
-            return 'highlight_off';
-        } else if (title === 'Schedule') {
-            return 'access_time';
-        } else {
-            return 'thumb_up';
-        }
+        return this.commonService.getDefaultTagIcon(title);
     }
 }
