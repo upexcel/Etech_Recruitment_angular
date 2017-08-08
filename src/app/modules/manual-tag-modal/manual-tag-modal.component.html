@@ -6,8 +6,11 @@
     <md-input-container>
         <input mdInput placeholder="Title" [(ngModel)]="originaltitle">
     </md-input-container>
-        <h5>Select color</h5>
-        <!-- <color-picker [(ngModel)]="originalcolor" [availableColors]="availableColors"></color-picker>     -->
+    <h5>Select color</h5>
+    <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
+    <div class="color-box">
+        <div class="selected-color" *ngFor="let color of availableColors" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
+    </div>
 </div>
 <div class="footer">
     <a md-raised-button (click)="close()">Close</a>
