@@ -62,7 +62,10 @@
         </md-grid-list>
         <div>
             <h4> Tag Color </h4>
-            <color-picker name="color" [(ngModel)]="originalcolor" [availableColors]="availableColors" ngModel></color-picker>
+            <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
+            <div class="color-box">
+                <div class="selected-color" *ngFor="let color of availableColors" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
+            </div>
         </div>
     </div>
 
