@@ -1,5 +1,5 @@
 <div>
-    <h3>Add Tag</h3>
+    <h3 class="heading">Add Tag</h3>
 </div>
 <hr>
 <form #addForm="ngForm" (ngSubmit)="addTag(addForm)">
@@ -76,7 +76,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" *ngIf="types">
-                        <h4> Tag Color </h4>
+                        <h4 class="tag-color-title"> Tag Color </h4>
                         <color-picker name="color" [(ngModel)]="originalcolor" [availableColors]="availableColors" ngModel></color-picker>
                     </td>
                 </tr>
