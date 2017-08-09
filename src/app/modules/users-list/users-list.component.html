@@ -1,9 +1,10 @@
 <md-card>
-    <div class="pagination">
+    <h3 class="heading">User List</h3>
+    <!-- <div class="pagination">
         <button md-icon-button [disabled]="page == 1" (click)="previous()"><i class="material-icons">&#xE314;</i></button>
         {{page}}/{{totalCount ? Math.ceil(totalCount/limit): '1'}}
         <button md-icon-button [disabled]="page == Math.ceil(totalCount/limit)" (click)="next()"><i class="material-icons">&#xE315;</i></button>
-    </div>
+    </div> -->
     <table class="list">
         <thead>
             <tr>
@@ -15,8 +16,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let user of userList; index as i;">
-                <td>{{i}}</td>
-                <td>{{user.email}}</td>
+                <td>{{i+1}}</td>
+                <td class="text-left">{{user.email}}</td>
                 <td>{{user.user_type}}</td>
                 <td (click)="deleteUser(user)"><i class="material-icons">&#xE872;</i></td>
             </tr>

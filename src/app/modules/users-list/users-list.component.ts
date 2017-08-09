@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 })
 export class UsersListComponent implements OnInit {
     page = 1;
-    limit = 10;
+    limit = 100;
     userList: Array<any>;
     totalCount: number;
     Math: any;
