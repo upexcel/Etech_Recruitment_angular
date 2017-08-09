@@ -114,9 +114,6 @@ import {
     AutomaticTagModalComponent
 } from './modules/automatic-tag-modal/automatic-tag-modal.component';
 import {
-    ColorPickerModule
-} from 'ng2-color-picker';
-import {
     httpFactory
 } from './service/http.factory';
 import {
@@ -208,7 +205,6 @@ import { DialogService } from './service/dialog.service';
         MdSidenavModule,
         MdIconModule,
         MdDialogModule,
-        ColorPickerModule,
         MdProgressSpinnerModule,
         MdSnackBarModule,
         RouterModule.forRoot(routes, { useHash: true }),
