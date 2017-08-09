@@ -174,3 +174,15 @@ app-setting .mat-sidenav-content {
     margin: 0px;
   }
 }
+.selected-color {
+  height: 20px;
+  width : 20px;
+}
+.color-box {
+  margin : 10px 0px 10px 10px;
+  div.selected-color {
+    display: inline-block;
+    margin: 4px;
+    cursor: pointer;
+  }
+}
