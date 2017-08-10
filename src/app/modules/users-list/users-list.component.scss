@@ -3,7 +3,7 @@ table.list {
     width: 100%;
     border-collapse: collapse;
     tr, th, td {
-        text-align: center;
+        text-align: left;
         border-bottom: 1px solid $tablistcolor;
         padding: 5px 0px;
         vertical-align: middle;
@@ -17,7 +17,8 @@ table.list {
         }
     }
     .material-icons{
-    	cursor: pointer; 
+    	cursor: pointer;
+        color: #f00; 
     }
 }
 .pos-add {
