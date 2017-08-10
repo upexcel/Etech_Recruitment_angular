@@ -10,9 +10,20 @@
                         <tr>
                             <td>
                                 <md-input-container class="width-90">
-                                    <input mdInput name="email" placeholder="Email/UserName" ngModel autoComplete="off" [formControl]="emailFormControl">
+                                    <input mdInput name="username" placeholder="Email/User Name" ngModel autoComplete="off" required>
                                     <md-error *ngIf="emailFormControl.hasError('required')">
                                               This field is required
+                                    </md-error>
+                                </md-input-container>
+                            </td>
+                            <td>
+                                <md-input-container class="width-90">
+                                    <input mdInput name="email" placeholder="Email (send via)" ngModel autoComplete="off" [formControl]="emailFormControl" required>
+                                    <md-error *ngIf="emailFormControl.hasError('required')">
+                                              This field is required
+                                    </md-error>
+                                    <md-error *ngIf="emailFormControl.hasError('pattern')">
+                                             Please enter a valid email address
                                     </md-error>
                                 </md-input-container>
                             </td>
