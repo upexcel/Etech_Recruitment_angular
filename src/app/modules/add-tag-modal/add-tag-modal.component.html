@@ -1,5 +1,5 @@
 <div>
-  <h3>Add Tag</h3>
+  <h3 class="heading">Add Tag</h3>
 </div>
 <hr>
 <form #addForm="ngForm" (ngSubmit)="addTag(addForm)">
@@ -86,11 +86,10 @@
       </tbody>
     </table>
   </div>
-
-  <div class="footer">
-    <a md-raised-button (click)="close()">Close</a>
-    <button md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
+    <div class="footer">
+      <a md-raised-button (click)="close()">Close</a>
+      <button md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
         <span>Save </span>
         </button>
-  </div>
+    </div>
 </form>
