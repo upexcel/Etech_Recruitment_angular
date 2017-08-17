@@ -130,6 +130,7 @@ export class EmailModalComponent implements OnInit {
             this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData}).then((data: any) => {
                 if (data && data.tag_id) {
                     this.tagUpdate.assignTag(data).subscribe((res) => {
+                        this.commonService.inboxRefreshEvent();
                         this._location.back();
                     }, (err) => {
                         console.log(err);
@@ -147,6 +148,7 @@ export class EmailModalComponent implements OnInit {
             };
             this.tagUpdate.assignTag(this.body).subscribe((data) => {
                 this.idlist = [];
+                this.commonService.inboxRefreshEvent();
                 this._location.back();
             }, (err) => {
                 console.log(err);

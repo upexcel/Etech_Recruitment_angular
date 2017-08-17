@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { config } from './../config/config';
 import * as _ from 'lodash';
 
 @Injectable()
 export class CommonService {
+    @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
     constructor() { }
 
     getDefaultTagColor(title) {
@@ -62,5 +63,9 @@ export class CommonService {
             });
         }
         return interviewRounds;
+    }
+
+    inboxRefreshEvent() {
+        this.inboxRefresh.emit();
     }
 }
