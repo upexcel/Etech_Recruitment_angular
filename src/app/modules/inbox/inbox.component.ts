@@ -228,6 +228,10 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     openEmails(email: any) {
         this.showInboxEmailList = false;
+        const index = _.findIndex(this.emaillist['data'], email);
+        if (index !== -1) {
+            this.emaillist['data'][index]['unread'] = false;
+        }
         this._router.navigate(['core/inbox/email', email._id]);
         this._localStorageService.setItem('email', email);
         this._localStorageService.setItem('selectedTag', this.selectedTag);
@@ -352,49 +356,12 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     formatTagsInArray(data: any) {
-        this.tags = data;
-        this.tagsForEmailListAndModel = {};
-        _.forEach(data, (value, key) => {
-            if (value['subject_for_genuine']) {
-                this.subject_for_genuine = value['subject_for_genuine'];
-                localStorage.setItem('subject_for_genuine', value['subject_for_genuine']);
-            } else {
-                this.subject_for_genuine = 'Revert Information';
-                localStorage.setItem('subject_for_genuine', 'Revert Information');
-            }
-            if (!this.tagsForEmailListAndModel['Default']) {
-                this.tagsForEmailListAndModel['Default'] = [];
-                this.tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
-            } else {
-                this.tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
-            }
-            if (value['data'] && value['data'].length > 0) {
-                _.forEach(value['data'], (value1, key1) => {
-                    if (value1['type'] === 'Automatic') {
-                        if (!this.tagsForEmailListAndModel['Automatic']) {
-                            this.tagsForEmailListAndModel['Automatic'] = [];
-                            this.tagsForEmailListAndModel['Automatic'].push(value1);
-                        } else {
-                            this.tagsForEmailListAndModel['Automatic'].push(value1);
-                        }
-                    }
-                });
-            }
-        });
-        // code for removing schedule_first_round, schedule_second_round, schedule_third_round for tagsForEmailListAndModel
-        // also creating interview schedule array from here
-        if (this.tagsForEmailListAndModel && this.tagsForEmailListAndModel['Default'] && this.tagsForEmailListAndModel['Default'].length > 0) {
-            const tempArray = [];
-            _.forEach(this.tagsForEmailListAndModel['Default'], (value, key) => {
-                if (value['title'].substr(0, 9) === 'Schedule_') {
-                    this.dataForInterviewScheduleRound.push(value);
-                } else {
-                    tempArray.push(value);
-                }
-            });
-            tempArray.push({color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0});
-            this.tagsForEmailListAndModel['Default'] = tempArray;
-        }
+        this.tags = JSON.parse(JSON.stringify(data));
+        this._commonService.formateTags(data).then((res: any) => {
+            this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
+            this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
+            this.subject_for_genuine = res.subject_for_genuine;
+        }, (err) => {});
         this.loading = false;
     }
 
