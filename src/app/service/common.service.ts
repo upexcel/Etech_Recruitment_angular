@@ -1,11 +1,12 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
 import { config } from './../config/config';
+import { ImapMailsService } from './imapemails.service';
 import * as _ from 'lodash';
 
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
-    constructor() { }
+    constructor(public _apiService: ImapMailsService) { }
 
     getDefaultTagColor(title) {
         if (title === 'Ignore') {
@@ -67,5 +68,64 @@ export class CommonService {
 
     inboxRefreshEvent() {
         this.inboxRefresh.emit();
+    }
+
+    formateTags(data) {
+        return new Promise((resolve, reject) => {
+            const tagsForEmailListAndModel = {};
+            const dataForInterviewScheduleRound = [];
+            let subject_for_genuine = '';
+            _.forEach(data, (value, key) => {
+                if (value['subject_for_genuine']) {
+                    subject_for_genuine = value['subject_for_genuine'];
+                    localStorage.setItem('subject_for_genuine', value['subject_for_genuine']);
+                } else {
+                    subject_for_genuine = 'Revert Information';
+                    localStorage.setItem('subject_for_genuine', 'Revert Information');
+                }
+                if (!tagsForEmailListAndModel['Default']) {
+                    tagsForEmailListAndModel['Default'] = [];
+                    tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
+                } else {
+                    tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
+                }
+                if (value['data'] && value['data'].length > 0) {
+                    _.forEach(value['data'], (value1, key1) => {
+                        if (value1['type'] === 'Automatic') {
+                            if (!tagsForEmailListAndModel['Automatic']) {
+                                tagsForEmailListAndModel['Automatic'] = [];
+                                tagsForEmailListAndModel['Automatic'].push(value1);
+                            } else {
+                                tagsForEmailListAndModel['Automatic'].push(value1);
+                            }
+                        }
+                    });
+                }
+            });
+            // code for removing schedule_first_round, schedule_second_round, schedule_third_round for tagsForEmailListAndModel
+            // also creating interview schedule array from here
+            this._apiService.getScheduleData().subscribe((scheduleData) => {
+                if (scheduleData && scheduleData.length > 0) {
+                    _.forEach(scheduleData[0]['rounds'], (scheduleDataValue, scheduleDataKey) => {
+                        if (tagsForEmailListAndModel && tagsForEmailListAndModel['Default'] && tagsForEmailListAndModel['Default'].length > 0) {
+                            _.forEach(tagsForEmailListAndModel['Default'], (value, key) => {
+                                if (value['title'] === scheduleDataValue['round']) {
+                                    dataForInterviewScheduleRound.push(value);
+                                }
+                            });
+                        }
+                    });
+                    _.pullAll(tagsForEmailListAndModel['Default'], dataForInterviewScheduleRound);
+                    tagsForEmailListAndModel['Default'].push({color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0});
+                }
+                resolve({
+                    'tagsForEmailListAndModel': tagsForEmailListAndModel,
+                    'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
+                    'subject_for_genuine': subject_for_genuine
+                })
+            }, (err) => {
+                console.log(err);
+            });
+        });
     }
 }
