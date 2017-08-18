@@ -52,10 +52,6 @@ export const routes: Route[] = [{
                 component: DashboardComponent,
                 canActivate: [LoginRouteGuard]
             }, {
-                path: 'useractivity',
-                component: UserActivityLogComponent,
-                canActivate: [LoginRouteGuard]
-            }, {
                 path: 'setting',
                 component: SettingComponent,
                 canActivate: [LoginRouteGuard],
@@ -96,6 +92,10 @@ export const routes: Route[] = [{
                 }, {
                     path: 'usersList',
                     component: UsersListComponent
+                }, {
+                    path: 'useractivity',
+                    component: UserActivityLogComponent,
+                    canActivate: [LoginRouteGuard]
                 }]
             }, {
                 path: 'changepassword',
