@@ -30,6 +30,7 @@ import { Location } from '@angular/common';
 import { CoreComponent } from './../../modules/core/core.component';
 import { ComposeEmailComponent } from './../../modules/compose-email/compose-email.component';
 import { LocalStorageService } from './../../service/local-storage.service';
+import { CommonService } from './../../service/common.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -62,7 +63,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     sendSuccessEmailListCount: any;
     sendFailedEmailListCount: any;
     dataForInterviewScheduleRound = [];
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService) {
+    inboxRefreshSubscription: any;
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
         this.Math = Math;
         this.getemails.componentMehtodCalled$.subscribe(
         () => {
@@ -88,6 +90,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
         this.subscription = this._core.routerInboxPage.subscribe(() => {
             this.showInboxEmailList = true;
+        });
+        this.inboxRefreshSubscription = this._commonService.inboxRefresh.subscribe(() => {
             this.refresh();
         });
     }
@@ -400,6 +404,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+        this.inboxRefreshSubscription.unsubscribe();
     }
 
 }
