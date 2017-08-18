@@ -64,3 +64,16 @@
     left: 44%;
 }
 
+.pagination {
+    float: right;
+    margin-right: 2em;
+    button {
+        background: transparent;
+        border: none;
+        outline: none;
+        vertical-align: middle;
+    }
+    i {
+        cursor: pointer;
+    }
+}
