@@ -59,8 +59,9 @@
       </tr>
       <tr>
         <td>
-          <md-slide-toggle [disabled]="true" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
-            name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
+            <md-slide-toggle [checked]="tag.is_email_send" name="is_email_send" style="width: 100%" [(ngModel)]="tag.is_email_send">Send Automatic Template</md-slide-toggle>
+            <md-slide-toggle [disabled]="true" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
+              name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
         </td>
         <td>
           <h4> Tag Color </h4>
