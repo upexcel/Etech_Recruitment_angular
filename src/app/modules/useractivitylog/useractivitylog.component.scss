@@ -1,7 +1,7 @@
 @import './../../variable.scss';
 .content {
     background-color: $white;
-    margin: 17px 50px;
+    margin: 16px 16px;
     border-radius: 3px;
     min-height: 100px;
 }
@@ -11,16 +11,32 @@
     left: 15px;
 }
 .activity {
-    min-height: 68px;
     width: 100%;
-    border-left: $cyan;
-    margin-left: 30px;
-    margin-top: 7px;
 }
 .subdetails {
     margin-left: 12px;
-    border-left: 1px solid $cactive-1;
+    // border-left: 1px solid $cactive-1;
     margin-top: 24px;
+    .action-block {
+        width: 100%;
+        margin-top: 8px;
+        margin-bottom: 8px;
+        display: block;
+        div {
+            padding: 4px;
+            display: inline-block;
+            overflow: auto;            
+        }
+        .action {
+            width: 250px;
+        }
+        .json {
+            width: 450px;
+        }
+    }
+    .action-block:hover {
+        background-color: #ddd;
+    }
 }
 .marlf-18 {
     margin-left: 18px;
@@ -28,12 +44,6 @@
 }
 .opc06 {
     opacity: 0.6;
-}
-md-list {
-    md-list-item:hover {
-        background-color: $hovecolor;
-        cursor: pointer;
-    }
 }
 .bolno {
     margin-right: 10px;
@@ -54,3 +64,16 @@ md-list {
     left: 44%;
 }
 
+.pagination {
+    float: right;
+    margin-right: 2em;
+    button {
+        background: transparent;
+        border: none;
+        outline: none;
+        vertical-align: middle;
+    }
+    i {
+        cursor: pointer;
+    }
+}
