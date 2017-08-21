@@ -12,6 +12,7 @@ export class EmailLogsComponent implements OnInit {
     totalPages = 1;
     limit = 100;
     emailLogs: any;
+    searchTerm: string;
     constructor(public _apiService: ImapMailsService, public _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -19,7 +20,7 @@ export class EmailLogsComponent implements OnInit {
     }
 
     getEmailLogs() {
-        this._apiService.getEmailLogs({'page': this.page, 'limit': this.limit}).subscribe((res) => {
+        this._apiService.getEmailLogs({ 'page': this.page, 'email': this.searchTerm, 'limit': this.limit }).subscribe((res) => {
             this.emailLogs = res['data'];
             this.totalPages = Math.ceil(res['count'] / this.limit);
         }, (err) => {
@@ -41,6 +42,16 @@ export class EmailLogsComponent implements OnInit {
         this._dialogService.previewEmail(emailData).then((res) => {
             console.log(res);
         });
+    }
+
+    search(searchText) {
+        if (searchText && searchText.length > 0) {
+            this.page = 1;
+            this.getEmailLogs();
+        } else {
+            this.searchTerm = null;
+            this.getEmailLogs();
+        }
     }
 
 }

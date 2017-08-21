@@ -18,7 +18,9 @@
     </form>
 </div>
 <div *ngIf="!first">
-    <h1 md-dialog-title class="a-c">Mail Preview</h1>
+    <h1 md-dialog-title class="a-c">Mail Preview
+        <button md-raised-button style="float: right;" (click)="close()" md-mini-fab><md-icon>close</md-icon></button>
+    </h1>
     <hr>
         <table class="full" cellspacing="0">
             <tr>

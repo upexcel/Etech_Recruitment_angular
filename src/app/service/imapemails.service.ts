@@ -99,7 +99,13 @@ export class ImapMailsService {
     }
     getEmailLogs(body): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `get/email/logs/${body.page}/${body.limit}`)
+        let url: any;
+        if (body['email']) {
+            url = `search/email/logs/${body.email}/${body.page}/${body.limit}`;
+        } else {
+            url = `get/email/logs/${body.page}/${body.limit}`;
+        }
+        return this.Intercepted.get(environment['apibase'] + url)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

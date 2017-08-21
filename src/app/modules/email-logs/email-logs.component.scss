@@ -7,6 +7,13 @@
   min-height: 100px;
   h2 {
     margin: 0px;
+    text-align: right;
+    position: relative;
+    span{
+        position: absolute;
+        left: 0px;
+        top: 4px;
+    }
   }
   table {
     border-collapse: collapse;
@@ -17,9 +24,9 @@
       padding: 10px 0px 10px 6px;
       text-align: left;
     }
-    tbody > tr {
-        border-bottom: 1px solid #828282;
-        cursor: pointer;
+    tbody>tr {
+      border-bottom: 1px solid #828282;
+      cursor: pointer;
     }
     tr td {
       padding: 10px 6px;
@@ -27,16 +34,62 @@
     }
   }
 }
+
 .pagination {
-    float: right;
-    font-size: 14px;
-    button {
-        background: transparent;
-        border: none;
-        outline: none;
-        vertical-align: middle;
-    }
-    i {
-        cursor: pointer;
-    }
+  font-size: 14px;
+  display: inline-block;
+  button {
+    background: transparent;
+    border: none;
+    outline: none;
+    vertical-align: middle;
+  }
+  i {
+    cursor: pointer;
+  }
+}
+
+.search-container {
+  overflow: hidden;
+  width: 300px;
+  vertical-align: middle;
+  white-space: nowrap;
+  display: inline-block;
+  input#search {
+    width: 300px;
+    height: 40px;
+    border: 1px solid #2b303b;
+    font-size: 10pt;
+    float: left;
+    color: #000;
+    padding-left: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+  button.icon {
+    -webkit-border-top-right-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -moz-border-radius-bottomright: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: none;
+    background: #232833;
+    height: 40px;
+    width: 50px;
+    color: #fff;
+    opacity: 0;
+    font-size: 10pt;
+    outline: none;
+    opacity: 1;
+    margin-left: -50px;
+    cursor: pointer;
+  }
+  input#search::-webkit-input-placeholder,
+  input#search:-moz-placeholder,
+  input#search::-moz-placeholder,
+  input#search:-ms-input-placeholder {
+    color: #65737e;
+  }
 }
