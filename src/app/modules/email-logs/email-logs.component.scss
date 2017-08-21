@@ -1,0 +1,41 @@
+@import './../../variable.scss';
+.content {
+  background-color: $white;
+  margin: 16px 16px;
+  padding: 16px 16px;
+  border-radius: 3px;
+  min-height: 100px;
+  h2 {
+    margin: 0px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 16px;
+    th {
+      background-color: #C9DFF0;
+      padding: 10px 0px 10px 6px;
+      text-align: left;
+    }
+    tbody > tr {
+        border-bottom: 1px solid #828282;
+    }
+    tr td {
+      padding: 10px 6px;
+      max-width: 400px;
+    }
+  }
+}
+.pagination {
+    float: right;
+    font-size: 14px;
+    button {
+        background: transparent;
+        border: none;
+        outline: none;
+        vertical-align: middle;
+    }
+    i {
+        cursor: pointer;
+    }
+}

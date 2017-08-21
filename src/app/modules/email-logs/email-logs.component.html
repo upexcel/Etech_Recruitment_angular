@@ -1,0 +1,27 @@
+<div class="content">
+  <h2>Email Logs
+  <span class="pagination">
+    <button [disabled]="page == 1" (click)="previous()"><i class="material-icons">keyboard_arrow_left</i></button>
+     {{page}}/{{totalPages}} 
+     <button [disabled]="page == totalPages" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
+    </span>
+  </h2>
+  <table cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+        <th>To</th>
+        <th>From</th>
+        <th>User</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let email of emailLogs" >
+        <td>{{email.email}}</td>
+        <td>{{email.from}}</td>
+        <td>{{email.user}}</td>
+        <td>{{email.time | date: 'medium'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

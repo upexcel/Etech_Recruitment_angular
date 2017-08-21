@@ -97,6 +97,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    getEmailLogs(body): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `get/email/logs/${body.page}/${body.limit}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     getUserList(body): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `user/list/${body.page}/${body.limit}`)
