@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ImapMailsService } from './../../service/imapemails.service'
+import { ImapMailsService } from './../../service/imapemails.service';
+import { DialogService } from './../../service/dialog.service';
 
 @Component({
     selector: 'app-email-logs',
@@ -11,7 +12,7 @@ export class EmailLogsComponent implements OnInit {
     totalPages = 1;
     limit = 100;
     emailLogs: any;
-    constructor(public _apiService: ImapMailsService) { }
+    constructor(public _apiService: ImapMailsService, public _dialogService: DialogService) { }
 
     ngOnInit() {
         this.getEmailLogs();
@@ -34,6 +35,12 @@ export class EmailLogsComponent implements OnInit {
     next() {
         ++this.page;
         this.getEmailLogs();
+    }
+
+    previewEmail(emailData) {
+        this._dialogService.previewEmail(emailData).then((res) => {
+            console.log(res);
+        });
     }
 
 }

@@ -11,14 +11,16 @@
       <tr>
         <th>To</th>
         <th>From</th>
+        <th>Subject</th>
         <th>User</th>
         <th>Date</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let email of emailLogs" >
+      <tr *ngFor="let email of emailLogs" (click)="previewEmail(email)">
         <td>{{email.email}}</td>
         <td>{{email.from}}</td>
+        <td>{{email.subject}}</td>
         <td>{{email.user}}</td>
         <td>{{email.time | date: 'medium'}}</td>
       </tr>

@@ -33,7 +33,7 @@
             </tr>
         </table>
     <div class="fx-pos1">
-        <button md-raised-button (click)="close()">CLOSE</button>
-        <button md-raised-button type="submit" color="accent" (click)="sendEmail()">SEND MAIL</button>
+        <button md-raised-button (click)="close()" *ngIf="userDetails">CLOSE</button>
+        <button md-raised-button type="submit" color="accent" (click)="sendEmail()" *ngIf="userDetails" >SEND MAIL</button>
     </div>
 </div>
