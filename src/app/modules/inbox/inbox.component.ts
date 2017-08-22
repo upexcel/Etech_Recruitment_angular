@@ -64,9 +64,10 @@ export class InboxComponent implements OnInit, OnDestroy {
     sendFailedEmailListCount: any;
     dataForInterviewScheduleRound = [];
     inboxRefreshSubscription: any;
+    fetchEmailSubscription: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
         this.Math = Math;
-        this.getemails.componentMehtodCalled$.subscribe(
+        this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
         () => {
             this.fetchNewEmails();
         });
@@ -372,6 +373,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.inboxRefreshSubscription.unsubscribe();
+        this.fetchEmailSubscription.unsubscribe();
     }
 
 }
