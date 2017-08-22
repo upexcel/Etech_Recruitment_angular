@@ -18,7 +18,9 @@
     </form>
 </div>
 <div *ngIf="!first">
-    <h1 md-dialog-title class="a-c">Mail Preview</h1>
+    <h1 md-dialog-title class="a-c">Mail Preview
+        <button md-raised-button style="float: right;" (click)="close()" md-mini-fab><md-icon>close</md-icon></button>
+    </h1>
     <hr>
         <table class="full" cellspacing="0">
             <tr>
@@ -33,7 +35,7 @@
             </tr>
         </table>
     <div class="fx-pos1">
-        <button md-raised-button (click)="close()">CLOSE</button>
-        <button md-raised-button type="submit" color="accent" (click)="sendEmail()">SEND MAIL</button>
+        <button md-raised-button (click)="close()" *ngIf="userDetails">CLOSE</button>
+        <button md-raised-button type="submit" color="accent" (click)="sendEmail()" *ngIf="userDetails" >SEND MAIL</button>
     </div>
 </div>

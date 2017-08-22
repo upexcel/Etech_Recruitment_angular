@@ -60,8 +60,8 @@ import {
     InboxComponent
 } from './modules/inbox/inbox.component';
 import {
-    DashboardComponent
-} from './modules/dashboard/dashboard.component';
+    EmailLogsComponent
+} from './modules/email-logs/email-logs.component';
 import {
     UserActivityLogComponent
 } from './modules/useractivitylog/useractivitylog.component';
@@ -155,7 +155,7 @@ import { DialogService } from './service/dialog.service';
         LoginComponent,
         CoreComponent,
         InboxComponent,
-        DashboardComponent,
+        EmailLogsComponent,
         UserActivityLogComponent,
         SettingComponent,
         ChangePasswordComponent,

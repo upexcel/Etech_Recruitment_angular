@@ -3,7 +3,7 @@ import { LoginComponent } from './modules/login/login.component';
 import { CoreComponent } from './modules/core/core.component';
 
 import { InboxComponent } from './modules/inbox/inbox.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { EmailLogsComponent } from './modules/email-logs/email-logs.component';
 import { UserActivityLogComponent } from './modules/useractivitylog/useractivitylog.component';
 import { SettingComponent } from './modules/setting/setting.component';
 import { ChangePasswordComponent } from './modules/changepassword/changepassword.component';
@@ -48,10 +48,6 @@ export const routes: Route[] = [{
                     component: EmailModalComponent
                 }]
             }, {
-                path: 'dashboard',
-                component: DashboardComponent,
-                canActivate: [LoginRouteGuard]
-            }, {
                 path: 'setting',
                 component: SettingComponent,
                 canActivate: [LoginRouteGuard],
@@ -95,6 +91,10 @@ export const routes: Route[] = [{
                 }, {
                     path: 'useractivity',
                     component: UserActivityLogComponent,
+                    canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'emailLogs',
+                    component: EmailLogsComponent,
                     canActivate: [LoginRouteGuard]
                 }]
             }, {

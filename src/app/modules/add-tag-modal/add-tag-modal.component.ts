@@ -44,6 +44,9 @@ export class AddTagModalComponent implements OnInit {
             if (form.value.assign === '') {
                 form.value.assign = false;
             }
+            if (form.value.is_email_send === '') {
+                form.value.is_email_send = false;
+            }
             form.value.color = this.originalcolor;
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
