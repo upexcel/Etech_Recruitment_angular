@@ -45,8 +45,8 @@ export class EmailLogsComponent implements OnInit {
     }
 
     search(searchText) {
+        this.page = 1;
         if (searchText && searchText.length > 0) {
-            this.page = 1;
             this.getEmailLogs();
         } else {
             this.searchTerm = null;
