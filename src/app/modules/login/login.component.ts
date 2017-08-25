@@ -20,7 +20,9 @@ export class LoginComponent implements OnInit {
     showmessage: boolean;
     constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
         if (this._localStorageService.getItem('loginMessage')) {
-            this._snackbar.open(this._localStorageService.getItem('loginMessage'));
+            this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
+                duration: 2000,
+            });
             this._localStorageService.clearItem('loginMessage');
         }
     }
