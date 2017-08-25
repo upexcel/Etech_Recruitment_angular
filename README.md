@@ -36,8 +36,8 @@ For production build `production` key value must be set to `true`.
 2. environment.ts -> this file contents will used for development build environment. All the keys/value located in this file can only be accessed in development build. 
 ```
 export const environment = {
-    production: true,
-    'apibase': 'http://5.9.144.226:8090/'
+    production: false,
+    'apibase': 'http://144.76.34.244:8090/'
 };
 ```
 For developmet build `production` key value must be set to `false`.

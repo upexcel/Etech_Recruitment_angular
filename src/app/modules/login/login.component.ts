@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
+import { LocalStorageService } from '../../service/local-storage.service';
+import { MdSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-login',
@@ -16,7 +18,12 @@ export class LoginComponent implements OnInit {
     loading: boolean;
     message: string;
     showmessage: boolean;
-    constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router) {}
+    constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
+        if (this._localStorageService.getItem('loginMessage')) {
+            this._snackbar.open(this._localStorageService.getItem('loginMessage'));
+            this._localStorageService.clearItem('loginMessage');
+        }
+    }
 
     ngOnInit() {
         this.loading = false;
