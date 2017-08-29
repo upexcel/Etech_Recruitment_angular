@@ -74,6 +74,7 @@ export class CommonService {
         return new Promise((resolve, reject) => {
             const tagsForEmailListAndModel = {};
             const dataForInterviewScheduleRound = [];
+            let inboxMailsTagsForEmailListAndModel = {};
             let subject_for_genuine = '';
             const role = this._localStorageService.getItem('role');
             if (role === 'Guest') {
@@ -81,10 +82,14 @@ export class CommonService {
                     {
                         'tagsForEmailListAndModel': tagsForEmailListAndModel,
                         'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
-                        'subject_for_genuine': subject_for_genuine
+                        'subject_for_genuine': subject_for_genuine,
+                        'inboxMailsTagsForEmailListAndModel': inboxMailsTagsForEmailListAndModel
                     }
                 );
                 return;
+            }
+            if (data && data.length > 0) {
+                inboxMailsTagsForEmailListAndModel = data[0];
             }
             _.forEach(data, (value, key) => {
                 if (value['subject_for_genuine']) {
@@ -132,7 +137,8 @@ export class CommonService {
                 resolve({
                     'tagsForEmailListAndModel': tagsForEmailListAndModel,
                     'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
-                    'subject_for_genuine': subject_for_genuine
+                    'subject_for_genuine': subject_for_genuine,
+                    'inboxMailsTagsForEmailListAndModel': inboxMailsTagsForEmailListAndModel
                 })
             }, (err) => {
                 console.log(err);
