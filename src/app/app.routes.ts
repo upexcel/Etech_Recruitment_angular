@@ -57,37 +57,48 @@ export const routes: Route[] = [{
                     pathMatch: 'full'
                 }, {
                     path: 'imap',
-                    component: ImapServerComponent
+                    component: ImapServerComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'smtp',
-                    component: SmtpServerComponent
+                    component: SmtpServerComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'emailtemplate',
-                    component: EmailTemplatesComponent
+                    component: EmailTemplatesComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'emailvariable',
-                    component: EmailVariablesComponent
+                    component: EmailVariablesComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'tagsetting',
-                    component: TagSettingComponent
+                    component: TagSettingComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'action',
-                    component: ActionsComponent
+                    component: ActionsComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'manageuser',
-                    component: ManageUsersComponent
+                    component: ManageUsersComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'automaticTags',
-                    component: AutomaticTagComponent
+                    component: AutomaticTagComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'jobProfileTags',
-                    component: JobProfileTagComponent
+                    component: JobProfileTagComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'resetPassword',
-                    component: ResetPasswordComponent
+                    component: ResetPasswordComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'usersList',
-                    component: UsersListComponent
+                    component: UsersListComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'useractivity',
                     component: UserActivityLogComponent,

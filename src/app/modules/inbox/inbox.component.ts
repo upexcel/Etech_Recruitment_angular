@@ -65,12 +65,14 @@ export class InboxComponent implements OnInit, OnDestroy {
     dataForInterviewScheduleRound = [];
     inboxRefreshSubscription: any;
     fetchEmailSubscription: any;
+    role: string;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
         () => {
             this.fetchNewEmails();
         });
+        this.role = this._localStorageService.getItem('role');
     }
 
     ngOnInit() {

@@ -2,11 +2,11 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { config } from './../config/config';
 import { ImapMailsService } from './imapemails.service';
 import * as _ from 'lodash';
-
+import { LocalStorageService } from './local-storage.service';
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
-    constructor(public _apiService: ImapMailsService) { }
+    constructor(public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
         if (title === 'Ignore') {
@@ -75,6 +75,17 @@ export class CommonService {
             const tagsForEmailListAndModel = {};
             const dataForInterviewScheduleRound = [];
             let subject_for_genuine = '';
+            const role = this._localStorageService.getItem('role');
+            if (role === 'Guest') {
+                resolve(
+                    {
+                        'tagsForEmailListAndModel': tagsForEmailListAndModel,
+                        'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
+                        'subject_for_genuine': subject_for_genuine
+                    }
+                );
+                return;
+            }
             _.forEach(data, (value, key) => {
                 if (value['subject_for_genuine']) {
                     subject_for_genuine = value['subject_for_genuine'];

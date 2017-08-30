@@ -1,7 +1,7 @@
 <md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
     <md-grid-list cols="8" rowHeight="34px">
         <md-grid-tile [colspan]="'8'">
-            <div class="emailcheckbox">
+            <div class="emailcheckbox" *ngIf="role !== 'Guest'" >
                 <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
             </div>
             <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
