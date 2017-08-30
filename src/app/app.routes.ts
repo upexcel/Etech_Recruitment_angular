@@ -23,6 +23,7 @@ import { AutomaticTagComponent } from './modules/automatic-tag/automatic-tag.com
 import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-tag.component';
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -47,6 +48,11 @@ export const routes: Route[] = [{
                     pathMatch: 'full',
                     component: EmailModalComponent
                 }]
+            },
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
+                canActivate: [LoginRouteGuard]
             }, {
                 path: 'setting',
                 component: SettingComponent,

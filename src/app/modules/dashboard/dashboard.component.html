@@ -1,0 +1,62 @@
+<div class="dashboard">
+  <md-card>
+    <md-card-title>Job Profiles</md-card-title>
+    <md-card-content>
+      <div class="charts">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)" [legend]="true"></canvas>
+        <p>Web Designer</p>
+      </div>
+      <div class="charts">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+        <p>BD</p>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-title>Inbox</md-card-title>
+    <md-card-content>
+      <div class="charts">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-title>Imap</md-card-title>
+    <md-card-content>
+      <div class="charts">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-title>Tags</md-card-title>
+    <md-card-content>
+      <div class="charts">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-title>Users</md-card-title>
+    <md-card-content>
+      <div class="charts">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
+  <md-card>
+    <md-card-title>Email Logs</md-card-title>
+    <md-card-content>
+      <div class="charts">
+        <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>

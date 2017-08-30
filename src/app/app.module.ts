@@ -32,6 +32,7 @@ import {
 import {
     FlexLayoutModule
 } from '@angular/flex-layout';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {
     AppComponent
 } from './app.component';
@@ -144,6 +145,7 @@ import { ScheduleInterviewComponent } from './modules/schedule-interview/schedul
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confirmation-dialog.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
@@ -193,7 +195,8 @@ import { DialogService } from './service/dialog.service';
         AddNewUserComponent,
         UsersListComponent,
         ScheduleInterviewComponent,
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        DashboardComponent
     ],
     imports: [
         BrowserModule,
@@ -213,7 +216,8 @@ import { DialogService } from './service/dialog.service';
         HttpModule,
         CKEditorModule,
         MdDatepickerModule,
-        MdNativeDateModule
+        MdNativeDateModule,
+        ChartsModule
     ],
     providers: [
         ImapMailsService,

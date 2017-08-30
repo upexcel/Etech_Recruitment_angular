@@ -1,0 +1,15 @@
+.dashboard {
+  background-color: #2e3e4e;
+  padding: 10px;
+  md-card {
+    margin: 10px;
+    min-width: 350px;
+    display: inline-block;
+    text-align: center;
+    .charts {
+    //   width: 200px;
+    //   height: 200px;
+      display: inline-block;
+    }
+  }
+}
