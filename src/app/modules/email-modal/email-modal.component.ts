@@ -41,6 +41,7 @@ export class EmailModalComponent implements OnInit {
     error = false;
     errorMessageText: string;
     dataForInterviewScheduleRound: any;
+    inboxMailsTagsForEmailListAndModel: any;
     constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
@@ -50,6 +51,7 @@ export class EmailModalComponent implements OnInit {
         }
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
+        this.inboxMailsTagsForEmailListAndModel = this._localStorageService.getItem('inboxMailsTagsForEmailListAndModel');
     }
 
     ngOnInit() {

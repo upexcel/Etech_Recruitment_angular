@@ -21,9 +21,15 @@
         <a>{{H_email.from}} {{H_email.sender_mail}}</a>
         <span class="text-xs"> on {{H_email.date | date: 'medium'}}</span>
     </div>
-    <div class="example-button-row default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen">
+    <div class="example-button-row default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && selectedTag && selectedTag >= 0">
         <span *ngFor="let tag of tags.Default">
-            <a md-raised-button class="cyan" *ngIf="tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+            <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+            </a>
+        </span>
+    </div>
+    <div class="example-button-row default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && !selectedTag || selectedTag == -1">
+        <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data">
+            <a md-raised-button class="cyan" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
             </a>
         </span>
     </div>

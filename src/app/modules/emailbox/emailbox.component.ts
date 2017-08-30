@@ -21,6 +21,7 @@ export class EmailboxComponent implements OnInit {
     @Input() allTags: any;
     @Input() tagselected: any;
     @Input() dataForInterviewScheduleRound: any;
+    @Input() inboxMailsTagsForEmailListAndModel: any;
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();

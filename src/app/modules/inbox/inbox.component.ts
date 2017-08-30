@@ -66,6 +66,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     inboxRefreshSubscription: any;
     fetchEmailSubscription: any;
     role: string;
+    inboxMailsTagsForEmailListAndModel: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -240,6 +241,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._localStorageService.setItem('selectedTag', this.selectedTag);
         this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
         this._localStorageService.setItem('dataForInterviewScheduleRound', this.dataForInterviewScheduleRound);
+        this._localStorageService.setItem('inboxMailsTagsForEmailListAndModel', this.inboxMailsTagsForEmailListAndModel);
     }
 
     getAllTag() {
@@ -364,6 +366,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
             this.subject_for_genuine = res.subject_for_genuine;
+            this.inboxMailsTagsForEmailListAndModel = res.inboxMailsTagsForEmailListAndModel;
         }, (err) => {});
         this.loading = false;
     }
