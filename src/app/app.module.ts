@@ -150,6 +150,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
 import { DialogService } from './service/dialog.service';
+import { DashboardService } from './service/dashboard.service';
 
 @NgModule({
     declarations: [
@@ -225,6 +226,7 @@ import { DialogService } from './service/dialog.service';
         CommonService,
         LocalStorageService,
         DialogService,
+        DashboardService,
         LoginRouteGuard,
         {
             provide: InterceptedHttp,
