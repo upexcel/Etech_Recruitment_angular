@@ -4,6 +4,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/mate
 import { ImapMailsService } from '../../service/imapemails.service';
 import { CommonService } from '../../service/common.service';
 import * as _ from 'lodash';
+import { config } from './../../config/config';
 
 @Component({
     selector: 'app-schedule-interview',
@@ -31,11 +32,16 @@ export class ScheduleInterviewComponent implements OnInit {
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
             'selectedInterviewTemplate': [null, Validators.compose([Validators.required])],
             'selectedInterviewDate': [{value: null, disabled: false}, Validators.compose([Validators.required])],
-            'selectedInterviewTime': [{value: null, disabled: false}, Validators.compose([Validators.required])]
+            'selectedInterviewTime': [{value: null, disabled: false}, Validators.compose([Validators.required])],
+            'mobile_no': [null, Validators.compose([Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^\d+$/)])],
         });
     }
 
     ngOnInit() {
+        if (this.emailData.mobile_no && this.emailData.mobile_no.length > 0) {
+            this.emailData.mobile_no = this.emailData.mobile_no.substr(3, this.emailData.mobile_no.length);
+        }
+        this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
         this.scheduleApi.getScheduleData().subscribe((data) => {
             this.scheduleData = data;
             this.minDate = new Date(data[0]['date']);
@@ -75,7 +81,8 @@ export class ScheduleInterviewComponent implements OnInit {
             'shedule_for': data.value.selectedInterviewRound.value,
             'shedule_date': this._commonService.formateDate(data.value.selectedInterviewDate),
             'shedule_time': data.value.selectedInterviewTime,
-            'tamplate_id': data.value.selectedInterviewTemplate
+            'tamplate_id': data.value.selectedInterviewTemplate,
+            'mobile_no': config.mobileNoPrefix + data.value.mobile_no
         };
         this.dialogRef.close(apiData);
     }
