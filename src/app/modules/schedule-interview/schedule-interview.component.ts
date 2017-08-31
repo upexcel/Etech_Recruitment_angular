@@ -78,10 +78,10 @@ export class ScheduleInterviewComponent implements OnInit {
         const apiData = {
             'tag_id': data.value.selectedInterviewRound.id,
             'mongo_id': [this.emailId],
-            'schedule_for': data.value.selectedInterviewRound.value,
-            'schedule_date': this._commonService.formateDate(data.value.selectedInterviewDate),
-            'schedule_time': data.value.selectedInterviewTime,
-            'template_id': data.value.selectedInterviewTemplate,
+            'shedule_for': data.value.selectedInterviewRound.value,
+            'shedule_date': this._commonService.formateDate(data.value.selectedInterviewDate),
+            'shedule_time': data.value.selectedInterviewTime,
+            'tamplate_id': data.value.selectedInterviewTemplate,
             'mobile_no': config.mobileNoPrefix + data.value.mobile_no
         };
         this.dialogRef.close(apiData);
