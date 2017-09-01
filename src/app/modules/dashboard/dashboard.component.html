@@ -1,15 +1,14 @@
 <div class="dashboard" *ngIf="dashboardData" >
   <md-card *ngIf="dashboardData.profile" >
     <md-card-title>Job Profiles</md-card-title>
-    <md-card-content>
-      <div class="charts" *ngFor="let profile of dashboardData.profile" >
-        <canvas baseChart [data]="profile.data" [labels]="profile.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)" [legend]="true"></canvas>
-        <p>{{profile.title}}</p>
+    <md-card-content *ngFor="let profile of dashboardData.profile">
+      <div class="charts">
+        <canvas baseChart height="60" [datasets]="profile.datasets" [colors]="dashboardChartColor" [labels]="profile.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)" [legend]="true" [options]="dashboardChartOptions"></canvas>
       </div>
     </md-card-content>
   </md-card>
-  <md-card *ngIf="dashboardData.inbox">
+  <!-- <md-card *ngIf="dashboardData.inbox">
     <md-card-title>Inbox</md-card-title>
     <md-card-content>
       <div class="charts">
@@ -18,8 +17,8 @@
           <p></p>
       </div>
     </md-card-content>
-  </md-card>
-  <md-card *ngIf="dashboardData.imap">
+  </md-card> -->
+  <!-- <md-card *ngIf="dashboardData.imap">
     <md-card-title>Imap</md-card-title>
     <md-card-content>
       <div class="charts">
@@ -28,8 +27,8 @@
           <p></p>
       </div>
     </md-card-content>
-  </md-card>
-  <md-card>
+  </md-card> -->
+  <!-- <md-card>
     <md-card-title *ngIf="dashboardData.tag">Tags</md-card-title>
     <md-card-content>
       <div class="charts">
@@ -38,13 +37,13 @@
           <p></p>
       </div>
     </md-card-content>
-  </md-card>
+  </md-card> -->
   <md-card *ngIf="dashboardData.user">
-    <md-card-title>Users</md-card-title>
+    <md-card-title>System Users</md-card-title>
     <md-card-content>
       <div class="charts">
-        <canvas baseChart [data]="dashboardData.user.data" [labels]="dashboardData.user.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+        <canvas baseChart height="60" [datasets]="dashboardData.user.datasets" [labels]="dashboardData.user.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)" [colors]="dashboardChartColor" [options]="dashboardChartOptions"></canvas>
           <p></p>
       </div>
     </md-card-content>
@@ -53,8 +52,8 @@
     <md-card-title>Email Logs</md-card-title>
     <md-card-content>
       <div class="charts">
-        <canvas baseChart [data]="dashboardData.email.data" [labels]="dashboardData.email.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+        <canvas baseChart height="60" [datasets]="dashboardData.email.datasets" [labels]="dashboardData.email.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)" [colors]="dashboardChartColor" [options]="dashboardChartOptions"></canvas>
           <p></p>
       </div>
     </md-card-content>
