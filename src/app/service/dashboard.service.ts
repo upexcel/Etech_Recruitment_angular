@@ -6,22 +6,23 @@ export class DashboardService {
 
     formatChartData(res) {
         _.forEach(res.profile, (profileValue, profileKey) => {
+            res.profile[profileKey].profile = _.fromPairs(_.sortBy(_.toPairs(profileValue.profile), function(a){return a[1]}).reverse());
             profileValue['labels'] = [];
-            profileValue['data'] = [];
+            profileValue['datasets'] = [{ 'label': profileValue.title, 'data': [] }];
             _.forEach(profileValue.profile, (profileTagsValue, profileTagsKey) => {
                 profileValue['labels'].push(profileTagsKey);
-                profileValue['data'].push(profileTagsValue);
+                profileValue['datasets'][0]['data'].push(profileTagsValue);
             });
         });
+        res.email = _.sortBy(res.email, ['email_send']).reverse();
         let tempArray = JSON.parse(JSON.stringify(res.email));
         res.email = {}
         res.email['emails'] = tempArray;
-        res.email.title = 'Emails';
         res.email['labels'] = [];
-        res.email['data'] = [];
+        res.email['datasets'] = [{ 'label': 'Emails', 'data': [] }];
         _.forEach(res.email.emails, (emailValue, emailKey) => {
             res.email['labels'].push(emailValue.user);
-            res.email['data'].push(emailValue.email_send);
+            res.email['datasets'][0]['data'].push(emailValue.email_send);
         });
         tempArray = JSON.parse(JSON.stringify(res.imap));
         res.imap = {}
@@ -35,8 +36,13 @@ export class DashboardService {
         });
         res.inbox['data'] = [res.inbox.total, res.inbox.unread];
         res.inbox['labels'] = ['total', 'unread'];
-        res.user['data'] = [res.user.Admin, res.user.Guest, res.user.HR];
-        res.user['labels'] = ['Admin', 'Guest', 'HR'];
+        res.user = {'users': _.fromPairs(_.sortBy(_.toPairs(res.user), function(a){return a[1]}).reverse())};
+        res.user['labels'] = [];
+        res.user['datasets'] = [{ 'label': 'Users', 'data': [] }];
+        _.forEach(res.user.users, (userValue, userKey) => {
+            res.user['labels'].push(userKey);
+            res.user['datasets'][0]['data'].push(userValue);
+        });
         res.tag['data'] = [res.tag.Automatic, res.tag.Manual, res.tag.Default];
         res.tag['labels'] = ['Automatic', 'Manual', 'Default'];
         return res;
