@@ -33,6 +33,7 @@ export class ResetPasswordComponent implements OnInit {
                 this.snackBar.open(res.message, '', {
                     duration: 2000,
                 });
+                this.resetPasswordForm.reset();
             },
             (err) => {
                 this.loading = false;

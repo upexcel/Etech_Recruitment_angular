@@ -4,7 +4,7 @@
             <img src="assets/logo.png">
         </div>
         <hr>
-        <div class="hovestyle" (click)="goto('dashboard','Dashboard');sidenav.close()">
+        <div class="hovestyle" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('dashboard','Dashboard');sidenav.close()">
             <a class="mainnav">Dashboard</a>
         </div>
         <hr>

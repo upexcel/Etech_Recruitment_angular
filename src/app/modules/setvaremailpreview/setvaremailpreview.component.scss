@@ -18,8 +18,8 @@
 }
 .fx-pos {
     position: absolute;
-    top: 87%;
-    left: 53%;
+    bottom: 0px;
+    right: 0px;
 }
 .m-p {
 	max-height: 240px !important;
@@ -40,4 +40,8 @@
 }
 .m-z {
     margin: 0px;
+}
+.main-container {
+    height: 100%;
+    position: relative;
 }

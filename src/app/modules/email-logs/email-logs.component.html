@@ -9,10 +9,11 @@
     <div class="pagination">
     <button [disabled]="page == 1" (click)="previous()"><i class="material-icons">keyboard_arrow_left</i></button>
      {{page}}/{{totalPages}} 
-     <button [disabled]="page == totalPages" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
+     <button [disabled]="page == totalPages || totalPages == 0" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
     </div>
   </h2>
-  <table cellspacing="0" cellpadding="0">
+  <p class="error" *ngIf="emailLogs && emailLogs.length == 0">No Data Found</p>
+  <table cellspacing="0" cellpadding="0" *ngIf="emailLogs && emailLogs.length > 0">
     <thead>
       <tr>
         <th>To</th>
