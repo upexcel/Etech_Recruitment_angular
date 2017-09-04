@@ -17,7 +17,7 @@ export class JobProfileTagComponent implements OnInit {
     loading = false;
     tempList: any;
     tags: any[];
-    constructor(private gettags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar, private _dialogService: DialogService) { }
+    constructor(private getTags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar, private _dialogService: DialogService) { }
 
     ngOnInit() {
         this.loading = true;
@@ -25,14 +25,14 @@ export class JobProfileTagComponent implements OnInit {
         this.getAllTemp();
     }
     getAllTemp() {
-        this.gettags.getTemplate().subscribe((data) => {
+        this.getTags.getTemplate().subscribe((data) => {
             this.tempList = data;
         }, (err) => {
             console.log(err);
         });
     }
     getAllTag() {
-        this.gettags.getAllTags()
+        this.getTags.getAllTags()
             .subscribe((data) => {
                 this.formatTagsInArray(data);
             }, (err) => {
@@ -44,7 +44,7 @@ export class JobProfileTagComponent implements OnInit {
     removeTag(id: string, type: string) {
         this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
             if (res === 'yes') {
-                this.gettags.deleteTag(id, type).subscribe((data) => {
+                this.getTags.deleteTag(id, type).subscribe((data) => {
                     this.getAllTag();
                 }, (err) => {
                     console.log(err);
