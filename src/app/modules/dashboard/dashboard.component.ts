@@ -20,7 +20,9 @@ export class DashboardComponent implements OnInit {
         this.dashboardChartOptions = {
             scales: {
                 xAxes: [{
-                    barPercentage: 0.4
+                    ticks: {
+                        beginAtZero: true
+                    }
                 }]
             }
         }

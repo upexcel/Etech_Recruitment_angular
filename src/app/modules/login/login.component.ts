@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
             }
         });
         this.addForm = this.formBuilder.group({
-            email: ['', Validators.required],
+            email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$')])],
             password: ['', Validators.required],
             keeplogin: false
         });
@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
             this.keeplogin = this.addForm.controls['keeplogin'].value;
             this.access.login(this.email, this.password, this.keeplogin).subscribe((data) => {
                 this._localStorageService.setItem('role', data.role);
+                this._localStorageService.setItem('userEmail', this.email);
                 this.access.storeToken(data.token).then((status) => {
                     this._router.navigate(['/core/inbox']);
                 });

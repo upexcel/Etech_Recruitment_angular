@@ -5,6 +5,7 @@ import { ManualTagModalComponent } from '../manual-tag-modal/manual-tag-modal.co
 import { AutomaticTagModalComponent } from '../automatic-tag-modal/automatic-tag-modal.component';
 import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
 import { MdSnackBar } from '@angular/material';
+import { DialogService } from './../../service/dialog.service';
 
 @Component({
     selector: 'app-job-profile-tag',
@@ -12,11 +13,11 @@ import { MdSnackBar } from '@angular/material';
     styleUrls: ['./job-profile-tag.component.scss']
 })
 export class JobProfileTagComponent implements OnInit {
-    dialogRef: MdDialogRef < any > ;
+    dialogRef: MdDialogRef<any>;
     loading = false;
     tempList: any;
     tags: any[];
-    constructor(private gettags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar) {}
+    constructor(private getTags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar, private _dialogService: DialogService) { }
 
     ngOnInit() {
         this.loading = true;
@@ -24,14 +25,14 @@ export class JobProfileTagComponent implements OnInit {
         this.getAllTemp();
     }
     getAllTemp() {
-        this.gettags.getTemplate().subscribe((data) => {
+        this.getTags.getTemplate().subscribe((data) => {
             this.tempList = data;
         }, (err) => {
             console.log(err);
         });
     }
     getAllTag() {
-        this.gettags.getAllTags()
+        this.getTags.getAllTags()
             .subscribe((data) => {
                 this.formatTagsInArray(data);
             }, (err) => {
@@ -41,15 +42,17 @@ export class JobProfileTagComponent implements OnInit {
     }
 
     removeTag(id: string, type: string) {
-        this.gettags.deleteTag(id, type)
-            .subscribe((data) => {
-                this.getAllTag();
-                // this.snackBar.open('Tag Removed Successfully', '', {
-                //     duration: 2000,
-                // });
-            }, (err) => {
-                console.log(err);
-            });
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.getTags.deleteTag(id, type).subscribe((data) => {
+                    this.getAllTag();
+                }, (err) => {
+                    console.log(err);
+                });
+            }
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     openAutomatic(tag1: any) {

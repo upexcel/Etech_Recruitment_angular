@@ -42,8 +42,8 @@ export class UsersListComponent implements OnInit {
 
     addUser() {
         this._dialogService.openAddUser().then((res: any) => {
-            if (res && res.data) {
-                this.userList.unshift(res['data']);
+            if (res) {
+                this.userList.unshift(res);
                 this.getUserList();
             }
         }, (err) => {
