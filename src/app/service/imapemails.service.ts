@@ -311,9 +311,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    getHistory(): Observable <any> {
+    getHistory(body): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + 'user/log')
+        return this.Intercepted.get(environment['apibase'] + `user/log/${body.email}`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

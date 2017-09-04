@@ -49,6 +49,7 @@ export class LoginComponent implements OnInit {
             this.keeplogin = this.addForm.controls['keeplogin'].value;
             this.access.login(this.email, this.password, this.keeplogin).subscribe((data) => {
                 this._localStorageService.setItem('role', data.role);
+                this._localStorageService.setItem('userEmail', this.email);
                 this.access.storeToken(data.token).then((status) => {
                     this._router.navigate(['/core/inbox']);
                 });
