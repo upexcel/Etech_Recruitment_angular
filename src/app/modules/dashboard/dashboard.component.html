@@ -1,34 +1,56 @@
-<div class="nav">
-  <h3>Stats</h3>
+<div class="nav" *ngIf="isHome">
+  <h3>App Statics</h3>
   <p routerLink="/login" mdTooltip="Login"><i class="material-icons">power_settings_new</i></p>
 </div>
-<div class="dashboard" *ngIf="dashboardData" >
-  <md-card *ngIf="dashboardData.profile" >
-    <md-card-title>Job Profiles</md-card-title>
-    <md-card-content *ngFor="let profile of dashboardData.profile">
+<div class="dashboard" *ngIf="dashboardData">
+  <md-card>
+    <md-card-title>Job Profile (per day)</md-card-title>
+    <md-card-content>
       <div class="charts">
-        <canvas baseChart height="60" [datasets]="profile.datasets" [colors]="dashboardChartColor" [labels]="profile.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)" [legend]="true" [options]="dashboardChartOptions"></canvas>
+        <canvas baseChart [datasets]="dashboardData.day_wise" [labels]="dashboardData.day_wise[0]['dates']" [options]="dashboardChartOptions"
+          [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
       </div>
     </md-card-content>
   </md-card>
-  <md-card *ngIf="dashboardData.user">
-    <md-card-title>System Users</md-card-title>
+  <md-card>
+    <md-card-title>Job Profile (per month)</md-card-title>
     <md-card-content>
       <div class="charts">
-        <canvas baseChart height="60" [datasets]="dashboardData.user.datasets" [labels]="dashboardData.user.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)" [colors]="dashboardChartColor" [options]="dashboardChartOptions"></canvas>
-          <p></p>
+        <canvas baseChart [datasets]="dashboardData.month_wise" [labels]="dashboardData.month_wise[0]['months']" [options]="dashboardChartOptions"
+          [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
       </div>
     </md-card-content>
   </md-card>
-  <md-card *ngIf="dashboardData.email">
-    <md-card-title>Email Logs</md-card-title>
+  <md-card>
+    <md-card-title>Job Profile (per round distribution)</md-card-title>
     <md-card-content>
       <div class="charts">
-        <canvas baseChart height="60" [datasets]="dashboardData.email.datasets" [labels]="dashboardData.email.labels" [chartType]="pieChartType" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)" [colors]="dashboardChartColor" [options]="dashboardChartOptions"></canvas>
-          <p></p>
+        <canvas baseChart [datasets]="dashboardData.rounds" [labels]="dashboardData.rounds[0]['rounds']" [options]="dashboardChartOptions"
+          [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-card-title>Automatic Email (per day)</md-card-title>
+    <md-card-content>
+      <div class="charts">
+        <canvas baseChart [datasets]="dashboardData.email_stat" [labels]="dashboardData.email_stat[0]['dates']" [options]="dashboardChartOptions"
+          [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
+
+  <md-card>
+    <md-card-title>Candidate Selection (per month)</md-card-title>
+    <md-card-content>
+      <div class="charts">
+          <canvas baseChart [datasets]="dashboardData.selected_candidate" [labels]="dashboardData.selected_candidate[0]['month']" [options]="dashboardChartOptions"
+          [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
       </div>
     </md-card-content>
   </md-card>

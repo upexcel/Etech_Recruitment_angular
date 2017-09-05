@@ -57,7 +57,7 @@ export class CoreComponent implements OnInit {
     logout() {
         this.access.removeToken().then((data) => {
             if (data) {
-                this._router.navigate(['/login']);
+                this._router.navigate(['']);
             }
         });
     }
