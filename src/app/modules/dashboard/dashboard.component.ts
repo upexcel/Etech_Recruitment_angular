@@ -26,11 +26,12 @@ export class DashboardComponent implements OnInit {
                 }]
             }
         }
-        this._apiService.getDashboardData().subscribe((res) => {
-            this.dashboardData = this._dashboardService.formatChartData(res);
-        }, (err) => {
-            console.log(err)
-        });
+        console.log('dashboard')
+        // this._apiService.getDashboardData().subscribe((res) => {
+        //     this.dashboardData = this._dashboardService.formatChartData(res);
+        // }, (err) => {
+        //     console.log(err)
+        // });
     }
 
     chartClicked(e) {

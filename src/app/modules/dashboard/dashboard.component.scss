@@ -3,13 +3,29 @@
   padding: 10px;
   md-card {
     margin: 10px;
-    min-width: 350px;
-    // display: inline-block;
+    min-width: 350px; // display: inline-block;
     .charts {
       // display: inline-block;
       canvas {
         height: 60px;
       }
     }
+  }
+}
+
+.nav {
+  background-color: #00BCD4;
+  height: 64px;
+  width: 100%;
+  color: #fff;
+  h3 {
+    display: inline-block;
+    padding-left: 2em;
+  }
+  p {
+    display: inline-block;
+    float: right;
+    padding-right: 2em;
+    cursor: pointer;
   }
 }

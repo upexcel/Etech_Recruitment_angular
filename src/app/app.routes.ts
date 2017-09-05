@@ -27,7 +27,7 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 export const routes: Route[] = [{
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
 },
     {
@@ -128,5 +128,9 @@ export const routes: Route[] = [{
     {
         path: 'forgot',
         component: ForgetPasswordComponent
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent
     }
 ];
