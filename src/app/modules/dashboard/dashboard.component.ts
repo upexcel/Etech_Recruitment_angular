@@ -2,32 +2,25 @@ import { Component, OnInit } from '@angular/core';
 import { ImapMailsService } from './../../service//imapemails.service';
 import { DashboardService } from './../../service/dashboard.service';
 import { config } from './../../config/config';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-    pieChartLabels: any;
-    pieChartData: any;
-    pieChartType = 'horizontalBar';
     dashboardData: any;
-    dashboardChartOptions: any;
-    dashboardChartColor = [{ 'backgroundColor': config.dashboardChartColor }];
-    constructor(private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
+    dashboardChartColor = config.dashboardChartColor;
+    dashboardChartOptions = config.dashboardChartOptions;
+    lineChartLegend = true;
+    subscription: any;
+    isHome: boolean;
+    constructor(private route: ActivatedRoute, private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
 
     ngOnInit() {
-        this.dashboardChartOptions = {
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
+        this.subscription = this.route.data.subscribe(res => this.isHome = res.isHome);
         this._apiService.getDashboardData().subscribe((res) => {
-            this.dashboardData = this._dashboardService.formatChartData(res);
+            this.dashboardData = res;
         }, (err) => {
             console.log(err)
         });

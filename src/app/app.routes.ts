@@ -27,8 +27,9 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 export const routes: Route[] = [{
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    component: DashboardComponent,
+    data : { isHome : true }
 },
     {
         path: 'core',
@@ -52,7 +53,8 @@ export const routes: Route[] = [{
             {
                 path: 'dashboard',
                 component: DashboardComponent,
-                canActivate: [LoginRouteGuard]
+                canActivate: [LoginRouteGuard],
+                data : { isHome : false }
             }, {
                 path: 'setting',
                 component: SettingComponent,
