@@ -21,13 +21,13 @@ export const config = {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgba(77,83,96,1)'
         },
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
+        { // green
+            backgroundColor: 'rgba(50,205,50,0.2)',
+            borderColor: 'rgba(50,205,50,1)',
+            pointBackgroundColor: 'rgba(50,205,50,1)',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            pointHoverBorderColor: 'rgba(50,205,50,0.8)'
         }
     ],
     dashboardChartOptions: {
@@ -47,6 +47,10 @@ export const config = {
                 }
             }]
         }
+    },
+    dashboardPieChartOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
     }
 };
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];

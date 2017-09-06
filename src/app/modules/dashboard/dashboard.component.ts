@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
     lineChartLegend = true;
     subscription: any;
     isHome: boolean;
+    pieChartOption = config.dashboardPieChartOptions;
     constructor(private route: ActivatedRoute, private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
 
     ngOnInit() {
