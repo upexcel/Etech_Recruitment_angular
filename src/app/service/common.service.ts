@@ -159,5 +159,6 @@ export class CommonService {
                 });
             });
         });
+        return tags;
     }
 }
