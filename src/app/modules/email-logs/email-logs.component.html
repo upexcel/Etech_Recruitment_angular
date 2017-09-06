@@ -2,7 +2,7 @@
   <h2><span>Email Logs</span>
     <div class="search-container">
       <form>
-        <input type="search" id="search" name="searchTerm" [(ngModel)]="searchTerm" placeholder="Search..." />
+        <input type="search" id="search" name="searchTerm" [formControl]="searchInput" placeholder="Search..." />
         <button type="submit" (click)="search(searchTerm)" class="icon"><i class="material-icons">search</i></button>
       </form>
     </div>
