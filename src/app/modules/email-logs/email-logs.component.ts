@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ImapMailsService } from './../../service/imapemails.service';
 import { DialogService } from './../../service/dialog.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
     selector: 'app-email-logs',
@@ -12,10 +13,14 @@ export class EmailLogsComponent implements OnInit {
     totalPages = 1;
     limit = 100;
     emailLogs: any;
-    searchTerm: string;
+    searchInput = new FormControl();
+    searchTerm = '';
     constructor(public _apiService: ImapMailsService, public _dialogService: DialogService) { }
 
     ngOnInit() {
+        this.searchInput.valueChanges
+            .debounceTime(500)
+            .subscribe(newValue => this.search(newValue));
         this.getEmailLogs();
     }
 
@@ -47,6 +52,7 @@ export class EmailLogsComponent implements OnInit {
     search(searchText) {
         this.page = 1;
         if (searchText && searchText.length > 0) {
+            this.searchTerm = searchText;
             this.getEmailLogs();
         } else {
             this.searchTerm = null;
