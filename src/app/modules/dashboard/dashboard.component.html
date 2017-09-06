@@ -4,7 +4,7 @@
 </div>
 <div class="dashboard" *ngIf="dashboardData">
   <md-card>
-    <md-card-title>Job Profile (per day)</md-card-title>
+    <md-card-title>Jobs Application - Day Wise</md-card-title>
     <md-card-content>
       <div class="charts">
         <canvas baseChart [datasets]="dashboardData.day_wise" [labels]="dashboardData.day_wise[0]['dates']" [options]="dashboardChartOptions"
@@ -14,7 +14,7 @@
     </md-card-content>
   </md-card>
   <md-card>
-    <md-card-title>Job Profile (per month)</md-card-title>
+    <md-card-title>Jobs Application - Month wise</md-card-title>
     <md-card-content>
       <div class="charts">
         <canvas baseChart [datasets]="dashboardData.month_wise" [labels]="dashboardData.month_wise[0]['months']" [options]="dashboardChartOptions"
@@ -24,12 +24,14 @@
     </md-card-content>
   </md-card>
   <md-card>
-    <md-card-title>Job Profile (per round distribution)</md-card-title>
+    <md-card-title>Jobs Application - Round Distribution</md-card-title>
     <md-card-content>
-      <div class="charts">
-        <canvas baseChart [datasets]="dashboardData.rounds" [labels]="dashboardData.rounds[0]['rounds']" [options]="dashboardChartOptions"
-          [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
-          (chartClick)="chartClicked($event)"></canvas>
+      <div class="pie-chart" *ngFor="let round of dashboardData.rounds; let i = index;">
+        <p><b>{{round.label}}</b></p>
+        <div>
+          <canvas baseChart width="200" height="200" [data]="round.data" [labels]="round.rounds" [options]="pieChartOption" [legend]="lineChartLegend"
+            [chartType]="'pie'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        </div>
       </div>
     </md-card-content>
   </md-card>
@@ -39,16 +41,6 @@
     <md-card-content>
       <div class="charts">
         <canvas baseChart [datasets]="dashboardData.email_stat" [labels]="dashboardData.email_stat[0]['dates']" [options]="dashboardChartOptions"
-          [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </div>
-    </md-card-content>
-  </md-card>
-
-  <md-card>
-    <md-card-title>Candidate Selection (per month)</md-card-title>
-    <md-card-content>
-      <div class="charts">
-          <canvas baseChart [datasets]="dashboardData.selected_candidate" [labels]="dashboardData.selected_candidate[0]['month']" [options]="dashboardChartOptions"
           [colors]="dashboardChartColor" [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
           (chartClick)="chartClicked($event)"></canvas>
       </div>
