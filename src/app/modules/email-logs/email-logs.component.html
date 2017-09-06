@@ -12,7 +12,7 @@
      <button [disabled]="page == totalPages || totalPages == 0" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
     </div>
   </h2>
-  <p class="error" *ngIf="emailLogs && emailLogs.length == 0">No Data Found</p>
+  <p class="error" *ngIf="emailLogs && emailLogs.length == 0">No Logs Found</p>
   <table cellspacing="0" cellpadding="0" *ngIf="emailLogs && emailLogs.length > 0">
     <thead>
       <tr>
