@@ -10,15 +10,15 @@ export class CommonService {
 
     getDefaultTagColor(title) {
         if (title === 'Ignore') {
-            return {'background-color': '#FF0000'};
+            return { 'background-color': '#FF0000' };
         } else if (title === 'Genuine Applicant') {
-            return {'background-color': '#41A317'};
+            return { 'background-color': '#41A317' };
         } else if (title === 'Reject') {
-            return {'background-color': '#F1B2B2'};
+            return { 'background-color': '#F1B2B2' };
         } else if (title === 'Schedule') {
-            return {'background-color': '#FBB917'};
+            return { 'background-color': '#FBB917' };
         } else {
-            return {'background-color': 'cyan'};
+            return { 'background-color': 'cyan' };
         }
     }
 
@@ -60,7 +60,11 @@ export class CommonService {
             });
         } else {
             _.forEach(interviewRounds, (value, key) => {
-                value['disable'] = false;
+                if (key === 0) {
+                    value['disable'] = false;
+                } else {
+                    value['disable'] = true;
+                }
             });
         }
         return interviewRounds;
@@ -132,7 +136,7 @@ export class CommonService {
                         }
                     });
                     _.pullAll(tagsForEmailListAndModel['Default'], dataForInterviewScheduleRound);
-                    tagsForEmailListAndModel['Default'].push({color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0});
+                    tagsForEmailListAndModel['Default'].push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 });
                 }
                 resolve({
                     'tagsForEmailListAndModel': tagsForEmailListAndModel,
