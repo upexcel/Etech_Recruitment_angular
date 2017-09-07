@@ -14,6 +14,11 @@
       text-align: center;
     }
   }
+  .job-selection {
+    position: absolute;
+    right: 1.8em;
+    top: 1.5em;
+  }
 }
 
 .nav {
@@ -21,9 +26,9 @@
   height: 64px;
   width: 100%;
   color: #fff;
-  h3 {
-    display: inline-block;
-    padding-left: 2em;
+  text-align: center;
+  img {
+    margin-top: 12px;
   }
   p {
     display: inline-block;
