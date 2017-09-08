@@ -38,6 +38,15 @@
       </div>
     </md-card-content>
   </md-card>
+  <md-card>
+    <md-card-title>Jobs Application Read - Day Wise</md-card-title>
+    <md-card-content>
+      <div class="charts">
+          <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_email_data" [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
+            [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+  </md-card>
 
   <md-card>
     <md-card-title>Automatic Email (per day)</md-card-title>
