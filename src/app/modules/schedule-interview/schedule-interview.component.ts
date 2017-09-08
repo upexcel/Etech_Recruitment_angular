@@ -4,6 +4,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/mate
 import { ImapMailsService } from '../../service/imapemails.service';
 import { CommonService } from '../../service/common.service';
 import * as _ from 'lodash';
+import { config } from './../../config/config';
 
 @Component({
     selector: 'app-schedule-interview',
@@ -26,23 +27,37 @@ export class ScheduleInterviewComponent implements OnInit {
     minDate: any;
     maxDate: any;
     showSelectedDate = null;
+    errorMessage: string;
     constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
             'selectedInterviewTemplate': [null, Validators.compose([Validators.required])],
-            'selectedInterviewDate': [{value: null, disabled: false}, Validators.compose([Validators.required])],
-            'selectedInterviewTime': [{value: null, disabled: false}, Validators.compose([Validators.required])]
+            'selectedInterviewDate': [{ value: null, disabled: false }, Validators.compose([Validators.required])],
+            'selectedInterviewTime': [{ value: null, disabled: false }, Validators.compose([Validators.required])],
+            'mobile_no': [null, Validators.compose([Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^\d+$/)])],
         });
     }
 
     ngOnInit() {
-        this.scheduleApi.getScheduleData().subscribe((data) => {
-            this.scheduleData = data;
-            this.minDate = new Date(data[0]['date']);
-            this.maxDate = new Date(data[data.length - 1]['date']);
-            this.getTeamplateList();
+        if (this.emailData.mobile_no && this.emailData.mobile_no.length > 0) {
+            this.emailData.mobile_no = this.emailData.mobile_no.substr(3, this.emailData.mobile_no.length);
+        }
+        this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
+        this.scheduleApi.getEmailStatus({ 'tag_id': this.tagselected, 'mongo_id': this.emailData._id, 'email': this.emailData.sender_mail }).subscribe((res) => {
+            if (res.flag) {
+                this.scheduleApi.getScheduleData().subscribe((data) => {
+                    this.scheduleData = data;
+                    this.minDate = new Date(data[0]['date']);
+                    this.maxDate = new Date(data[data.length - 1]['date']);
+                    this.getTeamplateList();
+                }, (err) => {
+                    console.log(err);
+                });
+            } else {
+                this.errorMessage = res.message;
+            }
         }, (err) => {
-            console.log(err);
+            console.log(err)
         });
         this.interviewForm.get('selectedInterviewDate').disable();
         this.interviewForm.get('selectedInterviewTime').disable();
@@ -50,7 +65,7 @@ export class ScheduleInterviewComponent implements OnInit {
     }
 
     dateFilter = (d: Date): boolean => {
-        return _.filter(this.scheduleData, {'date' : this._commonService.formateDate(d)}).length;
+        return _.filter(this.scheduleData, { 'date': this._commonService.formateDate(d) }).length;
     }
 
     changeInInterviewRound(interviewRound) {
@@ -65,7 +80,7 @@ export class ScheduleInterviewComponent implements OnInit {
         this.interviewForm.get('selectedInterviewTime').enable();
         this.interviewForm.get('selectedInterviewTime').setValue(null);
         this.showSelectedDate = selectedDate;
-        this.timeListData = _.filter(this.scheduleData, {'date' : this._commonService.formateDate(selectedDate)})[0]['time_slots'][this.selectedInterviewRound['value']];
+        this.timeListData = _.filter(this.scheduleData, { 'date': this._commonService.formateDate(selectedDate) })[0]['time_slots'][this.selectedInterviewRound['value']];
     }
 
     scheduleInterview(data) {
@@ -75,7 +90,8 @@ export class ScheduleInterviewComponent implements OnInit {
             'shedule_for': data.value.selectedInterviewRound.value,
             'shedule_date': this._commonService.formateDate(data.value.selectedInterviewDate),
             'shedule_time': data.value.selectedInterviewTime,
-            'tamplate_id': data.value.selectedInterviewTemplate
+            'tamplate_id': data.value.selectedInterviewTemplate,
+            'mobile_no': config.mobileNoPrefix + data.value.mobile_no
         };
         this.dialogRef.close(apiData);
     }

@@ -39,7 +39,7 @@ import * as _ from 'lodash';
     styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit, OnDestroy {
-    dialogRef: MdDialogRef < any > ;
+    dialogRef: MdDialogRef<any>;
     Math: any;
     emaillist: any;
     loading = false;
@@ -65,12 +65,15 @@ export class InboxComponent implements OnInit, OnDestroy {
     dataForInterviewScheduleRound = [];
     inboxRefreshSubscription: any;
     fetchEmailSubscription: any;
+    role: string;
+    inboxMailsTagsForEmailListAndModel: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
-        () => {
-            this.fetchNewEmails();
-        });
+            () => {
+                this.fetchNewEmails();
+            });
+        this.role = this._localStorageService.getItem('role');
     }
 
     ngOnInit() {
@@ -231,6 +234,9 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.showInboxEmailList = false;
         const index = _.findIndex(this.emaillist['data'], email);
         if (index !== -1) {
+            if (this.emaillist['data'][index]['unread']) {
+                this.tags = this._commonService.reduseCountEmail(this.tags, this.selectedTag);
+            }
             this.emaillist['data'][index]['unread'] = false;
         }
         this._router.navigate(['core/inbox/email', email._id]);
@@ -238,6 +244,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._localStorageService.setItem('selectedTag', this.selectedTag);
         this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
         this._localStorageService.setItem('dataForInterviewScheduleRound', this.dataForInterviewScheduleRound);
+        this._localStorageService.setItem('inboxMailsTagsForEmailListAndModel', this.inboxMailsTagsForEmailListAndModel);
     }
 
     getAllTag() {
@@ -323,7 +330,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
-                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -334,7 +341,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
-                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -362,7 +369,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
             this.subject_for_genuine = res.subject_for_genuine;
-        }, (err) => {});
+            this.inboxMailsTagsForEmailListAndModel = res.inboxMailsTagsForEmailListAndModel;
+        }, (err) => { });
         this.loading = false;
     }
 

@@ -5,8 +5,8 @@
             <tr>
                 <td>
                     <md-input-container class="full">
-                        <input mdInput placeholder="Candidate Email Id" autoComplete="off" name="CandidateEmail" required ngModel>
-                        <md-error>Required</md-error>
+                        <input mdInput type="email" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" placeholder="Candidate Email Id" autoComplete="off" name="CandidateEmail" required ngModel>
+                        <md-error>Enter a valid email</md-error>
                     </md-input-container>
                 </td>
             </tr>
@@ -21,7 +21,7 @@
         </table>
         <div>
             <button md-raised-button class="m-b" (click)="close()">Back</button>
-            <button md-raised-button class="m-b" type="submit" color="accent">Save</button>
+            <button md-raised-button class="m-b" type="submit" [disabled]="!addTemp.form.valid" color="accent">Save</button>
         </div>
     </form>
 </div>
@@ -57,7 +57,7 @@
             </tr>
         </table>
     </form>
-    <div class="fx-pos">
+    <div class="text-right">
         <button md-raised-button class="m-b" (click)="close()">CLOSE</button>
         <button md-raised-button color="accent" class="m-b" (click)="setVariable()">SET VARIABLES</button>
     </div>

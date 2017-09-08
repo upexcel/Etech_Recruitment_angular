@@ -84,6 +84,32 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    getDashboardData(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + 'dashboard')
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getEmailStatus(body): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + 'get/emailStatus', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     getScheduleData(): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + 'get/shedule')
@@ -298,9 +324,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    getHistory(): Observable <any> {
+    getHistory(body): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + 'user/log')
+        return this.Intercepted.get(environment['apibase'] + `user/log/${body.email}`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

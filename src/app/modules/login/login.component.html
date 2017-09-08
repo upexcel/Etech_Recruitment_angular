@@ -35,7 +35,7 @@
                     </table>
                 </md-card-content>
                 <md-card-actions>
-                    <button *ngIf="!loading" type="submit" md-raised-button color=primary class="width-100">Sign In</button>
+                    <button *ngIf="!loading" type="submit" md-raised-button color=primary class="width-100" [disabled]="!addForm.valid">Sign In</button>
                     <md-spinner *ngIf="loading" class="spin"></md-spinner>
                 </md-card-actions>
             </form>

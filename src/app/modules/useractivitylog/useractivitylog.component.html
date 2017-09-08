@@ -21,14 +21,15 @@
   <md-list>
 
     <md-list-item>
-      <div class="activity" *ngIf="selectUserLog && selectUserLog.action">
-        <b>User Email:</b> {{selectUserLog.email}}
-        <span class="pagination">
+      <div class="activity">
+        <span *ngIf="selectUserLog && selectUserLog.email"><b>User Email:</b> {{selectUserLog.email}}</span>
+        <p class="error" *ngIf="selectUserLog && !selectUserLog.action">{{errorMessage}}</p>
+        <span class="pagination" *ngIf="selectUserLog && selectUserLog.action">
           <button [disabled]="pageNo == 0" (click)="previous()"><i class="material-icons">keyboard_arrow_left</i></button>
            {{pageNo + 1}}/{{totalPages}} 
            <button [disabled]="(pageNo + 1) == totalPages" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
           </span>
-        <div class="subdetails">
+        <div class="subdetails" *ngIf="selectUserLog && selectUserLog.action">
           <div class="action-block">
             <div class="action"><b>Action</b></div>
             <div class="json"><b>Response</b></div>

@@ -23,11 +23,13 @@ import { AutomaticTagComponent } from './modules/automatic-tag/automatic-tag.com
 import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-tag.component';
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 export const routes: Route[] = [{
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    component: DashboardComponent,
+    data : { isHome : true }
 },
     {
         path: 'core',
@@ -47,6 +49,12 @@ export const routes: Route[] = [{
                     pathMatch: 'full',
                     component: EmailModalComponent
                 }]
+            },
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
+                canActivate: [LoginRouteGuard],
+                data : { isHome : false }
             }, {
                 path: 'setting',
                 component: SettingComponent,
@@ -57,37 +65,48 @@ export const routes: Route[] = [{
                     pathMatch: 'full'
                 }, {
                     path: 'imap',
-                    component: ImapServerComponent
+                    component: ImapServerComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'smtp',
-                    component: SmtpServerComponent
+                    component: SmtpServerComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'emailtemplate',
-                    component: EmailTemplatesComponent
+                    component: EmailTemplatesComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'emailvariable',
-                    component: EmailVariablesComponent
+                    component: EmailVariablesComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'tagsetting',
-                    component: TagSettingComponent
+                    component: TagSettingComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'action',
-                    component: ActionsComponent
+                    component: ActionsComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'manageuser',
-                    component: ManageUsersComponent
+                    component: ManageUsersComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'automaticTags',
-                    component: AutomaticTagComponent
+                    component: AutomaticTagComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'jobProfileTags',
-                    component: JobProfileTagComponent
+                    component: JobProfileTagComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'resetPassword',
-                    component: ResetPasswordComponent
+                    component: ResetPasswordComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'usersList',
-                    component: UsersListComponent
+                    component: UsersListComponent,
+                    canActivate: [LoginRouteGuard]
                 }, {
                     path: 'useractivity',
                     component: UserActivityLogComponent,

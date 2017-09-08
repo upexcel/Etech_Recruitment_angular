@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
-
+import { LocalStorageService } from './../../service/local-storage.service';
 @Component({
     selector: 'app-emailbox',
     templateUrl: './emailbox.component.html',
@@ -21,16 +21,18 @@ export class EmailboxComponent implements OnInit {
     @Input() allTags: any;
     @Input() tagselected: any;
     @Input() dataForInterviewScheduleRound: any;
+    @Input() inboxMailsTagsForEmailListAndModel: any;
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
-
-    constructor(private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
+    role: string;
+    constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
     ngOnInit() {
         this.selectedMid = [];
         this.removeSelected();
+        this.role = this._localStorageService.getItem('role');
     }
 
     emailSelection() {

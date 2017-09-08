@@ -2,23 +2,23 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 import { config } from './../config/config';
 import { ImapMailsService } from './imapemails.service';
 import * as _ from 'lodash';
-
+import { LocalStorageService } from './local-storage.service';
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
-    constructor(public _apiService: ImapMailsService) { }
+    constructor(public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
         if (title === 'Ignore') {
-            return {'background-color': '#FF0000'};
+            return { 'background-color': '#FF0000' };
         } else if (title === 'Genuine Applicant') {
-            return {'background-color': '#41A317'};
+            return { 'background-color': '#41A317' };
         } else if (title === 'Reject') {
-            return {'background-color': '#F1B2B2'};
+            return { 'background-color': '#F1B2B2' };
         } else if (title === 'Schedule') {
-            return {'background-color': '#FBB917'};
+            return { 'background-color': '#FBB917' };
         } else {
-            return {'background-color': 'cyan'};
+            return { 'background-color': 'cyan' };
         }
     }
 
@@ -60,7 +60,11 @@ export class CommonService {
             });
         } else {
             _.forEach(interviewRounds, (value, key) => {
-                value['disable'] = false;
+                if (key === 0) {
+                    value['disable'] = false;
+                } else {
+                    value['disable'] = true;
+                }
             });
         }
         return interviewRounds;
@@ -74,7 +78,23 @@ export class CommonService {
         return new Promise((resolve, reject) => {
             const tagsForEmailListAndModel = {};
             const dataForInterviewScheduleRound = [];
+            let inboxMailsTagsForEmailListAndModel = {};
             let subject_for_genuine = '';
+            const role = this._localStorageService.getItem('role');
+            if (role === 'Guest') {
+                resolve(
+                    {
+                        'tagsForEmailListAndModel': tagsForEmailListAndModel,
+                        'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
+                        'subject_for_genuine': subject_for_genuine,
+                        'inboxMailsTagsForEmailListAndModel': inboxMailsTagsForEmailListAndModel
+                    }
+                );
+                return;
+            }
+            if (data && data.length > 0) {
+                inboxMailsTagsForEmailListAndModel = data[0];
+            }
             _.forEach(data, (value, key) => {
                 if (value['subject_for_genuine']) {
                     subject_for_genuine = value['subject_for_genuine'];
@@ -116,16 +136,33 @@ export class CommonService {
                         }
                     });
                     _.pullAll(tagsForEmailListAndModel['Default'], dataForInterviewScheduleRound);
-                    tagsForEmailListAndModel['Default'].push({color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0});
+                    tagsForEmailListAndModel['Default'].push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 });
                 }
                 resolve({
                     'tagsForEmailListAndModel': tagsForEmailListAndModel,
                     'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
-                    'subject_for_genuine': subject_for_genuine
+                    'subject_for_genuine': subject_for_genuine,
+                    'inboxMailsTagsForEmailListAndModel': inboxMailsTagsForEmailListAndModel
                 })
             }, (err) => {
                 console.log(err);
             });
         });
+    }
+
+    reduseCountEmail(tags, selectedTag) {
+        _.forEach(tags, (value, key) => {
+            _.forEach(value['data'], (dataValue, dataKey) => {
+                if (!selectedTag && dataValue['title'] === 'Mails') {
+                    dataValue['unread'] = dataValue['unread'] - 1;
+                }
+                _.forEach(dataValue['subchild'], (subchildValue, subchildKey) => {
+                    if (subchildValue['id'] === selectedTag) {
+                        subchildValue['unread'] = subchildValue['unread'] - 1;
+                    }
+                });
+            });
+        });
+        return tags;
     }
 }

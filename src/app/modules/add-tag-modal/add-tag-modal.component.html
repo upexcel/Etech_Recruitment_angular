@@ -12,13 +12,13 @@
       </colgroup>
       <tbody>
         <tr>
-          <td *ngIf="types">
+          <td>
             <md-input-container style="width: 100%">
               <input mdInput name="title" placeholder="Title" ngModel required>
               <md-error>Title Is Required</md-error>
             </md-input-container>
           </td>
-          <td *ngIf="types">
+          <td>
             <md-radio-group class="pos-radio" name="type" [(ngModel)]="type" ngModel required style="width: 100%">
               <md-radio-button *ngIf="addTagType == 'manual'" name="type" value="Manual" (click)="types = 0">Manual Tag</md-radio-button>
               <md-radio-button *ngIf="addTagType == 'automatic'" name="type" value="Automatic" (click)="types = 1">Automatic Tag</md-radio-button>
@@ -27,31 +27,31 @@
           </td>
         </tr>
         <tr>
-          <td *ngIf="types">
+          <td>
             <md-input-container style="width: 100%">
               <input mdInput name="email" type="email" placeholder="Email" ngModel>
               <md-error>Invalid Email</md-error>
             </md-input-container>
           </td>
-          <td *ngIf="types">
+          <td>
             <md-input-container style="width: 100%">
               <input mdInput name="subject" placeholder="Subject" ngModel required>
             </md-input-container>
           </td>
         </tr>
         <tr>
-          <td *ngIf="types">
+          <td>
             <md-input-container class="width-100">
               <input mdInput name="from" type="date" placeholder="From date" ngModel>
             </md-input-container>
           </td>
-          <td *ngIf="types">
+          <td>
             <md-input-container class="width-100">
               <input mdInput name="to" type="date" placeholder="To date" ngModel>
             </md-input-container>
           </td>
         </tr>
-        <tr *ngIf="types && addTagType == 'jobProfile'">
+        <tr *ngIf="addTagType == 'jobProfile'">
           <td colspan="2">
             <md-input-container class="width-100">
               <textarea mdInput rows="4" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
@@ -60,7 +60,7 @@
           </td>
         </tr>
         <tr>
-          <td *ngIf="types">
+          <td>
             <md-select class="width-100" placeholder="Select Template" name="template_id" ngModel>
               <md-option>
                 None
@@ -70,13 +70,13 @@
               </md-option>
             </md-select>
           </td>
-          <td *ngIf="types">
+          <td>
             <md-slide-toggle name="is_email_send" ngModel style="width: 100%">Send Automatic Template</md-slide-toggle>
             <md-slide-toggle name="assign" ngModel style="width: 100%">Assign to all existing mails</md-slide-toggle>
           </td>
         </tr>
         <tr>
-          <td colspan="2" *ngIf="types">
+          <td colspan="2">
             <h4> Tag Color </h4>
             <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
             <div class="color-box">

@@ -1,0 +1,39 @@
+.dashboard {
+  background-color: #2e3e4e;
+  padding: 10px;
+  md-card {
+    margin: 10px;
+    .charts {
+      canvas {
+        height: 300px;
+      }
+    }
+    .pie-chart {
+      display: inline-block;
+      min-width: 49%;
+      text-align: center;
+    }
+  }
+  .job-selection {
+    position: absolute;
+    right: 1.8em;
+    top: 1.5em;
+  }
+}
+
+.nav {
+  background-color: #00BCD4;
+  height: 64px;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  img {
+    margin-top: 12px;
+  }
+  p {
+    display: inline-block;
+    float: right;
+    padding-right: 2em;
+    cursor: pointer;
+  }
+}

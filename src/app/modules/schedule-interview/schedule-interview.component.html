@@ -1,8 +1,9 @@
 <div class="header">
-    <p class="h-text">Schedule Interviews</p>
+    <p class="h-text">Schedule Interview</p>
 </div>
 <p class="no-pad-top"><b>Name</b>: {{emailData.from}}</p>
 <p><b>Email</b>: {{emailData.sender_mail}}</p>
+<p class="error">{{errorMessage}}</p>
 <form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm">
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main">
@@ -21,6 +22,9 @@
 			<md-select placeholder="Select Template" class="width-33" [formControl]="interviewForm.controls['selectedInterviewTemplate']">
 			   <md-option *ngFor="let template of templateData;" [value]="template.id">{{ template.templateName }}</md-option>
 			</md-select>
+            <md-input-container>
+              <input mdInput type="text" placeholder="Mobile No" [formControl]="interviewForm.controls['mobile_no']">
+            </md-input-container>
         </div>
     </div>
     <hr>

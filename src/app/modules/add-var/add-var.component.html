@@ -4,7 +4,7 @@
 <form autoComplete="off" #add="ngForm" (ngSubmit)="save(add)">
     <p *ngIf="showMessage" class="error-show">{{message}}</p>
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-        <div class="main" fxFlex="75%">
+        <div class="main" fxFlex="100%">
             <p>
                 <md-input-container class="width-100">
                     <input mdInput placeholder="Enter Variable" autoComplete="off" name="variableCode" required ngModel>
@@ -28,7 +28,7 @@
                 </div>
         </div>
     </div>
-    <div class="fx-pos">
+    <div class="text-right">
     	<button md-raised-button (click)="close()">BACK</button>
     	<button md-raised-button type="submit" color="accent">SUBMIT</button>
     </div>
