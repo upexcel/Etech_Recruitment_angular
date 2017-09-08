@@ -16,6 +16,11 @@ export class DashboardService {
                 value.dates[datesKey] = moment(dates).format('Do MMM');
             });
         });
+        _.forEach(res.read_email_data, (value, key) => {
+            _.forEach(value.dates, (dates, datesKey) => {
+                value.dates[datesKey] = moment(dates).format('Do MMM');
+            });
+        });
         return res;
     }
 }
