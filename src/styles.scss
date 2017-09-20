@@ -189,10 +189,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     cursor: pointer;
   }
 }
-app-dashboard {
+app-dashboard, app-login {
   background-color: #1e3750;
   width: 100%;
   // position: absolute;
+  display: block;
   height: 100%;
 }
 app-core {
@@ -207,6 +208,6 @@ app-core {
 .no-pad {
   padding: 0px !important;
 }
-[_nghost-c7] {
+[_nghost-c7], [_nghost-c0] {
   display: block!important;
 }

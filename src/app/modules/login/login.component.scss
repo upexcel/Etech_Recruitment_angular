@@ -3,6 +3,11 @@
     padding: 10px;
     max-width: 316px;
     margin: 0 auto;
+    md-card-title {
+        h4 {
+            font-weight: bold;
+        }
+    }
 }
 .width-100 {
     width: 100%;
@@ -11,17 +16,27 @@ md-card-actions {
     margin-left: 0px;
     margin-right: 0px;
 }
-.outerbody {
-    background-color: $outercolor;
-    width: 100%;
-    position: absolute;
-    height: 100%;
-    padding-top: 10%;
-}
-.logo { 
-    img {
-        margin: 0 auto;
+.outerbody {   
+    .logo {
+        img {
+            padding-top: 8%;
+            padding-bottom: 2%;
+            margin: 0 auto;
+        }
     }
+}
+@media all and (min-width: 320px) and (max-width: 480px) and (orientation: portrait) {
+    .outerbody {   
+        .logo {
+            img {
+                padding-top: 10%;
+                margin: 0 auto;
+            }
+        }
+    }
+}
+@media all and (min-width: 320px) and (max-width: 320px) and (orientation: landscape) {
+    
 }
 .forpas {
     margin-left: 28%;
