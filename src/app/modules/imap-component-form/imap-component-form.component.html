@@ -1,38 +1,34 @@
-    <div class="mainform">
-        <md-card>
-            <form autoComplete="off" #imapForm="ngForm" (ngSubmit)="addImap(imapForm)">
-                <md-card-subtitle class="cardsub">
-                    Incoming Resume Gmail Login
-                </md-card-subtitle>
-                <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
-                <md-card-content>
-                    <table class="width-90">
-                        <tr>
-                            <td>
-                                <md-input-container class="width-90">
-                                    <input mdInput name="email" placeholder="Email" ngModel autoComplete="off" [formControl]="emailFormControl">
-                                    <md-error *ngIf="emailFormControl.hasError('required')">
-                                              This field is required
-                                    </md-error>
-                                    <md-error *ngIf="emailFormControl.hasError('pattern')">
-                                             Please enter a valid email address
-                                    </md-error>
-                                </md-input-container>
-                            </td>
-                            <td>
-                                <md-input-container class="width-90">
-                                    <input mdInput name="password" type="password" placeholder="Password" required ngModel autoComplete="off">
-                                    <md-error>Password Required</md-error>
-                                </md-input-container>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button type="submit" md-raised-button color=primary [disabled]="imapForm.invalid || emailFormControl.invalid"> Save </button>
-                            </td>
-                        </tr>
-                    </table>
-                </md-card-content>
-            </form>
-        </md-card>
-    </div>
+<div class="mainform">
+    <md-card>
+        <form autoComplete="off" #imapForm="ngForm" (ngSubmit)="addImap(imapForm)">
+            <md-card-subtitle class="cardsub">
+                Incoming Resume Gmail Login
+            </md-card-subtitle>
+            <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
+            <md-card-content>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <md-input-container class="width-90">
+                            <input mdInput name="email" placeholder="Email" ngModel autoComplete="off" [formControl]="emailFormControl">
+                            <md-error *ngIf="emailFormControl.hasError('required')">
+                                This field is required
+                            </md-error>
+                            <md-error *ngIf="emailFormControl.hasError('pattern')">
+                                Please enter a valid email address
+                            </md-error>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <md-input-container class="width-90">
+                            <input mdInput name="password" type="password" placeholder="Password" required ngModel autoComplete="off">
+                            <md-error>Password Required</md-error>
+                        </md-input-container>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" md-raised-button color=primary [disabled]="imapForm.invalid || emailFormControl.invalid"> Save </button>
+                    </div>
+                </div>
+            </md-card-content>
+        </form>
+    </md-card>
+</div>
