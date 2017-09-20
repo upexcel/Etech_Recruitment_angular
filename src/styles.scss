@@ -211,3 +211,9 @@ app-core {
 [_nghost-c7], [_nghost-c0] {
   display: block!important;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .cdk-overlay-pane {
+    width: 80vw!important;
+  }
+}

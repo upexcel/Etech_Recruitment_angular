@@ -11,7 +11,7 @@
                     <div class="m-b" *ngIf="showInboxEmailList && emaillist">
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-10 no-pad-left">
+                                <div class="col-md-10 no-pad">
                                     <md-card class="card-pos">
                                         <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
                                             <md-select name="option" placeholder="Search In" required ngModel>
@@ -27,7 +27,7 @@
                                         </form>
                                     </md-card>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 pagination">
                                     <a md-raised-button class="b-r pos">
                                                     {{data.page}} / {{emaillist.count? Math.ceil(emaillist.count/data.limit): '1'}}
                                                     </a>

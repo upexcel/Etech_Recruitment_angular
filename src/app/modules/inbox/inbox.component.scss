@@ -51,32 +51,55 @@
 }
 .card-pos {
   position: relative;
-  padding: 10px 0px 0px 12px;
-  //left: -5.4%;
+  padding: 10px;
   width: 100%;
 }
 .wid-300 {
   width: 360px;
 }
+.pagination{
+  min-height: 42px;
+}
 @media screen and (min-width: 320px) {
   .wid-300 {
-    width: auto;
+    width: 100%;
+  }
+  .pagination{
+    min-height: auto;
+    margin: 5px 0;
+  }
+  .mar-pos {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 @media screen and (min-width: 480px) {
   .wid-300 {
-    width: auto;
+    width: 100%;
+  }
+  .pagination{
+    min-height: auto;
+    margin: 5px 0;
+  }
+  .mar-pos {
+    margin-left: 0px;
+    margin-right: 0px;
   }
 }
 @media screen and (min-width: 768px) {
   .wid-300 {
     width: 360px;
   }
+  .pagination{
+    min-height: 42px;
+    margin: 20px 0;
+  }
+  .mar-pos {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
-.mar-pos {
-  margin-left: 10px;
-  margin-right: 10px;
-}
+
 .pos {
     width: auto;
     overflow: hidden;
@@ -101,5 +124,6 @@
     font-size: 13px;
     font-weight: bold;
     text-decoration: underline;
+    color: #fff;
   }
 }
