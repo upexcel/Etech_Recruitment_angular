@@ -1,9 +1,8 @@
 @import './../../variable.scss';
 .login-card {
-    width: 315px;
-    position: absolute;
-    left: 36%;
-    top: 25%;
+    padding: 10px;
+    max-width: 316px;
+    margin: 0 auto;
 }
 .width-100 {
     width: 100%;
@@ -17,11 +16,12 @@ md-card-actions {
     width: 100%;
     position: absolute;
     height: 100%;
+    padding-top: 10%;
 }
-.logo {
-    position: inherit;
-    left: 41%;
-    top: 10%;
+.logo { 
+    img {
+        margin: 0 auto;
+    }
 }
 .forpas {
     margin-left: 28%;

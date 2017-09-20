@@ -12,6 +12,7 @@ export class InboxSideNavComponent implements OnInit {
     selectedId: string;
     parantTagId: string;
     @Input() tags: any[];
+    menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
     constructor(public getTag: ImapMailsService) { }
     ngOnInit() {

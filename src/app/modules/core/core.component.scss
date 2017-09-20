@@ -1,10 +1,16 @@
 @import './../../variable.scss';
-:host {
-    display: flex;
-    flex: 1;
-}
 md-sidenav {
     width: 280px;
+}
+@media screen and (min-width: 320px) {
+    md-sidenav {
+        width: 240px;
+    }
+}
+@media screen and (min-width: 480px) {
+    md-sidenav {
+        width: 280px;
+    }
 }
 md-toolbar {
     box-shadow: 0 2px 5px 0 $toolbarcolor;
@@ -14,6 +20,7 @@ md-toolbar {
 }
 .mainnav {
     margin-left: 15px;
+    margin-bottom: 0px;
 }
 .hovestyle {
     padding: 10px 0px;
@@ -46,11 +53,14 @@ md-sidenav-container {
 }
 .bgcolor {
     background-color: $contentcolor;
+    width: 100%;
 }
 .cursor-pt {
     cursor: pointer;
+    position: absolute;
+    right: 10px;
 }
-/deep/ .mat-list-item-content {
+.mat-list-item-content {
     height: auto !important;
 }
 .commonSpinner {
@@ -58,5 +68,7 @@ md-sidenav-container {
     height: 50px;
     path {
         stroke: #fff;
-    }   
+    }
+    position: absolute;
+    right: 40px;
 }

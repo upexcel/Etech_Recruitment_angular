@@ -195,3 +195,18 @@ app-dashboard {
   // position: absolute;
   height: 100%;
 }
+app-core {
+  width: 100%;
+}
+.no-pad-left {
+  padding-left: 0px !important;
+}
+.no-pad-right {
+  padding-right: 0px !important;
+}
+.no-pad {
+  padding: 0px !important;
+}
+[_nghost-c7] {
+  display: block!important;
+}
