@@ -1,6 +1,9 @@
-<div>
-    <a md-raised-button color=accent class="btn-pos" (click)="addTemp()">ADD NEW TEMPLATE</a>
-</div>
-<div class="cd-pos">
-<app-single-template *ngFor="let temps of tempData" [temp]="temps" (testTemp)="testTemplate($event)" (deleteTemp)="deleteTempId($event)" (edits)="editTemp($event)"></app-single-template>
+
+<div class="row">
+    <div class="col-md-12 text-right">
+            <button md-raised-button color=accent  (click)="addTemp()">ADD NEW TEMPLATE</button>
+    </div>
+    <div class="col-md-6" *ngFor="let temps of tempData">
+        <app-single-template [temp]="temps" (testTemp)="testTemplate($event)" (deleteTemp)="deleteTempId($event)" (edits)="editTemp($event)"></app-single-template>
+    </div>
 </div>
