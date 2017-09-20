@@ -21,6 +21,7 @@ md-toolbar {
 .mainnav {
     margin-left: 15px;
     margin-bottom: 0px;
+    font-size: 16px;
 }
 .hovestyle {
     padding: 10px 0px;
@@ -28,6 +29,7 @@ md-toolbar {
     cursor: pointer;
 }
 md-sidenav-container {
+    height: 100%;
     md-sidenav {
         hr {
             margin: -1px 0px 0px;
@@ -52,8 +54,9 @@ md-sidenav-container {
     }
 }
 .bgcolor {
-    background-color: $contentcolor;
+    background-color: #2e3e4e;
     width: 100%;
+    height: 100%;
 }
 .cursor-pt {
     cursor: pointer;

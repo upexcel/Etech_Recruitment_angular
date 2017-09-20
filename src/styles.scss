@@ -189,8 +189,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     cursor: pointer;
   }
 }
+app-root {
+  background-color: #2e3e4e;
+}
 app-dashboard, app-login {
-  background-color: #1e3750;
+  background-color: #2e3e4e;
   width: 100%;
   // position: absolute;
   display: block;
@@ -216,4 +219,7 @@ app-core {
   .cdk-overlay-pane {
     width: 80vw!important;
   }
+}
+.mat-list-item-content {
+  height: auto !important;
 }

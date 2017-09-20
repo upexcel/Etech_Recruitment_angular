@@ -1,55 +1,52 @@
-<md-sidenav-container>
-    <md-sidenav mode="side" opened>
-        <md-list>
-            <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('imap','IMAP Server Setting')">
-                <a md-line> IMAP Server Setting </a>
-            </md-list-item>
-            <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('smtp','SMTP Server Setting')">
-                <a md-line> SMTP Server Setting </a>
-            </md-list-item>
-
-            <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="listopen=!listopen">
-                <a md-line>  Template Setting </a>
-                <md-icon>{{listopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
-            </md-list-item>
-            <md-list *ngIf="listopen">
-                <md-list-item class="subnavlist" (click)="goto('emailtemplate','Email Templates')">
-                    <a>Email Templates</a>
+<div class="container-fluid">
+    <div class="row">
+        <button md-icon-button class="setting-menu" (click)="menuShow = !menuShow"> <md-icon>menu</md-icon> </button>
+        <div class="col-md-2 col-sm-2 sidenav no-pad" [ngClass]="{'showMenu': menuShow}">
+            <md-list>
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('imap','IMAP Server Setting')">
+                    <a md-line> IMAP Server Setting </a>
                 </md-list-item>
-                <md-list-item class="subnavlist" (click)="goto('emailvariable','Email Variables')">
-                    <a>Email Variables</a>
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('smtp','SMTP Server Setting')">
+                    <a md-line> SMTP Server Setting </a>
+                </md-list-item>
+
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="listopen=!listopen">
+                    <a md-line>  Template Setting </a>
+                    <md-icon>{{listopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
+                </md-list-item>
+                <md-list *ngIf="listopen">
+                    <md-list-item class="subnavlist" (click)="goto('emailtemplate','Email Templates')">
+                        <a>Email Templates</a>
+                    </md-list-item>
+                    <md-list-item class="subnavlist" (click)="goto('emailvariable','Email Variables')">
+                        <a>Email Variables</a>
+                    </md-list-item>
+                </md-list>
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('tagsetting','Tag Setting')">
+                    <a md-line> Tag Setting </a>
+                </md-list-item>
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('automaticTags','Automatic Tags')">
+                    <a md-line> Automatic Tags </a>
+                </md-list-item>
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
+                    <a md-line> Job Profile </a>
+                </md-list-item>
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('usersList','Users List')">
+                    <a md-line> Users List </a>
+                </md-list-item>
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('useractivity','Users Log')">
+                    <a md-line> Users Log </a>
+                </md-list-item>
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('emailLogs','Email Logs')">
+                    <a md-line> Email Logs </a>
+                </md-list-item>
+                <md-list-item class="navlist" (click)="goto('resetPassword','Reset Password')">
+                    <a md-line> Reset Password </a>
                 </md-list-item>
             </md-list>
-            <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('tagsetting','Tag Setting')">
-                <a md-line> Tag Setting </a>
-            </md-list-item>
-            <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('automaticTags','Automatic Tags')">
-                <a md-line> Automatic Tags </a>
-            </md-list-item>
-            <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
-                <a md-line> Job Profile </a>
-            </md-list-item>
-            <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('usersList','Users List')">
-                <a md-line> Users List </a>
-            </md-list-item>
-            <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('useractivity','Users Log')">
-                <a md-line> Users Log </a>
-            </md-list-item>
-            <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('emailLogs','Email Logs')">
-                <a md-line> Email Logs </a>
-            </md-list-item>
-            <md-list-item class="navlist" (click)="goto('resetPassword','Reset Password')">
-                <a md-line> Reset Password </a>
-            </md-list-item>
-            <!-- <md-list-item class="navlist" (click)="goto('action','Actions')">
-                <a md-line> Actions </a>
-            </md-list-item>
-            <md-list-item class="navlist" (click)="goto('manageuser','Manage Users')">
-                <a md-line> Manage Users </a>
-            </md-list-item> -->
-        </md-list>
-    </md-sidenav>
-    <div class="content">
-        <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-10 col-sm-10 content">
+            <router-outlet></router-outlet>
+        </div>
     </div>
-</md-sidenav-container>
+</div>
