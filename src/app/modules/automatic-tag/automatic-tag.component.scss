@@ -77,9 +77,9 @@
 	opacity: 1;
 }
 .pos-add {
-    position: absolute;
-    left: 90%;
-    top: 85%;
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
 }
 .center {
     position: absolute;
