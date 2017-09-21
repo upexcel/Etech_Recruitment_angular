@@ -41,6 +41,11 @@
             <small><md-icon>system_update_alt</md-icon></small>
             </i>
             </a>
+            <a mdTooltip="Fetch Emails By Days" class="cursor-pt" *ngIf="title == 'Settings'" (click)="fetchEmailByDay()">
+            <i>
+            <small><md-icon>system_update_alt</md-icon></small>
+            </i>
+            </a>
             <md-spinner class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
             <span fxFlex></span>
         </md-toolbar>

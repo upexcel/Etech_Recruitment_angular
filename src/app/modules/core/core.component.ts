@@ -4,6 +4,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { config } from './../../config/config';
+import { DialogService } from './../../service/dialog.service';
 @Component({
     selector: 'app-core',
     templateUrl: './core.component.html',
@@ -14,7 +15,7 @@ export class CoreComponent implements OnInit {
     progressSpinnner = false;
     role: string;
     @Output() routerInboxPage: EventEmitter<any> = new EventEmitter(true);
-    constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService, private _localStorageService: LocalStorageService) {
+    constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService, private _localStorageService: LocalStorageService, private _dialogService: DialogService) {
         this._router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {
                 if (event['url'] === '/core/inbox') {
@@ -52,6 +53,10 @@ export class CoreComponent implements OnInit {
     goto(path: string, navtitle: string) {
         this.title = navtitle;
         this._router.navigate(['/core/' + path]);
+    }
+
+    fetchEmailByDay() {
+        this._dialogService.fetchEmailByDay();
     }
 
     logout() {

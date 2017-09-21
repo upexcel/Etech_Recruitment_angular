@@ -4,6 +4,7 @@ import { ScheduleInterviewComponent } from './../modules/schedule-interview/sche
 import { AddNewUserComponent } from './../modules/add-new-user/add-new-user.component';
 import { ConfirmationDialogComponent } from './../modules/confirmation-dialog/confirmation-dialog.component';
 import { SetvaremailpreviewComponent } from './../modules/setvaremailpreview/setvaremailpreview.component';
+import { FetchEmailByDayComponent } from './../modules/fetch-email-by-day/fetch-email-by-day.component';
 
 @Injectable()
 export class DialogService {
@@ -41,6 +42,15 @@ export class DialogService {
                 } else {
                     resolve();
                 }
+            });
+        });
+    }
+    fetchEmailByDay() {
+        return new Promise((resolve, reject) => {
+            this.dialogRef = this.dialog.open(FetchEmailByDayComponent);
+            this.dialogRef.afterClosed().subscribe(result => {
+                this.dialogRef = null;
+                resolve();
             });
         });
     }
