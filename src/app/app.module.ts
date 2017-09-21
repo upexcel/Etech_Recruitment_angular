@@ -143,6 +143,7 @@ import { ResetPasswordComponent } from './modules/reset-password/reset-password.
 import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
+import { FetchEmailByDayComponent } from './modules/fetch-email-by-day/fetch-email-by-day.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confirmation-dialog.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
@@ -194,6 +195,7 @@ import { DashboardService } from './service/dashboard.service';
         ForgetPasswordComponent,
         ResetPasswordComponent,
         AddNewUserComponent,
+        FetchEmailByDayComponent,
         UsersListComponent,
         ScheduleInterviewComponent,
         ConfirmationDialogComponent,
@@ -249,6 +251,7 @@ import { DashboardService } from './service/dashboard.service';
         OpenattachementComponent,
         ScheduleInterviewComponent,
         AddNewUserComponent,
+        FetchEmailByDayComponent,
         ConfirmationDialogComponent
     ],
     bootstrap: [AppComponent]
