@@ -150,6 +150,9 @@
 }
 @media screen and (min-width: 768px) {
     .default-tag-buttons{
+        .col-md-2{
+            width: auto;
+        }
         .cyan{
             line-height:20px!important;
             margin: 0px 4px 0px 4px;
