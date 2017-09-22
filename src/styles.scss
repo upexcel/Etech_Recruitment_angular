@@ -189,13 +189,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     cursor: pointer;
   }
 }
-app-root {
-  background-color: #2e3e4e;
-}
-app-dashboard, app-login {
-  background-color: #2e3e4e;
+app-dashboard, app-root, app-login, .mat-sidenav-container {
+  background-color: #2e3e4e!important;
   width: 100%;
-  // position: absolute;
   display: block;
   height: 100%;
 }
