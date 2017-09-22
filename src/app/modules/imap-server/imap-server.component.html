@@ -15,6 +15,7 @@
                         <th>Active</th>
                         <th>Remove</th>
                         <th>Statistics</th>
+                        <th>Days Left To Fetch</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,7 +25,7 @@
                         <td>{{setting.server_port}}</td>
                         <td>{{setting.type}}</td>
                         <td>
-                            <md-icon class="{{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</md-icon>
+                            <md-icon class="material-icons {{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</md-icon>
                         </td>
                         <td>
                             <button md-button class="chartcolor" [disabled]="setting.active" (click)="remove(setting.id)">REMOVE</button>
@@ -34,9 +35,11 @@
                             {{setting.fetched_email_count}}/{{setting.total_emails}} <br/>
                             <span class="fetch-till">Fetch Till : {{setting.fetched_mail_till}}</span>
                         </td>
+                        <td>{{setting.days_left_to_fetched}}</td>
                     </tr>
                 </tbody>
             </table>
         </md-card-content>
     </md-card>
 </div>
+>>>>>>> a2c9946eadd6b727493a8213922cf937cfc0e119
