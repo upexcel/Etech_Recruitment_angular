@@ -32,6 +32,11 @@
         <button md-icon-button mdTooltip="Fetch Latest Emails" class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
         <md-icon>system_update_alt</md-icon>
       </button>
+        <button md-icon-button mdTooltip="Fetch Emails By Days" class="cursor-pt" *ngIf="title == 'Settings'" (click)="fetchEmailByDay()">
+        <i>
+        <small><md-icon>system_update_alt</md-icon></small>
+        </i>
+      </button>
         <md-spinner class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
       </md-toolbar>
       <router-outlet></router-outlet>
