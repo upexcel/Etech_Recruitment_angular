@@ -152,6 +152,7 @@ import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
 import { DialogService } from './service/dialog.service';
 import { DashboardService } from './service/dashboard.service';
+import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
 
 @NgModule({
     declarations: [
@@ -199,7 +200,8 @@ import { DashboardService } from './service/dashboard.service';
         UsersListComponent,
         ScheduleInterviewComponent,
         ConfirmationDialogComponent,
-        DashboardComponent
+        DashboardComponent,
+        AvatarDirectiveDirective
     ],
     imports: [
         BrowserModule,

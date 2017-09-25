@@ -1,6 +1,7 @@
 <md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
     <md-grid-list cols="8" rowHeight="34px">
         <md-grid-tile [colspan]="'8'">
+            <div appAvatarDirective [email]="email.sender_mail"></div>
             <div class="emailcheckbox" *ngIf="role !== 'Guest'" >
                 <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
             </div>
