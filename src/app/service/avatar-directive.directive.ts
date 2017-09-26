@@ -11,11 +11,16 @@ export class AvatarDirectiveDirective implements OnInit {
     }
 
     ngOnInit() {
-        this._http.get(`http://picasaweb.google.com/data/entry/api/user/${this.email}?alt=json`).subscribe((res) => {
-            const jsonResponse = res.json();
-            this.elementRef.nativeElement.innerHTML = `<img src="${jsonResponse['entry']['gphoto$thumbnail']['$t']}" />`
-        }, (err) => {
+        console.log(this.email, this.email.length)
+        if (this.email && this.email.length) {
+            this._http.get(`http://picasaweb.google.com/data/entry/api/user/${this.email}?alt=json`).subscribe((res) => {
+                const jsonResponse = res.json();
+                this.elementRef.nativeElement.innerHTML = `<img src="${jsonResponse['entry']['gphoto$thumbnail']['$t']}" />`;
+            }, (err) => {
+                this.elementRef.nativeElement.innerHTML = `<img src="assets/user.jpg" />`;
+            });
+        } else {
             this.elementRef.nativeElement.innerHTML = `<img src="assets/user.jpg" />`
-        })
+        }
     }
 }
