@@ -138,9 +138,17 @@ html, body {
 app-setting .mat-sidenav-content {
     width: 100%;
 }
-.emailcheckbox .mat-checkbox-inner-container {
-  width: 15px;
-  height: 15px;
+.emailcheckbox {
+  .mat-checkbox-inner-container{
+    width: 42px;
+    height: 42px;
+  }
+  .mat-checkbox-frame {
+    border: 0px;
+  }
+  .mat-checkbox-background{
+    border-radius: 50%;
+  }
 }
 .toggle-green {
   .mat-slide-toggle-bar {
