@@ -1,10 +1,10 @@
 <md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
-    <div class="avatar-image" appAvatarDirective [email]="email.sender_mail"></div>
+    <div class="avatar-image" appAvatarDirective [email]="email.sender_mail" (click)="email.selected = !email.selected; emailSelection()"></div>
+    <div class="emailcheckbox" *ngIf="role !== 'Guest'" [style.visibility]="email.selected ? 'visible' : 'hidden'">
+        <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
+    </div>
     <md-grid-list cols="8" rowHeight="34px">
         <md-grid-tile [colspan]="'8'">
-            <div class="emailcheckbox" *ngIf="role !== 'Guest'" >
-                <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
-            </div>
             <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
                 <h5>{{countEmailSubject(email.subject)}}</h5>
                 <h6 class="inline">
