@@ -1,5 +1,6 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 declare let $: any;
+declare let Injector: any;
 @Directive({
     selector: '[appAvatarDirective]'
 })
@@ -18,10 +19,19 @@ export class AvatarDirectiveDirective implements OnInit {
         // script.type = 'text/javascript';
         // script.src = `https://www.avatarapi.com/js.aspx?email=${this.email}&size=128`;
         // this.elementRef.nativeElement.appendChild(script);
+
         // console.log('input-box keys  : ', this.email);
-        const s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.src = `https://www.avatarapi.com/js.aspx?email=${this.email}&size=128`;
-        $(this.elementRef.nativeElement).append(s);
+        // const s = document.createElement('script');
+        // s.type = 'text/javascript';
+        // s.src = `https://www.avatarapi.com/js.aspx?email=${this.email}&size=128`;
+        // $(this.elementRef.nativeElement).append(s);
+
+        // console.log('input-box keys  : ', this.email);
+        // const s = document.createElement('script');
+        // s.type = 'text/javascript';
+        // s.src = `https://www.avatarapi.com/js.aspx?email=${this.email}&size=128`;
+        // console.log(Injector)
+        // const injector = new Injector({s: s});
+        // injector.eval($(this.elementRef.nativeElement).append(s));
     }
 }
