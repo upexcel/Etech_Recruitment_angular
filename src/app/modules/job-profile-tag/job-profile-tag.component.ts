@@ -56,10 +56,7 @@ export class JobProfileTagComponent implements OnInit {
     }
 
     openAutomatic(tag1: any) {
-        this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {
-            height: '600px',
-            width: '800px'
-        });
+        this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {});
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
@@ -74,17 +71,11 @@ export class JobProfileTagComponent implements OnInit {
     }
 
     addTag() {
-        this.dialogRef = this.dialog.open(AddTagModalComponent, {
-            height: '600px',
-            width: '800px'
-        });
+        this.dialogRef = this.dialog.open(AddTagModalComponent, {});
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.componentInstance.addTagType = 'jobProfile';
         this.dialogRef.afterClosed().subscribe(result => {
             if (result === 'Added') {
-                // this.snackBar.open('Tag Added Successfully', '', {
-                //     duration: 2000,
-                // });
                 this.dialogRef = null;
                 this.getAllTag();
             }
