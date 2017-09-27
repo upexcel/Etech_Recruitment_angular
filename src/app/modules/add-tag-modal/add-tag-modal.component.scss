@@ -18,12 +18,16 @@
 	display: inline-block;
 }
 .add-tag{
+	margin-top: 8px;
 	.col-md-6 {
 		min-height: 60px;
 	}
 }
 .heading {
 	margin: 0px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #ddd;
 }
 .tag-color-title {
 	margin-top: 1em;
