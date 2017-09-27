@@ -1,96 +1,85 @@
 <div>
   <h3 class="heading">Add Tag</h3>
 </div>
-<hr>
-<form #addForm="ngForm" (ngSubmit)="addTag(addForm)">
-  <div class="body">
-    <span class="text-err" *ngIf="showMessage">{{message}}</span>
-    <table>
-      <colgroup>
-        <col style="width: 50%">
-        <col style="width: 50%">
-      </colgroup>
-      <tbody>
-        <tr>
-          <td>
-            <md-input-container style="width: 100%">
-              <input mdInput name="title" placeholder="Title" ngModel required>
-              <md-error>Title Is Required</md-error>
-            </md-input-container>
-          </td>
-          <td>
-            <md-radio-group class="pos-radio" name="type" [(ngModel)]="type" ngModel required style="width: 100%">
-              <md-radio-button *ngIf="addTagType == 'manual'" name="type" value="Manual" (click)="types = 0">Manual Tag</md-radio-button>
-              <md-radio-button *ngIf="addTagType == 'automatic'" name="type" value="Automatic" (click)="types = 1">Automatic Tag</md-radio-button>
-              <md-radio-button *ngIf="addTagType == 'jobProfile'" name="type" value="Automatic" (click)="types = 1">Create Job Profile</md-radio-button>
-            </md-radio-group>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container style="width: 100%">
-              <input mdInput name="email" type="email" placeholder="Email" ngModel>
-              <md-error>Invalid Email</md-error>
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container style="width: 100%">
-              <input mdInput name="subject" placeholder="Subject" ngModel required>
-            </md-input-container>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-input-container class="width-100">
-              <input mdInput name="from" type="date" placeholder="From date" ngModel>
-            </md-input-container>
-          </td>
-          <td>
-            <md-input-container class="width-100">
-              <input mdInput name="to" type="date" placeholder="To date" ngModel>
-            </md-input-container>
-          </td>
-        </tr>
-        <tr *ngIf="addTagType == 'jobProfile'">
-          <td colspan="2">
-            <md-input-container class="width-100">
-              <textarea mdInput rows="4" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
-              <md-error>Job Description Is Required</md-error>
-            </md-input-container>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <md-select class="width-100" placeholder="Select Template" name="template_id" ngModel>
-              <md-option>
-                None
-              </md-option>
-              <md-option *ngFor="let temp of tempList" [value]="temp.id">
-                {{temp.templateName}}
-              </md-option>
-            </md-select>
-          </td>
-          <td>
-            <md-slide-toggle name="is_email_send" ngModel style="width: 100%">Send Automatic Template</md-slide-toggle>
-            <md-slide-toggle name="assign" ngModel style="width: 100%">Assign to all existing mails</md-slide-toggle>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <h4> Tag Color </h4>
-            <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
-            <div class="color-box">
-              <div class="selected-color" *ngFor="let color of availableColors" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-    <div class="footer">
-      <a md-raised-button (click)="close()">Close</a>
-      <button md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
-        <span>Save </span>
-        </button>
+<form #addForm="ngForm" (ngSubmit)="addTag(addForm)" class="add-tag">
+  <span class="text-err" *ngIf="showMessage">{{message}}</span>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="title" placeholder="Title" ngModel required>
+          <md-error>Title Is Required</md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-radio-group class="pos-radio width-100" name="type" [(ngModel)]="type" ngModel required>
+          <md-radio-button *ngIf="addTagType == 'manual'" name="type" value="Manual" (click)="types = 0">Manual Tag</md-radio-button>
+          <md-radio-button *ngIf="addTagType == 'automatic'" name="type" value="Automatic" (click)="types = 1">Automatic Tag</md-radio-button>
+          <md-radio-button *ngIf="addTagType == 'jobProfile'" name="type" value="Automatic" (click)="types = 1">Create Job Profile</md-radio-button>
+        </md-radio-group>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="email" type="email" placeholder="Email" ngModel>
+          <md-error>Invalid Email</md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="subject" placeholder="Subject" ngModel required>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="from" type="date" placeholder="From date" ngModel>
+        </md-input-container>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="to" type="date" placeholder="To date" ngModel>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" *ngIf="addTagType == 'jobProfile'">
+        <md-input-container class="width-100">
+          <textarea mdInput rows="4" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
+          <md-error>Job Description Is Required</md-error>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-select class="width-100" placeholder="Select Template" name="template_id" ngModel>
+          <md-option>
+            None
+          </md-option>
+          <md-option *ngFor="let temp of tempList" [value]="temp.id">
+            {{temp.templateName}}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-slide-toggle name="is_email_send" ngModel class="width-100">Send Automatic Template</md-slide-toggle>
+        <md-slide-toggle name="assign" ngModel class="width-100">Assign to all existing mails</md-slide-toggle>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <h4> Tag Color </h4>
+        <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
+        <div class="color-box">
+          <div class="selected-color" *ngFor="let color of availableColors" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 text-right">
+        <button md-raised-button (click)="close()">Close</button>
+        <button md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)"><span>Save </span></button>
+      </div>
+    </div>
+  </div>
 </form>
