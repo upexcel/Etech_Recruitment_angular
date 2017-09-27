@@ -28,19 +28,18 @@
             <md-card class="side-nav">
                 <button md-button class="h-d">System Variables</button>
                 <md-card-content class="d-c">
-                    <a md-button class="con-btn" *ngFor="let svar of sysVar">{{svar.variableCode}}</a>
+                    <button md-button class="con-btn" *ngFor="let svar of sysVar">{{svar.variableCode}}</button>
                 </md-card-content>
             </md-card>
             <br/>
             <md-card class="side-nav">
                 <button md-button class="h-d">User Variables</button>
                 <md-card-content class="d-c"> 
-                    <a md-button class="con-btn" *ngFor="let uvar of userVar">{{uvar.variableCode}}</a>
+                    <button md-button class="con-btn" *ngFor="let uvar of userVar">{{uvar.variableCode}}</button>
                 </md-card-content>
             </md-card>
         </div>
     </div>
-    <hr>
     <div class="fx-pos">
     	<button md-raised-button (click)="close()">Back</button>
     	<button md-raised-button type="submit" color="accent">Save</button>
