@@ -257,8 +257,9 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
     sendEmailToPendingCandidates() {
         this.getemails.sendEmailToPendingCandidates({'tag_id': this.selectedTag}).subscribe((data) => {
-            this.sendSuccessEmailListCount = data['data'][0]['email_send_success_list'].length;
-            this.sendFailedEmailListCount = data['data'][0]['email_send_fail_list'].length;
+            this.notify(data.message, '');
+            // this.sendSuccessEmailListCount = data['data'][0]['email_send_success_list'].length;
+            // this.sendFailedEmailListCount = data['data'][0]['email_send_fail_list'].length;
         }, (err) => {
             this.notify(err.message, '');
         });

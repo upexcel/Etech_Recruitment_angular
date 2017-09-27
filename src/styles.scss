@@ -138,9 +138,17 @@ html, body {
 app-setting .mat-sidenav-content {
     width: 100%;
 }
-.emailcheckbox .mat-checkbox-inner-container {
-  width: 15px;
-  height: 15px;
+.emailcheckbox {
+  .mat-checkbox-inner-container{
+    width: 42px;
+    height: 42px;
+  }
+  .mat-checkbox-frame {
+    border: 0px;
+  }
+  .mat-checkbox-background{
+    border-radius: 50%;
+  }
 }
 .toggle-green {
   .mat-slide-toggle-bar {
@@ -219,4 +227,16 @@ app-core {
 }
 .mat-list-item-content {
   height: auto !important;
+}
+.avatar-image {
+  position: absolute;
+  left: 0;
+  top: 9px;
+  min-height: 40px;
+  min-width: 40px;
+  img {
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+  }
 }

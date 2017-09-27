@@ -1,5 +1,6 @@
-<md-card class="emailstyle container-fluid" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
-    <div class="emailcheckbox" *ngIf="role !== 'Guest'">
+<md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
+    <div class="avatar-image" appAvatarDirective [email]="email.sender_mail" (click)="email.selected = !email.selected; emailSelection()"></div>
+    <div class="emailcheckbox" *ngIf="role !== 'Guest'" [style.visibility]="email.selected ? 'visible' : 'hidden'">
         <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
     </div>
     <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
@@ -13,8 +14,9 @@
         <div class="default-tag-buttons row" *ngIf="tagselected">
             <span *ngFor="let tag of allTags.Default">
                     <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All'" (click)="assignTag(tag.id, email._id, tag.title, email)">
-                        <button md-raised-button class="cyan" [ngStyle]="getColor(tag.title)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}</button>
-                    </div>
+                        <button md-raised-button class="cyan" [ngStyle]="getColor(tag.title)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+                    </button>
+                </div>
                 </span>
         </div>
         <div class="default-tag-buttons row" *ngIf="!tagselected">
