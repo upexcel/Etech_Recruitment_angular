@@ -5,5 +5,5 @@
 
 export const environment = {
     production: false,
-    'apibase': 'http://5.9.144.226:8091/'
+    'apibase': 'http://127.0.0.1:8091/'
 };
