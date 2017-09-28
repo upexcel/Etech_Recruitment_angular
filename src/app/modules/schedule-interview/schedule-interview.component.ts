@@ -112,4 +112,16 @@ export class ScheduleInterviewComponent implements OnInit {
         });
     }
 
+    interviewRoundsTrack(index, data) {
+        return data['id'] || index;
+    }
+
+    timeListDataTrack(index, data) {
+        return data['id'] || index;
+    }
+
+    templateDataTrack(index, data) {
+        return data['id'] || index;
+    }
+
 }

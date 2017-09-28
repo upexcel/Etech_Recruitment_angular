@@ -60,6 +60,14 @@ export class AddTagModalComponent implements OnInit {
         }
     }
 
+    tempListTrack(index, data) {
+        return data.id || index;
+    }
+
+    availableColorsTrackBY(index, data) {
+        return data.id || index;
+    }
+
     close() {
         this.dialogRef.close();
     }

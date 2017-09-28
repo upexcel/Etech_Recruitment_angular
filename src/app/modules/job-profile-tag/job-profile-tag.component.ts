@@ -111,4 +111,8 @@ export class JobProfileTagComponent implements OnInit {
         }
         this.loading = false;
     }
+
+    tagsAutomaticTrack(index, data) {
+        return data['id'] || index;
+    }
 }

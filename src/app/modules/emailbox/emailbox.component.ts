@@ -89,4 +89,12 @@ export class EmailboxComponent implements OnInit {
     countEmailSubject(emailSubject) {
         return (emailSubject.length > 88) ? emailSubject.substring(0, 88) + '...' : emailSubject;
     }
+
+    allTagsDefaultTrack(index, data) {
+        return data['id'] || index;
+    }
+
+    inboxMailsTagsForEmailListAndModelDataTrack(index, data) {
+        return index;
+    }
 }

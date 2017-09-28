@@ -48,4 +48,12 @@ export class InboxSideNavComponent implements OnInit {
             }
         }
     }
+
+    tagDataTrack(index, data) {
+        return data['id'] || index;
+    }
+
+    subTagSubchildTrack(index, data) {
+        return data['id'] || index;
+    }
 }

@@ -376,7 +376,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     trackByEmails(index, email) {
-        return email ? email._id : undefined;
+        return index;
     }
 
     ngOnDestroy() {

@@ -28,14 +28,14 @@
             <md-card class="side-nav">
                 <button md-button class="h-d">System Variables</button>
                 <md-card-content class="d-c">
-                    <button md-button class="con-btn" *ngFor="let svar of sysVar">{{svar.variableCode}}</button>
+                    <button md-button class="con-btn" *ngFor="let svar of sysVar; trackBy: sysVarTrack">{{svar.variableCode}}</button>
                 </md-card-content>
             </md-card>
             <br/>
             <md-card class="side-nav">
                 <button md-button class="h-d">User Variables</button>
                 <md-card-content class="d-c"> 
-                    <button md-button class="con-btn" *ngFor="let uvar of userVar">{{uvar.variableCode}}</button>
+                    <button md-button class="con-btn" *ngFor="let uvar of userVar; trackBy: userVarTrack">{{uvar.variableCode}}</button>
                 </md-card-content>
             </md-card>
         </div>

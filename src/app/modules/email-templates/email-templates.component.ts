@@ -101,4 +101,8 @@ export class EmailTemplatesComponent implements OnInit {
             });
         });
     }
+
+    tempDataTrack(index, data) {
+        return data['id'] || index;
+    }
 }

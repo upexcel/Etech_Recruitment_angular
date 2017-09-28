@@ -83,4 +83,12 @@ export class UserActivityLogComponent implements OnInit {
         this.selectUserLog = { 'email': logData['email'] };
     }
 
+    usersLogTrack(index, data) {
+        return data['id'] || index;
+    }
+
+    selectUserLogActionTrack(index, data) {
+        return index;
+    }
+
 }

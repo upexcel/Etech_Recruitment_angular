@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of userList; index as i;">
+                <tr *ngFor="let user of userList; index as i; trackBy: userListTrack">
                     <td>{{i+1}}</td>
                     <td class="text-left">{{user.email}}</td>
                     <td>{{user.user_type}}</td>

@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let email of emailLogs" (click)="previewEmail(email)">
+        <tr *ngFor="let email of emailLogs; trackBy: emailLogsTrack" (click)="previewEmail(email)">
           <td>{{email.email}}</td>
           <td>{{email.from}}</td>
           <td>{{email.subject}}</td>

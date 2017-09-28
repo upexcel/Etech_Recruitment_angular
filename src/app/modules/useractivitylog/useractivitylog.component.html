@@ -11,7 +11,7 @@
   </button>
 
       <md-menu #menu="mdMenu">
-        <button md-menu-item *ngFor="let email of usersLog" (click)="selectedUser(email)">
+        <button md-menu-item *ngFor="let email of usersLog; trackBy: usersLogTrack;" (click)="selectedUser(email)">
     <span>{{email.email}}</span>
   </button>
       </md-menu>
@@ -37,7 +37,7 @@
               <th>Response</th>
               <th>Date</th>
             </tr>
-            <tr *ngFor="let action of selectUserLog.action; let i = index">
+            <tr *ngFor="let action of selectUserLog.action; let i = index; trackBy: selectUserLogActionTrack;">
               <td>{{action}}</td>
               <td>{{selectUserLog.json[i]}}</td>
               <td>{{selectUserLog.time[i] | date:'medium'}}</td>

@@ -10,7 +10,7 @@
             <div class="col-md-6 col-sm-12">
                 <md-select placeholder="Interview Round" class="width-100" [formControl]="interviewForm.controls['selectedInterviewRound']"
                     (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
-                    <md-option *ngFor="let interview of interviewRounds" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
+                    <md-option *ngFor="let interview of interviewRounds; trackBy: interviewRoundsTrack;" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
                 </md-select>
             </div>
             <div class="col-md-6 col-sm-12 no-mar">
@@ -27,12 +27,12 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <md-select placeholder="Select Time" class="width-100" [formControl]="interviewForm.controls['selectedInterviewTime']">
-                    <md-option *ngFor="let timeData of timeListData;" [value]="timeData.time" [disabled]="!timeData.status">{{ timeData.time }}</md-option>
+                    <md-option *ngFor="let timeData of timeListData; trackBy: timeListDataTrack;" [value]="timeData.time" [disabled]="!timeData.status">{{ timeData.time }}</md-option>
                 </md-select>
             </div>
             <div class="col-md-6 col-sm-12">
                 <md-select placeholder="Select Template" class="width-100" [formControl]="interviewForm.controls['selectedInterviewTemplate']">
-                    <md-option *ngFor="let template of templateData;" [value]="template.id">{{ template.templateName }}</md-option>
+                    <md-option *ngFor="let template of templateData; trackBy: templateDataTrack;" [value]="template.id">{{ template.templateName }}</md-option>
                 </md-select>
             </div>
         </div>

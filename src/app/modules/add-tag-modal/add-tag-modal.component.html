@@ -58,7 +58,7 @@
           <md-option>
             None
           </md-option>
-          <md-option *ngFor="let temp of tempList" [value]="temp.id">
+          <md-option *ngFor="let temp of tempList; trackBy: tempListTrack;" [value]="temp.id">
             {{temp.templateName}}
           </md-option>
         </md-select>
@@ -73,7 +73,7 @@
         <h4> Tag Color </h4>
         <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
         <div class="color-box">
-          <div class="selected-color" *ngFor="let color of availableColors" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
+          <div class="selected-color" *ngFor="let color of availableColors; trackBy: availableColorsTrackBY;" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
         </div>
       </div>
       <div class="col-md-12 col-sm-12 text-right">

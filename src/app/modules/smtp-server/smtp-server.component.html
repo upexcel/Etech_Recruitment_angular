@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let setting of settingJson">
+                        <tr *ngFor="let setting of settingJson; trackBy: settingJsonTrack;">
                             <td>{{setting.email}}</td>
                             <td>{{setting.smtp_server}}</td>
                             <td>{{setting.server_port}}</td>

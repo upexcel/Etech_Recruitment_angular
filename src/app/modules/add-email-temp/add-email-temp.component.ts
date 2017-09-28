@@ -35,6 +35,14 @@ export class AddEmailTempComponent implements OnInit {
         }
     }
 
+    sysVarTrack(index, data) {
+        return data.id || index;
+    }
+
+    userVarTrack(index, data) {
+        return data.id || index;
+    }
+
     close() {
         this.dialogRef.close();
     }
