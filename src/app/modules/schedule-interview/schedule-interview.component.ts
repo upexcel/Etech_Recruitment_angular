@@ -41,6 +41,9 @@ export class ScheduleInterviewComponent implements OnInit {
     ngOnInit() {
         if (this.emailData.mobile_no && this.emailData.mobile_no.length > 0) {
             this.emailData.mobile_no = this.emailData.mobile_no.substr(3, this.emailData.mobile_no.length);
+            if (this.emailData.mobile_no === 'undefined') {
+                this.emailData.mobile_no = '';
+            }
         }
         this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
         this.scheduleApi.getEmailStatus({ 'tag_id': this.tagselected, 'mongo_id': this.emailData._id, 'email': this.emailData.sender_mail }).subscribe((res) => {
