@@ -150,17 +150,20 @@ export class CommonService {
         });
     }
 
-    reduseCountEmail(tags, selectedTag) {
+    reduseCountEmail(tags, selectedTag, parantId) {
+        console.log(tags, selectedTag, parantId)
         _.forEach(tags, (value, key) => {
             _.forEach(value['data'], (dataValue, dataKey) => {
                 if (!selectedTag && dataValue['title'] === 'Mails') {
                     dataValue['unread'] = dataValue['unread'] - 1;
                 }
-                _.forEach(dataValue['subchild'], (subchildValue, subchildKey) => {
-                    if (subchildValue['id'] === selectedTag) {
-                        subchildValue['unread'] = subchildValue['unread'] - 1;
-                    }
-                });
+                if (parantId && parantId * 1 === dataValue['id'] * 1) {
+                    _.forEach(dataValue['subchild'], (subchildValue, subchildKey) => {
+                        if (subchildValue['id'] === selectedTag) {
+                            subchildValue['unread'] = subchildValue['unread'] - 1;
+                        }
+                    });
+                }
             });
         });
         return tags;

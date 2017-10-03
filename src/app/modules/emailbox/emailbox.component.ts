@@ -12,7 +12,7 @@ import { LocalStorageService } from './../../service/local-storage.service';
     styleUrls: ['./emailbox.component.scss']
 })
 export class EmailboxComponent implements OnInit {
-    dialogRef: MdDialogRef < any > ;
+    dialogRef: MdDialogRef<any>;
     data: any;
     selected = false;
     selectedMid: string[];
@@ -43,6 +43,15 @@ export class EmailboxComponent implements OnInit {
         }
     }
     openEmails(email: any) {
+        if (email['unread']) {
+            this.assignEmail.UnreadStatus({
+                'status': false,
+                'mongo_id': email['_id']
+            }).subscribe((data) => {
+            }, (err) => {
+                console.log(err);
+            });
+        }
         this.openEmail.emit(this.email);
     }
 
@@ -52,7 +61,7 @@ export class EmailboxComponent implements OnInit {
 
     assignTag(id: string, emailId: string, title: string, emailData) {
         if (title === 'Schedule') {
-            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected, 'emailData': emailData}).then((data: any) => {
+            this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
                     this.assignEmail.assignTag(data).subscribe((res) => {
                         this.refresh.emit(id);
