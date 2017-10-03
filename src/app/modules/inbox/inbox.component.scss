@@ -71,6 +71,14 @@
   .mar-pos {
     margin-left: 0px;
     margin-right: 0px;
+    padding-top: 6px;
+  }
+  .card-pos {
+    form {
+      .mat-select {
+        padding-top: 10px;
+      }
+    }
   }
 }
 @media screen and (min-width: 480px) {
@@ -84,6 +92,14 @@
   .mar-pos {
     margin-left: 0px;
     margin-right: 0px;
+    padding-top: 6px;
+  }
+  .card-pos {
+    form {
+      .mat-select {
+        padding-top: 10px;
+      }
+    }
   }
 }
 @media screen and (min-width: 768px) {
@@ -97,6 +113,7 @@
   .mar-pos {
     margin-left: 10px;
     margin-right: 10px;
+    padding-top: 6px;
   }
 }
 
