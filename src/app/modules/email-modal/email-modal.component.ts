@@ -58,15 +58,6 @@ export class EmailModalComponent implements OnInit {
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
-        this.body = {
-            'status': false,
-            'mongo_id': this.route.snapshot.paramMap.get('id')
-        };
-
-        this.tagUpdate.UnreadStatus(this.body).subscribe((data) => {
-        }, (err) => {
-            console.log(err);
-        });
         if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
             this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe ((data) => {
                 this.showEmail(data.data);

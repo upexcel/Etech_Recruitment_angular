@@ -29,7 +29,7 @@
           <td>{{email.from}}</td>
           <td>{{email.subject}}</td>
           <td>{{email.user}}</td>
-          <td>{{email.time | date: 'medium'}}</td>
+          <td>{{(email.time == 'Invalid date') ? email.time : (email.time | date: 'medium')}}</td>
         </tr>
       </tbody>
     </table>
