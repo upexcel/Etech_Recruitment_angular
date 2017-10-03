@@ -11,7 +11,6 @@ export class AvatarDirectiveDirective implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.email, this.email.length)
         if (this.email && this.email.length) {
             this._http.get(`http://picasaweb.google.com/data/entry/api/user/${this.email}?alt=json`).subscribe((res) => {
                 const jsonResponse = res.json();
