@@ -244,5 +244,6 @@ app-core {
   padding: 8px !important;
 }
 .cdk-overlay-pane {
-  height: 90%;
+  max-height: 90%;
+  overflow: auto;
 }
