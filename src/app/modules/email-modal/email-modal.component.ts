@@ -18,8 +18,8 @@ import * as _ from 'lodash';
     encapsulation: ViewEncapsulation.Native,
     animations: [
         trigger('collapseChange', [
-            state('true' ,
-                style({ height: '0', overflow : 'hidden' }),
+            state('true',
+                style({ height: '0', overflow: 'hidden' }),
             ),
             state('false',
                 style({ height: '*' })
@@ -29,8 +29,8 @@ import * as _ from 'lodash';
     ]
 })
 export class EmailModalComponent implements OnInit {
-    dialogConfig: MdDialogRef <any> ;
-    dialogRef: MdDialogRef < any > ;
+    dialogConfig: MdDialogRef<any>;
+    dialogRef: MdDialogRef<any>;
     email: any;
     tags: any;
     body: any;
@@ -42,7 +42,7 @@ export class EmailModalComponent implements OnInit {
     errorMessageText: string;
     dataForInterviewScheduleRound: any;
     inboxMailsTagsForEmailListAndModel: any;
-    constructor (public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
             this.selectedTag = -1;
@@ -58,8 +58,12 @@ export class EmailModalComponent implements OnInit {
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
+        this.body = {
+            'status': false,
+            'mongo_id': this.route.snapshot.paramMap.get('id')
+        };
         if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
-            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe ((data) => {
+            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data) => {
                 this.showEmail(data.data);
                 this.getCandiatehistory();
             }, (err) => {
@@ -120,7 +124,7 @@ export class EmailModalComponent implements OnInit {
 
     assignTag(id: string, emailId, title: string, emailData) {
         if (title === 'Schedule') {
-            this._dialogService.openScheduleInterview({'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData}).then((data: any) => {
+            this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
                     this.tagUpdate.assignTag(data).subscribe((res) => {
                         this.commonService.inboxRefreshEvent();
