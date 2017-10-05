@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import * as _ from 'lodash';
@@ -7,6 +7,7 @@ import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 @Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-emailbox',
     templateUrl: './emailbox.component.html',
     styleUrls: ['./emailbox.component.scss']

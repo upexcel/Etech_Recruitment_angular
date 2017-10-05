@@ -72,6 +72,7 @@ export class EmailModalComponent implements OnInit {
             });
         }
         this.getCandiatehistory();
+        document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
     }
 
     getCandiatehistory() {
@@ -95,7 +96,6 @@ export class EmailModalComponent implements OnInit {
                 }
             });
             this.historyList = data;
-            document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
         }, (err) => {
             console.log(err);
         });
