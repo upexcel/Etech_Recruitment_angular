@@ -26,6 +26,7 @@ export class EmailboxComponent implements OnInit {
     @Output() openEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
+    @Output() deleteAndAssignTag = new EventEmitter();
     role: string;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
@@ -63,27 +64,13 @@ export class EmailboxComponent implements OnInit {
         if (title === 'Schedule') {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
-                    this.assignEmail.assignTag(data).subscribe((res) => {
-                        this.refresh.emit(id);
-                    }, (err) => {
-                        console.log(err);
-                    });
+                    this.deleteAndAssignTag.emit(data.tag_id);
                 }
             }, (err) => {
                 console.log(err);
             });
         } else {
-            this.selectedMid.push(emailId);
-            this.data = {
-                'tag_id': id,
-                'mongo_id': this.selectedMid
-            };
-            this.assignEmail.assignTag(this.data).subscribe((data) => {
-                this.selectedMid = [];
-                this.refresh.emit(id);
-            }, (err) => {
-                console.log(err);
-            });
+            this.deleteAndAssignTag.emit(id);
         }
     }
 
