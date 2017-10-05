@@ -17,7 +17,17 @@ export class ImapMailsService {
     private childMethodCall = new Subject<any>();
     // Observalbe string streams
     componentMehtodCalled$ = this.childMethodCall.asObservable();
-    constructor(public http: Http, public Intercepted: InterceptedHttp) {}
+    constructor(public http: Http, public Intercepted: InterceptedHttp) {
+        window.onbeforeunload = (e) => {
+            if (this.count) {
+                const dialogText = 'Dialog text here';
+                e.returnValue = dialogText;
+                return dialogText;
+            } else {
+                return e;
+            }
+        };
+    }
 
     fetchNewEmail() {
         this.childMethodCall.next();
