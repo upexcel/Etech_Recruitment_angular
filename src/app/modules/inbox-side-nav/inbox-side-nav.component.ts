@@ -19,7 +19,6 @@ export class InboxSideNavComponent implements OnInit {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
                 _.forEach(tagValue['data'], (tagSubValue, tagSubKey) => {
-                    console.log(tagSubValue)
                     if (tagSubValue['title'] === 'Mails') {
                         this.selectedId = tagSubValue['id'];
                         this.parantTagId = '0';
