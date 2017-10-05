@@ -67,6 +67,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     fetchEmailSubscription: any;
     role: string;
     inboxMailsTagsForEmailListAndModel: any;
+    lastSelectedTagData: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -105,21 +106,26 @@ export class InboxComponent implements OnInit, OnDestroy {
             .subscribe((res) => {
                 this.formatTagsInArray(res.data);
                 if (res.data.length > 0) {
-                    if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
-                        if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
-                            this.data.tag_id = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
-                            this.selectedTag = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
-                            this.selectedTagTitle = res.data[0]['data'][0]['subchild'][0]['title'];
-                            this.emailParentId = res.data[0]['data'][0]['id'].toString() || '0';
-                            this.emailChildId = res.data[0]['data'][0]['subchild'][0]['id'].toString() || '0';
-                            this.emailParenttitle = res.data[0]['data'][0]['title'] || '';
-                            this.emailChildTitle = res.data[0]['data'][0]['subchild'][0]['title'] || '';
-                            this.getemails.getEmailList(this.data).subscribe((data) => {
-                                this.addSelectedFieldInEmailList(data);
-                                this.loading = false;
+                    _.forEach(res.data, (value, key) => {
+                        if (value['title'] === 'inbox') {
+                            _.forEach(value['data'], (subMenuValue, subMenukey) => {
+                                if (subMenuValue['title'] === 'Mails') {
+                                    this.data.tag_id = subMenuValue['id'];
+                                    this.selectedTag = subMenuValue['id'];
+                                    this.selectedTagTitle = subMenuValue['title'] || '';
+                                    this.emailParentId = '0';
+                                    this.emailChildId = subMenuValue['id'].toString() || '0';
+                                    this.emailParenttitle = value['title'];
+                                    this.emailChildTitle = subMenuValue['title'] || '';
+                                    this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
+                                    this.getemails.getEmailList(this.data).subscribe((data) => {
+                                        this.addSelectedFieldInEmailList(data);
+                                        this.loading = false;
+                                    });
+                                }
                             });
                         }
-                    }
+                    });
                 }
             }, (err) => {
                 this.loading = false;
@@ -195,18 +201,17 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
     }
 
-    assign(id: any) {
+    assign(tag_id, id: any) {
         this.selected = {
-            'tag_id': id,
-            'mongo_id': this.emailIds,
-            'selectedTag': this.selectedTag
+            'tag_id': tag_id,
+            'mongo_id': id
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
-            this.refresh();
+            this.getAllTag();
             this.emailIds.length = 0;
-            this.notify('done', '');
         }, (err) => {
             console.log(err);
+            this.refresh();
         });
     }
 
@@ -256,10 +261,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             });
     }
     sendEmailToPendingCandidates() {
-        this.getemails.sendEmailToPendingCandidates({'tag_id': this.selectedTag}).subscribe((data) => {
+        this.getemails.sendEmailToPendingCandidates({ 'tag_id': this.selectedTag }).subscribe((data) => {
             this.notify(data.message, '');
-            // this.sendSuccessEmailListCount = data['data'][0]['email_send_success_list'].length;
-            // this.sendFailedEmailListCount = data['data'][0]['email_send_fail_list'].length;
         }, (err) => {
             this.notify(err.message, '');
         });
@@ -282,6 +285,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     emaillists(emailData: any, page?: number) {
+        this.lastSelectedTagData = emailData;
         this.emailParenttitle = emailData['parentTitle'];
         this.emailChildTitle = emailData['title'];
         if (this._location.path().substr(0, 17) === '/core/inbox/email') {
@@ -376,7 +380,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     trackByEmails(index, email) {
-        return email ? email._id : undefined;
+        return index;
     }
 
     ngOnDestroy() {

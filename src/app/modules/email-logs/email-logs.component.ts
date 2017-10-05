@@ -60,4 +60,8 @@ export class EmailLogsComponent implements OnInit {
         }
     }
 
+    emailLogsTrack(index, data) {
+        return data['_id'] || index;
+    }
+
 }

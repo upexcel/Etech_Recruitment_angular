@@ -27,12 +27,20 @@ export class AddEmailTempComponent implements OnInit {
         if (form.valid) {
             this.getVariable.addTemplate(form.value).subscribe((data) => {
                 form.reset();
-                this.dialogRef.close('added');
             }, (err) => {
                 this.showMessage = true;
                 this.message = err.message;
             });
+            this.dialogRef.close('added');
         }
+    }
+
+    sysVarTrack(index, data) {
+        return data.id || index;
+    }
+
+    userVarTrack(index, data) {
+        return data.id || index;
     }
 
     close() {

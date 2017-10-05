@@ -28,9 +28,6 @@ export class ImapServerComponent implements OnInit {
         this.imapServices.activateImap(email).subscribe(
        (data) => {
            this.getImapList();
-           // this.snackBar.open(data.message, '', {
-           //     duration: 2000,
-           // });
        },
         (err) => {
             console.log(err);
@@ -44,9 +41,6 @@ export class ImapServerComponent implements OnInit {
         this.imapServices.deleteImap(id).subscribe(
        (data) => {
            this.getImapList();
-           // this.snackBar.open(data.status, '', {
-           //     duration: 2000,
-           // });
        },
         (err) => {
             console.log(err);
@@ -54,5 +48,9 @@ export class ImapServerComponent implements OnInit {
                 duration: 2000,
             });
         });
+    }
+
+    imapSettingJsonTrack(index, data) {
+        return data['id'] || index;
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
-
+import { DialogService } from './../../service/dialog.service';
 @Component({
     selector: 'app-single-template',
     templateUrl: './single-template.component.html',
@@ -11,14 +11,20 @@ export class SingleTemplateComponent implements OnInit {
     @Output() edits = new EventEmitter<any>();
     @Output() deleteTemp = new EventEmitter<string>();
     @Output() testTemp = new EventEmitter<any>();
-    constructor() { }
+    constructor(public _dialogService: DialogService) { }
 
     ngOnInit() {
         this.open = false;
     }
 
     delete(id: string) {
-        this.deleteTemp.emit(id);
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.deleteTemp.emit(id);
+            }
+        }, (err) => {
+            console.log(err);
+        });
     }
 
     edit(temp: any) {

@@ -1,7 +1,6 @@
 @import './../../variable.scss';
 .content {
     background-color: $white;
-    margin: 16px 16px;
     border-radius: 3px;
     min-height: 100px;
 }
@@ -12,52 +11,6 @@
 }
 .activity {
     width: 100%;
-}
-.subdetails {
-    margin-left: 12px;
-    // border-left: 1px solid $cactive-1;
-    margin-top: 24px;
-    .action-block {
-        width: 100%;
-        margin-top: 8px;
-        margin-bottom: 8px;
-        display: block;
-        div {
-            padding: 4px;
-            display: inline-block;
-            overflow: auto;            
-        }
-        .action {
-            width: 250px;
-        }
-        .json {
-            width: 450px;
-        }
-    }
-    .action-block:hover {
-        background-color: #ddd;
-    }
-}
-.marlf-18 {
-    margin-left: 18px;
-    padding-bottom: 16px;
-}
-.opc06 {
-    opacity: 0.6;
-}
-.bolno {
-    margin-right: 10px;
-    position: absolute;
-    top: 10px;
-    margin-left: -20px;
-    width: 4px;
-    height: 4px;
-    border-color: $bolcolor;
-    border-width: 3px;
-    border-style: solid;
-    background: $cactive-2;
-    border-radius: 50%;
-    content: "";
 }
 .center {
     position: absolute;
@@ -80,4 +33,7 @@
 .error {
     color: #f00;
     text-align: center;
+}
+td {
+    word-break: break-all;
 }

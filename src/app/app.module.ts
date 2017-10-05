@@ -29,9 +29,6 @@ import {
     MdDatepickerModule,
     MdNativeDateModule
 } from '@angular/material';
-import {
-    FlexLayoutModule
-} from '@angular/flex-layout';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {
     AppComponent
@@ -207,7 +204,6 @@ import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
         BrowserModule,
         BrowserAnimationsModule,
         MaterialModule,
-        FlexLayoutModule,
         MdButtonModule,
         MdCheckboxModule,
         MdSidenavModule,

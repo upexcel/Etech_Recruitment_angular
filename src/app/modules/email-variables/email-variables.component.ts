@@ -3,6 +3,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { AddVarComponent } from '../add-var/add-var.component';
 import { EditVariableComponent } from '../edit-variable/edit-variable.component';
+import { DialogService } from '../../service/dialog.service';
 
 @Component({
     selector: 'app-email-variables',
@@ -13,7 +14,7 @@ export class EmailVariablesComponent implements OnInit {
     dialogRef: MdDialogRef < any > ;
     userVar: string[];
     sysVar: string[];
-    constructor(public dialog: MdDialog, private getVariable: ImapMailsService) { }
+    constructor(public dialog: MdDialog, private getVariable: ImapMailsService, public _dialogService: DialogService) { }
 
     ngOnInit() {
         this.loadVariables();
@@ -40,8 +41,14 @@ export class EmailVariablesComponent implements OnInit {
     }
 
     delete(id: string) {
-        this.getVariable.deleteVariable(id).subscribe((data) => {
-            this.loadVariables();
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.getVariable.deleteVariable(id).subscribe((data) => {
+                    this.loadVariables();
+                });
+            }
+        }, (err) => {
+            console.log(err);
         });
     }
 

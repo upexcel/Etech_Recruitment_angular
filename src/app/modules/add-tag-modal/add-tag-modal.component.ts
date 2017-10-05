@@ -51,13 +51,21 @@ export class AddTagModalComponent implements OnInit {
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
                 this.showloading = true;
-                this.dialogRef.close('Added');
             }, (err) => {
                 this.showMessage = true;
                 this.showloading = false;
                 this.message = err.message;
             });
+            this.dialogRef.close('Added');
         }
+    }
+
+    tempListTrack(index, data) {
+        return data.id || index;
+    }
+
+    availableColorsTrackBY(index, data) {
+        return data.id || index;
     }
 
     close() {
