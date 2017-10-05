@@ -22,7 +22,8 @@
                                             <md-input-container class="mar-pos wid-300">
                                                 <input mdInput name="keyword" placeholder="Search" required ngModel>
                                             </md-input-container>
-                                            <a name="searchbtn" type="submit" md-raised-button [disabled]="searchForm.invalid" (click)="searchEmail(searchForm)"> Search </a>
+                                            <button name="searchbtn" type="submit" md-raised-button [disabled]="searchForm.invalid"> Search </button>
+                                            <button name="searchbtn" md-raised-button [disabled]="searchForm.invalid" (click)="emaillists(lastSelectedTagData); searchForm.reset()"> Clear Search </button>
                                             <md-checkbox name="currentTag" class="mar-pos" value="false" ngModel> Search current tag </md-checkbox>
                                         </form>
                                     </md-card>

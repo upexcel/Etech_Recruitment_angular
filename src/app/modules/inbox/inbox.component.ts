@@ -67,6 +67,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     fetchEmailSubscription: any;
     role: string;
     inboxMailsTagsForEmailListAndModel: any;
+    lastSelectedTagData: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -116,6 +117,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.emailChildId = subMenuValue['id'].toString() || '0';
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
+                                    this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
                                     this.getemails.getEmailList(this.data).subscribe((data) => {
                                         this.addSelectedFieldInEmailList(data);
                                         this.loading = false;
@@ -284,6 +286,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     emaillists(emailData: any, page?: number) {
+        this.lastSelectedTagData = emailData;
         this.emailParenttitle = emailData['parentTitle'];
         this.emailChildTitle = emailData['title'];
         if (this._location.path().substr(0, 17) === '/core/inbox/email') {
