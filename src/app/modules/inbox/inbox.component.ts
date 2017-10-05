@@ -105,21 +105,25 @@ export class InboxComponent implements OnInit, OnDestroy {
             .subscribe((res) => {
                 this.formatTagsInArray(res.data);
                 if (res.data.length > 0) {
-                    if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
-                        if (res.data[0]['data'] && res.data[0]['data'].length > 0) {
-                            this.data.tag_id = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
-                            this.selectedTag = res.data[0]['data'][0]['subchild'][0]['id'] || 1;
-                            this.selectedTagTitle = res.data[0]['data'][0]['subchild'][0]['title'];
-                            this.emailParentId = res.data[0]['data'][0]['id'].toString() || '0';
-                            this.emailChildId = res.data[0]['data'][0]['subchild'][0]['id'].toString() || '0';
-                            this.emailParenttitle = res.data[0]['data'][0]['title'] || '';
-                            this.emailChildTitle = res.data[0]['data'][0]['subchild'][0]['title'] || '';
-                            this.getemails.getEmailList(this.data).subscribe((data) => {
-                                this.addSelectedFieldInEmailList(data);
-                                this.loading = false;
+                    _.forEach(res.data, (value, key) => {
+                        if (value['title'] === 'inbox') {
+                            _.forEach(value['data'], (subMenuValue, subMenukey) => {
+                                if (subMenuValue['title'] === 'Mails') {
+                                    this.data.tag_id = subMenuValue['id'];
+                                    this.selectedTag = subMenuValue['id'];
+                                    this.selectedTagTitle = subMenuValue['title'] || '';
+                                    this.emailParentId = '0';
+                                    this.emailChildId = subMenuValue['id'].toString() || '0';
+                                    this.emailParenttitle = value['title'];
+                                    this.emailChildTitle = subMenuValue['title'] || '';
+                                    this.getemails.getEmailList(this.data).subscribe((data) => {
+                                        this.addSelectedFieldInEmailList(data);
+                                        this.loading = false;
+                                    });
+                                }
                             });
                         }
-                    }
+                    });
                 }
             }, (err) => {
                 this.loading = false;
@@ -256,10 +260,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             });
     }
     sendEmailToPendingCandidates() {
-        this.getemails.sendEmailToPendingCandidates({'tag_id': this.selectedTag}).subscribe((data) => {
+        this.getemails.sendEmailToPendingCandidates({ 'tag_id': this.selectedTag }).subscribe((data) => {
             this.notify(data.message, '');
-            // this.sendSuccessEmailListCount = data['data'][0]['email_send_success_list'].length;
-            // this.sendFailedEmailListCount = data['data'][0]['email_send_fail_list'].length;
         }, (err) => {
             this.notify(err.message, '');
         });
