@@ -128,10 +128,10 @@ export class EmailModalComponent implements OnInit {
                 if (data && data.tag_id) {
                     this.tagUpdate.assignTag(data).subscribe((res) => {
                         this.commonService.inboxRefreshEvent();
-                        this._location.back();
                     }, (err) => {
                         console.log(err);
                     });
+                    this._location.back();
                 }
             }, (err) => {
                 console.log(err);
@@ -146,10 +146,10 @@ export class EmailModalComponent implements OnInit {
             this.tagUpdate.assignTag(this.body).subscribe((data) => {
                 this.idlist = [];
                 this.commonService.inboxRefreshEvent();
-                this._location.back();
             }, (err) => {
                 console.log(err);
             });
+            this._location.back();
         }
     }
 

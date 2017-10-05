@@ -201,18 +201,17 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
     }
 
-    assign(id: any) {
+    assign(tag_id, id: any) {
         this.selected = {
-            'tag_id': id,
-            'mongo_id': this.emailIds,
-            'selectedTag': this.selectedTag
+            'tag_id': tag_id,
+            'mongo_id': id
         };
         this.getemails.assignTag(this.selected).subscribe((data) => {
-            this.refresh();
+            this.getAllTag();
             this.emailIds.length = 0;
-            this.notify('done', '');
         }, (err) => {
             console.log(err);
+            this.refresh();
         });
     }
 

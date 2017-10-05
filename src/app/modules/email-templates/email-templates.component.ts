@@ -46,9 +46,9 @@ export class EmailTemplatesComponent implements OnInit {
                 this.snackBar.open('Template Added Successfully', '', {
                     duration: 2000,
                 });
+                this.loadTemp();
             }
             this.dialogRef = null;
-            this.loadTemp();
         });
     }
 
