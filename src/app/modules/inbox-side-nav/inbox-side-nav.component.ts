@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output, OnInit} from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
-
+import * as _ from 'lodash';
 @Component({
     selector: 'app-inbox-side-nav',
     templateUrl: './inbox-side-nav.component.html',
@@ -16,19 +16,25 @@ export class InboxSideNavComponent implements OnInit {
     @Output() getEmails = new EventEmitter<any>();
     constructor(public getTag: ImapMailsService) { }
     ngOnInit() {
-        if (this.tags[0] && this.tags[0]['data'] && this.tags[0]['data'].length > 0) {
-            this.selectedId = !!this.tags[0]['data'][0]['id'] ? this.tags[0]['data'][0]['id'] : 1;
-            this.parantTagId = !!this.tags[0]['data'][0]['id'] ? this.tags[0]['data'][0]['id'] : 1;
-        }
+        _.forEach(this.tags, (tagValue, tagKey) => {
+            if (tagValue['title'] === 'inbox') {
+                _.forEach(tagValue['data'], (tagSubValue, tagSubKey) => {
+                    if (tagSubValue['title'] === 'Mails') {
+                        this.selectedId = tagSubValue['id'];
+                        this.parantTagId = '0';
+                    }
+                });
+            }
+        });
     }
     getEmail(id, parantTagId, title, parentTitle) {
         this.parantTagId = parantTagId;
         this.selectedId = (id === 0 ? parantTagId : id);
         this.menuShow = false;
         if (title === 'Mails') {
-            this.getEmails.emit({'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle});
+            this.getEmails.emit({ 'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle });
         } else {
-            this.getEmails.emit({'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle});
+            this.getEmails.emit({ 'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle });
         }
     }
     openSubMenu(title) {
