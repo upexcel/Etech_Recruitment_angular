@@ -4,9 +4,10 @@
     flex: 1;
 }
 .emailstyle {
-    padding: 0px;
+    padding: 2px;
     margin-bottom: 2px;
     width: 100%;
+    min-height: 60px;
     md-grid-list {
         margin-left: 44px;
     }
@@ -43,33 +44,34 @@
     cursor: pointer;
     position: absolute;
     left: 0px;
-    margin: 8px 0px 0px 0px;
+    margin: 6px 0px 0px 0px;
     background-repeat: no-repeat;
     z-index: 9999;
     background-size: cover;
 }
 .detailloc {
-    position: absolute;
-    left: 4px;
     cursor: pointer;
     padding-right: 10px;
-    width: 100%;
+    margin-left: 44px;
     p{
         margin-bottom:0px;
         margin-top:0px;
         font-size: 12px;
+        word-break: break-word;
     }
     h5 {
         max-width: 82%;
         display: inline-block;
         margin: 0;
+        font-weight: bold;
     }
 }
 .inline {
     position: absolute;
-    right: 20px;
+    right: 6px;
     margin: 0;
     top: 3px;
+    font-weight: bold;
 }
 .attach {
     width: 8px;
@@ -83,24 +85,6 @@
 }
 .unchecked {
     opacity: 1;
-}
-    
-.default-tag-buttons{
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
-    height:100%;
-    .cyan{
-        line-height:20px!important;
-        margin: 0px 4px 0px 4px;
-        font-weight:bold;
-        color:#fff;
-        font-size: 12px;
-    }
-    .material-icons{
-        font-size: 14px!important;
-        line-height:1px;
-    }
 }
 .labels {
       background-color: #6887ff;
@@ -119,4 +103,89 @@
     font-size: 10px;
     margin: 0px 2px 0px 2px;
     vertical-align: bottom;
+}
+
+.default-tag-buttons{
+    text-align: right;
+    .col-md-2 {
+        float: right;
+        padding: 2px;
+    }
+    .cyan{
+        line-height:20px!important;
+        margin: 0px 4px 0px 4px;
+        font-weight:bold;
+        color:#fff;
+        font-size: 12px;
+    }
+    .material-icons{
+        font-size: 14px!important;
+        line-height:1px;
+    }
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    .detailloc {
+        min-height: 48px;
+        h5 {
+            font-size: 12px;
+            width: 50%;
+        }
+        .inline {
+            font-size: 9px;
+        }
+    }
+    .default-tag-buttons{
+        .cyan{
+            margin: 2px;
+            padding: 0px;
+            width: 100%;
+            font-size: 10px;
+        }
+        .material-icons{
+            font-size: 14px!important;
+            line-height:1px;
+        }
+    }
+}
+@media screen and (min-width: 480px) and (max-width: 767px) {
+    .detailloc {
+        min-height: 48px;
+        h5 {
+            font-size: 14px;
+            width: 60%;
+        }
+        .inline {
+            font-size: 12px;
+        }
+    }
+    .default-tag-buttons{
+        .cyan{
+            padding: 0px;
+            margin: 2px;
+            width: 100%;
+            font-size: 10px;
+        }
+        .material-icons{
+            font-size: 14px!important;
+            line-height:1px;
+        }
+    }
+}
+@media screen and (min-width: 768px) {
+    .default-tag-buttons{
+        .col-md-2{
+            width: auto;
+        }
+        .cyan{
+            line-height:20px!important;
+            margin: 0px 4px 0px 4px;
+            font-weight:bold;
+            color:#fff;
+            font-size: 12px;
+        }
+        .material-icons{
+            font-size: 14px!important;
+            line-height:1px;
+        }
+    }
 }

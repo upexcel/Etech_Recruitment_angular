@@ -9,6 +9,7 @@ import { LocalStorageService } from './../../service/local-storage.service';
 export class SettingComponent implements OnInit {
     listopen: boolean;
     role: string;
+    menuShow: boolean;
     constructor(private _router: Router, private _localStorageService: LocalStorageService) { }
 
     ngOnInit() {
@@ -17,6 +18,7 @@ export class SettingComponent implements OnInit {
     }
 
     goto( path: string, navtitle: string) {
+        this.menuShow = false;
         this._router.navigate(['/core/setting/' + path]);
     }
 }

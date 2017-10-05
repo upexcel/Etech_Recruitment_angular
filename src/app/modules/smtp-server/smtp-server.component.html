@@ -5,8 +5,8 @@
             <md-card-subtitle class="cardsub">
                 SMTP Settings
             </md-card-subtitle>
-            <md-card-content>
-                <table class="list">
+            <md-card-content class="table-responsive">
+                <table class="list table">
                     <thead>
                         <tr>
                             <th>Email ID</th>
@@ -19,13 +19,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let setting of settingJson">
+                        <tr *ngFor="let setting of settingJson; trackBy: settingJsonTrack;">
                             <td>{{setting.email}}</td>
                             <td>{{setting.smtp_server}}</td>
                             <td>{{setting.server_port}}</td>
                             <td>{{setting.type}}</td>
                             <td>
-                                <md-icon class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email, setting.status)">{{setting.status ? 'done' : 'clear'}}</md-icon>
+                                <md-icon class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email, setting.status)"><i class="material-icons">{{setting.status ? 'done' : 'clear'}}</i></md-icon>
                             </td>
                             <td>
                                 <button md-button class="chartcolor" (click)="test(setting.email)">TEST</button>

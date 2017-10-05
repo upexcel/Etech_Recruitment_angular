@@ -62,6 +62,10 @@ export class AddNewUserComponent implements OnInit {
         }
     }
 
+    userTypeTrack(index, data) {
+        return index;
+    }
+
     close() {
         this.dialogRef.close('back');
     }

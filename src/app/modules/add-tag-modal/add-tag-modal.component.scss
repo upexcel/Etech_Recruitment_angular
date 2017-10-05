@@ -1,8 +1,9 @@
 @import './../../variable.scss';
 
 .pos-radio {
-	position: relative;
-    left: 20px;
+	md-radio-button{
+		margin-top: 16px;
+	}
 }
 .width-100 {
 	width: 100%;
@@ -16,16 +17,26 @@
 	width: 20px;
 	display: inline-block;
 }
-table {
-	width: 100%;
+.add-tag{
+	margin-top: 8px;
+	.col-md-6 {
+		min-height: 60px;
+	}
 }
 .heading {
 	margin: 0px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #ddd;
 }
 .tag-color-title {
 	margin-top: 1em;
 	margin-bottom: 1em;
 }
-table, th, td {
-	font-size: 14px;
+@media screen and (min-width: 320px) and (max-width: 988px) {
+	.add-tag{
+		.col-md-12, .col-sm-12 {
+			padding: 0px;
+		}
+	}
 }

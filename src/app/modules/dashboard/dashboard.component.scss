@@ -1,6 +1,6 @@
 .dashboard {
-  background-color: #2e3e4e;
   padding: 10px;
+  background-color: #2e3e4e;
   md-card {
     margin: 10px;
     .charts {
@@ -20,6 +20,68 @@
     top: 1.5em;
   }
 }
+@media screen and (min-width: 320px) {
+  md-card{
+    md-card-title {
+      font-size: 16px;
+    }
+    md-select{
+      height: 22px;
+      max-width: 100px;
+    }
+    md-card-content{
+      text-align: center;
+    }
+  }
+}
+@media screen and (min-width: 480px) {
+  md-card{
+    md-card-title {
+      font-size: 16px;
+    }
+    md-select{
+      height: 22px;
+      max-width: 100px;
+    }
+    md-card-content{
+      text-align: center;
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  md-card{
+    md-card-title {
+      font-size: 18px;
+    }
+    .mat-select-trigger{
+      height: 22px;
+    }
+    md-card-content{
+      text-align: center;
+    }
+  }
+}
+@media screen and (min-width: 900px) {
+  md-card{
+    md-card-title {
+      font-size: 20px;
+    }
+  }
+}
+@media screen and (min-width: 1024px) {
+  md-card{
+    md-card-title {
+      font-size: 22px;
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+  md-card{
+    md-card-title {
+      font-size: 24px;
+    }
+  }
+}
 
 .nav {
   background-color: #00BCD4;
@@ -29,11 +91,13 @@
   text-align: center;
   img {
     margin-top: 12px;
+    display: inline-block;
   }
   p {
     display: inline-block;
     float: right;
     padding-right: 2em;
+    padding-top: 1.2em;
     cursor: pointer;
   }
 }

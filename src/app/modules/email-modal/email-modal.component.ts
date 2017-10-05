@@ -175,4 +175,20 @@ export class EmailModalComponent implements OnInit {
     getIcon(title) {
         return this.commonService.getDefaultTagIcon(title);
     }
+
+    historyListDataTrack(index, data) {
+        return data['_id'] || index;
+    }
+
+    tagsDefaultTrack(index, data) {
+        return data['id'] || index;
+    }
+
+    inboxMailsTagsForEmailListAndModelDataTrack(index, data) {
+        return data['id'] || index;
+    }
+
+    H_emailAttachmentTrack(index, data) {
+        return index;
+    }
 }

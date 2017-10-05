@@ -3,8 +3,8 @@
 </div>
 <form autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
     <p *ngIf="showMessage" class="error-show">{{message}}</p>
-    <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-        <div class="main" fxFlex="75%">
+    <div class="con-pg">
+        <div class="main">
             <p>
                 <md-input-container class="width-100">
                     <input mdInput placeholder="Template Name" autoComplete="off" name="templateName" required ngModel>
@@ -24,23 +24,22 @@
                 </ckeditor>
             </p>
         </div>
-        <div fxFlex="25%">
+        <div>
             <md-card class="side-nav">
                 <button md-button class="h-d">System Variables</button>
                 <md-card-content class="d-c">
-                    <a md-button class="con-btn" *ngFor="let svar of sysVar">{{svar.variableCode}}</a>
+                    <button md-button class="con-btn" *ngFor="let svar of sysVar; trackBy: sysVarTrack">{{svar.variableCode}}</button>
                 </md-card-content>
             </md-card>
             <br/>
             <md-card class="side-nav">
                 <button md-button class="h-d">User Variables</button>
                 <md-card-content class="d-c"> 
-                    <a md-button class="con-btn" *ngFor="let uvar of userVar">{{uvar.variableCode}}</a>
+                    <button md-button class="con-btn" *ngFor="let uvar of userVar; trackBy: userVarTrack">{{uvar.variableCode}}</button>
                 </md-card-content>
             </md-card>
         </div>
     </div>
-    <hr>
     <div class="fx-pos">
     	<button md-raised-button (click)="close()">Back</button>
     	<button md-raised-button type="submit" color="accent">Save</button>

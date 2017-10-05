@@ -1,21 +1,21 @@
-<!-- <md-spinner class="center" *ngIf="loading"></md-spinner> -->
-
 <div class="mainform" *ngIf="!loading">
-        <p class="font-18">Automatic tag(s)</p>
-        <hr class="linespace">
-        <span *ngFor="let tag of tags?.Automatic">
+    <p class="font-18">Automatic tag(s)</p>
+    <hr class="linespace">
+    <span *ngFor="let tag of tags?.Automatic">
             <div class="tagbutton1" [style.background-color]="tag.color" *ngIf="!tag.is_job_profile_tag">
                 <div class="taglogo" (click)="openAutomatic(tag)">
                 {{tag.title.charAt(0)}}
                 </div>
                 <span class="tagname" (click)="openAutomatic(tag)">
                     {{tag.title}}
-                </span>  
-                <md-icon class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>
-            </div>
-        </span>
+                </span>
+    <md-icon class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>
+</div>
+</span>
 </div>
 
 <div class="pos-add" *ngIf="!loading">
-    <a md-fab (click)="addTag()"><md-icon>add</md-icon></a>
+    <button md-fab (click)="addTag()">
+        <md-icon>add</md-icon>
+    </button>
 </div>

@@ -1,6 +1,4 @@
 .header {
-	position: relative;
-    top: -24px;
     border-bottom: 1px solid black;
 }
 .h-text {
@@ -10,9 +8,8 @@
 .main {
 	width: 100%;
 }
-.width-33 {
-	width: 32%;
-	padding: 12px 0px;
+.width-100 {
+	width: 100%;
 }
 .pull-right {
 	float: right;
@@ -20,7 +17,28 @@
 .no-pad-top {
 	margin-top: 0px;
 }
+.no-mar {
+	margin: 0px!important;
+}
 .error {
 	color: #f00;
 	text-align: center;
+}
+.schedule-form {
+	.col-md-6 {
+		margin-top: 16px;
+		margin-bottom: 16px;
+	}
+}
+h4, h5 {
+	word-wrap: break-word;
+}
+@media screen and (min-width: 320px) and (max-width: 988px) {
+	.schedule-form {
+		.col-md-6, .col-sm-12 {
+			padding: 10px 0px;
+			margin-top: 8px;
+			margin-bottom: 8px;
+		}
+	}
 }

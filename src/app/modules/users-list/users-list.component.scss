@@ -1,4 +1,7 @@
 @import './../../variable.scss';
+.table-responsive {
+    border: none;
+}
 table.list {
     width: 100%;
     border-collapse: collapse;
@@ -22,9 +25,9 @@ table.list {
     }
 }
 .pos-add {
-    position: absolute;
-    left: 90%;
-    top: 85%;
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
 }
 .pagination {
 	text-align: right;

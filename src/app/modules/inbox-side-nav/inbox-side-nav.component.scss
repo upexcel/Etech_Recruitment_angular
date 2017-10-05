@@ -1,19 +1,13 @@
 @import './../../variable.scss';
-:host {
-    display: flex;
-    flex: 0.26;
-}
-md-sidenav {
-    width: 280px;
-    overflow: inherit;
-}
-
 md-list {
     md-list-item:hover {
         background-color: $hovecolor;
-        a:hover {
-          text-decoration: none;
-        }
+    }
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+      text-decoration: none;
     }
 }
 .active {
@@ -22,14 +16,26 @@ md-list {
 .blue {
     color:$borderleftblue;
 }
-.inbox-nav{
-   // margin-left: 2px;
-}
 .mainnav {
     margin-left: 6px;
     padding: 4px 0px;
     position: relative;
     cursor: pointer;
+    color: #000;
+}
+.mat-icon-button{
+    display: none;
+}
+@media screen and (min-width: 320px) and (max-width: 900px) {
+    .inbox-nav {
+        display: none;
+    }
+    .mat-icon-button{
+        display: inline;
+    }
+    .showMenu {
+        display: block;
+    }
 }
 .main-title{
     font-weight: bold;
@@ -41,6 +47,10 @@ md-list {
     font-size: 12px;
     //font-weight: bold;
     text-transform: capitalize;
+    color: #000;
+}
+a:hover {
+    text-decoration: none;
 }
 .nav-arrow{
     vertical-align: middle;

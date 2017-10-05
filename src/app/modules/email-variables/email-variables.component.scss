@@ -4,12 +4,18 @@
 }
 
 .header {
-	margin: 20px 20px 20px 20px;
+	margin-top: 20px;
 }
-
+.table-responsive{
+    border: none;
+}
+td{
+    border-top: none!important;
+}
 table.list {
     width: 100%;
     tr, th {
+        border: none;
         text-align: left;
         padding: 5px 0px;
         vertical-align: middle;

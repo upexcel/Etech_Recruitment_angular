@@ -65,4 +65,8 @@ export class UsersListComponent implements OnInit {
             console.log(err);
         });
     }
+
+    userListTrack(index, data) {
+        return data['id'] || index;
+    }
 }

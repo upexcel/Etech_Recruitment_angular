@@ -1,35 +1,53 @@
 <div class="header">
     <p class="h-text">Schedule Interview</p>
 </div>
-<p class="no-pad-top"><b>Name</b>: {{emailData.from}}</p>
-<p><b>Email</b>: {{emailData.sender_mail}}</p>
+<h4><b>Name</b>: {{emailData.from}}</h4>
+<h5><b>Email</b>: {{emailData.sender_mail}}</h5>
 <p class="error">{{errorMessage}}</p>
-<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm">
-    <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-        <div class="main">
-            <md-select placeholder="Interview Round" class="width-33" [formControl]="interviewForm.controls['selectedInterviewRound']" (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
-			   <md-option *ngFor="let interview of interviewRounds" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
-			</md-select>
-            <md-input-container>
-              <input mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}" [disabled]="!selectedInterviewRound">
-              <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date" [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
-              <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
-            </md-input-container>
-            <md-datepicker #picker (selectedChanged)="changeInDate($event)"></md-datepicker>
-            <md-select placeholder="Select Time" class="width-33" [formControl]="interviewForm.controls['selectedInterviewTime']">
-               <md-option *ngFor="let timeData of timeListData;" [value]="timeData.time" [disabled]="!timeData.status">{{ timeData.time }}</md-option>
-            </md-select><br/>
-			<md-select placeholder="Select Template" class="width-33" [formControl]="interviewForm.controls['selectedInterviewTemplate']">
-			   <md-option *ngFor="let template of templateData;" [value]="template.id">{{ template.templateName }}</md-option>
-			</md-select>
-            <md-input-container>
-              <input mdInput type="text" placeholder="Mobile No" [formControl]="interviewForm.controls['mobile_no']">
-            </md-input-container>
+<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm" class="schedule-form">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <md-select placeholder="Interview Round" class="width-100" [formControl]="interviewForm.controls['selectedInterviewRound']"
+                    (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
+                    <md-option *ngFor="let interview of interviewRounds; trackBy: interviewRoundsTrack;" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
+                </md-select>
+            </div>
+            <div class="col-md-6 col-sm-12 no-mar">
+                <md-input-container>
+                    <input mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}"
+                        [disabled]="!selectedInterviewRound">
+                    <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date"
+                        [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
+                    <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
+                </md-input-container>
+                <md-datepicker #picker (selectedChanged)="changeInDate($event)"></md-datepicker>
+            </div>
         </div>
-    </div>
-    <hr>
-    <div class="pull-right">
-    	<button md-raised-button (click)="close()">Back</button>
-    	<button md-raised-button type="submit" color="accent" (click)="scheduleInterview(interviewForm)" [disabled]="!interviewForm.valid">Schedule</button>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <md-select placeholder="Select Time" class="width-100" [formControl]="interviewForm.controls['selectedInterviewTime']">
+                    <md-option *ngFor="let timeData of timeListData; trackBy: timeListDataTrack;" [value]="timeData.time" [disabled]="!timeData.status">{{ timeData.time }}</md-option>
+                </md-select>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <md-select placeholder="Select Template" class="width-100" [formControl]="interviewForm.controls['selectedInterviewTemplate']">
+                    <md-option *ngFor="let template of templateData; trackBy: templateDataTrack;" [value]="template.id">{{ template.templateName }}</md-option>
+                </md-select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <md-input-container class="width-100">
+                    <input mdInput type="text" placeholder="Mobile No" [formControl]="interviewForm.controls['mobile_no']">
+                </md-input-container>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 pull-right text-right">
+                <button md-raised-button (click)="close()">Back</button>
+                <button md-raised-button type="submit" color="accent" (click)="scheduleInterview(interviewForm)" [disabled]="!interviewForm.valid">Schedule</button>
+            </div>
+        </div>
     </div>
 </form>

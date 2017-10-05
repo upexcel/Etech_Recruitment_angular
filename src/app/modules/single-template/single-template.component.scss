@@ -1,18 +1,17 @@
 @import './../../variable.scss';
-.example-card {
-    width: 430px;
-}
 md-card {
 	padding: 0px;
-	margin: 8px;
+	margin-top: 10px;
 }
 md-card-header {
 	background-color: $si-tem-color;
 	padding: 10px 0px 0px 12px;
 }
 .set-pos {
-	padding: 10px 0px 10px 42px !important;
-    margin: 0px 0px 0px 0px !important;
+	text-align: center;
+	display: block;
+	margin: 0px 0px 14px 0px !important;
+	padding-bottom: 8px!important;
 }
 .e-c {
     color: $emailbluecolor;

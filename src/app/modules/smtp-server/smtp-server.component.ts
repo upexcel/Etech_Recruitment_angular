@@ -45,9 +45,6 @@ export class SmtpServerComponent implements OnInit {
             this.apiServices.changeSmtpStatus(email).subscribe(
        (data) => {
            this.getSmtpList();
-           // this.snackBar.open(data.message, '', {
-           //     duration: 2000,
-           // });
        },
         (err) => {
             this.snackBar.open(err.message, '', {
@@ -65,14 +62,15 @@ export class SmtpServerComponent implements OnInit {
         this.apiServices.deleteSmtp(id).subscribe(
        (data) => {
            this.getSmtpList();
-           // this.snackBar.open('SMTP Removed Successfully', '', {
-           //     duration: 2000,
-           // });
        },
         (err) => {
             this.snackBar.open(err.status, '', {
                 duration: 2000,
             });
         });
+    }
+
+    settingJsonTrack(index, data) {
+        return data['id'] || index;
     }
 }

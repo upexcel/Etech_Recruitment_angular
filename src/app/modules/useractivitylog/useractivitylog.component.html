@@ -11,7 +11,7 @@
   </button>
 
       <md-menu #menu="mdMenu">
-        <button md-menu-item *ngFor="let email of usersLog" (click)="selectedUser(email)">
+        <button md-menu-item *ngFor="let email of usersLog; trackBy: usersLogTrack;" (click)="selectedUser(email)">
     <span>{{email.email}}</span>
   </button>
       </md-menu>
@@ -29,17 +29,20 @@
            {{pageNo + 1}}/{{totalPages}} 
            <button [disabled]="(pageNo + 1) == totalPages" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
           </span>
-        <div class="subdetails" *ngIf="selectUserLog && selectUserLog.action">
-          <div class="action-block">
-            <div class="action"><b>Action</b></div>
-            <div class="json"><b>Response</b></div>
-            <div class="action"><b>Date</b></div>
-          </div>
-          <div class="action-block" *ngFor="let action of selectUserLog.action; let i = index">
-            <div class="action">{{action}}</div>
-            <div class="json">{{selectUserLog.json[i]}}</div>
-            <div class="action">{{selectUserLog.time[i] | date:'medium'}}</div>
-          </div>
+          <div class="clearfix"></div>
+        <div class="table-responsive" *ngIf="selectUserLog && selectUserLog.action">
+          <table class="table">
+            <tr>
+              <th>Action</th>
+              <th>Response</th>
+              <th>Date</th>
+            </tr>
+            <tr *ngFor="let action of selectUserLog.action; let i = index; trackBy: selectUserLogActionTrack;">
+              <td>{{action}}</td>
+              <td>{{selectUserLog.json[i]}}</td>
+              <td>{{selectUserLog.time[i] | date:'medium'}}</td>
+            </tr>
+          </table>
         </div>
       </div>
     </md-list-item>
