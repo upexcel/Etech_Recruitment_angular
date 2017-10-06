@@ -2,6 +2,7 @@
 <div class="m-b">
     <div class="default-tag-buttons" *ngIf="historyList.data">
         <button md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>
+        <button md-raised-button mdTooltip="Send Email" mdTooltipPosition="below" class="cyan send-email" (click)="sendEmail()">Send Email</button>
     </div>
     <h4 *ngIf="error" style="color: red; text-align: center;">{{errorMessageText}}</h4>
 </div>

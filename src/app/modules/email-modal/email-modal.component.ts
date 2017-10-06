@@ -10,6 +10,7 @@ import { CommonService } from './../../service/common.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
+import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 
 @Component({
     selector: 'app-email-modal',
@@ -89,17 +90,7 @@ export class EmailModalComponent implements OnInit {
 
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            _.forEach(data['data'], (value, key) => {
-                if (value['body']) {
-                    value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
-                }
-                if (key === 0) {
-                    value['accordianIsOpen'] = true;
-                } else {
-                    value['accordianIsOpen'] = false;
-                }
-            });
-            this.historyList = data;
+            this.historyList = this.commonService.formateEmailHistoryData(data, this.route.snapshot.paramMap.get('id'));
         }, (err) => {
             console.log(err);
         });
@@ -195,5 +186,18 @@ export class EmailModalComponent implements OnInit {
 
     H_emailAttachmentTrack(index, data) {
         return index;
+    }
+
+    sendEmail() {
+        this.dialogRef = this.dialog.open(ComposeEmailComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        console.log(this.email)
+        this.dialogRef.componentInstance.emailList = [this.email['sender_mail']];
+        this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
     }
 }

@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     pieChartOption = config.dashboardPieChartOptions;
     jobSelection = 'byDay';
     jobApplicationReadSelection = 'byDay';
+    automaticEmailReadSelection = 'byDay';
     dashboardIntervalSubscription: any;
     constructor(private route: ActivatedRoute, private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
 

@@ -43,17 +43,27 @@ export class SetvaremailpreviewComponent implements OnInit {
     }
 
     sendEmail() {
-        this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
-            this.dialogRef.close('done');
-            this.snackBar.open('Email Send', '', {
-                duration: 2000,
+        if (this.temp['default_id'] || this.temp['tag_id']) {
+            this.apiServices.sendEmail(this.temp).subscribe((data) => {
+                this.snackBar.open('Mail Send', '', {
+                    duration: 2000,
+                });
+            }, (err) => {
+                console.log(err)
             });
-        }, (err) => {
-            this.snackBar.open(err.message, '', {
-                duration: 2000,
+        } else {
+            this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
+                this.snackBar.open('Email Send', '', {
+                    duration: 2000,
+                });
+            }, (err) => {
+                this.snackBar.open(err.message, '', {
+                    duration: 2000,
+                });
+                console.log(err);
             });
-            console.log(err);
-        });
+        }
+        this.dialogRef.close('done');
     }
 
     close() {
