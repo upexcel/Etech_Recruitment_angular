@@ -168,4 +168,23 @@ export class CommonService {
         });
         return tags;
     }
+
+    formateEmailHistoryData(data, emailId) {
+        const deletedData = _.find(data.data, { '_id': emailId });
+        _.remove(data.data, {
+            '_id': emailId
+        });
+        data.data.unshift(deletedData)
+        _.forEach(data['data'], (value, key) => {
+            if (value['body']) {
+                value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
+            }
+            if (key === 0) {
+                value['accordianIsOpen'] = true;
+            } else {
+                value['accordianIsOpen'] = false;
+            }
+        });
+        return data;
+    }
 }
