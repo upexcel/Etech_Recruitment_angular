@@ -63,11 +63,25 @@
   </md-card>
 
   <md-card>
-    <md-card-title>Automatic Email (per day)</md-card-title>
-    <md-card-content>
+    <md-card-title>Automatic Email</md-card-title>
+    <md-select placeholder="" class="job-selection" [(ngModel)]="automaticEmailReadSelection">
+      <md-option value="byDay">
+        By Day
+      </md-option>
+      <md-option value="byProfile">
+        By Profile
+      </md-option>
+    </md-select>
+    <md-card-content *ngIf="automaticEmailReadSelection == 'byDay'">
       <div class="charts">
         <canvas baseChart [datasets]="dashboardData.email_stat" [labels]="dashboardData.email_stat[0]['dates']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </md-card-content>
+    <md-card-content  *ngIf="automaticEmailReadSelection == 'byProfile'">
+      <div class="charts">
+        <canvas baseChart width="200" height="200" [datasets]="dashboardData.email_stat_by_job_profile" [labels]="dashboardData.email_stat_by_job_profile[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
+        [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
     </md-card-content>
   </md-card>
