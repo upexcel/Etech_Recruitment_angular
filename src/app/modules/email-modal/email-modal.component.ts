@@ -10,6 +10,7 @@ import { CommonService } from './../../service/common.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
+import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 
 @Component({
     selector: 'app-email-modal',
@@ -188,10 +189,15 @@ export class EmailModalComponent implements OnInit {
     }
 
     sendEmail() {
-        this._dialogService.composeMail(this.email, localStorage.getItem('subject_for_genuine')).then((res) => {
-            console.log(res);
-        }, (err) => {
-            console.log(err)
-        })
+        this.dialogRef = this.dialog.open(ComposeEmailComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        console.log(this.email)
+        this.dialogRef.componentInstance.emailList = [this.email['sender_mail']];
+        this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
     }
 }
