@@ -89,17 +89,7 @@ export class EmailModalComponent implements OnInit {
 
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            _.forEach(data['data'], (value, key) => {
-                if (value['body']) {
-                    value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
-                }
-                if (key === 0) {
-                    value['accordianIsOpen'] = true;
-                } else {
-                    value['accordianIsOpen'] = false;
-                }
-            });
-            this.historyList = data;
+            this.historyList = this.commonService.formateEmailHistoryData(data, this.route.snapshot.paramMap.get('id'));
         }, (err) => {
             console.log(err);
         });
