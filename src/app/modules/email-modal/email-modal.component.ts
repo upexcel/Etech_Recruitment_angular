@@ -186,4 +186,12 @@ export class EmailModalComponent implements OnInit {
     H_emailAttachmentTrack(index, data) {
         return index;
     }
+
+    sendEmail() {
+        this._dialogService.composeMail(this.email, localStorage.getItem('subject_for_genuine')).then((res) => {
+            console.log(res);
+        }, (err) => {
+            console.log(err)
+        })
+    }
 }

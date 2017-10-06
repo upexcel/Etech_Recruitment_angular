@@ -138,6 +138,7 @@ import { OpenattachementComponent } from './modules/openattachement/openattachem
 import { ForgetPasswordComponent } from './modules/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './modules/reset-password/reset-password.component';
 import { ComposeEmailComponent } from './modules/compose-email/compose-email.component';
+import { ComposeMailComponent } from './modules/compose-mail/compose-mail.component';
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { FetchEmailByDayComponent } from './modules/fetch-email-by-day/fetch-email-by-day.component';
@@ -183,6 +184,7 @@ import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
         SmtpComponentFormComponent,
         AddEmailTempComponent,
         ComposeEmailComponent,
+        ComposeMailComponent,
         SingleTemplateComponent,
         TemplateEditComponent,
         AddVarComponent,
@@ -241,6 +243,7 @@ import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
         EmailModalComponent,
         AddEmailTempComponent,
         ComposeEmailComponent,
+        ComposeMailComponent,
         TemplateEditComponent,
         AddVarComponent,
         EditVariableComponent,

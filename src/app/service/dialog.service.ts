@@ -5,6 +5,7 @@ import { AddNewUserComponent } from './../modules/add-new-user/add-new-user.comp
 import { ConfirmationDialogComponent } from './../modules/confirmation-dialog/confirmation-dialog.component';
 import { SetvaremailpreviewComponent } from './../modules/setvaremailpreview/setvaremailpreview.component';
 import { FetchEmailByDayComponent } from './../modules/fetch-email-by-day/fetch-email-by-day.component';
+import { ComposeMailComponent } from './../modules/compose-mail/compose-mail.component';
 
 @Injectable()
 export class DialogService {
@@ -81,6 +82,18 @@ export class DialogService {
             });
             this.dialogRef.componentInstance.pendingVariables = [];
             this.dialogRef.componentInstance.temp = emailData;
+            this.dialogRef.afterClosed().subscribe(result => {
+                this.dialogRef = null;
+                resolve();
+            });
+        });
+    }
+
+    composeMail(emailData, subject_for_genuine) {
+        return new Promise((resolve, reject) => {
+            this.dialogRef = this.dialog.open(ComposeMailComponent);
+            this.dialogRef.componentInstance.emailList = [emailData['sender_mail']];
+            this.dialogRef.componentInstance.subject_for_genuine = subject_for_genuine;
             this.dialogRef.afterClosed().subscribe(result => {
                 this.dialogRef = null;
                 resolve();
