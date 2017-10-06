@@ -72,7 +72,11 @@ export class EmailModalComponent implements OnInit {
             });
         }
         this.getCandiatehistory();
-        document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
+        if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
+            setTimeout(() => {
+                document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
+            }, 100);
+        }
     }
 
     getCandiatehistory() {
