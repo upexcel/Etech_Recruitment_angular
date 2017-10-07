@@ -9,22 +9,22 @@
     </div>
     <div class="col-md-6 col-sm-12">
       <md-input-container style="width: 100%">
-        <input mdInput placeholder="Email" disabled [value]="tag.email">
+        <input mdInput placeholder="Email" [(ngModel)]="tag.email">
       </md-input-container>
     </div>
     <div class="col-md-6 col-sm-12">
       <md-input-container style="width: 100%">
-        <input mdInput placeholder="Subject" disabled [value]="tag.subject">
+        <input mdInput placeholder="Subject" [(ngModel)]="tag.subject">
       </md-input-container>
     </div>
     <div class="col-md-6 col-sm-12">
       <md-input-container style="width: 100%">
-        <input mdInput placeholder="From date" disabled [value]="tag.from | date">
+        <input mdInput placeholder="From date" type="date" [(ngModel)]="tag.from">
       </md-input-container>
     </div>
     <div class="col-md-6 col-sm-12">
       <md-input-container style="width: 100%">
-        <input mdInput placeholder="To date" disabled [value]="tag.to | date">
+        <input mdInput placeholder="To date" type="date" [(ngModel)]="tag.to">
       </md-input-container>
     </div>
     <div class="col-md-6 col-sm-12">
@@ -44,7 +44,7 @@
     </div>
     <div class="col-md-6 col-sm-12">
       <md-slide-toggle [checked]="tag.is_email_send" name="is_email_send" style="width: 100%" [(ngModel)]="tag.is_email_send">Send Automatic Template</md-slide-toggle>
-      <md-slide-toggle [disabled]="true" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
+      <md-slide-toggle [(ngModel)]="tag.assign_to_all_emails" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
         name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
     </div>
     <div class="col-md-12 col-sm-12">

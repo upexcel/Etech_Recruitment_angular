@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { color_list } from '../../config/config';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-automatic-tag-modal',
@@ -21,6 +22,12 @@ export class AutomaticTagModalComponent implements OnInit {
         this.originaltitle = this.tag.title;
         this.originalcolor = this.tag.color;
         this.temp_id = this.tag.template_id;
+        if (this.tag['from']) {
+            this.tag['from'] = moment(this.tag['from']).format('YYYY-MM-DD');
+        }
+        if (this.tag['to']) {
+            this.tag['to'] = moment(this.tag['to']).format('YYYY-MM-DD');
+        }
     }
 
     save() {
