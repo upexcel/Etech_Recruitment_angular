@@ -3,6 +3,7 @@ import { config } from './../config/config';
 import { ImapMailsService } from './imapemails.service';
 import * as _ from 'lodash';
 import { LocalStorageService } from './local-storage.service';
+import * as moment from 'moment';
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
@@ -37,7 +38,7 @@ export class CommonService {
     }
 
     formateDate(date) {
-        return date.getFullYear() + '-' + ((date.getMonth() * 1) > 9 ? '' : '0') + ((date.getMonth() * 1) + 1) + '-' + ((date.getDate() * 1) > 9 ? '' : '0') + date.getDate();
+        return moment(date).format('YYYY-MM-DD');
     }
 
     interviewRoundDisableCheck(dataForInterviewScheduleRound, tagselected) {
