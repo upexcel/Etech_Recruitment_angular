@@ -32,6 +32,9 @@ export class ComposeEmailComponent implements OnInit {
     body: string;
     pendingVariables = [];
     filteredTemp = {};
+    subject = '';
+    selectedTempplateId: any;
+    notGenuine: any;
     constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
     }
 
@@ -42,11 +45,15 @@ export class ComposeEmailComponent implements OnInit {
             this.templates = res;
         }, (err) => {
             console.log(err);
-        })
+        });
     }
 
     selectTemplate(seletectTemplated) {
         this.body = '';
+        this.selectedTempplateId = seletectTemplated['id'];
+        if (seletectTemplated['subject']) {
+            this.subject = seletectTemplated['subject'] + ' ' + this.subject;
+        }
         this.sendToManyEmail.testTemplate(seletectTemplated.id).subscribe((data) => {
             this.body = data;
         }, (err) => {
@@ -56,8 +63,9 @@ export class ComposeEmailComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
-            form.value.subject = this.subject_for_genuine + ' ' + form.value.subject;
+            form.value.subject = this.subject_for_genuine + ' ' + this.subject;
             form.value.body = this.body;
+            form.value.template_id = this.selectedTempplateId;
             if (this.emails) {
                 form.value.emails = this.emailList;
                 this.getUnsavedVariable(form);
@@ -78,7 +86,7 @@ export class ComposeEmailComponent implements OnInit {
         const regx = /#[\w-]+\|[\w -\.,@$%&*!:%^\\\/]+\||#[\w-]+/ig;
         let result = stringtocheck.match(regx);
         this.pendingVariables = [];
-        if (result !== null && result.length > 0) {
+        if (result !== null && result.length > 0 && !this.notGenuine) {
             result = _.uniq(result);
             result.map((str) => {
                 const start_pos = str.indexOf('|') + 1;
@@ -99,17 +107,22 @@ export class ComposeEmailComponent implements OnInit {
         });
         this.filteredTemp['subject'] = form.value.subject;
         this.filteredTemp['body'] = this.body;
+        this.filteredTemp['template_id'] = form.value.template_id;
         if (form.value['default_id'] || form.value['tag_id']) {
             this.filteredTemp['default_id'] = form.value['default_id'];
             this.filteredTemp['tag_id'] = form.value['tag_id']
         }
         this.SetvaremaildialogRef.componentInstance.pendingVariables = this.pendingVariables;
         this.SetvaremaildialogRef.componentInstance.temp = this.filteredTemp;
+        this.SetvaremaildialogRef.componentInstance.notGenuine = this.notGenuine;
         this.SetvaremaildialogRef.componentInstance.userDetails = {'CandidateEmail': this.emailList};
         this.SetvaremaildialogRef.afterClosed().subscribe(result => {
-            this.dialogRef.close('done');
             this.SetvaremaildialogRef.close();
-            this.dialogRef = null;
+            this.SetvaremaildialogRef = null;
+            if (result !== 'close') {
+                this.dialogRef.close('done');
+                this.dialogRef = null;
+            }
         });
     }
 

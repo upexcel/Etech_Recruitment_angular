@@ -113,7 +113,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.data.tag_id = subMenuValue['id'];
                                     this.selectedTag = subMenuValue['id'];
                                     this.selectedTagTitle = subMenuValue['title'] || '';
-                                    this.emailParentId = '0';
+                                    // this.emailParentId = '0';
                                     this.emailChildId = subMenuValue['id'].toString() || '0';
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
@@ -267,7 +267,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.notify(err.message, '');
         });
     }
-    sendEmailToAll() {
+    sendEmailToAll(notGenuine?) {
         this.dialogRef = this.dialog.open(ComposeEmailComponent, {
             height: '90%',
             width: '70%'
@@ -276,6 +276,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.emailChildTitle = this.emailChildTitle;
         this.dialogRef.componentInstance.emailParentId = this.emailParentId;
         this.dialogRef.componentInstance.emailChildId = this.emailChildId;
+        this.dialogRef.componentInstance.notGenuine = notGenuine;
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;

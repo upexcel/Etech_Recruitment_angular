@@ -15,6 +15,7 @@ export class SetvaremailpreviewComponent implements OnInit {
     userDetails: any;
     temp: any;
     body = '';
+    notGenuine: any;
     constructor(public dialogRef: MdDialogRef<any>, public apiServices: ImapMailsService, public snackBar: MdSnackBar) { }
 
     ngOnInit() {
@@ -44,13 +45,23 @@ export class SetvaremailpreviewComponent implements OnInit {
 
     sendEmail() {
         if (this.temp['default_id'] || this.temp['tag_id']) {
-            this.apiServices.sendEmail(this.temp).subscribe((data) => {
-                this.snackBar.open('Mail Send', '', {
-                    duration: 2000,
+            if (this.notGenuine) {
+                this.apiServices.sendToNotReplied(this.temp).subscribe((data) => {
+                    this.snackBar.open(`Mail Sending to ${data.no_of_candidate}`, '', {
+                        duration: 2000,
+                    });
+                }, (err) => {
+                    console.log(err)
                 });
-            }, (err) => {
-                console.log(err)
-            });
+            } else {
+                this.apiServices.sendEmail(this.temp).subscribe((data) => {
+                    this.snackBar.open('Mail Send', '', {
+                        duration: 2000,
+                    });
+                }, (err) => {
+                    console.log(err)
+                });
+            }
         } else {
             this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
                 this.snackBar.open('Email Send', '', {

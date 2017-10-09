@@ -44,9 +44,11 @@
                     </div>
                     <h2 class="m-s" *ngIf="showmessage && showInboxEmailList">{{message}}</h2>
                     <div class="compose-email" *ngIf="showInboxEmailList">
-                        <a style="margin-right: 4px;" *ngIf="emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" (click)="sendEmailToAll()">Send Email To All</a>
+                        <a *ngIf="emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" style="margin-right: 4px; text-decoration: none;">Send Email To: </a>
+                        <a style="margin-right: 4px;" *ngIf="emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" (click)="sendEmailToAll()">All</a>
+                        <a style="margin-right: 4px;" *ngIf="selectedTagTitle == 'All' && emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" (click)="sendEmailToAll('notGenuine')">Not Genuine</a>
                         <a *ngIf="selectedTagTitle == 'All' && this.role !== 'Guest' && emaillist && emaillist.data && emaillist.data.length > 0"
-                            style="margin-right: 4px;" (click)="sendEmailToPendingCandidates()">Send Email To Pending  Candidates <span *ngIf="sendFailedEmailListCount || sendSuccessEmailListCount">Success: {{sendSuccessEmailListCount}}, Failed: {{sendFailedEmailListCount}} </span></a>
+                            style="margin-right: 4px;" (click)="sendEmailToPendingCandidates()">Pending  Candidates <span *ngIf="sendFailedEmailListCount || sendSuccessEmailListCount">Success: {{sendSuccessEmailListCount}}, Failed: {{sendFailedEmailListCount}} </span></a>
                         <a *ngIf="emailIds.length > 0 && this.role !== 'Guest'" (click)="composeEmail()"> Send Email </a>
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
