@@ -64,7 +64,7 @@ export class SetvaremailpreviewComponent implements OnInit {
             }
         } else {
             console.log(this.userDetails, this.temp)
-            if (this.userDetails['CandidateEmail'] || this.userDetails['CandidateName']) {
+            if (this.userDetails['CandidateEmail'] && this.userDetails['CandidateName']) {
                 this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
                     this.snackBar.open('Email Send', '', {
                         duration: 2000,
@@ -76,7 +76,8 @@ export class SetvaremailpreviewComponent implements OnInit {
                     console.log(err);
                 });
             } else {
-                this.apiServices.sendEmailBySeclection(this.userDetails, this.temp).subscribe((data) => {
+                this.temp['emails'] = this.userDetails['CandidateEmail'];
+                this.apiServices.sendEmailBySeclection(this.temp).subscribe((data) => {
                     this.snackBar.open('Email Send', '', {
                         duration: 2000,
                     });

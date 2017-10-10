@@ -519,9 +519,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    sendEmailBySeclection(userDetail: any, body: any): Observable <any> {
+    sendEmailBySeclection(body: any): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.post(environment['apibase'] + `email/by_seclection/${userDetail.CandidateEmail}`, body)
+        return this.Intercepted.post(environment['apibase'] + `email/by_seclection`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
