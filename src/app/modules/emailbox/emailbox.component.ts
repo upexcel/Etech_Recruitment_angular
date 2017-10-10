@@ -7,7 +7,7 @@ import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-emailbox',
     templateUrl: './emailbox.component.html',
     styleUrls: ['./emailbox.component.scss']

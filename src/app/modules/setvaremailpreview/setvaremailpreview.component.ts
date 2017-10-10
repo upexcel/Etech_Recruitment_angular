@@ -63,16 +63,30 @@ export class SetvaremailpreviewComponent implements OnInit {
                 });
             }
         } else {
-            this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
-                this.snackBar.open('Email Send', '', {
-                    duration: 2000,
+            if (this.userDetails['CandidateEmail'] && this.userDetails['CandidateName']) {
+                this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
+                    this.snackBar.open('Email Send', '', {
+                        duration: 2000,
+                    });
+                }, (err) => {
+                    this.snackBar.open(err.message, '', {
+                        duration: 2000,
+                    });
+                    console.log(err);
                 });
-            }, (err) => {
-                this.snackBar.open(err.message, '', {
-                    duration: 2000,
+            } else {
+                this.temp['emails'] = this.userDetails['CandidateEmail'];
+                this.apiServices.sendEmailBySeclection(this.temp).subscribe((data) => {
+                    this.snackBar.open('Email Send', '', {
+                        duration: 2000,
+                    });
+                }, (err) => {
+                    this.snackBar.open(err.message, '', {
+                        duration: 2000,
+                    });
+                    console.log(err);
                 });
-                console.log(err);
-            });
+            }
         }
         this.dialogRef.close('done');
     }
