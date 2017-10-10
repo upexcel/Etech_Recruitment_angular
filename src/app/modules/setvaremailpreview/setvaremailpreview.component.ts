@@ -63,7 +63,6 @@ export class SetvaremailpreviewComponent implements OnInit {
                 });
             }
         } else {
-            console.log(this.userDetails, this.temp)
             if (this.userDetails['CandidateEmail'] && this.userDetails['CandidateName']) {
                 this.apiServices.sendTestEmail(this.userDetails, this.temp).subscribe((data) => {
                     this.snackBar.open('Email Send', '', {
