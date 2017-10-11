@@ -144,6 +144,7 @@ import { FetchEmailByDayComponent } from './modules/fetch-email-by-day/fetch-ema
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confirmation-dialog.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { CronStatusModelComponent } from './modules/cron-status-model/cron-status-model.component';
 
 import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
@@ -198,7 +199,8 @@ import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
         ScheduleInterviewComponent,
         ConfirmationDialogComponent,
         DashboardComponent,
-        AvatarDirectiveDirective
+        AvatarDirectiveDirective,
+        CronStatusModelComponent
     ],
     imports: [
         BrowserModule,
@@ -246,6 +248,7 @@ import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
         EditVariableComponent,
         TestTemplateComponent,
         SetvaremailpreviewComponent,
+        CronStatusModelComponent,
         OpenattachementComponent,
         ScheduleInterviewComponent,
         AddNewUserComponent,

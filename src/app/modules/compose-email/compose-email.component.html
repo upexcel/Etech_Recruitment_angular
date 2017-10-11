@@ -1,7 +1,7 @@
 <div class="header">
     <p class="h-text">Send Email</p>
 </div>
-<form autoComplete="off" #composeEmail="ngForm" (ngSubmit)="save(composeEmail)" *ngIf="formOpen">
+<form autoComplete="off" #composeEmail="ngForm" *ngIf="formOpen">
     <p *ngIf="showMessage" class="error-show">{{message}}</p>
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main">
@@ -21,7 +21,7 @@
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-input-container class="width-75">
-                    <input mdInput placeholder="" autoComplete="off" name="subject" required ngModel>
+                    <input mdInput placeholder="" autoComplete="off" name="subject" required [(ngModel)]="subject">
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-select placeholder="Select Template" class="width-25" [(ngModel)]="selectedTemplate" (change)="selectTemplate(selectedTemplate)" [ngModelOptions]="{standalone: true}">
@@ -33,10 +33,9 @@
             </p>
         </div>
     </div>
-    <hr>
     <div class="fx-pos">
     	<button md-raised-button (click)="close()">Back</button>
-    	<button md-raised-button type="submit" color="accent">Send</button>
+    	<button md-raised-button color="accent" (click)="save(composeEmail)">Send</button>
     </div>
 </form>
 <md-card *ngIf="!formOpen">

@@ -217,6 +217,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    getCronStatus(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + 'email/cron_status', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     addUser(body: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + 'user/add_user', body)
@@ -233,6 +246,19 @@ export class ImapMailsService {
     sendEmail(body: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + 'email/sendtomany', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    sendToNotReplied(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + 'sendToNotReplied', body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
@@ -496,6 +522,19 @@ export class ImapMailsService {
     sendTestEmail(userDetail: any, body: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `template/email/${userDetail.CandidateEmail}`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    sendEmailBySeclection(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `email/by_seclection`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

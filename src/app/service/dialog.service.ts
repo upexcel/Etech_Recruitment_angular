@@ -5,6 +5,7 @@ import { AddNewUserComponent } from './../modules/add-new-user/add-new-user.comp
 import { ConfirmationDialogComponent } from './../modules/confirmation-dialog/confirmation-dialog.component';
 import { SetvaremailpreviewComponent } from './../modules/setvaremailpreview/setvaremailpreview.component';
 import { FetchEmailByDayComponent } from './../modules/fetch-email-by-day/fetch-email-by-day.component';
+import { CronStatusModelComponent } from './../modules/cron-status-model/cron-status-model.component';
 
 @Injectable()
 export class DialogService {
@@ -35,6 +36,20 @@ export class DialogService {
     openAddUser() {
         return new Promise((resolve, reject) => {
             this.dialogRef = this.dialog.open(AddNewUserComponent);
+            this.dialogRef.afterClosed().subscribe(result => {
+                this.dialogRef = null;
+                if (result) {
+                    resolve(result);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
+    getCronStatusDialog(emailParentId) {
+        return new Promise((resolve, reject) => {
+            this.dialogRef = this.dialog.open(CronStatusModelComponent);
+            this.dialogRef.componentInstance.emailParentId = emailParentId;
             this.dialogRef.afterClosed().subscribe(result => {
                 this.dialogRef = null;
                 if (result) {
