@@ -6,7 +6,8 @@ import { AutomaticTagModalComponent } from '../automatic-tag-modal/automatic-tag
 import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
 import { MdSnackBar } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
-
+import { DragulaService } from 'ng2-dragula';
+import * as _ from 'lodash';
 @Component({
     selector: 'app-job-profile-tag',
     templateUrl: './job-profile-tag.component.html',
@@ -17,7 +18,23 @@ export class JobProfileTagComponent implements OnInit {
     loading = false;
     tempList: any;
     tags: any[];
-    constructor(private getTags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar, private _dialogService: DialogService) { }
+    constructor(private dragulaService: DragulaService, private getTags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar, private _dialogService: DialogService) {
+        dragulaService.drop.subscribe((value) => {
+            this.onDrop(value.slice(1));
+        });
+    }
+
+    onDrop(args) {
+        const apiData = [];
+        _.forEach(this.tags['Automatic'], (value, key) => {
+            apiData.push({ 'id': value['id'], 'priority': (key + 1) })
+        })
+        this.getTags.updatePriority(apiData).subscribe((res) => {
+            console.log(res)
+        }, (err) => {
+            console.log(err)
+        })
+    }
 
     ngOnInit() {
         this.loading = true;
