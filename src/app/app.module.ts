@@ -152,6 +152,7 @@ import { DialogService } from './service/dialog.service';
 import { DashboardService } from './service/dashboard.service';
 import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
 
+import { DragulaModule } from 'ng2-dragula';
 @NgModule({
     declarations: [
         AppComponent,
@@ -220,7 +221,8 @@ import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
         CKEditorModule,
         MdDatepickerModule,
         MdNativeDateModule,
-        ChartsModule
+        ChartsModule,
+        DragulaModule
     ],
     providers: [
         ImapMailsService,
