@@ -145,15 +145,28 @@ export class InboxComponent implements OnInit, OnDestroy {
     searchEmail(searchform: NgForm) {
         if (searchform.valid) {
             if (!!searchform.value['currentTag']) {
-                this.data = {
-                    'page': 1,
-                    'tag_id': this.emailParentId,
-                    'default_id': this.emailChildId,
-                    'limit': 100,
-                    'type': searchform.value['option'],
-                    'keyword': searchform.value['keyword'],
-                    'selected': searchform.value['currentTag']
-                };
+                if (this.data['is_attach']) {
+                    this.data = {
+                        'page': 1,
+                        'tag_id': this.emailParentId,
+                        'default_id': this.emailChildId,
+                        'limit': 100,
+                        'type': searchform.value['option'],
+                        'keyword': searchform.value['keyword'],
+                        'selected': searchform.value['currentTag'],
+                        'is_attach': this.data['is_attach']
+                    };
+                } else {
+                    this.data = {
+                        'page': 1,
+                        'tag_id': this.emailParentId,
+                        'default_id': this.emailChildId,
+                        'limit': 100,
+                        'type': searchform.value['option'],
+                        'keyword': searchform.value['keyword'],
+                        'selected': searchform.value['currentTag']
+                    };
+                }
             } else {
                 this.data = {
                     'page': 1,
@@ -308,12 +321,23 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
-        this.data = {
-            'page': page || 1,
-            'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
-            'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
-            'limit': 100
-        };
+        console.log(emailData)
+        if (emailData['is_attach']) {
+            this.data = {
+                'page': page || 1,
+                'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
+                'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
+                'limit': 100,
+                'is_attach': emailData['is_attach']
+            };
+        } else {
+            this.data = {
+                'page': page || 1,
+                'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
+                'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
+                'limit': 100
+            };
+        }
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.addSelectedFieldInEmailList(data);
