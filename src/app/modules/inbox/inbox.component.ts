@@ -69,6 +69,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     role: string;
     inboxMailsTagsForEmailListAndModel: any;
     lastSelectedTagData: any;
+    goToPageNo: number;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -370,6 +371,19 @@ export class InboxComponent implements OnInit, OnDestroy {
     next() {
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
+            if (!this.data.type) {
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+            } else {
+                this.searchEmailList(this.data.page);
+            }
+        }
+    }
+
+    gotTopage(pageNo) {
+        console.log(pageNo, this.emaillist.count, this.data.limit, Math.ceil(this.emaillist.count / this.data.limit))
+        console.log(pageNo <= Math.ceil(this.emaillist.count / this.data.limit))
+        if (pageNo <= Math.ceil(this.emaillist.count / this.data.limit)) {
+            this.data.page = pageNo;
             if (!this.data.type) {
                 this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
             } else {
