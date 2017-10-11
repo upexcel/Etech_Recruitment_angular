@@ -321,7 +321,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
-        console.log(emailData)
         if (emailData['is_attach']) {
             this.data = {
                 'page': page || 1,
