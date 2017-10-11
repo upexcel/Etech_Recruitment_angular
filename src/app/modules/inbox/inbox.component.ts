@@ -380,8 +380,6 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     gotTopage(pageNo) {
-        console.log(pageNo, this.emaillist.count, this.data.limit, Math.ceil(this.emaillist.count / this.data.limit))
-        console.log(pageNo <= Math.ceil(this.emaillist.count / this.data.limit))
         if (pageNo <= Math.ceil(this.emaillist.count / this.data.limit)) {
             this.data.page = pageNo;
             if (!this.data.type) {
