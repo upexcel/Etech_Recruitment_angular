@@ -152,7 +152,6 @@ export class CommonService {
     }
 
     reduseCountEmail(tags, selectedTag, parantId) {
-        console.log(tags, selectedTag, parantId)
         _.forEach(tags, (value, key) => {
             _.forEach(value['data'], (dataValue, dataKey) => {
                 if (!selectedTag && dataValue['title'] === 'Mails') {
