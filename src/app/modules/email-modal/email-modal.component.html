@@ -12,7 +12,7 @@
         <h3 class="font-300 pointer" [ngClass]=" (!H_email.accordianIsOpen) ? 'accordian-close' : 'accordian-open'" *ngIf="historyList.data.length > 1" (click)="openAccordian(H_email)">{{H_email.subject}}</h3>
         <div class="accordian-icon-box" *ngIf="historyList.data.length > 1" (click)="openAccordian(H_email)">
             <md-icon style="font-size: 24px!important;" *ngIf="H_email.accordianIsOpen">keyboard_arrow_up</md-icon>
-            <span *ngIf="!H_email.accordianIsOpen">{{H_email.date | date: 'medium'}} </span>
+            <span *ngIf="!H_email.accordianIsOpen"><i *ngIf="H_email.is_attachment"  class="material-icons">attach_file</i>{{H_email.date | date: 'medium'}} </span>
             <md-icon style="font-size: 24px!important;" *ngIf="!H_email.accordianIsOpen">keyboard_arrow_down</md-icon>
         </div>
     </div>

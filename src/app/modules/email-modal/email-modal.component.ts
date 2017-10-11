@@ -91,6 +91,7 @@ export class EmailModalComponent implements OnInit {
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
             this.historyList = this.commonService.formateEmailHistoryData(data, this.route.snapshot.paramMap.get('id'));
+            this._localStorageService.setItem('email', this.historyList['data'][0]);
         }, (err) => {
             console.log(err);
         });
@@ -104,6 +105,9 @@ export class EmailModalComponent implements OnInit {
     openAccordian(singleEmail) {
         this.selectedEmail = '';
         this.selectedEmail = singleEmail;
+        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
+            this.getEmailAttachment(this.selectedEmail);
+        }
         for (let i = 0; i < this.historyList['data'].length; i++) {
             if (this.historyList['data'][i]['_id'] === singleEmail['_id']) {
                 if (this.historyList['data'][i]['accordianIsOpen']) {
@@ -116,6 +120,17 @@ export class EmailModalComponent implements OnInit {
                 // this.historyList['data'][i]['accordianIsOpen'] = false;
             }
         }
+    }
+
+    getEmailAttachment(email) {
+        const index = _.findIndex(this.historyList['data'], email)
+        this.tagUpdate.emailAttachment(email['_id']).subscribe((data) => {
+            this.historyList['data'][index] = data['data'];
+            this.historyList['data'][index]['accordianIsOpen'] = true;
+        }, (err) => {
+            this.error = true;
+            this.errorMessageText = err.message;
+        });
     }
 
     assignTag(id: string, emailId, title: string, emailData) {
@@ -193,7 +208,6 @@ export class EmailModalComponent implements OnInit {
             height: '90%',
             width: '70%'
         });
-        console.log(this.email)
         this.dialogRef.componentInstance.emailList = [this.email['sender_mail']];
         this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.dialogRef.afterClosed().subscribe(result => {
