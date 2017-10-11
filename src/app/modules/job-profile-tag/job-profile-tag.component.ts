@@ -20,27 +20,20 @@ export class JobProfileTagComponent implements OnInit {
     tags: any[];
     constructor(private dragulaService: DragulaService, private getTags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar, private _dialogService: DialogService) {
         dragulaService.drop.subscribe((value) => {
-            // console.log('drop', value);
             this.onDrop(value.slice(1));
         });
     }
 
     onDrop(args) {
-        console.log('args')
-        // console.log(this.tags['Automatic'])
         const apiData = [];
         _.forEach(this.tags['Automatic'], (value, key) => {
-            console.log(value, key)
             apiData.push({ 'id': value['id'], 'priority': (key + 1) })
         })
-        console.log(apiData)
         this.getTags.updatePriority(apiData).subscribe((res) => {
             console.log(res)
         }, (err) => {
             console.log(err)
         })
-        // let [e, el] = args;
-        // do something
     }
 
     ngOnInit() {
