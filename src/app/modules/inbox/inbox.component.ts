@@ -31,6 +31,7 @@ import { CoreComponent } from './../../modules/core/core.component';
 import { ComposeEmailComponent } from './../../modules/compose-email/compose-email.component';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { CommonService } from './../../service/common.service';
+import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -68,7 +69,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     role: string;
     inboxMailsTagsForEmailListAndModel: any;
     lastSelectedTagData: any;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService) {
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
@@ -382,6 +383,10 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     trackByEmails(index, email) {
         return index;
+    }
+
+    cronStatus() {
+        this._dialogService.getCronStatusDialog(this.emailParentId);
     }
 
     ngOnDestroy() {
