@@ -69,6 +69,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     role: string;
     inboxMailsTagsForEmailListAndModel: any;
     lastSelectedTagData: any;
+    goToPageNo: number;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -145,15 +146,28 @@ export class InboxComponent implements OnInit, OnDestroy {
     searchEmail(searchform: NgForm) {
         if (searchform.valid) {
             if (!!searchform.value['currentTag']) {
-                this.data = {
-                    'page': 1,
-                    'tag_id': this.emailParentId,
-                    'default_id': this.emailChildId,
-                    'limit': 100,
-                    'type': searchform.value['option'],
-                    'keyword': searchform.value['keyword'],
-                    'selected': searchform.value['currentTag']
-                };
+                if (this.data['is_attach']) {
+                    this.data = {
+                        'page': 1,
+                        'tag_id': this.emailParentId,
+                        'default_id': this.emailChildId,
+                        'limit': 100,
+                        'type': searchform.value['option'],
+                        'keyword': searchform.value['keyword'],
+                        'selected': searchform.value['currentTag'],
+                        'is_attach': this.data['is_attach']
+                    };
+                } else {
+                    this.data = {
+                        'page': 1,
+                        'tag_id': this.emailParentId,
+                        'default_id': this.emailChildId,
+                        'limit': 100,
+                        'type': searchform.value['option'],
+                        'keyword': searchform.value['keyword'],
+                        'selected': searchform.value['currentTag']
+                    };
+                }
             } else {
                 this.data = {
                     'page': 1,
@@ -308,12 +322,22 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
-        this.data = {
-            'page': page || 1,
-            'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
-            'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
-            'limit': 100
-        };
+        if (emailData['is_attach']) {
+            this.data = {
+                'page': page || 1,
+                'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
+                'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
+                'limit': 100,
+                'is_attach': emailData['is_attach']
+            };
+        } else {
+            this.data = {
+                'page': page || 1,
+                'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
+                'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
+                'limit': 100
+            };
+        }
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
             this.addSelectedFieldInEmailList(data);
@@ -347,6 +371,17 @@ export class InboxComponent implements OnInit, OnDestroy {
     next() {
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
+            if (!this.data.type) {
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+            } else {
+                this.searchEmailList(this.data.page);
+            }
+        }
+    }
+
+    gotTopage(pageNo) {
+        if (pageNo <= Math.ceil(this.emaillist.count / this.data.limit)) {
+            this.data.page = pageNo;
             if (!this.data.type) {
                 this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
             } else {

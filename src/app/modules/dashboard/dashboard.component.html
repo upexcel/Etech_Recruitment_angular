@@ -32,7 +32,7 @@
       <div class="pie-chart" *ngFor="let round of dashboardData.rounds; let i = index;">
         <p><b>{{round.label}}</b></p>
         <div>
-          <canvas baseChart width="200" height="200" [data]="round.data" [labels]="round.rounds" [options]="pieChartOption" [legend]="lineChartLegend"
+          <canvas baseChart width="200" height="200" [data]="round.data" [labels]="round.rounds" [options]="pieChartOption" [legend]="false"
             [chartType]="'pie'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
       </div>

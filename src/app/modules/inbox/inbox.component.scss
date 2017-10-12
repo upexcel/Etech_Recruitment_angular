@@ -20,6 +20,14 @@
     position: relative;
     min-height: 100%;
 }
+.go-to-page-form {
+  input {
+    margin: 0px 10px;
+  }
+  button {
+    margin: 2px 10px;
+  }
+}
 
 .m-b {
 	margin-bottom: 1rem !important;
@@ -108,7 +116,7 @@
   }
   .pagination{
     min-height: 42px;
-    margin: 20px 0;
+    // margin: 20px 0;
   }
   .mar-pos {
     margin-left: 10px;

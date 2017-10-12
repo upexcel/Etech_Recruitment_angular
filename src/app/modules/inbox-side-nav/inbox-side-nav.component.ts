@@ -33,6 +33,8 @@ export class InboxSideNavComponent implements OnInit {
         this.menuShow = false;
         if (title === 'Mails') {
             this.getEmails.emit({ 'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle });
+        } else if (title === 'Attachment') {
+            this.getEmails.emit({ 'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle, 'is_attach': true });
         } else {
             this.getEmails.emit({ 'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle });
         }

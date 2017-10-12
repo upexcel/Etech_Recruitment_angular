@@ -38,6 +38,10 @@
                                     <button md-button class="d-w" (click)="next()">
                                                         <md-icon>keyboard_arrow_right</md-icon>
                                                     </button>
+                                    <form class="form-inline" class="go-to-page-form">
+                                            <input [(ngModel)]="goToPageNo" type="number" class="form-control" placeholder="Page No" [ngModelOptions]="{standalone: true}">
+                                        <button md-button (click)="gotTopage(goToPageNo)" [disabled]="!goToPageNo || goToPageNo < 0" class="btn btn-default">Go To Page</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
