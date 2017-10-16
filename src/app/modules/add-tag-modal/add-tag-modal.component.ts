@@ -38,25 +38,31 @@ export class AddTagModalComponent implements OnInit {
         this.showMessage = false;
         this.showloading = true;
         if (form.valid) {
-            if (this.addTagType === 'jobProfile') {
-                form.value.is_job_profile_tag = 1;
-            }
-            if (form.value.assign === '') {
-                form.value.assign = false;
-            }
-            if (form.value.is_email_send === '') {
-                form.value.is_email_send = false;
-            }
-            form.value.color = this.originalcolor;
-            this.tagUpdate.addTag(form.value).subscribe((data) => {
-                form.reset();
-                this.showloading = true;
-            }, (err) => {
+            if (form.value.email || form.value.from || form.value.subject || form.value.to) {
+                if (this.addTagType === 'jobProfile') {
+                    form.value.is_job_profile_tag = 1;
+                }
+                if (form.value.assign === '') {
+                    form.value.assign = false;
+                }
+                if (form.value.is_email_send === '') {
+                    form.value.is_email_send = false;
+                }
+                form.value.color = this.originalcolor;
+                this.tagUpdate.addTag(form.value).subscribe((data) => {
+                    form.reset();
+                    this.showloading = true;
+                }, (err) => {
+                    this.showMessage = true;
+                    this.showloading = false;
+                    this.message = err.message;
+                });
+                this.dialogRef.close('Added');
+            } else {
                 this.showMessage = true;
                 this.showloading = false;
-                this.message = err.message;
-            });
-            this.dialogRef.close('Added');
+                this.message = 'Please enter any of Subject/Date/Email.';
+            }
         }
     }
 
