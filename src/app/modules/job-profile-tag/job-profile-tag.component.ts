@@ -95,7 +95,9 @@ export class JobProfileTagComponent implements OnInit {
         this.dialogRef.afterClosed().subscribe(result => {
             if (result === 'Added') {
                 this.dialogRef = null;
-                this.getAllTag();
+                setTimeout(() => {
+                    this.getAllTag();
+                }, 500);
             }
         });
     }
