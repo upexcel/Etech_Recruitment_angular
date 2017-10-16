@@ -53,6 +53,7 @@ export class AutomaticTagComponent implements OnInit {
         this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {});
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.componentInstance.tempList = this.tempList;
+        this.dialogRef.componentInstance.isJobProfile = false;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result === 'updated') {
                 this.snackBar.open('Tag Updated Successfully', '', {
