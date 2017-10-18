@@ -424,6 +424,10 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._dialogService.getCronStatusDialog(this.emailParentId);
     }
 
+    deleteAllMailsCurrentTag() {
+        console.log('this.emailParentId', this.emailParentId, 'this.emailChildId', this.emailChildId)
+    }
+
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.inboxRefreshSubscription.unsubscribe();

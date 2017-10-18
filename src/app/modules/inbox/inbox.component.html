@@ -54,7 +54,8 @@
                         <a *ngIf="selectedTagTitle == 'All' && this.role !== 'Guest' && emaillist && emaillist.data && emaillist.data.length > 0"
                             style="margin-right: 4px;" (click)="sendEmailToPendingCandidates()">Pending  Candidates <span *ngIf="sendFailedEmailListCount || sendSuccessEmailListCount">Success: {{sendSuccessEmailListCount}}, Failed: {{sendFailedEmailListCount}} </span></a>
                         <a *ngIf="emailIds.length > 0 && this.role !== 'Guest'" (click)="composeEmail()"> Send Email </a>
-                        <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId && selectedTagTitle == 'All'" class="pull-right" (click)="cronStatus()"> Get Cron Status </a>
+                        <!-- <a *ngIf="emaillist && this.role !== 'Guest'" class="pull-right" (click)="deleteAllMailsCurrentTag()">Delete All Mails</a> -->
+                        <a style="margin-right: 4px;" *ngIf="emaillist && this.role !== 'Guest' && emailParentId && selectedTagTitle == 'All'" class="pull-right" (click)="cronStatus()">Get Cron Status</a>
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
                         <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)"

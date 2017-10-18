@@ -16,6 +16,7 @@ export class AutomaticTagModalComponent implements OnInit {
     originaltitle = '';
     temp_id: any;
     availableColors = color_list;
+    isJobProfile: boolean;
     constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
@@ -35,10 +36,10 @@ export class AutomaticTagModalComponent implements OnInit {
         this.tag.color = this.originalcolor;
         this.tag.template_id = this.temp_id;
         this.tagupdate.updateTag(this.tag, this.tag.type).subscribe((data) => {
-            this.dialogRef.close('updated');
         }, (err) => {
             console.log(err);
         });
+        this.dialogRef.close('updated');
     }
 
     close() {

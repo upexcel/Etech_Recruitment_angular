@@ -37,7 +37,7 @@
         </md-option>
       </md-select>
     </div>
-    <div class="col-md-12 col-sm-12">
+    <div class="col-md-12 col-sm-12" *ngIf="isJobProfile">
       <md-input-container class="width-100">
         <textarea mdInput rows="4" placeholder="Job Description" [value]="tag.job_description" [(ngModel)]="tag.job_description" required></textarea>
       </md-input-container>
@@ -56,7 +56,8 @@
     </div>
     <div class="col-md-6 col-sm-12">
       <button md-raised-button (click)="close()">Close</button>
-      <button md-raised-button color=primary [disabled]="tag.job_description.length <= 0" (click)="save()">Save</button>
+      <button md-raised-button color=primary *ngIf="!isJobProfile" [disabled]="isJobProfile ? tag.job_description.length <= 0 : false || !(tag.email.length > 0 || (tag.to && tag.to.length > 0)  || (tag.from && tag.from.length > 0)  || tag.subject.length > 0 )" (click)="save()">Save</button>
+      <button md-raised-button color=primary *ngIf="isJobProfile" [disabled]="(tag.job_description.length <= 0) || (tag.email.length <= 0 && tag.subject.length <= 0 && !tag.to && !tag.from)" (click)="save()">Save</button>
     </div>
   </div>
 </div>

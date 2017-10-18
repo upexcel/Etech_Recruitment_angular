@@ -1,7 +1,7 @@
 <div>
   <h3 class="heading">Add Tag</h3>
 </div>
-<form #addForm="ngForm" (ngSubmit)="addTag(addForm)" class="add-tag">
+<form #addForm="ngForm" class="add-tag">
   <span class="text-err" *ngIf="showMessage">{{message}}</span>
   <div class="container-fluid">
     <div class="row">
@@ -28,7 +28,7 @@
       </div>
       <div class="col-md-6 col-sm-12">
         <md-input-container class="width-100">
-          <input mdInput name="subject" placeholder="Subject" ngModel required>
+          <input mdInput name="subject" placeholder="Subject" ngModel>
         </md-input-container>
       </div>
     </div>
@@ -78,7 +78,7 @@
       </div>
       <div class="col-md-12 col-sm-12 text-right">
         <button md-raised-button (click)="close()">Close</button>
-        <button md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)"><span>Save </span></button>
+        <button md-raised-button type="submit" [disabled]="addForm.invalid || showloading" color=primary (click)="addTag(addForm)"><span>Save </span></button>
       </div>
     </div>
   </div>
