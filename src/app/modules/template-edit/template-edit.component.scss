@@ -1,7 +1,7 @@
 @import './../../variable.scss';
 .header {
 	position: relative;
-    top: -24px;
+    top: 0px;
     border-bottom: 1px solid black;
 }
 .h-text {
@@ -14,9 +14,9 @@
 .width-75 {
 	width: 70%;
 }
-.main {
-	padding: 10px;
-}
+// .main {
+// 	padding: 10px;
+// }
 .sidenav {
 	padding: 5px;
 }
@@ -42,4 +42,7 @@ md-card {
 .con-pg {
 	max-height: 422px !important;
     overflow-y: auto;
+}
+.side-nav mat-card{
+	width: 40%;
 }
