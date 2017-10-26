@@ -3,7 +3,8 @@
 </div>
 <form autoComplete="off" #Temp="ngForm" (ngSubmit)="update(Temp)">
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-        <div class="main">
+      <div class="row">
+        <div class="main col-sm-8">
             <p>
                 <md-input-container class="width-100">
                     <input mdInput placeholder="Template Name" [(ngModel)]="tempName" autoComplete="off" name="templateName" required ngModel>
@@ -17,14 +18,15 @@
                     <input mdInput placeholder="" [(ngModel)]="subject" autoComplete="off" name="subject" required ngModel>
                     <md-error>Required</md-error>
                 </md-input-container>
-                <ckeditor name="body" 
+                <ckeditor name="body"
                     [(ngModel)]="ckeditorContent"
                     [config]="{uiColor: '#00ffff'}"
                     debounce="500" ngModel>
                 </ckeditor>
             </p>
         </div>
-        <div>
+        <div class="side">
+            <div class="col-sm-4">
             <md-card class="side-nav">
                 <button md-button class="h-d">System Variables</button>
                 <md-card-content class="d-c">
@@ -34,12 +36,14 @@
             <br/>
             <md-card class="side-nav">
                 <button md-button class="h-d">User Variables</button>
-                <md-card-content class="d-c"> 
+                <md-card-content class="d-c">
                     <a md-button class="con-btn" *ngFor="let uvar of userVar">{{uvar.variableCode}}</a>
                 </md-card-content>
             </md-card>
         </div>
+      </div>
     </div>
+  </div>
     <hr>
     <div class="fx-pos">
     	<button md-raised-button type="button" (click)="close()">Back</button>

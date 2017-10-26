@@ -50,6 +50,7 @@
     background-size: cover;
 }
 .detailloc {
+    width: 75%;
     cursor: pointer;
     padding-right: 10px;
     margin-left: 44px;
@@ -60,7 +61,8 @@
         word-break: break-word;
     }
     h5 {
-        max-width: 82%;
+        // max-width: 82%;
+        word-break: break-word;
         display: inline-block;
         margin: 0;
         font-weight: bold;
