@@ -1,47 +1,66 @@
 <div class="header">
-    <p class="h-text">Create Template</p>
+  <p class="h-text">Create Template</p>
 </div>
 <form autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
-    <p *ngIf="showMessage" class="error-show">{{message}}</p>
-    <div class="con-pg">
-        <div class="main">
-            <p>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Template Name" autoComplete="off" name="templateName" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-25">
-                    <input mdInput placeholder="Subject" [disabled]="true" autoComplete="off" name="fixedsubject" required [(ngModel)]="subject_for_genuine">
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-75">
-                    <input mdInput placeholder="" autoComplete="off" name="subject" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <ckeditor name="body" 
-                    [config]="{uiColor: '#00ffff'}"
-                    debounce="500" ngModel>
-                </ckeditor>
-            </p>
+  <p *ngIf="showMessage" class="error-show">{{message}}</p>
+  <div class="con-pg">
+    <div class="row">
+      <div class="main col-sm-8">
+        <p>
+          <md-input-container class="width-100">
+            <input mdInput placeholder="Template Name" autoComplete="off" name="templateName" required ngModel>
+            <md-error>Required</md-error>
+          </md-input-container>
+          <md-input-container class="width-25">
+            <input mdInput placeholder="Subject" [disabled]="true" autoComplete="off" name="fixedsubject" required [(ngModel)]="subject_for_genuine">
+            <md-error>Required</md-error>
+          </md-input-container>
+          <md-input-container class="width-75">
+            <input mdInput placeholder="" autoComplete="off" name="subject" required ngModel>
+            <md-error>Required</md-error>
+          </md-input-container>
+          <ckeditor name="body" [config]="{uiColor: '#00ffff'}" debounce="500" ngModel>
+          </ckeditor>
+        </p>
+      </div>
+      <div class="side">
+        <div class="main col-sm-4">
+          <md-card class="side-nav">
+            <button md-button class="h-d">System Variables</button>
+            <md-card-content class="d-c">
+              <button md-button class="con-btn" *ngFor="let svar of sysVar; trackBy: sysVarTrack">{{svar.variableCode}}</button>
+            </md-card-content>
+          </md-card>
+          <br>
+          <md-card class="side-nav">
+            <button md-button class="h-d">User Variables</button>
+            <md-card-content class="d-c">
+              <button md-button class="con-btn" *ngFor="let uvar of userVar; trackBy: userVarTrack">{{uvar.variableCode}}</button>
+            </md-card-content>
+          </md-card>
         </div>
-        <div>
-            <md-card class="side-nav">
-                <button md-button class="h-d">System Variables</button>
-                <md-card-content class="d-c">
-                    <button md-button class="con-btn" *ngFor="let svar of sysVar; trackBy: sysVarTrack">{{svar.variableCode}}</button>
-                </md-card-content>
-            </md-card>
-            <br/>
-            <md-card class="side-nav">
-                <button md-button class="h-d">User Variables</button>
-                <md-card-content class="d-c"> 
-                    <button md-button class="con-btn" *ngFor="let uvar of userVar; trackBy: userVarTrack">{{uvar.variableCode}}</button>
-                </md-card-content>
-            </md-card>
-        </div>
+      </div>
     </div>
-    <div class="fx-pos">
-    	<button md-raised-button (click)="close()">Back</button>
-    	<button md-raised-button type="submit" color="accent">Save</button>
-    </div>
+
+    <!-- <div class="">
+      <md-card class="side-nav" style="width:20%">
+        <button md-button class="h-d">System Variables</button>
+        <md-card-content class="d-c">
+          <button md-button class="con-btn" *ngFor="let svar of sysVar; trackBy: sysVarTrack">{{svar.variableCode}}</button>
+        </md-card-content>
+      </md-card>
+      <br/>
+      <md-card class="side-nav" style="width:20%">
+        <button md-button class="h-d">User Variables</button>
+        <md-card-content class="d-c">
+          <button md-button class="con-btn" *ngFor="let uvar of userVar; trackBy: userVarTrack">{{uvar.variableCode}}</button>
+        </md-card-content>
+      </md-card>
+    </div> -->
+  </div>
+
+  <div class="fx-pos">
+    <button md-raised-button (click)="close()">Back</button>
+    <button md-raised-button type="submit" color="accent">Save</button>
+  </div>
 </form>

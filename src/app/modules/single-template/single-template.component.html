@@ -1,7 +1,7 @@
 <md-card>
   <md-card-header (click)="open = !open">
-    <md-card-title>{{temp.templateName}}</md-card-title>
-    <md-card-subtitle>Subject: {{temp.subject}}</md-card-subtitle>
+    <md-card-title style="width: 50%;">{{temp.templateName}}</md-card-title>
+    <md-card-subtitle style="word-wrap: break-word;width: 51%;">Subject: {{temp.subject}}</md-card-subtitle>
   </md-card-header>
   <md-card-content *ngIf="open">
     <p class="pad" [innerHTML]="temp.body | safeHtml"></p>
