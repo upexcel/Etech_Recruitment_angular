@@ -16,7 +16,6 @@ export class TemplateEditComponent implements OnInit {
     tempName: string;
     subject: string;
     temp: any;
-    subject_for_genuine: string;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
@@ -24,7 +23,6 @@ export class TemplateEditComponent implements OnInit {
         this.tempName = this.temp.templateName;
         this.subject = this.temp.subject;
         this.ckeditorContent = this.temp.body;
-        this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
     }
 
     update(form: NgForm) {

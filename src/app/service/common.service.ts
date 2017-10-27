@@ -80,14 +80,12 @@ export class CommonService {
             const tagsForEmailListAndModel = {};
             const dataForInterviewScheduleRound = [];
             let inboxMailsTagsForEmailListAndModel = {};
-            let subject_for_genuine = '';
             const role = this._localStorageService.getItem('role');
             if (role === 'Guest') {
                 resolve(
                     {
                         'tagsForEmailListAndModel': tagsForEmailListAndModel,
                         'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
-                        'subject_for_genuine': subject_for_genuine,
                         'inboxMailsTagsForEmailListAndModel': inboxMailsTagsForEmailListAndModel
                     }
                 );
@@ -97,13 +95,6 @@ export class CommonService {
                 inboxMailsTagsForEmailListAndModel = data[0];
             }
             _.forEach(data, (value, key) => {
-                if (value['subject_for_genuine']) {
-                    subject_for_genuine = value['subject_for_genuine'];
-                    localStorage.setItem('subject_for_genuine', value['subject_for_genuine']);
-                } else {
-                    subject_for_genuine = 'Revert Information';
-                    localStorage.setItem('subject_for_genuine', 'Revert Information');
-                }
                 if (!tagsForEmailListAndModel['Default']) {
                     tagsForEmailListAndModel['Default'] = [];
                     tagsForEmailListAndModel['Default'] = data[0]['data'].length > 0 ? data[0]['data'][0]['subchild'] : [];
@@ -142,7 +133,6 @@ export class CommonService {
                 resolve({
                     'tagsForEmailListAndModel': tagsForEmailListAndModel,
                     'dataForInterviewScheduleRound': dataForInterviewScheduleRound,
-                    'subject_for_genuine': subject_for_genuine,
                     'inboxMailsTagsForEmailListAndModel': inboxMailsTagsForEmailListAndModel
                 })
             }, (err) => {

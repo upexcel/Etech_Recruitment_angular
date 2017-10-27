@@ -55,7 +55,6 @@ export class InboxComponent implements OnInit, OnDestroy {
     showInboxEmailList = true;
     subscription: any;
     tagsForEmailListAndModel: any;
-    subject_for_genuine: string;
     emailParentId: any;
     emailChildId: any;
     emailParenttitle: string;
@@ -208,7 +207,6 @@ export class InboxComponent implements OnInit, OnDestroy {
             width: '70%'
         });
         this.dialogRef.componentInstance.emailList = this.emailIds;
-        this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
             this.emailIds = [];
@@ -292,7 +290,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.emailParentId = this.emailParentId;
         this.dialogRef.componentInstance.emailChildId = this.emailChildId;
         this.dialogRef.componentInstance.notGenuine = notGenuine;
-        this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
             this.emailIds = [];
@@ -410,7 +407,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._commonService.formateTags(data).then((res: any) => {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
-            this.subject_for_genuine = res.subject_for_genuine;
             this.inboxMailsTagsForEmailListAndModel = res.inboxMailsTagsForEmailListAndModel;
         }, (err) => { });
         this.loading = false;

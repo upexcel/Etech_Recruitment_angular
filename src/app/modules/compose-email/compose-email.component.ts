@@ -22,7 +22,6 @@ export class ComposeEmailComponent implements OnInit {
     sendSuccessEmailList: any;
     sendFailedEmailList: any;
     formOpen = true;
-    subject_for_genuine: any;
     emailParentId: any;
     emailChildId: any;
     emailParenttitle: string;
@@ -63,7 +62,8 @@ export class ComposeEmailComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
-            form.value.subject = this.subject_for_genuine + ' ' + this.subject;
+            form.value.subject = this.subject;
+            console.log(this.subject);
             form.value.body = this.body;
             form.value.template_id = this.selectedTempplateId;
             if (this.emails) {
