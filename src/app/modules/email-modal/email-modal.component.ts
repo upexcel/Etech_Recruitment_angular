@@ -209,7 +209,6 @@ export class EmailModalComponent implements OnInit {
             width: '70%'
         });
         this.dialogRef.componentInstance.emailList = [this.email['sender_mail']];
-        this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
         });
