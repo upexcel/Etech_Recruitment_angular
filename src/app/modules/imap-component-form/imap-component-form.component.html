@@ -26,7 +26,10 @@
                     </div>
                     <div class="col-md-4 col-sm-12">
                         <md-input-container class="width-90">
-                            <input mdInput [mdDatepicker]="picker" required [formControl]="dateFormControl">
+                            <input placeholder="Date" mdInput [mdDatepicker]="picker" required [formControl]="dateFormControl" autocomplete="off">
+                            <md-error *ngIf="dateFormControl.hasError('required')">
+                                Date is required
+                            </md-error>
                             <button mdSuffix [mdDatepickerToggle]="picker"></button>
                         </md-input-container>
                         <md-datepicker #picker></md-datepicker>
