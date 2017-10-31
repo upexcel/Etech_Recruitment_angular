@@ -76,7 +76,6 @@ export class InboxComponent implements OnInit, OnDestroy {
     state;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
-        // this.state=s\tate;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
                 this.fetchNewEmails();
