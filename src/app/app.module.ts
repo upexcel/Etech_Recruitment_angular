@@ -208,6 +208,8 @@ import { DragulaModule } from 'ng2-dragula';
         BrowserAnimationsModule,
         MaterialModule,
         MdButtonModule,
+        MdDatepickerModule,
+        MdNativeDateModule,
         MdCheckboxModule,
         MdSidenavModule,
         MdIconModule,
