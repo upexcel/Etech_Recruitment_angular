@@ -29,7 +29,6 @@ export class ImapComponentFormComponent implements OnInit {
 
             form.value['email'] = this.emailFormControl.value;
             form.value['last_fetched_time'] = this.dateFormControl.value;
-            console.log(this.dateFormControl.value)
             this.imapServices.storeImap(form.value).subscribe((data) => {
                 this.addedImap.emit();
                 form.resetForm();
