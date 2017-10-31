@@ -28,12 +28,12 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loading = false;
-        this.access.verifyAccess().subscribe((data) => {
-            if (data.status === true) {
-                this._router.navigate(['/core/inbox']);
-            }
-        });
+        // this.loading = false;
+        // this.access.verifyAccess().subscribe((data) => {
+        //     if (data.status === true) {
+        //         this._router.navigate(['/core/inbox']);
+        //     }
+        // });
         this.addForm = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$')])],
             password: ['', Validators.required],

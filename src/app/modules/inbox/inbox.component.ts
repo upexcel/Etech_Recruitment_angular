@@ -251,7 +251,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     openEmails(email: any) {
-        this.showInboxEmailList = false;
+        this.showInboxEmailList = true;
         const index = _.findIndex(this.emaillist['data'], email);
         if (index !== -1) {
             if (this.emaillist['data'][index]['unread']) {
@@ -259,7 +259,9 @@ export class InboxComponent implements OnInit, OnDestroy {
             }
             this.emaillist['data'][index]['unread'] = false;
         }
-        this._router.navigate(['core/inbox/email', email._id]);
+        // this._router.navigate(['core/inbox/email', email._id]);
+        const url = 'http://localhost:4200/#/core/inbox/email/' + email._id;
+        window.open(url);
         this._localStorageService.setItem('email', email);
         this._localStorageService.setItem('selectedTag', this.selectedTag);
         this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
