@@ -1,6 +1,7 @@
 import { Component, OnInit, Output,	EventEmitter } from '@angular/core';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { MdDatepicker } from '@angular/material';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -14,6 +15,7 @@ export class ImapComponentFormComponent implements OnInit {
     showmessage: boolean;
     message: string;
     emailFormControl = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]);
+    dateFormControl = new FormControl('', [Validators.required]);
     constructor(private imapServices: ImapMailsService) { }
 
     ngOnInit() {
@@ -23,6 +25,7 @@ export class ImapComponentFormComponent implements OnInit {
         this.showmessage = false;
         if (form.valid) {
             form.value['email'] = this.emailFormControl.value;
+            form.value['date'] = this.dateFormControl.value;
             this.imapServices.storeImap(form.value).subscribe((data) => {
                 this.addedImap.emit();
                 form.resetForm();
