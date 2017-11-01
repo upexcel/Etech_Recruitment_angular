@@ -5,7 +5,9 @@ import {
 } from '@angular/core';
 import {
     Router,
-    NavigationStart
+    NavigationStart,
+    RouterStateSnapshot,
+    ActivatedRouteSnapshot
 } from '@angular/router';
 import {
     ImapMailsService
@@ -70,6 +72,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     inboxMailsTagsForEmailListAndModel: any;
     lastSelectedTagData: any;
     goToPageNo: number;
+    email: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -77,8 +80,8 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.fetchNewEmails();
             });
         this.role = this._localStorageService.getItem('role');
-    }
 
+    }
     ngOnInit() {
         this.emailIds = [];
         this.loading = true;
@@ -251,7 +254,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     openEmails(email: any) {
-        this.showInboxEmailList = false;
+        this.showInboxEmailList = true;
         const index = _.findIndex(this.emaillist['data'], email);
         if (index !== -1) {
             if (this.emaillist['data'][index]['unread']) {
@@ -259,7 +262,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             }
             this.emaillist['data'][index]['unread'] = false;
         }
-        this._router.navigate(['core/inbox/email', email._id]);
+        const landingUrl = window.location + '/email/' + email._id;
+        window.open(landingUrl);
         this._localStorageService.setItem('email', email);
         this._localStorageService.setItem('selectedTag', this.selectedTag);
         this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
