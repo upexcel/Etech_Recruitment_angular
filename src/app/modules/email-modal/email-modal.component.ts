@@ -59,7 +59,6 @@ export class EmailModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        var date=new Date();
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
@@ -107,7 +106,6 @@ export class EmailModalComponent implements OnInit {
     }
 
     openAccordian(singleEmail) {
-        console.log(singleEmail);
         this.selectedEmail = '';
         this.selectedEmail = singleEmail;
         if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
@@ -243,8 +241,6 @@ export class EmailModalComponent implements OnInit {
             this.errorMessageText = err.message;
         });
     }
-
-
 }
 
 }
