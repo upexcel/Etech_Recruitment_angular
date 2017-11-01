@@ -690,7 +690,6 @@ export class ImapMailsService {
             });
     }
     archive(body:any): Observable <any> {
-console.log(body)
       this.increaseAPiCount();
       return this.Intercepted.put(environment['apibase'] + 'email/archive' , body)
          .map((res:Response)=>{
