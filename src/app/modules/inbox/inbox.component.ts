@@ -265,7 +265,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         }
         // this._router.navigate(['core/inbox/email', email._id]);
         // window.location()
-        const landingUrl = window.location.host + '/#/core/inbox/email/' + email._id;
+        const landingUrl = window.location + '/#/core/inbox/email/' + email._id;
         // const url = 'http://localhost:4200/#/core/inbox/email/' + email._id;
         window.open(landingUrl);
 
