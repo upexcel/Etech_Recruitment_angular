@@ -11,6 +11,7 @@ import { LocalStorageService } from './../../service/local-storage.service';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
+import {  AddNoteComponent } from './../add-note/add-note.component';
 
 @Component({
     selector: 'app-email-modal',
@@ -43,6 +44,8 @@ export class EmailModalComponent implements OnInit {
     errorMessageText: string;
     dataForInterviewScheduleRound: any;
     inboxMailsTagsForEmailListAndModel: any;
+    noteData:any;
+    updatedData:any
     constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
@@ -56,6 +59,7 @@ export class EmailModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        var date=new Date();
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
@@ -103,6 +107,7 @@ export class EmailModalComponent implements OnInit {
     }
 
     openAccordian(singleEmail) {
+        console.log(singleEmail);
         this.selectedEmail = '';
         this.selectedEmail = singleEmail;
         if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
@@ -214,4 +219,32 @@ export class EmailModalComponent implements OnInit {
             this.dialogRef = null;
         });
     }
+    addNote(candidateid:any){
+      this.dialogRef = this.dialog.open(AddNoteComponent, {
+            height: '30%',
+            width: '30%'
+        });
+        this.dialogRef.componentInstance.candidateid = candidateid;  
+         this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
+    }
+  
+  eventHandler(event,notedate,notetime,mongoid) {
+      this.updatedData={note:event.target.outerText,mongo_id:mongoid,note_date:notedate,note_time:notetime
+      }
+  }
+  update(event) {
+    if (this.updatedData != undefined) {
+        this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {
+            this.getCandiatehistory();
+        }, (err) => {
+            this.error = true;
+            this.errorMessageText = err.message;
+        });
+    }
+
+
+}
+
 }
