@@ -15,6 +15,7 @@ import { LocalStorageService } from './../../service/local-storage.service';
 export class EmailboxComponent implements OnInit {
     dialogRef: MdDialogRef<any>;
     data: any;
+    unreadData: any;
     selected = false;
     selectedMid: string[];
     @Input() email: any;
@@ -93,5 +94,14 @@ export class EmailboxComponent implements OnInit {
 
     inboxMailsTagsForEmailListAndModelDataTrack(index, data) {
         return index;
+    }
+    mark_unread(id:string){
+        this.unreadData={
+          'mongo_id': id
+        }
+        return this.assignEmail.mark_unread(this.unreadData).subscribe((data=>{}),
+        (err)=>{
+          console.log(err)
+        });
     }
 }
