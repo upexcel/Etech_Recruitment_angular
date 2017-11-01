@@ -30,8 +30,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.dashboardIntervalSubscription = setInterval(() => {
             this.loadDashBoardData();
         }, config.dashboardChartRefreshTime);
-    // this.loading = false;
-
     }
 
     loadDashBoardData() {
@@ -58,12 +56,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
             if (data.status) {
                 this._router.navigate(['/core/inbox']);
             }
-
         }, (error) => {
             this._router.navigate(['login']);
-
         });
-
     }
 
 }
