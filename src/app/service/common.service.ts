@@ -176,7 +176,7 @@ export class CommonService {
         });
         data.data.unshift(deletedData)
         _.forEach(data['data'], (value, key) => {
-            if (value && value['body']) {
+            if (value['body']) {
                 value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
             }
             if (key === 0) {
