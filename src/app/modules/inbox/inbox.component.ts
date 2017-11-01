@@ -52,6 +52,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     selected: any;
     emailIds: string[];
     selectedTag: any;
+    dataTagid: any;
     message: string;
     showmessage: boolean;
     showInboxEmailList = true;
@@ -73,7 +74,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     lastSelectedTagData: any;
     goToPageNo: number;
     email: any;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
+    constructor(private getVariable: ImapMailsService,public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
@@ -434,4 +435,28 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.fetchEmailSubscription.unsubscribe();
     }
 
+
+    Archiveemail(tag_id: string) {
+      this.dataTagid={
+        'tag_id': this.selectedTag
+      }
+      this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+          if (res === 'yes') {
+              this.getVariable.archive(this.dataTagid).subscribe((data) => {
+                console.log(data)
+                this.snackBar.open(' Deleted Mail Successfully', '', {
+                    duration: 2000,
+                });
+              });
+          }
+      }, (err) => {
+          console.log(err);
+          this.snackBar.open(err.message, '', {
+              duration: 2000,
+          });
+      });
+  }
+
 }
+
+// }
