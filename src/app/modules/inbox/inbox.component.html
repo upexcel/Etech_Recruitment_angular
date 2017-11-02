@@ -57,7 +57,7 @@
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId && selectedTagTitle == 'All'" class="pull-right" (click)="cronStatus()"> Get Cron Status </a>
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
-                        <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refresh)="refresh($event)"
+                        <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refreshUnread)="refreshUnreads($event)"(refresh)="refresh($event)"
                             [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)"
                             [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"
                             [inboxMailsTagsForEmailListAndModel]="inboxMailsTagsForEmailListAndModel" (deleteAndAssignTag)="assign($event, emails._id); emaillist.data.splice(i,1)"></app-emailbox>

@@ -26,6 +26,9 @@
                         </button>
                 </div>
                 </span>
+                <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="!email.unread">
+                    <button md-raised-button class="cyan markunread"  (click)="markUnread()"><i class="material-icons">email</i> Mark As Unread</button>
+            </div>
         </div>
     </div>
 </md-card>
