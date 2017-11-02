@@ -10,6 +10,7 @@ import { CommonService } from './../../service/common.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
+import * as moment from 'moment';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 import {  AddNoteComponent } from './../add-note/add-note.component';
 
@@ -46,6 +47,7 @@ export class EmailModalComponent implements OnInit {
     inboxMailsTagsForEmailListAndModel: any;
     noteData:any;
     updatedData:any
+    user:any;
     constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
@@ -222,8 +224,17 @@ export class EmailModalComponent implements OnInit {
             height: '30%',
             width: '30%'
         });
-        this.dialogRef.componentInstance.candidateid = candidateid;  
+        this.dialogRef.componentInstance.candidateid = candidateid; 
+        this.dialogRef.componentInstance.emailList = this.historyList; 
          this.dialogRef.afterClosed().subscribe(result => {
+             var date=moment(new Date()).format("DD-MM-YYYY");
+             var time=moment(new Date()).format("hh:mm:ss a");
+           this.user=this.email = this._localStorageService.getItem('userEmail');
+             for(var i=0;i<=this.historyList.data.length;i++){
+                 if(this.historyList.data[i]._id == result.notedata.mongo_id){
+                    this.historyList.data[i].notes.push({'note':result.notedata.note,'date':date,'assignee':this.user,'time':time})
+                 }
+             }
             this.dialogRef = null;
         });
     }
@@ -235,7 +246,6 @@ export class EmailModalComponent implements OnInit {
   update(event) {
     if (this.updatedData != undefined) {
         this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {
-            this.getCandiatehistory();
         }, (err) => {
             this.error = true;
             this.errorMessageText = err.message;

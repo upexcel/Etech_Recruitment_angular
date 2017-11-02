@@ -16,7 +16,9 @@ export class AddNoteComponent  {
     formOpen = true;
     candidateid:any;
     data:any;
+    emailList:any;
     constructor(public dialogRef: MdDialogRef<any>, public _apiService: ImapMailsService) {
+
     }
     save(form: NgForm) {
         if (form.valid) {
@@ -25,9 +27,9 @@ export class AddNoteComponent  {
              this._apiService.addNote(form.value).subscribe((data)=>{
                  this.close();
                })
+             this.dialogRef.close({'notedata':form.value});
         }
     }
     close() {
-        this.dialogRef.close();
     }
 }

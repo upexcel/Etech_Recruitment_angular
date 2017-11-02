@@ -27,6 +27,7 @@
             <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
             </a>
         </span>
+        <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(H_email._id)">Add Note</button>
     </div>
     <div class="default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && !selectedTag || selectedTag == -1">
         <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack">
@@ -34,7 +35,7 @@
             </a>
         </span>
         <!-- <span  class="cyan" (click)="addNote()">Add Note</span> -->
-        <button md-raised-button mdTooltip="Send Email" mdTooltipPosition="below" class="cyan" (click)="addNote(H_email._id)">Add Note</button>
+        <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(H_email._id)">Add Note</button>
     </div>
     <div *ngIf="H_email?.attachment?.length" class="attachment-container" style="width: 60%; display: inline-block;">
         <h4 class="at-hed">Attachments</h4>
@@ -53,7 +54,7 @@
        <div>
        <h3>Notes</h3>
        <ul class="list-style" *ngFor="let note of H_email.notes ">
-          <li contenteditable='true' (input)="eventHandler($event,note.date,note.time,H_email._id)" (focusout)="update($event)">{{note.note}}</li>
+          <li contenteditable='true' (input)="eventHandler($event,note.date,note.time,H_email._id)" (focusout)="update($event)" style="cursor:pointer;">{{note.note}}</li>
           <li>Date:{{note.date}}</li>
           <li>Time:{{note.time }}</li>
           <li>Assignee:{{note.assignee}}</li>
