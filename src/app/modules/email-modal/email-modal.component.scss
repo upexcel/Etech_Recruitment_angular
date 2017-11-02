@@ -129,6 +129,15 @@ md-grid-tile {
         color:#fff;
         font-size: 12px;
     }
+    a.white.mat-raised-button{
+        line-height:20px!important;
+        margin: 0px 4px 0px 4px;
+        font-weight:bold;
+        color:  rgba(0, 0, 0, 0.69);;
+        font-size: 12px;
+        min-width: 0px;
+        line-height: 0px
+    }
 }
 .accordian-open {
 	width: 90%;
@@ -149,6 +158,9 @@ md-grid-tile {
 		.cyan {
 			line-height: 12px!important;
 		}
+    button.white.mat-raised-button{
+      line-height: 12px!important;
+    }
 	}
 	.attachment-container, .email-body {
 		width: 100%!important;
@@ -183,6 +195,9 @@ md-grid-tile {
 		.cyan {
 			line-height: 12px!important;
 		}
+    button.white.mat-raised-button{
+      line-height: 12px!important;
+    }
 	}
 	.attachment-container, .email-body {
 		width: 100%!important;
@@ -219,7 +234,7 @@ md-grid-tile {
 }
 .accordian-icon-box {
 	position: absolute;
-	cursor: pointer; 
+	cursor: pointer;
 	right: 0;
     top: 0;
     .material-icons {
