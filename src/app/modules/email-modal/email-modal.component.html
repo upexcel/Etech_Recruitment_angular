@@ -53,12 +53,14 @@
     </div>
        <div>
        <h3>Notes</h3>
-       <ul class="list-style" *ngFor="let note of H_email.notes ">
-          <li contenteditable='true' (input)="eventHandler($event,note.date,note.time,H_email._id)" (focusout)="update($event)" style="cursor:pointer;">{{note.note}}</li>
-          <li>Date:{{note.date}}</li>
-          <li>Time:{{note.time }}</li>
-          <li>Assignee:{{note.assignee}}</li>
-       </ul>
+         <div class="maindiv"  *ngFor="let note of H_email.notes ; let i = index ">
+       <p class="fontstyle">{{note.assignee}}</p>
+       <div class="childdiv" contenteditable="true"  mdTooltip="Edit Note" mdTooltipPosition="below" (input)="eventHandler($event,note.date,note.time,H_email._id)" (focusout)="update($event,i)">{{note.note}}
+    </div>
+    <div class="footer">
+       <p class="datestyle">{{note.date}} {{note.time}}</p>
+    </div>
+    </div>
     </div>
     </div>
     <div class="clearfix">

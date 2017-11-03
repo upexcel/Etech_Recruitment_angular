@@ -48,6 +48,7 @@ export class EmailModalComponent implements OnInit {
     noteData:any;
     updatedData:any
     user:any;
+    mongoid:any;
     constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
@@ -64,6 +65,7 @@ export class EmailModalComponent implements OnInit {
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
+          this.user=this._localStorageService.getItem('userEmail');
         this.body = {
             'status': false,
             'mongo_id': this.route.snapshot.paramMap.get('id')
@@ -229,8 +231,7 @@ export class EmailModalComponent implements OnInit {
          this.dialogRef.afterClosed().subscribe(result => {
              var date=moment(new Date()).format("DD-MM-YYYY");
              var time=moment(new Date()).format("hh:mm:ss a");
-           this.user=this.email = this._localStorageService.getItem('userEmail');
-             for(var i=0;i<=this.historyList.data.length;i++){
+                 for(var i=0;i<=this.historyList.data.length;i++){
                  if(this.historyList.data[i]._id == result.notedata.mongo_id){
                     this.historyList.data[i].notes.push({'note':result.notedata.note,'date':date,'assignee':this.user,'time':time})
                  }
@@ -240,16 +241,29 @@ export class EmailModalComponent implements OnInit {
     }
   
   eventHandler(event,notedate,notetime,mongoid) {
+      this.mongoid=mongoid;
       this.updatedData={note:event.target.outerText,mongo_id:mongoid,note_date:notedate,note_time:notetime
       }
   }
-  update(event) {
+  update(event, i) {
     if (this.updatedData != undefined) {
-        this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {
-        }, (err) => {
+        this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {}, (err) => {
             this.error = true;
             this.errorMessageText = err.message;
         });
+        var date = moment(new Date()).format("DD-MM-YYYY");
+        var time = moment(new Date()).format("hh:mm:ss a");
+        for (let j = 0; j <= this.historyList.data.length; j++) {
+            if (this.historyList.data[j]._id == this.mongoid) {
+                this.historyList.data[j].notes[i] = ({
+                    'note': this.updatedData.note,
+                    'date': date,
+                    'assignee': this.user,
+                    'time': time
+                })
+            }
+        }
+
     }
 }
 
