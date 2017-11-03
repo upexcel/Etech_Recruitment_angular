@@ -192,5 +192,12 @@
     }
 }
 .markunread{
-  background: #ccc;
+  cursor: pointer;
+  padding: 0px;
+  margin-bottom: -9px;
+}
+.markunread .unreadIcon{
+  margin-top: 11px;
+  color: grey;
+  font-size: 27px !important;
 }
