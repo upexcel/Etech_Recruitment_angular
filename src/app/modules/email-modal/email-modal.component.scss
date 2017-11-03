@@ -259,3 +259,48 @@ md-grid-tile {
 	margin: 0px 2px 0px 2px;
 	vertical-align: bottom;
 }
+.maindiv{
+    width:15% !important;
+    padding-top:0px !important;
+    padding-bottom: 4px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    border:1px solid transparent !important;
+    border-radius: 4px !important;
+    background-color: rgb(254,240,69) !important;
+    min-height:160px !important;
+    box-shadow: 2px 2px 4px 1px #fff !important;
+    margin-bottom:15px !important;
+    
+}
+.fontstyle{
+        margin-top: 8px;
+        font-weight: normal;
+        font-size: 14px
+    }
+.footer{
+    background-color: rgb(221,186,6);
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -4px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding-bottom:6px;
+}
+.datestyle{
+   color: white;
+   padding-top: 5px;
+   padding-bottom: 3px;
+   margin-bottom: -5px;
+   font-size: 14px;
+   text-align: right;
+   text-shadow: 1px 1px 2px #000000 ;
+   padding-right:4px;
+}
+.childdiv{
+    min-height:100px;
+    word-break: break-all;
+}
+.childdiv:hover{
+    cursor:pointer;
+}

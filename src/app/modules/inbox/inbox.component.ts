@@ -270,6 +270,17 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._localStorageService.setItem('dataForInterviewScheduleRound', this.dataForInterviewScheduleRound);
         this._localStorageService.setItem('inboxMailsTagsForEmailListAndModel', this.inboxMailsTagsForEmailListAndModel);
     }
+    refreshEmails(email: any) {
+        this.showInboxEmailList = true;
+        const index = _.findIndex(this.emaillist['data'], email);
+        if (index !== -1) {
+            if (!this.emaillist['data'][index]['unread']) {
+              this.emaillist['data'][index]['unread'] = true;
+            } else {
+              this.emaillist['data'][index]['unread'] = false;
+            }
+        }
+    }
 
     getAllTag() {
         this.getemails.getAllTagsMain()

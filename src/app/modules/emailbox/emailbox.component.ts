@@ -25,6 +25,7 @@ export class EmailboxComponent implements OnInit {
     @Input() inboxMailsTagsForEmailListAndModel: any;
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
+    @Output() refreshEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
     @Output() deleteAndAssignTag = new EventEmitter();
@@ -93,5 +94,27 @@ export class EmailboxComponent implements OnInit {
 
     inboxMailsTagsForEmailListAndModelDataTrack(index, data) {
         return index;
+    }
+
+    markReadUnread() {
+        if (!this.email.unread) {
+            this.assignEmail.MarkASUnreadStatus({
+                'mongo_id': this.email._id
+            }).subscribe((data) => {
+                this.refreshEmail.emit(this.email);
+            }, (err) => {
+                console.log(err);
+            });
+        } else {
+            this.assignEmail.UnreadStatus({
+                'status': false,
+                'mongo_id': this.email._id
+            }).subscribe((data) => {
+                this.refreshEmail.emit(this.email);
+            }, (err) => {
+                console.log(err);
+            });
+        }
+
     }
 }
