@@ -1,0 +1,27 @@
+<div class="mainform">
+   <md-card>
+      <form autoComplete="off" [formGroup]="slackinfoForm" (ngSubmit)="addInfo(slackinfoForm.value)">
+      <md-card-subtitle class="cardsub">
+         Slack Information
+      </md-card-subtitle>
+      <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
+      <md-card-content>
+         <div class="row">
+            <div class="col-md-6 col-sm-12">
+               <md-input-container class="width-90">
+                  <input type="text" mdInput name="teamname" placeholder="Team-name"  autoComplete="off" [formControl]="slackinfoForm.controls['teamName']">
+               </md-input-container>
+            </div>
+            <div class="col-md-6 col-sm-12">
+               <md-input-container class="width-90">
+                  <input mdInput name="token" type="text" placeholder="token" [formControl]="slackinfoForm.controls['token']"   autoComplete="off">
+               </md-input-container>
+            </div>
+             <div class="col-md-12">
+               <button type="submit" md-raised-button color=primary  [disabled]="!slackinfoForm.valid"> Save </button>
+            </div>
+         </div>
+      </md-card-content>
+      </form>
+   </md-card>
+</div>
