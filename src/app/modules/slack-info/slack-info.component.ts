@@ -31,6 +31,7 @@ export class SlackInfoComponent implements OnInit {
         this.updateSlackList(slackdata, id)
     }
     getSlackList() {
+        this.loading=true;
         this._apiService.getSlackInfo().subscribe((data) => {
             this.loading=false;
                 this.slackJson = data;
@@ -54,7 +55,9 @@ export class SlackInfoComponent implements OnInit {
     }
     deleteSlackData(id) {
         this._apiService.deleteSlackData(id).subscribe((data) => {
+
                 this.getSlackList();
+
             },
             (err) => {
                 console.log(err);

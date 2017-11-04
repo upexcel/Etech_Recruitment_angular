@@ -25,7 +25,7 @@ export class SlackComponentFormComponent implements OnInit {
     message: string;
     slackinfoForm: FormGroup;
     status: boolean = true;
-
+   
     constructor(private fb: FormBuilder, public _apiService: ImapMailsService) {
     }
     ngOnInit() {
