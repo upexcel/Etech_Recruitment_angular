@@ -24,7 +24,7 @@ export class SlackComponentFormComponent implements OnInit {
     showmessage: boolean;
     message: string;
     slackinfoForm: FormGroup;
-    status: boolean = true;
+    status: boolean = false;
    
     constructor(private fb: FormBuilder, public _apiService: ImapMailsService) {
     }
