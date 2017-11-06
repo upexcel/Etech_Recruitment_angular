@@ -5,5 +5,5 @@
 
 export const environment = {
     production: false,
-    'apibase': 'http://5.9.144.226:8091/'
+    'apibase': 'https://hr-recruit-dev.herokuapp.com/'
 };

@@ -1,0 +1,42 @@
+<div class="main">
+   <app-slack-component-form (addedTeam)="getSlackList()"></app-slack-component-form>
+   <md-card>
+   <md-spinner *ngIf="loading" class="spin"></md-spinner>
+    <md-card-subtitle class="success" *ngIf="showmessage">{{message}}</md-card-subtitle>
+      <md-card-content class="table-responsive">
+         <table class="table list">
+         <colgroup>
+             <col span="1" style="width: 20%;">
+              <col span="1" style="width: 40%;">
+               <col span="2" style="width: 20%;">
+
+         </colgroup>
+            <thead>
+               <tr>
+                  <th>Team Name</th>
+                  <th>Selected Channel</th>
+                  <th>Status</th>
+               </tr>
+            </thead>
+            
+            <tbody *ngIf="slackJson && slackJson.length">
+
+               <tr *ngFor="let slackdata of slackJson;let i= index">
+                  <td>{{slackdata.teamName}}</td>
+                  <td >
+                     <md-select [(ngModel)]="slackJson[i].selected_channel" (ngModelChange)="select(i,slackdata.id)"class="width-100" >
+                        <md-option *ngFor="let channel of slackdata.channel_list " [value]="channel.id">{{channel.name}}</md-option>
+                     </md-select>
+                  </td>
+                  <td>
+                  <md-icon [ngClass]="{'red':true,'green': slackdata.status}" (click)="activateSlack(slackdata,slackdata.id)">power_settings_new</md-icon>
+                  </td>
+                  <td>
+                     <button md-button class="chartcolor" [disabled]="slackdata.status" (click)="deleteSlackData(slackdata.id)">REMOVE</button>
+                  </td>
+               </tr>
+            </tbody>
+         </table>
+      </md-card-content>
+   </md-card>
+</div>

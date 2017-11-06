@@ -9,6 +9,9 @@
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('smtp','SMTP Server Setting')">
                     <a md-line> SMTP Server Setting </a>
                 </md-list-item>
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('slackinfo','Slack info')">
+                    <a md-line> Slack Info </a>
+                </md-list-item>
 
                 <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="listopen=!listopen">
                     <a md-line>  Template Setting </a>
