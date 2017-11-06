@@ -59,6 +59,15 @@ export class CommonService {
                     value['disable'] = false;
                 }
             });
+            _.forEach(interviewRounds, (value, key) => {
+                if (key>0 && interviewRounds[key]['disable']==false && interviewRounds[key-1]['disable']==true) {
+                    interviewRounds[key-1]['disable']=false;
+                } else{
+                    if(key==interviewRounds.length-1 && interviewRounds[interviewRounds.length-1]){
+                      interviewRounds[interviewRounds.length-1]['disable']=false;
+                  }
+                }
+            });
         } else {
             _.forEach(interviewRounds, (value, key) => {
                 if (key === 0) {
