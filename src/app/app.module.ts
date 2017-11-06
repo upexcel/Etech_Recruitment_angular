@@ -121,6 +121,9 @@ import {
     SmtpComponentFormComponent
 } from './modules/smtp-component-form/smtp-component-form.component';
 import {
+    SlackComponentFormComponent
+} from './modules/slack-component-form/slack-component-form.component';
+import {
     AddEmailTempComponent
 } from './modules/add-email-temp/add-email-temp.component';
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
@@ -146,7 +149,7 @@ import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confi
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { CronStatusModelComponent } from './modules/cron-status-model/cron-status-model.component';
 import { AddNoteComponent } from './modules/add-note/add-note.component';
-
+import { SlackInfoComponent } from './modules/slack-info/slack-info.component';
 import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
 import { DialogService } from './service/dialog.service';
@@ -203,7 +206,9 @@ import { DragulaModule } from 'ng2-dragula';
         DashboardComponent,
         AvatarDirectiveDirective,
         CronStatusModelComponent,
-        AddNoteComponent
+        AddNoteComponent,
+        SlackInfoComponent,
+        SlackComponentFormComponent
     ],
     imports: [
         BrowserModule,
