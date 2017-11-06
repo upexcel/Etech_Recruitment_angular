@@ -283,8 +283,10 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     getAllTag() {
+        console.log(">>>>>>>>>>>>.called");
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
+                console.log(">>>>>>>>>>.response is",res);
                 this.formatTagsInArray(res.data);
             }, (err) => {
                 this.loading = false;

@@ -6,30 +6,23 @@ import { color_list } from '../../config/config';
 
 @Component({
     selector: 'app-add-tag-modal',
-    templateUrl: './add-tag-modal.component.html',
-    styleUrls: ['./add-tag-modal.component.scss']
+    templateUrl: './add-sub-tag-modal.component.html',
+    styleUrls: ['./add-sub-tag-modal.component.scss']
 })
-export class AddTagModalComponent implements OnInit {
+export class AddSubTagModalComponent implements OnInit {
     tag: any;
-    types: number;
     type: any;
-    tempList: any;
     showMessage: boolean;
     showloading: boolean;
     message: string;
     addTagType: string;
     originalcolor = color_list[0];
     availableColors = color_list;
-    constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
+    parentid:string;
+    constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService,) {}
 
     ngOnInit() {
-        if (this.addTagType === 'manual') {
-            this.types = 0;
-            this.type = 'Manual';
-        } else if (this.addTagType === 'automatic' || this.addTagType === 'jobProfile') {
-            this.type = 'Automatic';
-            this.types = 1;
-        }
+        this.type=this.addTagType
         this.showMessage = false;
         this.showloading = false;
     }
@@ -38,31 +31,20 @@ export class AddTagModalComponent implements OnInit {
         this.showMessage = false;
         this.showloading = true;
         if (form.valid) {
-            if (this.addTagType === 'jobProfile') {
-                form.value.is_job_profile_tag = 1;
-            }
-            if (form.value.assign === '') {
-                form.value.assign = false;
-            }
-            if (form.value.is_email_send === '') {
-                form.value.is_email_send = false;
-            }
             form.value.color = this.originalcolor;
-            console.log(">>>>>>>>>>>>>",form.value);
-            this.tagUpdate.addTag(form.value).subscribe((data) => {
-                form.reset();
+             form.value.parent_id = this.parentid;
+            this.tagUpdate.addSubTag(form.value).subscribe((data) => {
+               
                 this.showloading = true;
+                 this.dialogRef.close('Added');
+                  form.reset();
             }, (err) => {
                 this.showMessage = true;
                 this.showloading = false;
                 this.message = err.message;
             });
-            this.dialogRef.close('Added');
+           
         }
-    }
-
-    tempListTrack(index, data) {
-        return data.id || index;
     }
 
     availableColorsTrackBY(index, data) {

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { AddSubTagModalComponent } from '../add-sub-tag-modal/add-sub-tag-modal.component';
+import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import * as _ from 'lodash';
 @Component({
     selector: 'app-inbox-side-nav',
@@ -14,7 +16,9 @@ export class InboxSideNavComponent implements OnInit {
     @Input() tags: any[];
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
-    constructor(public getTag: ImapMailsService) { }
+    @Output() getTags = new EventEmitter<any>();
+     dialogRef: MdDialogRef < any > ;
+    constructor(public getTag: ImapMailsService, public dialog: MdDialog) { }
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
@@ -64,4 +68,18 @@ export class InboxSideNavComponent implements OnInit {
     subTagSubchildTrack(index, data) {
         return data['id'] || index;
     }
+    addTag(parentid:any) {
+       this.dialogRef = this.dialog.open(AddSubTagModalComponent, {});
+       // this.dialogRef.componentInstance.tempList = this.tempList;
+       this.dialogRef.componentInstance.addTagType = 'Default';
+        this.dialogRef.componentInstance.parentid = parentid;
+       this.dialogRef.afterClosed().subscribe(result => {
+           console.log(">>>>>>>>>>>>>>.result",result);
+           if (result === 'Added') {
+                this.getTags.emit();
+               this.dialogRef = null;
+              
+           }
+       });
+   }
 }

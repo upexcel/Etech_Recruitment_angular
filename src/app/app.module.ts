@@ -155,6 +155,7 @@ import { LocalStorageService } from './service/local-storage.service';
 import { DialogService } from './service/dialog.service';
 import { DashboardService } from './service/dashboard.service';
 import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
+import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
 
 import { DragulaModule } from 'ng2-dragula';
 @NgModule({
@@ -208,7 +209,8 @@ import { DragulaModule } from 'ng2-dragula';
         CronStatusModelComponent,
         AddNoteComponent,
         SlackInfoComponent,
-        SlackComponentFormComponent
+        SlackComponentFormComponent,
+        AddSubTagModalComponent
     ],
     imports: [
         BrowserModule,
@@ -265,7 +267,8 @@ import { DragulaModule } from 'ng2-dragula';
         AddNewUserComponent,
         FetchEmailByDayComponent,
         ConfirmationDialogComponent,
-        AddNoteComponent
+        AddNoteComponent,
+        AddSubTagModalComponent
     ],
     bootstrap: [AppComponent]
 })

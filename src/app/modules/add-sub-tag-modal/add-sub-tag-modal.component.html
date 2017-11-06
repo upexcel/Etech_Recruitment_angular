@@ -1,0 +1,59 @@
+<div>
+  <h3 class="heading">Add Sub Tag</h3>
+</div>
+<form #addForm="ngForm" (ngSubmit)="addTag(addForm)" class="add-tag">
+  <span class="text-err" *ngIf="showMessage">{{message}}</span>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="title" placeholder="Title" ngModel required>
+          <md-error>Title Is Required</md-error>
+        </md-input-container>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-radio-group class="pos-radio width-100" name="type" [(ngModel)]="type" ngModel required>
+          <md-radio-button *ngIf="addTagType == 'Default'" name="type" value="Default">Default Tag</md-radio-button>
+        </md-radio-group>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="email" type="email" placeholder="Email" ngModel  ng-pattern = "/^.+@.+\..+$/" required>
+         <!--  <md-error>Invalid Email</md-error> -->
+        </md-input-container>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="subject" placeholder="Subject" ngModel required>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="from" type="date" placeholder="From date" ngModel>
+        </md-input-container>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="to" type="date" placeholder="To date" ngModel>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12">
+        <h4> Tag Color </h4>
+        <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
+        <div class="color-box">
+          <div class="selected-color" *ngFor="let color of availableColors; trackBy: availableColorsTrackBY;" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 text-right">
+        <button md-raised-button (click)="close()">Close</button>
+        <button md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)"><span>Save </span></button>
+      </div>
+    </div>
+  </div>
+</form>
