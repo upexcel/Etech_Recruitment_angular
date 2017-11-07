@@ -20,7 +20,10 @@
     <div class="row">
       <div class="col-md-6 col-sm-12">
         <md-input-container class="width-100">
-          <input mdInput name="email" type="email" placeholder="Email" ngModel  ng-pattern = "/^.+@.+\..+$/" required>
+          <input mdInput name="email" type="email" placeholder="Email" ngModel  [formControl]="emailFormControl" required>
+           <md-error *ngIf="emailFormControl.hasError('pattern')">
+                                Please enter a valid email address
+                            </md-error>
          <!--  <md-error>Invalid Email</md-error> -->
         </md-input-container>
       </div>

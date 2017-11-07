@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormControl, Validators } from '@angular/forms';
 import { color_list } from '../../config/config';
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
 @Component({
     selector: 'app-add-tag-modal',
@@ -19,6 +20,7 @@ export class AddSubTagModalComponent implements OnInit {
     originalcolor = color_list[0];
     availableColors = color_list;
     parentid:string;
+    emailFormControl = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]);
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService,) {}
 
     ngOnInit() {
@@ -31,6 +33,7 @@ export class AddSubTagModalComponent implements OnInit {
         this.showMessage = false;
         this.showloading = true;
         if (form.valid) {
+             form.value['email'] = this.emailFormControl.value;
             form.value.color = this.originalcolor;
              form.value.parent_id = this.parentid;
             this.tagUpdate.addSubTag(form.value).subscribe((data) => {

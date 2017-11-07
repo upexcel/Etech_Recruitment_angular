@@ -74,7 +74,6 @@ export class InboxSideNavComponent implements OnInit {
        this.dialogRef.componentInstance.addTagType = 'Default';
         this.dialogRef.componentInstance.parentid = parentid;
        this.dialogRef.afterClosed().subscribe(result => {
-           console.log(">>>>>>>>>>>>>>.result",result);
            if (result === 'Added') {
                 this.getTags.emit();
                this.dialogRef = null;
