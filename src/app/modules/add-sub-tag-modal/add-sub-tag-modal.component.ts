@@ -19,12 +19,12 @@ export class AddSubTagModalComponent implements OnInit {
     addTagType: string;
     originalcolor = color_list[0];
     availableColors = color_list;
-    parentid:string;
+    parentid: string;
     emailFormControl = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]);
-    constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService,) {}
+    constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
-        this.type=this.addTagType
+        this.type = this.addTagType
         this.showMessage = false;
         this.showloading = false;
     }
@@ -33,20 +33,18 @@ export class AddSubTagModalComponent implements OnInit {
         this.showMessage = false;
         this.showloading = true;
         if (form.valid) {
-             form.value['email'] = this.emailFormControl.value;
+            form.value['email'] = this.emailFormControl.value;
             form.value.color = this.originalcolor;
-             form.value.parent_id = this.parentid;
+            form.value.parent_id = this.parentid;
             this.tagUpdate.addSubTag(form.value).subscribe((data) => {
-               
                 this.showloading = true;
-                 this.dialogRef.close('Added');
-                  form.reset();
+                this.dialogRef.close('Added');
+                form.reset();
             }, (err) => {
                 this.showMessage = true;
                 this.showloading = false;
                 this.message = err.message;
             });
-           
         }
     }
 

@@ -19,7 +19,7 @@ export class InboxSideNavComponent implements OnInit {
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
     @Output() getTags = new EventEmitter<any>();
-     dialogRef: MdDialogRef < any > ;
+    dialogRef: MdDialogRef < any > ;
     constructor(public _apiService: ImapMailsService, public dialog: MdDialog, private _dialogService: DialogService) { }
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
@@ -70,24 +70,23 @@ export class InboxSideNavComponent implements OnInit {
     subTagSubchildTrack(index, data) {
         return data['id'] || index;
     }
-    addTag(parentid:any) {
-       this.dialogRef = this.dialog.open(AddSubTagModalComponent, {});
+    addTag(parentid: any) {
+        this.dialogRef = this.dialog.open(AddSubTagModalComponent, {});
        // this.dialogRef.componentInstance.tempList = this.tempList;
-       this.dialogRef.componentInstance.addTagType = 'Default';
+        this.dialogRef.componentInstance.addTagType = 'Default';
         this.dialogRef.componentInstance.parentid = parentid;
-       this.dialogRef.afterClosed().subscribe(result => {
-           if (result === 'Added') {
+        this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'Added') {
                 this.getTags.emit();
-               this.dialogRef = null;
-              
-           }
-       });
-   }
-   removeTag(type:string,tagid:string){
+                this.dialogRef = null;
+            }
+        });
+    }
+    removeTag(type: string, tagid: string) {
         this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
             if (res === 'yes') {
-               this._apiService.deleteSubTag(type,tagid).subscribe((data) => {
-                   this.getTags.emit();
+                this._apiService.deleteSubTag(type, tagid).subscribe((data) => {
+                    this.getTags.emit();
                 }, (err) => {
                     console.log(err);
                 });
