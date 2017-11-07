@@ -5,5 +5,6 @@
 
 export const environment = {
     production: false,
-    'apibase': 'https://hr-recruit-dev.herokuapp.com/'
+    // 'apibase': 'https://hr-recruit-dev.herokuapp.com/'
+    'apibase': 'http://192.168.1.139:8091/'
 };

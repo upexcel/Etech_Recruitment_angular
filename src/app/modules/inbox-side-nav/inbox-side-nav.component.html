@@ -20,7 +20,9 @@
                 <div *ngIf="subTag.subchild">
                     <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" *ngFor="let subTagSubchild of subTag.subchild; trackBy: subTagSubchildTrack"
                         (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
-                        <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                        <span><a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                         <md-icon *ngIf="subTagSubchild.parent_id !=null" class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
+                        </span>
                     </div>
                 </div>
             </div>
