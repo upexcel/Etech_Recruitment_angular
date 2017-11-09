@@ -3,9 +3,9 @@ jobs:
   build:
     docker:
       - image: node:8.6.0
+      - image: cypress/base:8
     steps:
       - checkout
-      - run: apt-get install libgdk-pixbuf2.0-dev libglib2.0-dev libnotify-dev libpng12-dev libpthread-stubs0-dev libx11-dev libx11-doc libxau-dev libxcb1-dev libxdmcp-dev x11proto-core-dev x11proto-input-dev x11proto-kb-dev xorg-sgml-doctools xtrans-dev xvfb
       - run: npm install
       - run: npm install pm2 -g
       - run: pm2 start npm --name hr-recruit -- start
