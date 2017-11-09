@@ -7,8 +7,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Greeting
-          command: echo Hello, world.
+          name: installing angular cli
+          command: npm install -g @angular/cli
       - run:
-          name: Print the Current Time
-          command: date
+          name: Npm Install
+          command: npm install
