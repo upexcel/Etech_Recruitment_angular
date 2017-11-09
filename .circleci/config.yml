@@ -8,4 +8,4 @@ jobs:
       - run: npm install
       - run: npm install pm2 -g
       - run: pm2 start npm --name hr-recruit -- start
-      - run: pm2 logs 0
+      - run: npm run cypress:open
