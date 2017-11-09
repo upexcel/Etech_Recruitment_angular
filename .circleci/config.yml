@@ -5,9 +5,7 @@ jobs:
       - image: node:8.6.0
     steps:
       - checkout
-      - run:
-          name: installing angular cli
-          command: npm install -g @angular/cli
-      - run:
-          name: Npm Install
-          command: npm install
+      - run: npm install
+      - run: npm install pm2 -g
+      - run: pm2 start npm --name hr-recruit -- start
+      - run: pm2 logs 0
