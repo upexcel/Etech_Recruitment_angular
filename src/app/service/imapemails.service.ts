@@ -703,6 +703,7 @@ export class ImapMailsService {
             });
     }
     addNote(data: any): Observable <any> {
+        this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + 'candidate_notes/insert/', data)
             .map((res: Response) => {
                 this.decreaseAPiCount();
@@ -715,6 +716,7 @@ export class ImapMailsService {
             });
     }
     updateNote(data: any): Observable <any> {
+        this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `candidate_notes/update/`, data)
             .map((res: Response) => {
                 this.decreaseAPiCount();
@@ -727,6 +729,7 @@ export class ImapMailsService {
             });
     }
     sendSlackInfo(info: any): Observable <any> {
+        this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `add/slackInfo/`, info)
             .map((res: Response) => {
                 this.decreaseAPiCount();
@@ -739,6 +742,7 @@ export class ImapMailsService {
             });  
     }
     getSlackInfo(): Observable <any> {
+        this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `get/slackInfo/`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
