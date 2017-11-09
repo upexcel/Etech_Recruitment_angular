@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: debian:stretch
+      - image: node:6.11.5
     steps:
       - checkout
       - run:
