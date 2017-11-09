@@ -5,7 +5,7 @@ jobs:
       - image: node:8.6.0
     steps:
       - checkout
-      - run: apt-get install xvfb libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
+      - run: apt-get install xvfb libgdk-pixbuf2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
       - run: npm install
       - run: npm install pm2 -g
       - run: pm2 start npm --name hr-recruit -- start
