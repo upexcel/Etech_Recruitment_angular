@@ -42,7 +42,7 @@ jobs:
       - run: ls -la cypress
       - run: ls -la cypress/integration
       - run:
-          name: Running E2E tests A
+          name: Running E2E Login Page
           command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
@@ -58,7 +58,7 @@ jobs:
       - attach_workspace:
           at: /root/app
       - run:
-          name: Running E2E tests B
+          name: Running E2E Setting/Reset Password
           command: $(npm bin)/cypress run --spec cypress/integration/setting-reset-password.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
