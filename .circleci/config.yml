@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: node:8.6.0
       - image: cypress/base:6
+      - image: cypress/browsers:chrome62
     steps:
       - checkout
       - run: npm install
