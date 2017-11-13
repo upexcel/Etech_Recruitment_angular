@@ -11,8 +11,7 @@
     "precommit": "ng lint",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=results/my-test-output.xml'",
-    "test-multiple": "cypress run --reporter mocha-multi-reporters --reporter-options configFile=config.json"
+    "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=results/my-test-output.xml'"
   },
   "private": true,
   "dependencies": {
