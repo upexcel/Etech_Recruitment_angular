@@ -43,7 +43,7 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running E2E tests A
-          command: $(npm bin)/cypress run --spec cypress/integration/a-spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+          command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
@@ -59,7 +59,7 @@ jobs:
           at: /root/app
       - run:
           name: Running E2E tests B
-          command: $(npm bin)/cypress run --spec cypress/integration/b-spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+          command: $(npm bin)/cypress run --spec cypress/integration/example_spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
