@@ -2,11 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:6.6.0
-      - image: cypress/base:6
-      - image: cypress/browsers:chrome62
+      - image: node:8.6.0
+      - image: cypress/base:8
     steps:
       - checkout
       - run: npm install
       - run: npm install -g cypress-cli
-      - run: cypress run --browser chrome
+      - run: npm run test
+      - run: npm run cypress:open
