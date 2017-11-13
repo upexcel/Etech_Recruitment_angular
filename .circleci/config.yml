@@ -2,10 +2,27 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:8.6.0
-      - image: cypress/base:8
+      - image: node:6.1.0
+      - image: cypress/base:6
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
     steps:
       - checkout
       - run: npm install
-      - run: npm install -g cypress-cli
-      - run: npm run cypress:open
+  testA:
+  <<: *defaults
+  steps:
+    - attach_workspace:
+        at: /root/app
+    - run: ls -la cypress
+    - run: ls -la cypress/integration
+    - run:
+        name: Running E2E tests A
+        command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+    - store_test_results:
+        path: results
+    - store_artifacts:
+        path: cypress/videos
+    - store_artifacts:
+        path: cypress/screenshots
