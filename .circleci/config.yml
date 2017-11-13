@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: node:8.6.0
+      - image: node:6.6.0
       - image: cypress/base:6
       - image: cypress/browsers:chrome62
     steps:
