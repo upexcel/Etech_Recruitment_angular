@@ -3,10 +3,8 @@ jobs:
   build:
     docker:
       - image: node:8.6.0
-      - image: cypress/base:8
+      - image: cypress/base:6
     steps:
       - checkout
       - run: npm install
-      - run: npm install pm2 -g
-      - run: pm2 start npm --name hr-recruit -- start
-      - run: npm run cypress:open
+      - run: cypress run --browser chrome
