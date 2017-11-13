@@ -10,17 +10,17 @@ describe('Login Page Test', function () {
             cy.get('.mat-checkbox').should('have.class', 'mat-checkbox-checked')
         })
     })
-    it('Test Login Form With Wrong Data', function () {
-        cy.visit('http://dev.recruit.excellencetechnologies.in/#/login');
-        cy.get('form').within(function () {
-            cy.get('input[type="email"]')
-                .type('fakeEmail').should('have.value', 'fakeEmail');
-            cy.get('md-input-container').should('have.class', 'mat-input-invalid')
-            cy.get('input[type="password"]')
-                .type('password').should('have.value', 'password')
-            cy.get('button.mat-raised-button').should('have.attr', 'ng-reflect-disabled', 'true')
-        })
-    })
+    // it('Test Login Form With Wrong Data', function () {
+    //     cy.visit('http://dev.recruit.excellencetechnologies.in/#/login');
+    //     cy.get('form').within(function () {
+    //         cy.get('input[type="email"]')
+    //             .type('fakeEmail').should('have.value', 'fakeEmail');
+    //         cy.get('md-input-container').should('have.class', 'mat-input-invalid')
+    //         cy.get('input[type="password"]')
+    //             .type('password').should('have.value', 'password')
+    //         cy.get('button.mat-raised-button').should('have.attr', 'ng-reflect-disabled', 'true')
+    //     })
+    // })
     // it('Test Login Api With Wrong Data', function () {
     //     cy.visit('http://dev.recruit.excellencetechnologies.in/#/login');
     //     cy.get('form').within(function () {
