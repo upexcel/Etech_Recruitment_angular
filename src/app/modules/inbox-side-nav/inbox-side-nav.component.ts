@@ -1,5 +1,9 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { AddSubTagModalComponent } from '../add-sub-tag-modal/add-sub-tag-modal.component';
+import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { DialogService } from './../../service/dialog.service';
+
 import * as _ from 'lodash';
 @Component({
     selector: 'app-inbox-side-nav',
@@ -14,7 +18,9 @@ export class InboxSideNavComponent implements OnInit {
     @Input() tags: any[];
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
-    constructor(public getTag: ImapMailsService) { }
+    @Output() getTags = new EventEmitter<any>();
+    dialogRef: MdDialogRef < any > ;
+    constructor(public _apiService: ImapMailsService, public dialog: MdDialog, private _dialogService: DialogService) { }
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
@@ -63,5 +69,30 @@ export class InboxSideNavComponent implements OnInit {
 
     subTagSubchildTrack(index, data) {
         return data['id'] || index;
+    }
+    addTag(parentid: any) {
+        this.dialogRef = this.dialog.open(AddSubTagModalComponent, {});
+       // this.dialogRef.componentInstance.tempList = this.tempList;
+        this.dialogRef.componentInstance.addTagType = 'Default';
+        this.dialogRef.componentInstance.parentid = parentid;
+        this.dialogRef.afterClosed().subscribe(result => {
+            if (result === 'Added') {
+                this.getTags.emit();
+                this.dialogRef = null;
+            }
+        });
+    }
+    removeTag(type: string, tagid: string) {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this._apiService.deleteSubTag(type, tagid).subscribe((data) => {
+                    this.getTags.emit();
+                }, (err) => {
+                    console.log(err);
+                });
+            }
+        }, (err) => {
+            console.log(err);
+        });
     }
 }

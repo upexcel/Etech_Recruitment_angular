@@ -24,6 +24,7 @@ import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-ta
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { SlackInfoComponent } from './modules/slack-info/slack-info.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -115,12 +116,17 @@ export const routes: Route[] = [{
                     path: 'emailLogs',
                     component: EmailLogsComponent,
                     canActivate: [LoginRouteGuard]
-                }]
+                },{
+                path: 'slackinfo',
+                component: SlackInfoComponent ,
+                canActivate: [LoginRouteGuard]
+            }]
             }, {
                 path: 'changepassword',
                 component: ChangePasswordComponent,
                 canActivate: [LoginRouteGuard]
             }
+            
         ]
     },
     {

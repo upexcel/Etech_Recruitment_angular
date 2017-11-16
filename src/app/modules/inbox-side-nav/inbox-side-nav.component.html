@@ -5,9 +5,10 @@
         <div *ngIf="tag.data">
             <div class="subenav" *ngFor="let subTag of tag.data; trackBy: tagDataTrack">
                 <p [class.active]="selectedId == subTag.id && i != 0" *ngIf="subTag.type == 'Automatic'">
-                    <a *ngIf="i == 0" class="sub-title">{{subTag.title}}</a>
+                    <span> <a *ngIf="i == 0" class="sub-title">{{subTag.title}}</a>
+                        <md-icon *ngIf="i == 0" class="plus" (click)="addTag(subTag.id)">add</md-icon>
+                   </span>
                     <a (click)="getEmail(0, subTag.id, subTag.title, tag.title);" *ngIf="i != 0 && subTag.type == 'Automatic'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
-
                     <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                 </p>
                 <p [class.active]="selectedId == subTag.id && i != 0 && parantTagId == null" *ngIf="subTag.type == 'Default'">
@@ -17,11 +18,15 @@
                     <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                 </p>
                 <div *ngIf="subTag.subchild">
-                    <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" *ngFor="let subTagSubchild of subTag.subchild; trackBy: subTagSubchildTrack"
+                <span *ngFor="let subTagSubchild of subTag.subchild; trackBy: subTagSubchildTrack">
+                    <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" 
                         (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
-                        <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
-                    </div>
+                       <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                       </div>
+                     <md-icon *ngIf="subTagSubchild.parent_id !=null" mdTooltip="Delete Tab" mdTooltipPosition="below"  class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
+                    </span>
                 </div>
+                
             </div>
         </div>
     </div>
