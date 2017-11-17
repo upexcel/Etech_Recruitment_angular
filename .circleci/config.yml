@@ -23,15 +23,15 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package.json" }}
             - v1-npm-deps
-      - run: npm install
-      - run: npm install pm2 -g
-      - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
       - run: cd api_hr_recruitment/
       - run: npm install
-      - run: pm2 start npm --name recruit_backend -- run start
+      - run: npm start &
       - run: cd ..
+      - run: npm install
+      - run: npm start &
+      - run: sleep 2400s
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
