@@ -1,6 +1,6 @@
 {
-  "baseUrl": "http://localhost:4200/#",
+  "baseUrl": "http://hrrecruit.herokuapp.com/#",
   "email": "java@gmail.com",
-  "password": "12345",
-  "newPassword":"123"
+  "password": "123",
+  "newPassword":"12345"
 }
