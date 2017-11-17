@@ -1,1 +1,9 @@
-{}
+{
+  "baseUrl": "http://localhost:4200/#",
+  "email": "123@gmail.com",
+  "password": "123",
+  "test_email": "123@gmail.com",
+  "test_password": "123",
+  "userEmail": "testexcel69@gmail.com",
+  "userPass": "123"
+}
