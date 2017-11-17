@@ -4,6 +4,14 @@ jobs:
   build:
     docker:
       # the Docker image with Cypress dependencies
+      - image: node:8.6.0
+      - image: mongo:3.4.4
+      - image: mysql:5.7
+        environment:
+          - MYSQL_ROOT_PASSWORD=java@123
+          - MYSQL_ALLOW_EMPTY_PASSWORD=true
+          - MYSQL_HOST=127.0.0.1
+
       - image: cypress/base:6
         environment:
           ## this enables colors in the output
@@ -16,6 +24,13 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package.json" }}
             - v1-npm-deps
+      - run: apt-get install git
+      - run: git clone https://github.com/nodeexcel/api_hr_recruitment
+      - run: cd api_hr_recruitment/
+      - run: npm install
+      - run: npm install pm2 -g
+      - run: pm2 start npm --name recruit -- run start
+      - run: cd ..
       - run: npm install
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
