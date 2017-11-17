@@ -736,7 +736,7 @@ export class ImapMailsService {
                 this.count = 0;
                 this.apiEndEvent.emit();
                 return Observable.throw(error.json() || 'Server error');
-            });  
+            });
     }
     getSlackInfo(): Observable <any> {
         return this.Intercepted.get(environment['apibase'] + `get/slackInfo/`)

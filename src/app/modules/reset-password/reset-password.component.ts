@@ -31,7 +31,7 @@ export class ResetPasswordComponent implements OnInit {
                 this.loading = false;
                 this.showmessage = false;
                 this.snackBar.open(res.message, '', {
-                    duration: 2000,
+                    // duration: 2000,
                 });
                 this.resetPasswordForm.reset();
             },

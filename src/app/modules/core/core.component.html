@@ -17,15 +17,15 @@
     </div>
     <hr>
     <hr>
-    <div class="hovestyle" (click)="logout()">
+    <div id="logout" class="hovestyle" (click)="logout()">
       <p class="mainnav">Logout</p>
     </div>
     <hr>
   </md-sidenav>
   <div class="bgcolor container-fluid">
-    <div class="row">
+    <div class="row" id="toolbar">
       <md-toolbar color="accent">
-        <button md-icon-button (click)="sidenav.open()">
+        <button id="sideNav" md-icon-button (click)="sidenav.open()">
           <md-icon>menu</md-icon>
           </button>
         <span>{{title}}</span>

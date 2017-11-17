@@ -1,1 +1,6 @@
-{}
+{
+  "baseUrl": "http://localhost:4200/#",
+  "email": "java@gmail.com",
+  "password": "12345",
+  "newPassword":"123"
+}
