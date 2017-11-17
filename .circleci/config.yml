@@ -31,7 +31,7 @@ jobs:
       - run: cd ..
       - run: npm install
       - run: npm start &
-      - run: sleep 2400s
+      - run: sleep 240s
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
