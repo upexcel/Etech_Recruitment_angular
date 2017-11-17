@@ -6,7 +6,6 @@ jobs:
       # the Docker image with Cypress dependencies
       - image: cypress/base:8
         environment:
-          ## this enables colors in the output
           TERM: xterm
       - image: node:8.6.0
       - image: mongo:3.4.4
