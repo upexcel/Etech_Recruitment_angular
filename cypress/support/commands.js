@@ -10,7 +10,32 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
+import * as data from '../../cypress.json';
+
+// Cypress.Commands.add('login', function(){
+//  cy.visit(data.baseUrl+'/login');
+//  cy.get('form').within(function () {
+//    cy.get('input[type="email"]').type(data.email)
+//    cy.get('input[type="password"]').type(data.password)
+//    cy.get('button.mat-raised-button').click();
+//    cy.url().should('eq','http://localhost:4200/#/core/inbox')
+//  })
+// });
+Cypress.Commands.add('login', function(email, password) {
+  cy.visit(data.baseUrl + '/login');
+  cy.get('#loginForm #loginEmail').type(email)
+  cy.get('#loginForm #loginPassword').type(password)
+  cy.get('#loginForm #login').click();
+  cy.url().should('eq', data.baseUrl + '/core/inbox')
+});
+Cypress.Commands.add('logout', function() {
+    cy.get('#toolbar button#sideNav').click().then(function() {
+     cy.get('md-sidenav div#logout').click().then(function() {
+       cy.url().should('eq',data.baseUrl+'/')
+      })
+    })
+  
+  });
 //
 //
 // -- This is a child command --
