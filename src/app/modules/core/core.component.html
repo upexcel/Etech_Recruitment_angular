@@ -17,7 +17,7 @@
     </div>
     <hr>
     <hr>
-    <div class="hovestyle" (click)="logout()">
+    <div class="hovestyle" id="logout" (click)="logout()">
       <p class="mainnav">Logout</p>
     </div>
     <hr>
@@ -25,18 +25,18 @@
   <div class="bgcolor container-fluid">
     <div class="row">
       <md-toolbar color="accent">
-        <button md-icon-button (click)="sidenav.open()">
+        <button id="menu" md-icon-button (click)="sidenav.open()">
           <md-icon>menu</md-icon>
-          </button>
+        </button>
         <span>{{title}}</span>
         <button md-icon-button mdTooltip="Fetch Latest Emails" class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
-        <md-icon>system_update_alt</md-icon>
-      </button>
+          <md-icon>system_update_alt</md-icon>
+        </button>
         <button md-icon-button mdTooltip="Fetch Emails By Days" class="cursor-pt" *ngIf="title == 'Settings'" (click)="fetchEmailByDay()">
-        <i>
+          <i>
         <small><md-icon>system_update_alt</md-icon></small>
         </i>
-      </button>
+        </button>
         <md-spinner class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
       </md-toolbar>
       <router-outlet></router-outlet>
