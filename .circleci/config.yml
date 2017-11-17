@@ -27,6 +27,7 @@ jobs:
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
       - run: cd api_hr_recruitment/
       - run: npm install
+      - run: npm run db
       - run: npm start &
       - run: cd ..
       - run: npm install
