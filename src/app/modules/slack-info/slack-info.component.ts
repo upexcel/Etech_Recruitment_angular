@@ -14,7 +14,7 @@ import clone from 'lodash/clone';
 })
 export class SlackInfoComponent implements OnInit {
     slackJson: any[];
-    loading= true;
+    loading = true;
     selectchannel: any;
     showmessage = true;
     message: any;
