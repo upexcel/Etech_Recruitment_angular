@@ -1,6 +1,8 @@
+import * as data from "../../cypress.json";
+
 describe('Login Page Test', function () {
     it('Visits the Login Page', function () {
-        cy.visit('http://dev.recruit.excellencetechnologies.in/#/login');
+        cy.visit(data.baseUrl+'/login');
         cy.get('.logo .img-responsive').should('have.attr', 'src', 'assets/logo.png')
         cy.get('form').within(function () {
             cy.get('input[type="email"]').should('have.attr', 'placeholder', 'Email');
@@ -11,18 +13,18 @@ describe('Login Page Test', function () {
         })
     })
     it('Test Login Form With Wrong Data', function () {
-        cy.visit('http://dev.recruit.excellencetechnologies.in/#/login');
+        cy.visit(data.baseUrl+'/login');
         cy.get('form').within(function () {
             cy.get('input[type="email"]')
                 .type('fakeEmail').should('have.value', 'fakeEmail');
-            cy.get('md-input-container').should('have.class', 'mat-input-invalid')
+            cy.get('md-input-container').should('have.class', 'md-input-invalid')
             cy.get('input[type="password"]')
                 .type('password').should('have.value', 'password')
             cy.get('button.mat-raised-button').should('have.attr', 'ng-reflect-disabled', 'true')
         })
     })
     it('Test Login Api With Wrong Data', function () {
-        cy.visit('http://dev.recruit.excellencetechnologies.in/#/login');
+        cy.visit(data.baseUrl+'/login');
         cy.get('form').within(function () {
             cy.get('input[type="email"]')
                 .type('example@gmail.com').should('have.value', 'example@gmail.com');
@@ -34,7 +36,7 @@ describe('Login Page Test', function () {
         })
     })
     it('Test Login Api With Right Data', function () {
-        cy.visit('http://dev.recruit.excellencetechnologies.in/#/login');
+        cy.visit(data.baseUrl+'/login');
         cy.get('form').within(function () {
             cy.get('input[type="email"]')
                 .type('123@gmail.com').should('have.value', '123@gmail.com');
@@ -43,7 +45,7 @@ describe('Login Page Test', function () {
             cy.get('button.mat-raised-button').should('have.attr', 'ng-reflect-disabled', 'false')
             cy.get('button.mat-raised-button').click();
             cy.get('md-spinner').should('have.class', 'spin');
-            cy.url().should('eq', 'http://dev.recruit.excellencetechnologies.in/#/core/inbox')
+            cy.url().should('eq', data.baseUrl+'/core/inbox');
         })
     })
 })

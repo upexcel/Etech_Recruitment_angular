@@ -1,9 +1,7 @@
 import * as data from '../../cypress.json';
 
 describe('Setting/Reset Password Page Test', function () {
-afterEach(function(){
-  cy.logout();
-})
+
   it('Visits the Setting/Reset Password Page', function () {
     cy.login(data.email, data.password).then(function(response){
       cy.visit(data.baseUrl+'/core/setting/resetPassword');
@@ -23,7 +21,7 @@ afterEach(function(){
         cy.get('#oldPass input').type('fakePass').should('have.value', 'fakePass');
         cy.get('#newPass input').type('newfakePass').should('have.value', 'newfakePass');
         cy.get('#resetbtn button').should('have.attr', 'ng-reflect-disabled', 'false')
-        cy.get('#resetbtn button').click();
+        cy.get('#resetbtn button').click().wait(500);
         cy.get('md-card-subtitle').should('have.class', 'mat-card-subtitle')
        })
     })
@@ -36,7 +34,7 @@ afterEach(function(){
         cy.get('#oldPass input').type(data.password).should('have.value', data.password);
         cy.get('#newPass input').type(data.newPassword).should('have.value', data.newPassword);
         cy.get('#resetbtn button').should('have.attr', 'ng-reflect-disabled', 'false')
-        cy.get('#resetbtn button').click();
+        cy.get('#resetbtn button').click()
       })
       cy.get('simple-snack-bar').should('have.class', 'mat-simple-snackbar')
     })
@@ -49,7 +47,7 @@ afterEach(function(){
           cy.get('#oldPass input').type(data.newPassword).should('have.value', data.newPassword);
           cy.get('#newPass input').type(data.password).should('have.value', data.password);
           cy.get('#resetbtn button').should('have.attr', 'ng-reflect-disabled', 'false')
-          cy.get('#resetbtn button').click();
+          cy.get('#resetbtn button').click().wait(500);
         })
         cy.get('simple-snack-bar').should('have.class', 'mat-simple-snackbar')
     })
