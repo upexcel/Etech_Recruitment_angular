@@ -9,7 +9,6 @@ jobs:
           - TERM: xterm
       - image: node:8.6.0
       - image: mongo:3.4.4
-      - image: circleci/php:5.6.30-apache-browsers 
       - image: mysql:5.7
         environment:
           - MYSQL_ROOT_PASSWORD=java@123
@@ -34,7 +33,7 @@ jobs:
       - run: npm install
       - run: npm start &
       - run: sleep 60s
-      - run: netstat -tulpn
+      - run: ss -lptn 'sport = :4200'
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
