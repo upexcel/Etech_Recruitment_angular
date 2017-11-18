@@ -32,7 +32,7 @@ jobs:
       - run: cd ..
       - run: npm install
       - run: npm start &
-      - run: sleep 60s
+      - run: sleep 300s
       - run: ss -lptn 'sport = :4200'
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
