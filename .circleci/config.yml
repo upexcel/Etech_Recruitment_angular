@@ -29,11 +29,8 @@ jobs:
       - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
-      - run: cd api_hr_recruitment/
-      - run: npm install
-      - run: pm2 start npm --name recruit_backend -- run start
+      - run: cd api_hr_recruitment && npm install && pm2 start npm --name recruit_backend -- run start
       - run: pm2 logs 1
-      - run: cd ..
       - run: ss -lptn 'sport = :8091'
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
