@@ -11,7 +11,8 @@
     "precommit": "ng lint",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=results/my-test-output.xml'"
+    "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=results/my-test-output.xml'",
+    "post-install" : "npm rebuild node-sass"
   },
   "private": true,
   "dependencies": {
