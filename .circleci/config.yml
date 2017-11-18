@@ -28,7 +28,7 @@ jobs:
       - run: cd api_hr_recruitment/
       - run: npm install
       - run: npm rebuild node-sass --force
-      - run: npm start
+      - run: npm start &
       - run: cd ..
       - run: npm install
       - run: npm start &
