@@ -38,7 +38,9 @@ jobs:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
+      - run: ss -lptn 'sport = :4200'
       - run: npm install cypress
+      - run: ss -lptn 'sport = :4200'
       - run:
           name: Running E2E tests with JUnit reporter
           command: npm run test-junit
@@ -48,3 +50,4 @@ jobs:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
+      - run: ss -lptn 'sport = :4200'
