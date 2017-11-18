@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       # the Docker image with Cypress dependencies
-      - image: cypress/base:6
+      - image: cypress/base:8
         environment:
           - TERM: xterm
       - image: node:8.6.0
@@ -34,8 +34,15 @@ jobs:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
+      - run: npm install cypress
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
       - run:
           name: Running E2E tests with JUnit reporter
           command: npm run test-junit
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
