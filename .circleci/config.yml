@@ -40,8 +40,3 @@ jobs:
       - run:
           name: Running E2E tests with JUnit reporter
           command: npm run test-junit
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-      - run: ss -lptn 'sport = :4200'
