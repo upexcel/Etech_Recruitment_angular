@@ -30,13 +30,10 @@ jobs:
       - run: apt-get install git
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
       - run: cd api_hr_recruitment && npm install && pm2 start npm --name recruit_backend -- run start
-      - run: pm2 logs 1
-      - run: ss -lptn 'sport = :8091'
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: ss -lptn 'sport = :4200'
       - run: npm install cypress
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
