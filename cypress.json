@@ -1,11 +1,11 @@
 {
-"baseUrl": "https://hrrecruitment.herokuapp.com/#",
- "email": "java@gmail.com",
+"baseUrl":"http://hrrecruit.herokuapp.com/#",
+ "email": "123@gmail.com",
  "password": "123",
  "date": "02/11/2017",
  "imapUsedEmail":"testexcel69@gmail.com",
  "imapUsedPassword":"java@123",
  "newImapEmail":"testhr69@gmail.com",
  "newImapPassword":"java@123",
-  "newPassword":"12345"
+ "newPassword":"12345"
 }
