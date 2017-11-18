@@ -9,8 +9,8 @@ jobs:
           - TERM: xterm
       - image: node:8.6.0
       - image: mongo:3.4.4
-      - image: mysql:5.7
       - image: circleci/php:5.6.30-apache-browsers
+      - image: mysql:5.7
         environment:
           - MYSQL_ROOT_PASSWORD=java@123
           - MYSQL_ALLOW_EMPTY_PASSWORD=true
