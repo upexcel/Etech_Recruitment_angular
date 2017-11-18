@@ -23,16 +23,15 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package.json" }}
             - v1-npm-deps
+      - run: npm install
+      - run: npm rebuild node-sass --force
+      - run: npm start &
       - run: apt-get install git
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
       - run: cd api_hr_recruitment/
       - run: npm install
-      - run: npm rebuild node-sass --force
       - run: npm start &
       - run: cd ..
-      - run: npm install
-      - run: npm start &
-      - run: sleep 300s
       - run: ss -lptn 'sport = :4200'
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
