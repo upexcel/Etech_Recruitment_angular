@@ -1,4 +1,5 @@
 {
+
 "baseUrl": "http://localhost:4200/#",
  "email": "123@gmail.com",
  "password": "123",
@@ -14,3 +15,4 @@
   "smtpPassword":"java@123",
   "newSmtpEmail":"testexcel69@gmail.com"
 }
+  
