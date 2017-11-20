@@ -11,23 +11,23 @@ import { CommonService } from './../../service/common.service';
     templateUrl: './add-note.component.html',
     styleUrls: ['./add-note.component.scss'],
 })
-export class AddNoteComponent  {
+export class AddNoteComponent {
     note = '';
     formOpen = true;
-    candidateid:any;
-    data:any;
-    emailList:any;
+    candidateid: any;
+    data: any;
+    emailList: any;
     constructor(public dialogRef: MdDialogRef<any>, public _apiService: ImapMailsService) {
 
     }
     save(form: NgForm) {
         if (form.valid) {
             form.value.note = this.note;
-             form.value.mongo_id=this.candidateid
-             this._apiService.addNote(form.value).subscribe((data)=>{
-                 this.close();
-               })
-             this.dialogRef.close({'notedata':form.value});
+            form.value.mongo_id = this.candidateid
+            this._apiService.addNote(form.value).subscribe((data) => {
+                this.close();
+            })
+            this.dialogRef.close({'notedata': form.value});
         }
     }
     close() {

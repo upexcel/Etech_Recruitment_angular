@@ -66,11 +66,11 @@ export class EmailboxComponent implements OnInit {
         if (title === 'Schedule') {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
-                  this.assignEmail.assignTag(data).subscribe((res) => {
+                    this.assignEmail.assignTag(data).subscribe((res) => {
                         this.deleteAndAssignTag.emit(data.tag_id);
-                  }, (err) => {
-                      console.log(err);
-                  });
+                    }, (err) => {
+                        console.log(err);
+                    });
                 }
             }, (err) => {
                 console.log(err);

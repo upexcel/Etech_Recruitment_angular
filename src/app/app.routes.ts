@@ -116,17 +116,17 @@ export const routes: Route[] = [{
                     path: 'emailLogs',
                     component: EmailLogsComponent,
                     canActivate: [LoginRouteGuard]
-                },{
-                path: 'slackinfo',
-                component: SlackInfoComponent ,
-                canActivate: [LoginRouteGuard]
-            }]
+                }, {
+                    path: 'slackinfo',
+                    component: SlackInfoComponent ,
+                    canActivate: [LoginRouteGuard]
+                }]
             }, {
                 path: 'changepassword',
                 component: ChangePasswordComponent,
                 canActivate: [LoginRouteGuard]
             }
-            
+
         ]
     },
     {

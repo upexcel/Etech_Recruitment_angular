@@ -20,19 +20,19 @@ import {
     styleUrls: ['./slack-component-form.component.scss']
 })
 export class SlackComponentFormComponent implements OnInit {
-     @Output() addedTeam = new EventEmitter<any>();
+    @Output() addedTeam = new EventEmitter<any>();
     showmessage: boolean;
     message: string;
     slackinfoForm: FormGroup;
-    status: boolean = false;
-   
+    status = false;
+
     constructor(private fb: FormBuilder, public _apiService: ImapMailsService) {
     }
     ngOnInit() {
         this.validate();
     }
-    validate(){
-                this.slackinfoForm = this.fb.group({
+    validate() {
+        this.slackinfoForm = this.fb.group({
             teamName: ['', Validators.required],
             token: ['', Validators.required],
             // status:['', Validators.required],
@@ -41,8 +41,8 @@ export class SlackComponentFormComponent implements OnInit {
     addInfo(forminfo: any) {
         forminfo.status = this.status;
         this._apiService.sendSlackInfo(forminfo).subscribe((data) => {
-             this.addedTeam.emit();
-             this.validate();
+            this.addedTeam.emit();
+            this.validate();
         }, (err) => {
 
         });
