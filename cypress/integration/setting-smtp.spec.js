@@ -78,8 +78,8 @@ it('Test smtp Form With Right Data with wrong credetial', function () {
              cy.get('#smtpFormRadio #option1').click();
              cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
              cy.get('#smtpFormSave button').click().wait(3000);
+             cy.get('#showError').should('have.class', 'error');
             }) 
-            cy.get('#showError').should('have.class', 'error');
         })
 //       // //it should test if we provide right data to form, save button must be enable, and fire api and got response if api giving success , so data must be added in smtp table, and this smtp must be status inactive by default
 it('Test smtp Form With New Smtp  Data', function () { 
