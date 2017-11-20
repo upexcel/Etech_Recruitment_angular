@@ -44,10 +44,11 @@ describe("Setting/Job Profile Tag Page Test", function() {
   //there should be a option to select tag color with pre-define color list, if user click on any color from list, the selected color will be same
   it('test select tag color functionality', function () {
     cy.get("#addTag button").click().wait(2000);
+    cy.get("md-dialog-container").should("be.visible");
     cy.get(".selected-color:last").click().then(($selectedColor) => {
       cy.get("#selected_color").should("have.attr", "style", "background-color: " + (Cypress._.chain($selectedColor).take("property", "style").value())[0].style.backgroundColor + ";");
-    })
-     cy.get("#close").click();
+    }).wait(2000)
+    cy.get("#close").click();
   })
 
   //if user fill title and subject and click on save button it should added a tag and popup will close and list of job profile tag will be update
