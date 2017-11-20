@@ -55,12 +55,12 @@ describe("Setting/Job Profile Tag Page Test", function() {
   it("check add button with valid form data", function() {
     cy.get("#addTag button").click();
     cy.get("#add_tag").within(function(){
-      cy.get("#title").type("testtttt");
-      cy.get("#tagSubject input").type("testtttt");
-      cy.get("#tagDescription textarea").type("testtttt");
+      cy.get("#title").type("test");
+      cy.get("#tagSubject input").type("test");
+      cy.get("#tagDescription textarea").type("test");
       cy.get("#tagBtn #save").click().wait(1000)
     })
-    cy.get("#jobProfile").contains("testtttt").wait(1000);
+    cy.get("#jobProfile").contains("test").wait(1000);
   });
 
   //after adding job profile tag , go to inbox page and check last added tag must be there with all default tags
@@ -68,15 +68,15 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#jobProfile #ul>#li:last").last().wait(1000);
     cy.get("#addTag button").click();
       cy.get("#add_tag").within(function(){
-        cy.get("#title").type("testtttt");
-        cy.get("#tagSubject input").type("testtttt");
-        cy.get("#tagDescription textarea").type("testtttt");
+        cy.get("#title").type("test");
+        cy.get("#tagSubject input").type("test");
+        cy.get("#tagDescription textarea").type("test");
         cy.get("#tagBtn #save").click().wait(1000);
       })
-    cy.get("#jobProfile").contains("testtttt").wait(1000);
+    cy.get("#jobProfile").contains("test").wait(1000);
     cy.get("#toolbar button#sideNav").click();
     cy.get("md-sidenav div#inbox").click().wait(3000);
-    cy.get("#inboxTag .default-tag-buttons").contains("testtttt");
+    cy.get("#side #jobprofile").contains("test");
    });
 
   //in every job profile tag have a option to delete button, if user click on delete button job profile tag list,
@@ -90,7 +90,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#confirm #confirmNo").should("have.class", "mat-raised-button");
     cy.get("#confirm #confirmYes").click();
     cy.get("md-dialog-container").should("not.be.visible").wait(2000);
-    cy.get("#jobProfile #ul>#li:last").should("not.have.value","testtttt")
+    cy.get("#jobProfile #ul>#li:last").should("not.have.value","test")
 
   })
 
@@ -98,12 +98,12 @@ describe("Setting/Job Profile Tag Page Test", function() {
   it('test inbox page tags with last deleted tag', function () {
     cy.get("#addTag button").click();
       cy.get("#add_tag").within(function(){
-        cy.get("#title").type("testtttt");
-        cy.get("#tagSubject input").type("testtttt");
-        cy.get("#tagDescription textarea").type("testtttt");
+        cy.get("#title").type("test");
+        cy.get("#tagSubject input").type("test");
+        cy.get("#tagDescription textarea").type("test");
         cy.get("#tagBtn #save").click().wait(1000);
       })
-    cy.get("#jobProfile").contains("testtttt").wait(1000);
+    cy.get("#jobProfile").contains("test").wait(1000);
     cy.get("#jobProfile #ul>#li:last #deleteTag").should("have.class", "iconset");
     cy.get("#jobProfile #ul>#li:last #deleteTag").click();
     cy.get("md-dialog-container").should("be.visible");
@@ -111,10 +111,10 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#confirm #confirmNo").should("have.class", "mat-raised-button");
     cy.get("#confirm #confirmYes").click();
     cy.get("md-dialog-container").should("not.be.visible");
-    cy.get("#jobProfile #ul>#li:last").should("not.have.value","testtttt").wait(1000);
+    cy.get("#jobProfile #ul>#li:last").should("not.have.value","test").wait(1000);
     cy.get("#toolbar button#sideNav").click();
     cy.get("md-sidenav div#inbox").click().wait(3000);
-    cy.get("#inboxTag .default-tag-buttons").should("not.have.value","testtttt");
+    cy.get("#inboxTag .default-tag-buttons").should("not.have.value","test");
 
   })
 });
