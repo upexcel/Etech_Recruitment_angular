@@ -1,5 +1,5 @@
 {
-"baseUrl":"http://hrrecruit.herokuapp.com/#",
+"baseUrl": "http://localhost:4200/#",
  "email": "123@gmail.com",
  "password": "123",
  "date": "02/11/2017",
@@ -7,5 +7,10 @@
  "imapUsedPassword":"java@123",
  "newImapEmail":"testhr69@gmail.com",
  "newImapPassword":"java@123",
- "newPassword":"12345"
+  "newPassword":"12345",
+  "serverName":"smtp.gmail.com",
+  "portNo":"465",
+  "smtpUsedEmail":"testhr69@gmail.com",
+  "smtpPassword":"java@123",
+  "newSmtpEmail":"testexcel69@gmail.com"
 }
