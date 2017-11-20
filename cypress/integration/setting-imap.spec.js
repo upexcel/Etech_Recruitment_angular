@@ -59,8 +59,8 @@ describe('Setting/Imap Page Test', function () {
        .type(data.date).should('have.value', data.date);
        cy.get('#FormButton button').should('have.attr', 'ng-reflect-disabled', 'false');
         cy.get('#FormButton button').click().wait(5000)
-        cy.get('#showError').should('have.class', 'error');
        })
+       cy.get('#showError').should('have.class', 'error');
     })
      //it should test if we provide right data to form, save button must be enable, and fire api and got response, data must be added in imap table,and this imap must be inactive by default
     it('Test Imap Form With New Data', function () { 
@@ -108,7 +108,7 @@ describe('Setting/Imap Page Test', function () {
                 cy.get('#tbody tr:first>td #switchState').should('have.class', 'off');
                 cy.get('#tbody tr:first>td button').should('have.attr', 'ng-reflect-disabled', 'false');
             } else if(status[0].className === "material-icons off"){
-                cy.get('#tbody tr:first>td #switchState').click();
+                cy.get('#tbody tr:first>td #switchState').click().wait(1000);
                 cy.get('#tbody tr:first>td #switchState').should('have.class', 'on');
                 cy.get('#tbody tr:first>td button').should('have.attr', 'ng-reflect-disabled', 'true');
             }
