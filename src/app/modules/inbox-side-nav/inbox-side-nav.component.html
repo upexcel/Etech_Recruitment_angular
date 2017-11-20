@@ -1,6 +1,6 @@
 <button md-icon-button (click)="menuShow = !menuShow"> <md-icon>menu</md-icon> </button>
 <div id="side" class="inbox-nav" [ngClass]="{'showMenu': menuShow}">
-    <div id="jobprofile" class="mainnav" *ngFor="let tag of tags; let i = index">
+    <div id="jobprofileNav" class="mainnav" *ngFor="let tag of tags; let i = index">
         <a md-line class="main-title">{{tag.title}}</a>
         <div *ngIf="tag.data">
             <div class="subenav" *ngFor="let subTag of tag.data; trackBy: tagDataTrack">
