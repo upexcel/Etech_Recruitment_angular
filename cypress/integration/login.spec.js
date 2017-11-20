@@ -16,8 +16,8 @@ describe("Login Page Test", function() {
     cy.visit(data.baseUrl + "/login");
     cy.get("form").within(function() {
       cy.get("#loginEmail").type("fakeEmail").should("have.value", "fakeEmail");
-      cy.get("md-error").should("have.class", "mat-input-error");
       cy.get("#loginPassword").type("password").should("have.value", "password");
+      cy.get("md-error").should("have.class", "mat-input-error");
       cy.get("#login").should("have.attr", "ng-reflect-disabled", "true");
     });
   });
