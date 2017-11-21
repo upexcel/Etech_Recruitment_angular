@@ -58,7 +58,7 @@ describe('Setting/Imap Page Test', function () {
        cy.get('#FormDate #date')
        .type(data.date).should('have.value', data.date);
        cy.get('#FormButton button').should('have.attr', 'ng-reflect-disabled', 'false');
-        cy.get('#FormButton button').click().wait(5000)
+        cy.get('#FormButton button').click().wait(5000);
         cy.get('#showError').should('have.class', 'error');
        })
     })
