@@ -106,7 +106,8 @@ it('Test smtp Form With New Smtp  Data', function () {
             const status = Cypress._.chain($state).take('property', 'class').value();
             if(status[0].className === "on"){
                 cy.get('#tbody tr:first #remove').should('have.attr', 'ng-reflect-disabled', 'true');
-             }
+             
+            }
       })
     })
         
