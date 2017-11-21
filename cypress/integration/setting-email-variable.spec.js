@@ -18,6 +18,6 @@ describe('Setting/Email Variable Page Test', function () {
     //if user fill the form then submit button mus be enable. And if user hit this button a api must be fire, popup will close and this varibale should be listed in user variable list.
     it('text add new variable functionality', function () { })
 
-    //test if user click on delete button from user list, it should open a confirm popup and user, it have 2 option 'yes' and 'no' buttons, if user click on 'no' popup will close and user variable list should be remain same, or if user hit yes variable should be deleted and user varibale list should be updated 
+    //test if user click on delete button from user list, it should open a confirm popup and user, it have 2 option 'yes' and 'no' buttons, if user click on 'no' popup will close and user variable list should be remain same, or if user hit yes variable should be deleted and user varibale list should be updated
     it('text delete email varibale funtionality', function () { })
 })
