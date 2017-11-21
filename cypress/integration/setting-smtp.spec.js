@@ -8,7 +8,7 @@ describe('Setting/SMTP Page Test', function () {
       cy.logout();
     })
    // it should visit setting/smtp page
-    it('Visits the Setting/SMTP Page', function () { 
+    it('Visits the Setting/SMTP Page', function () {
         // cy.visit(data.baseUrl+'/core/setting/smtp');
     })
 
@@ -27,7 +27,7 @@ describe('Setting/SMTP Page Test', function () {
     })
 
 //      //it should test, user name field, email field, password field, smtp server field, server port field are required and valid, if any of these field is not valid submit button must be disabled
-it('Test smtp Form With Wrong Data', function () { 
+it('Test smtp Form With Wrong Data', function () {
          cy.get('#smtpForm').within(function () {
              cy.get('#smtpFormUserEmail input')
              .type('fakeEmail').should('have.value', 'fakeEmail');
@@ -38,14 +38,14 @@ it('Test smtp Form With Wrong Data', function () {
              cy.get('#smtpFormServerName input')
              .type('smtp').should('have.value','smtp');
              cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'true')
-            })  
+            })
         })
 
 //     // //it should test, if we provide right data but with wrong credential, submit button must be enable and if click submit it should give error on ui
-it('Test smtp Form With Right Data with wrong credetial', function () { 
-        cy.get('#smtpForm').within(function () { 
+it('Test smtp Form With Right Data with wrong credetial', function () {
+        cy.get('#smtpForm').within(function () {
             cy.get('#smtpFormUserEmail input')
-            .type(data.email).should('have.value', data.email); 
+            .type(data.email).should('have.value', data.email);
             cy.get('#smtpFormSendEmail input')
             .type(data.email).should('have.value', data.email);
             cy.get('#smtpFormPassword input')
@@ -79,10 +79,10 @@ it('Test smtp Form With Right Data with wrong credetial', function () {
              cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
              cy.get('#smtpFormSave button').click().wait(7000);
             //   cy.get('#showError').should('have.class', 'error');
-            }) 
+            })
         })
 //       // //it should test if we provide right data to form, save button must be enable, and fire api and got response if api giving success , so data must be added in smtp table, and this smtp must be status inactive by default
-it('Test smtp Form With New Smtp  Data', function () { 
+it('Test smtp Form With New Smtp  Data', function () {
          cy.get('#smtpForm').within(function () {
              cy.get('#smtpFormUserEmail input')
              .type(data.newSmtpEmail).should('have.value', data.newSmtpEmail);
@@ -97,7 +97,7 @@ it('Test smtp Form With New Smtp  Data', function () {
              cy.get('#smtpFormRadio #option1').click();
              cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
              cy.get('#smtpFormSave button').click().wait(4000);
-            }) 
+            })
             cy.get('#tbody tr:first>td:first').should('have.text', data.newSmtpEmail);
         })
         //test active status record not be deleted
@@ -106,13 +106,13 @@ it('Test smtp Form With New Smtp  Data', function () {
             const status = Cypress._.chain($state).take('property', 'class').value();
             if(status[0].className === "on"){
                 cy.get('#tbody tr:first #remove').should('have.attr', 'ng-reflect-disabled', 'true');
-             
+
             }
       })
     })
-        
+
 //     test if number of record are more than 1, only 1 record can be activated at a time. Click to a deactive record to make  it active and test all other record must be deactivated.
-         it('Test only a single record can be activated', function () { 
+         it('Test only a single record can be activated', function () {
             cy.get('#tbody tr:first #status').then(($state)=>{
             const status = Cypress._.chain($state).take('property', 'class').value();
             if(status[0].className === "on"){
@@ -121,7 +121,7 @@ it('Test smtp Form With New Smtp  Data', function () {
               cy.get('#tbody tr:last #status').should('have.class', 'on');
               cy.get('#tbody tr:first #status').should('have.class', 'off');
              }else if(status[0].className === "off"){
-                cy.get('#tbody tr:last #status').should('have.class', 'on'); 
+                cy.get('#tbody tr:last #status').should('have.class', 'on');
                 cy.get('#tbody tr:first #status').click();
                 cy.get('#tbody tr:last #status').should('have.class', 'off');
                 cy.get('#tbody tr:first #status').should('have.class', 'on');
@@ -129,7 +129,7 @@ it('Test smtp Form With New Smtp  Data', function () {
              })
          })
       // test deactive status record can be deleted
-      it('Test deactive status record can be deleted', function () { 
+      it('Test deactive status record can be deleted', function () {
           cy.get('#tbody tr:last #status').then(($state)=>{
               const status = Cypress._.chain($state).take('property', 'class').value();
               if(status[0].className === "off"){
@@ -146,8 +146,8 @@ it('Test smtp Form With New Smtp  Data', function () {
                 })
             })
     //  test any active record, fire api to test record
-     it('Test a smtp record', function () { 
-         cy.get('#tbody tr:first #test').click().wait(2000)
+     it('Test a smtp record', function () {
+         cy.get('#tbody tr:last #test').click().wait(5000)
          cy.get('simple-snack-bar').should('have.class', 'mat-simple-snackbar');
      })
 })
