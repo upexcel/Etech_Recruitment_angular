@@ -147,7 +147,7 @@ it('Test smtp Form With New Smtp  Data', function () {
             })
     //  test any active record, fire api to test record
      it('Test a smtp record', function () {
-         cy.get('#tbody tr:last #test').click().wait(5000)
+         cy.get('#tbody tr:last #test').click().wait(1000)
          cy.get('simple-snack-bar').should('have.class', 'mat-simple-snackbar');
      })
 })
