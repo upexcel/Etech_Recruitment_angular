@@ -27,7 +27,7 @@ describe("Login Page Test", function() {
       cy.get("#loginEmail").type("example@gmail.com").should("have.value", "example@gmail.com");
       cy.get("#loginPassword").type("password").should("have.value", "password");
       cy.get("#login").click().wait(1000);
-      cy.get("#loginSpinner").should("have.class", "spin");
+      // cy.get("#loginSpinner").should("have.class", "spin");
       cy.get("#loginError").should("have.class", "error");
     });
   });
