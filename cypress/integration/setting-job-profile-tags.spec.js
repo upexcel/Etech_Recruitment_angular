@@ -76,7 +76,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#jobProfile").contains("test").wait(1000);
     cy.get("#toolbar button#sideNav").click();
     cy.get("md-sidenav div#inbox").click().wait(3000);
-    cy.get("#side #jobprofile").contains("test");
+    cy.get("#side #jobprofileNav").contains("test");
    });
 
   //in every job profile tag have a option to delete button, if user click on delete button job profile tag list,
