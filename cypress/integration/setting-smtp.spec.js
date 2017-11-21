@@ -99,7 +99,6 @@ it('Test smtp Form With New Smtp  Data', function () {
              cy.get('#smtpFormSave button').click().wait(3000);
             }) 
             cy.get('#tbody tr:first>td:first').should('have.text', data.newSmtpEmail);
-            cy.get('#tbody tr:first #status').should('have.class', 'on');
         })
         //test active status record not be deleted
         it('Test active status record not be deleted', function () {
