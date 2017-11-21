@@ -1,14 +1,14 @@
 <div class="header">
     <p class="h-text">Create Template</p>
 </div>
-<form id="addEmailTemplateForm" autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
+<form autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
     <p *ngIf="showMessage" class="error-show">{{message}}</p>
     <div class="con-pg">
       <div class="row">
         <div class="main col-sm-8">
             <p>
                 <md-input-container class="width-100">
-                    <input id="templateName" mdInput placeholder="Template Name" autoComplete="off" name="templateName" required ngModel>
+                    <input mdInput placeholder="Template Name" autoComplete="off" name="templateName" required ngModel>
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-input-container class="width-25">
@@ -16,10 +16,10 @@
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-input-container class="width-75">
-                    <input id="subject" mdInput placeholder="" autoComplete="off" name="subject" required ngModel>
+                    <input mdInput placeholder="" autoComplete="off" name="subject" required ngModel>
                     <md-error>Required</md-error>
                 </md-input-container>
-                <ckeditor id="ck" name="body"
+                <ckeditor name="body"
                     [config]="{uiColor: '#00ffff'}"
                     debounce="500" ngModel>
                 </ckeditor>
@@ -29,14 +29,14 @@
           <div class="col-sm-4">
             <md-card class="side-nav">
                 <button md-button class="h-d">System Variables</button>
-                <md-card-content id="systemVariableContent" class="d-c">
+                <md-card-content class="d-c">
                     <button md-button class="con-btn" *ngFor="let svar of sysVar; trackBy: sysVarTrack">{{svar.variableCode}}</button>
                 </md-card-content>
             </md-card>
             <br/>
             <md-card class="side-nav">
                 <button md-button class="h-d">User Variables</button>
-                <md-card-content id="userVariableContent" class="d-c">
+                <md-card-content class="d-c">
                     <button md-button class="con-btn" *ngFor="let uvar of userVar; trackBy: userVarTrack">{{uvar.variableCode}}</button>
                 </md-card-content>
             </md-card>
@@ -45,7 +45,7 @@
     </div>
   </div>
     <div class="fx-pos">
-    	<button md-raised-button id="back" (click)="close()">Back</button>
-    	<button md-raised-button id="save" (click)="save(addTemp)" [disabled]="addTemp.invalid" color="accent">Save</button>
+        <button md-raised-button (click)="close()">Back</button>
+        <button md-raised-button type="submit" color="accent">Save</button>
     </div>
 </form>
