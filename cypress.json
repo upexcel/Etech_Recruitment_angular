@@ -13,6 +13,9 @@
   "portNo":"465",
   "smtpUsedEmail":"testhr69@gmail.com",
   "smtpPassword":"java@123",
-  "newSmtpEmail":"testexcel69@gmail.com"
+  "newSmtpEmail":"testexcel69@gmail.com",
+  "userEmail": "testexcel69@gmail.com",
+  "userPass": "123"
+
 }
   
