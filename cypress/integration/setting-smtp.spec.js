@@ -56,7 +56,7 @@ it('Test smtp Form With Right Data with wrong credetial', function () {
             .type(data.portNo).should('have.value', data.portNo);
             cy.get('#smtpFormRadio #option1').click();
             cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
-            cy.get('#smtpFormSave button').click().wait(1000);
+            cy.get('#smtpFormSave button').click().wait(3000);
             cy.get('#showError').should('have.class', 'error');
         })
     })
@@ -96,7 +96,7 @@ it('Test smtp Form With New Smtp  Data', function () {
              .type(data.portNo).should('have.value', data.portNo);
              cy.get('#smtpFormRadio #option1').click();
              cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
-             cy.get('#smtpFormSave button').click().wait(3000);
+             cy.get('#smtpFormSave button').click().wait(4000);
             }) 
             cy.get('#tbody tr:first>td:first').should('have.text', data.newSmtpEmail);
         })
