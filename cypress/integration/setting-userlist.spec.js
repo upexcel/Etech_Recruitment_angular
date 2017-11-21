@@ -118,14 +118,14 @@ describe('Setting/User List Page Test', function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr:first>td i').click()
       })
-      cy.get('#confDialog #dialogNo').click().wait(500)
+      cy.get('#confirm #confirmNo').click().wait(500)
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).to.contain(data.userEmail)
         })
         cy.get('tr:first>td i').click()
       })
-      cy.get('#confDialog #dialogYes').click().wait(500)
+      cy.get('#confirm #confirmYes').click().wait(500)
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).not.to.contain(data.userEmail)

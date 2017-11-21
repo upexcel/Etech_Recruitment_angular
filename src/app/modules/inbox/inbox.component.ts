@@ -275,9 +275,9 @@ export class InboxComponent implements OnInit, OnDestroy {
         const index = _.findIndex(this.emaillist['data'], email);
         if (index !== -1) {
             if (!this.emaillist['data'][index]['unread']) {
-              this.emaillist['data'][index]['unread'] = true;
+                this.emaillist['data'][index]['unread'] = true;
             } else {
-              this.emaillist['data'][index]['unread'] = false;
+                this.emaillist['data'][index]['unread'] = false;
             }
         }
     }

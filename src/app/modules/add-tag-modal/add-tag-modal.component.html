@@ -1,13 +1,13 @@
 <div>
   <h3 class="heading">Add Tag</h3>
 </div>
-<form #addForm="ngForm" (ngSubmit)="addTag(addForm)" class="add-tag">
+<form #addForm="ngForm"  class="add-tag" id="add_tag">
   <span class="text-err" *ngIf="showMessage">{{message}}</span>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-sm-12">
         <md-input-container class="width-100">
-          <input mdInput name="title" placeholder="Title" ngModel required>
+          <input mdInput name="title" id='title' placeholder="Title" ngModel required>
           <md-error>Title Is Required</md-error>
         </md-input-container>
       </div>
@@ -22,30 +22,30 @@
     <div class="row">
       <div class="col-md-6 col-sm-12">
         <md-input-container class="width-100">
-          <input mdInput name="email" type="email" placeholder="Email" ngModel>
+          <input mdInput name="email" type="email" id="Email" placeholder="Email" ngModel>
           <md-error>Invalid Email</md-error>
         </md-input-container>
       </div>
-      <div class="col-md-6 col-sm-12">
+      <div id="tagSubject" class="col-md-6 col-sm-12">
         <md-input-container class="width-100">
-          <input mdInput name="subject" placeholder="Subject" ngModel required>
+          <input mdInput name="subject" id="subject" placeholder="Subject" ngModel required>
         </md-input-container>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-12">
         <md-input-container class="width-100">
-          <input mdInput name="from" type="date" placeholder="From date" ngModel>
+          <input mdInput name="from" type="date" id="fromDate" placeholder="From date" ngModel>
         </md-input-container>
       </div>
       <div class="col-md-6 col-sm-12">
         <md-input-container class="width-100">
-          <input mdInput name="to" type="date" placeholder="To date" ngModel>
+          <input mdInput name="to" type="date" id="toDate" placeholder="To date" ngModel>
         </md-input-container>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12" *ngIf="addTagType == 'jobProfile'">
+      <div id="tagDescription" class="col-md-12" *ngIf="addTagType == 'jobProfile'">
         <md-input-container class="width-100">
           <textarea mdInput rows="4" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
           <md-error>Job Description Is Required</md-error>
@@ -54,7 +54,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-12">
-        <md-select class="width-100" placeholder="Select Template" name="template_id" ngModel>
+        <md-select class="width-100" id="template" placeholder="Select Template" name="template_id" ngModel>
           <md-option>
             None
           </md-option>
@@ -64,21 +64,24 @@
         </md-select>
       </div>
       <div class="col-md-6 col-sm-12">
-        <md-slide-toggle name="is_email_send" ngModel class="width-100">Send Automatic Template</md-slide-toggle>
-        <md-slide-toggle name="assign" ngModel class="width-100">Assign to all existing mails</md-slide-toggle>
+        <md-slide-toggle name="is_email_send" ngModel class="width-100" id="send_email">Send Automatic Template</md-slide-toggle>
+        <md-slide-toggle name="assign" ngModel class="width-100" id="assign">Assign to all existing mails</md-slide-toggle>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 col-sm-12">
+      <div id="tagColor" class="col-md-12 col-sm-12">
         <h4> Tag Color </h4>
-        <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
+        <div class="selected-color" id="selected_color" [ngStyle]="{'background-color': originalcolor}"></div>
         <div class="color-box">
-          <div class="selected-color" *ngFor="let color of availableColors; trackBy: availableColorsTrackBY;" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
+          <div class="selected-color" id="select_color" *ngFor="let color of availableColors; trackBy: availableColorsTrackBY;" (click)="originalcolor = color"
+            [ngStyle]="{'background-color': color}"></div>
         </div>
       </div>
-      <div class="col-md-12 col-sm-12 text-right">
-        <button md-raised-button (click)="close()">Close</button>
-        <button md-raised-button type="submit" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)"><span>Save </span></button>
+      <div id="tagBtn" class="col-md-12 col-sm-12 text-right">
+        <button md-raised-button id="close" (click)="close()">Close</button>
+        <button md-raised-button id="save" (click)="addTag(addForm)" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
+          <span>Save </span>
+        </button>
       </div>
     </div>
   </div>
