@@ -2,5 +2,7 @@
   "baseUrl": "http://localhost:4200/#",
   "email": "123@gmail.com",
   "password": "123",
+  "userEmail": "testexcel69@gmail.com",
+  "userPass": "123",
   "newPassword":"12345"
 }
