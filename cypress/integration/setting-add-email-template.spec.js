@@ -47,8 +47,8 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     cy.visit(data.baseUrl + 'core/setting/emailtemplate');
     cy.get('#addEmailTemplate #addEmailTemplateButton').click()
     cy.get('#addEmailTemplateForm').should('be.exist').wait(1500)
-    cy.get('#addEmailTemplateForm #templateName').type("q").wait(500)
-    cy.get('#addEmailTemplateForm #subject').type("qq").wait(500)
+    cy.get('#addEmailTemplateForm #templateName').type("test").wait(500)
+    cy.get('#addEmailTemplateForm #subject').type("testSubject").wait(5000)
     // cy.get('#addEmailTemplateForm #ck').within(function() {
     //   //         // cy.get('iframe').querySelector('#document').should('be.exist')then(function($doc){
     //   //         //     console.log($doc)
@@ -59,12 +59,12 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     //     Cypress.$($document[0].shadowRoot).find('html').should('be.exist')
     // })
     // })
-    cy.document().then(function($document) {
-      var container = document.querySelector('#document');
-      console.log(document.querySelector('#document').shadowRoot.querySelector("p").innerHTML)
-    })
+    // cy.document().then(function($document) {
+    //   var container = document.querySelector('#document');
+    //   console.log(document.querySelector('#document').shadowRoot.querySelector("p").innerHTML)
+    // })
     cy.get('#addEmailTemplateForm #back').click().wait(500)
-
+    //cy.get('')
   })
 
   // //it should test if we provide right data to form, save button must be enable, and fire api and got response if api giving success , so data must be added in email template list, if any error show it to user

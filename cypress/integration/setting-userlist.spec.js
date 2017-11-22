@@ -19,7 +19,7 @@ describe('Setting/User List Page Test', function() {
   // user list for login email, it should not be presented there
   it('Check Loged In user"s email, that should not be there', function() {
     cy.visit(data.baseUrl + 'core/setting/usersList');
-    cy.get('#userList-table table').wait(500).then(function() {
+    cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).not.to.contain(data.test_email)
@@ -94,7 +94,8 @@ describe('Setting/User List Page Test', function() {
         cy.get('#addUserForm #add-user-button').click()
       });
     });
-    cy.get('#userList-table table').wait(3000).then(function() {
+    cy.get("#addUserForm").should("not.be.visible");    
+    cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').contains(data.userEmail)
       })
@@ -114,18 +115,20 @@ describe('Setting/User List Page Test', function() {
   // and user list should be remain same, or if user hit yes user should be deleted and user list should be updated
   it('test user delete functionality', function() {
     cy.visit(data.baseUrl + 'core/setting/usersList');
-    cy.get('#userList-table table').wait(500).then(function() {
+    cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr:first>td i').click()
       })
-      cy.get('#confirm #confirmNo').click().wait(500)
+      cy.get('#confirm #confirmNo').click()
+      cy.get("#confirm").should("not.be.visible");      
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).to.contain(data.userEmail)
         })
         cy.get('tr:first>td i').click()
       })
-      cy.get('#confirm #confirmYes').click().wait(500)
+      cy.get('#confirm #confirmYes').click()
+      cy.get("#confirm").should("not.be.visible");      
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).not.to.contain(data.userEmail)
