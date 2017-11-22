@@ -61,8 +61,8 @@ describe("Setting/Tag Setting Page Test", function() {
   // if user fill title and subject and click on save button it should added a tag and popup will close and lis of manual tag will be update
   it("check add button with valid form data", function() {
     cy.get("#AddTag").click();
-    cy.get("#title").type("test");
-    cy.get("#subject").type("gggggg");
+    cy.get("#title").type("title_test");
+    cy.get("#subject").type("subject_test");
     cy.get("#save").click().then(function() {
       cy.get("md-dialog-container").should("not.be.visible");
       cy.get(".tagbutton1").contains("test");
