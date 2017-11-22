@@ -4,7 +4,7 @@ describe('Setting/User List Page Test', function() {
 
 
   beforeEach(function() {
-    cy.login(data.test_email, data.test_password);
+    cy.login(data.email, data.password);
   })
   afterEach(function() {
     cy.logout();
@@ -22,7 +22,7 @@ describe('Setting/User List Page Test', function() {
     cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
-          expect($el).not.to.contain(data.test_email)
+          expect($el).not.to.contain(data.email)
         })
       })
     })
@@ -103,10 +103,10 @@ describe('Setting/User List Page Test', function() {
   })
 
   //logout the current user, go to login page and login with latest added user, it should login
-  // it('login with current added user', function() {
-  //   cy.logout()
-  //   cy.login(data.userEmail, data.userPass)
-  // })
+  it('login with current added user', function() {
+    cy.logout()
+    cy.login(data.userEmail, data.userPass)
+  })
 
 
   //logout again and login with admin user togo userlist page,
