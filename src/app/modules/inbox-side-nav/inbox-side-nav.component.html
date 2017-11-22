@@ -1,6 +1,6 @@
 <button md-icon-button (click)="menuShow = !menuShow"> <md-icon>menu</md-icon> </button>
-<div class="inbox-nav" [ngClass]="{'showMenu': menuShow}">
-    <div class="mainnav" *ngFor="let tag of tags; let i = index">
+<div id="side" class="inbox-nav" [ngClass]="{'showMenu': menuShow}">
+    <div id="jobprofileNav" class="mainnav" *ngFor="let tag of tags; let i = index">
         <a md-line class="main-title">{{tag.title}}</a>
         <div *ngIf="tag.data">
             <div class="subenav" *ngFor="let subTag of tag.data; trackBy: tagDataTrack">
@@ -19,14 +19,14 @@
                 </p>
                 <div *ngIf="subTag.subchild">
                 <span *ngFor="let subTagSubchild of subTag.subchild; trackBy: subTagSubchildTrack">
-                    <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id" 
+                    <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id"
                         (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
                        <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
                        </div>
                      <md-icon *ngIf="subTagSubchild.parent_id !=null" mdTooltip="Delete Tab" mdTooltipPosition="below"  class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
                     </span>
                 </div>
-                
+
             </div>
         </div>
     </div>
