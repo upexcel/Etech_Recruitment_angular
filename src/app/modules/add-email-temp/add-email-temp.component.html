@@ -1,7 +1,7 @@
 <div class="header">
     <p class="h-text">Create Template</p>
 </div>
-<form autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
+<form autoComplete="off" #addTemp="ngForm">
     <p *ngIf="showMessage" class="error-show">{{message}}</p>
     <div class="con-pg">
       <div class="row">
@@ -46,6 +46,6 @@
   </div>
     <div class="fx-pos">
     	<button md-raised-button (click)="close()">Back</button>
-    	<button md-raised-button type="submit" color="accent">Save</button>
+    	<button md-raised-button (click)="save(addTemp)" [disabled]="addTemp.invalid" color="accent">Save</button>
     </div>
 </form>

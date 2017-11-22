@@ -1,0 +1,12 @@
+<VirtualHost *:80>
+  UseCanonicalName Off
+  ServerName local.example.com
+  DocumentRoot /home/ubuntu/www
+  DirectoryIndex index.php
+  LogLevel notice
+
+  <Directory /home/ubuntu/www>
+    AllowOverride All
+    Allow from All
+  </Directory>
+</VirtualHost>
