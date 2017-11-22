@@ -13,7 +13,6 @@
 import * as data from "../../cypress.json";
 //login
 Cypress.Commands.add("login", function(email, password) {
-  cy.wait(2000);
   cy.visit(data.baseUrl + "/login");
   cy.get("#loginForm #loginEmail").type(email);
   cy.get("#loginForm #loginPassword").type(password);
@@ -41,7 +40,6 @@ Cypress.Commands.add("deleteImap", function() {
   cy
     .get("#tbody tr:first>td button")
     .click()
-    .wait(1000);
 });
 
 //add smtp
@@ -56,7 +54,6 @@ Cypress.Commands.add("addSmtp", function() {
   cy
     .get("#smtpFormSave button")
     .click()
-    .wait(2000);
 });
 //delete smtp
 Cypress.Commands.add("deleteSmtp", function() {
@@ -65,7 +62,6 @@ Cypress.Commands.add("deleteSmtp", function() {
   cy
     .get("#tbody tr:first #remove")
     .click()
-    .wait(1000);
 });
 
 //add job profile
@@ -78,7 +74,6 @@ Cypress.Commands.add("addJobprofile", function() {
   cy
     .get("#add_tag #tagBtn #save")
     .click()
-    .wait(1000);
 });
 //delete job profile
 Cypress.Commands.add("deleteJobprofile", function() {
@@ -87,7 +82,6 @@ Cypress.Commands.add("deleteJobprofile", function() {
   cy
     .get("#confirm #confirmYes")
     .click()
-    .wait(1000);
 });
 
 //add automatic tag
@@ -99,7 +93,6 @@ Cypress.Commands.add("addAutomtictag", function() {
   cy
     .get("#add_tag #tagBtn #save")
     .click()
-    .wait(1000);
 });
 //delete automatic tag
 Cypress.Commands.add("deleteAutomtictag", function() {
@@ -107,5 +100,4 @@ Cypress.Commands.add("deleteAutomtictag", function() {
   cy
     .get("#autotagPage #ul>#li:last #deleteAutotag")
     .click()
-    .wait(2000);
 });
