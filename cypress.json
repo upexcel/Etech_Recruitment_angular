@@ -1,5 +1,4 @@
 {
-
 "baseUrl": "http://localhost:4200/#",
  "email": "123@gmail.com",
  "password": "123",
@@ -16,6 +15,4 @@
   "newSmtpEmail":"testexcel69@gmail.com",
   "userEmail": "testexcel69@gmail.com",
   "userPass": "123"
-
 }
-  
