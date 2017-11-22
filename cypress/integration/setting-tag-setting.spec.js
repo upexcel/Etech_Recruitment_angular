@@ -20,7 +20,7 @@ describe("Setting/Tag Setting Page Test", function() {
     cy.get("#manual_mainform #manual_tag").contains("Manual tag(s)");
   });
 
-  //if user click on add tag button from page it should open a Add tag pop up with a form. if user click on close button
+  // if user click on add tag button from page it should open a Add tag pop up with a form. if user click on close button
   //this popus must be closed and manual tag list remain same
   it("test add tag button and close button functionality", function() {
     cy.get("#AddTag").click();
