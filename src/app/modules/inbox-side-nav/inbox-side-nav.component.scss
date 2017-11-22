@@ -50,7 +50,7 @@ md-list {
     color: #000;
 }
 a:hover {
-    text-decoration: none;
+    text-decoration: nonactivee;
 }
 .nav-arrow{
     vertical-align: middle;
@@ -112,4 +112,9 @@ a:hover {
     position: absolute;
     margin-top: -20px;
     right: 0px;
+    color:grey;
+}
+.tagstyle{
+    color:grey !important;
+    font-style: italic !important;
 }
