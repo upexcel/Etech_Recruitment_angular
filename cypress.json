@@ -15,5 +15,7 @@
   "smtpPassword":"java@123",
   "newSmtpEmail":"testexcel69@gmail.com",
   "userEmail": "testexcel69@gmail.com",
-  "userPass": "123"
+  "userPass": "123",
+  "jobprofile": "TEST",
+  "automaticTag": "AutoTEST"
 }

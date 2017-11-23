@@ -5,12 +5,13 @@ describe('Setting/Imap Page Test', function() {
     cy.visit(data.baseUrl + '/core/setting/imap');
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/imap/save**` }).as('apiResponse')
-    cy.route({ method: 'GET', url: `http://localhost:8091/imap/**` }).as('getApiResponse')
+    cy.route({ method: 'GET', url: `**` }).as('getApiResponse')
     cy.route({ method: 'DELETE', url: `http://localhost:8091/**` }).as('deleteImap')
     cy.route({ method: 'PUT', url: `http://localhost:8091/imap/statusActive/**` }).as('updateStatus')
 
   })
   afterEach(function() {
+    cy.wait('@getApiResponse')
     cy.logout();
   })
 
