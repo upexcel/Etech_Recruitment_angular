@@ -112,7 +112,7 @@ describe('Setting/User List Page Test', function() {
   //logout again and login with admin user togo userlist page,
   //in every user have a option to delete user, click on last added user's delete button,
   //it should open a confirm popup, it have 2 option 'yes' and 'no' buttons, if user click on 'no' popup will close
-  //and user list should be remain same, or if user hit yes user should be deleted and user list should be updated
+  // and user list should be remain same, or if user hit yes user should be deleted and user list should be updated
   it('test user delete functionality', function() {
     cy.visit(data.baseUrl + 'core/setting/usersList');
     cy.get('#userList-table table').wait(500).then(function() {
