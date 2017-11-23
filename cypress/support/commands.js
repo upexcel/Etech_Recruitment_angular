@@ -21,8 +21,9 @@ Cypress.Commands.add("login", function(email, password) {
 });
 //logout
 Cypress.Commands.add("logout", function() {
-  cy.get("#toolbar button#sideNav").click();
-  cy.get("md-sidenav div#logout").click();
+  cy.get("#toolbar #sideNav").click()
+  cy.get("md-sidenav #logout").click();
+
   // cy.url().should('eq',data.baseUrl+'/');
 });
 
