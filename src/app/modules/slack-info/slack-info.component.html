@@ -14,7 +14,6 @@
             <thead>
                <tr>
                   <th>Team Name</th>
-                  <th>Selected Channel</th>
                   <th>Status</th>
                </tr>
             </thead>
@@ -23,11 +22,6 @@
 
                <tr *ngFor="let slackdata of slackJson;let i= index">
                   <td>{{slackdata.teamName}}</td>
-                  <td >
-                     <md-select [(ngModel)]="slackJson[i].selected_channel" (ngModelChange)="select(i,slackdata.id)"class="width-100" >
-                        <md-option *ngFor="let channel of slackdata.channel_list " [value]="channel.id">{{channel.name}}</md-option>
-                     </md-select>
-                  </td>
                   <td>
                   <md-icon [ngClass]="{'red':true,'green': slackdata.status}" (click)="activateSlack(slackdata,slackdata.id)">power_settings_new</md-icon>
                   </td>
