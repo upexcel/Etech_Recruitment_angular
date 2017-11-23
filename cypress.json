@@ -1,5 +1,6 @@
 {
   "baseUrl": "http://localhost:4200/#",
+  "apiUrl":"http://localhost:8091",
   "email": "123@gmail.com",
   "password": "123",
   "date": "02/11/2017",
@@ -14,5 +15,7 @@
   "smtpPassword":"java@123",
   "newSmtpEmail":"testexcel69@gmail.com",
   "userEmail": "testexcel69@gmail.com",
-  "userPass": "123"
+  "userPass": "123",
+  "jobprofile": "TEST",
+  "automaticTag": "AutoTEST"
 }
