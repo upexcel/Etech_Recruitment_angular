@@ -1,4 +1,3 @@
-
 import * as data from '../../cypress.json';
 
 describe('Setting/User List Page Test', function() {
@@ -6,6 +5,9 @@ describe('Setting/User List Page Test', function() {
 
   beforeEach(function() {
     cy.login(data.email, data.password);
+    cy.server()
+    cy.route({ method: 'POST', url: `http://localhost:8091/user/add_user**` }).as('addUser')
+    cy.route({ method: 'GET', url: `http://localhost:8091/user/list/**`, delay: 500 }).as('getUser')
   })
   afterEach(function() {
     cy.logout();
@@ -20,7 +22,7 @@ describe('Setting/User List Page Test', function() {
   // user list for login email, it should not be presented there
   it('Check Loged In user"s email, that should not be there', function() {
     cy.visit(data.baseUrl + 'core/setting/usersList');
-    cy.get('#userList-table table').wait(500).then(function() {
+    cy.get('#userList-table table').wait('@getUser').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).not.to.contain(data.email)
@@ -94,19 +96,21 @@ describe('Setting/User List Page Test', function() {
         cy.get('#addUserForm #add-user-button').should('not.have.attr', 'disabled')
         cy.get('#addUserForm #add-user-button').click()
       });
-    });
-    cy.get('#userList-table table').wait(3000).then(function() {
+    }).wait('@addUser')
+    cy.get('md-dialog-container').should('not.be.visible')
+    cy.wait('@getUser')
+    cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').contains(data.userEmail)
       })
     })
   })
 
-  //logout the current user, go to login page and login with latest added user, it should login
-  // it('login with current added user', function() {
-  //   cy.logout()
-  //   cy.login(data.userEmail, data.userPass)
-  // })
+  // logout the current user, go to login page and login with latest added user, it should login
+  it('login with current added user', function() {
+    cy.logout()
+    cy.login(data.userEmail, data.userPass)
+  })
 
 
   //logout again and login with admin user togo userlist page,
@@ -115,18 +119,20 @@ describe('Setting/User List Page Test', function() {
   // and user list should be remain same, or if user hit yes user should be deleted and user list should be updated
   it('test user delete functionality', function() {
     cy.visit(data.baseUrl + 'core/setting/usersList');
-    cy.get('#userList-table table').wait(500).then(function() {
+    cy.get('#userList-table table').wait('@getUser').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr:first>td i').click()
       })
-      cy.get('#confirm #confirmNo').click().wait(500)
+      cy.get('#confirm #confirmNo').click()
+      cy.get('#confirm').should('not.be.visible')
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).to.contain(data.userEmail)
         })
         cy.get('tr:first>td i').click()
       })
-      cy.get('#confirm #confirmYes').click().wait(500)
+      cy.get('#confirm #confirmYes').click()
+      cy.get('#confirm').should('not.be.visible')
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).not.to.contain(data.userEmail)

@@ -2,7 +2,7 @@
     <div class="row">
         <button md-icon-button class="setting-menu" (click)="menuShow = !menuShow"> <md-icon>menu</md-icon> </button>
         <div class="col-md-2 col-sm-2 sidenav no-pad" [ngClass]="{'showMenu': menuShow}">
-            <md-list>
+            <md-list id="settingMenu">
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('imap','IMAP Server Setting')">
                     <a md-line> IMAP Server Setting </a>
                 </md-list-item>
@@ -28,10 +28,10 @@
                 <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('tagsetting','Tag Setting')">
                     <a md-line> Tag Setting </a>
                 </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('automaticTags','Automatic Tags')">
+                <md-list-item class="navlist" id="automatic" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('automaticTags','Automatic Tags')">
                     <a md-line> Automatic Tags </a>
                 </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
+                <md-list-item class="navlist" id="jobProfileTags" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
                     <a md-line> Job Profile </a>
                 </md-list-item>
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('usersList','Users List')">

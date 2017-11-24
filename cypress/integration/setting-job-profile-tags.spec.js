@@ -1,10 +1,14 @@
 import * as data from "../../cypress.json";
 describe("Setting/Job Profile Tag Page Test", function() {
   beforeEach(function() {
+    // cy.visit(data.baseUrl + "/login");
     cy.login(data.email, data.password);
-    cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+    // cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+    cy.get('#sideNav').click()
+    cy.get('md-sidenav #setting').click()
+    cy.get('#jobProfileTags').click()
     cy.server();
-    cy.route("GET", data.apiUrl + "/**").as("getAutotag");
+    cy.route("GET", "**").as("getProtag");
 
   });
   afterEach(function() {
@@ -30,8 +34,9 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#addTag button").click();
     cy.get("md-dialog-container").should("be.visible");
     cy.get("form").should("have.class", "ng-invalid");
-    cy.get("#save").should("have.attr", "disabled")
+    cy.get("#save").should("have.attr", "disabled");
     cy.get("#close").click();
+     cy.get("md-dialog-container").should("not.be.visible");
    })
 
   //check if user enable 'send automatic email' or 'assign to all exiting emails' it should be enable
@@ -42,6 +47,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
       cy.get("#assign").click();
       cy.get("#assign").should("have.class", "mat-checked");
       cy.get("#close").click();
+      cy.get("md-dialog-container").should("not.be.visible");
    })
 
   //there should be a option to select tag color with pre-define color list, if user click on any color from list, the selected color will be same
@@ -52,6 +58,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
       cy.get("#selected_color").should("have.attr", "style", "background-color: " + (Cypress._.chain($selectedColor).take("property", "style").value())[0].style.backgroundColor + ";");
     })
     cy.get("#close").click();
+     cy.get("md-dialog-container").should("not.be.visible");
   })
 
   //if user fill title and subject and click on save button it should added a tag and popup will close and list of job profile tag will be update
@@ -63,21 +70,12 @@ describe("Setting/Job Profile Tag Page Test", function() {
       cy.get("#tagDescription textarea").type(data.jobprofile);
       cy.get("#tagBtn #save").click()
     })
-
-    cy.wait("@getAutotag")
     cy.get("#jobProfile").contains(data.jobprofile);
   });
 
   //after adding job profile tag , go to inbox page and check last added tag must be there with all default tags
   it('test inbox page tags with last added tag', function () {
-  cy.get("#jobProfile #ul>#li:last").contains(data.jobprofile);
-    // cy.get("#addTag button").click();
-    //   cy.get("#add_tag").within(function() {
-    //       cy.get("#title").type(data.jobprofile);
-    //       cy.get("#tagSubject input").type(data.jobprofile);
-    //       cy.get("#tagDescription textarea").type(data.jobprofile);
-    //       cy.get("#tagBtn #save").click()
-    //     })
+
     cy.get("#jobProfile").contains(data.jobprofile);
     cy.get("#toolbar button#sideNav").click();
     cy.get("md-sidenav div#inbox").click();
@@ -108,7 +106,6 @@ describe("Setting/Job Profile Tag Page Test", function() {
         cy.get("#tagDescription textarea").type(data.jobprofile);
         cy.get("#tagBtn #save").click()
       })
-    cy.wait("@getAutotag");
     cy.get("#jobProfile").contains(data.jobprofile)
     cy.get("#jobProfile #ul>#li:last #deleteTag").should("have.class", "iconset");
     cy.get("#jobProfile #ul>#li:last #deleteTag").click();
@@ -116,7 +113,6 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#confirm #confirmYes").should("have.class","mat-raised-button");
     cy.get("#confirm #confirmNo").should("have.class", "mat-raised-button");
     cy.get("#confirm #confirmYes").click();
-    cy.wait("@getAutotag");
     cy.get("md-dialog-container").should("not.be.visible");
     cy.get("#jobProfile #ul>#li:last").should("not.have.value",data.jobprofile)
     cy.get("#toolbar button#sideNav").click();
