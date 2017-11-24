@@ -45,11 +45,18 @@
       </div>
     </div>
     <div class="row">
-      <div id="tagDescription" class="col-md-12" *ngIf="addTagType == 'jobProfile'">
+      <div id="tagDescription" class="col-md-6 col-sm-12" *ngIf="addTagType == 'jobProfile'">
         <md-input-container class="width-100">
           <textarea mdInput rows="4" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
           <md-error>Job Description Is Required</md-error>
         </md-input-container>
+      </div>
+      <div id="tagDescription" class="col-md-6 col-sm-12" *ngIf="addTagType == 'jobProfile'">
+        <!-- <md-input-container class="width-100"> -->
+            <rl-tag-input name="keyword" placeholder="Add Keyword" [(ngModel)]="tags"> </rl-tag-input>
+          <!-- <textarea mdInput rows="4" name="keyword" type="textarea" placeholder="Add Keyword" ngModel required></textarea> -->
+          <!-- <md-error>Add Keyword Is Required</md-error> -->
+        <!-- </md-input-container> -->
       </div>
     </div>
     <div class="row">

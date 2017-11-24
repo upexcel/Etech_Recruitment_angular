@@ -20,6 +20,7 @@ export class AddTagModalComponent implements OnInit {
     addTagType: string;
     originalcolor = color_list[0];
     availableColors = color_list;
+    tags= [];
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
@@ -35,6 +36,7 @@ export class AddTagModalComponent implements OnInit {
     }
 
     addTag(form: NgForm) {
+        console.log(form.value.keyword.toString());
         this.showMessage = false;
         this.showloading = true;
         if (form.valid) {
