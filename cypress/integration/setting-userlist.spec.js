@@ -3,11 +3,11 @@ import * as data from '../../cypress.json';
 describe('Setting/User List Page Test', function() {
 
 
-  beforeEach(function() {
+  beforeEach(function() {;
     cy.login(data.email, data.password);
-    cy.get('#sideNav').click()
-    cy.get('md-sidenav #setting').click()
-    cy.get('#usersList').click()
+    cy.get("#sideNav").click();
+    cy.get("md-sidenav #setting").click();
+    cy.get("#userList").click();
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/user/add_user**` }).as('addUser')
     cy.route({ method: 'GET', url: `http://localhost:8091/user/list/**`, delay: 500 }).as('getUser')
@@ -61,7 +61,7 @@ describe('Setting/User List Page Test', function() {
       });
       cy.get('#addUserForm #user-role-select').click().then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled');
-        cy.get('md-option #md-option-0').click();
+        cy.get('md-option:first').click();
       });
       cy.get('#addUserForm #add-user-password').type("12").then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled')
@@ -84,7 +84,7 @@ describe('Setting/User List Page Test', function() {
       });
       cy.get('#addUserForm #user-role-select').click().then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled');
-        cy.get('md-option #md-option-0').click();
+        cy.get('md-option:first').click();
       });
       cy.get('#addUserForm #add-user-password').type(data.userPass).then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled')
@@ -114,7 +114,7 @@ describe('Setting/User List Page Test', function() {
   //it should open a confirm popup, it have 2 option 'yes' and 'no' buttons, if user click on 'no' popup will close
   // and user list should be remain same, or if user hit yes user should be deleted and user list should be updated
   it('test user delete functionality', function() {
-    cy.get('#userList-table table').wait('@getUser').then(function() {
+    cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr:first>td i').click()
       })
