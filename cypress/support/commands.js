@@ -14,7 +14,7 @@ import * as data from "../../cypress.json";
 //login
 Cypress.Commands.add("login", function(email, password) {
   // cy.visit(data.baseUrl);
-  cy.get('#loginButton').click()
+  cy.get("#loginButton").click();
   cy.get("#loginForm #loginEmail").type(email);
   cy.get("#loginForm #loginPassword").type(password);
   cy.get("#loginForm #login").click();
@@ -22,8 +22,11 @@ Cypress.Commands.add("login", function(email, password) {
 });
 //logout
 Cypress.Commands.add("logout", function() {
+  cy.server()
+  cy.route({ method: "GET", url: `**` }).as("getApiResponse");
   cy.get("#toolbar #sideNav").click();
-  cy.get("md-sidenav #logout").click();
+  cy.get("md-sidenav #logout").click()
+  cy.wait('@getApiResponse')
 });
 
 //addimap

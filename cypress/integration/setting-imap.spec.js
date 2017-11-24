@@ -5,6 +5,7 @@ describe('Setting/Imap Page Test', function() {
     // cy.visit(data.baseUrl + '/core/setting/imap');
     cy.get('#sideNav').click()
     cy.get('md-sidenav #setting').click()
+    cy.get('#imap').click()
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/imap/save**` }).as('apiResponse')
     cy.route({ method: 'GET', url: `**` }).as('getApiResponse')

@@ -5,6 +5,7 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
       cy.get('#sideNav').click()
       cy.get('md-sidenav #setting').click()
       cy.get('#automatic').click()
+
       // cy.visit(data.baseUrl + "/core/setting/automaticTags");
     });
   });
@@ -67,10 +68,13 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
 
   //after adding automatic tag , go to inbox page and check last added tag must be there
   it('test inbox page tags with last added tag', function() {
+    cy.server();
+    cy.route("GET", "**").as("get");
     cy.get("#autotagPage").contains(data.automaticTag);
     cy.get("#toolbar #sideNav").click();
     cy.get("md-sidenav #inbox").click()
     cy.get("#side #jobprofileNav").contains(data.automaticTag);
+
   })
 
   //in every automatic tag have a option to delete button, if user click on delete button automatic tag list,
@@ -94,9 +98,9 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
     cy.get("#autotagPage #ul>#li:last #deleteAutotag").should("have.class", "iconset");
     cy.get("#autotagPage #ul>#li:last #deleteAutotag").click();
     cy.get("#autotagPage #ul>#li:last").should("not.have.value", "Autotagtest")
-    // cy.get("#toolbar button#sideNav").click();
-    // cy.get("md-sidenav div#inbox").click()
-    cy.visit(data.baseUrl + "/core/inbox");
+    cy.get("#toolbar #sideNav").click();
+    cy.get("md-sidenav #inbox").click()
+    // cy.visit(data.baseUrl + "/core/inbox");
     cy.get("#inboxTag .default-tag-buttons").should("not.have.value", "Autotagtest");
   })
 
