@@ -101,3 +101,13 @@ Cypress.Commands.add("deleteAutomtictag", function() {
     .get("#autotagPage #ul>#li:last #deleteAutotag")
     .click()
 });
+
+//add email template
+Cypress.Commands.add("addEmailTemplate", function() {
+  cy.visit(data.baseUrl + "/core/setting/emailtemplate");
+  cy.get('#addEmailTemplate #addEmailTemplateButton').click()
+  cy.get('#addEmailTemplateForm').should('be.exist')
+  cy.get('#addEmailTemplateForm #templateName').type("test")
+  cy.get('#addEmailTemplateForm #subject').type("testSubject")
+  cy.get('#addEmailTemplateForm #save').click()
+});

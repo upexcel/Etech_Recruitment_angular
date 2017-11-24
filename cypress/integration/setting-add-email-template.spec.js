@@ -3,7 +3,7 @@ import * as data from '../../cypress.json';
 describe('Setting/Email Template, Add Email Template Page Test', function() {
 
   beforeEach(function() {
-    cy.login(data.test_email, data.test_password);
+    cy.login(data.email, data.password);
   })
   afterEach(function() {
     cy.logout();
