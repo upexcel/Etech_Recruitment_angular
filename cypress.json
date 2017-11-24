@@ -17,5 +17,9 @@
   "userEmail": "testexcel69@gmail.com",
   "userPass": "123",
   "jobprofile": "TEST",
-  "automaticTag": "AutoTEST"
+  "automaticTag": "AutoTEST",
+  "php_job":"PHP",
+  "node_job":"NODE",
+  "myEmail":  "ashutosh_m@excellencetechnologies.in",
+  "api_baseUrl":"http://localhost:8091"
 }

@@ -30,7 +30,7 @@ Cypress.Commands.add("logout", function() {
 Cypress.Commands.add("addImap", function() {
   cy.visit(data.baseUrl + "/core/setting/imap");
   cy.server()
-  cy.route('POST',`http://localhost:8091/imap/save**`).as('postImap')
+  cy.route('POST',data.api_baseUrl+`/imap/save**`).as('postImap')
   cy.get("#FormEmail input").type(data.newImapEmail);
   cy.get("#FormPassword input").type(data.newImapPassword);
   cy.get("#FormDate #date").type(data.date);
@@ -69,15 +69,15 @@ Cypress.Commands.add("deleteSmtp", function() {
 });
 
 //add job profile
-Cypress.Commands.add("addJobprofile", function() {
-  cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+Cypress.Commands.add("addJobprofile", function(jobprofile) {
   cy.get("#addTag button").click();
-  cy.get("#add_tag #title").type(data.jobprofile);
-  cy.get("#add_tag #tagSubject input").type(data.jobprofile);
-  cy.get("#add_tag #tagDescription textarea").type(data.jobprofile);
+  cy.get("#add_tag #title").type(jobprofile);
+  cy.get("#add_tag #tagSubject input").type(jobprofile);
+  cy.get("#add_tag #tagDescription textarea").type(jobprofile);
   cy
-    .get("#add_tag #tagBtn #save")
-    .click()
+    .get("#add_tag #tagBtn #save").click()
+    cy.get("md-dialog-container").should("not.be.visible")
+    
 });
 //delete job profile
 Cypress.Commands.add("deleteJobprofile", function() {

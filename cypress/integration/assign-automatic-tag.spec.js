@@ -14,23 +14,27 @@ describe('Assign Automatic tags', function() {
     })
     // add a job probile
     it('Add a job profile', function () {
-        cy.addJobprofile();
+        cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+        cy.addJobprofile(data.jobprofile);
+        cy.addJobprofile(data.php_job);
+        cy.addJobprofile(data.node_job);
+        
     })
 
     //visit inbox page and fetch latest emails
     it('visit inbox page and fetch latest email', function () {
         cy.server()
-        cy.route('GET',`http://localhost:8091/email/fetchByButton**`).as('fetch_emails')
+        cy.route('GET',data.api_baseUrl+`/email/fetchByButton**`).as('fetch_emails')
         cy.get("#fetchEmails").click();
         cy.wait('@fetch_emails')
     })
 
     //check send email sucessfully fetched or not
     it('check email is assigned to a tag or not', function () {
-        cy.get('#subnav .sub-title').contains(data.jobprofile);
-        cy.get('#subnav .subenav:first').find('a:first').should('not.have.text', 'all(0/0)');
-        cy.get('#subnav .subenav:first').find('a:first').click().then(function() {
-            cy.get('.emailstyle p').contains('ashutosh_m@excellencetechnologies.in')
+        cy.get('.subenav').contains(data.php_job);
+        cy.get('#PHP').next().find('a:first').should('not.have.text', 'all(0/0)');
+        cy.get('#PHP').next().find('a:first').click().then(function() {
+            cy.get('.emailstyle p').contains(data.myEmail)
         })
     })
 
@@ -39,7 +43,6 @@ describe('Assign Automatic tags', function() {
         cy.visit(data.baseUrl + "/core/setting/imap");
         cy.get("#switchState").click();
         cy.get("#tbody tr:first>td button").click()
-
     })
 
 })
