@@ -1,5 +1,6 @@
 import * as data from '../../cypress.json';
 describe('Setting/Imap Page Test', function() {
+<<<<<<< HEAD
   // beforeEach(function() {
   //   cy.login(data.email, data.password);
   //   cy.visit(data.baseUrl + '/core/setting/imap');
@@ -14,6 +15,23 @@ describe('Setting/Imap Page Test', function() {
   //   cy.wait('@getApiResponse')
   //   cy.logout();
   // })
+=======
+  beforeEach(function() {
+    cy.login(data.email, data.password);
+    // cy.visit(data.baseUrl + '/core/setting/imap');
+    cy.get('#sideNav').click()
+    cy.get('md-sidenav #setting').click()
+    cy.server()
+    cy.route({ method: 'POST', url: `http://localhost:8091/imap/save**` }).as('apiResponse')
+    cy.route({ method: 'GET', url: `**` }).as('getApiResponse')
+    cy.route({ method: 'DELETE', url: `http://localhost:8091/**` }).as('deleteImap')
+    cy.route({ method: 'PUT', url: `http://localhost:8091/imap/statusActive/**` }).as('updateStatus')
+
+  })
+  afterEach(function() {
+    cy.logout();
+  })
+>>>>>>> d70f8e03edb7c01d963ef08b127b0b76f51830c7
 
   // it should test if form is empty then form submit button must be disable
      it('Test Imap Form With Empty Data', function () {
@@ -71,6 +89,7 @@ describe('Setting/Imap Page Test', function() {
   })
   //      //it should test if we provide right data to form, save button must be enable, and fire api and got response, data must be added in imap table,and this imap must be inactive by default
   it('Test Imap Form With New Data', function() {
+<<<<<<< HEAD
     // cy.get('#imapForm').within(function() {
     //   cy.get('#FormEmail input')
     //     .type(data.newImapEmail).should('have.value', data.newImapEmail);
@@ -82,6 +101,19 @@ describe('Setting/Imap Page Test', function() {
     //   cy.get('#FormButton button').click()
     // }).wait('@apiResponse')
     // cy.get('#testhr69').first().contains(`testhr69@gmail.com`)
+=======
+    cy.get('#imapForm').within(function() {
+      cy.get('#FormEmail input')
+        .type(data.newImapEmail).should('have.value', data.newImapEmail);
+      cy.get('#FormPassword input')
+        .type(data.newImapPassword).should('have.value', data.newImapPassword);
+      cy.get('#FormDate #date')
+        .type(data.date).should('have.value', data.date);
+      cy.get('#FormButton button').should('have.attr', 'ng-reflect-disabled', 'false');
+      cy.get('#FormButton button').click().wait('@apiResponse')
+    })
+    cy.get('#testhr69').first().contains(`testhr69@gmail.com`)
+>>>>>>> d70f8e03edb7c01d963ef08b127b0b76f51830c7
   })
   //      //it will test imap table state, pick any imap details with diactive status from imap tabel, test it can be remove and remove button not disable. if click on remove button this imap record must be deleted from table and api.
   it('Test imap table remove imap record', function() {
