@@ -17,5 +17,6 @@
   "userEmail": "testexcel69@gmail.com",
   "userPass": "123",
   "jobprofile": "TEST",
+  "intialJobTag": "JobTag",
   "automaticTag": "AutoTEST"
 }

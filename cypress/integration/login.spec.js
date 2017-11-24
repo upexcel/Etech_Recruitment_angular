@@ -45,10 +45,9 @@ describe("Login Page Test", function() {
       cy.get("#login").should("have.attr", "ng-reflect-disabled", "false");
       cy.get("#login").click()
       cy.wait('@postLogin').then(function() {
-        // cy.get("#loginSpinner").should("have.class", "spin");
         cy.url().should("eq", data.baseUrl + "/core/inbox");
       });
-
     });
+    cy.addJobprofile(data.intialJobTag);
   });
 });
