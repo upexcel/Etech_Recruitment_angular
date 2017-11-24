@@ -67,10 +67,10 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
 
   //after adding automatic tag , go to inbox page and check last added tag must be there
   it('test inbox page tags with last added tag', function() {
-    // cy.get("#autotagPage").contains(data.automaticTag);
-    // cy.get("#toolbar #sideNav").click();
-    // cy.get("md-sidenav #inbox").click()
-    // cy.get("#side #jobprofileNav").contains(data.automaticTag);
+    cy.get("#autotagPage").contains(data.automaticTag);
+    cy.get("#toolbar #sideNav").click();
+    cy.get("md-sidenav #inbox").click()
+    cy.get("#side #jobprofileNav").contains(data.automaticTag);
   })
 
   //in every automatic tag have a option to delete button, if user click on delete button automatic tag list,
