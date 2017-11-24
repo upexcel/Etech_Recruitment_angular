@@ -13,8 +13,8 @@
 import * as data from "../../cypress.json";
 //login
 Cypress.Commands.add("login", function(email, password) {
-  // cy.visit(data.baseUrl + '/login');
-  cy.get('#loginButton').click()
+  cy.visit(data.baseUrl + '/login');
+  // cy.get('#loginButton').click()
   cy.get("#loginForm #loginEmail").type(email);
   cy.get("#loginForm #loginPassword").type(password);
   cy.get("#loginForm #login").click();

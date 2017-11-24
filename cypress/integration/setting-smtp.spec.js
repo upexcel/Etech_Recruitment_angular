@@ -3,7 +3,10 @@ describe('Setting/SMTP Page Test', function() {
   let i = 0;
   beforeEach(function() {
     cy.login(data.email, data.password);
-    cy.visit(data.baseUrl + '/core/setting/smtp');
+    // cy.visit(data.baseUrl + '/core/setting/smtp');
+    cy.get('#sideNav').click()
+    cy.get('md-sidenav #setting').click()
+    cy.get('#smtpInfo').click()
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/smtp/save**` }).as('saveSmtp')
     cy.route({ method: 'DELETE', url: `http://localhost:8091/**` }).as('deleteResponse')
@@ -11,13 +14,12 @@ describe('Setting/SMTP Page Test', function() {
     cy.route({method: 'GET', url:`**`}).as('apiResponse')
   })
   afterEach(function() {
-    cy.wait('@apiResponse')
     cy.logout();
   })
   // it should visit setting/smtp page
 
   //it should test if form is empty then form submit button must be disable
- /* it('Test smtp Form With Empty Data', function() {
+  it('Test smtp Form With Empty Data', function() {
     cy.get('#smtpForm').within(function() {
       cy.get('#smtpFormUserEmail input').should('have.attr', 'placeholder', 'Email/User Name');
       cy.get('#smtpFormSendEmail input').should('have.attr', 'placeholder', 'Email (send via)');
@@ -27,7 +29,7 @@ describe('Setting/SMTP Page Test', function() {
       cy.get('#smtpFormRadio #option1').should('have.attr', 'checked');
       cy.get('#smtpFormRadio #option2').should('not.have.attr', 'checked');
       cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'true')
-    }).wait('@apiResponse')
+    })
   })
 
   //      //it should test, user name field, email field, password field, smtp server field, server port field are required and valid, if any of these field is not valid submit button must be disabled
@@ -41,7 +43,7 @@ describe('Setting/SMTP Page Test', function() {
         .type('password').should('have.value', 'password');
       cy.get('#smtpFormServerName input')
         .type('smtp').should('have.value', 'smtp');
-      cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'true').wait('@apiResponse')
+      cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'true')
     })
   })
 
@@ -84,7 +86,7 @@ describe('Setting/SMTP Page Test', function() {
       cy.get('#smtpFormSave button').click().wait('@saveSmtp');
       //   cy.get('#showError').should('have.class', 'error');
     })
-  })*/
+  })
   //       // //it should test if we provide right data to form, save button must be enable, and fire api and got response if api giving success , so data must be added in smtp table, and this smtp must be status inactive by default
   it('Test smtp Form With New Smtp  Data', function() {
     cy.get('#smtpForm').within(function() {

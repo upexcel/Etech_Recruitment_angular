@@ -1,11 +1,16 @@
 import * as data from '../../cypress.json';
 
 describe('Setting/Reset Password Page Test', function () {
+  afterEach(function() {
+    cy.logout();
+  })
 
   it('Visits the Setting/Reset Password Page', function () {
     cy.login(data.email, data.password);
-      cy.visit(data.baseUrl+'/core/setting/resetPassword');
-
+      // cy.visit(data.baseUrl+'/core/setting/resetPassword');
+    cy.get('#sideNav').click()
+    cy.get('md-sidenav #setting').click()
+    cy.get('#resetPassword').click()
     cy.get('form').within(function () {
       cy.get('#oldPass input').should('have.attr', 'placeholder', 'Old Password')
       cy.get('#newPass input').should('have.attr', 'placeholder', 'New Password');
@@ -39,7 +44,6 @@ describe('Setting/Reset Password Page Test', function () {
         cy.get('#resetbtn button').click().wait('@reset');
       })
       cy.get('simple-snack-bar').should('have.class', 'mat-simple-snackbar')
-      cy.logout()
     })
 
     it('Test Reset Password Login', function () {

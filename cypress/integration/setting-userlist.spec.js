@@ -5,6 +5,9 @@ describe('Setting/User List Page Test', function() {
 
   beforeEach(function() {
     cy.login(data.email, data.password);
+    cy.get('#sideNav').click()
+    cy.get('md-sidenav #setting').click()
+    cy.get('#usersList').click()
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/user/add_user**` }).as('addUser')
     cy.route({ method: 'GET', url: `http://localhost:8091/user/list/**`, delay: 500 }).as('getUser')
@@ -14,15 +17,13 @@ describe('Setting/User List Page Test', function() {
   })
   //it should visit setting/userList page, page have option to add user in list
   it('Visits the Setting/UserList Setting Page, check page options', function() {
-    cy.visit(data.baseUrl + 'core/setting/usersList');
     cy.get('#userList_table table').should('be.exist')
     cy.get('#add-user a').should('be.exist')
   })
 
   // user list for login email, it should not be presented there
   it('Check Loged In user"s email, that should not be there', function() {
-    cy.visit(data.baseUrl + 'core/setting/usersList');
-    cy.get('#userList-table table').wait('@getUser').then(function() {
+    cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
           expect($el).not.to.contain(data.email)
@@ -35,7 +36,6 @@ describe('Setting/User List Page Test', function() {
   //if user click on add user button from page it should open a Add New User pop up with a form. if user click on close button
   //this popus must be closed and user list remain same
   it('test add user button and close button functionality', function() {
-    cy.visit(data.baseUrl + 'core/setting/usersList');
     cy.get('#add-user').click()
     cy.get('#addUserForm')
     cy.get('#addUserForm #close-add-user-button').click()
@@ -43,7 +43,6 @@ describe('Setting/User List Page Test', function() {
 
   //check if form is invalid save button must be disable
   it('check add USER button validation', function() {
-    cy.visit(data.baseUrl + 'core/setting/usersList');
     cy.get('#add-user a').click()
     cy.get('#addUserForm').then(function() {
       cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled')
@@ -55,7 +54,6 @@ describe('Setting/User List Page Test', function() {
   //if user fill eamilId, select role, password and confirm password but form is still invalid
   //then save button must be disable
   it('check add button with invalid form data', function() {
-    cy.visit(data.baseUrl + 'core/setting/usersList');
     cy.get('#add-user a').click()
     cy.get('#addUserForm').then(function() {
       cy.get('#addUserForm #add-user-email').type("afs").then(function() {
@@ -63,7 +61,7 @@ describe('Setting/User List Page Test', function() {
       });
       cy.get('#addUserForm #user-role-select').click().then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled');
-        cy.get('md-option#md-option-0').click();
+        cy.get('md-option #md-option-0').click();
       });
       cy.get('#addUserForm #add-user-password').type("12").then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled')
@@ -79,7 +77,6 @@ describe('Setting/User List Page Test', function() {
   // if user fill eamilId, select role, password and confirm password and form is valid then save button must be enable,
   // if user click add user button, it should close popup and add a user in user list with filled details
   it('check add button with valid form data, and user list', function() {
-    cy.visit(data.baseUrl + 'core/setting/usersList');
     cy.get('#add-user a').click()
     cy.get('#addUserForm').then(function() {
       cy.get('#addUserForm #add-user-email').type(data.userEmail).then(function() {
@@ -87,7 +84,7 @@ describe('Setting/User List Page Test', function() {
       });
       cy.get('#addUserForm #user-role-select').click().then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled');
-        cy.get('md-option#md-option-0').click();
+        cy.get('md-option #md-option-0').click();
       });
       cy.get('#addUserForm #add-user-password').type(data.userPass).then(function() {
         cy.get('#addUserForm #add-user-button').should('have.attr', 'disabled')
@@ -98,7 +95,6 @@ describe('Setting/User List Page Test', function() {
       });
     }).wait('@addUser')
     cy.get('md-dialog-container').should('not.be.visible')
-    cy.wait('@getUser')
     cy.get('#userList-table table').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').contains(data.userEmail)
@@ -118,7 +114,6 @@ describe('Setting/User List Page Test', function() {
   //it should open a confirm popup, it have 2 option 'yes' and 'no' buttons, if user click on 'no' popup will close
   // and user list should be remain same, or if user hit yes user should be deleted and user list should be updated
   it('test user delete functionality', function() {
-    cy.visit(data.baseUrl + 'core/setting/usersList');
     cy.get('#userList-table table').wait('@getUser').then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr:first>td i').click()
