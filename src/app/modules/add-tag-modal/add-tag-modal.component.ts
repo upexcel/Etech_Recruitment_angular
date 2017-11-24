@@ -42,6 +42,7 @@ export class AddTagModalComponent implements OnInit {
         if (form.valid) {
             if (this.addTagType === 'jobProfile') {
                 form.value.is_job_profile_tag = 1;
+                form.value.keyword = form.value.keyword.toString();
             }
             if (form.value.assign === '') {
                 form.value.assign = false;

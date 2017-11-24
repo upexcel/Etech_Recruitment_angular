@@ -12,6 +12,8 @@
         <input mdInput placeholder="Email" [(ngModel)]="tag.email">
       </md-input-container>
     </div>
+    </div>
+    <div class="row">
     <div class="col-md-6 col-sm-12">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="Subject" [(ngModel)]="tag.subject">
@@ -22,13 +24,15 @@
         <input mdInput placeholder="From date" type="date" [(ngModel)]="tag.from">
       </md-input-container>
     </div>
+    </div>
+    <div class="row">
     <div class="col-md-6 col-sm-12">
       <md-input-container style="width: 100%">
         <input mdInput placeholder="To date" type="date" [(ngModel)]="tag.to">
       </md-input-container>
     </div>
     <div class="col-md-6 col-sm-12">
-      <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel style="width: 100%">
+      <md-select class="width-100" placeholder="Select Template" [(ngModel)]="temp_id" name="template_id" ngModel style="width: 100%; padding-top:15px;">
         <md-option>
           None
         </md-option>
@@ -37,26 +41,34 @@
         </md-option>
       </md-select>
     </div>
-    <div class="col-md-12 col-sm-12">
-      <md-input-container class="width-100">
-        <textarea mdInput rows="4" placeholder="Job Description" [value]="tag.job_description" [(ngModel)]="tag.job_description" required></textarea>
-      </md-input-container>
     </div>
+    <div class="row">
+   <div class="col-md-6 col-sm-12">
+    <md-input-container class="width-100">
+      <textarea mdInput rows="4" placeholder="Job Description" [value]="tag.job_description" [(ngModel)]="tag.job_description" required></textarea>
+    </md-input-container>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <md-slide-toggle [checked]="tag.is_email_send" name="is_email_send" style="width: 100%;padding-top:18px;" [(ngModel)]="tag.is_email_send">Send Automatic Template</md-slide-toggle>
+    <md-slide-toggle [(ngModel)]="tag.assign_to_all_emails" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
+      name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
+  </div>
+  
+  </div>
+  <div class="row">
+      <div class="col-md-6 col-sm-12">
+              <rl-tag-input name="keyword" placeholder="Keyword" [(ngModel)]="tags"> </rl-tag-input>
+        </div>
     <div class="col-md-6 col-sm-12">
-      <md-slide-toggle [checked]="tag.is_email_send" name="is_email_send" style="width: 100%" [(ngModel)]="tag.is_email_send">Send Automatic Template</md-slide-toggle>
-      <md-slide-toggle [(ngModel)]="tag.assign_to_all_emails" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
-        name="assign" style="width: 100%">Assign to all existing mails</md-slide-toggle>
-    </div>
-    <div class="col-md-12 col-sm-12">
       <h4> Tag Color </h4>
       <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
       <div class="color-box">
         <div class="selected-color" *ngFor="let color of availableColors" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
       </div>
     </div>
+    </div>
     <div class="col-md-6 col-sm-12">
       <button md-raised-button (click)="close()">Close</button>
       <button md-raised-button color=primary [disabled]="tag.job_description.length <= 0" (click)="save()">Save</button>
     </div>
-  </div>
 </div>
