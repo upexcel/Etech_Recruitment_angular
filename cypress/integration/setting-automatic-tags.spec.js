@@ -1,16 +1,16 @@
 import * as data from "../../cypress.json";
 describe('Setting/AutomaticTag Setting Page Test', function () {
     beforeEach(function() {
+
       cy.login(data.email, data.password);
-      cy.visit(data.baseUrl + "/core/setting/automaticTags");
-      cy.server();
-      cy.route("GET","**").as("getAutotag");
-      cy.route("PUT", "**").as("putAutotag");
+       cy.get("#toolbar #sideNav").click();
+      cy.get("md-sidenav #setting").click()
+      cy.get("#settingMenu #automatic").click();
+      // cy.visit(data.baseUrl + "/core/setting/automaticTags");
 
     });
     afterEach(function() {
       cy.logout();
-      cy.wait(["@getAutotag"]);
     });
 
     //it should visit setting/AutomaticTag seting page, page have option to add automatic tag
@@ -34,6 +34,7 @@ describe('Setting/AutomaticTag Setting Page Test', function () {
       cy.get("form").should("have.class", "ng-invalid");
       cy.get("#save").should("have.attr", "disabled")
       cy.get("#close").click();
+      cy.get("md-dialog-container").should("not.be.visible");
     })
 
     //check if user enable 'send automatic email' or 'assign to all exiting emails' it should be enable
@@ -44,6 +45,7 @@ describe('Setting/AutomaticTag Setting Page Test', function () {
       cy.get("#assign").click();
       cy.get("#assign").should("have.class", "mat-checked");
       cy.get("#close").click();
+      cy.get("md-dialog-container").should("not.be.visible");
      })
 
     //there should be a option to select tag color with pre-define color list, if user click on any color from list, the selected color will be same
@@ -54,57 +56,59 @@ describe('Setting/AutomaticTag Setting Page Test', function () {
           cy.get("#selected_color").should("have.attr", "style", "background-color: " + (Cypress._.chain($selectedColor).take("property", "style").value())[0].style.backgroundColor + ";");
         })
         cy.get("#close").click();
+        cy.get("md-dialog-container").should("not.be.visible");
      })
 
     //if user fill title and subject and click on save button it should added a tag and popup will close and lis of automatic tag will be update
     it('check add button with valid form data', function () {
+      // cy.server();
+      // cy.route("GET", data.apiUrl + "/**").as("gettag");
+      // cy.wait("@gettag");
       cy.get("#autoTag #addAutotag").click();
       cy.get("#add_tag").within(function(){
         cy.get("#title").type(data.automaticTag);
         cy.get("#tagSubject input").type(data.automaticTag);
         cy.get("#tagBtn #save").click()
       })
+      cy.get("md-dialog-container").should("not.be.visible");
+      cy.get("#autotagPage").contains(data.automaticTag);
      })
 
     //after adding automatic tag , go to inbox page and check last added tag must be there
     it('test inbox page tags with last added tag', function () {
-      // cy.get("#autoTag #addAutotag").click();
-      //   cy.get("#add_tag").within(function(){
-      //     cy.get("#title").type("Autotagtest");
-      //     cy.get("#tagSubject input").type("Autotagtest");
-      //     cy.get("#tagBtn #save").click()
-      //   })
+      // cy.server();
+      // cy.route("GET", data.apiUrl + "/**").as("getAutotag");
+      // cy.wait("@getAutotag");
       cy.get("#autotagPage").contains(data.automaticTag);
       cy.get("#toolbar #sideNav").click();
       cy.get("md-sidenav #inbox").click()
-      cy.server();
-      cy.route("GET", "**").as("autotag");
-      cy.wait("@autotag");
+      // cy.wait("@getAutotag");
       cy.get("#side #jobprofileNav").contains(data.automaticTag);
-
-
-
     })
 
     //in every automatic tag have a option to delete button, if user click on delete button automatic tag list,
     //it should open a confirm popup and user, it have 2 option 'yes' and 'no' buttons, if user click on 'no' popup will close
     // and automatic tag list should be remain same, or if user hit yes automatic tag should be deleted and automatic tag list should be updated
     it('test automatic tag delete functionality', function () {
+      cy.server();
+      cy.route("GET", data.apiUrl + "/tag/**").as("getAutotag");
       cy.get("#autotagPage #deleteAutotag").should("have.class", "iconset");
       cy.get("#autotagPage #ul>#li:last #deleteAutotag").click()
-      cy.wait("@getAutotag");
+      // cy.wait("@getAutotag");
       cy.get("#autotagPage #ul>#li:last").should("not.have.value","Autotagtest")
     })
 
     //after deleting automatic tag , go to inbox page and check last added tag must be deleted there
     it('test inbox page tags with last deleted tag', function () {
+            cy.server();
+      cy.route("GET", data.apiUrl + "/tag/**").as("getAutotag");
       cy.get("#autoTag #addAutotag").click();
       cy.get("#add_tag").within(function(){
         cy.get("#title").type("Autotagtest");
         cy.get("#tagSubject input").type("Autotagtest");
         cy.get("#tagBtn #save").click()
       })
-      cy.wait("@getAutotag");
+      // cy.wait("@getAutotag");
       cy.get("#autotagPage").contains("Autotagtest")
       cy.get("#autotagPage #ul>#li:last #deleteAutotag").should("have.class", "iconset");
       cy.get("#autotagPage #ul>#li:last #deleteAutotag").click();
@@ -113,7 +117,7 @@ describe('Setting/AutomaticTag Setting Page Test', function () {
       // cy.get("md-sidenav div#inbox").click()
       cy.visit(data.baseUrl + "/core/inbox");
       cy.get("#inboxTag .default-tag-buttons").should("not.have.value","Autotagtest");
-      cy.wait("@getAutotag");
+      // cy.wait("@getAutotag");
      })
 
 })

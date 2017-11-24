@@ -13,7 +13,8 @@
 import * as data from "../../cypress.json";
 //login
 Cypress.Commands.add("login", function(email, password) {
-  cy.visit(data.baseUrl + "/login");
+  cy.visit(data.baseUrl);
+  cy.get(".nav #login").click();
   cy.get("#loginForm #loginEmail").type(email);
   cy.get("#loginForm #loginPassword").type(password);
   cy.get("#loginForm #login").click();
@@ -22,8 +23,7 @@ Cypress.Commands.add("login", function(email, password) {
 //logout
 Cypress.Commands.add("logout", function() {
   cy.get("#toolbar #sideNav").click()
-  cy.get("md-sidenav #logout").click();
-
+  cy.get("md-sidenav #logout").click()
   // cy.url().should('eq',data.baseUrl+'/');
 });
 
@@ -80,9 +80,7 @@ Cypress.Commands.add("addJobprofile", function() {
 Cypress.Commands.add("deleteJobprofile", function() {
   cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
   cy.get("#jobProfile #ul>#li:last #deleteTag").click();
-  cy
-    .get("#confirm #confirmYes")
-    .click()
+  cy.get("#confirm #confirmYes").click()
 });
 
 //add automatic tag

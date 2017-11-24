@@ -2,7 +2,7 @@
     <div class="row">
         <button md-icon-button class="setting-menu" (click)="menuShow = !menuShow"> <md-icon>menu</md-icon> </button>
         <div class="col-md-2 col-sm-2 sidenav no-pad" [ngClass]="{'showMenu': menuShow}">
-            <md-list>
+            <md-list id="settingMenu">
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('imap','IMAP Server Setting')">
                     <a md-line> IMAP Server Setting </a>
                 </md-list-item>
@@ -29,10 +29,10 @@
                     <a md-line> Tag Setting </a>
                 </md-list-item>
                 <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('automaticTags','Automatic Tags')">
-                    <a md-line> Automatic Tags </a>
+                    <a md-line id="automatic"> Automatic Tags </a>
                 </md-list-item>
                 <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
-                    <a md-line> Job Profile </a>
+                    <a md-line id="profileJob"> Job Profile </a>
                 </md-list-item>
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('usersList','Users List')">
                     <a md-line> Users List </a>
