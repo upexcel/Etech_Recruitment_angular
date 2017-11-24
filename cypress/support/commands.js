@@ -29,10 +29,14 @@ Cypress.Commands.add("logout", function() {
 //addimap
 Cypress.Commands.add("addImap", function() {
   cy.visit(data.baseUrl + "/core/setting/imap");
+  cy.server()
+  cy.route('POST',`http://localhost:8091/imap/save**`).as('postImap')
   cy.get("#FormEmail input").type(data.newImapEmail);
   cy.get("#FormPassword input").type(data.newImapPassword);
   cy.get("#FormDate #date").type(data.date);
-  cy.get("#FormButton button").click();
+  cy.get("#FormButton button").click().then(function() {
+  cy.wait('@postImap');
+      })
 });
 //delete imap
 Cypress.Commands.add("deleteImap", function() {
