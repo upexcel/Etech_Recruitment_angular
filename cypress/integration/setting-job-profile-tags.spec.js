@@ -2,7 +2,10 @@ import * as data from "../../cypress.json";
 describe("Setting/Job Profile Tag Page Test", function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
-    cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+    // cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+    cy.get('#sideNav').click()
+    cy.get('md-sidenav #setting').click()
+    cy.get('#jobProfileTags').click()
     cy.server();
     cy.route("GET", "**").as("getProtag");
 
@@ -63,8 +66,6 @@ describe("Setting/Job Profile Tag Page Test", function() {
       cy.get("#tagDescription textarea").type(data.jobprofile);
       cy.get("#tagBtn #save").click()
     })
-
-    cy.wait("@getProtag")
     cy.get("#jobProfile").contains(data.jobprofile);
   });
 
@@ -81,7 +82,6 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#jobProfile").contains(data.jobprofile);
     cy.get("#toolbar button#sideNav").click();
     cy.get("md-sidenav div#inbox").click();
-    cy.wait("@getProtag");
     cy.get("#side #jobprofileNav").contains(data.jobprofile);
    });
 
@@ -109,7 +109,6 @@ describe("Setting/Job Profile Tag Page Test", function() {
         cy.get("#tagDescription textarea").type(data.jobprofile);
         cy.get("#tagBtn #save").click()
       })
-    cy.wait("@getProtag");
     cy.get("#jobProfile").contains(data.jobprofile)
     cy.get("#jobProfile #ul>#li:last #deleteTag").should("have.class", "iconset");
     cy.get("#jobProfile #ul>#li:last #deleteTag").click();
@@ -117,7 +116,6 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#confirm #confirmYes").should("have.class","mat-raised-button");
     cy.get("#confirm #confirmNo").should("have.class", "mat-raised-button");
     cy.get("#confirm #confirmYes").click();
-    cy.wait("@getProtag");
     cy.get("md-dialog-container").should("not.be.visible");
     cy.get("#jobProfile #ul>#li:last").should("not.have.value",data.jobprofile)
     cy.get("#toolbar button#sideNav").click();

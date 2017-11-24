@@ -2,7 +2,9 @@ import * as data from '../../cypress.json';
 describe('Setting/Imap Page Test', function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
-    cy.visit(data.baseUrl + '/core/setting/imap');
+    // cy.visit(data.baseUrl + '/core/setting/imap');
+    cy.get('#sideNav').click()
+    cy.get('md-sidenav #setting').click()
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/imap/save**` }).as('apiResponse')
     cy.route({ method: 'GET', url: `**` }).as('getApiResponse')
@@ -11,7 +13,6 @@ describe('Setting/Imap Page Test', function() {
 
   })
   afterEach(function() {
-    cy.wait('@getApiResponse')
     cy.logout();
   })
 
@@ -79,8 +80,8 @@ describe('Setting/Imap Page Test', function() {
       cy.get('#FormDate #date')
         .type(data.date).should('have.value', data.date);
       cy.get('#FormButton button').should('have.attr', 'ng-reflect-disabled', 'false');
-      cy.get('#FormButton button').click()
-    }).wait('@apiResponse')
+      cy.get('#FormButton button').click().wait('@apiResponse')
+    })
     cy.get('#testhr69').first().contains(`testhr69@gmail.com`)
   })
   //      //it will test imap table state, pick any imap details with diactive status from imap tabel, test it can be remove and remove button not disable. if click on remove button this imap record must be deleted from table and api.
