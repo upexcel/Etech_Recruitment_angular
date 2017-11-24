@@ -42,6 +42,15 @@ Cypress.Commands.add("deleteImap", function() {
     .click()
 });
 
+//add email template
+Cypress.Commands.add("addEmailTemplate", function() {
+  // cy.visit(data.baseUrl + "/core/setting/imap");
+  // cy.get("#FormEmail input").type(data.newImapEmail);
+  // cy.get("#FormPassword input").type(data.newImapPassword);
+  // cy.get("#FormDate #date").type(data.date);
+  // cy.get("#FormButton button").click();
+});
+
 //add smtp
 Cypress.Commands.add("addSmtp", function() {
   cy.visit(data.baseUrl + "/core/setting/smtp");

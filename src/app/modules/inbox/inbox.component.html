@@ -56,7 +56,7 @@
                         <a *ngIf="emailIds.length > 0 && this.role !== 'Guest'" (click)="composeEmail()"> Send Email </a>
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId && selectedTagTitle == 'All'" class="pull-right" (click)="cronStatus()"> Get Cron Status </a>
                     </div>
-                    <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
+                    <div id="emailTableBox" *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
                         <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refreshEmail)="refreshEmails($event)"(refresh)="refresh($event)"
                             [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)"
                             [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"
