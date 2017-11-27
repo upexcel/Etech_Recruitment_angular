@@ -24,10 +24,6 @@ describe('Assign a job profile', function() {
   //check send email sucessfully fetched or not
   it('check email fetched sucessully or not', function() {
     cy.get('.emailstyle h5').contains(data.fakeSubject);
-    // cy.get('.subenav').contains(data.php_job);
-    // cy.get('#PHP').next().find('a:first').should('not.have.text', 'all(0/0)').then(function() {
-    //     cy.get('.emailstyle p').contains(data.myEmail)
-    // });
   })
 
   //Add an job profile
