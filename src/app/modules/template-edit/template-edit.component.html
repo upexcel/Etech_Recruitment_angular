@@ -21,8 +21,11 @@
                 <ckeditor name="body"
                     [(ngModel)]="ckeditorContent"
                     [config]="{uiColor: '#00ffff'}"
-                    debounce="500" ngModel>
+                    debounce="500" ngModel *ngIf="production">
                 </ckeditor>
+                <md-input-container class="width-100" *ngIf="!production">
+                    <textarea mdInput rows="4" id="tempBody" name="body" type="textarea" placeholder="Template Body"[(ngModel)]="ckeditorContent" required></textarea>
+                  </md-input-container>
             </p>
         </div>
         <div class="side">
