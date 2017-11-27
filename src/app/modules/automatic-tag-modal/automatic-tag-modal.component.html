@@ -57,7 +57,7 @@
   </div>
   <div class="row">
       <div class="col-md-6 col-sm-12">
-              <rl-tag-input name="keyword" placeholder="Keyword" [(ngModel)]="tags"> </rl-tag-input>
+              <rl-tag-input id="editKeyword" name="keyword" placeholder="Keyword" [(ngModel)]="tags"> </rl-tag-input>
         </div>
     <div class="col-md-6 col-sm-12">
       <h4> Tag Color </h4>
@@ -67,8 +67,8 @@
       </div>
     </div>
     </div>
-    <div class="col-md-6 col-sm-12">
-      <button md-raised-button (click)="close()">Close</button>
+    <div class="col-md-6 col-sm-12" id="tagBtn">
+      <button md-raised-button id="close" (click)="close()">Close</button>
       <button md-raised-button color=primary [disabled]="tag.job_description.length <= 0" (click)="save()">Save</button>
     </div>
 </div>
