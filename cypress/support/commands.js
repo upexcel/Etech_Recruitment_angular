@@ -81,10 +81,15 @@ Cypress.Commands.add("addJobprofile", function(jobprofile) {
 });
 //delete job profile
 Cypress.Commands.add("deleteJobprofile", function() {
+  // cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+  cy.server();
+  cy.route('DELETE',data.api_baseUrl+`/tag/delete/Automatic/**`).as('delete_job');
   cy.get("#jobProfile #ul>#li:last #deleteTag").click();
   cy
     .get("#confirm #confirmYes")
     .click()
+     cy.wait('@delete_job')
+     cy.get("md-dialog-container").should("not.be.visible")
 });
 
 //add automatic tag

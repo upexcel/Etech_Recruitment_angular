@@ -59,6 +59,8 @@ describe('Assign a job profile', function() {
 
   // delete imap credentials
   it('delete imap email credentials', function() {
+    cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+    cy.deleteJobprofile();
     cy.visit(data.baseUrl + "/core/setting/imap");
     cy.get("#switchState").click();
     cy.get("#tbody tr:first>td button").click()
