@@ -3,8 +3,8 @@
     <div id="jobprofileNav" class="mainnav" *ngFor="let tag of tags; let i = index">
         <a md-line class="main-title">{{tag.title}}</a>
         <div *ngIf="tag.data">
-            <div class="subenav" *ngFor="let subTag of tag.data; trackBy: tagDataTrack">
-                <p [class.active]="selectedId == subTag.id && i != 0" *ngIf="subTag.type == 'Automatic'">
+            <div class="subenav" id="subnav" *ngFor="let subTag of tag.data; trackBy: tagDataTrack">
+                <p [class.active]="selectedId == subTag.id && i != 0" *ngIf="subTag.type == 'Automatic'" id="{{subTag.title}}">
                     <span> <a *ngIf="i == 0" class="sub-title">{{subTag.title}}</a>
                         <md-icon *ngIf="i == 0" class="plus" (click)="addTag(subTag.id)">add</md-icon>
                    </span>
