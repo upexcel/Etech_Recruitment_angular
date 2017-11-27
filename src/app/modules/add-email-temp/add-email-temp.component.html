@@ -20,9 +20,13 @@
                     <md-error>Required</md-error>
                 </md-input-container>
                 <ckeditor name="body"
-                    [config]="{uiColor: '#00ffff'}"
-                    debounce="500" ngModel required>
-                </ckeditor>
+                   [config]="{uiColor: '#00ffff '}"
+                   debounce="500" ngModel required *ngIf="production">
+               </ckeditor>
+                   <md-input-container class="width-100" *ngIf="!production">
+                     <textarea mdInput rows="4" id="tempBody" name="body" type="textarea" placeholder="Template Body" ngModel required></textarea>
+                     <md-error>Body Is Required</md-error>
+                   </md-input-container>
             </p>
         </div>
         <div class="side">
