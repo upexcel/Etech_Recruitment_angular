@@ -17,5 +17,14 @@
   "userEmail": "testexcel69@gmail.com",
   "userPass": "123",
   "jobprofile": "TEST",
-  "automaticTag": "AutoTEST"
+  "intialJobTag": "JobTag",
+  "trashAssetsBeforeHeadlessRuns": false,
+  "videoCompression": 32,
+  "videoRecording": true,
+  "videoUploadOnPasses": true,
+  "php_job":"PHP",
+  "node_job":"NODE",
+  "myEmail":  "ashutosh_m@excellencetechnologies.in",
+  "automaticTag": "AutoTEST",
+  "fakeSubject": "fake_sub"
 }
