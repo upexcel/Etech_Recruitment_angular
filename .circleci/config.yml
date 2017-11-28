@@ -148,7 +148,7 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
 
-       - run:
+      - run:
           name: Running E2E tests M
           command: $(npm bin)/cypress run --spec cypress/integration/setting-reset-password.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
