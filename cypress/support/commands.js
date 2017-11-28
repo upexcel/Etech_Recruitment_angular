@@ -13,12 +13,16 @@
 import * as data from "../../cypress.json";
 //login
 Cypress.Commands.add("login", function(email, password) {
-  // cy.visit(data.baseUrl);
-  cy.get('#loginButton').click()
-  cy.get("#loginForm #loginEmail").type(email);
-  cy.get("#loginForm #loginPassword").type(password);
-  cy.get("#loginForm #login").click();
-  cy.url().should("eq", data.baseUrl + "/core/inbox");
+  cy.wait(2000)
+  cy.visit(data.baseUrl + '/login').then(() => {
+    cy.get("#loginForm #loginEmail").type(email).then(() => {
+      cy.get("#loginForm #loginPassword").type(password).then(() => {
+        cy.get("#loginForm #login").click();
+        cy.url().should("eq", data.baseUrl + "/core/inbox");
+      });
+    });
+  });
+  // cy.get('#loginButton').click()
 });
 //logout
 Cypress.Commands.add("logout", function() {
@@ -43,7 +47,7 @@ Cypress.Commands.add("deleteImap", function() {
 });
 
 //add smtp
-Cypress.Commands.add("addSmtp", function(newSmtpEmail,smtpPassword,serverName,portNo) {
+Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName, portNo) {
   cy.get("#sideNav").click();
   cy.get("md-sidenav #setting").click();
   cy.get("#smtpInfo").click();

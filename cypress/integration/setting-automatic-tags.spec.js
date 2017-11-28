@@ -2,15 +2,16 @@ import * as data from "../../cypress.json";
 describe('Setting/AutomaticTag Setting Page Test', function() {
   beforeEach(function() {
     cy.login(data.email, data.password).then(() => {
-      cy.get('#sideNav').click()
-      cy.get('md-sidenav #setting').click()
-      cy.get('#automatic').click()
-      // cy.visit(data.baseUrl + "/core/setting/automaticTags");
+      // cy.get('#sideNav').click()
+      // cy.get('md-sidenav #setting').click()
+      // cy.get('#automatic').click()
+      cy.visit(data.baseUrl + "/core/setting/automaticTags");
     });
   });
-  afterEach(function() {
-    cy.logout();
-  });
+  // afterEach(function() {
+  //   cy.wait(1000)
+  //   cy.logout();
+  // });
 
   //it should visit setting/AutomaticTag seting page, page have option to add automatic tag
   it('Visits the Setting/AutomaticTag Setting Page, check page options', function() {
@@ -51,8 +52,8 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
     cy.get("md-dialog-container").should("be.visible");
     cy.get(".selected-color:last").click().then(($selectedColor) => {
       cy.get("#selected_color").should("have.attr", "style", "background-color: " + (Cypress._.chain($selectedColor).take("property", "style").value())[0].style.backgroundColor + ";");
+      cy.get("#close").click();
     })
-    cy.get("#close").click();
   })
 
   //if user fill title and subject and click on save button it should added a tag and popup will close and lis of automatic tag will be update

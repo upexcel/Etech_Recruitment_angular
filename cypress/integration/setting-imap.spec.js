@@ -2,9 +2,9 @@ import * as data from '../../cypress.json';
 describe('Setting/Imap Page Test', function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
-    // cy.visit(data.baseUrl + '/core/setting/imap');
-    cy.get('#sideNav').click()
-    cy.get('md-sidenav #setting').click()
+    cy.visit(data.baseUrl + '/core/setting/imap');
+    // cy.get('#sideNav').click()
+    // cy.get('md-sidenav #setting').click()
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/imap/save**` }).as('apiResponse')
     cy.route({ method: 'GET', url: `**` }).as('getApiResponse')
@@ -12,9 +12,9 @@ describe('Setting/Imap Page Test', function() {
     cy.route({ method: 'PUT', url: `http://localhost:8091/imap/statusActive/**` }).as('updateStatus')
 
   })
-  afterEach(function() {
-    cy.logout();
-  })
+  // afterEach(function() {
+  //   cy.logout();
+  // })
 
   // it should test if form is empty then form submit button must be disable
      it('Test Imap Form With Empty Data', function () {

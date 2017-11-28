@@ -3,19 +3,19 @@ describe('Setting/SMTP Page Test', function() {
   let i = 0;
   beforeEach(function() {
     cy.login(data.email, data.password);
-    // cy.visit(data.baseUrl + '/core/setting/smtp');
-    cy.get('#sideNav').click()
-    cy.get('md-sidenav #setting').click()
-    cy.get('#smtpInfo').click()
+    cy.visit(data.baseUrl + '/core/setting/smtp');
+    // cy.get('#sideNav').click()
+    // cy.get('md-sidenav #setting').click()
+    // cy.get('#smtpInfo').click()
     cy.server()
     cy.route({ method: 'POST', url: `http://localhost:8091/smtp/save**` }).as('saveSmtp')
     cy.route({ method: 'DELETE', url: `http://localhost:8091/**` }).as('deleteResponse')
     cy.route({ method: 'PUT', url: `http://localhost:8091/**` }).as('putResponse')
     cy.route({method: 'GET', url:`**`}).as('apiResponse')
   })
-  afterEach(function() {
-    cy.logout();
-  })
+  // afterEach(function() {
+  //   cy.logout();
+  // })
   // it should visit setting/smtp page
 
   //it should test if form is empty then form submit button must be disable

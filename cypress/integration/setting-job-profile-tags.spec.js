@@ -2,17 +2,17 @@ import * as data from "../../cypress.json";
 describe("Setting/Job Profile Tag Page Test", function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
-    // cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-    cy.get('#sideNav').click()
-    cy.get('md-sidenav #setting').click()
-    cy.get('#jobProfileTags').click()
+    cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+    // cy.get('#sideNav').click()
+    // cy.get('md-sidenav #setting').click()
+    // cy.get('#jobProfileTags').click()
     cy.server();
     cy.route("GET", "**").as("getProtag");
 
   });
-  afterEach(function() {
-    cy.logout();
-  });
+  // afterEach(function() {
+  //   cy.logout();
+  // });
 
   //it should visit setting/JobProfileTag seting page, page have option to add JobProfileTag tag
   it('Visits the Setting/JobProfileTag Setting Page, check page options', function () {

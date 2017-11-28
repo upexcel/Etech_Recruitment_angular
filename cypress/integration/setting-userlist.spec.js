@@ -12,9 +12,9 @@ describe('Setting/User List Page Test', function() {
     cy.route({ method: 'POST', url: `http://localhost:8091/user/add_user**` }).as('addUser')
     cy.route({ method: 'GET', url: `http://localhost:8091/user/list/**`, delay: 500 }).as('getUser')
   })
-  afterEach(function() {
-    cy.logout();
-  })
+  // afterEach(function() {
+  //   cy.logout();
+  // })
   //it should visit setting/userList page, page have option to add user in list
   it('Visits the Setting/UserList Setting Page, check page options', function() {
     cy.get('#userList_table table').should('be.exist')

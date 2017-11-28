@@ -37,10 +37,26 @@ jobs:
       - run: npm install cypress
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
+      # - run:
+      #     name: Running E2E tests with JUnit reporter
+      #     command: npm run test-junit
+      #     no_output_timeout: 3600
+      # - store_test_results:
+      #     path: results
+      # - store_artifacts:
+      #     path: cypress/videos
+      # - store_artifacts:
+      #     path: cypress/screenshots
+    testA:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: /root/app
+      - run: ls -la cypress
+      - run: ls -la cypress/integration
       - run:
-          name: Running E2E tests with JUnit reporter
-          command: npm run test-junit
-          no_output_timeout: 3600
+          name: Running E2E tests A
+          command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:

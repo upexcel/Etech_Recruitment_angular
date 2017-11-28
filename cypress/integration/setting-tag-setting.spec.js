@@ -2,15 +2,15 @@ import * as data from '../../cypress.json';
 describe("Setting/Tag Setting Page Test", function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
-    // cy.visit(data.baseUrl + "/core/setting/tagsetting");
-    cy.get('#sideNav').click()
-    cy.get('md-sidenav #setting').click()
-    cy.get('#manulaTag').click()
+    cy.visit(data.baseUrl + "/core/setting/tagsetting");
+    // cy.get('#sideNav').click()
+    // cy.get('md-sidenav #setting').click()
+    // cy.get('#manulaTag').click()
   });
 
-  afterEach(function() {
-    cy.logout();
-  });
+  // afterEach(function() {
+  //   cy.logout();
+  // });
   //it should visit setting/tag seting page
   it("Visits the Setting/Tag Setting Page", function() {
     cy.get(".content").should("be.visible");
