@@ -38,7 +38,7 @@ Cypress.Commands.add("addImap", function() {
   cy.get("#FormButton button").click().then(function() {
   cy.wait('@postImap');
   cy.wait('@getImap');
-  cy.get("#switchState").should("be.visible")
+  // cy.get("#switchState").should("be.visible")
   })
 });
 //delete imap
