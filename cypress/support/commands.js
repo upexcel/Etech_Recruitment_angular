@@ -29,14 +29,18 @@ Cypress.Commands.add("logout", function() {
 //addimap
 Cypress.Commands.add("addImap", function() {
   cy.visit(data.baseUrl + "/core/setting/imap");
-  cy.server()
-  cy.route('POST', data.api_baseUrl + `/imap/save**`).as('postImap')
-  cy.get("#FormEmail input").type(data.newImapEmail);
-  cy.get("#FormPassword input").type(data.newImapPassword);
-  cy.get("#FormDate #date").type(data.date);
-  cy.get("#FormButton button").click().then(function() {
-    cy.wait('@postImap');
-  })
+  cy.server();
+  cy.route('POST',data.apiUrl+`/imap/save**`).as('postImap');
+  cy.route('GET',data.apiUrl+`/imap/get**`).as('getImap');
+  cy.get("#sideNav").click();
+  cy.get("md-sidenav #setting").click();
+  cy.get("#FormEmail input").type(newImapEmail);
+  cy.get("#FormPassword input").type(newImapPassword);
+  cy.get("#FormDate #date").type(date);
+  cy.get("#FormButton button").click().wait('@postImap').then(function() {
+  cy.wait('@getImap');
+  // cy.get("#switchState").should("be.visible")
+  });
 });
 //delete imap
 Cypress.Commands.add("deleteImap", function() {
@@ -69,11 +73,12 @@ Cypress.Commands.add("deleteSmtp", function() {
 });
 
 //add job profile
-Cypress.Commands.add("addJobprofile", function(jobprofile) {
+Cypress.Commands.add("addJobprofile", function() {
+  cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
   cy.get("#addTag button").click();
-  cy.get("#add_tag #title").type(jobprofile);
-  cy.get("#add_tag #tagSubject input").type(jobprofile);
-  cy.get("#add_tag #tagDescription textarea").type(jobprofile);
+  cy.get("#add_tag #title").type(data.jobprofile);
+  cy.get("#add_tag #tagSubject input").type(data.jobprofile);
+  cy.get("#add_tag #tagDescription textarea").type(data.jobprofile);
   cy
     .get("#add_tag #tagBtn #save").click()
   cy.get("md-dialog-container").should("not.be.visible")
@@ -81,15 +86,11 @@ Cypress.Commands.add("addJobprofile", function(jobprofile) {
 });
 //delete job profile
 Cypress.Commands.add("deleteJobprofile", function() {
-  // cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-  cy.server();
-  cy.route('DELETE',data.api_baseUrl+`/tag/delete/Automatic/**`).as('delete_job');
+  cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
   cy.get("#jobProfile #ul>#li:last #deleteTag").click();
   cy
     .get("#confirm #confirmYes")
     .click()
-     cy.wait('@delete_job')
-     cy.get("md-dialog-container").should("not.be.visible")
 });
 
 //add automatic tag

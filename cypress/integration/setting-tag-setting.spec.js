@@ -65,7 +65,7 @@ describe("Setting/Tag Setting Page Test", function() {
     cy.get("#subject").type("subject_test");
     cy.get("#save").click().then(function() {
       cy.get("md-dialog-container").should("not.be.visible");
-      cy.get(".tagbutton1").contains("title_test");
+      cy.get(".tagbutton1").contains("test");
     });
   });
 
