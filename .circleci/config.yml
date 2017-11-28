@@ -157,3 +157,43 @@ jobs:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
+
+       - run:
+          name: Running E2E tests M
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-reset-password.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Running E2E tests N
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-smtp.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Running E2E tests O
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-tag-setting.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Running E2E tests P
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-userlist.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/M
