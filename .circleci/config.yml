@@ -44,8 +44,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
       
       - run:
@@ -53,8 +51,6 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/assign-automatic-tag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
 
@@ -64,8 +60,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
 
       - run:
@@ -73,8 +67,6 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/fetch-latest-email.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
 
@@ -84,8 +76,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
 
       - run:
@@ -93,8 +83,6 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/setting-add-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
 
@@ -104,8 +92,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
 
       - run:
@@ -113,8 +99,6 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/setting-edit-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
 
@@ -124,8 +108,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
 
       - run:
@@ -133,8 +115,6 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/setting-email-variable.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
 
@@ -144,8 +124,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
 
       - run:
@@ -153,8 +131,6 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/setting-job-profile-tags.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
 
@@ -164,8 +140,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
 
       - run:
@@ -173,8 +147,6 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/setting-smtp.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
 
@@ -184,8 +156,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
-      - store_artifacts:
           path: cypress/screenshots
 
       - run:
@@ -193,7 +163,5 @@ jobs:
           command: $(npm bin)/cypress run --spec cypress/integration/setting-userlist.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
-      - store_artifacts:
-          path: cypress/videos
       - store_artifacts:
           path: cypress/M
