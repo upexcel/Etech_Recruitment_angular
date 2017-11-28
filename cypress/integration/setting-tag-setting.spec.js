@@ -3,11 +3,14 @@ describe("Setting/Tag Setting Page Test", function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
     cy.visit(data.baseUrl + "/core/setting/tagsetting");
+    // cy.get('#sideNav').click()
+    // cy.get('md-sidenav #setting').click()
+    // cy.get('#manulaTag').click()
   });
 
-  afterEach(function() {
-    cy.logout();
-  });
+  // afterEach(function() {
+  //   cy.logout();
+  // });
   //it should visit setting/tag seting page
   it("Visits the Setting/Tag Setting Page", function() {
     cy.get(".content").should("be.visible");
@@ -65,7 +68,7 @@ describe("Setting/Tag Setting Page Test", function() {
     cy.get("#subject").type("subject_test");
     cy.get("#save").click().then(function() {
       cy.get("md-dialog-container").should("not.be.visible");
-      cy.get(".tagbutton1").contains("test");
+      cy.get(".tagbutton1").contains("title_test");
     });
   });
 
