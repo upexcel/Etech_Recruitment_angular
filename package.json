@@ -11,7 +11,7 @@
     "precommit": "ng lint",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "test-junit": "cypress run --reporter junit --reporter-options 'mochaFile=results/my-test-output.xml'",
+    "test-junit": "cypress run --spec cypress/integration/setting-automatic-tags.spec.js --reporter junit --reporter-options 'mochaFile=results/my-test-output.xml'",
     "preinstall": "npm rebuild node-sass --force"
   },
   "private": true,

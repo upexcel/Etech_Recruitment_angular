@@ -9,7 +9,8 @@ describe('Assign Automatic tags', function() {
     });
     //it should visit setting/imap seting page
     it('Add imap email and change their status', function () {
-        cy.addImap();
+        cy.visit(data.baseUrl + "/core/setting/imap");
+        cy.addImap(data.newImapEmail, data.newImapPassword, data.date);
         cy.get("#switchState").click();
     })
     // add a job probile
@@ -24,7 +25,7 @@ describe('Assign Automatic tags', function() {
     //visit inbox page and fetch latest emails
     it('visit inbox page and fetch latest email', function () {
         cy.server()
-        cy.route('GET',data.api_baseUrl+`/email/fetchByButton**`).as('fetch_emails')
+        cy.route('GET',data.apiUrl+`/email/fetchByButton**`).as('fetch_emails')
         cy.get("#fetchEmails").click();
         cy.wait('@fetch_emails')
     })
@@ -32,7 +33,7 @@ describe('Assign Automatic tags', function() {
     //check send email sucessfully fetched or not
     it('check email is assigned to a tag or not', function () {
         cy.server()
-        cy.route('PUT',data.api_baseUrl+`/email/fetch/**`).as('get_emails')
+        cy.route('PUT',data.apiUrl+`/email/fetch/**`).as('get_emails')
         cy.get('.subenav').contains(data.php_job);
         cy.get('#PHP').next().find('a:first').should('not.have.text', 'all(0/0)');
         cy.get('#PHP').next().find('a:first').click({force: true}).then(function() {
