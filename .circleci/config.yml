@@ -49,7 +49,7 @@ jobs:
           path: cypress/screenshots
       
       - run:
-          name: Running E2E tests A
+          name: Running E2E tests B
           command: $(npm bin)/cypress run --spec cypress/integration/assign-automatic-tag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
@@ -149,7 +149,7 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
 
-       - run:
+      - run:
           name: Running E2E tests A
           command: $(npm bin)/cypress run --spec cypress/integration/setting-job-profile-tags.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
@@ -169,7 +169,7 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
 
-       - run:
+      - run:
           name: Running E2E tests A
           command: $(npm bin)/cypress run --spec cypress/integration/setting-smtp.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
@@ -179,7 +179,7 @@ jobs:
       - store_artifacts:
           path: cypress/screenshots
 
-       - run:
+      - run:
           name: Running E2E tests A
           command: $(npm bin)/cypress run --spec cypress/integration/setting-tag-setting.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
