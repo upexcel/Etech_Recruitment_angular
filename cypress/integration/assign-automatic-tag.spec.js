@@ -31,23 +31,22 @@ describe('Assign Automatic tags', function() {
 
     //check send email sucessfully fetched or not
     it('check email is assigned to a tag or not', function () {
-
+        cy.server()
+        cy.route('PUT',data.api_baseUrl+`/email/fetch/**`).as('get_emails')
         cy.get('.subenav').contains(data.php_job);
         cy.get('#PHP').next().find('a:first').should('not.have.text', 'all(0/0)');
         cy.get('#PHP').next().find('a:first').click({force: true}).then(function() {
-            cy.get('.emailstyle p').contains(data.myEmail)
+            cy.wait('@get_emails');
+            cy.get('.emailstyle p').contains(data.myEmail);
         });
     })
 
     // delete imap credentials
     it('delete imap email credentials', function () {
         cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-        cy.deleteJobprofile();
-        cy.get(".tagbutton1 .tagname").should('not.have.text', data.node_job);
-        cy.deleteJobprofile();
-        cy.get(".tagbutton1 .tagname").should('not.have.text', data.php_job);
-        cy.deleteJobprofile();
-        cy.get(".tagbutton1 .tagname").should('not.have.text', data.jobprofile);
+        cy.deleteJobprofile(data.jobprofile);
+        cy.deleteJobprofile(data.php_job);
+        cy.deleteJobprofile(data.node_job);
         cy.visit(data.baseUrl + "/core/setting/imap");
         cy.get("#switchState").click();
         cy.get("#tbody tr:first>td button").click()

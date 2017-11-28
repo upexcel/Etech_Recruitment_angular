@@ -31,12 +31,15 @@ Cypress.Commands.add("addImap", function() {
   cy.visit(data.baseUrl + "/core/setting/imap");
   cy.server()
   cy.route('POST',data.api_baseUrl+`/imap/save**`).as('postImap')
+  cy.route('GET',data.api_baseUrl+`/imap/get**`).as('getImap')
   cy.get("#FormEmail input").type(data.newImapEmail);
   cy.get("#FormPassword input").type(data.newImapPassword);
   cy.get("#FormDate #date").type(data.date);
   cy.get("#FormButton button").click().then(function() {
   cy.wait('@postImap');
-      })
+  cy.wait('@getImap');
+  cy.get("#switchState").should("be.visible")
+  })
 });
 //delete imap
 Cypress.Commands.add("deleteImap", function() {
@@ -70,6 +73,8 @@ Cypress.Commands.add("deleteSmtp", function() {
 
 //add job profile
 Cypress.Commands.add("addJobprofile", function(jobprofile) {
+  cy.server()
+  cy.route('GET',data.api_baseUrl+`/tag/get**`).as('get_tags');
   cy.get("#addTag button").click();
   cy.get("#add_tag #title").type(jobprofile);
   cy.get("#add_tag #tagSubject input").type(jobprofile);
@@ -77,19 +82,14 @@ Cypress.Commands.add("addJobprofile", function(jobprofile) {
   cy
     .get("#add_tag #tagBtn #save").click()
     cy.get("md-dialog-container").should("not.be.visible")
+    cy.wait('@get_tags')
     
 });
 //delete job profile
-Cypress.Commands.add("deleteJobprofile", function() {
-  // cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-  cy.server();
-  cy.route('DELETE',data.api_baseUrl+`/tag/delete/Automatic/**`).as('delete_job');
-  cy.get("#jobProfile #ul>#li:last #deleteTag").click();
-  cy
-    .get("#confirm #confirmYes")
-    .click()
-     cy.wait('@delete_job')
-     cy.get("md-dialog-container").should("not.be.visible")
+Cypress.Commands.add("deleteJobprofile", function(jobprofile) {
+     cy.get(`#${jobprofile}`).click();
+     cy.get("#confirmYes").click();
+    cy.get("md-dialog-container").should("not.be.visible");
 });
 
 //add automatic tag
@@ -103,7 +103,7 @@ Cypress.Commands.add("addAutomtictag", function() {
     .click()
 });
 //delete automatic tag
-Cypress.Commands.add("deleteAutomtictag", function() {
+Cypress.Commands.add("deleteAutomtictag", function(job) {
   cy.visit(data.baseUrl + "/core/setting/automaticTags");
   cy
     .get("#autotagPage #ul>#li:last #deleteAutotag")
