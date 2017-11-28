@@ -68,7 +68,7 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     cy.get('#addEmailTemplateForm').should('not.be.visible')
     cy.get('#templatePanel').should('be.exist')
     cy.get('#templates:first app-single-template md-card-title').should("not.have.text","test");
-    cy.get('#templates:first app-single-template md-card-subtitle').should("not.have.value","Subject: testSubject");      
+    cy.get('#templates:first app-single-template md-card-subtitle').should("not.have.text","Subject: testSubject");      
   })
 
   //it should test if we provide right data to form, save button must be enable, and fire api and got response if api giving success , so data must be added in email template list, if any error show it to user
