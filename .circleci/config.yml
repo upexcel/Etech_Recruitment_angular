@@ -57,3 +57,23 @@ jobs:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
+
+      - run:
+          name: Running E2E tests C
+          command: $(npm bin)/cypress run --spec cypress/integration/assign-job-profile-tag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Running E2E tests D
+          command: $(npm bin)/cypress run --spec cypress/integration/fetch-latest-email.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
