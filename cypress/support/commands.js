@@ -39,7 +39,7 @@ Cypress.Commands.add("addImap", function(newImapEmail, newImapPassword, date) {
   cy.get("#FormEmail input").type(newImapEmail);
   cy.get("#FormPassword input").type(newImapPassword);
   cy.get("#FormDate #date").type(date);
-  cy.get("#FormButton button").click().cy.wait('@postImap').then(function() {
+  cy.get("#FormButton button").click().wait('@postImap').then(function() {
   cy.wait('@getImap');
   // cy.get("#switchState").should("be.visible")
   });
