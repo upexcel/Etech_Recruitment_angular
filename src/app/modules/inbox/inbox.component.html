@@ -14,15 +14,15 @@
                                 <div class="col-md-10 no-pad">
                                     <md-card class="card-pos">
                                         <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
-                                            <md-select name="option" placeholder="Search In" required ngModel>
+                                            <md-select name="option" id="option" placeholder="Search In" required ngModel>
                                                 <md-option value="email">Email</md-option>
                                                 <md-option value="subject">Subject</md-option>
                                             </md-select>
 
                                             <md-input-container class="mar-pos wid-300">
-                                                <input mdInput name="keyword" placeholder="Search" required ngModel>
+                                                <input mdInput name="keyword"  id="input_search"  placeholder="Search" required ngModel>
                                             </md-input-container>
-                                            <button name="searchbtn" type="submit" md-raised-button [disabled]="searchForm.invalid"> Search </button>
+                                            <button name="searchbtn" id= "search_sub" type="submit" md-raised-button [disabled]="searchForm.invalid"> Search </button>
                                             <button name="searchbtn" md-raised-button [disabled]="searchForm.invalid" (click)="emaillists(lastSelectedTagData); searchForm.reset()"> Clear Search </button>
                                             <md-checkbox name="currentTag" class="mar-pos" value="false" ngModel> Search current tag </md-checkbox>
                                         </form>

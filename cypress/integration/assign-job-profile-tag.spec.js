@@ -2,7 +2,6 @@ import * as data from '../../cypress.json';
 describe('Assign a job profile', function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
-    // cy.visit(data.baseUrl + "/core/setting/tagsetting");
   });
   afterEach(function() {
     cy.logout();
@@ -35,7 +34,6 @@ describe('Assign a job profile', function() {
 
   // go to all mails sections and assign a job profile
   it('visit all mails sections', function() {
-    // cy.wait(4000);
     cy.get('#Mails').click();
     cy.get(".emailstyle").contains(data.fakeSubject).parent()
       .parent().find('.mat-raised-button').contains(data.jobprofile).click();
