@@ -15,11 +15,11 @@
             </div>
             <div class="col-md-6 col-sm-12 no-mar">
                 <md-input-container>
-                    <input id="selectDate" mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}"
+                    <input mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}"
                         [disabled]="!selectedInterviewRound">
                     <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date"
                         [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
-                    <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
+                    <button id="selectDate" mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
                 </md-input-container>
                 <md-datepicker #picker (selectedChanged)="changeInDate($event)"></md-datepicker>
             </div>
