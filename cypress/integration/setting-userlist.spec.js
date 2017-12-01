@@ -23,7 +23,7 @@ describe('Setting/User List Page Test', function() {
     cy.get('#userList-table table').wait(500).then(function() {
       cy.get('#userList-table tbody').within(function() {
         cy.get('tr>td').should(($el) => {
-          expect($el).not.to.contain(data.email)
+          expect($el).not.to.contain(data.test_email)
         })
       })
     })
