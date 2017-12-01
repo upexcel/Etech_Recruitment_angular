@@ -53,8 +53,4 @@ export class ImapServerComponent implements OnInit {
     imapSettingJsonTrack(index, data) {
         return data['id'] || index;
     }
-
-    removeatTheRate(email) {
-        return email.split('@')[0];
-    }
 }

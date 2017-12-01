@@ -20,7 +20,7 @@
                 </thead>
                 <tbody id="tbody">
                     <tr *ngFor="let setting of imapSettingJson; trackBy: imapSettingJsonTrack;">
-                        <td id="{{removeatTheRate(setting.email)}}">{{setting.email}}</td>
+                        <td id="email">{{setting.email}}</td>
                         <td>{{setting.imap_server}}</td>
                         <td>{{setting.server_port}}</td>
                         <td>{{setting.type}}</td>

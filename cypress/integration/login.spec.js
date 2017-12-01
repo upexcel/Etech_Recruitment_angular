@@ -23,30 +23,25 @@ describe("Login Page Test", function() {
   });
   it("Test Login Api With Wrong Data", function() {
     cy.visit(data.baseUrl + "/login");
-
-    cy.server()
-    cy.route('POST', 'http://localhost:8091/user/login').as('postLogin')
-
     cy.get("form").within(function() {
-      cy.get("#loginEmail").type("example@gmail.com");
-      cy.get("#loginPassword").type("password{enter}");
-      cy.wait('@postLogin')
-      cy.get("#loginError").should("have.class", "error");
+      cy.get("#loginEmail").type("example@gmail.com").should("have.value", "example@gmail.com");
+      cy.get("#loginPassword").type("password").should("have.value", "password");
+      cy.get("#login").click().wait(1000);
       // cy.get("#loginSpinner").should("have.class", "spin");
+      cy.get("#loginError").should("have.class", "error");
     });
   });
   it("Test Login Api With Right Data", function() {
     cy.visit(data.baseUrl + "/login");
-    cy.server()
-    cy.route('POST', 'http://localhost:8091/user/login').as('postLogin')
     cy.get("form").within(function() {
-      cy.get("#loginEmail").type(data.email).should("have.value", data.email);
-      cy.get("#loginPassword").type(data.password).should("have.value", data.password);
+      cy.get("#loginEmail").type(data.email).should("have.value",data.email);
+      cy.get("#loginPassword").type(data.password).should("have.value",data.password);
       cy.get("#login").should("have.attr", "ng-reflect-disabled", "false");
-      cy.get("#login").click()
-      cy.wait('@postLogin').then(function() {
+      cy.get("#login").click().wait(1000).then(function(){
+        // cy.get("#loginSpinner").should("have.class", "spin");
         cy.url().should("eq", data.baseUrl + "/core/inbox");
       });
+
     });
     cy.addJobprofile(data.intialJobTag);
     cy.deleteJobprofile(data.intialJobTag);
