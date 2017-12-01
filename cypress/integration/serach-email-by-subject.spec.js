@@ -7,19 +7,9 @@ describe('Search emails', function() {
         cy.logout();
     });
 
-    //it should visit setting/imap seting page
-    it('Add imap email and change their status', function () {
-    	cy.visit(data.baseUrl + "/core/setting/imap");
-        cy.addImap(data.newImapEmail, data.newImapPassword, data.date);
-        cy.get("#switchState").click();
-    })
-
     //visit inbox page and fetch latest emails
     it('visit inbox page and fetch latest email', function () {
-    	cy.server()
-        cy.route('GET',data.apiUrl+`/email/fetchByButton**`).as('fetch_emails')
-        cy.get("#fetchEmails").click();
-        cy.wait('@fetch_emails')
+    	cy.fetchLatestMails();
     })
 
     //check send email sucessfully fetched or not
@@ -30,15 +20,9 @@ describe('Search emails', function() {
     		cy.get("#md-option-1").click();
     		cy.get("#cdk-overlay-0").should("not.be.visible");
     	})
-    	cy.get("#input_search").click().type(data.php_job);
+    	cy.get("#input_search").click().type(data.jobprofile);
     	cy.get("#search_sub").click().wait('@get_mails');
-    	cy.get('.emailstyle h5').contains(data.php_job);
+    	cy.get('.emailstyle:first h5').contains(data.jobprofile);
     })
 
-    // delete imap credentials
-    it('delete imap email credentials', function () {
-     	cy.visit(data.baseUrl + "/core/setting/imap");
-        cy.get("#switchState").click();
-        cy.get("#tbody tr:first>td button").click() 
-    })
 })

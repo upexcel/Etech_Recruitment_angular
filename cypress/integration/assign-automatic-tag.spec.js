@@ -7,14 +7,10 @@ describe('Assign Automatic tags', function() {
     afterEach(function() {
         cy.logout();
     });
-    //it should visit setting/imap seting page
-    it('Add imap email and change their status', function () {
-        cy.visit(data.baseUrl + "/core/setting/imap");
-        cy.addImap(data.newImapEmail, data.newImapPassword, data.date);
-        cy.get("#switchState").click();
-    })
-    // add a job probile
+    
+    // add smtp and a job probile
     it('Add a job profile', function () {
+        cy.addSmtp(data.smtpUsedEmail, data.smtpPassword, data.serverName, data.portNo);
         cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
         cy.addJobprofile(data.jobprofile);
         cy.addJobprofile(data.php_job);
@@ -22,12 +18,11 @@ describe('Assign Automatic tags', function() {
         
     })
 
-    //visit inbox page and fetch latest emails
+    //send mail and visit inbox page and fetch latest emails
     it('visit inbox page and fetch latest email', function () {
-        cy.server()
-        cy.route('GET',data.apiUrl+`/email/fetchByButton**`).as('fetch_emails')
-        cy.get("#fetchEmails").click();
-        cy.wait('@fetch_emails')
+        cy.sendMail()
+        cy.visit(data.baseUrl + "/core/inbox");
+        cy.fetchLatestMails();
     })
 
     //check send email sucessfully fetched or not
@@ -35,21 +30,18 @@ describe('Assign Automatic tags', function() {
         cy.server()
         cy.route('PUT',data.apiUrl+`/email/fetch/**`).as('get_emails')
         cy.get('.subenav').contains(data.php_job);
-        cy.get('#PHP').next().find('a:first').should('not.have.text', 'all(0/0)');
-        cy.get('#PHP').next().find('a:first').click({force: true}).then(function() {
+        cy.get('#test').next().find('a:first').should('not.have.text', 'All (0/0)');
+        cy.get('#test').next().find('a:first').click({force: true}).then(function() {
             cy.wait('@get_emails');
             cy.get('.emailstyle p').contains(data.myEmail);
         });
     })
 
-    // delete imap credentials
-    it('delete imap email credentials', function () {
+    // delete job profile
+    it('delete job profile', function () {
         cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
         cy.deleteJobprofile(data.jobprofile);
         cy.deleteJobprofile(data.php_job);
         cy.deleteJobprofile(data.node_job);
-        cy.visit(data.baseUrl + "/core/setting/imap");
-        cy.get("#switchState").click();
-        cy.get("#tbody tr:first>td button").click()
     })
 })

@@ -6,57 +6,43 @@ describe('Assign a job profile', function() {
   afterEach(function() {
     cy.logout();
   });
-  //it should visit setting/imap seting page
-  it('Add imap email and change their status', function() {
-    cy.visit(data.baseUrl + "/core/setting/imap");
-    cy.addImap(data.newImapEmail, data.newImapPassword, data.date);
-    cy.get("#switchState").click();
-  })
 
-  // visit inbox page and fetch latest emails
+  // send mail and visit inbox page and fetch latest emails
   it('visit inbox page and fetch latest email', function() {
-    cy.server()
-    cy.route('GET', data.apiUrl + `/email/fetchByButton**`).as('fetch_emails');
-    cy.get("#fetchEmails").click();
-    cy.wait('@fetch_emails')
+    cy.sendMail()
+    cy.visit(data.baseUrl + "/core/inbox")
+    cy.fetchLatestMails();
   })
 
   //check send email sucessfully fetched or not
   it('check email fetched sucessully or not', function() {
-    cy.get('.emailstyle h5').contains(data.fakeSubject);
+    cy.get('.emailstyle h5').contains("test");
   })
 
   //Add an job profile
   it('Add a new job profile', function() {
     cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-    cy.addJobprofile(data.jobprofile);
+    cy.addJobprofile(data.php_job);
   })
 
   // go to all mails sections and assign a job profile
   it('visit all mails sections', function() {
     cy.get('#Mails').click();
-    cy.get(".emailstyle").contains(data.fakeSubject).parent()
-      .parent().find('.mat-raised-button').contains(data.jobprofile).click();
+    cy.get(".emailstyle").contains(data.subject).parent()
+      .parent().find('.mat-raised-button').contains(data.php_job).click();
   })
 
   // check job profile is assigned or not
   it('check job profile assigned to candidate or not', function() {
-    cy.get('#TEST').next().find('a:first').click().then(function() {
-      cy.get('.emailstyle h5').contains(data.fakeSubject);
+    cy.get('#PHP').next().find('a:first').click().then(function() {
+      cy.get('.emailstyle:first h5').contains(data.subject);
     })
   })
 
   // delete created job profile
   it(' delete created job profile', function() {
     cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-    cy.deleteJobprofile(data.jobprofile);
-  })
-
-  // delete imap credentials
-  it('delete imap email credentials', function() {
-    cy.visit(data.baseUrl + "/core/setting/imap");
-    cy.get("#switchState").click();
-    cy.get("#tbody tr:first>td button").click()
+    cy.deleteJobprofile(data.php_job);
   })
 
 })

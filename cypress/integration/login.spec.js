@@ -49,5 +49,6 @@ describe("Login Page Test", function() {
       });
     });
     cy.addJobprofile(data.intialJobTag);
+    cy.deleteJobprofile(data.intialJobTag);
   });
 });
