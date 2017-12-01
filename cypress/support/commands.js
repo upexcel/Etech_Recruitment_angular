@@ -76,12 +76,11 @@ Cypress.Commands.add("addJobprofile", function() {
     .click()
 });
 //delete job profile
-Cypress.Commands.add("deleteJobprofile", function() {
-  cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-  cy.get("#jobProfile #ul>#li:last #deleteTag").click();
-  cy
-    .get("#confirm #confirmYes")
-    .click()
+Cypress.Commands.add("deleteJobprofile", function(jobprofile) {
+  cy.get("#jobProfileTags").click();
+  cy.get(`#${jobprofile}`).click();
+  cy.get("#confirmYes").click();
+  cy.get("md-dialog-container").should("not.be.visible");
 });
 
 //add automatic tag
@@ -100,4 +99,24 @@ Cypress.Commands.add("deleteAutomtictag", function() {
   cy
     .get("#autotagPage #ul>#li:last #deleteAutotag")
     .click()
+});
+
+//send email
+Cypress.Commands.add("sendMail", function() {
+  cy.server();
+  cy.route('GET',data.apiUrl+`/imap/get**`).as('getImap');
+  cy.get("#sideNav").click();
+  cy.get("md-sidenav #setting").click();
+  cy.get("#smtpInfo").click()
+  cy.get(".content").should("be.visible").wait('@getImap');
+  cy.get("#table tbody tr:last").contains("testhr69@gmail.com")
+    .nextAll().eq(4).click();
+});
+
+//fetch latest email
+Cypress.Commands.add("fetchLatestMails", function() {
+  cy.server()
+  cy.route('GET',data.apiUrl+`/email/fetchByButton**`).as('fetch_emails')
+  cy.get("#fetchEmails").click();
+  cy.wait('@fetch_emails')
 });
