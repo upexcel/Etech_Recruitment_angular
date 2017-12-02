@@ -64,6 +64,7 @@ Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName,
   cy.get("#smtpFormRadio #option1").click();
   cy.get("#smtpFormSave button").click();
 });
+
 //delete smtp
 Cypress.Commands.add("deleteSmtp", function() {
   cy.get("#sideNav").click();
@@ -121,7 +122,7 @@ Cypress.Commands.add("sendMail", function() {
   cy.get("md-sidenav #setting").click();
   cy.get("#smtpInfo").click()
   cy.get(".content").should("be.visible").wait('@getImap');
-  cy.get("#table tbody tr:last").contains("testhr69@gmail.com")
+  cy.get("#table tbody tr").contains("testhr69@gmail.com")
     .nextAll().eq(4).click();
 });
 
