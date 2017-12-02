@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     jobApplicationReadSelection = 'byDay';
     automaticEmailReadSelection = 'byDay';
     dashboardIntervalSubscription: any;
+    loading= false;
     constructor(private access: LoginService, private _router: Router, private route: ActivatedRoute, private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
 
     ngOnInit() {
@@ -33,12 +34,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     loadDashBoardData() {
+        this.loading = true;
         this._apiService.getDashboardData().subscribe((res) => {
+
             this.dashboardData = this._dashboardService.formatChartData(res);
+            this.loading = false;
         }, (err) => {
             console.log(err)
         });
     }
+
 
     chartClicked(e) {
         console.log(e);
