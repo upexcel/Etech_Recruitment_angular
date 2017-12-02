@@ -54,8 +54,8 @@ Cypress.Commands.add("deleteImap", function() {
 
 //add smtp
 Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName, portNo) {
- cy.server()
-    cy.route({ method: 'POST', url: data.apiUrl+`/smtp/save**` }).as('saveSmtp')
+  cy.server()
+  cy.route({ method: 'POST', url: data.apiUrl+`/smtp/save**` }).as('saveSmtp')
   // cy.route('GET',data.apiUrl+`/smtp/get**`).as('getSmtp');
   cy.get("#sideNav").click();
   cy.get("md-sidenav #setting").click();
@@ -122,11 +122,11 @@ Cypress.Commands.add("deleteAutomtictag", function() {
 //send email
 Cypress.Commands.add("sendMail", function() {
   cy.server();
-  cy.route('GET',data.apiUrl+`/imap/get**`).as('getImap');
+  cy.route('GET',data.apiUrl+`/smtp/get**`).as('getSmtp');
   cy.get("#sideNav").click();
   cy.get("md-sidenav #setting").click();
   cy.get("#smtpInfo").click()
-  cy.get(".content").should("be.visible").wait('@getImap');
+  cy.get(".content").should("be.visible").wait('@getSmtp');
   cy.get("#table tbody tr").contains("testhr69@gmail.com")
     .nextAll().eq(4).click();
 });

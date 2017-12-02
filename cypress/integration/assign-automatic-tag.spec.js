@@ -29,7 +29,6 @@ describe('Assign Automatic tags', function() {
     it('check email is assigned to a tag or not', function () {
         cy.server()
         cy.route('PUT',data.apiUrl+`/email/fetch/**`).as('get_emails')
-        cy.get('.subenav').contains(data.php_job);
         cy.get('#test').next().find('a:first').should('not.have.text', 'All (0/0)');
         cy.get('#test').next().find('a:first').click({force: true}).then(function() {
             cy.wait('@get_emails');
