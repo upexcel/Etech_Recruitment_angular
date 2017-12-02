@@ -35,7 +35,7 @@ Cypress.Commands.add("addImap", function(newImapEmail, newImapPassword, date) {
   cy.server();
   cy.route('POST',data.apiUrl+`/imap/save**`).as('postImap');
   cy.route('GET',data.apiUrl+`/imap/get**`).as('getImap');
-  cy.get("#sideNav").click();
+  cy.get("#sideNav").click
   cy.get("md-sidenav #setting").click();
   cy.get("#FormEmail input").type(newImapEmail);
   cy.get("#FormPassword input").type(newImapPassword);
@@ -54,6 +54,9 @@ Cypress.Commands.add("deleteImap", function() {
 
 //add smtp
 Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName, portNo) {
+ cy.server()
+    cy.route({ method: 'POST', url: data.apiUrl+`/smtp/save**` }).as('saveSmtp')
+  // cy.route('GET',data.apiUrl+`/smtp/get**`).as('getSmtp');
   cy.get("#sideNav").click();
   cy.get("md-sidenav #setting").click();
   cy.get("#smtpInfo").click();
@@ -63,7 +66,8 @@ Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName,
   cy.get("#smtpFormServerName input").type(serverName);
   cy.get("#smtpFormPort input").type(portNo);
   cy.get("#smtpFormRadio #option1").click();
-  cy.get("#smtpFormSave button").click();
+  cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
+  cy.get("#smtpFormSave button").click().wait('@saveSmtp')
 });
 
 //delete smtp
