@@ -23,6 +23,7 @@ Cypress.Commands.add("login", function(email, password) {
   });
   // cy.get('#loginButton').click()
 });
+
 //logout
 Cypress.Commands.add("logout", function() {
   cy.get("#toolbar #sideNav").click();
