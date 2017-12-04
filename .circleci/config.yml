@@ -45,6 +45,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
       
       - run:
           name: Running E2E tests B
@@ -53,6 +55,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests C
@@ -61,6 +65,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests D
@@ -69,6 +75,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests E
@@ -77,6 +85,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests F
@@ -85,6 +95,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests G
@@ -93,6 +105,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests H
@@ -101,6 +115,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests I
@@ -109,6 +125,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests J
@@ -117,6 +135,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests L
@@ -125,6 +145,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests M
@@ -133,6 +155,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests N
@@ -141,6 +165,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests O
@@ -149,6 +175,8 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
           name: Running E2E tests P
@@ -156,4 +184,6 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/M
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
