@@ -68,6 +68,7 @@ Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName,
   cy.get("#smtpFormRadio #option1").click();
   cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
   cy.get("#smtpFormSave button").click().wait('@saveSmtp')
+  cy.get("#table tbody tr").contains("testhr69@gmail.com")
 });
 
 //delete smtp
@@ -121,12 +122,10 @@ Cypress.Commands.add("deleteAutomtictag", function() {
 
 //send email
 Cypress.Commands.add("sendMail", function() {
-  cy.server();
-  cy.route('GET',data.apiUrl+`/smtp/get**`).as('getSmtp');
   cy.get("#sideNav").click();
   cy.get("md-sidenav #setting").click();
   cy.get("#smtpInfo").click()
-  cy.get(".content").should("be.visible").wait('@getSmtp');
+  cy.get(".content").should("be.visible")
   cy.get("#table tbody tr").contains("testhr69@gmail.com")
     .nextAll().eq(4).click();
 });
