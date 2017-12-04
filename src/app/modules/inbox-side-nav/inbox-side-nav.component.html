@@ -18,12 +18,21 @@
                     <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                 </p>
                 <div *ngIf="subTag.subchild">
-                <span *ngFor="let subTagSubchild of subTag.subchild; trackBy: subTagSubchildTrack">
+                <span *ngFor="let subTagSubchild of subTag.subchild; let i = index; trackBy: subTagSubchildTrack">
+                  <a style="margin-left:6px;" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id">Default Tags</a>
                     <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id"
                         (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
-                       <a [class.tagstyle]="subTagSubchild.parent_id !=null">{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                      <div>
+                        <a [class.tagstyle]="subTagSubchild.parent_id !=null" *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id">{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                      </div>
+                          <div class="Subchild" *ngIf="subTagSubchild.parent_id ==null">
+                      <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
                        </div>
-                     <md-icon *ngIf="subTagSubchild.parent_id !=null" mdTooltip="Delete Tab" mdTooltipPosition="below"  class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
+                       </div>
+
+                     <md-icon *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id" mdTooltip="Delete Tab" mdTooltipPosition="below"  class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
+                    <md-icon *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id && subTag.id!=showHide" class="toggleDown" (click)="showtag(subTag.id)">keyboard_arrow_down</md-icon>
+                    <md-icon *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id &&  subTag.id==showHide" class="toggleUp" (click)="hidetag()">keyboard_arrow_up</md-icon>
                     </span>
                 </div>
 
