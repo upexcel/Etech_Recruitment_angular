@@ -66,6 +66,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
       cy.get("#tagDescription textarea").type(data.jobprofile);
       cy.get("#tagBtn #save").click()
     })
+    cy.wait("@postAddTag")
     cy.get("#jobProfile").contains(data.jobprofile);
   });
 
@@ -109,6 +110,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
         cy.get("#tagDescription textarea").type(data.jobprofile);
         cy.get("#tagBtn #save").click()
       })
+      cy.get("@postAddTag")
     cy.get("#jobProfile").contains(data.jobprofile)
     cy.get("#jobProfile #ul>#li:last #deleteTag").should("have.class", "iconset");
     cy.get("#jobProfile #ul>#li:last #deleteTag").click();

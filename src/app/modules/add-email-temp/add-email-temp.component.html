@@ -1,7 +1,7 @@
 <div class="header">
     <p class="h-text">Create Template</p>
 </div>
-<form id="addEmailTemplateForm" autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
+<form id="addEmailTemplateForm" autoComplete="off" #addTemp="ngForm" >
     <p *ngIf="showMessage" class="error-show">{{message}}</p>
     <div class="con-pg">
       <div class="row">

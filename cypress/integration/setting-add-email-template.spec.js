@@ -4,6 +4,9 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
 
   beforeEach(function() {
     cy.login(data.email, data.password);
+    cy.server()
+    cy.route({ method: 'GET', url: `http://localhost:8091/systemVariable/**` }).as('getSystemVariable')
+    cy.route({ method: 'GET', url: `http://localhost:8091/template/**` }).as('getTemplate')
   })
   afterEach(function() {
     cy.logout();
@@ -11,6 +14,7 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
   //it should visit setting/email template page
   it('Visits the Setting/Email Template Page', function() {
     cy.visit(data.baseUrl + 'core/setting/emailtemplate');
+    cy.wait('@getTemplate')
     cy.get('#addEmailTemplate #addEmailTemplateButton').should('be.exist')
   })
 
@@ -20,11 +24,15 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     cy.get('#addEmailTemplate #addEmailTemplateButton').click()
     cy.get('#addEmailTemplateForm').should('be.exist')
     cy.get('#addEmailTemplateForm #back').click()
+    cy.get('#addEmailTemplateForm').should('not.be.visible')
+    cy.wait('@getTemplate')
   })
 
   //test their must be a system variables list with data
   it('Test system variables list presence', function() {
     cy.visit(data.baseUrl + 'core/setting/emailtemplate');
+    cy.wait('@getSystemVariable')
+    cy.wait('@getTemplate')
     cy.get('#addEmailTemplate #addEmailTemplateButton').click()
     cy.get('#addEmailTemplateForm').should('be.exist')
     cy.get('#addEmailTemplateForm #systemVariableContent').then(function() {
@@ -47,11 +55,11 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     cy.visit(data.baseUrl + 'core/setting/emailtemplate');
     cy.get('#addEmailTemplate #addEmailTemplateButton').click()
     cy.get('#addEmailTemplateForm').should('be.exist')
-    cy.get('#addEmailTemplateForm #save').should('have.attr', 'disabled');    
+    cy.get('#addEmailTemplateForm #save').should('have.attr', 'disabled');
     cy.get('#addEmailTemplateForm #templateName').type("test")
-    cy.get('#addEmailTemplateForm #save').should('have.attr', 'disabled');    
+    cy.get('#addEmailTemplateForm #save').should('have.attr', 'disabled');
     cy.get('#addEmailTemplateForm #subject').type("testSubject")
-    cy.get('#addEmailTemplateForm #save').should('have.attr', 'disabled');    
+    cy.get('#addEmailTemplateForm #save').should('have.attr', 'disabled');
     cy.get('#addEmailTemplateForm #back').click()
     cy.get('#addEmailTemplateForm').should('not.be.visible')
   })
@@ -63,12 +71,12 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     cy.get('#addEmailTemplateForm').should('be.exist')
     cy.get('#addEmailTemplateForm #templateName').type("test")
     cy.get('#addEmailTemplateForm #subject').type("testSubject")
-    cy.get('#addEmailTemplateForm #tempBody').type("tempBody")    
+    cy.get('#addEmailTemplateForm #tempBody').type("tempBody")
     cy.get('#addEmailTemplateForm #back').click()
     cy.get('#addEmailTemplateForm').should('not.be.visible')
     cy.get('#templatePanel').should('be.exist')
     cy.get('#templates:first app-single-template md-card-title').should("not.have.text","test");
-    cy.get('#templates:first app-single-template md-card-subtitle').should("not.have.text","Subject: testSubject");      
+    cy.get('#templates:first app-single-template md-card-subtitle').should("not.have.text","Subject: testSubject");
   })
 
   //it should test if we provide right data to form, save button must be enable, and fire api and got response if api giving success , so data must be added in email template list, if any error show it to user
@@ -86,6 +94,6 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     cy.wait('@get')
     cy.get('#templatePanel').should('be.exist')
     cy.get('#templates:first app-single-template md-card-title').contains("test");
-    cy.get('#templates:first app-single-template md-card-subtitle').contains("Subject: testSubject");      
+    cy.get('#templates:first app-single-template md-card-subtitle').contains("Subject: testSubject");
   })
 })

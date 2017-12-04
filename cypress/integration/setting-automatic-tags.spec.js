@@ -7,6 +7,8 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
       // cy.get('#automatic').click()
       cy.visit(data.baseUrl + "/core/setting/automaticTags");
     });
+    cy.server()
+    cy.route({ method: 'POST', url: `http://localhost:8091/**` }).as('postAddTag')
   });
   // afterEach(function() {
   //   cy.wait(1000)
@@ -71,6 +73,8 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
     cy.get("#autotagPage").contains(data.automaticTag);
     cy.get("#toolbar #sideNav").click();
     cy.get("md-sidenav #inbox").click()
+    cy.url().should("eq", data.baseUrl + "/core/inbox");
+    cy.get("#side").should('be.visible');
     cy.get("#side #jobprofileNav").contains(data.automaticTag);
   })
 
@@ -91,6 +95,8 @@ describe('Setting/AutomaticTag Setting Page Test', function() {
       cy.get("#tagSubject input").type("Autotagtest");
       cy.get("#tagBtn #save").click()
     })
+    cy.get("#add_tag").should('not.be.visible');
+    cy.wait("@postAddTag")
     cy.get("#autotagPage").contains("Autotagtest")
     cy.get("#autotagPage #ul>#li:last #deleteAutotag").should("have.class", "iconset");
     cy.get("#autotagPage #ul>#li:last #deleteAutotag").click();
