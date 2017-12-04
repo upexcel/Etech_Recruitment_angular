@@ -21,7 +21,7 @@
         </table>
         <div>
             <button md-raised-button class="m-b" (click)="close()">Back</button>
-            <button md-raised-button class="m-b" type="submit" [disabled]="!addTemp.form.valid" color="accent">Save</button>
+            <button id="save_var" md-raised-button class="m-b" type="submit" [disabled]="!addTemp.form.valid" color="accent">Save</button>
         </div>
     </form>
 </div>
@@ -59,6 +59,6 @@
     </form>
     <div class="text-right">
         <button md-raised-button class="m-b" (click)="close()">CLOSE</button>
-        <button md-raised-button color="accent" class="m-b" (click)="setVariable()">SET VARIABLES</button>
+        <button id="set_var" md-raised-button color="accent" class="m-b" (click)="setVariable()">SET VARIABLES</button>
     </div>
 </div>
