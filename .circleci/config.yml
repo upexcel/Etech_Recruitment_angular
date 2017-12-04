@@ -119,14 +119,6 @@ jobs:
           path: cypress/screenshots
 
       - run:
-          name: Running E2E tests K
-          command: $(npm bin)/cypress run --spec cypress/integration/setting-imap.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
           name: Running E2E tests L
           command: $(npm bin)/cypress run --spec cypress/integration/setting-job-profile-tags.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
