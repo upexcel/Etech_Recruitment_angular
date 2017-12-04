@@ -65,7 +65,7 @@ Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName,
   cy.get("#smtpFormPassword input").type(smtpPassword);
   cy.get("#smtpFormServerName input").type(serverName);
   cy.get("#smtpFormPort input").type(portNo);
-  cy.get("#smtpFormRadio #option1").click();
+  cy.get("#smtpFormRadio #option2").click();
   cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
   cy.get("#smtpFormSave button").click().wait('@saveSmtp')
 });
