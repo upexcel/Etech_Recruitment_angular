@@ -68,6 +68,8 @@ Cypress.Commands.add("addSmtp", function(newSmtpEmail, smtpPassword, serverName,
   cy.get("#smtpFormRadio #option1").click();
   cy.get('#smtpFormSave button').should('have.attr', 'ng-reflect-disabled', 'false');
   cy.get("#smtpFormSave button").click().wait('@saveSmtp')
+  cy.get("#table tbody tr").contains("testhr69@gmail.com")
+    .nextAll().eq(4).click();
 });
 
 //delete smtp
