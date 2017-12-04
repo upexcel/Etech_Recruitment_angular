@@ -11,6 +11,8 @@ import * as _ from 'lodash';
     styleUrls: ['./inbox-side-nav.component.scss']
 })
 export class InboxSideNavComponent implements OnInit {
+    showaddtag = false;
+    showHide:any;
     firstlist = false;
     thirdlist = false;
     selectedId: string;
@@ -19,8 +21,12 @@ export class InboxSideNavComponent implements OnInit {
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
     @Output() getTags = new EventEmitter<any>();
-    dialogRef: MdDialogRef < any > ;
-    constructor(public _apiService: ImapMailsService, public dialog: MdDialog, private _dialogService: DialogService) { }
+    dialogRef: MdDialogRef<any>;
+    constructor(
+    public _apiService: ImapMailsService,
+    public dialog: MdDialog,
+    private _dialogService: DialogService
+  ) {}
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
@@ -35,14 +41,30 @@ export class InboxSideNavComponent implements OnInit {
     }
     getEmail(id, parantTagId, title, parentTitle) {
         this.parantTagId = parantTagId;
-        this.selectedId = (id === 0 ? parantTagId : id);
+        this.selectedId = id === 0 ? parantTagId : id;
         this.menuShow = false;
         if (title === 'Mails') {
-            this.getEmails.emit({ 'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle });
+            this.getEmails.emit({
+                id: null,
+                parantTagId: null,
+                title: title,
+                parentTitle: parentTitle
+            });
         } else if (title === 'Attachment') {
-            this.getEmails.emit({ 'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle, 'is_attach': true });
+            this.getEmails.emit({
+                id: null,
+                parantTagId: null,
+                title: title,
+                parentTitle: parentTitle,
+                is_attach: true
+            });
         } else {
-            this.getEmails.emit({ 'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle });
+            this.getEmails.emit({
+                id: id,
+                parantTagId: parantTagId,
+                title: title,
+                parentTitle: parentTitle
+            });
         }
     }
     openSubMenu(title) {
@@ -57,7 +79,9 @@ export class InboxSideNavComponent implements OnInit {
         for (let i = 0; i < this.tags.length; i++) {
             for (let j = 0; j < this.tags[i]['data'].length; j++) {
                 if (this.tags[i]['data'][j]['title'] === title) {
-                    this.tags[i]['data'][j]['menuOpen'] = !this.tags[i]['data'][j]['menuOpen'];
+                    this.tags[i]['data'][j]['menuOpen'] = !this.tags[i]['data'][j][
+            'menuOpen'
+          ];
                 }
             }
         }
@@ -72,7 +96,7 @@ export class InboxSideNavComponent implements OnInit {
     }
     addTag(parentid: any) {
         this.dialogRef = this.dialog.open(AddSubTagModalComponent, {});
-       // this.dialogRef.componentInstance.tempList = this.tempList;
+    // this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.componentInstance.addTagType = 'Default';
         this.dialogRef.componentInstance.parentid = parentid;
         this.dialogRef.afterClosed().subscribe(result => {
@@ -83,16 +107,30 @@ export class InboxSideNavComponent implements OnInit {
         });
     }
     removeTag(type: string, tagid: string) {
-        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
-            if (res === 'yes') {
-                this._apiService.deleteSubTag(type, tagid).subscribe((data) => {
-                    this.getTags.emit();
-                }, (err) => {
-                    console.log(err);
-                });
+        this._dialogService.openConfirmationBox('Are you sure ?').then(
+      res => {
+          if (res === 'yes') {
+              this._apiService.deleteSubTag(type, tagid).subscribe(
+            data => {
+                this.getTags.emit();
+            },
+            err => {
+                console.log(err);
             }
-        }, (err) => {
-            console.log(err);
-        });
+          );
+          }
+      },
+      err => {
+          console.log(err);
+      }
+    );
+    }
+    showtag(id) {
+        this.showHide = id;
+        // this.showaddtag = true;
+    }
+    hidetag() {
+        this.showHide = null;
+        // this.showaddtag = false;
     }
 }
