@@ -45,38 +45,6 @@ jobs:
           path: results
       - store_artifacts:
           path: cypress/screenshots
-      
-      - run:
-          name: Assign Automatic Tag
-          command: $(npm bin)/cypress run --spec cypress/integration/assign-automatic-tag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Assign Job Profile
-          command: $(npm bin)/cypress run --spec cypress/integration/assign-job-profile-tag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Fetch Latest Email
-          command: $(npm bin)/cypress run --spec cypress/integration/fetch-latest-email.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
-          name: Searching Emails
-          command: $(npm bin)/cypress run --spec cypress/integration/serach-email-by-subject.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
 
       - run:
           name: Add Template
