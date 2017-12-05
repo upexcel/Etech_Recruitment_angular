@@ -1,11 +1,11 @@
 <div *ngIf="first">
     <h1 md-dialog-title>Enter Email Id</h1>
-    <form autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
+    <form autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)" id="testTemplateForm">
         <table class="full" cellspacing="0">
             <tr>
                 <td>
                     <md-input-container class="full">
-                        <input mdInput type="email" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" placeholder="Candidate Email Id" autoComplete="off" name="CandidateEmail" required ngModel>
+                        <input id="email" mdInput type="email" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" placeholder="Candidate Email Id" autoComplete="off" name="CandidateEmail" required ngModel>
                         <md-error>Enter a valid email</md-error>
                     </md-input-container>
                 </td>
@@ -13,22 +13,22 @@
             <tr>
                 <td>
                     <md-input-container class="full">
-                        <input mdInput placeholder="Candidate Name" autoComplete="off" name="CandidateName" required ngModel>
+                        <input id="candidateName" mdInput placeholder="Candidate Name" autoComplete="off" name="CandidateName" required ngModel>
                         <md-error>Required</md-error>
                     </md-input-container>
                 </td>
             </tr>
         </table>
         <div>
-            <button md-raised-button class="m-b" (click)="close()">Back</button>
-            <button md-raised-button class="m-b" type="submit" [disabled]="!addTemp.form.valid" color="accent">Save</button>
+            <button md-raised-button class="m-b" id="back" (click)="close()">Back</button>
+            <button md-raised-button class="m-b" id="save" type="submit" [disabled]="!addTemp.form.valid" color="accent">Save</button>
         </div>
     </form>
 </div>
 <div *ngIf="!first">
     <h1 md-dialog-title>Send Mail</h1>
     <hr>
-    <form class="m-p" autoComplete="off" #addTemp="ngForm" (ngSubmit)="setVariable(addTemp)">
+    <form class="m-p" autoComplete="off" #addTemp="ngForm" (ngSubmit)="setVariable(addTemp)" id="sendMailForm">
         <div class="m-f">To: <span class="label">{{userDetails.CandidateName}}</span></div>
         <table class="full" cellspacing="0">
             <tr>
@@ -58,7 +58,7 @@
         </table>
     </form>
     <div class="text-right">
-        <button md-raised-button class="m-b" (click)="close()">CLOSE</button>
-        <button md-raised-button color="accent" class="m-b" (click)="setVariable()">SET VARIABLES</button>
+        <button md-raised-button class="m-b" id="close" (click)="close()">CLOSE</button>
+        <button md-raised-button color="accent" class="m-b" id="setVariable" (click)="setVariable()">SET VARIABLES</button>
     </div>
 </div>

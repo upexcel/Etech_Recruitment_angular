@@ -112,5 +112,19 @@ Cypress.Commands.add("addEmailTemplate", function() {
   cy.get('#addEmailTemplateForm').should('be.exist')
   cy.get('#addEmailTemplateForm #templateName').type("test")
   cy.get('#addEmailTemplateForm #subject').type("testSubject")
+  cy.get('#addEmailTemplateForm #tempBody').type("tempBody");
   cy.get('#addEmailTemplateForm #save').click()
 });
+
+//delete email templates
+Cypress.Commands.add("deleteTemplate",function () {
+  cy.get('#templatePanel').should('be.exist')
+  cy.get('#templates:first app-single-template md-card-title').contains("test");
+  cy.get('#templates:first app-single-template md-card-subtitle').contains("Subject: testSubject");
+  cy.get('#templates:first app-single-template #deleteTemplate').click();
+  cy.get('#confirm').should('be.exist')
+  cy.get('#confirm #confirmYes').click();
+  cy.get('#confirm').should('not.be.exist')
+  cy.get('#templatePanel').should('be.exist')
+  cy.get('#templates:first app-single-template md-card-title').should("not.have.text","test");  
+})
