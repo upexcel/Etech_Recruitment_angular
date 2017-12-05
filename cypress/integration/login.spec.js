@@ -12,6 +12,7 @@ describe("Login Page Test", function() {
       cy.get("#loginCheckbox").should("have.class", "mat-checkbox-checked");
     });
   });
+  
   it("Test Login Form With Wrong Data", function() {
     cy.visit(data.baseUrl + "/login");
     cy.get("form").within(function() {
