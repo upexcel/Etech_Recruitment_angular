@@ -5,8 +5,8 @@
         <div *ngIf="tag.data">
             <div class="subenav" *ngFor="let subTag of tag.data; trackBy: tagDataTrack">
                 <p [class.active]="selectedId == subTag.id && i != 0" *ngIf="subTag.type == 'Automatic'">
-                    <span> <a *ngIf="i == 0" class="sub-title">{{subTag.title}}</a>
-                        <md-icon *ngIf="i == 0" class="plus" (click)="addTag(subTag.id)">add</md-icon>
+                    <span id="subtitle"> <a *ngIf="i == 0" class="sub-title">{{subTag.title}}</a>
+                        <md-icon id="{{subTag.id}}" *ngIf="i == 0" class="plus" (click)="addTag(subTag.id)">add</md-icon>
                    </span>
                     <a (click)="getEmail(0, subTag.id, subTag.title, tag.title);" *ngIf="i != 0 && subTag.type == 'Automatic'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                     <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
@@ -17,13 +17,13 @@
 
                     <a (click)="getEmail(subTag.id, null);" *ngIf="i != 0 &&  subTag.type == 'Default'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>
                 </p>
-                <div *ngIf="subTag.subchild">
-                <span *ngFor="let subTagSubchild of subTag.subchild; let i = index; trackBy: subTagSubchildTrack">
-                  <a style="margin-left:6px;" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id">Default Tags</a>
+                <div id="subChild" *ngIf="subTag.subchild">
+                <span id="subTag" *ngFor="let subTagSubchild of subTag.subchild; let i = index; trackBy: subTagSubchildTrack">
+                  <a id="{{subTag.id}}" style="margin-left:6px;" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id">Default Tags</a>
                     <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id"
                         (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
-                      <div>
-                        <a [class.tagstyle]="subTagSubchild.parent_id !=null" *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id">{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                      <div id="defaultTag">
+                        <a id="addedtag" [class.tagstyle]="subTagSubchild.parent_id !=null" *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id">{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
                       </div>
                           <div class="Subchild" *ngIf="subTagSubchild.parent_id ==null">
                       <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
@@ -31,8 +31,8 @@
                        </div>
 
                      <md-icon *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id" mdTooltip="Delete Tab" mdTooltipPosition="below"  class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
-                    <md-icon *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id && subTag.id!=showHide" class="toggleDown" (click)="showtag(subTag.id)">keyboard_arrow_down</md-icon>
-                    <md-icon *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id &&  subTag.id==showHide" class="toggleUp" (click)="hidetag()">keyboard_arrow_up</md-icon>
+                    <md-icon id="arrowdown" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id && subTag.id!=showHide" class="toggleDown" (click)="showtag(subTag.id)">keyboard_arrow_down</md-icon>
+                    <md-icon  id="arrowup" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id &&  subTag.id==showHide" class="toggleUp" (click)="hidetag()">keyboard_arrow_up</md-icon>
                     </span>
                 </div>
 
