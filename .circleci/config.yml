@@ -29,7 +29,7 @@ jobs:
       - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
-      - run: cd api_hr_recruitment && npm install && pm2 start npm --name recruit_backend -- run start
+      - run: cd api_hr_recruitment && npm install && npm run db-migrate && npm run db && pm2 start npm run --name recruit_backend -- run dev
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
@@ -39,89 +39,151 @@ jobs:
       - run: ss -lptn 'sport = :8091'
 
       - run:
-          name: Login Test
+          name: Running E2E tests A
           command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
+      
+      - run:
+          name: Running E2E tests B
+          command: $(npm bin)/cypress run --spec cypress/integration/assign-automatic-tag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Add Template
+          name: Running E2E tests C
+          command: $(npm bin)/cypress run --spec cypress/integration/assign-job-profile-tag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
+
+      - run:
+          name: Running E2E tests D
+          command: $(npm bin)/cypress run --spec cypress/integration/fetch-latest-email.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
+
+      - run:
+          name: Running E2E tests E
+          command: $(npm bin)/cypress run --spec cypress/integration/serach-email-by-subject.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
+
+      - run:
+          name: Running E2E tests F
           command: $(npm bin)/cypress run --spec cypress/integration/setting-add-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Add Automatic tag
+          name: Running E2E tests G
           command: $(npm bin)/cypress run --spec cypress/integration/setting-automatic-tags.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Edit Email Template
+          name: Running E2E tests H
           command: $(npm bin)/cypress run --spec cypress/integration/setting-edit-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Setting Email tempplate
+          name: Running E2E tests I
           command: $(npm bin)/cypress run --spec cypress/integration/setting-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Email Variable
+          name: Running E2E tests J
           command: $(npm bin)/cypress run --spec cypress/integration/setting-email-variable.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Add Job Profile
+          name: Running E2E tests L
           command: $(npm bin)/cypress run --spec cypress/integration/setting-job-profile-tags.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Reset Password
+          name: Running E2E tests M
           command: $(npm bin)/cypress run --spec cypress/integration/setting-reset-password.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Smtp Setting
+          name: Running E2E tests N
           command: $(npm bin)/cypress run --spec cypress/integration/setting-smtp.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: Tag settings
+          name: Running E2E tests O
           command: $(npm bin)/cypress run --spec cypress/integration/setting-tag-setting.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
           path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
 
       - run:
-          name: User List
+          name: Running E2E tests P
           command: $(npm bin)/cypress run --spec cypress/integration/setting-userlist.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/M
+          path: cypress/screenshots
+      - store_artifacts:
+          path: cypress/videos
