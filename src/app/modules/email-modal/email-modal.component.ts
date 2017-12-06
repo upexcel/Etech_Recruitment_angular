@@ -62,6 +62,9 @@ export class EmailModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        document.getElementById('topnav').classList.add('sidehide');
+        document.getElementById('leftPart').classList.add('sidehide');
+        document.getElementById('rightPart').classList.add('fullwidth');
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];

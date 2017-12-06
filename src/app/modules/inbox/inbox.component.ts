@@ -80,7 +80,6 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.fetchNewEmails();
             });
         this.role = this._localStorageService.getItem('role');
-
     }
     ngOnInit() {
         this.emailIds = [];
