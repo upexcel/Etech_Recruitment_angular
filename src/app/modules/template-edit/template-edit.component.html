@@ -10,12 +10,8 @@
                     <input mdInput placeholder="Template Name" [(ngModel)]="tempName" autoComplete="off" name="templateName" required ngModel>
                     <md-error>Required</md-error>
                 </md-input-container>
-                <md-input-container class="width-25">
-                    <input mdInput placeholder="Subject" [disabled]="true" autoComplete="off" name="fixedsubject" required [(ngModel)]="subject_for_genuine">
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-75">
-                    <input mdInput placeholder="" [(ngModel)]="subject" autoComplete="off" name="subject" required ngModel>
+                <md-input-container class="width-100">
+                    <input mdInput placeholder="Subject" [(ngModel)]="subject" autoComplete="off" name="subject" required ngModel>
                     <md-error>Required</md-error>
                 </md-input-container>
                 <ckeditor name="body"

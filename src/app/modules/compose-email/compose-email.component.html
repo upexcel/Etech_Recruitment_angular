@@ -16,12 +16,8 @@
                     <md-card-subtitle>{{emailParenttitle}} - <b>{{emailChildTitle}}</b></md-card-subtitle>
                   </md-card-header>
                 </md-card>
-                <md-input-container class="width-25">
-                    <input mdInput placeholder="Subject" [disabled]="true" autoComplete="off" name="fixedsubject" required [(ngModel)]="subject_for_genuine">
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-75">
-                    <input mdInput placeholder="" autoComplete="off" name="subject" required [(ngModel)]="subject">
+                <md-input-container class="width-100">
+                    <input mdInput placeholder="Subject" autoComplete="off" name="subject" required [(ngModel)]="subject">
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-select placeholder="Select Template" class="width-25" [(ngModel)]="selectedTemplate" (change)="selectTemplate(selectedTemplate)" [ngModelOptions]="{standalone: true}">
