@@ -37,13 +37,91 @@ jobs:
       - run: npm install cypress
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
+
       - run:
-          name: Running E2E tests with JUnit reporter
-          command: npm run test-junit
-          no_output_timeout: 3600
+          name: Login Test
+          command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/videos
+          path: cypress/screenshots
+
+      - run:
+          name: Add Template
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-add-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
       - store_artifacts:
           path: cypress/screenshots
+
+      - run:
+          name: Add Automatic tag
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-automatic-tags.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Edit Email Template
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-edit-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Setting Email tempplate
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Email Variable
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-email-variable.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Add Job Profile
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-job-profile-tags.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Reset Password
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-reset-password.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Smtp Setting
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-smtp.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: Tag settings
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-tag-setting.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: User List
+          command: $(npm bin)/cypress run --spec cypress/integration/setting-userlist.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/M
