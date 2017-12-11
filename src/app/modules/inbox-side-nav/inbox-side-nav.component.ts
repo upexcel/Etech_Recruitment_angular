@@ -11,6 +11,8 @@ import * as _ from 'lodash';
     styleUrls: ['./inbox-side-nav.component.scss']
 })
 export class InboxSideNavComponent implements OnInit {
+    showaddtag = false;
+    showHide: any;
     firstlist = false;
     thirdlist = false;
     selectedId: string;
@@ -94,5 +96,13 @@ export class InboxSideNavComponent implements OnInit {
         }, (err) => {
             console.log(err);
         });
+    }
+    showtag(id) {
+        this.showHide = id;
+       // this.showaddtag = true;
+    }
+    hidetag() {
+        this.showHide = null;
+       // this.showaddtag = false;
     }
 }
