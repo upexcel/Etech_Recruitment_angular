@@ -1,10 +1,10 @@
 <md-sidenav-container>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 no-pad background-white">
+            <div id="leftPart" class="col-md-2 no-pad background-white">
                 <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)" (getTags)="getAllTag()"></app-inbox-side-nav>
             </div>
-            <div class="col-md-10 no-pad">
+            <div id="rightPart" class="col-md-10 no-pad">
                 <div class="content">
                     <router-outlet></router-outlet>
                     <p class="bblue" *ngIf="emaillist && showInboxEmailList">Job Profile Template Sent</p>
