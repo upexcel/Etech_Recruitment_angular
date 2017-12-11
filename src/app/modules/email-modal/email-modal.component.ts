@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
@@ -31,7 +31,7 @@ import { AddNoteComponent } from './../add-note/add-note.component';
         ])
     ]
 })
-export class EmailModalComponent implements OnInit {
+export class EmailModalComponent implements OnInit, OnDestroy {
     dialogConfig: MdDialogRef<any>;
     dialogRef: MdDialogRef<any>;
     email: any;
@@ -62,6 +62,9 @@ export class EmailModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        document.getElementById('topnav').classList.add('sidehide');
+        document.getElementById('leftPart').classList.add('sidehide');
+        document.getElementById('rightPart').classList.add('fullwidth');
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
@@ -85,6 +88,11 @@ export class EmailModalComponent implements OnInit {
                 document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
             }, 100);
         }
+    }
+    ngOnDestroy() {
+        document.getElementById('topnav').classList.remove('sidehide');
+        document.getElementById('leftPart').classList.remove('sidehide');
+        document.getElementById('rightPart').classList.remove('fullwidth');
     }
 
     getCandiatehistory() {
