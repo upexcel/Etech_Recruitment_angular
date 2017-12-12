@@ -34,6 +34,7 @@ import { ComposeEmailComponent } from './../../modules/compose-email/compose-ema
 import { LocalStorageService } from './../../service/local-storage.service';
 import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
+import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 
 @Component({
@@ -262,8 +263,12 @@ export class InboxComponent implements OnInit, OnDestroy {
             }
             this.emaillist['data'][index]['unread'] = false;
         }
-        const landingUrl = window.location + '/email/' + email._id;
-        window.open(landingUrl);
+        // if (environment['picasa']) {
+            const landingUrl = window.location + '/email/' + email._id;
+            window.open(landingUrl);
+        // }else {
+        //     this._router.navigate(['core/inbox/email', email._id]);
+        // }
         this._localStorageService.setItem('email', email);
         this._localStorageService.setItem('selectedTag', this.selectedTag);
         this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);

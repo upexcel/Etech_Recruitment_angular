@@ -63,7 +63,7 @@ export class ComposeEmailComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
-            form.value.subject = this.subject_for_genuine + ' ' + this.subject;
+            form.value.subject = this.subject;
             form.value.body = this.body;
             form.value.template_id = this.selectedTempplateId;
             if (this.emails) {
