@@ -1,8 +1,8 @@
-<div class="mainform" *ngIf="!loading">
+<div id="jobProfile" class="mainform" *ngIf="!loading">
     <p class="font-18">Create Job Profile</p>
     <hr class="linespace">
-    <span [dragula]='"first-bag"' [dragulaModel]='tags.Automatic'>
-    <span *ngFor="let tag of tags?.Automatic; trackBy: tagsAutomaticTrack">
+    <span [dragula]='"first-bag"' [dragulaModel]='tags.Automatic' id="ul">
+    <span *ngFor="let tag of tags?.Automatic; trackBy: tagsAutomaticTrack" id="li">
         <div class="tagbutton1" [style.background-color]="tag.color" *ngIf="tag.is_job_profile_tag">
             <div class="taglogo" (click)="openAutomatic(tag)">
                 {{tag.title.charAt(0)}}
@@ -10,13 +10,13 @@
             <span class="tagname" (click)="openAutomatic(tag)">
                 {{tag.title}}
             </span>
-            <md-icon class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>
+            <md-icon id="deleteTag" class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>
         </div>
     </span>
 </span>
 </div>
 
-<div class="pos-add" *ngIf="!loading">
+<div id="addTag" class="pos-add" *ngIf="!loading">
     <button md-fab (click)="addTag()">
         <md-icon>add</md-icon>
     </button>

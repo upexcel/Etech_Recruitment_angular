@@ -7,22 +7,23 @@ import {
 } from '../../service/imapemails.service';
 import clone from 'lodash/clone';
 @Component({
+    // tslint:disable-next-line:component-selector
     selector: 'slack-info',
     templateUrl: './slack-info.component.html',
     styleUrls: ['./slack-info.component.scss']
 })
 export class SlackInfoComponent implements OnInit {
     slackJson: any[];
-    loading: boolean=true;
+    loading = true;
     selectchannel: any;
-    showmessage: boolean = true;
+    showmessage = true;
     message: any;
     constructor(public _apiService: ImapMailsService) {}
     ngOnInit() {
         this.getSlackList();
     }
     select(index, id) {
-        let refData = Object.assign({}, this.slackJson[index]);
+        const refData = Object.assign({}, this.slackJson[index]);
         delete refData['channel_list'];
         this.updateSlackList(refData, id)
     }
@@ -31,24 +32,24 @@ export class SlackInfoComponent implements OnInit {
         this.updateSlackList(slackdata, id)
     }
     getSlackList() {
-        this.loading=true;
+        this.loading = true;
         this._apiService.getSlackInfo().subscribe((data) => {
-            this.loading=false;
-                this.slackJson = data;
-            },
+            this.loading = false;
+            this.slackJson = data;
+        },
             (err) => {
                 console.log(err);
             });
     }
     updateSlackList(refData, id) {
         this._apiService.updateSlackInfo(refData, id).subscribe((data) => {
-                this.showmessage = true;
-                this.message = "Data Updated!"
-                if (data) {
-                    this.getSlackList();
-                    this.showmessage = false;
-                }
-            },
+            this.showmessage = true;
+            this.message = 'Data Updated!'
+            if (data) {
+                this.getSlackList();
+                this.showmessage = false;
+            }
+        },
             (err) => {
                 console.log(err);
             });
@@ -56,9 +57,9 @@ export class SlackInfoComponent implements OnInit {
     deleteSlackData(id) {
         this._apiService.deleteSlackData(id).subscribe((data) => {
 
-                this.getSlackList();
+            this.getSlackList();
 
-            },
+        },
             (err) => {
                 console.log(err);
             });
