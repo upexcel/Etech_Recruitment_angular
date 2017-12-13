@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
+import { SqlLiteService } from './service/sqlite.service';
 
 @Component({
     selector: 'app-root',
@@ -10,8 +11,12 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 export class AppComponent implements OnInit {
 
-    constructor() { }
+    constructor(public _SqlLiteService: SqlLiteService) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this._SqlLiteService.createSqlLiteDB();
+        this._SqlLiteService.createSqlLiteTable();
+        this._SqlLiteService.insertSqlLiteTable();
+    }
 
 }
