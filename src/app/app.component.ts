@@ -8,16 +8,11 @@ import { SqlLiteService } from './service/sqlite.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-
 export class AppComponent implements OnInit {
-
     constructor(private sqliteservice: SqlLiteService) { }
-
     ngOnInit(): void {
-        this.sqliteservice.createDatabase()
-         this.sqliteservice.createTable()
-        this.sqliteservice.insertValue()
-        // this.sqliteservice.dropTable()
+        this.sqliteservice.createSqlLiteDB()
+        this.sqliteservice.createSqlLiteTable()
     }
 
 }

@@ -1,43 +1,47 @@
 import { Injectable } from '@angular/core';
+import { ImapMailsService } from './imapemails.service';
+import forEach from 'lodash/forEach';
+import keys from 'lodash/keys';
+import {UUID} from 'angular2-uuid';
+import { stringify } from '@angular/core/src/util';
+import * as sqldata from './../../assets/sqlite.json';
+import * as tablestruct from './../../assets/structure.json';
 declare let window: any;
 @Injectable()
 export class SqlLiteService {
-    db: any
-    constructor() { }
-    createDatabase() {
+    db: any;
+    constructor(private apiService: ImapMailsService) {}
+    createSqlLiteDB() {
         try {
             if (window.openDatabase) {
-                const databaseName = 'databaseDb';
+                const databaseName = 'Hr_Recruit';
                 const version = '1.0';
                 const displayName = 'myDatabase';
                 const maxSize = 65535;
                 this.db = window.openDatabase(databaseName, version, displayName, maxSize);
-                console.log('>>>>>>>>>>>>', this.db);
             }
         }catch (e) {
             alert(e);
         }
     }
-    createTable() {
-        this.db.transaction(function(tx){
-            tx.executeSql('CREATE TABLE EMAIL (id varchar PRIMARY KEY, datefrom varchar, sender_mail varchar, date varchar, email_date varchar, subject, unread integer, uid integer, is_automatic_email_send integer, default_tag varchar, is_attachment integer)');
-            // tx.executeSql('CREATE TABLE fetch_email (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, from VARCHAR, sender_mail VARCHAR, subject VARCHAR, unread INTEGER, uid INTEGER, is_automatic_email_send INTEGER, default_tag VARCHAR, is_attachment INTEGER)');
-        });
-    }
-    insertValue() {
-        this.db.transaction(function(tx){
-            tx.executeSql('insert into EMAIL (id,datefrom,sender_mail,date,email_date,subject,unread,uid,is_automatic_email_send,default_tag,is_attachment) VALUES ("5a1551b0aa656f24f550e217s1","sds","testexcel69@gmail.com","2017-11-22T10:23:29.000Z","2017-11-22T10:23:29.000Z",Smtp test",0,368,0,"sdsd",0)');
-        });
-    }
-    dropTable() {
-        this.db.transaction(function(tx){
-            tx.executeSql('DROP TABLE EMAIL');
+    createSqlLiteTable() {
+        return new Promise((resolve, reject) => {
+            const findLength = keys(tablestruct);
+            let count = 0;
+            forEach(tablestruct, (value, key) => {
+                this.db.transaction(function(tx){
+                    count++;
+                    tx.executeSql(`${value}`, [], function(tx, res){
+                        console.log('table created successfully!');
+                    }, function(){
+                        console.log('query error');
+                    })
+                })
+
+            })
         })
+
     }
-    // insertValue(){
-    //     let img = document.getElementById('image');
-    //     let sql = 'insert into image (name,image) VALUES ("sujeet","'+img + '")';
-    //     executeQuery(sql, function(results){alert(results)});
-    // }
+
 }
 

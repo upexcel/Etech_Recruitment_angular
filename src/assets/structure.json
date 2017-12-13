@@ -1,0 +1,6 @@
+{
+    "Email":
+            "CREATE TABLE IF NOT EXISTS Email (_id VARCHAR,_from VARCHAR,sender_mail VARCHAR,date VARCHAR,email_date VARCHAR,subject VARCHAR,unread VARCHAR,uid VARCHAR,is_automatic_email_send VARCHAR,default_tag VARCHAR,is_attachment VARCHAR)",
+    "Customer_Table":
+            "CREATE TABLE IF NOT EXISTS Customer_Table(IDLocal INTEGER,IDWeb INTEGER,FirstName CHAR,LastName CHAR,EmailAddress CHAR,Password CHAR,CustomerAccountIDLocal CHAR,JobIDForce CHAR,LastUpdatedDateTime CHAR,LoginBarcode CHAR)"
+}
