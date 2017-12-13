@@ -4,7 +4,12 @@
 <h4><b>Name</b>: {{emailData.from}}</h4>
 <h5><b>Email</b>: {{emailData.sender_mail}}</h5>
 <p class="error">{{errorMessage}}</p>
-<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm" class="schedule-form">
+<md-radio-group [(ngModel)]="scheduleBy">
+    <md-radio-button value="scheduleByEmail">Schedule Interview</md-radio-button>
+    <md-radio-button value="scheduleByDirect">Direct</md-radio-button>
+  </md-radio-group>
+  
+<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm && scheduleBy == 'scheduleByEmail'" class="schedule-form">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-sm-12">
@@ -51,3 +56,9 @@
         </div>
     </div>
 </form>
+<div class="default-tag-buttons row" *ngIf="showForm && scheduleBy == 'scheduleByDirect'">
+    <div class="col-md-3 col-sm-3 col-xs-3"></div>
+    <div (click)="scheduleInterviewDirect(interview)" *ngFor="let interview of interviewRounds; trackBy: interviewRoundsTrack;" class="col-md-2 col-sm-2 col-xs-2">
+            <button md-raised-button class="cyan">{{interview.name}}</button>
+    </div>
+</div>

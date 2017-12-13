@@ -28,6 +28,7 @@ export class ScheduleInterviewComponent implements OnInit {
     maxDate: any;
     showSelectedDate = null;
     errorMessage: string;
+    scheduleBy = config['scheduleInterviewBy'];
     constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
@@ -95,6 +96,14 @@ export class ScheduleInterviewComponent implements OnInit {
             'shedule_time': data.value.selectedInterviewTime,
             'tamplate_id': data.value.selectedInterviewTemplate,
             'mobile_no': config.mobileNoPrefix + data.value.mobile_no
+        };
+        this.dialogRef.close(apiData);
+    }
+
+    scheduleInterviewDirect(data) {
+        const apiData = {
+            'tag_id': data.id,
+            'mongo_id': [this.emailId]
         };
         this.dialogRef.close(apiData);
     }
