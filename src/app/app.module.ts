@@ -156,7 +156,7 @@ import { DialogService } from './service/dialog.service';
 import { DashboardService } from './service/dashboard.service';
 import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
-
+import { SqlLiteService } from './service/sqlite.service';
 import { DragulaModule } from 'ng2-dragula';
 import {RlTagInputModule} from 'angular2-tag-input';
 @NgModule({
@@ -245,6 +245,7 @@ import {RlTagInputModule} from 'angular2-tag-input';
         DialogService,
         DashboardService,
         LoginRouteGuard,
+        SqlLiteService,
         {
             provide: InterceptedHttp,
             useFactory: httpFactory,

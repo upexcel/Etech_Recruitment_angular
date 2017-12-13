@@ -1,0 +1,4 @@
+{
+  "allEmailData" : "CREATE TABLE IF NOT EXISTS allEmailData (_id VARCHAR, _from VARCHAR, sender_mail VARCHAR,date VARCHAR,email_date VARCHAR,subject VARCHAR,unread VARCHAR,uid VARCHAR,is_automatic_email_send VARCHAR,default_tag VARCHAR,is_attachment VARCHAR)",
+  "insertData": "INSERT INTO allEmailData"
+}
