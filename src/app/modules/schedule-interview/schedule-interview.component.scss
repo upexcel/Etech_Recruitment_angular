@@ -44,14 +44,13 @@ h4, h5 {
 }
 .default-tag-buttons{
 	padding: 10px;
-	text-align: center;
+	.col-md-3 {
+		padding-right: 0px;
+		width: auto;
+	}
     .cyan{
-        line-height:20px!important;
-        margin: 0px 4px 0px 4px;
         font-weight:bold;
 		color:#fff;
-		background: #00BDD6;
-        font-size: 12px;
     }
     .material-icons{
         font-size: 14px!important;

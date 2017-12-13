@@ -108,6 +108,14 @@ export class ScheduleInterviewComponent implements OnInit {
         this.dialogRef.close(apiData);
     }
 
+    getColor(title) {
+        return this._commonService.getDefaultTagColor(title);
+    }
+
+    getIcon(title) {
+        return this._commonService.getDefaultTagIcon(title);
+    }
+
     close() {
         this.dialogRef.close('back');
     }
