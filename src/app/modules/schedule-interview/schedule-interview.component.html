@@ -7,8 +7,8 @@
     <b>Email</b>: {{emailData.sender_mail}}</h5>
 <p class="error">{{errorMessage}}</p>
 <md-radio-group [(ngModel)]="scheduleBy">
-    <md-radio-button value="scheduleByEmail">Schedule Interview</md-radio-button>
-    <md-radio-button value="scheduleByDirect">Direct</md-radio-button>
+    <md-radio-button id="scheduleByEmail" value="scheduleByEmail">Schedule Interview</md-radio-button>
+    <md-radio-button id="scheduleByDirect" value="scheduleByDirect">Direct</md-radio-button>
 </md-radio-group>
 
 <form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm && scheduleBy == 'scheduleByEmail'" class="schedule-form">
