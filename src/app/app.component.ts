@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         this.sqliteservice.createSqlLiteDB()
         this.sqliteservice.createSqlLiteTable()
+        this.sqliteservice.dynamicSqlLiteTable()
     }
 
 }

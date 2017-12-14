@@ -1,0 +1,118 @@
+[{
+    "tagSchema": {
+    "id": {
+        "type": "INT(11)",
+        "allowNull": false,
+        "defaultValue": null,
+        "primaryKey": true
+    },
+    "email": {
+        "type": "VARCHAR(255)",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "title": {
+        "type": "VARCHAR(255)",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "color": {
+        "type": "VARCHAR(255)",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "subject": {
+        "type": "VARCHAR(255)",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "type": {
+        "type": "ENUM('Default','Manual','Automatic')",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "is_job_profile_tag": {
+        "type": "TINYINT(1)",
+        "allowNull": true,
+        "defaultValue": "0",
+        "primaryKey": false
+    },
+    "_to": {
+        "type": "DATETIME",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "_from": {
+        "type": "DATETIME",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "assign_to_all_emails": {
+        "type": "TINYINT(1)",
+        "allowNull": true,
+        "defaultValue": "0",
+        "primaryKey": false
+    },
+    "template_id": {
+        "type": "INT(11)",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "default_id": {
+        "type": "INT(11)",
+        "allowNull": true,
+        "defaultValue": "0",
+        "primaryKey": false
+    },
+    "is_email_send": {
+        "type": "TINYINT(1)",
+        "allowNull": true,
+        "defaultValue": "0",
+        "primaryKey": false
+    },
+    "job_description": {
+        "type": "VARCHAR(255)",
+        "allowNull": true,
+        "defaultValue": "",
+        "primaryKey": false
+    },
+    "priority": {
+        "type": "VARCHAR(255)",
+        "allowNull": true,
+        "defaultValue": "0",
+        "primaryKey": false
+    },
+    "parent_id": {
+        "type": "INT(11)",
+        "allowNull": true,
+        "defaultValue": "0",
+        "primaryKey": false
+    },
+    "keyword": {
+        "type": "VARCHAR(255)",
+        "allowNull": true,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "createdAt": {
+        "type": "DATETIME",
+        "allowNull": false,
+        "defaultValue": null,
+        "primaryKey": false
+    },
+    "updatedAt": {
+        "type": "DATETIME",
+        "allowNull": false,
+        "defaultValue": null,
+        "primaryKey": false
+    }
+}
+}]
