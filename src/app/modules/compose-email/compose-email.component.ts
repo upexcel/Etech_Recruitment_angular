@@ -35,6 +35,7 @@ export class ComposeEmailComponent implements OnInit {
     subject = '';
     selectedTempplateId: any;
     notGenuine: any;
+    resendEmailTrackingData: boolean;
     constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
     }
 
@@ -106,8 +107,12 @@ export class ComposeEmailComponent implements OnInit {
             width: '40%'
         });
         this.filteredTemp['subject'] = form.value.subject;
+        this.filteredTemp['campaign_name'] = form.value.campaign_name;
         this.filteredTemp['body'] = this.body;
         this.filteredTemp['template_id'] = form.value.template_id;
+        if (this.resendEmailTrackingData) {
+            this.filteredTemp['old_campaign_name'] = this.resendEmailTrackingData['old_campaign_name']
+        }
         if (form.value['default_id'] || form.value['tag_id']) {
             this.filteredTemp['default_id'] = form.value['default_id'];
             this.filteredTemp['tag_id'] = form.value['tag_id']
