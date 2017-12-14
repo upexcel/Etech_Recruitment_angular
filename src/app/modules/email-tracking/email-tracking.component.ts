@@ -27,7 +27,6 @@ export class EmailTrackingComponent implements OnInit {
 
     emailTrackingData() {
         this._apiService.getEmailTrackingData().subscribe((res) => {
-            console.log(res)
             this.trackingData = res.reverse();
             this.selectedTrackingFullData = res[0];
             this.paginate(this.selectedTrackingFullData['data']);
@@ -45,9 +44,7 @@ export class EmailTrackingComponent implements OnInit {
         this.totalPages = Math.ceil((this.selectedTrackingFullData['data'].length || 0) / this.recordPerPage);
         const startRec = this.pageNo * this.recordPerPage;
         const endRec = startRec + this.recordPerPage;
-        console.log(data, startRec, endRec)
         this.selectedTrackingData = _.slice(data, startRec, endRec);
-        console.log(this.selectedTrackingData)
     }
 
     next() {
@@ -66,7 +63,6 @@ export class EmailTrackingComponent implements OnInit {
     }
 
     resendEmail() {
-        console.log(this.selectedTrackingFullData)
         this.dialogRef = this.dialog.open(ComposeEmailComponent, {
             height: '90%',
             width: '70%'
