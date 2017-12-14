@@ -1,0 +1,61 @@
+<md-card id="emailtracking_table" *ngIf="selectedTrackingData">
+  <div class="row">
+    <div class="col-md-3 col-sm-12 no-mar">
+      <md-select id="job-profile-select" [(ngModel)]="selectedTrackingData">
+        <md-option *ngFor="let tracking of trackingData" [value]="tracking">{{ tracking.job_profile }}</md-option>
+      </md-select>
+    </div>
+  </div>
+  <br />
+  <md-slide-toggle [(ngModel)]="filter"><b>Filter</b></md-slide-toggle>
+  <div class="row" *ngIf="filter" >
+
+    <div class="col-md-3 col-sm-12 no-mar">
+      <md-input-container>
+        <input mdInput placeholder="Start Date" [ngModel]="startDate | date:'dd-MMMM-y'" (focus)="picker.open()">
+        <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [hidden]='true'>
+        <button mdSuffix [mdDatepickerToggle]="picker"></button>
+      </md-input-container>
+      <md-datepicker #picker (selectedChanged)="changeInDateStartDate($event)"></md-datepicker>
+    </div>
+    <div class="col-md-3 col-sm-12 no-mar">
+      <md-input-container>
+        <input mdInput placeholder="End Date" [ngModel]="endDate | date:'dd-MMMM-y'" (focus)="picker1.open()" [disabled]="!startDate">
+        <input mdInput [mdDatepicker]="picker1" [ngModel]="endDate" [min]="startDate" [max]="maxDate" [hidden]='true'>
+        <button mdSuffix [mdDatepickerToggle]="picker1" [disabled]="!startDate"></button>
+      </md-input-container>
+      <md-datepicker #picker1 (selectedChanged)="changeInDateEndDate($event)"></md-datepicker>
+    </div>
+    <div class="col-md-3 col-sm-12 no-mar">
+      <button md-raised-button>Apply</button>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="list table">
+      <thead>
+        <tr>
+          <th>Sr. No</th>
+          <th>Email</th>
+          <th>Sent ON</th>
+          <th>Seen</th>
+          <th>Seen On</th>
+          <!-- <th>Action</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tracking of selectedTrackingData.data;index as i;">
+          <td>{{i+1}}</td>
+          <td>{{tracking.candidate_email}}</td>
+          <td>{{tracking.sent_time | date: 'medium'}}</td>
+          <td>
+            <i class="material-icons" [ngStyle]="{'color':tracking.view_time ? 'green' : 'red' }">done_all</i>
+          </td>
+          <td>{{tracking.view_time | date: 'medium'}}</td>
+          <!-- <td>
+            <button md-raised-button color="primary">Send Again</button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</md-card>
