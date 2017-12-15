@@ -1,0 +1,131 @@
+[{
+    "data": [
+      {
+        "_id": "5a2fcbd775c9c77950324045",
+        "_from": "",
+        "sender_mail": "testhr69@gmail.com",
+        "date": "2017-12-12T12:27:49.000Z",
+        "email_date": "2017-12-12T12:27:49.000Z",
+        "subject": "Smtp test",
+        "unread": true,
+        "uid": 1429,
+        "is_automatic_email_send": 0,
+        "default_tag": "",
+        "is_attachment": false,
+        "tag_id":[1,2],
+        "attachment":[]
+
+  
+  
+      },
+      {
+        "_id": "5a2fcbd775c9c77950324043",
+        "_from": "",
+        "sender_mail": "testhr69@gmail.com",
+        "date": "2017-12-12T12:27:48.000Z",
+        "email_date": "2017-12-12T12:27:48.000Z",
+        "subject": "Smtp test",
+        "unread": true,
+        "uid": 1428,
+        "is_automatic_email_send": 0,
+        "default_tag": "",
+        "is_attachment": false,
+        "tag_id":[1,2],
+        "attachment":[]
+  
+  
+      },
+      {
+        "_id": "5a2fcbd775c9c77950324044",
+        "_from": "",
+        "sender_mail": "testhr69@gmail.com",
+        "date": "2017-12-12T12:21:23.000Z",
+        "email_date": "2017-12-12T12:21:23.000Z",
+        "subject": "Smtp test",
+        "unread": true,
+        "uid": 1427,
+        "is_automatic_email_send": 0,
+        "default_tag": "",
+        "is_attachment": false,
+        "tag_id":[3,4],
+        "attachment":[]
+  
+  
+      },
+      {
+        "_id": "5a2fcbd875c9c77950324047",
+        "_from": "",
+        "sender_mail": "testhr69@gmail.com",
+        "date": "2017-12-12T12:21:22.000Z",
+        "email_date": "2017-12-12T12:21:22.000Z",
+        "subject": "Smtp test",
+        "unread": true,
+        "uid": 1426,
+        "is_automatic_email_send": 0,
+        "default_tag": "",
+        "is_attachment": false,
+        "tag_id":[3,4],
+        "attachment":[]
+  
+  
+      },
+      {
+        "_id": "5a2fcbd875c9c77950324046",
+        "_from": "",
+        "sender_mail": "testhr69@gmail.com",
+        "date": "2017-12-12T12:12:44.000Z",
+        "email_date": "2017-12-12T12:12:44.000Z",
+        "subject": "Smtp test",
+        "unread": true,
+        "uid": 1425,
+        "is_automatic_email_send": 0,
+        "default_tag": "",
+        "is_attachment": false,
+        "tag_id":[5,6],
+        "attachment":[]
+  
+  
+      },
+      {
+        "_id": "5a2fcbd775c9c77950324042",
+        "_from": "",
+        "sender_mail": "testhr69@gmail.com",
+        "date": "2017-12-12T12:12:43.000Z",
+        "email_date": "2017-12-12T12:12:43.000Z",
+        "subject": "Smtp test",
+        "unread": true,
+        "uid": 1424,
+        "is_automatic_email_send": 0,
+        "default_tag": "",
+        "is_attachment": false,
+        "tag_id":[5,6],
+        "attachment":[]
+  
+  
+      },
+      {
+        "_id": "5a2fa1a24a42df17c332ae07",
+        "_from": "",
+        "sender_mail": "testhr69@gmail.com",
+        "date": "2017-12-12T09:22:22.000Z",
+        "email_date": "2017-12-12T09:22:22.000Z",
+        "subject": "Smtp test",
+        "unread": true,
+        "uid": 1422,
+        "is_automatic_email_send": 0,
+        "default_tag": "",
+        "is_attachment": false,
+        "tag_id":[5,6],
+        "attachment":[]
+
+  
+  
+      }
+      
+    ],
+    "status": 1,
+    "count": 135,
+    "message": "SUCCESS"
+  }
+  ]
+  
