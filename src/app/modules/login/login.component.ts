@@ -4,6 +4,8 @@ import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MdSnackBar } from '@angular/material';
+import { SqlLiteService } from '../../service/sqlite.service';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-login',
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
     loading: boolean;
     message: string;
     showmessage: boolean;
-    constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
+    constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar, private SqlLiteService: SqlLiteService) {
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
                 duration: 2000,
@@ -45,6 +47,25 @@ export class LoginComponent implements OnInit {
                 this._localStorageService.setItem('role', data.role);
                 this._localStorageService.setItem('userEmail', this.email);
                 this.access.storeToken(data.token).then((status) => {
+                    this.SqlLiteService.createSqlLiteDB()
+                    this.SqlLiteService.createSqlLiteTable()
+                    this.SqlLiteService.getData().subscribe((res) => {
+                        // console.log('api', res);
+                        _.forEach(res, (value, key) => {
+                            // console.log(value, key)
+                            if (value.emailFetch ) {
+                                this.SqlLiteService.insertSqlLiteTable('emailFetch', value.emailFetch);
+                            }
+                        });
+                    })
+                    this.SqlLiteService.getData().subscribe((res) => {
+                        _.forEach(res, (value, key) => {
+                            if (value.Tag) {
+                                this.SqlLiteService.insertSqlLiteTable('Tag', value.Tag)
+                            }
+                        })
+                    })
+                    // this.sqliteservice.dropTable()
                     this._router.navigate(['/core/inbox']);
                 });
             },

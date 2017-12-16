@@ -1,8 +1,8 @@
 
 {
     "Email":
-            "CREATE TABLE IF NOT EXISTS Email (_id VARCHAR,_from VARCHAR,sender_mail VARCHAR,date VARCHAR,email_date VARCHAR,subject VARCHAR,unread VARCHAR,uid VARCHAR,is_automatic_email_send VARCHAR,default_tag VARCHAR,is_attachment VARCHAR,tag_id VARCHAR,attachment VARCHAR)",
+            "CREATE TABLE IF NOT EXISTS emailFetch (_id VARCHAR,_from VARCHAR,sender_mail VARCHAR,date VARCHAR,email_date VARCHAR,subject VARCHAR,unread VARCHAR,uid VARCHAR,is_automatic_email_send VARCHAR,default_tag VARCHAR,is_attachment VARCHAR,tag_id VARCHAR,attachment VARCHAR)",
     "tag_table":
-            "CREATE TABLE IF NOT EXISTS tag_table(id INTEGER,email VARCHAR(255),title VARCHAR(255),color VARCHAR(255),subject VARCHAR(255),type VARCHAR,is_job_profile_tag INTEGER,_to DATETIME,_from DATETIME,assign_to_all_emails INTEGER,template_id INTEGER,default_id INTEGER,is_email_send INTEGER,job_description VARCHAR(255),priority VARCHAR(255),parent_id INTEGER,keyword VARCHAR(255),createdAt DATETIME,updatedAt DATETIME )"       
+            "CREATE TABLE IF NOT EXISTS Tag(id INTEGER,email VARCHAR(255),title VARCHAR(255),color VARCHAR(255),subject VARCHAR(255),type VARCHAR,is_job_profile_tag INTEGER,_to DATETIME,_from DATETIME,assign_to_all_emails INTEGER,template_id INTEGER,default_id INTEGER,is_email_send INTEGER,job_description VARCHAR(255),priority VARCHAR(255),parent_id INTEGER,keyword VARCHAR(255),createdAt DATETIME,updatedAt DATETIME )"       
 
 }

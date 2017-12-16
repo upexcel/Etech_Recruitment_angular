@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {MdIconRegistry} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
-import { SqlLiteService } from './service/sqlite.service';
-import * as _ from 'lodash';
+// import { SqlLiteService } from './service/sqlite.service';
+// import * as _ from 'lodash';
 
 @Component({
     selector: 'app-root',
@@ -11,17 +11,17 @@ import * as _ from 'lodash';
 })
 export class AppComponent implements OnInit {
     tagdata: any;
-    constructor(private sqliteservice: SqlLiteService) { }
+    constructor() { }
     ngOnInit(): void {
-        this.sqliteservice.createSqlLiteDB()
-        this.sqliteservice.createSqlLiteTable()
-        this.sqliteservice.getData().subscribe((res) => {
-            _.forEach(res, (value, key) => {
-                if (value.Tag) {
-                    this.sqliteservice.insertSqlLiteTable(value.Tag)
-                }
-            })
-        })
+        // this.sqliteservice.createSqlLiteDB()
+        // this.sqliteservice.createSqlLiteTable()
+        // this.sqliteservice.getData().subscribe((res) => {
+        //     _.forEach(res, (value, key) => {
+        //         if (value.Tag) {
+        //             this.sqliteservice.insertSqlLiteTable(value.Tag)
+        //         }
+        //     })
+        // })
         //   this.sqliteservice.dropTable()
     }
 

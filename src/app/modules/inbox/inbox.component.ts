@@ -36,6 +36,7 @@ import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
+import { SqlLiteService } from './../../service/sqlite.service';
 
 @Component({
     selector: 'app-inbox',
@@ -74,7 +75,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     lastSelectedTagData: any;
     goToPageNo: number;
     email: any;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
+    fetchLocalEmails: any;
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService, public SqlLiteService: SqlLiteService ) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
@@ -124,10 +126,19 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
                                     this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
-                                    this.getemails.getEmailList(this.data).subscribe((data) => {
-                                        this.addSelectedFieldInEmailList(data);
+                                    // this.getemails.getEmailList(this.data).subscribe((data) => {
+                                    //     console.log('>>>>>>>>>>>>>>>>>>>>api data', data)
+                                    //     this.addSelectedFieldInEmailList(data);
+                                    //     this.loading = false;
+                                    // });
+                                    // this.fetchLocalEmails = this.SqlLiteService.fetchMails()
+                                    this.SqlLiteService.fetchMails((fetch) => {
+                                        this.fetchLocalEmails = fetch
+                                        this.addSelectedFieldInEmailList(this.fetchLocalEmails);
                                         this.loading = false;
-                                    });
+                                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>componenet fetch', this.fetchLocalEmails)
+                                    })
+
                                 }
                             });
                         }
@@ -264,8 +275,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.emaillist['data'][index]['unread'] = false;
         }
         // if (environment['picasa']) {
-            const landingUrl = window.location + '/email/' + email._id;
-            window.open(landingUrl);
+        const landingUrl = window.location + '/email/' + email._id;
+        window.open(landingUrl);
         // }else {
         //     this._router.navigate(['core/inbox/email', email._id]);
         // }

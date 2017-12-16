@@ -10,12 +10,13 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 declare let window: any;
 @Injectable()
 export class SqlLiteService {
+    fetchLocalEmails: any;
     db: any;
     constructor(private apiService: ImapMailsService, private http: Http ) {}
     createSqlLiteDB() {
         try {
             if (window.openDatabase) {
-                const databaseName = 'Hr_Recruit';
+                const databaseName = 'HR_Recruit';
                 const version = '1.0';
                 const displayName = 'myDatabase';
                 const maxSize = 65535;
@@ -43,12 +44,12 @@ export class SqlLiteService {
         })
 
     }
-    insertSqlLiteTable(insertData) {
+    insertSqlLiteTable(tableName, data) {
 
         const findLength = keys(sqldata);
         let count = 0;
         count++;
-        forEach(insertData, (value1, key1) => {
+        forEach(data, (value1, key1) => {
             let dataToInsert: String = '';
             forEach(value1, (value3, key2) => {
                 if (typeof(value3) === 'object' ) {
@@ -56,15 +57,16 @@ export class SqlLiteService {
                 }
                 dataToInsert = dataToInsert + '"' + value3 + '"' + '' + ',';
             })
-            this.insert(dataToInsert);
+            this.insert(tableName, dataToInsert);
         })
     }
 
-    insert(dataToInsert) {
+    insert(insert, dataToInsert) {
         dataToInsert = dataToInsert.slice(0, -1);
         console.log(dataToInsert)
         this.db.transaction(function (tx) {
-            tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
+            // tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
+            tx.executeSql(`INSERT INTO ${insert} VALUES (${dataToInsert})`, [], (res) => {
                 console.log('inserted', res)
             }, function (err) {
                 console.log('error', err)
@@ -77,9 +79,24 @@ export class SqlLiteService {
             return res.json();
         })
     }
+    fetchMails(cb) {
+        this.db.transaction(function(tx: any) {
+            tx.executeSql('SELECT * FROM emailFetch', [], function(tx, results) {
+                results['data'] = []
+                forEach(results.rows, (value, key) => {
+                    results['data'].push(value)
+                })
+                cb(results)
+            }, function(tx, error) {
+                console.log('>>>>>>>>jk>>>>>>>>', error);
+            }
+            );
+        });
+
+    }
     dropTable() {
         this.db.transaction(function(tx){
-            tx.executeSql('DROP TABLE tag_table');
+            tx.executeSql('DROP TABLE Tag');
         })
     }
 
