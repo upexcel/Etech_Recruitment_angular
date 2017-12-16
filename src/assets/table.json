@@ -1,4 +1,3 @@
 {
-  "allEmailData" : "CREATE TABLE IF NOT EXISTS allEmailData (_id VARCHAR, _from VARCHAR, sender_mail VARCHAR,date VARCHAR,email_date VARCHAR,subject VARCHAR,unread VARCHAR,uid VARCHAR,is_automatic_email_send VARCHAR,default_tag VARCHAR,is_attachment VARCHAR)",
-  "insertData": "INSERT INTO allEmailData"
+  "emailFetch" : "CREATE TABLE IF NOT EXISTS emailFetch (_id VARCHAR, _sfrom VARCHAR, sender_mail VARCHAR,date DATETIME,email_date DATETIME,subject VARCHAR,unread BOOLEAN,uid INTEGER,is_automatic_email_send INTEGER,default_tag VARCHAR,is_attachment BOOLEAN,attachment VARCHAR, tag_id VARCHAR)"
 }
