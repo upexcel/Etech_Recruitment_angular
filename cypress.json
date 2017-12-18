@@ -19,6 +19,6 @@
   "jobprofile": "TEST",
   "automaticTag": "AutoTEST",
   "defaultTagTitle": "noida",
-  "waitForAnimations": false,
+  "waitForAnimations": true,
   "keyword": "noida"
 }

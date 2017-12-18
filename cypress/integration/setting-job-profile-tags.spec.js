@@ -65,14 +65,12 @@ describe("Setting/Job Profile Tag Page Test", function() {
       cy.get("#addKeyword input").type(data.keyword +'{enter}');
        cy.get("#tagBtn #save").click()
     })
-
      cy.wait("@getAutotag")
      cy.get("#jobProfile").contains(data.jobprofile)
      cy.get("#jobProfile").contains(data.jobprofile).click();
      cy.get("#editKeyword rl-tag-input-item").contains(data.jobprofile);
      cy.get("#editKeyword rl-tag-input-item").contains(data.keyword);
      cy.get("#tagBtn #close").click()
-
   });
 
   //after adding job profile tag , go to inbox page and check last added tag must be there with all default tags

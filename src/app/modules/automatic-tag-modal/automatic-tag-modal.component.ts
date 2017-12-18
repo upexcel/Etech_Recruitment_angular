@@ -33,7 +33,7 @@ export class AutomaticTagModalComponent implements OnInit {
     }
 
     save() {
-        this.tag.keyword = this.tags.toString()
+        this.tag.keyword = this.tags ? this.tags.toString() : this.tags;
         this.tag.title = this.originaltitle;
         this.tag.color = this.originalcolor;
         this.tag.template_id = this.temp_id;

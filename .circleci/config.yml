@@ -25,7 +25,7 @@ jobs:
             - v1-npm-deps
       - run: npm install
       - run: npm rebuild node-sass --force
-      - run: npm install pm2 -g 
+      - run: npm install pm2 -g
       - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
@@ -124,4 +124,4 @@ jobs:
       - store_test_results:
           path: results
       - store_artifacts:
-          path: cypress/M
+          path: cypress/screenshots

@@ -69,6 +69,7 @@ describe('Setting/AutomaticTag Setting Page Test', function () {
           cy.get("#tagSubject input").type("Autotagtest");
           cy.get("#tagBtn #save").click().wait(1000);
         })
+      cy.get("#add_tag").should("not.be.visible")
       cy.get("#autotagPage").contains("Autotagtest").wait(1000);
       cy.get("#toolbar button#sideNav").click();
       cy.get("md-sidenav div#inbox").click().wait(3000);

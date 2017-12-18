@@ -17,6 +17,7 @@ describe('Schedule Interview Page Test', function () {
         cy.get('#scheduleByDirect').should("have.class", "mat-radio-checked");
         cy.get('#scheduleByEmail label').click()
         cy.get('#scheduleByEmail').should("have.class", "mat-radio-checked")
+        cy.get('md-dialog-container #back').click()
       })
   })
 
