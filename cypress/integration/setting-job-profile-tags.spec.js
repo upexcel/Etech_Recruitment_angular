@@ -3,16 +3,13 @@ describe("Setting/Job Profile Tag Page Test", function() {
   beforeEach(function() {
     cy.login(data.email, data.password);
     cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-    // cy.get('#sideNav').click()
-    // cy.get('md-sidenav #setting').click()
-    // cy.get('#jobProfileTags').click()
     cy.server();
-    cy.route("GET", "**").as("getProtag");
+    cy.route("GET", data.apiUrl + "/**").as("getAutotag");
 
   });
-  // afterEach(function() {
-  //   cy.logout();
-  // });
+  afterEach(function() {
+    cy.logout();
+  });
 
   //it should visit setting/JobProfileTag seting page, page have option to add JobProfileTag tag
   it('Visits the Setting/JobProfileTag Setting Page, check page options', function () {
@@ -64,15 +61,21 @@ describe("Setting/Job Profile Tag Page Test", function() {
       cy.get("#title").type(data.jobprofile);
       cy.get("#tagSubject input").type(data.jobprofile);
       cy.get("#tagDescription textarea").type(data.jobprofile);
-      cy.get("#tagBtn #save").click()
+      cy.get("#addKeyword input").type(data.jobprofile +'{enter}');
+      cy.get("#addKeyword input").type(data.keyword +'{enter}');
+       cy.get("#tagBtn #save").click()
     })
-    cy.wait("@postAddTag")
-    cy.get("#jobProfile").contains(data.jobprofile);
+     cy.wait("@getAutotag")
+     cy.get("#jobProfile").contains(data.jobprofile)
+     cy.get("#jobProfile").contains(data.jobprofile).click();
+     cy.get("#editKeyword rl-tag-input-item").contains(data.jobprofile);
+     cy.get("#editKeyword rl-tag-input-item").contains(data.keyword);
+     cy.get("#tagBtn #close").click()
   });
 
   //after adding job profile tag , go to inbox page and check last added tag must be there with all default tags
   it('test inbox page tags with last added tag', function () {
-  // cy.get("#jobProfile #ul>#li:last").contains(data.jobprofile);
+  cy.get("#jobProfile #ul>#li:last").contains(data.jobprofile);
     // cy.get("#addTag button").click();
     //   cy.get("#add_tag").within(function() {
     //       cy.get("#title").type(data.jobprofile);
@@ -110,7 +113,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
         cy.get("#tagDescription textarea").type(data.jobprofile);
         cy.get("#tagBtn #save").click()
       })
-      cy.get("@postAddTag")
+    cy.wait("@getAutotag");
     cy.get("#jobProfile").contains(data.jobprofile)
     cy.get("#jobProfile #ul>#li:last #deleteTag").should("have.class", "iconset");
     cy.get("#jobProfile #ul>#li:last #deleteTag").click();
@@ -118,6 +121,7 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#confirm #confirmYes").should("have.class","mat-raised-button");
     cy.get("#confirm #confirmNo").should("have.class", "mat-raised-button");
     cy.get("#confirm #confirmYes").click();
+    cy.wait("@getAutotag");
     cy.get("md-dialog-container").should("not.be.visible");
     cy.get("#jobProfile #ul>#li:last").should("not.have.value",data.jobprofile)
     cy.get("#toolbar button#sideNav").click();

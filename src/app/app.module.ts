@@ -158,6 +158,7 @@ import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
 
 import { DragulaModule } from 'ng2-dragula';
+import {RlTagInputModule} from 'angular2-tag-input';
 @NgModule({
     declarations: [
         AppComponent,
@@ -234,6 +235,7 @@ import { DragulaModule } from 'ng2-dragula';
         MdNativeDateModule,
         ChartsModule,
         DragulaModule,
+        RlTagInputModule
     ],
     providers: [
         ImapMailsService,

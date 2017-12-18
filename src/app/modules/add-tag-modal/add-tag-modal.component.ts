@@ -20,6 +20,7 @@ export class AddTagModalComponent implements OnInit {
     addTagType: string;
     originalcolor = color_list[0];
     availableColors = color_list;
+    tags= [];
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
@@ -40,6 +41,7 @@ export class AddTagModalComponent implements OnInit {
         if (form.valid) {
             if (this.addTagType === 'jobProfile') {
                 form.value.is_job_profile_tag = 1;
+                form.value.keyword = form.value.keyword.toString();
             }
             if (form.value.assign === '') {
                 form.value.assign = false;

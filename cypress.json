@@ -17,10 +17,8 @@
   "userEmail": "testexcel69@gmail.com",
   "userPass": "123",
   "jobprofile": "TEST",
-  "intialJobTag": "JobTag",
-  "trashAssetsBeforeHeadlessRuns": false,
-  "videoCompression": 32,
-  "videoRecording": true,
-  "videoUploadOnPasses": true,
-  "automaticTag": "AutoTEST"
+  "automaticTag": "AutoTEST",
+  "defaultTagTitle": "noida",
+  "waitForAnimations": true,
+  "keyword": "noida"
 }

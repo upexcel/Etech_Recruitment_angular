@@ -95,5 +95,6 @@ describe('Setting/Email Template, Add Email Template Page Test', function() {
     cy.get('#templatePanel').should('be.exist')
     cy.get('#templates:first app-single-template md-card-title').contains("test");
     cy.get('#templates:first app-single-template md-card-subtitle').contains("Subject: testSubject");
+    cy.deleteTemplate();
   })
 })

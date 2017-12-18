@@ -18,6 +18,12 @@ export class CommonService {
             return { 'background-color': '#F1B2B2' };
         } else if (title === 'Schedule') {
             return { 'background-color': '#FBB917' };
+        } else if (title === 'First Round') {
+            return { 'background-color': '#00cc93' };
+        } else if (title === 'Second Round') {
+            return { 'background-color': '#e5cf00' };
+        } else if (title === 'Third Round') {
+            return { 'background-color': '#007f00' };
         } else {
             return { 'background-color': 'cyan' };
         }
@@ -32,6 +38,12 @@ export class CommonService {
             return 'highlight_off';
         } else if (title === 'Schedule') {
             return 'access_time';
+        } else if (title === 'First Round') {
+            return 'done';
+        } else if (title === 'Second Round') {
+            return 'done_all';
+        } else if (title === 'Third Round') {
+            return 'thumb_up';
         } else {
             return 'thumb_up';
         }
