@@ -54,7 +54,8 @@ export class TestTemplateComponent implements OnInit {
             height: '60%',
             width: '40%'
         });
-        this.filteredTemp.subject = this.subject_for_genuine + ' ' + this.filteredTemp.subject;
+        // this.filteredTemp.subject = this.subject_for_genuine + ' ' + this.filteredTemp.subject;
+        this.filteredTemp.subject = this.filteredTemp.subject;
         this.dialogConfig.componentInstance.pendingVariables = this.pendingVariables;
         this.dialogConfig.componentInstance.temp = this.filteredTemp;
         this.dialogConfig.componentInstance.userDetails = this.userDetails;
