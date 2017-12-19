@@ -1,6 +1,8 @@
+import * as data from '../../cypress.json';
 describe("Setting/Tag Setting Page Test", function() {
   beforeEach(function() {
-    cy.login();
+    cy.login(data.email, data.password);
+    cy.visit(data.baseUrl + "/core/setting/tagsetting");
   });
 
   afterEach(function() {
@@ -27,7 +29,7 @@ describe("Setting/Tag Setting Page Test", function() {
     cy.get("md-dialog-container").should("not.be.visible");
   });
 
-  // //check if form is invalid save button must be disable
+  //check if form is invalid save button must be disable
   it("check add button validation", function() {
     cy.get("#AddTag").click();
     cy.get("md-dialog-container").should("be.visible");
@@ -36,7 +38,7 @@ describe("Setting/Tag Setting Page Test", function() {
     cy.get("#close").click();
   });
 
-  // //check if user enable 'send automatic email' or 'assign to all exiting emails' it should be enable
+  //check if user enable 'send automatic email' or 'assign to all exiting emails' it should be enable
   it("test \"send automatic email\" or \"assign to all exiting emails\" option functionality", function() {
     cy.get("#AddTag").click();
     cy.get("#send_email").click();
@@ -59,8 +61,8 @@ describe("Setting/Tag Setting Page Test", function() {
   // if user fill title and subject and click on save button it should added a tag and popup will close and lis of manual tag will be update
   it("check add button with valid form data", function() {
     cy.get("#AddTag").click();
-    cy.get("#title").type("test");
-    cy.get("#subject").type("gggggg");
+    cy.get("#title").type("title_test");
+    cy.get("#subject").type("subject_test");
     cy.get("#save").click().then(function() {
       cy.get("md-dialog-container").should("not.be.visible");
       cy.get(".tagbutton1").contains("test");
@@ -69,9 +71,8 @@ describe("Setting/Tag Setting Page Test", function() {
 
   //in every manual tag have a option to delete button, if user click on delete button manual tag list, that tag must be delted from list
   it("test manual tag delete functionality", function() {
-    cy.get(".tagbutton1:last").then(($selectedDelete) => {
+    cy.get(".tagbutton1:last .tagname").then(($selectedDelete) => {
       cy.get(".tagbutton1:last md-icon").click();
-      // console.log("kkkkkkkkkkkkkkkk", $selectedDelete[0].innerText)
       cy.get(".tagbutton1:last tagname").should("not.have.text", $selectedDelete[0].innerText);
     });
   });

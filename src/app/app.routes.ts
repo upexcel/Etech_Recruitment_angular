@@ -25,6 +25,7 @@ import { AddNewUserComponent } from './modules/add-new-user/add-new-user.compone
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { SlackInfoComponent } from './modules/slack-info/slack-info.component';
+import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -56,6 +57,11 @@ export const routes: Route[] = [{
                 component: DashboardComponent,
                 canActivate: [LoginRouteGuard],
                 data : { isHome : false }
+            },
+            {
+                path: 'email-tracking',
+                component: EmailTrackingComponent,
+                canActivate: [LoginRouteGuard],
             }, {
                 path: 'setting',
                 component: SettingComponent,

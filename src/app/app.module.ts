@@ -156,8 +156,9 @@ import { DialogService } from './service/dialog.service';
 import { DashboardService } from './service/dashboard.service';
 import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
-
+import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 import { DragulaModule } from 'ng2-dragula';
+import { RlTagInputModule } from 'angular2-tag-input';
 @NgModule({
     declarations: [
         AppComponent,
@@ -210,7 +211,8 @@ import { DragulaModule } from 'ng2-dragula';
         AddNoteComponent,
         SlackInfoComponent,
         SlackComponentFormComponent,
-        AddSubTagModalComponent
+        AddSubTagModalComponent,
+        EmailTrackingComponent
     ],
     imports: [
         BrowserModule,
@@ -234,6 +236,7 @@ import { DragulaModule } from 'ng2-dragula';
         MdNativeDateModule,
         ChartsModule,
         DragulaModule,
+        RlTagInputModule
     ],
     providers: [
         ImapMailsService,
@@ -272,4 +275,4 @@ import { DragulaModule } from 'ng2-dragula';
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

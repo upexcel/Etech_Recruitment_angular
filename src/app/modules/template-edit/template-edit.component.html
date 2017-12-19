@@ -10,19 +10,18 @@
                     <input mdInput placeholder="Template Name" [(ngModel)]="tempName" autoComplete="off" name="templateName" required ngModel>
                     <md-error>Required</md-error>
                 </md-input-container>
-                <md-input-container class="width-25">
-                    <input mdInput placeholder="Subject" [disabled]="true" autoComplete="off" name="fixedsubject" required [(ngModel)]="subject_for_genuine">
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-75">
-                    <input mdInput placeholder="" [(ngModel)]="subject" autoComplete="off" name="subject" required ngModel>
+                <md-input-container class="width-100">
+                    <input mdInput placeholder="Subject" [(ngModel)]="subject" autoComplete="off" name="subject" required ngModel>
                     <md-error>Required</md-error>
                 </md-input-container>
                 <ckeditor name="body"
                     [(ngModel)]="ckeditorContent"
                     [config]="{uiColor: '#00ffff'}"
-                    debounce="500" ngModel>
+                    debounce="500" ngModel *ngIf="production">
                 </ckeditor>
+                <md-input-container class="width-100" *ngIf="!production">
+                    <textarea mdInput rows="4" id="tempBody" name="body" type="textarea" placeholder="Template Body"[(ngModel)]="ckeditorContent" required></textarea>
+                  </md-input-container>
             </p>
         </div>
         <div class="side">

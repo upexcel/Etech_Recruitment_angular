@@ -12,6 +12,10 @@
       <p class="mainnav">Inbox</p>
     </div>
     <hr>
+    <div class="hovestyle" *ngIf="role == 'Admin'"  (click)="goto('email-tracking','Email Tracking');sidenav.close()">
+      <p class="mainnav">Email Tracking</p>
+    </div>
+    <hr>
     <div class="hovestyle" (click)="goto('setting','Settings');sidenav.close()">
       <p class="mainnav">Settings</p>
     </div>
@@ -24,7 +28,7 @@
   </md-sidenav>
   <div class="bgcolor container-fluid">
     <div class="row" id="toolbar">
-      <md-toolbar color="accent">
+      <md-toolbar id="topnav" color="accent">
         <button id="sideNav" md-icon-button (click)="sidenav.open()">
           <md-icon>menu</md-icon>
         </button>
@@ -36,7 +40,7 @@
           <i>
         <small><md-icon>system_update_alt</md-icon></small>
         </i>
-        </button>
+      </button>
         <md-spinner id="spinner" class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
       </md-toolbar>
       <router-outlet></router-outlet>

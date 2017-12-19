@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-template-edit',
@@ -17,10 +18,12 @@ export class TemplateEditComponent implements OnInit {
     subject: string;
     temp: any;
     subject_for_genuine: string;
+    production: boolean;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {
+        this.production = environment['production']
         this.tempName = this.temp.templateName;
         this.subject = this.temp.subject;
         this.ckeditorContent = this.temp.body;

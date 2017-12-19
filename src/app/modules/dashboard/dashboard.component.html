@@ -3,6 +3,7 @@
   <p (click)="logginpage()" mdTooltip="Login"><i class="material-icons">power_settings_new</i></p>
 
 </div>
+<md-spinner *ngIf="loading" class="spin"></md-spinner>
 <div class="dashboard" *ngIf="dashboardData">
   <md-card>
     <md-card-title>Jobs Application</md-card-title>

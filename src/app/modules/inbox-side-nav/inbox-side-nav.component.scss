@@ -11,7 +11,7 @@ md-list {
     }
 }
 .active {
-  background-color: $hovecolor;  
+  background-color: $hovecolor;
 }
 .blue {
     color:$borderleftblue;
@@ -60,7 +60,7 @@ a:hover {
 }
 .subenav {
     margin-left: 6px;
-    padding: 4px 0px;
+    // padding: 4px 0px;
     cursor: pointer;
 }
 .subenav p {
@@ -88,7 +88,7 @@ a:hover {
 }
 .logo {
     @extend .logodesign;
-    @extend .heightwidth27;  
+    @extend .heightwidth27;
 }
 .assign {
     color: $jobassigncolor;
@@ -117,4 +117,17 @@ a:hover {
 .tagstyle{
     color:grey !important;
     font-style: italic !important;
+}
+.toggleDown{
+position: absolute;
+   margin-top: -25px;
+   right: 13px;
+}
+.toggleUp{
+position: absolute;
+   margin-top: -41px;
+   right: 13px;
+}
+.Subchild{
+ padding: 4px 0px;
 }
