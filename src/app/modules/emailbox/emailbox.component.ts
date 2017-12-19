@@ -23,6 +23,7 @@ export class EmailboxComponent implements OnInit {
     @Input() tagselected: any;
     @Input() dataForInterviewScheduleRound: any;
     @Input() inboxMailsTagsForEmailListAndModel: any;
+    @Input() intervieweeList: any
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
     @Output() refreshEmail = new EventEmitter<any>();
@@ -120,5 +121,17 @@ export class EmailboxComponent implements OnInit {
             });
         }
 
+    }
+
+    assignInterviewee(interviewee) {
+        const apiData = {
+            mongo_id: this.email._id,
+            interviewee: interviewee
+        }
+        this.assignEmail.assignInterviewee(apiData).subscribe((res) => {
+            console.log(res)
+        }, (err) => {
+            console.log(err)
+        })
     }
 }

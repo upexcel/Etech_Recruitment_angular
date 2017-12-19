@@ -49,6 +49,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
     updatedData: any
     user: any;
     mongoid: any;
+    intervieweeList: any;
     constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
@@ -88,7 +89,30 @@ export class EmailModalComponent implements OnInit, OnDestroy {
                 document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
             }, 100);
         }
+        this.getIntervieweeList();
     }
+
+    getIntervieweeList() {
+        this.commonService.getIntervieweeList().then((res) => {
+            console.log(res)
+            this.intervieweeList = res;
+        }, (err) => {
+            console.log(err)
+        })
+    }
+
+    assignInterviewee(interviewee) {
+        const apiData = {
+            mongo_id: this.email._id,
+            interviewee: interviewee
+        }
+        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => {
+            console.log(res)
+        }, (err) => {
+            console.log(err)
+        })
+    }
+
     ngOnDestroy() {
         document.getElementById('topnav').classList.remove('sidehide');
         document.getElementById('leftPart').classList.remove('sidehide');
