@@ -44,5 +44,6 @@ describe("Login Page Test", function() {
       });
 
     });
+    cy.logout();
   });
 });
