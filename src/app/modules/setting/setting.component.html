@@ -32,7 +32,7 @@
                     <a md-line> Automatic Tags </a>
                 </md-list-item>
                 <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
-                    <a md-line> Job Profile </a>
+                    <a id="jobProfileTags" md-line> Job Profile </a>
                 </md-list-item>
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('usersList','Users List')">
                     <a md-line> Users List </a>
