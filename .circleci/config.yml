@@ -39,8 +39,32 @@ jobs:
       - run: ss -lptn 'sport = :8091'
 
       - run:
+          name: add candidate
+          command: $(npm bin)/cypress run --spec cypress/integration/add-candidate.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: inbox sidenav default tag
+          command: $(npm bin)/cypress run --spec cypress/integration/inbox-sidenav-defaulttag.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
           name: Login Test
           command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: schedule interview
+          command: $(npm bin)/cypress run --spec cypress/integration/schedule-interview.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
