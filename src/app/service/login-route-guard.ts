@@ -22,7 +22,7 @@ export class LoginRouteGuard implements CanActivate {
                 if (state.url === '/core/setting/imap' && this.role === 'HR') {
                     this.router.navigate(['/core/setting/emailtemplate']);
                     return true;
-                } else if (state.url === '/core/setting/imap' && this.role === 'Guest') {
+                } else if (state.url === '/core/setting/imap' && (this.role === 'Guest' || this.role === 'Interviewee')) {
                     this.router.navigate(['/core/setting/resetPassword']);
                     return true;
                 } else if (state.url.substring(0, 18) === '/core/inbox/email/') {

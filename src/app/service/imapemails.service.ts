@@ -871,9 +871,22 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    deleteCampaign(body): Observable <any> {
+    deleteCampaign(campaign_name): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.delete(environment['apibase'] + `campaign`, body)
+        return this.Intercepted.delete(environment['apibase'] + `delete/campaign/${campaign_name}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getIntervieweeInboxData(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `get/candidate/byInterviewee`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
