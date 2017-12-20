@@ -20,5 +20,6 @@
   "automaticTag": "AutoTEST",
   "defaultTagTitle": "noida",
   "waitForAnimations": false,
-  "keyword": "noida"
+  "keyword": "noida",
+  "screenshotOnHeadlessFailure":true
 }
