@@ -11,9 +11,6 @@
         <p>{{email.sender_mail}} - From {{email.from}}</p>
     </div>
     <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
-        <md-select placeholder="Interviewee" *ngIf="tagselected"  class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
-            <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
-        </md-select>
         <div class="default-tag-buttons row" *ngIf="tagselected">
             <span *ngFor="let tag of allTags.Default; trackBy: allTagsDefaultTrack;">
                     <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id==null" id="{{tag.title}}" (click)="assignTag(tag.id, email._id, tag.title, email)">

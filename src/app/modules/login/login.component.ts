@@ -45,11 +45,7 @@ export class LoginComponent implements OnInit {
                 this._localStorageService.setItem('role', data.role);
                 this._localStorageService.setItem('userEmail', this.email);
                 this.access.storeToken(data.token).then((status) => {
-                    if (data.role === 'Interviewee') {
-                        this._router.navigate(['/core/interviewee-inbox']);
-                    } else {
-                        this._router.navigate(['/core/inbox']);
-                    }
+                    this._router.navigate(['/core/inbox']);
                 });
             },
             (err) => {

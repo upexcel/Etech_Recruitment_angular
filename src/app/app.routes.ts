@@ -26,8 +26,7 @@ import { UsersListComponent } from './modules/users-list/users-list.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { SlackInfoComponent } from './modules/slack-info/slack-info.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
-import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
-import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
+
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
@@ -63,17 +62,6 @@ export const routes: Route[] = [{
                 path: 'email-tracking',
                 component: EmailTrackingComponent,
                 canActivate: [LoginRouteGuard],
-            },
-            {
-                path: 'interviewee-inbox',
-                component: IntervieweeInboxComponent,
-                canActivate: [LoginRouteGuard]
-            },
-            {
-                path: 'intervieweeCandidate/:id',
-                pathMatch: 'full',
-                component: IntervieweeCandidateComponent,
-                canActivate: [LoginRouteGuard]
             }, {
                 path: 'setting',
                 component: SettingComponent,
