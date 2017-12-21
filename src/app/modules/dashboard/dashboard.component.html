@@ -16,16 +16,16 @@
       </md-option>
     </md-select>
     <md-card-content *ngIf="jobSelection == 'byDay'" >
-      <div class="charts">
+      <!-- <div class="charts">
         <canvas baseChart [datasets]="dashboardData.day_wise" [labels]="dashboardData.day_wise[0]['dates']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </div>
+      </div> -->
     </md-card-content>
     <md-card-content *ngIf="jobSelection == 'byMonth'">
-      <div class="charts">
+      <!-- <div class="charts">
         <canvas baseChart [datasets]="dashboardData.month_wise" [labels]="dashboardData.month_wise[0]['months']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </div>
+      </div> -->
     </md-card-content>
   </md-card>
   <md-card>
@@ -33,10 +33,10 @@
     <md-card-content>
       <div class="pie-chart" *ngFor="let round of dashboardData.rounds; let i = index;">
         <p><b>{{round.label}}</b></p>
-        <div>
+        <!-- <div>
           <canvas baseChart width="200" height="200" [data]="round.data" [labels]="round.rounds" [options]="pieChartOption" [legend]="false"
             [chartType]="'pie'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-        </div>
+        </div> -->
       </div>
     </md-card-content>
   </md-card>
@@ -51,16 +51,16 @@
         </md-option>
       </md-select>
       <md-card-content *ngIf="jobApplicationReadSelection == 'byDay'">
-        <div class="charts">
+        <!-- <div class="charts">
             <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_email_data" [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
               [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-        </div>
+        </div> -->
       </md-card-content>
       <md-card-content *ngIf="jobApplicationReadSelection == 'byUser'">
-        <div class="charts">
+        <!-- <div class="charts">
             <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_mail_by_user" [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
               [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-        </div>
+        </div> -->
       </md-card-content>
   </md-card>
 
@@ -75,16 +75,16 @@
       </md-option>
     </md-select>
     <md-card-content *ngIf="automaticEmailReadSelection == 'byDay'">
-      <div class="charts">
+      <!-- <div class="charts">
         <canvas baseChart [datasets]="dashboardData.email_stat" [labels]="dashboardData.email_stat[0]['dates']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </div>
+      </div> -->
     </md-card-content>
     <md-card-content  *ngIf="automaticEmailReadSelection == 'byProfile'">
-      <div class="charts">
+      <!-- <div class="charts">
         <canvas baseChart width="200" height="200" [datasets]="dashboardData.email_stat_by_job_profile" [labels]="dashboardData.email_stat_by_job_profile[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
         [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-      </div>
+      </div> -->
     </md-card-content>
   </md-card>
 </div>

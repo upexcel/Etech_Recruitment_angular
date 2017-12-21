@@ -61,11 +61,12 @@ export class CoreComponent implements OnInit {
     }
 
     logout() {
-        // this._sqlliteService.dropTable()
+        this._sqlliteService.dropTable()
         this.access.removeToken().then((data) => {
             if (data) {
                 this._router.navigate(['']);
             }
         });
+        this.access.removeTablecount()
     }
 }

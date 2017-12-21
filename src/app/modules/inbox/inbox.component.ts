@@ -76,7 +76,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     goToPageNo: number;
     email: any;
     fetchLocalEmails: any;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService, public SqlLiteService: SqlLiteService ) {
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService, public _SqlLiteService: SqlLiteService ) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
@@ -86,6 +86,17 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     }
     ngOnInit() {
+        this._SqlLiteService.createSqlLiteDB()
+        this._SqlLiteService.createSqlLiteTable()
+        this._SqlLiteService.getData().subscribe((res) => {
+            console.log('>>>>>>>>>>>>>>res', res);
+            _.forEach(res, (value, key) => {
+                            // console.log(value, key)
+                if (value.emailFetch ) {
+                    this._SqlLiteService.insertSqlLiteTable('emailFetch', value.emailFetch);
+                }
+            });
+        })
         this.emailIds = [];
         this.loading = true;
         this.data = {
@@ -131,8 +142,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     //     this.addSelectedFieldInEmailList(data);
                                     //     this.loading = false;
                                     // });
-                                    // this.fetchLocalEmails = this.SqlLiteService.fetchMails()
-                                    this.SqlLiteService.fetchMails((fetch) => {
+                                    this._SqlLiteService.fetchMails(this.data, (fetch) => {
                                         this.fetchLocalEmails = fetch
                                         this.addSelectedFieldInEmailList(this.fetchLocalEmails);
                                         this.loading = false;
@@ -370,11 +380,18 @@ export class InboxComponent implements OnInit, OnDestroy {
             };
         }
         this.loading = true;
-        this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.addSelectedFieldInEmailList(data);
+        // this.getemails.getEmailList(this.data).subscribe((data) => {
+        //     this.addSelectedFieldInEmailList(data);
+        //     this.emailIds = [];
+        //     this.loading = false;
+        // });
+        this._SqlLiteService.fetchMails(this.data, (fetch) => {
+            this.fetchLocalEmails = fetch
+            this.addSelectedFieldInEmailList(this.fetchLocalEmails);
             this.emailIds = [];
             this.loading = false;
-        });
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>componenet fetch', this.fetchLocalEmails)
+        })
     }
 
     searchEmailList(page: number) {
@@ -389,22 +406,28 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     previous() {
+        console.log(this.data.page)
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
+                console.log('previous if called');
                 this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
             } else {
+                console.log('previous else called');
                 this.searchEmailList(this.data.page);
             }
         }
     }
 
     next() {
+        console.log(this.data.page)
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
+                console.log('next if called');
                 this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
             } else {
+                console.log('next else called');
                 this.searchEmailList(this.data.page);
             }
         }
