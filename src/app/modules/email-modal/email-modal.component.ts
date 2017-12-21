@@ -94,7 +94,6 @@ export class EmailModalComponent implements OnInit, OnDestroy {
 
     getIntervieweeList() {
         this.commonService.getIntervieweeList().then((res) => {
-            console.log(res)
             this.intervieweeList = res;
         }, (err) => {
             console.log(err)
@@ -106,9 +105,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             mongo_id: this.email._id,
             interviewee: interviewee
         }
-        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => {
-            console.log(res)
-        }, (err) => {
+        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
             console.log(err)
         })
     }

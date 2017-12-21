@@ -128,9 +128,7 @@ export class EmailboxComponent implements OnInit {
             mongo_id: this.email._id,
             interviewee: interviewee
         }
-        this.assignEmail.assignInterviewee(apiData).subscribe((res) => {
-            console.log(res)
-        }, (err) => {
+        this.assignEmail.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
             console.log(err)
         })
     }

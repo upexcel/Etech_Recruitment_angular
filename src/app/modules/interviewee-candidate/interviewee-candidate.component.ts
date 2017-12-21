@@ -1,17 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, trigger, state, animate, transition, style } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Location } from '@angular/common';
-import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CommonService } from './../../service/common.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 
 @Component({
@@ -35,20 +31,17 @@ export class IntervieweeCandidateComponent implements OnInit, OnDestroy {
     dialogConfig: MdDialogRef<any>;
     dialogRef: MdDialogRef<any>;
     email: any;
-    tags: any;
     body: any;
     historyList: any;
     selectedTag: any;
     selectedEmail: any;
     error = false;
     errorMessageText: string;
-    dataForInterviewScheduleRound: any;
-    inboxMailsTagsForEmailListAndModel: any;
     noteData: any;
     updatedData: any
     user: any;
     mongoid: any;
-    constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    constructor(private route: ActivatedRoute, public setvardialog: MdDialog, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
     }
 
@@ -158,11 +151,9 @@ export class IntervieweeCandidateComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.candidateid = candidateid;
         this.dialogRef.componentInstance.emailList = this.historyList;
         this.dialogRef.afterClosed().subscribe(result => {
-            console.log(result)
             const date = moment(new Date()).format('DD-MM-YYYY');
             const time = moment(new Date()).format('hh:mm:ss a');
             for (let i = 0; i <= this.historyList.data.length; i++) {
-                console.log(this.historyList.data[i])
                 if (this.historyList.data[i] && (this.historyList.data[i]._id === result.notedata.mongo_id)) {
                     this.historyList.data[i].notes.push({'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time})
                 }

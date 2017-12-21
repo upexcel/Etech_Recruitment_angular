@@ -28,15 +28,13 @@ export class IntervieweeInboxComponent implements OnInit, OnDestroy {
 
     getInboxMails() {
         this._apiService.getIntervieweeInboxData().subscribe((res) => {
-            this.inboxEmail = res;
-            console.log(res)
+            this.inboxEmail = res; 
         }, (err) => {
             console.log(err)
         })
     }
 
     openEmails(email: any) {
-        console.log(email)
         if (email['unread']) {
             this._apiService.UnreadStatus({
                 'status': false,

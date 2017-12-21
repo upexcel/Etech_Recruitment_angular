@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
             this.password = this.addForm.controls['password'].value;
             this.keeplogin = this.addForm.controls['keeplogin'].value;
             this.access.login(this.email, this.password, this.keeplogin).subscribe((data) => {
-                console.log(data)
                 this._localStorageService.setItem('role', data.role);
                 this._localStorageService.setItem('userEmail', this.email);
                 this.access.storeToken(data.token).then((status) => {
