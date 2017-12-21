@@ -29,7 +29,7 @@ jobs:
       - run: pm2 start npm --name recruit_front -- run start
       - run: apt-get install git
       - run: git clone https://github.com/nodeexcel/api_hr_recruitment
-      - run: cd api_hr_recruitment && npm install && pm2 start npm --name recruit_backend -- run start
+      - run: cd api_hr_recruitment && npm install && npm run db-migrate && npm run db && pm2 start npm run --name recruit_backend -- run dev
       - save_cache:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
@@ -57,6 +57,14 @@ jobs:
       - run:
           name: Login Test
           command: $(npm bin)/cypress run --spec cypress/integration/login.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
+      - store_test_results:
+          path: results
+      - store_artifacts:
+          path: cypress/screenshots
+
+      - run:
+          name: schedule interview
+          command: $(npm bin)/cypress run --spec cypress/schedule-interview.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
           path: results
       - store_artifacts:
