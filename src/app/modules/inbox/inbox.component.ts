@@ -74,6 +74,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     lastSelectedTagData: any;
     goToPageNo: number;
     email: any;
+    intervieweeList: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -105,6 +106,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.inboxRefreshSubscription = this._commonService.inboxRefresh.subscribe(() => {
             this.refresh();
         });
+        this.getIntervieweeList();
     }
 
     defaultOpen() {
@@ -457,6 +459,14 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.dialogRef = null;
             this.refresh();
         });
+    }
+
+    getIntervieweeList() {
+        this._commonService.getIntervieweeList().then((res) => {
+            this.intervieweeList = res;
+        }, (err) => {
+            console.log(err)
+        })
     }
 
     ngOnDestroy() {

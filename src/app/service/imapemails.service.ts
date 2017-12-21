@@ -717,7 +717,7 @@ export class ImapMailsService {
     }
     addNote(data: any): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.post(environment['apibase'] + 'candidate_notes/insert/', data)
+        return this.Intercepted.post(environment['apibase'] + 'candidate_notes/insert', data)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
@@ -835,6 +835,58 @@ export class ImapMailsService {
     getEmailTrackingData(): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `fetch/trackingData`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getIntervieweeList(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `get/Interviewee`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    assignInterviewee(body): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `assign/interviewee`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    deleteCampaign(campaign_name): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.delete(environment['apibase'] + `delete/campaign/${campaign_name}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getIntervieweeInboxData(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `get/candidate/byInterviewee`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
