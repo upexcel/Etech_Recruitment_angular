@@ -20,7 +20,7 @@
                 <div id="subChild" *ngIf="subTag.subchild">
                 <span id="subTag" *ngFor="let subTagSubchild of subTag.subchild; let i = index; trackBy: subTagSubchildTrack">
                   <a id="{{subTag.id}}" style="margin-left:6px;" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id">Default Tags</a>
-                    <div class="subenav" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id"
+                    <div class="subenav" id="{{subTagSubchild.title}}" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id"
                         (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
                       <div id="defaultTag">
                         <a id="addedtag" [class.tagstyle]="subTagSubchild.parent_id !=null" *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id">{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>

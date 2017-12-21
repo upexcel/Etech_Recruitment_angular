@@ -12,12 +12,16 @@
                 </md-input-container>
                 <md-card class="width-100" style="box-shadow: none;" *ngIf="emailParentId">
                   <md-card-header>
-                    <md-card-subtitle>Tag <sup>*</sup></md-card-subtitle>
+                    <md-card-subtitle><span *ngIf="resendEmailTrackingData" >Tracking</span><span *ngIf="!resendEmailTrackingData" >Tag</span> <sup>*</sup></md-card-subtitle>
                     <md-card-subtitle>{{emailParenttitle}} - <b>{{emailChildTitle}}</b></md-card-subtitle>
                   </md-card-header>
                 </md-card>
                 <md-input-container class="width-100">
                     <input mdInput placeholder="Subject" autoComplete="off" name="subject" required [(ngModel)]="subject">
+                    <md-error>Required</md-error>
+                </md-input-container>
+                <md-input-container class="width-100" *ngIf="emailParentId">
+                    <input mdInput placeholder="Campaign Name" autoComplete="off" name="campaign_name" required [(ngModel)]="campaign_name">
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-select placeholder="Select Template" class="width-25" [(ngModel)]="selectedTemplate" (change)="selectTemplate(selectedTemplate)" [ngModelOptions]="{standalone: true}">

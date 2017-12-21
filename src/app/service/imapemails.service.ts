@@ -571,6 +571,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    resendEmailForTracking(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + 'send/sendEmailToNotviewed', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     activateImap(email_id: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.put(environment['apibase'] + `imap/statusActive/${email_id}`)
@@ -793,6 +806,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    addNewCandidate(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + 'add/addNewCandidate', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     deleteSubTag(type: any, id: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.delete(environment['apibase'] + `tag/delete/` + type + '/' + id)
@@ -806,9 +832,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    getSqliteData(body): Observable <any> {
+    getEmailTrackingData(): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.put(environment['apibase'] + 'get/emailStXatus', body)
+        return this.Intercepted.get(environment['apibase'] + `fetch/trackingData`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
@@ -818,5 +844,18 @@ export class ImapMailsService {
                 this.apiEndEvent.emit();
                 return Observable.throw(error.json() || 'Server error');
             });
+    }
+    getSqliteData(body): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + 'get/emailStXatus', body)
+        .map((res: Response) => {
+            this.decreaseAPiCount();
+            return res.json();
+        })
+        .catch((error: any) => {
+            this.count = 0;
+            this.apiEndEvent.emit();
+            return Observable.throw(error.json() || 'Server error');
+        });
     }
 }

@@ -30,7 +30,7 @@ export class SetvaremailpreviewComponent implements OnInit {
         if (form.valid) {
             this.body = this.temp.body;
             const self = this;
-            _.forEach(form.value, function(value, key) {
+            _.forEach(form.value, function (value, key) {
                 self.body = _.replace(self.body, key, value);
             });
             self.temp.body = self.body;
@@ -44,7 +44,15 @@ export class SetvaremailpreviewComponent implements OnInit {
     }
 
     sendEmail() {
-        if (this.temp['default_id'] || this.temp['tag_id']) {
+        if (this.temp['old_campaign_name']) {
+            this.apiServices.resendEmailForTracking(this.temp).subscribe((data) => {
+                this.snackBar.open('Mail Send', '', {
+                    duration: 2000,
+                });
+            }, (err) => {
+                console.log(err)
+            });
+        } else if (this.temp['default_id'] || this.temp['tag_id']) {
             if (this.notGenuine) {
                 this.apiServices.sendToNotReplied(this.temp).subscribe((data) => {
                     this.snackBar.open(`Mail Sending to ${data.no_of_candidate}`, '', {

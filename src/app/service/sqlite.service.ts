@@ -17,7 +17,7 @@ export class SqlLiteService {
     createSqlLiteDB() {
         try {
             if (window.openDatabase) {
-                const databaseName = 'Hr1_Recruit';
+                const databaseName = 'Recruit';
                 const version = '1.0';
                 const displayName = 'myDatabase';
                 const maxSize = 65535;
@@ -87,9 +87,9 @@ export class SqlLiteService {
     fetchMails(data, cb) {
         console.log('fetch email caleed data is ', data);
         this.db.transaction(function(tx: any) {
-            if (data.tag_id === 0 && data.is_attach === true) {
-                tx.executeSql(`SELECT * FROM emailFetch WHERE tag_id  LIKE '9' AND is_attachment=='false' LIMIT ${data.limit} OFFSET  ${((data.page) - 1)}  * ${(data.limit)} `, [], function(tx, results) {
-                    console.log('fetch results', results)
+            if (data.tag_id === 0 || data.tag_id === '0') {
+                tx.executeSql(`SELECT * FROM ${data.table} WHERE tag_id="" AND is_attachment=='false' LIMIT ${data.limit} OFFSET  ${((data.page) - 1)}  * ${(data.limit)} `, [], function(tx, results) {
+                    console.log('response fetched results', tx, results)
                     results['data'] = []
                     forEach(results.rows, (value, key) => {
                         if (value.is_attachment === 'false') {
@@ -103,6 +103,8 @@ export class SqlLiteService {
                 }, function(tx, error) {
                     console.log('>>>>>>>>jk>>>>>>>>', error);
                 });
+            }else {
+                console.log('errroorrr')
             }
         });
 

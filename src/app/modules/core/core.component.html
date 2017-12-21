@@ -12,6 +12,10 @@
       <p class="mainnav">Inbox</p>
     </div>
     <hr>
+    <div class="hovestyle" *ngIf="role == 'Admin'"  (click)="goto('email-tracking','Email Tracking');sidenav.close()">
+      <p class="mainnav">Email Tracking</p>
+    </div>
+    <hr>
     <div class="hovestyle" (click)="goto('setting','Settings');sidenav.close()">
       <p class="mainnav">Settings</p>
     </div>

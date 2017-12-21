@@ -1,10 +1,17 @@
 <div class="header">
     <p class="h-text">Schedule Interview</p>
 </div>
-<h4><b>Name</b>: {{emailData.from}}</h4>
-<h5><b>Email</b>: {{emailData.sender_mail}}</h5>
+<h4>
+    <b>Name</b>: {{emailData.from}}</h4>
+<h5>
+    <b>Email</b>: {{emailData.sender_mail}}</h5>
 <p class="error">{{errorMessage}}</p>
-<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm" class="schedule-form">
+<md-radio-group [(ngModel)]="scheduleBy">
+    <md-radio-button id="scheduleByEmail" value="scheduleByEmail">Schedule Interview</md-radio-button>
+    <md-radio-button id="scheduleByDirect" value="scheduleByDirect">Direct</md-radio-button>
+</md-radio-group>
+
+<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm && scheduleBy == 'scheduleByEmail'" class="schedule-form">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-sm-12">
@@ -51,3 +58,14 @@
         </div>
     </div>
 </form>
+<div class="default-tag-buttons row" *ngIf="showForm && scheduleBy == 'scheduleByDirect'">
+    <!-- <div class="col-md-3 col-sm-3 col-xs-3"></div> -->
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <h3>Select Round</h3>
+    </div>
+    <div (click)="scheduleInterviewDirect(interview)" *ngFor="let interview of interviewRounds" class="col-md-3 col-sm-3 col-xs-3">
+        <button md-raised-button class="cyan" [ngStyle]="getColor(interview.name)">
+            <i class="material-icons">{{getIcon(interview.name)}}</i> {{interview.name}}
+        </button>
+    </div>
+</div>

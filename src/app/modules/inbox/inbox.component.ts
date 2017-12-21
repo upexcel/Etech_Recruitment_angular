@@ -38,6 +38,7 @@ import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 import { SqlLiteService } from './../../service/sqlite.service';
 
+import { AddCandidateComponent } from './../add-candidate/add-candidate.component';
 @Component({
     selector: 'app-inbox',
     templateUrl: './inbox.component.html',
@@ -86,6 +87,14 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     }
     ngOnInit() {
+
+        this.emailIds = [];
+        this.loading = true;
+        this.data = {
+            'page': 1,
+            'tag_id': 0,
+            'limit': 100
+        };
         this._SqlLiteService.createSqlLiteDB()
         this._SqlLiteService.createSqlLiteTable()
         this._SqlLiteService.getData().subscribe((res) => {
@@ -94,17 +103,11 @@ export class InboxComponent implements OnInit, OnDestroy {
                             // console.log(value, key)
                 if (value.emailFetch ) {
                     this._SqlLiteService.insertSqlLiteTable('emailFetch', value.emailFetch);
+                    this.defaultOpen();
                 }
             });
         })
-        this.emailIds = [];
-        this.loading = true;
-        this.data = {
-            'page': 1,
-            'tag_id': 0,
-            'limit': 100
-        };
-        this.defaultOpen();
+        // this.defaultOpen();
         setTimeout(() => {
             if (this._location.path().substr(0, 17) === '/core/inbox/email') {
                 this.showInboxEmailList = false;
@@ -123,6 +126,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     defaultOpen() {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
+                console.log('ondefaultopen', res.data);
                 this.formatTagsInArray(res.data);
                 if (res.data.length > 0) {
                     _.forEach(res.data, (value, key) => {
@@ -142,11 +146,12 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     //     this.addSelectedFieldInEmailList(data);
                                     //     this.loading = false;
                                     // });
+                                    this.data.table = 'emailFetch';
                                     this._SqlLiteService.fetchMails(this.data, (fetch) => {
                                         this.fetchLocalEmails = fetch
                                         this.addSelectedFieldInEmailList(this.fetchLocalEmails);
+                                        console.log('fetched data from sqlite', fetch, this.fetchLocalEmails);
                                         this.loading = false;
-                                        console.log('>>>>>>>>>>>>>>>>>>>>>>>>componenet fetch', this.fetchLocalEmails)
                                     })
 
                                 }
@@ -385,6 +390,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         //     this.emailIds = [];
         //     this.loading = false;
         // });
+        this.data.table = 'emailFetch';
         this._SqlLiteService.fetchMails(this.data, (fetch) => {
             this.fetchLocalEmails = fetch
             this.addSelectedFieldInEmailList(this.fetchLocalEmails);
@@ -476,6 +482,21 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     cronStatus() {
         this._dialogService.getCronStatusDialog(this.emailParentId);
+    }
+
+    addCandidate() {
+        this.dialogRef = this.dialog.open(AddCandidateComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        this.dialogRef.componentInstance.emailParenttitle = this.emailParenttitle;
+        this.dialogRef.componentInstance.emailChildTitle = this.emailChildTitle;
+        this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        this.dialogRef.componentInstance.emailChildId = this.emailChildId;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.refresh();
+        });
     }
 
     ngOnDestroy() {

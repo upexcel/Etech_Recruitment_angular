@@ -157,9 +157,10 @@ import { DashboardService } from './service/dashboard.service';
 import { SqlLiteService } from './service/sqlite.service';
 import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
-
+import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 import { DragulaModule } from 'ng2-dragula';
-import {RlTagInputModule} from 'angular2-tag-input';
+import { RlTagInputModule } from 'angular2-tag-input';
+import { AddCandidateComponent } from './modules/add-candidate/add-candidate.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -212,7 +213,9 @@ import {RlTagInputModule} from 'angular2-tag-input';
         AddNoteComponent,
         SlackInfoComponent,
         SlackComponentFormComponent,
-        AddSubTagModalComponent
+        AddSubTagModalComponent,
+        EmailTrackingComponent,
+        AddCandidateComponent
     ],
     imports: [
         BrowserModule,
@@ -272,8 +275,9 @@ import {RlTagInputModule} from 'angular2-tag-input';
         FetchEmailByDayComponent,
         ConfirmationDialogComponent,
         AddNoteComponent,
-        AddSubTagModalComponent
+        AddSubTagModalComponent,
+        AddCandidateComponent
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
