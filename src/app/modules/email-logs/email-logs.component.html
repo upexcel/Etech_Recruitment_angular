@@ -1,0 +1,37 @@
+<div class="content">
+  <h2><span>Email Logs</span>
+    <div class="search-container">
+      <form>
+        <input type="search" id="search" name="searchTerm" [formControl]="searchInput" placeholder="Search..." />
+        <button type="submit" (click)="search(searchTerm)" class="icon"><i class="material-icons">search</i></button>
+      </form>
+    </div>
+    <div class="pagination">
+      <button [disabled]="page == 1" (click)="previous()"><i class="material-icons">keyboard_arrow_left</i></button> {{page}}/{{totalPages}}
+      <button [disabled]="page == totalPages || totalPages == 0" (click)="next()"><i class="material-icons">keyboard_arrow_right</i></button>
+    </div>
+  </h2>
+  <p class="error" *ngIf="emailLogs && emailLogs.length == 0">No Logs Found</p>
+  <div class="table-responsive">
+    <table class="table" cellspacing="0" cellpadding="0" *ngIf="emailLogs && emailLogs.length > 0">
+      <thead>
+        <tr>
+          <th>To</th>
+          <th>From</th>
+          <th>Subject</th>
+          <th>User</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let email of emailLogs; trackBy: emailLogsTrack" (click)="previewEmail(email)">
+          <td>{{email.email}}</td>
+          <td>{{email.from}}</td>
+          <td>{{email.subject}}</td>
+          <td>{{email.user}}</td>
+          <td>{{(email.time == 'Invalid date') ? email.time : (email.time | date: 'medium')}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

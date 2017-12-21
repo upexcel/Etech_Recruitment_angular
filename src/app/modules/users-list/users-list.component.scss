@@ -1,0 +1,37 @@
+@import './../../variable.scss';
+.table-responsive {
+    border: none;
+}
+table.list {
+    width: 100%;
+    border-collapse: collapse;
+    tr, th, td {
+        text-align: left;
+        border-bottom: 1px solid $tablistcolor;
+        padding: 5px 0px;
+        vertical-align: middle;
+    }
+    th, td {
+    	height: 30px;
+    }
+    tbody {
+        tr:hover {
+            background: $tbodycolor;
+        }
+    }
+    .material-icons{
+    	cursor: pointer;
+        color: #f00; 
+    }
+}
+.pos-add {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+}
+.pagination {
+	text-align: right;
+	button {
+		background: none;
+	}
+}

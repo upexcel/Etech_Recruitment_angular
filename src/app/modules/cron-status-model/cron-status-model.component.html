@@ -1,0 +1,7 @@
+<div class="mainform">
+    <h3>Cron Status <md-spinner class="pull-right cron-spinner" *ngIf="loading" ></md-spinner></h3>
+    <p><b>Not Replied Candidate</b> : {{notRepliedCandidate}}</p>
+    <p><b>Pending Candidate Status</b> : {{pending_candidate_status}}</p>
+    <p><b>Send To All Status</b> : {{send_to_all_status}}</p>
+    <button class="pull-right" md-raised-button (click)="close()">Close</button>
+</div>

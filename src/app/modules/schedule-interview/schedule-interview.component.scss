@@ -1,0 +1,59 @@
+.header {
+    border-bottom: 1px solid black;
+}
+.h-text {
+	font-size: 20px;
+    opacity: 0.8;
+}
+.main {
+	width: 100%;
+}
+.width-100 {
+	width: 100%;
+}
+.pull-right {
+	float: right;
+}
+.no-pad-top {
+	margin-top: 0px;
+}
+.no-mar {
+	margin: 0px!important;
+}
+.error {
+	color: #f00;
+	text-align: center;
+}
+.schedule-form {
+	.col-md-6 {
+		margin-top: 16px;
+		margin-bottom: 16px;
+	}
+}
+h4, h5 {
+	word-wrap: break-word;
+}
+@media screen and (min-width: 320px) and (max-width: 988px) {
+	.schedule-form {
+		.col-md-6, .col-sm-12 {
+			padding: 10px 0px;
+			margin-top: 8px;
+			margin-bottom: 8px;
+		}
+	}
+}
+.default-tag-buttons{
+	padding: 10px;
+	.col-md-3 {
+		padding-right: 0px;
+		width: auto;
+	}
+    .cyan{
+        font-weight:bold;
+		color:#fff;
+    }
+    .material-icons{
+        font-size: 14px!important;
+        line-height:1px;
+    }
+}

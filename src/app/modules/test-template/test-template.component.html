@@ -1,0 +1,64 @@
+<div *ngIf="first">
+    <h1 md-dialog-title>Enter Email Id</h1>
+    <form autoComplete="off" #addTemp="ngForm" (ngSubmit)="save(addTemp)">
+        <table class="full" cellspacing="0">
+            <tr>
+                <td>
+                    <md-input-container class="full">
+                        <input mdInput type="email" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" placeholder="Candidate Email Id" autoComplete="off" name="CandidateEmail" required ngModel>
+                        <md-error>Enter a valid email</md-error>
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <md-input-container class="full">
+                        <input mdInput placeholder="Candidate Name" autoComplete="off" name="CandidateName" required ngModel>
+                        <md-error>Required</md-error>
+                    </md-input-container>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <button md-raised-button class="m-b" (click)="close()">Back</button>
+            <button md-raised-button class="m-b" type="submit" [disabled]="!addTemp.form.valid" color="accent">Save</button>
+        </div>
+    </form>
+</div>
+<div *ngIf="!first">
+    <h1 md-dialog-title>Send Mail</h1>
+    <hr>
+    <form class="m-p" autoComplete="off" #addTemp="ngForm" (ngSubmit)="setVariable(addTemp)">
+        <div class="m-f">To: <span class="label">{{userDetails.CandidateName}}</span></div>
+        <table class="full" cellspacing="0">
+            <tr>
+                <td>
+                    <md-input-container class="full">
+                        <input mdInput placeholder="Template Name" [(ngModel)]="templateName" autoComplete="off" name="TemplateName" disabled>
+                        <md-error>Required</md-error>
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <!-- <md-input-container class="width-25">
+                        <input mdInput placeholder="Subject" [disabled]="true" autoComplete="off" name="fixedsubject" required [(ngModel)]="subject_for_genuine">
+                        <md-error>Required</md-error>
+                    </md-input-container> -->
+                    <md-input-container class="width-75">
+                        <input mdInput placeholder="" [(ngModel)]="subject" autoComplete="off" name="subject" ngModel>
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p [innerHTML]="temp.body | safeHtml"></p>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="text-right">
+        <button md-raised-button class="m-b" (click)="close()">CLOSE</button>
+        <button md-raised-button color="accent" class="m-b" (click)="setVariable()">SET VARIABLES</button>
+    </div>
+</div>

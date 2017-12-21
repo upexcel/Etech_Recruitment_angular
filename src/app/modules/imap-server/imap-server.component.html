@@ -1,0 +1,44 @@
+<div class="main" id="imap-table">
+    <app-imap-component-form (addedImap)="getImapList()"></app-imap-component-form>
+    <md-card>
+        <md-card-subtitle class="cardsub">
+            IMAP/POP3 Settings <small class="note">**NOTE : First you need to ON the Allow less secure apps button on your Gmail account <a target="_blank" href="https://myaccount.google.com/lesssecureapps">https://myaccount.google.com/lesssecureapps</a></small>
+        </md-card-subtitle>
+        <md-card-content class="table-responsive">
+            <table class="table list" id="table">
+                <thead>
+                    <tr>
+                        <th>Email ID</th>
+                        <th>Server</th>
+                        <th>Port</th>
+                        <th>Encryption</th>
+                        <th>Active</th>
+                        <th>Remove</th>
+                        <th>Statistics</th>
+                        <th>Days Left To Fetch</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <tr *ngFor="let setting of imapSettingJson; trackBy: imapSettingJsonTrack;">
+                        <td id="email">{{setting.email}}</td>
+                        <td>{{setting.imap_server}}</td>
+                        <td>{{setting.server_port}}</td>
+                        <td>{{setting.type}}</td>
+                        <td>
+                            <md-icon id="switchState" class="material-icons {{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</md-icon>
+                        </td>
+                        <td>
+                            <button md-button class="chartcolor" [disabled]="setting.active" (click)="remove(setting.id)">REMOVE</button>
+                        </td>
+                        <td>
+                            <md-icon class="chartcolor" style="vertical-align: middle;">insert_chart</md-icon>
+                            {{setting.fetched_email_count}}/{{setting.total_emails}} <br/>
+                            <span class="fetch-till">Fetch Till : {{setting.fetched_mail_till}}</span>
+                        </td>
+                        <td>{{setting.days_left_to_fetched}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-card-content>
+    </md-card>
+</div>

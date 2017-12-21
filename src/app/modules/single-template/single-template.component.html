@@ -1,0 +1,14 @@
+<md-card>
+  <md-card-header (click)="open = !open">
+    <md-card-title style="word-break: break-word;">{{temp.templateName}}</md-card-title>
+    <md-card-subtitle  style="word-wrap: break-word;">Subject: {{temp.subject}}</md-card-subtitle>
+  </md-card-header>
+  <md-card-content *ngIf="open">
+    <p class="pad" [innerHTML]="temp.body | safeHtml"></p>
+  </md-card-content>
+  <md-card-actions class="set-pos">
+    <button md-button (click)="test(temp)">TEST <md-icon class="e-c">email</md-icon></button>
+    <button md-button (click)="edit(temp)">EDIT <md-icon class="m-e">mode_edit</md-icon></button>
+    <button md-button (click)="delete(temp.id)">DELETE <md-icon class="d-c">delete</md-icon></button>
+  </md-card-actions>
+</md-card>

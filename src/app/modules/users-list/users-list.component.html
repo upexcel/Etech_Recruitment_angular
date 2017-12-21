@@ -1,0 +1,28 @@
+<md-card id="userList_table">
+    <h3 class="heading">User List</h3>
+    <div class="table-responsive" id="userList-table">
+        <table class="list table">
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of userList; index as i; trackBy: userListTrack">
+                    <td>{{i+1}}</td>
+                    <td class="text-left">{{user.email}}</td>
+                    <td>{{user.user_type}}</td>
+                    <td (click)="deleteUser(user)"><i class="material-icons">&#xE872;</i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</md-card>
+<div class="pos-add" id="add-user">
+    <a md-fab (click)="addUser()">
+        <md-icon>add</md-icon>
+    </a>
+</div>

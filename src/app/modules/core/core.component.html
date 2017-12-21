@@ -1,0 +1,49 @@
+<md-sidenav-container class="width100">
+  <md-sidenav #sidenav class="main">
+    <div class="mainlogo">
+      <img src="assets/logo.png">
+    </div>
+    <hr>
+    <div class="hovestyle" (click)="goto('dashboard','Dashboard');sidenav.close()">
+      <p class="mainnav">Dashboard</p>
+    </div>
+    <hr>
+    <div id="inbox" class="hovestyle" (click)="goto('inbox','Inbox');sidenav.close()">
+      <p class="mainnav">Inbox</p>
+    </div>
+    <hr>
+    <div class="hovestyle" *ngIf="role == 'Admin'"  (click)="goto('email-tracking','Email Tracking');sidenav.close()">
+      <p class="mainnav">Email Tracking</p>
+    </div>
+    <hr>
+    <div class="hovestyle" (click)="goto('setting','Settings');sidenav.close()">
+      <p class="mainnav">Settings</p>
+    </div>
+    <hr>
+    <hr>
+    <div id="logout" class="hovestyle" (click)="logout()">
+      <p class="mainnav">Logout</p>
+    </div>
+    <hr>
+  </md-sidenav>
+  <div class="bgcolor container-fluid">
+    <div class="row" id="toolbar">
+      <md-toolbar id="topnav" color="accent">
+        <button id="sideNav" md-icon-button (click)="sidenav.open()">
+          <md-icon>menu</md-icon>
+        </button>
+        <span>{{title}}</span>
+        <button md-icon-button mdTooltip="Fetch Latest Emails" class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
+          <md-icon>system_update_alt</md-icon>
+        </button>
+        <button md-icon-button mdTooltip="Fetch Emails By Days" class="cursor-pt" *ngIf="title == 'Settings'" (click)="fetchEmailByDay()">
+          <i>
+        <small><md-icon>system_update_alt</md-icon></small>
+        </i>
+      </button>
+        <md-spinner id="spinner" class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
+      </md-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</md-sidenav-container>

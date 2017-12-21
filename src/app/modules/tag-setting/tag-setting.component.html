@@ -1,0 +1,30 @@
+<div class="mainform" id="default_mainform" *ngIf="!loading">
+  <p class="font-18" id="default_tag">Default tag(s)</p>
+  <hr class="linespace">
+  <div class="tagbutton" [style.background-color]="tag.color" *ngFor="let tag of tags?.Default">
+    <div class="taglogo">
+      {{tag.title.charAt(0)}}
+    </div>
+    <span class="tagname">
+                {{tag.title}}
+            </span>
+  </div>
+</div>
+<div class="mainform" id="manual_mainform" *ngIf="!loading">
+  <p class="font-18" id="manual_tag">Manual tag(s)</p>
+  <hr class="linespace">
+  <div class="tagbutton1" [style.background-color]="tag.color" *ngFor="let tag of tags?.Manual">
+    <div class="taglogo" (click)="openManual(tag)">
+      {{tag.title.charAt(0)}}
+    </div>
+    <span class="tagname" (click)="openManual(tag)">
+                {{tag.title}}
+            </span>
+    <md-icon class="iconset" (click)="removeTag(tag.id,'Manual')">cancel</md-icon>
+  </div>
+</div>
+<div class="pos-add" *ngIf="!loading">
+  <button id="AddTag" md-fab (click)="addTag()">
+    <md-icon>add</md-icon>
+  </button>
+</div>

@@ -1,0 +1,34 @@
+<div class="header">
+    <p class="h-text">Edit Variable</p>
+</div>
+<form autoComplete="off" #updateVar="ngForm" (ngSubmit)="update(updateVar)">
+    <div class="con-pg">
+        <div class="main">
+            <p>
+                <md-input-container class="width-100">
+                    <input mdInput placeholder="Enter Variable" [(ngModel)]="varCode" autoComplete="off" name="variableCode" required ngModel>
+                    <md-error>Required</md-error>
+                </md-input-container>
+            </p>
+               <md-radio-group class="pos-radio" name="type" [(ngModel)]="types" ngModel>
+                    <md-radio-button [value]="0" (click)="types = 0">Add header/footer</md-radio-button>
+                    <md-radio-button [value]="1" (click)="types = 1">Other than header/footer</md-radio-button>
+                </md-radio-group>
+                <div class="editor" *ngIf="types">
+                <ckeditor [(ngModel)]="varValue" name="variableValue" 
+                    [config]="{uiColor: '#00ffff'}"
+                    debounce="500" ngModel>
+                </ckeditor>
+                </div>
+                <div class="text-area" *ngIf="!types">
+                	<md-input-container class="width-100">
+                        <textarea mdInput name="variableValue" mdTextareaAutosize  mdAutosizeMinRows="5" placeholder=" Write html code for header/footer" [(ngModel)]="varValue"></textarea>
+                    </md-input-container>
+                </div>
+        </div>
+    </div>
+    <div class="fx-pos">
+    	<button md-raised-button type="button" (click)="close()">BACK</button>
+    	<button md-raised-button type="submit" color="accent">UPDATE</button>
+    </div>
+</form>

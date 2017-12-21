@@ -1,0 +1,60 @@
+<div class="mainform">
+    <md-card>
+        <form id="smtpForm" autoComplete="off" #smtpForm="ngForm" (ngSubmit)="addSMTP(smtpForm)">
+            <md-card-subtitle class="cardsub">
+                SMTP Server
+            </md-card-subtitle>
+            <md-card-subtitle id="showError" class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
+            <md-card-content>
+                <div class="row">
+                    <div id="smtpFormUserEmail" class="col-md-4 col-sm-12">
+                        <md-input-container class="width-100">
+                            <input mdInput name="username" placeholder="Email/User Name" ngModel autoComplete="off" required>
+                            <md-error *ngIf="emailFormControl.hasError('required')">
+                                This field is required
+                            </md-error>
+                        </md-input-container>
+                    </div>
+                    <div  id="smtpFormSendEmail" class="col-md-4 col-sm-12">
+                        <md-input-container class="width-100">
+                            <input mdInput name="email" placeholder="Email (send via)" ngModel autoComplete="off" [formControl]="emailFormControl" required>
+                            <md-error *ngIf="emailFormControl.hasError('required')">
+                                This field is required
+                            </md-error>
+                            <md-error *ngIf="emailFormControl.hasError('pattern')">
+                                Please enter a valid email address
+                            </md-error>
+                        </md-input-container>
+                    </div>
+                    <div id="smtpFormPassword"  class="col-md-4 col-sm-12">
+                        <md-input-container class="width-100">
+                            <input mdInput name="password" type="password" placeholder="Password" required ngModel autoComplete="off">
+                            <md-error>Password Required</md-error>
+                        </md-input-container>
+                    </div>
+                    <div id="smtpFormServerName" class="col-md-4 col-sm-12">
+                        <md-input-container class="width-100">
+                            <input mdInput name="smtp_server" placeholder="SMTP Server" required ngModel autoComplete="off">
+                            <md-error>Invalid Server ID</md-error>
+                        </md-input-container>
+                    </div>
+                    <div id="smtpFormPort" class="col-md-4 col-sm-12">
+                        <md-input-container class="width-100">
+                            <input mdInput name="server_port" type="number" placeholder="Server port" min="1" required ngModel autoComplete="off">
+                            <md-error>Invalid Port</md-error>
+                        </md-input-container>
+                    </div>
+                    <div id="smtpFormRadio" class="col-md-4 col-sm-12">
+                        <md-radio-group name="type" id="type" required ngModel>
+                            <md-radio-button id="option1" name="type" value="ssl" checked>SSL</md-radio-button>
+                            <md-radio-button id="option2" name="type" value="tls">TLS</md-radio-button>
+                        </md-radio-group>
+                    </div>
+                    <div id="smtpFormSave" class="col-sm-12">
+                        <button type="submit" md-raised-button color=primary [disabled]="smtpForm.invalid || emailFormControl.invalid"> Save </button>
+                    </div>
+                </div>
+            </md-card-content>
+        </form>
+    </md-card>
+</div>

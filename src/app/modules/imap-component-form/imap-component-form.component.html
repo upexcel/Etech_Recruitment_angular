@@ -1,0 +1,44 @@
+<div class="mainform">
+    <md-card>
+        <form id="imapForm" autoComplete="off" #imapForm="ngForm" (ngSubmit)="addImap(imapForm)">
+            <md-card-subtitle class="cardsub">
+                Incoming Resume Gmail Login
+            </md-card-subtitle>
+            <md-card-subtitle id="showError" class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
+            <md-card-content>
+                <div class="row">
+                    <div id="FormEmail" class="col-md-4 col-sm-12">
+                        <md-input-container class="width-90">
+                            <input type="email" mdInput name="email" placeholder="Email" ngModel autoComplete="off" [formControl]="emailFormControl">
+                            <md-error *ngIf="emailFormControl.hasError('required')">
+                                This field is required
+                            </md-error>
+                            <md-error *ngIf="emailFormControl.hasError('pattern')">
+                                Please enter a valid email address
+                            </md-error>
+                        </md-input-container>
+                    </div>
+                    <div id="FormPassword" class="col-md-4 col-sm-12">
+                        <md-input-container class="width-90">
+                            <input mdInput name="password" type="password" placeholder="Password" required ngModel autoComplete="off">
+                            <md-error>Password Required</md-error>
+                        </md-input-container>
+                    </div>
+                    <div id="FormDate" class="col-md-4 col-sm-12">
+                        <md-input-container class="width-90">
+                            <input placeholder="Date" id="date" mdInput [mdDatepicker]="picker" required [formControl]="dateFormControl" autocomplete="off">
+                            <md-error *ngIf="dateFormControl.hasError('required')">
+                                Date is required
+                            </md-error>
+                            <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                        </md-input-container>
+                        <md-datepicker #picker></md-datepicker>
+                    </div>
+                    <div id="FormButton" class="col-md-12">
+                        <button id="save" type="submit" md-raised-button color=primary [disabled]="imapForm.invalid || emailFormControl.invalid || dateFormControl.invalid"> Save </button>
+                    </div>
+                </div>
+            </md-card-content>
+        </form>
+    </md-card>
+</div>

@@ -1,0 +1,21 @@
+<div id="autotagPage" class="mainform" *ngIf="!loading">
+    <p class="font-18">Automatic tag(s)</p>
+    <hr class="linespace">
+    <span *ngFor="let tag of tags?.Automatic" id="ul">
+            <div id="li" class="tagbutton1" [style.background-color]="tag.color" *ngIf="!tag.is_job_profile_tag">
+                <div class="taglogo" (click)="openAutomatic(tag)">
+                {{tag.title.charAt(0)}}
+                </div>
+                <span class="tagname" (click)="openAutomatic(tag)">
+                    {{tag.title}}
+                </span>
+    <md-icon id="deleteAutotag" class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>
+</div>
+</span>
+</div>
+
+<div id="autoTag" class="pos-add" *ngIf="!loading">
+    <button id="addAutotag" md-fab (click)="addTag()">
+        <md-icon>add</md-icon>
+    </button>
+</div>
