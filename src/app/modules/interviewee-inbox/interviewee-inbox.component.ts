@@ -35,6 +35,22 @@ export class IntervieweeInboxComponent implements OnInit, OnDestroy {
         })
     }
 
+    openEmails(email: any) {
+        console.log(email)
+        if (email['unread']) {
+            this._apiService.UnreadStatus({
+                'status': false,
+                'mongo_id': email['_id']
+            }).subscribe((data) => {
+            }, (err) => {
+                console.log(err);
+            });
+        }
+        const landingUrl = window.location.origin + '/#/core/intervieweeCandidate/' + email._id;
+        window.open(landingUrl);
+        this._localStorageService.setItem('email', email);
+    }
+
     countEmailSubject(emailSubject) {
         return (emailSubject && emailSubject.length > 88) ? emailSubject.substring(0, 88) + '...' : emailSubject;
     }

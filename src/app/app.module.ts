@@ -161,6 +161,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { RlTagInputModule } from 'angular2-tag-input';
 import { AddCandidateComponent } from './modules/add-candidate/add-candidate.component';
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
+import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -216,7 +217,8 @@ import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interview
         AddSubTagModalComponent,
         EmailTrackingComponent,
         AddCandidateComponent,
-        IntervieweeInboxComponent
+        IntervieweeInboxComponent,
+        IntervieweeCandidateComponent
     ],
     imports: [
         BrowserModule,

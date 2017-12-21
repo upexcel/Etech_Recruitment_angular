@@ -717,7 +717,7 @@ export class ImapMailsService {
     }
     addNote(data: any): Observable <any> {
         this.increaseAPiCount();
-        return this.Intercepted.post(environment['apibase'] + 'candidate_notes/insert/', data)
+        return this.Intercepted.post(environment['apibase'] + 'candidate_notes/insert', data)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

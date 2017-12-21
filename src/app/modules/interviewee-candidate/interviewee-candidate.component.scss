@@ -1,0 +1,215 @@
+@import './../../variable.scss';
+.background-white {
+	background-color: #fff;
+	pointer-events: all;
+	margin: 10px;
+}
+.cyan {
+	background-color: cyan;
+	margin-left: 1px;
+    margin-right: 5px;
+}
+.b-b {
+	border-bottom: 2px solid rgba(120,130,140,.13);
+	position: relative;
+}
+.p-y {
+	padding-bottom: 1 rem !important;
+	padding-top: 1 rem !important;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	a {
+	   cursor: pointer;
+	   outlint: 0;
+	   text-decoration: none;
+	}
+}
+.text-xs {
+	font-size: .75rem;
+}
+.font-300 {
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+.attach {
+	margin-bottom: .5rem!important;
+	margin-right: .5rem!important;
+	border: 1px solid rgba(120,130,140,.13);
+	display: inline-block;
+	padding: 10px;
+	cursor: pointer;
+	position: relative;
+	width: 100%;
+}
+.attach-click{
+	background-color: #fff;
+    font-weight: bold;
+    margin: 2px;
+    float: right;
+    position: relative;
+    top: 0;
+    right: 0px;
+}
+.at-hd {
+	padding: .25rem!important;
+	border-bottom: 1px solid rgba(120,130,140,.13);
+	cursor: pointer;
+}
+.at-hed {
+	text-align: left;
+	margin-bottom: 0px;
+}
+.default-tag-buttons{
+	margin-bottom: 4px;
+	text-align: right;
+    .cyan{
+        line-height:20px!important;
+        margin: 0px 4px 0px 4px;
+        font-weight:bold;
+        color:#fff;
+        font-size: 12px;
+    }
+}
+.accordian-open {
+	width: 90%;
+}
+.accordian-close {
+	width: 80%;
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+	.default-tag-buttons {
+		span {
+			width: 100%;
+			display: block;
+			margin: 4px 0px;
+			a {
+				width: 100%;
+			}
+		}
+		.cyan {
+			line-height: 12px!important;
+		}
+	}
+	.attachment-container, .email-body {
+		width: 100%!important;
+		.attach {
+			width: auto;
+		}
+	}
+	.accordian-close {
+		width: 47%;
+		word-break: break-all;
+		font-size: 12px;
+	}
+	.accordian-icon-box {
+		font-size: 10px;
+	}
+}
+@media (min-width: 360px) and (max-width: 768px) {
+	.maindiv{
+		width: 94% !important;
+		margin: 4px 0px !important; 
+	}
+	.attachment-container, .email-body {
+		width: 100%!important;
+		.attach {
+			width: 97%;
+		}
+	}
+	.accordian-close {
+		width: 57%;
+		word-break: break-all;
+	}
+}
+.material-icons{
+        font-size: 14px!important;
+        line-height:1px;
+	    font-family: 'Material Icons';
+	    font-weight: normal;
+	    font-style: normal;
+	    letter-spacing: normal;
+	    text-transform: none;
+	    display: inline-block;
+	    white-space: nowrap;
+	    word-wrap: normal;
+	    direction: ltr;
+	    -webkit-font-feature-settings: 'liga';
+	    -webkit-font-smoothing: antialiased;
+    }
+.email-attachment{
+	height: 750px;
+	width: 100%;
+}
+.accordian-icon-box {
+	position: absolute;
+	cursor: pointer; 
+	right: 0;
+    top: 0;
+    .material-icons {
+    	line-height: 16px;
+    	vertical-align: text-top;
+    }
+}
+.pointer {
+	cursor: pointer;
+}
+.clearfix{
+	clear: both;
+}
+.bod {
+	margin-top: 4px;
+}
+.email-body{
+	display: inline-block;
+	float: right;
+	table{
+		margin: 0px;
+		width: 100%;
+	}
+}
+.maindiv{
+    width:15%;
+    padding-top:0px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border:1px solid transparent;
+    border-radius: 4px;
+    background-color: rgb(254,240,69);
+    min-height:160px;
+    box-shadow: 2px 2px 4px 1px #fff;
+	margin-bottom:15px;
+	display: inline-block;
+	margin: 0px 4px;
+}
+.fontstyle{
+        margin-top: 8px;
+        font-weight: normal;
+        font-size: 14px
+    }
+.footer{
+    background-color: rgb(221,186,6);
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-bottom: -4px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding-bottom:6px;
+}
+.datestyle{
+   color: white;
+   padding-top: 5px;
+   padding-bottom: 3px;
+   margin-bottom: -5px;
+   font-size: 14px;
+   text-align: right;
+   text-shadow: 1px 1px 2px #000000 ;
+   padding-right:4px;
+}
+.childdiv{
+    min-height:100px;
+    word-break: break-all;
+}
+.childdiv:hover{
+    cursor:pointer;
+}
