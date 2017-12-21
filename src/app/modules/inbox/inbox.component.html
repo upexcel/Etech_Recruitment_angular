@@ -61,7 +61,7 @@
                         <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refreshEmail)="refreshEmails($event)"(refresh)="refresh($event)"
                             [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)"
                             [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"
-                            [inboxMailsTagsForEmailListAndModel]="inboxMailsTagsForEmailListAndModel" (deleteAndAssignTag)="assign($event, emails._id); emaillist.data.splice(i,1)" [intervieweeList]="intervieweeList"></app-emailbox>
+                            [inboxMailsTagsForEmailListAndModel]="inboxMailsTagsForEmailListAndModel" (deleteAndAssignTag)="assign($event, emails._id); emaillist.data.splice(i,1)"></app-emailbox>
                     </div>
                 </div>
             </div>
