@@ -36,7 +36,7 @@ import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
-
+import { AddCandidateComponent } from './../add-candidate/add-candidate.component';
 @Component({
     selector: 'app-inbox',
     templateUrl: './inbox.component.html',
@@ -74,6 +74,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     lastSelectedTagData: any;
     goToPageNo: number;
     email: any;
+    intervieweeList: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -105,6 +106,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.inboxRefreshSubscription = this._commonService.inboxRefresh.subscribe(() => {
             this.refresh();
         });
+        this.getIntervieweeList();
     }
 
     defaultOpen() {
@@ -264,8 +266,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.emaillist['data'][index]['unread'] = false;
         }
         // if (environment['picasa']) {
-            const landingUrl = window.location + '/email/' + email._id;
-            window.open(landingUrl);
+        const landingUrl = window.location + '/email/' + email._id;
+        window.open(landingUrl);
         // }else {
         //     this._router.navigate(['core/inbox/email', email._id]);
         // }
@@ -442,6 +444,29 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     cronStatus() {
         this._dialogService.getCronStatusDialog(this.emailParentId);
+    }
+
+    addCandidate() {
+        this.dialogRef = this.dialog.open(AddCandidateComponent, {
+            height: '90%',
+            width: '70%'
+        });
+        this.dialogRef.componentInstance.emailParenttitle = this.emailParenttitle;
+        this.dialogRef.componentInstance.emailChildTitle = this.emailChildTitle;
+        this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        this.dialogRef.componentInstance.emailChildId = this.emailChildId;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            this.refresh();
+        });
+    }
+
+    getIntervieweeList() {
+        this._commonService.getIntervieweeList().then((res) => {
+            this.intervieweeList = res;
+        }, (err) => {
+            console.log(err)
+        })
     }
 
     ngOnDestroy() {

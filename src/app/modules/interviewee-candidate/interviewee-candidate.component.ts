@@ -1,23 +1,19 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, trigger, state, animate, transition, style } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { Location } from '@angular/common';
-import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { CommonService } from './../../service/common.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 
 @Component({
-    selector: 'app-email-modal',
-    templateUrl: './email-modal.component.html',
-    styleUrls: ['./email-modal.component.scss'],
+    selector: 'app-interviewee-candidate',
+    templateUrl: './interviewee-candidate.component.html',
+    styleUrls: ['./interviewee-candidate.component.scss'],
     encapsulation: ViewEncapsulation.Native,
     animations: [
         trigger('collapseChange', [
@@ -31,44 +27,27 @@ import { AddNoteComponent } from './../add-note/add-note.component';
         ])
     ]
 })
-export class EmailModalComponent implements OnInit, OnDestroy {
+export class IntervieweeCandidateComponent implements OnInit, OnDestroy {
     dialogConfig: MdDialogRef<any>;
     dialogRef: MdDialogRef<any>;
     email: any;
-    tags: any;
     body: any;
     historyList: any;
     selectedTag: any;
     selectedEmail: any;
-    idlist: string[];
     error = false;
     errorMessageText: string;
-    dataForInterviewScheduleRound: any;
-    inboxMailsTagsForEmailListAndModel: any;
     noteData: any;
     updatedData: any
     user: any;
     mongoid: any;
-    intervieweeList: any;
-    constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    constructor(private route: ActivatedRoute, public setvardialog: MdDialog, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
-        if (!this._localStorageService.getItem('selectedTag')) {
-            this.selectedTag = -1;
-        } else {
-            this.selectedTag = this._localStorageService.getItem('selectedTag');
-        }
-        this.tags = this._localStorageService.getItem('tags');
-        this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
-        this.inboxMailsTagsForEmailListAndModel = this._localStorageService.getItem('inboxMailsTagsForEmailListAndModel');
     }
 
     ngOnInit() {
-        document.getElementById('topnav').classList.add('sidehide');
-        document.getElementById('leftPart').classList.add('sidehide');
-        document.getElementById('rightPart').classList.add('fullwidth');
         this.selectedEmail = this.email;
         this.historyList = [];
-        this.idlist = [];
         this.user = this._localStorageService.getItem('userEmail');
         this.body = {
             'status': false,
@@ -89,32 +68,9 @@ export class EmailModalComponent implements OnInit, OnDestroy {
                 document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
             }, 100);
         }
-        this.getIntervieweeList();
     }
 
-    getIntervieweeList() {
-        this.commonService.getIntervieweeList().then((res) => {
-            this.intervieweeList = res;
-        }, (err) => {
-            console.log(err)
-        })
-    }
-
-    assignInterviewee(interviewee) {
-        const apiData = {
-            mongo_id: this.email._id,
-            interviewee: interviewee
-        }
-        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
-            console.log(err)
-        })
-    }
-
-    ngOnDestroy() {
-        document.getElementById('topnav').classList.remove('sidehide');
-        document.getElementById('leftPart').classList.remove('sidehide');
-        document.getElementById('rightPart').classList.remove('fullwidth');
-    }
+    ngOnDestroy() {}
 
     getCandiatehistory() {
         if (this.email.sender_mail) {
@@ -169,37 +125,6 @@ export class EmailModalComponent implements OnInit, OnDestroy {
         });
     }
 
-    assignTag(id: string, emailId, title: string, emailData) {
-        if (title === 'Schedule') {
-            this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
-                if (data && data.tag_id) {
-                    this.tagUpdate.assignTag(data).subscribe((res) => {
-                        this.commonService.inboxRefreshEvent();
-                    }, (err) => {
-                        console.log(err);
-                    });
-                    this._location.back();
-                }
-            }, (err) => {
-                console.log(err);
-            });
-        } else {
-            this.body = null;
-            this.idlist.push(emailId);
-            this.body = {
-                'tag_id': id,
-                'mongo_id': this.idlist
-            };
-            this.tagUpdate.assignTag(this.body).subscribe((data) => {
-                this.idlist = [];
-                this.commonService.inboxRefreshEvent();
-            }, (err) => {
-                console.log(err);
-            });
-            this._location.back();
-        }
-    }
-
     openAttachment(link: string) {
         this.dialogConfig = this.setvardialog.open(OpenattachementComponent, {
             height: '100%',
@@ -211,44 +136,12 @@ export class EmailModalComponent implements OnInit, OnDestroy {
         });
     }
 
-    back() {
-        this._location.back();
-    }
-
-    getColor(title) {
-        return this.commonService.getDefaultTagColor(title);
-    }
-
-    getIcon(title) {
-        return this.commonService.getDefaultTagIcon(title);
-    }
-
     historyListDataTrack(index, data) {
         return data['_id'] || index;
     }
 
-    tagsDefaultTrack(index, data) {
-        return data['id'] || index;
-    }
-
-    inboxMailsTagsForEmailListAndModelDataTrack(index, data) {
-        return data['id'] || index;
-    }
-
     H_emailAttachmentTrack(index, data) {
         return index;
-    }
-
-    sendEmail() {
-        this.dialogRef = this.dialog.open(ComposeEmailComponent, {
-            height: '90%',
-            width: '70%'
-        });
-        this.dialogRef.componentInstance.emailList = [this.email['sender_mail']];
-        this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
-        this.dialogRef.afterClosed().subscribe(result => {
-            this.dialogRef = null;
-        });
     }
     addNote(candidateid: any) {
         this.dialogRef = this.dialog.open(AddNoteComponent, {
@@ -261,7 +154,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             const date = moment(new Date()).format('DD-MM-YYYY');
             const time = moment(new Date()).format('hh:mm:ss a');
             for (let i = 0; i <= this.historyList.data.length; i++) {
-                if (this.historyList.data[i]._id === result.notedata.mongo_id) {
+                if (this.historyList.data[i] && (this.historyList.data[i]._id === result.notedata.mongo_id)) {
                     this.historyList.data[i].notes.push({'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time})
                 }
             }
