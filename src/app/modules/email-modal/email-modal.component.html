@@ -22,6 +22,11 @@
         <a>{{H_email.from}} {{H_email.sender_mail}}</a>
         <span class="text-xs"> on {{H_email.date | date: 'medium'}}</span>
     </div>
+    <div style="text-align: right">
+        <md-select placeholder="Interviewee" class="assign-interviewee" [(ngModel)]="H_email.interviewee" (ngModelChange)="assignInterviewee(H_email.interviewee)">
+            <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
+        </md-select>
+    </div>
     <div class="default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && selectedTag && selectedTag >= 0">
         <span *ngFor="let tag of tags.Default; trackBy: tagsDefaultTrack">
             <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All'" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
