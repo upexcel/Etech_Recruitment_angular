@@ -63,14 +63,6 @@ jobs:
           path: cypress/screenshots
 
       - run:
-          name: schedule interview
-          command: $(npm bin)/cypress run --spec cypress/integration/schedule-interview.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
-      - store_test_results:
-          path: results
-      - store_artifacts:
-          path: cypress/screenshots
-
-      - run:
           name: Add Template
           command: $(npm bin)/cypress run --spec cypress/integration/setting-add-email-template.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
       - store_test_results:
