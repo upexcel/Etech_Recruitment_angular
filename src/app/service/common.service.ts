@@ -7,7 +7,6 @@ import * as moment from 'moment';
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
-    intervieweeList: any;
     constructor(public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
@@ -208,20 +207,5 @@ export class CommonService {
             }
         });
         return data;
-    }
-    getIntervieweeList() {
-        return new Promise((resolve, reject) => {
-            if (this.intervieweeList && this.intervieweeList.lenght) {
-                resolve(this.intervieweeList);
-            } else {
-                this._apiService.getIntervieweeList().subscribe((res) => {
-                    this.intervieweeList = res;
-                    resolve(res);
-                }, (err) => {
-                    console.log(err)
-                    reject(err);
-                })
-            }
-        })
     }
 }
