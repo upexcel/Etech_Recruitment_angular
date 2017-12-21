@@ -42,27 +42,32 @@ export class SqlLiteService {
                 })
 
             })
+            resolve(0)
         })
 
     }
     insertSqlLiteTable(tableName, data) {
-
-        const findLength = keys(sqldata);
-        let count = 0;
-        count++;
-        if (this._localStorageService.getItem('tablecount') !== 1) {
-            forEach(data, (value1, key1) => {
-                let dataToInsert: String = '';
-                forEach(value1, (value3, key2) => {
-                    if (typeof(value3) === 'object' ) {
-                        value3 = value3.toString()
-                    }
-                    dataToInsert = dataToInsert + '"' + value3 + '"' + '' + ',';
+        return new Promise((resolve, reject) => {
+            const findLength = keys(sqldata);
+            let count = 0;
+            count++;
+            if (this._localStorageService.getItem('tablecount') !== 1) {
+                forEach(data, (value1, key1) => {
+                    let dataToInsert: String = '';
+                    forEach(value1, (value3, key2) => {
+                        if (typeof(value3) === 'object' ) {
+                            value3 = value3.toString()
+                        }
+                        dataToInsert = dataToInsert + '"' + value3 + '"' + '' + ',';
+                    })
+                    this.insert(tableName, dataToInsert);
                 })
-                this.insert(tableName, dataToInsert);
-            })
-            this._localStorageService.setItem('tablecount', 1);
-        }
+                this._localStorageService.setItem('tablecount', 1);
+                resolve('sucess');
+            }else {
+                reject('errr');
+            }
+        });
     }
 
     insert(insert, dataToInsert) {
@@ -72,20 +77,24 @@ export class SqlLiteService {
             // tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
             tx.executeSql(`INSERT INTO ${insert} VALUES (${dataToInsert})`, [], (res) => {
                 console.log('inserted', res)
+                return res;
             }, function (err) {
                 console.log('error', err)
+                return err;
             });
         })
     }
     getData() {
-        //  return this.http.get('http://192.168.1.117:8091/new/inboxContent/100')
-        return this.http.get('./assets/sqlite.json')
+        return this.http.get('http://localhost:8091/new/inboxContent/100')
+        // return this.http.get('./assets/sqlite.json')
         .map( (res ) => {
             return res.json();
         })
     }
     fetchMails(data, cb) {
         console.log('fetch email caleed data is ', data);
+        let fetcheddata = {};
+        const self = this;
         this.db.transaction(function(tx: any) {
             if (data.tag_id === 0 || data.tag_id === '0') {
                 tx.executeSql(`SELECT * FROM ${data.table} WHERE tag_id="" AND is_attachment=='false' LIMIT ${data.limit} OFFSET  ${((data.page) - 1)}  * ${(data.limit)} `, [], function(tx, results) {
@@ -97,20 +106,34 @@ export class SqlLiteService {
                         }
                         results['data'].push(value)
                     })
-                    results['count'] = 128
-                    console.log('>>>>>>>>>>>>>>>>results with count', results)
-                    cb(results)
+                    fetcheddata = results;
+                    self.counteTotalmail(data.table, count => {
+                        if (results['data']) {
+                            results['count'] = count;
+                        }
+                    });
+                    cb(results);
                 }, function(tx, error) {
-                    console.log('>>>>>>>>jk>>>>>>>>', error);
                 });
             }else {
                 console.log('errroorrr')
             }
+
         });
 
     }
+    counteTotalmail(table, cb) {
+        this.db.transaction(function(tx: any) {
+            tx.executeSql(`SELECT count(*) AS count FROM ${table}`, [], function(tx, results) {
+                let count = '';
+                count = results['rows'][0]['count']
+                cb(count);
+            }, function(tx, error) {
+            });
+        })
+    }
     dropTable() {
-        this.db.transaction(function(tx){
+        this.db.transaction(function(tx: any){
             tx.executeSql('DROP TABLE emailFetch');
         })
     }
