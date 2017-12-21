@@ -65,23 +65,24 @@ Cypress.Commands.add("deleteSmtp", function() {
 });
 
 //add job profile
-Cypress.Commands.add("addJobprofile", function() {
-  cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
+Cypress.Commands.add("addJobprofile", function(jobprofile) {
+  cy.get("#sideNav").click();
+  cy.get("md-sidenav #setting").click();
+  cy.get("#jobProfileTags").click();
   cy.get("#addTag button").click();
-  cy.get("#add_tag #title").type(data.jobprofile);
-  cy.get("#add_tag #tagSubject input").type(data.jobprofile);
-  cy.get("#add_tag #tagDescription textarea").type(data.jobprofile);
-  cy
-    .get("#add_tag #tagBtn #save")
-    .click()
+  cy.get("#add_tag #title").type(jobprofile);
+  cy.get("#add_tag #tagSubject input").type(jobprofile);
+  cy.get("#add_tag #tagDescription textarea").type(jobprofile);
+  cy.get("#add_tag #tagBtn #save").click()
+  cy.get("md-dialog-container").should("not.be.visible")
 });
+
 //delete job profile
-Cypress.Commands.add("deleteJobprofile", function() {
-  cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-  cy.get("#jobProfile #ul>#li:last #deleteTag").click();
-  cy
-    .get("#confirm #confirmYes")
-    .click()
+Cypress.Commands.add("deleteJobprofile", function(jobprofile) {
+  cy.get("#jobProfileTags").click();
+  cy.get(".tagbutton1 #deleteTag").click();
+  cy.get("#confirmYes").click();
+  cy.get("md-dialog-container").should("not.be.visible");
 });
 
 //add automatic tag

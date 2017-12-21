@@ -37,9 +37,9 @@ describe("Setting/Job Profile Tag Page Test", function() {
   //check if user enable 'send automatic email' or 'assign to all exiting emails' it should be enable
   it('test "send automatic email" or "assign to all exiting emails" option functionality', function () {
       cy.get("#addTag button").click();
-      cy.get("#send_email").click();
+      cy.get("#send_email .mat-slide-toggle-thumb").click();
       cy.get("#send_email").should("have.class", "mat-checked");
-      cy.get("#assign").click();
+      cy.get("#assign .mat-slide-toggle-thumb").click();
       cy.get("#assign").should("have.class", "mat-checked");
       cy.get("#close").click();
    })
