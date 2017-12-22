@@ -35,9 +35,10 @@ jobs:
           paths:
             - node_modules
       - run: cd api_hr_recruitment && npm install && npm run db-migrate && npm run db 
+      - run: npm install cypress
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
-            
+
       - run:
           name: add candidate
           command: $(npm bin)/cypress run --spec cypress/integration/add-candidate.spec.js --reporter junit --reporter-options "mochaFile=results/my-test-output.xml"
