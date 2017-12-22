@@ -35,6 +35,7 @@ jobs:
           paths:
             - node_modules
       - run: cd api_hr_recruitment && npm install && npm run db-migrate && npm run db 
+      - run: npm install debug
       - run: npm install cypress
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
