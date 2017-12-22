@@ -11,33 +11,26 @@
       </button>
 
       <md-menu #menu="mdMenu">
-        <button md-menu-item *ngFor="let tracking of trackingData" [disabled]="tracking.campaign_name == selectedTrackingFullData.campaign_name"
-          [ngClass]="{ active: (tracking.campaign_name == selectedTrackingFullData.campaign_name) }" (click)="selectedTracking(tracking)">
+        <button md-menu-item *ngFor="let tracking of trackingData" [disabled]="tracking.campaign_name == selectedTrackingData.campaign_name"
+          [ngClass]="{ active: (tracking.campaign_name == selectedTrackingData.campaign_name) }" (click)="selectedTracking(tracking)">
           <span>{{ tracking.campaign_name }}</span>
         </button>
       </md-menu>
     </md-grid-tile>
   </md-grid-list>
 
-  <md-list *ngIf="selectedTrackingFullData">
+  <md-list *ngIf="selectedTrackingData">
     <md-list-item>
       <div class="activity">
         <span>
-          <b>Campaign Name:</b> {{selectedTrackingFullData.campaign_name}},
-          <b>Total: </b>{{selectedTrackingFullData.count.total}},
-          <b>Percentage: </b>{{selectedTrackingFullData.count.percentage}}%</span>
-        <span class="pagination">
-          <button [disabled]="pageNo == 0" (click)="previous()">
-            <i class="material-icons">keyboard_arrow_left</i>
-          </button>
-          {{pageNo + 1}}/{{totalPages}}
-          <button [disabled]="(pageNo + 1) == totalPages" (click)="next()">
-            <i class="material-icons">keyboard_arrow_right</i>
-          </button>
-        </span>
-        <div class="clearfix"></div>
+          <b>Campaign Name:</b> {{selectedTrackingData.campaign_name}},
+          <b>Total: </b>{{selectedTrackingData.count.total}},
+          <b>Percentage: </b>{{selectedTrackingData.count.percentage}}%</span>
         <div class="text-right">
+          <button md-raised-button color="clan" (click)="previewEmail()">View Template</button>
           <button md-raised-button color="clan" (click)="resendEmail()">Resend Email</button>
+          <button md-raised-button color="warn" (click)="deleteCampaign(selectedTrackingData)">Delete Campaign</button>
+          <md-slide-toggle [(ngModel)]="seenUnseen" mdTooltip="{{(seenUnseen) ? 'Seen' : 'Unseen'}}">Seen/Unseen</md-slide-toggle>
         </div>
         <div class="table-responsive">
           <table class="list table">
@@ -50,8 +43,17 @@
                 <th>Seen On</th>
               </tr>
             </thead>
-            <tbody>
-              <tr style="cursor: pointer" *ngFor="let tracking of selectedTrackingData;index as i;" (click)="previewEmail(tracking)">
+            <tbody *ngFor="let tracking of selectedTrackingData.data;index as i;">
+              <tr *ngIf="seenUnseen && tracking.seen">
+                <td>{{i+1}}</td>
+                <td>{{tracking.candidate_email}}</td>
+                <td>{{tracking.sent_time | date: 'medium'}}</td>
+                <td>
+                  <i class="material-icons" [ngStyle]="{'color':tracking.seen ? 'green' : 'red' }">done_all</i>
+                </td>
+                <td>{{tracking.view_time | date: 'medium'}}</td>
+              </tr>
+              <tr *ngIf="!seenUnseen && !tracking.seen">
                 <td>{{i+1}}</td>
                 <td>{{tracking.candidate_email}}</td>
                 <td>{{tracking.sent_time | date: 'medium'}}</td>
