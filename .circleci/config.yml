@@ -34,7 +34,7 @@ jobs:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: npm install
+      - run: npm rebuild node-sass --force
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
 
