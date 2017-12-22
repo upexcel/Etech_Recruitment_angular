@@ -129,6 +129,6 @@ describe("Setting/Job Profile Tag Page Test", function() {
     cy.get("#toolbar button#sideNav").click();
     cy.get("md-sidenav div#inbox").click()
     cy.get("#inboxTag .default-tag-buttons").should("not.have.value",data.jobprofile);
-
+    cy.wait('@getAutotag')
   })
 });

@@ -18,6 +18,7 @@
   "userPass": "123",
   "jobprofile": "TEST",
   "automaticTag": "AutoTEST",
+  "newJobprofile": "test1",
   "defaultTagTitle": "noida",
   "waitForAnimations": false,
   "keyword": "noida"

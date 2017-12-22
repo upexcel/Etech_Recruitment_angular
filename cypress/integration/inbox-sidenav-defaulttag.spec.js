@@ -9,7 +9,7 @@ describe("Inbox/Inbox Side Nav Page Default tag Test", function() {
   });
   // add a job profile
   it("add job profile", function() {
-    cy.addJobprofile(data.jobprofile)
+    cy.addJobprofile(data.newJobprofile)
   })
 
   //Visits the Inbox Page add Default sub tag
@@ -25,7 +25,7 @@ describe("Inbox/Inbox Side Nav Page Default tag Test", function() {
       method: 'GET',
       url: data.apiUrl + `/email/countEmail**`
     }).as('count_mail')
-    cy.get("#subtitle").contains("TEST").next().click();
+    cy.get("#subtitle").contains("test1").next().click();
     cy.get('#title input')
       .type(data.defaultTagTitle).should('have.value', data.defaultTagTitle);
     cy.get('#subject input')
@@ -46,6 +46,6 @@ describe("Inbox/Inbox Side Nav Page Default tag Test", function() {
   // delete a job profile
   it("delete job profile", function() {
     cy.visit(data.baseUrl + "/core/setting/jobProfileTags");
-    cy.deleteJobprofile(data.jobprofile)
+    cy.deleteJobprofile(data.newJobprofile)
   })
 });
