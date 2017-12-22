@@ -34,7 +34,7 @@ jobs:
           key: v1-npm-deps-{{ checksum "package.json" }}
           paths:
             - node_modules
-      - run: npm rebuild node-sass --force
+      - run: cd api_hr_recruitment && npm install && npm run db-migrate && npm run db 
       - run: ss -lptn 'sport = :4200'
       - run: ss -lptn 'sport = :8091'
 
