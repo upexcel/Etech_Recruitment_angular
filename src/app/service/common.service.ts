@@ -201,7 +201,7 @@ export class CommonService {
             if (value['body']) {
                 value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
             }
-            if (key === 0) {
+            if (parseInt(key) === 0) {
                 value['accordianIsOpen'] = true;
             } else {
                 value['accordianIsOpen'] = false;

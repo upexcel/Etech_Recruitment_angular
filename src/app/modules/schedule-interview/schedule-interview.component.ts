@@ -68,7 +68,7 @@ export class ScheduleInterviewComponent implements OnInit {
         this.interviewRounds = this._commonService.interviewRoundDisableCheck(this.dataForInterviewScheduleRound, this.tagselected);
     }
 
-    dateFilter = (d: Date): boolean => {
+    dateFilter = (d: Date) => {
         return _.filter(this.scheduleData, { 'date': this._commonService.formateDate(d) }).length;
     }
 
