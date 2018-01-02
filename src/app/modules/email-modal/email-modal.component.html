@@ -1,7 +1,7 @@
 <md-card class="background-white">
 <div class="m-b">
-    <div class="default-tag-buttons" *ngIf="historyList.data">
-        <button md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>
+    <div id="topBtn" class="default-tag-buttons" *ngIf="historyList.data">
+        <button id="backbtn" md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>
         <button md-raised-button mdTooltip="Send Email" mdTooltipPosition="below" class="cyan send-email" (click)="sendEmail()">Send Email</button>
     </div>
     <h4 *ngIf="error" style="color: red; text-align: center;">{{errorMessageText}}</h4>
@@ -21,6 +21,11 @@
         from
         <a>{{H_email.from}} {{H_email.sender_mail}}</a>
         <span class="text-xs"> on {{H_email.date | date: 'medium'}}</span>
+    </div>
+    <div style="text-align: right">
+        <md-select placeholder="Interviewee" class="assign-interviewee" [(ngModel)]="H_email.interviewee" (ngModelChange)="assignInterviewee(H_email.interviewee)">
+            <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
+        </md-select>
     </div>
     <div class="default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && selectedTag && selectedTag >= 0">
         <span *ngFor="let tag of tags.Default; trackBy: tagsDefaultTrack">

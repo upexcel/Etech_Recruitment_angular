@@ -1,9 +1,9 @@
 export const config = {
     'interviewRounds': [{ 'name': 'First Round', 'value': 'first_round' }, { 'name': 'Second Round', 'value': 'second_round' }, { 'name': 'Third Round', 'value': 'third_round' }],
-    'userType': ['Admin', 'Hr', 'Guest'],
+    'userType': ['Admin', 'Hr', 'Guest', 'Interviewee'],
     'mobileNoPrefix': '+91',
-    'titles': { '/core/dashboa': 'Dashboard', '/core/setting': 'Settings', '/core/inbox': 'Inbox', '/core/inbox/e': 'Inbox' },
-    'roles': { 'HR': ['/core/setting/emailtemplate', '/core/setting/emailvariable', '/core/setting/tagsetting', '/core/setting/automaticTags', '/core/setting/jobProfileTags', '/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Guest': ['/core/inbox', '/core/setting/resetPassword', '/core/dashboard'] },
+    'titles': { '/core/dashboa': 'Dashboard', '/core/setting': 'Settings', '/core/inbox': 'Inbox', '/core/inbox/e': 'Inbox', '/core/email-t': 'Email Tracking', '/core/intervi': 'Inbox' },
+    'roles': { 'HR': ['/core/setting/emailtemplate', '/core/setting/emailvariable', '/core/setting/tagsetting', '/core/setting/automaticTags', '/core/setting/jobProfileTags', '/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Guest': ['/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Interviewee': ['/core/interviewee-inbox', '/core/setting/resetPassword', '/core/dashboard'] },
     'dashboardChartColor': [
         { // grey
             backgroundColor: 'rgba(148,159,177,0.2)',
@@ -52,6 +52,8 @@ export const config = {
         responsive: true,
         maintainAspectRatio: false,
     },
-    dashboardChartRefreshTime: 60000
+    dashboardChartRefreshTime: 60000,
+    scheduleInterviewBy: 'scheduleByDirect',
+    emailTrackingRecordPerPage: 100
 };
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];

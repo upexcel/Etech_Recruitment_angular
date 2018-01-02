@@ -7,6 +7,7 @@ import * as moment from 'moment';
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
+    intervieweeList: any;
     constructor(public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
@@ -18,6 +19,12 @@ export class CommonService {
             return { 'background-color': '#F1B2B2' };
         } else if (title === 'Schedule') {
             return { 'background-color': '#FBB917' };
+        } else if (title === 'First Round') {
+            return { 'background-color': '#00cc93' };
+        } else if (title === 'Second Round') {
+            return { 'background-color': '#e5cf00' };
+        } else if (title === 'Third Round') {
+            return { 'background-color': '#007f00' };
         } else {
             return { 'background-color': 'cyan' };
         }
@@ -32,6 +39,12 @@ export class CommonService {
             return 'highlight_off';
         } else if (title === 'Schedule') {
             return 'access_time';
+        } else if (title === 'First Round') {
+            return 'done';
+        } else if (title === 'Second Round') {
+            return 'done_all';
+        } else if (title === 'Third Round') {
+            return 'thumb_up';
         } else {
             return 'thumb_up';
         }
@@ -60,12 +73,12 @@ export class CommonService {
                 }
             });
             _.forEach(interviewRounds, (value, key) => {
-                if (key>0 && interviewRounds[key]['disable']==false && interviewRounds[key-1]['disable']==true) {
-                    interviewRounds[key-1]['disable']=false;
-                } else{
-                    if(key==interviewRounds.length-1 && interviewRounds[interviewRounds.length-1]){
-                      interviewRounds[interviewRounds.length-1]['disable']=false;
-                  }
+                if (key > 0 && interviewRounds[key]['disable'] === false && interviewRounds[key - 1]['disable'] === true) {
+                    interviewRounds[key - 1]['disable'] = false;
+                } else {
+                    if (key === interviewRounds.length - 1 && interviewRounds[interviewRounds.length - 1]) {
+                        interviewRounds[interviewRounds.length - 1]['disable'] = false;
+                    }
                 }
             });
         } else {
@@ -195,5 +208,20 @@ export class CommonService {
             }
         });
         return data;
+    }
+    getIntervieweeList() {
+        return new Promise((resolve, reject) => {
+            if (this.intervieweeList && this.intervieweeList.lenght) {
+                resolve(this.intervieweeList);
+            } else {
+                this._apiService.getIntervieweeList().subscribe((res) => {
+                    this.intervieweeList = res;
+                    resolve(res);
+                }, (err) => {
+                    console.log(err)
+                    reject(err);
+                })
+            }
+        })
     }
 }

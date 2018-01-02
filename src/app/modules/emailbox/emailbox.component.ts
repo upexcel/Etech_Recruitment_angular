@@ -23,6 +23,7 @@ export class EmailboxComponent implements OnInit {
     @Input() tagselected: any;
     @Input() dataForInterviewScheduleRound: any;
     @Input() inboxMailsTagsForEmailListAndModel: any;
+    @Input() intervieweeList: any
     @Output() refresh = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
     @Output() refreshEmail = new EventEmitter<any>();
@@ -66,11 +67,11 @@ export class EmailboxComponent implements OnInit {
         if (title === 'Schedule') {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
-                  this.assignEmail.assignTag(data).subscribe((res) => {
+                    this.assignEmail.assignTag(data).subscribe((res) => {
                         this.deleteAndAssignTag.emit(data.tag_id);
-                  }, (err) => {
-                      console.log(err);
-                  });
+                    }, (err) => {
+                        console.log(err);
+                    });
                 }
             }, (err) => {
                 console.log(err);
@@ -89,7 +90,7 @@ export class EmailboxComponent implements OnInit {
     }
 
     countEmailSubject(emailSubject) {
-        return (emailSubject.length > 88) ? emailSubject.substring(0, 88) + '...' : emailSubject;
+        return (emailSubject && emailSubject.length > 88) ? emailSubject.substring(0, 88) + '...' : emailSubject;
     }
 
     allTagsDefaultTrack(index, data) {
@@ -120,5 +121,15 @@ export class EmailboxComponent implements OnInit {
             });
         }
 
+    }
+
+    assignInterviewee(interviewee) {
+        const apiData = {
+            mongo_id: this.email._id,
+            interviewee: interviewee
+        }
+        this.assignEmail.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
+            console.log(err)
+        })
     }
 }

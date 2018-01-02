@@ -571,6 +571,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    resendEmailForTracking(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + 'send/sendEmailToNotviewed', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     activateImap(email_id: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.put(environment['apibase'] + `imap/statusActive/${email_id}`)
@@ -703,7 +716,8 @@ export class ImapMailsService {
             });
     }
     addNote(data: any): Observable <any> {
-        return this.Intercepted.post(environment['apibase'] + 'candidate_notes/insert/', data)
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + 'candidate_notes/insert', data)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
@@ -715,6 +729,7 @@ export class ImapMailsService {
             });
     }
     updateNote(data: any): Observable <any> {
+        this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `candidate_notes/update/`, data)
             .map((res: Response) => {
                 this.decreaseAPiCount();
@@ -727,6 +742,7 @@ export class ImapMailsService {
             });
     }
     sendSlackInfo(info: any): Observable <any> {
+        this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `add/slackInfo/`, info)
             .map((res: Response) => {
                 this.decreaseAPiCount();
@@ -736,9 +752,10 @@ export class ImapMailsService {
                 this.count = 0;
                 this.apiEndEvent.emit();
                 return Observable.throw(error.json() || 'Server error');
-            });  
+            });
     }
     getSlackInfo(): Observable <any> {
+        this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `get/slackInfo/`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
@@ -789,9 +806,87 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    addNewCandidate(body: any): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + 'add/addNewCandidate', body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     deleteSubTag(type: any, id: any): Observable <any> {
         this.increaseAPiCount();
         return this.Intercepted.delete(environment['apibase'] + `tag/delete/` + type + '/' + id)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getEmailTrackingData(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `fetch/trackingData`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getIntervieweeList(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `get/Interviewee`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    assignInterviewee(body): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `assign/interviewee`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    deleteCampaign(campaign_name): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.delete(environment['apibase'] + `delete/campaign/${campaign_name}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getIntervieweeInboxData(): Observable <any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `get/candidate/byInterviewee`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

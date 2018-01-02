@@ -8,8 +8,16 @@
       <p class="mainnav">Dashboard</p>
     </div>
     <hr>
-    <div class="hovestyle" (click)="goto('inbox','Inbox');sidenav.close()">
+    <div id="inbox" class="hovestyle" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('inbox','Inbox');sidenav.close()">
       <p class="mainnav">Inbox</p>
+    </div>
+    <hr>
+    <div id="inbox" class="hovestyle" *ngIf="role == 'Interviewee'" (click)="goto('interviewee-inbox','Inbox');sidenav.close()">
+      <p class="mainnav">Inbox</p>
+    </div>
+    <hr>
+    <div class="hovestyle" *ngIf="role == 'Admin'"  (click)="goto('email-tracking','Email Tracking');sidenav.close()">
+      <p class="mainnav">Email Tracking</p>
     </div>
     <hr>
     <div class="hovestyle" (click)="goto('setting','Settings');sidenav.close()">
@@ -17,27 +25,27 @@
     </div>
     <hr>
     <hr>
-    <div class="hovestyle" (click)="logout()">
+    <div id="logout" class="hovestyle" (click)="logout()">
       <p class="mainnav">Logout</p>
     </div>
     <hr>
   </md-sidenav>
   <div class="bgcolor container-fluid">
-    <div class="row">
-      <md-toolbar color="accent">
-        <button md-icon-button (click)="sidenav.open()">
+    <div class="row" id="toolbar">
+      <md-toolbar id="topnav" color="accent">
+        <button id="sideNav" md-icon-button (click)="sidenav.open()">
           <md-icon>menu</md-icon>
-          </button>
+        </button>
         <span>{{title}}</span>
         <button md-icon-button mdTooltip="Fetch Latest Emails" class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
-        <md-icon>system_update_alt</md-icon>
-      </button>
+          <md-icon>system_update_alt</md-icon>
+        </button>
         <button md-icon-button mdTooltip="Fetch Emails By Days" class="cursor-pt" *ngIf="title == 'Settings'" (click)="fetchEmailByDay()">
-        <i>
+          <i>
         <small><md-icon>system_update_alt</md-icon></small>
         </i>
       </button>
-        <md-spinner class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
+        <md-spinner id="spinner" class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
       </md-toolbar>
       <router-outlet></router-outlet>
     </div>

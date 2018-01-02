@@ -16,9 +16,15 @@ export class AutomaticTagModalComponent implements OnInit {
     originaltitle = '';
     temp_id: any;
     availableColors = color_list;
+    tags= [];
     constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
+        if (this.tag.keyword === null || this.tag.keyword === ['']) {
+            this.tags = [];
+        }else {
+            this.tags = this.tag.keyword.split(',');
+        }
         this.originaltitle = this.tag.title;
         this.originalcolor = this.tag.color;
         this.temp_id = this.tag.template_id;
@@ -31,6 +37,11 @@ export class AutomaticTagModalComponent implements OnInit {
     }
 
     save() {
+        if (this.tags.length === 0) {
+            this.tag.keyword = null;
+        }else {
+            this.tag.keyword = this.tags.toString();
+        }
         this.tag.title = this.originaltitle;
         this.tag.color = this.originalcolor;
         this.tag.template_id = this.temp_id;

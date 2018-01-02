@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
@@ -12,7 +12,7 @@ import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
-import {  AddNoteComponent } from './../add-note/add-note.component';
+import { AddNoteComponent } from './../add-note/add-note.component';
 
 @Component({
     selector: 'app-email-modal',
@@ -31,7 +31,7 @@ import {  AddNoteComponent } from './../add-note/add-note.component';
         ])
     ]
 })
-export class EmailModalComponent implements OnInit {
+export class EmailModalComponent implements OnInit, OnDestroy {
     dialogConfig: MdDialogRef<any>;
     dialogRef: MdDialogRef<any>;
     email: any;
@@ -45,10 +45,11 @@ export class EmailModalComponent implements OnInit {
     errorMessageText: string;
     dataForInterviewScheduleRound: any;
     inboxMailsTagsForEmailListAndModel: any;
-    noteData:any;
-    updatedData:any
-    user:any;
-    mongoid:any;
+    noteData: any;
+    updatedData: any
+    user: any;
+    mongoid: any;
+    intervieweeList: any;
     constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
@@ -62,10 +63,13 @@ export class EmailModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        document.getElementById('topnav').classList.add('sidehide');
+        document.getElementById('leftPart').classList.add('sidehide');
+        document.getElementById('rightPart').classList.add('fullwidth');
         this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
-          this.user=this._localStorageService.getItem('userEmail');
+        this.user = this._localStorageService.getItem('userEmail');
         this.body = {
             'status': false,
             'mongo_id': this.route.snapshot.paramMap.get('id')
@@ -85,6 +89,31 @@ export class EmailModalComponent implements OnInit {
                 document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
             }, 100);
         }
+        this.getIntervieweeList();
+    }
+
+    getIntervieweeList() {
+        this.commonService.getIntervieweeList().then((res) => {
+            this.intervieweeList = res;
+        }, (err) => {
+            console.log(err)
+        })
+    }
+
+    assignInterviewee(interviewee) {
+        const apiData = {
+            mongo_id: this.email._id,
+            interviewee: interviewee
+        }
+        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
+            console.log(err)
+        })
+    }
+
+    ngOnDestroy() {
+        document.getElementById('topnav').classList.remove('sidehide');
+        document.getElementById('leftPart').classList.remove('sidehide');
+        document.getElementById('rightPart').classList.remove('fullwidth');
     }
 
     getCandiatehistory() {
@@ -221,50 +250,50 @@ export class EmailModalComponent implements OnInit {
             this.dialogRef = null;
         });
     }
-    addNote(candidateid:any){
-      this.dialogRef = this.dialog.open(AddNoteComponent, {
+    addNote(candidateid: any) {
+        this.dialogRef = this.dialog.open(AddNoteComponent, {
             height: '30%',
             width: '30%'
         });
-        this.dialogRef.componentInstance.candidateid = candidateid; 
-        this.dialogRef.componentInstance.emailList = this.historyList; 
-         this.dialogRef.afterClosed().subscribe(result => {
-             var date=moment(new Date()).format("DD-MM-YYYY");
-             var time=moment(new Date()).format("hh:mm:ss a");
-                 for(var i=0;i<=this.historyList.data.length;i++){
-                 if(this.historyList.data[i]._id == result.notedata.mongo_id){
-                    this.historyList.data[i].notes.push({'note':result.notedata.note,'date':date,'assignee':this.user,'time':time})
-                 }
-             }
+        this.dialogRef.componentInstance.candidateid = candidateid;
+        this.dialogRef.componentInstance.emailList = this.historyList;
+        this.dialogRef.afterClosed().subscribe(result => {
+            const date = moment(new Date()).format('DD-MM-YYYY');
+            const time = moment(new Date()).format('hh:mm:ss a');
+            for (let i = 0; i <= this.historyList.data.length; i++) {
+                if (this.historyList.data[i]._id === result.notedata.mongo_id) {
+                    this.historyList.data[i].notes.push({'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time})
+                }
+            }
             this.dialogRef = null;
         });
     }
-  
-  eventHandler(event,notedate,notetime,mongoid) {
-      this.mongoid=mongoid;
-      this.updatedData={note:event.target.outerText,mongo_id:mongoid,note_date:notedate,note_time:notetime
-      }
-  }
-  update(event, i) {
-    if (this.updatedData != undefined) {
-        this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {}, (err) => {
-            this.error = true;
-            this.errorMessageText = err.message;
-        });
-        var date = moment(new Date()).format("DD-MM-YYYY");
-        var time = moment(new Date()).format("hh:mm:ss a");
-        for (let j = 0; j <= this.historyList.data.length; j++) {
-            if (this.historyList.data[j]._id == this.mongoid) {
-                this.historyList.data[j].notes[i] = ({
-                    'note': this.updatedData.note,
-                    'date': date,
-                    'assignee': this.user,
-                    'time': time
-                })
-            }
-        }
 
+    eventHandler(event, notedate, notetime, mongoid) {
+        this.mongoid = mongoid;
+        this.updatedData = {note: event.target.outerText, mongo_id: mongoid, note_date: notedate, note_time: notetime
+        }
     }
-}
+    update(event, i) {
+        if (this.updatedData !== undefined) {
+            this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {}, (err) => {
+                this.error = true;
+                this.errorMessageText = err.message;
+            });
+            const date = moment(new Date()).format('DD-MM-YYYY');
+            const time = moment(new Date()).format('hh:mm:ss a');
+            for (let j = 0; j <= this.historyList.data.length; j++) {
+                if (this.historyList.data[j]._id === this.mongoid) {
+                    this.historyList.data[j].notes[i] = ({
+                        'note': this.updatedData.note,
+                        'date': date,
+                        'assignee': this.user,
+                        'time': time
+                    })
+                }
+            }
+
+        }
+    }
 
 }
