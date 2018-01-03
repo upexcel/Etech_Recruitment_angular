@@ -5,7 +5,6 @@ import {
 import {
     ImapMailsService
 } from '../../service/imapemails.service';
-import clone from 'lodash/clone';
 @Component({
     // tslint:disable-next-line:component-selector
     selector: 'slack-info',

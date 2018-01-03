@@ -197,11 +197,11 @@ export class CommonService {
             '_id': emailId
         });
         data.data.unshift(deletedData)
-        _.forEach(data['data'], (value, key) => {
+        _.forEach(data['data'], (value, key:any) => {
             if (value['body']) {
                 value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
             }
-            if (key === 0) {
+            if (key*1 === 0) {
                 value['accordianIsOpen'] = true;
             } else {
                 value['accordianIsOpen'] = false;
