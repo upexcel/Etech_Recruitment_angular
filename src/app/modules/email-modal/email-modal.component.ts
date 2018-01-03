@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef ,MdSnackBar} from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -50,7 +50,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
     user: any;
     mongoid: any;
     intervieweeList: any;
-    constructor(public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    constructor(public snackBar: MdSnackBar,public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
             this.selectedTag = -1;
@@ -174,6 +174,9 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
                     this.tagUpdate.assignTag(data).subscribe((res) => {
+                     this.snackBar.open('Added Successfully', '', {
+                        duration: 2000,
+                      });
                         this.commonService.inboxRefreshEvent();
                     }, (err) => {
                         console.log(err);
@@ -192,6 +195,9 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             };
             this.tagUpdate.assignTag(this.body).subscribe((data) => {
                 this.idlist = [];
+                      this.snackBar.open('Added Successfully', '', {
+                        duration: 2000,
+                      });
                 this.commonService.inboxRefreshEvent();
             }, (err) => {
                 console.log(err);
