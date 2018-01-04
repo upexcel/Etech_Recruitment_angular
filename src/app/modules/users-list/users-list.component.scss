@@ -2,6 +2,7 @@
 .table-responsive {
     border: none;
 }
+
 table.list {
     width: 100%;
     border-collapse: collapse;
@@ -12,7 +13,7 @@ table.list {
         vertical-align: middle;
     }
     th, td {
-    	height: 30px;
+        height: 30px;
     }
     tbody {
         tr:hover {
@@ -20,7 +21,7 @@ table.list {
         }
     }
     .material-icons{
-    	cursor: pointer;
+        cursor: pointer;
         color: #f00; 
     }
 }
@@ -30,8 +31,8 @@ table.list {
     bottom: 20px;
 }
 .pagination {
-	text-align: right;
-	button {
-		background: none;
-	}
+    text-align: right;
+    button {
+        background: none;
+    }
 }
