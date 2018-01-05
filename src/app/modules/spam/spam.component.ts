@@ -5,7 +5,7 @@ import * as _ from 'lodash';
 import {MdSnackBar} from '@angular/material';
 
 @Component({
-    selector: 'spam-list',
+    selector: 'app-spam-list',
     templateUrl: './spam.component.html',
     styleUrls: ['./spam.component.scss']
 })
@@ -25,7 +25,7 @@ export class SpamComponent implements OnInit {
 
     getSpamList() {
         this._imapMailsService.getSpamList({'page': this.page, limit: this.limit}).subscribe((res) => {
-            this.spamList = res;//['data']
+            this.spamList = res;
             this.totalCount = res['total_count'];
         }, (err) => {
             console.log(err);
@@ -73,8 +73,8 @@ export class SpamComponent implements OnInit {
         });
     }
     editSpam(spamData) {
-        this._spamDialogService.openAddSpam("edit", spamData).then((res: any) => {
-            if (res) {
+        this._spamDialogService.openAddSpam('edit', spamData).then((res: any) => {
+            if (res && res['id']) {
                 this.spamList.unshift(res);
                 this.getSpamList();
             }
