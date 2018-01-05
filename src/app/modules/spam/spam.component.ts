@@ -74,8 +74,7 @@ export class SpamComponent implements OnInit {
     }
     editSpam(spamData) {
         this._spamDialogService.openAddSpam('edit', spamData).then((res: any) => {
-            if (res && res['id']) {
-                this.spamList.unshift(res);
+            if (res && res['status']) {
                 this.getSpamList();
             }
         }, (err) => {
