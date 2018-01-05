@@ -21,7 +21,6 @@ export class AddNewSpamContactComponent implements OnInit {
 
     ngOnInit() {
         this.addNewSpamContactForm = this.formBuilder.group({
-            'name': [this.formData ? this.formData.name : null, Validators.required],
             'email': [this.formData ? this.formData.email : null, Validators.compose([
                 Validators.required,
                 Validators.email,
