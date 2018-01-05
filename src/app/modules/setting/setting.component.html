@@ -46,7 +46,7 @@
                 <md-list-item class="navlist" (click)="goto('resetPassword','Reset Password')">
                     <a md-line> Reset Password </a>
                 </md-list-item>
-                <md-list-item class="navlist" (click)="goto('spam','Spam')">
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('spam','Spam')">
                     <a md-line> Spam </a>
                 </md-list-item>
             </md-list>
