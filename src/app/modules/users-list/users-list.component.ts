@@ -55,7 +55,7 @@ export class UsersListComponent implements OnInit {
         this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
             if (res === 'yes') {
                 _.pull(this.userList, userData);
-                this._imapMailsService.deleteUser(userData.id).subscribe((deleteData) => {
+                this._imapMailsService.deleteUser('user/delete/',userData.id).subscribe((deleteData) => {
                     this.getUserList();
                 }, (err) => {
                     console.log(err);
