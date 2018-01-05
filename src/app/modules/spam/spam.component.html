@@ -9,7 +9,6 @@
             <thead>
                 <tr>
                     <th>Sr. No</th>
-                    <th>Name</th>
                     <th>Email</th>
                     <th>Edit</th>
                     <th>Delete</th>
@@ -18,7 +17,6 @@
             <tbody>
                 <tr *ngFor="let spam of spamList; index as i; trackBy: spamListTrack">
                     <td>{{i+1}}</td>
-                    <td class="text-left">{{spam.name}}</td>
                     <td>{{spam.email}}</td>
                     <td (click)="editSpam(spam)"><i class="material-icons icon-blue">&#xE3C9;</i></td>
                     <td (click)="deleteSpam(spam)"><i class="material-icons">&#xE872;</i></td>

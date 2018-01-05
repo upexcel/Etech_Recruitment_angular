@@ -9,17 +9,7 @@
                 <tr>
                     <td>
                         <md-input-container class="width-100">
-                          <input mdInput id="add-user-email" placeholder="Name" type="text" [formControl]="addNewSpamContactForm.controls['name']">
-                        </md-input-container>
-                        <md-error *ngIf="!addNewSpamContactForm.controls['name'].valid && addNewSpamContactForm.controls['name'].touched">
-                            Please enter a name
-                        </md-error>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <md-input-container class="width-100">
-                          <input mdInput id="add-user-password" placeholder="Email" type="text" [formControl]="addNewSpamContactForm.controls['email']">
+                          <input mdInput id="add-spam-emal" placeholder="Email" type="text" [formControl]="addNewSpamContactForm.controls['email']">
                         </md-input-container>
                         <md-error *ngIf="!addNewSpamContactForm.controls['email'].valid && addNewSpamContactForm.controls['email'].touched">
                             Please enter a valid email
