@@ -28,17 +28,17 @@ import {
     FormControl,
     Validators
 } from '@angular/forms';
-import { Location } from '@angular/common';
-import { CoreComponent } from './../../modules/core/core.component';
-import { ComposeEmailComponent } from './../../modules/compose-email/compose-email.component';
-import { LocalStorageService } from './../../service/local-storage.service';
-import { CommonService } from './../../service/common.service';
-import { DialogService } from './../../service/dialog.service';
-import { environment } from '../../../environments/environment';
+import {Location} from '@angular/common';
+import {CoreComponent} from './../../modules/core/core.component';
+import {ComposeEmailComponent} from './../../modules/compose-email/compose-email.component';
+import {LocalStorageService} from './../../service/local-storage.service';
+import {CommonService} from './../../service/common.service';
+import {DialogService} from './../../service/dialog.service';
+import {environment} from '../../../environments/environment';
 import * as _ from 'lodash';
-import { SqlLiteService } from './../../service/sqlite.service';
+import {SqlLiteService} from './../../service/sqlite.service';
 
-import { AddCandidateComponent } from './../add-candidate/add-candidate.component';
+import {AddCandidateComponent} from './../add-candidate/add-candidate.component';
 @Component({
     selector: 'app-inbox',
     templateUrl: './inbox.component.html',
@@ -119,24 +119,44 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     getEmailandInsertSqlite() {
-        this.getemails.getData().subscribe((res) => {
-            this.count++;
+        return new Promise((resolve, reject) => {
+
             console.log(">>>>>>>>>>>>>>res", this.count);
-            _.forEach(res, (value, key) => {
-                if (value.emailFetch ) {
-                    this._SqlLiteService.insertSqlLiteTable('emailFetch', value.emailFetch).then((respo) => {
-                        console.log('dsfdsdfsdrrrr', respo);
-                        console.log(this.count <= 10 && res[0].emailFetch.length <= 100);
-                        // this.defaultOpen();
-                        if (this.count <= 9 && res[0].emailFetch.length <= 100) {
-                            this.getEmailandInsertSqlite();
-                        }
-                    }, (errrrr) => {
-                        console.log('eeeeeeeeeeeeee', errrrr);
-                        // this.defaultOpen();
-                    })
+            let refVariable;
+            this.getemails.getData().subscribe((res) => {
+                refVariable = JSON.parse(JSON.stringify(res));
+                this.count++;
+                let manageData = (data, callback) => {
+                    let first_data = data.splice(0, 1)[0];
+                    if (first_data.emailFetch) {
+                        this._SqlLiteService.insertSqlLiteTable('emailFetch', first_data.emailFetch).then((respo) => {
+                            console.log('dsfdsdfsdrrrr', respo);
+                            // this.defaultOpen();
+                            if (data && data.length) {
+                                console.log("************************************")
+                                manageData(data, callback)
+                            } else {
+                                callback(true)
+                            }
+                        }, (err) => {
+                            console.log('eeeeeeeeeeeeee', err);
+                            // this.defaultOpen();
+                        })
+                    }
                 }
-            });
+
+                manageData(res, (response) => {
+                    console.log("res**********",refVariable)
+                    if (this.count <= 9 && refVariable[0].emailFetch.length <= 100) {
+                        this.getEmailandInsertSqlite()
+                    } else {
+                        resolve(true);
+                    }
+                })
+            })
+            //        _.forEach(res, (value, key) => {
+            //
+            //        });
         })
     }
 
@@ -157,11 +177,11 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.emailChildId = subMenuValue['id'].toString() || '0';
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
-                                    this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
+                                    this.lastSelectedTagData = {'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle};
                                     // this.getemails.getEmailList(this.data).subscribe((data) => {
-                                        // console.log('>>>>>>>>>>>>>>>>>>>>api data', data)
-                                        // this.addSelectedFieldInEmailList(data);
-                                        // this.loading = false;
+                                    // console.log('>>>>>>>>>>>>>>>>>>>>api data', data)
+                                    // this.addSelectedFieldInEmailList(data);
+                                    // this.loading = false;
                                     // });
                                     this.data.table = 'emailFetch';
                                     this._SqlLiteService.fetchMails(this.data, (fetch) => {
@@ -338,7 +358,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             });
     }
     sendEmailToPendingCandidates() {
-        this.getemails.sendEmailToPendingCandidates({ 'tag_id': this.selectedTag }).subscribe((data) => {
+        this.getemails.sendEmailToPendingCandidates({'tag_id': this.selectedTag}).subscribe((data) => {
             this.notify(data.message, '');
         }, (err) => {
             this.notify(err.message, '');
@@ -432,7 +452,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
                 console.log('previous if called');
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 console.log('previous else called');
                 this.searchEmailList(this.data.page);
@@ -446,7 +466,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
                 console.log('next if called');
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 console.log('next else called');
                 this.searchEmailList(this.data.page);
@@ -458,7 +478,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (pageNo <= Math.ceil(this.emaillist.count / this.data.limit)) {
             this.data.page = pageNo;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -490,7 +510,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
             this.subject_for_genuine = res.subject_for_genuine;
             this.inboxMailsTagsForEmailListAndModel = res.inboxMailsTagsForEmailListAndModel;
-        }, (err) => { });
+        }, (err) => {});
         this.loading = false;
     }
 
