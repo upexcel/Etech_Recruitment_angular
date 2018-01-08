@@ -215,7 +215,7 @@ export class ImapMailsService {
                 this.count = 0;
                 this.apiEndEvent.emit();
                 return Observable.throw(error.json() || 'Server error');
-            });        
+            });
     }
     addSpam(body: any): Observable<any> {
         this.increaseAPiCount();
@@ -898,6 +898,18 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+
+// api get for sqldb
+    getData() {
+        return this.http.get('https://hr-recruit-dev.herokuapp.com/new/inboxContent/100')
+        .map( (res: Response ) => {
+            return res.json();
+        })
+        .catch((error: any) => {
+            return Observable.throw(error.json() || 'Server error');
+        });
+    }
+
     getIntervieweeList(): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `get/Interviewee`)

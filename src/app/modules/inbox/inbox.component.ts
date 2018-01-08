@@ -28,15 +28,17 @@ import {
     FormControl,
     Validators
 } from '@angular/forms';
-import { Location } from '@angular/common';
-import { CoreComponent } from './../../modules/core/core.component';
-import { ComposeEmailComponent } from './../../modules/compose-email/compose-email.component';
-import { LocalStorageService } from './../../service/local-storage.service';
-import { CommonService } from './../../service/common.service';
-import { DialogService } from './../../service/dialog.service';
-import { environment } from '../../../environments/environment';
+import {Location} from '@angular/common';
+import {CoreComponent} from './../../modules/core/core.component';
+import {ComposeEmailComponent} from './../../modules/compose-email/compose-email.component';
+import {LocalStorageService} from './../../service/local-storage.service';
+import {CommonService} from './../../service/common.service';
+import {DialogService} from './../../service/dialog.service';
+import {environment} from '../../../environments/environment';
 import * as _ from 'lodash';
-import { AddCandidateComponent } from './../add-candidate/add-candidate.component';
+import {SqlLiteService} from './../../service/sqlite.service';
+
+import {AddCandidateComponent} from './../add-candidate/add-candidate.component';
 @Component({
     selector: 'app-inbox',
     templateUrl: './inbox.component.html',
@@ -75,16 +77,19 @@ export class InboxComponent implements OnInit, OnDestroy {
     goToPageNo: number;
     email: any;
     intervieweeList: any;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
+    count: any;
+    constructor(public _SqlLiteService: SqlLiteService, public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
                 this.fetchNewEmails();
             });
         this.role = this._localStorageService.getItem('role');
+        this.count = 0;
 
     }
     ngOnInit() {
+
         this.emailIds = [];
         this.loading = true;
         this.data = {
@@ -92,6 +97,10 @@ export class InboxComponent implements OnInit, OnDestroy {
             'tag_id': 0,
             'limit': 100
         };
+        this._SqlLiteService.createSqlLiteDB()
+        this._SqlLiteService.createSqlLiteTable().then((res) => {
+            this.getEmailandInsertSqlite();
+        })
         this.defaultOpen();
         setTimeout(() => {
             if (this._location.path().substr(0, 17) === '/core/inbox/email') {
@@ -109,9 +118,52 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.getIntervieweeList();
     }
 
+    getEmailandInsertSqlite() {
+        return new Promise((resolve, reject) => {
+
+            console.log(">>>>>>>>>>>>>>res", this.count);
+            let refVariable;
+            this.getemails.getData().subscribe((res) => {
+                refVariable = JSON.parse(JSON.stringify(res));
+                this.count++;
+                let manageData = (data, callback) => {
+                    let first_data = data.splice(0, 1)[0];
+                    if (first_data.emailFetch) {
+                        this._SqlLiteService.insertSqlLiteTable('emailFetch', first_data.emailFetch).then((respo) => {
+                            console.log('dsfdsdfsdrrrr', respo);
+                            // this.defaultOpen();
+                            if (data && data.length) {
+                                console.log("************************************")
+                                manageData(data, callback)
+                            } else {
+                                callback(true)
+                            }
+                        }, (err) => {
+                            console.log('eeeeeeeeeeeeee', err);
+                            // this.defaultOpen();
+                        })
+                    }
+                }
+
+                manageData(res, (response) => {
+                    console.log("res**********",refVariable)
+                    if (this.count <= 9 && refVariable[0].emailFetch.length <= 100) {
+                        this.getEmailandInsertSqlite()
+                    } else {
+                        resolve(true);
+                    }
+                })
+            })
+            //        _.forEach(res, (value, key) => {
+            //
+            //        });
+        })
+    }
+
     defaultOpen() {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
+                console.log('ondefaultopen', res.data);
                 this.formatTagsInArray(res.data);
                 if (res.data.length > 0) {
                     _.forEach(res.data, (value, key) => {
@@ -125,11 +177,19 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.emailChildId = subMenuValue['id'].toString() || '0';
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
-                                    this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
-                                    this.getemails.getEmailList(this.data).subscribe((data) => {
-                                        this.addSelectedFieldInEmailList(data);
+                                    this.lastSelectedTagData = {'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle};
+                                    // this.getemails.getEmailList(this.data).subscribe((data) => {
+                                    // console.log('>>>>>>>>>>>>>>>>>>>>api data', data)
+                                    // this.addSelectedFieldInEmailList(data);
+                                    // this.loading = false;
+                                    // });
+                                    this.data.table = 'emailFetch';
+                                    this._SqlLiteService.fetchMails(this.data, (fetch) => {
+                                        this.addSelectedFieldInEmailList(fetch);
+                                        console.log('fetched data from sqlite', fetch);
                                         this.loading = false;
-                                    });
+                                    })
+
                                 }
                             });
                         }
@@ -298,7 +358,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             });
     }
     sendEmailToPendingCandidates() {
-        this.getemails.sendEmailToPendingCandidates({ 'tag_id': this.selectedTag }).subscribe((data) => {
+        this.getemails.sendEmailToPendingCandidates({'tag_id': this.selectedTag}).subscribe((data) => {
             this.notify(data.message, '');
         }, (err) => {
             this.notify(err.message, '');
@@ -361,11 +421,18 @@ export class InboxComponent implements OnInit, OnDestroy {
             };
         }
         this.loading = true;
-        this.getemails.getEmailList(this.data).subscribe((data) => {
-            this.addSelectedFieldInEmailList(data);
+        // this.getemails.getEmailList(this.data).subscribe((data) => {
+        //     this.addSelectedFieldInEmailList(data);
+        //     this.emailIds = [];
+        //     this.loading = false;
+        // });
+        this.data.table = 'emailFetch';
+        this._SqlLiteService.fetchMails(this.data, (fetch) => {
+            this.addSelectedFieldInEmailList(fetch);
             this.emailIds = [];
             this.loading = false;
-        });
+            console.log('>>>>>>>>>>>>>>>>>>>>>>>>componenet fetch', fetch)
+        })
     }
 
     searchEmailList(page: number) {
@@ -380,22 +447,28 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     previous() {
+        console.log(this.data.page)
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                console.log('previous if called');
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
+                console.log('previous else called');
                 this.searchEmailList(this.data.page);
             }
         }
     }
 
     next() {
+        console.log(this.data.page)
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                console.log('next if called');
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
+                console.log('next else called');
                 this.searchEmailList(this.data.page);
             }
         }
@@ -405,7 +478,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (pageNo <= Math.ceil(this.emaillist.count / this.data.limit)) {
             this.data.page = pageNo;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -430,11 +503,14 @@ export class InboxComponent implements OnInit, OnDestroy {
     formatTagsInArray(data: any) {
         this.tags = JSON.parse(JSON.stringify(data));
         this._commonService.formateTags(data).then((res: any) => {
+
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
+            console.log('jdnjvsjd', this.tagsForEmailListAndModel);
+
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
             this.subject_for_genuine = res.subject_for_genuine;
             this.inboxMailsTagsForEmailListAndModel = res.inboxMailsTagsForEmailListAndModel;
-        }, (err) => { });
+        }, (err) => {});
         this.loading = false;
     }
 
