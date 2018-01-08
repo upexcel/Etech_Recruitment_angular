@@ -1,48 +1,11 @@
 @import './../../variable.scss';
-.example-icon {
-  padding: 0 14px;
-}
-.commonSpinner {
-    width: 50px !important;;
-    height: 50px !important;
-    top:0px;
-    path {
-        stroke: black;
-    }
-    position: absolute;
-    right: 40px;
-}
-.word-break{
-        word-wrap: break-word;
-}
-.background-white{
+.background-white {
 	background-color: #fff;
 	pointer-events: all;
-}
-.example-spacer {
-  flex: 1 1 auto;
-}
-.send-email {
-	position: absolute;
-	top: 10px;
-	right: 30px;
-}
-md-toolbar {
-	background-color: cyan;
-}
-.header {
-	margin-bottom: 30px;
-}
-.m-b {
-	margin-bottom: 1rem !important;
+	margin: 10px;
 }
 .cyan {
 	background-color: cyan;
-	margin-left: 1px;
-    margin-right: 5px;
-}
-.c-his {
-	background-color: #71B9F9;
 	margin-left: 1px;
     margin-right: 5px;
 }
@@ -68,38 +31,6 @@ md-toolbar {
 	margin-bottom: 5px;
 	font-weight: bold;
 }
-.ifset {
-	height: 500px;
-	width: 100%;
-}
-.no-pos {
-	padding: 0px !important;
-}
-md-grid-tile {
-	overflow: visible;
-}
-.mat-grid-tile {
-	overflow: auto;
-}
-.f-r {
-    left: 83%;
-}
-.h-ps {
-	margin: 6px;
-}
-.labels {
-      background-color: #6887ff;
-      color: rgba(255,255,255,.87);
-      padding: .15em .35em;
-      font-size: 75%;
-      line-height: 1;
-      vertical-align: baseline;
-      font-weight: 700;
-      border-radius: .2rem;
-      text-align: center;
-      white-space: nowrap;
-      display: inline-block;
-}
 .attach {
 	margin-bottom: .5rem!important;
 	margin-right: .5rem!important;
@@ -124,10 +55,6 @@ md-grid-tile {
 	border-bottom: 1px solid rgba(120,130,140,.13);
 	cursor: pointer;
 }
-.p-a-xs {
-	width: 120px;
-	padding: .25rem!important;
-}
 .at-hed {
 	text-align: left;
 	margin-bottom: 0px;
@@ -150,9 +77,6 @@ md-grid-tile {
 	width: 80%;
 }
 @media screen and (min-width: 320px) and (max-width: 480px) {
-       .maindiv{
-        width: 80% !important;
-    }
 	.default-tag-buttons {
 		span {
 			width: 100%;
@@ -172,10 +96,6 @@ md-grid-tile {
 			width: auto;
 		}
 	}
-	.back-button {
-		left: 13px !important;
-		top: 10px;
-	}
 	.accordian-close {
 		width: 47%;
 		word-break: break-all;
@@ -185,32 +105,16 @@ md-grid-tile {
 		font-size: 10px;
 	}
 }
-@media screen and (min-width: 480px) and (max-width: 768px) {
-    .maindiv{
-        width: 80% !important;
-    }
-	.default-tag-buttons {
-		span {
-			width: 48%;
-			display: inline-block;
-			margin: 4px 0px;
-			padding: 0px 4px;
-			a {
-				width: 100%;
-			}
-		}
-		.cyan {
-			line-height: 12px!important;
-		}
+@media (min-width: 360px) and (max-width: 768px) {
+	.maindiv{
+		width: 94% !important;
+		margin: 4px 0px !important; 
 	}
 	.attachment-container, .email-body {
 		width: 100%!important;
 		.attach {
 			width: 97%;
 		}
-	}
-	.back-button {
-		left: 13px !important;
 	}
 	.accordian-close {
 		width: 57%;
@@ -263,34 +167,20 @@ md-grid-tile {
 		width: 100%;
 	}
 }
-.back-button{
-	position: absolute;
-	left: 22px;
-	top: 10px;
-	background-color: #fff;
-	.material-icons{
-		font-weight: bolder;
-		color: #000;
-	}
-}
-.auto-tags{
-	font-size: 10px;
-	margin: 0px 2px 0px 2px;
-	vertical-align: bottom;
-}
 .maindiv{
     width:15%;
-    padding-top:0px !important;
-    padding-bottom: 4px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
-    border:1px solid transparent !important;
-    border-radius: 4px !important;
-    background-color: rgb(254,240,69) !important;
-    min-height:160px !important;
-    box-shadow: 2px 2px 4px 1px #fff !important;
-    margin-bottom:15px !important;
-    
+    padding-top:0px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border:1px solid transparent;
+    border-radius: 4px;
+    background-color: rgb(254,240,69);
+    min-height:160px;
+    box-shadow: 2px 2px 4px 1px #fff;
+	margin-bottom:15px;
+	display: inline-block;
+	margin: 0px 4px;
 }
 .fontstyle{
         margin-top: 8px;

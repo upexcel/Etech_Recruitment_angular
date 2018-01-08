@@ -14,8 +14,18 @@ html, body {
   margin: 0;
   height: 100%;
 }
-.cdk-overlay-pane{
+.cdk-overlay-pane {
     overflow: hidden !important;
+}
+.commonSpinner1 {
+    width: 50px !important;
+    height: 36px !important;
+    path {
+        stroke: black;
+    }
+}
+.mat-sidenav-content {
+    transform: none !important; 
 }
 .sk-circle {
   margin: 250px auto;

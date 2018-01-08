@@ -47,26 +47,11 @@ export class LoginComponent implements OnInit {
                 this._localStorageService.setItem('role', data.role);
                 this._localStorageService.setItem('userEmail', this.email);
                 this.access.storeToken(data.token).then((status) => {
-                    // this.SqlLiteService.createSqlLiteDB()
-                    // this.SqlLiteService.createSqlLiteTable()
-                    // this.SqlLiteService.getData().subscribe((res) => {
-                    //     console.log('>>>>>>>>>>>>>>res', res);
-                    //     _.forEach(res, (value, key) => {
-                    //         // console.log(value, key)
-                    //         if (value.emailFetch ) {
-                    //             this.SqlLiteService.insertSqlLiteTable('emailFetch', value.emailFetch);
-                    //         }
-                    //     });
-                    // })
-                    // this.SqlLiteService.getData().subscribe((res) => {
-                    //     _.forEach(res, (value, key) => {
-                    //         if (value.Tag) {
-                    //             this.SqlLiteService.insertSqlLiteTable('Tag', value.Tag)
-                    //         }
-                    //     })
-                    // })
-                    // this.sqliteservice.dropTable()
-                    this._router.navigate(['/core/inbox']);
+                    if (data.role === 'Interviewee') {
+                        this._router.navigate(['/core/interviewee-inbox']);
+                    } else {
+                        this._router.navigate(['/core/inbox']);
+                    }
                 });
             },
             (err) => {

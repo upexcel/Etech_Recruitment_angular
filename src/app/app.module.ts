@@ -126,6 +126,9 @@ import {
 import {
     AddEmailTempComponent
 } from './modules/add-email-temp/add-email-temp.component';
+import {
+    AddNewSpamContactComponent  
+} from './modules/add-spam-contact/add-spam-contact.component';
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
 import { SafeHtmlPipe } from './service/safe-html-pipe.pipe';
@@ -145,6 +148,7 @@ import { ScheduleInterviewComponent } from './modules/schedule-interview/schedul
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { FetchEmailByDayComponent } from './modules/fetch-email-by-day/fetch-email-by-day.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
+import { SpamComponent  } from './modules/spam/spam.component';
 import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confirmation-dialog.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { CronStatusModelComponent } from './modules/cron-status-model/cron-status-model.component';
@@ -156,11 +160,14 @@ import { DialogService } from './service/dialog.service';
 import { DashboardService } from './service/dashboard.service';
 import { SqlLiteService } from './service/sqlite.service';
 import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
+import { SpamDialogService } from './service/spamDialog.service';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 import { DragulaModule } from 'ng2-dragula';
 import { RlTagInputModule } from 'angular2-tag-input';
 import { AddCandidateComponent } from './modules/add-candidate/add-candidate.component';
+import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
+import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -205,6 +212,7 @@ import { AddCandidateComponent } from './modules/add-candidate/add-candidate.com
         AddNewUserComponent,
         FetchEmailByDayComponent,
         UsersListComponent,
+        SpamComponent,
         ScheduleInterviewComponent,
         ConfirmationDialogComponent,
         DashboardComponent,
@@ -215,7 +223,10 @@ import { AddCandidateComponent } from './modules/add-candidate/add-candidate.com
         SlackComponentFormComponent,
         AddSubTagModalComponent,
         EmailTrackingComponent,
-        AddCandidateComponent
+        AddCandidateComponent,
+        IntervieweeInboxComponent,
+        IntervieweeCandidateComponent,
+        AddNewSpamContactComponent
     ],
     imports: [
         BrowserModule,
@@ -247,6 +258,7 @@ import { AddCandidateComponent } from './modules/add-candidate/add-candidate.com
         CommonService,
         LocalStorageService,
         DialogService,
+        SpamDialogService,
         DashboardService,
         LoginRouteGuard,
         SqlLiteService,
@@ -276,7 +288,8 @@ import { AddCandidateComponent } from './modules/add-candidate/add-candidate.com
         ConfirmationDialogComponent,
         AddNoteComponent,
         AddSubTagModalComponent,
-        AddCandidateComponent
+        AddCandidateComponent,
+        AddNewSpamContactComponent
     ],
     bootstrap: [AppComponent]
 })

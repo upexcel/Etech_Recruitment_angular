@@ -7,6 +7,7 @@ import * as moment from 'moment';
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
+    intervieweeList: any;
     constructor(public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
@@ -196,16 +197,31 @@ export class CommonService {
             '_id': emailId
         });
         data.data.unshift(deletedData)
-        _.forEach(data['data'], (value, key) => {
+        _.forEach(data['data'], (value, key:any) => {
             if (value['body']) {
                 value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
             }
-            if (key === 0) {
+            if (key*1 === 0) {
                 value['accordianIsOpen'] = true;
             } else {
                 value['accordianIsOpen'] = false;
             }
         });
         return data;
+    }
+    getIntervieweeList() {
+        return new Promise((resolve, reject) => {
+            if (this.intervieweeList && this.intervieweeList.lenght) {
+                resolve(this.intervieweeList);
+            } else {
+                this._apiService.getIntervieweeList().subscribe((res) => {
+                    this.intervieweeList = res;
+                    resolve(res);
+                }, (err) => {
+                    console.log(err)
+                    reject(err);
+                })
+            }
+        })
     }
 }

@@ -2,7 +2,23 @@
 .table-responsive {
     border: none;
 }
-
+i.icon-blue {
+    color: #60bdd5 !important;
+}
+.cyan {
+    background-color: cyan;
+    margin-left: 1px;
+    margin-right: 5px;
+}
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+.clear{
+    clear: both;
+}
 table.list {
     width: 100%;
     border-collapse: collapse;

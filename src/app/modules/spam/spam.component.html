@@ -1,0 +1,33 @@
+<md-card id="spamList_table">
+    <div>
+    <h3 class="heading left">Spam List</h3>
+    <button small md-raised-button mdTooltip="Send Email" mdTooltipPosition="below" class="cyan right send-email" (click)="gotoSpam()">Move to Spam</button>
+    </div>
+    <div class="clear"></div>
+    <div class="table-responsive" id="spamList-table">
+        <table class="list table">
+            <thead>
+                <tr>
+                    <th>Sr. No</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let spam of spamList; index as i; trackBy: spamListTrack">
+                    <td>{{i+1}}</td>
+                    <td>{{spam.email}}</td>
+                    <td (click)="editSpam(spam)"><i class="material-icons icon-blue">&#xE3C9;</i></td>
+                    <td (click)="deleteSpam(spam)"><i class="material-icons">&#xE872;</i></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</md-card>
+<div class="pos-add" id="add-user">
+    <a md-fab (click)="addSpam()">
+       <md-icon>add</md-icon>
+    </a>
+</div>
