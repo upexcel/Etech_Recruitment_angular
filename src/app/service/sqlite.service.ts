@@ -40,13 +40,14 @@ export class SqlLiteService {
                         console.log('query error');
                     })
                 })
-
+                console.log(key, value);
             })
             resolve(0)
         })
 
     }
     insertSqlLiteTable(tableName, data) {
+        console.log(tableName, data, );
         return new Promise((resolve, reject) => {
             const findLength = keys(sqldata);
             let count = 0;
@@ -60,37 +61,47 @@ export class SqlLiteService {
                         }
                         dataToInsert = dataToInsert + '"' + value3 + '"' + '' + ',';
                     })
-                    this.insert(tableName, dataToInsert);
+                    // this.insert(tableName, dataToInsert);
+                    dataToInsert = dataToInsert.slice(0, -1);
+                    // console.log(dataToInsert)
+                    this.db.transaction(function (tx) {
+                      // tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
+                        tx.executeSql(`INSERT INTO ${tableName} VALUES (${dataToInsert})`, [], (res) => {
+                            console.log('inserted', res)
+                            // return res;
+                        }, function (err) {
+                            console.log('error', err)
+                            // return err;
+                        });
+                    })
+                    console.log('>>>>>>>>>>>>>>>>>>...scucesss', key1 === data.length - 1);
+                    if (key1 === data.length - 1) {
+                        resolve('sucess');
+                    }
                 })
-                this._localStorageService.setItem('tablecount', 1);
-                resolve('sucess');
-            }else {
+                // this._localStorageService.setItem('tablecount', 1);
+            } else {
+                console.log('>>>>>>>>>>>>>>>>>>...errrror')
                 reject('errr');
             }
         });
     }
 
-    insert(insert, dataToInsert) {
-        dataToInsert = dataToInsert.slice(0, -1);
-        console.log(dataToInsert)
-        this.db.transaction(function (tx) {
-            // tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
-            tx.executeSql(`INSERT INTO ${insert} VALUES (${dataToInsert})`, [], (res) => {
-                console.log('inserted', res)
-                return res;
-            }, function (err) {
-                console.log('error', err)
-                return err;
-            });
-        })
-    }
-    getData() {
-        return this.http.get('http://localhost:8091/new/inboxContent/100')
-        // return this.http.get('./assets/sqlite.json')
-        .map( (res ) => {
-            return res.json();
-        })
-    }
+    // insert(insert, dataToInsert) {
+    //     dataToInsert = dataToInsert.slice(0, -1);
+    //     console.log(dataToInsert)
+    //     this.db.transaction(function (tx) {
+    //         // tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
+    //         tx.executeSql(`INSERT INTO ${insert} VALUES (${dataToInsert})`, [], (res) => {
+    //             console.log('inserted', res)
+    //             return res;
+    //         }, function (err) {
+    //             console.log('error', err)
+    //             return err;
+    //         });
+    //     })
+    // }
+
     fetchMails(data, cb) {
         console.log('fetch email caleed data is ', data);
         let fetcheddata = {};

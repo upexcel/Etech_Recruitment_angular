@@ -858,4 +858,15 @@ export class ImapMailsService {
             return Observable.throw(error.json() || 'Server error');
         });
     }
+
+// api get for sqldb
+    getData() {
+        return this.http.get('http://localhost:8091/new/inboxContent/100')
+        .map( (res: Response ) => {
+            return res.json();
+        })
+        .catch((error: any) => {
+            return Observable.throw(error.json() || 'Server error');
+        });
+    }
 }

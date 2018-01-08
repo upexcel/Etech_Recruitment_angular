@@ -76,6 +76,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     lastSelectedTagData: any;
     goToPageNo: number;
     email: any;
+    count: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService, public _SqlLiteService: SqlLiteService ) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -83,6 +84,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.fetchNewEmails();
             });
         this.role = this._localStorageService.getItem('role');
+        this.count = 0;
 
     }
     ngOnInit() {
@@ -95,22 +97,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             'limit': 100
         };
         this._SqlLiteService.createSqlLiteDB()
-        this._SqlLiteService.createSqlLiteTable().then(() => {
-          this._SqlLiteService.getData().subscribe((res) => {
-              // console.log('>>>>>>>>>>>>>>res', res);
-              _.forEach(res, (value, key) => {
-                              // console.log(value, key)
-                  if (value.emailFetch ) {
-                      this._SqlLiteService.insertSqlLiteTable('emailFetch', value.emailFetch).then((respo) => {
-                          // console.log('dsfdsdfsdrrrr', respo);
-                          // this.defaultOpen();
-                      }, (errrrr) => {
-                          // console.log('eeeeeeeeeeeeee',errrrr);
-                          // this.defaultOpen();
-                      })
-                  }
-              });
-          })
+        this._SqlLiteService.createSqlLiteTable().then((res) => {
+            this.getEmailandInsertSqlite();
         })
         this.defaultOpen();
         setTimeout(() => {
@@ -126,6 +114,28 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.inboxRefreshSubscription = this._commonService.inboxRefresh.subscribe(() => {
             this.refresh();
         });
+    }
+
+    getEmailandInsertSqlite() {
+        this.getemails.getData().subscribe((res) => {
+            this.count++;
+            console.log(">>>>>>>>>>>>>>res", this.count);
+            _.forEach(res, (value, key) => {
+                if (value.emailFetch ) {
+                    this._SqlLiteService.insertSqlLiteTable('emailFetch', value.emailFetch).then((respo) => {
+                        console.log('dsfdsdfsdrrrr', respo);
+                        console.log(this.count <= 10 && res[0].emailFetch.length <= 100);
+                        // this.defaultOpen();
+                        if (this.count <= 9 && res[0].emailFetch.length <= 100) {
+                            this.getEmailandInsertSqlite();
+                        }
+                    }, (errrrr) => {
+                        console.log('eeeeeeeeeeeeee', errrrr);
+                        // this.defaultOpen();
+                    })
+                }
+            });
+        })
     }
 
     defaultOpen() {
@@ -473,7 +483,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._commonService.formateTags(data).then((res: any) => {
 
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
-      console.log("jdnjvsjd", this.tagsForEmailListAndModel);
+            console.log('jdnjvsjd', this.tagsForEmailListAndModel);
 
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
             this.subject_for_genuine = res.subject_for_genuine;
