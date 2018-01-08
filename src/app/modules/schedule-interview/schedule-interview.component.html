@@ -1,6 +1,6 @@
 <div class="header">
     <p class="h-text">Schedule Interview</p>
-    <div style="float: right" *ngIf="!showForm || !scheduleBy == 'scheduleByDirect'">
+    <div style="float: right" *ngIf="!showForm || (scheduleBy != 'scheduleByDirect' )">
         <md-spinner class="commonSpinner1" ></md-spinner>
     </div>
 </div>
@@ -14,7 +14,7 @@
     <md-radio-button id="scheduleByDirect" value="scheduleByDirect">Direct</md-radio-button>
 </md-radio-group>
 
-<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm && scheduleBy == 'scheduleByEmail'" class="schedule-form">
+<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm && (scheduleBy == 'scheduleByEmail')" class="schedule-form">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-sm-12">
