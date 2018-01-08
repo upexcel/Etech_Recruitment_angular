@@ -1,5 +1,8 @@
 <div class="header">
     <p class="h-text">Schedule Interview</p>
+    <div style="float: right" *ngIf="!showForm || (scheduleBy != 'scheduleByDirect' )">
+        <md-spinner class="commonSpinner1" ></md-spinner>
+    </div>
 </div>
 <h4>
     <b>Name</b>: {{emailData.from}}</h4>
@@ -11,22 +14,22 @@
     <md-radio-button id="scheduleByDirect" value="scheduleByDirect">Direct</md-radio-button>
 </md-radio-group>
 
-<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm && scheduleBy == 'scheduleByEmail'" class="schedule-form">
+<form autoComplete="off" [formGroup]="interviewForm" *ngIf="showForm && (scheduleBy == 'scheduleByEmail')" class="schedule-form">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <md-select placeholder="Interview Round" class="width-100" [formControl]="interviewForm.controls['selectedInterviewRound']"
-                    (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
+                           (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
                     <md-option *ngFor="let interview of interviewRounds; trackBy: interviewRoundsTrack;" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</md-option>
                 </md-select>
             </div>
             <div class="col-md-6 col-sm-12 no-mar">
                 <md-input-container>
                     <input mdInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}"
-                        [disabled]="!selectedInterviewRound">
-                    <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date"
-                        [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
-                    <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
+                           [disabled]="!selectedInterviewRound">
+                           <input mdInput [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" [mdDatepickerFilter]="dateFilter" placeholder="Select Date"
+                           [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
+                           <button mdSuffix [mdDatepickerToggle]="picker" [disabled]="!selectedInterviewRound"></button>
                 </md-input-container>
                 <md-datepicker #picker (selectedChanged)="changeInDate($event)"></md-datepicker>
             </div>

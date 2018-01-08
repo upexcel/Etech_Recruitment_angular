@@ -28,7 +28,7 @@ export class ScheduleInterviewComponent implements OnInit {
     maxDate: any;
     showSelectedDate = null;
     errorMessage: string;
-    scheduleBy = config['scheduleInterviewBy'];
+    scheduleBy:string | null = config['scheduleInterviewBy'];
     constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
@@ -68,7 +68,7 @@ export class ScheduleInterviewComponent implements OnInit {
         this.interviewRounds = this._commonService.interviewRoundDisableCheck(this.dataForInterviewScheduleRound, this.tagselected);
     }
 
-    dateFilter = (d: Date): boolean => {
+    dateFilter = (d: Date): any => {
         return _.filter(this.scheduleData, { 'date': this._commonService.formateDate(d) }).length;
     }
 

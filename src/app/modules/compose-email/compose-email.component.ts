@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
-import { ImapMailsService } from '../../service/imapemails.service';
-import { NgForm } from '@angular/forms';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar} from '@angular/material';
+import {ImapMailsService} from '../../service/imapemails.service';
+import {NgForm} from '@angular/forms';
 import * as _ from 'lodash';
-import { SetvaremailpreviewComponent } from './../setvaremailpreview/setvaremailpreview.component';
+import {SetvaremailpreviewComponent} from './../setvaremailpreview/setvaremailpreview.component';
 
 @Component({
     selector: 'app-compose-email-temp',
@@ -36,6 +36,7 @@ export class ComposeEmailComponent implements OnInit {
     selectedTempplateId: any;
     notGenuine: any;
     resendEmailTrackingData: boolean;
+    holdSubject: any;
     constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
     }
 
@@ -48,12 +49,18 @@ export class ComposeEmailComponent implements OnInit {
             console.log(err);
         });
     }
-
     selectTemplate(seletectTemplated) {
         this.body = '';
         this.selectedTempplateId = seletectTemplated['id'];
         if (seletectTemplated['subject']) {
-            this.subject = seletectTemplated['subject'] + ' ' + this.subject;
+            if (this.holdSubject && this.holdSubject['subject']) {
+                let startIndex = this.subject.search(this.holdSubject['subject']);
+                let startString = this.subject.slice(0, startIndex);
+                this.subject = startString + ' ' + seletectTemplated['subject'] + ' ' + this.subject.slice(startIndex + this.holdSubject['subject'].length, this.subject.length);
+            } else {
+                this.subject = this.subject + ' ' + seletectTemplated['subject'];
+            }
+            this.holdSubject = Object.assign({}, seletectTemplated);
         }
         this.sendToManyEmail.testTemplate(seletectTemplated.id).subscribe((data) => {
             this.body = data;
