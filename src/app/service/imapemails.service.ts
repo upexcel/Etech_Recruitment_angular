@@ -901,7 +901,7 @@ export class ImapMailsService {
 
 // api get for sqldb
     getData() {
-        return this.http.get('https://hr-recruit-dev.herokuapp.com/new/inboxContent/100')
+        return this.http.get(environment['apibase'] + 'new/inboxContent/100')
         .map( (res: Response ) => {
             return res.json();
         })

@@ -33,24 +33,22 @@ export class SqlLiteService {
                 this.db.transaction(function (tx) {
                     count++;
                     tx.executeSql(`${value}`, [], function (tx, res) {
-                        console.log('table created successfully!');
+                        // console.log('table created successfully!');
                     }, function () {
-                        console.log('query error');
+                        // console.log('query error');
                     })
                 })
-                console.log(key, value);
             })
             resolve(0)
         })
-
     }
     insertSqlLiteTable(tableName, data) {
-//        console.log(tableName, data, );
         return new Promise((resolve, reject) => {
             const findLength = _.keys(sqldata);
             let count = 0;
             count++;
             if (this._localStorageService.getItem('tablecount') !== 1) {
+                let flag = false;
                 _.forEach(data, (value1, key1: any) => {
                     let dataToInsert: String = '';
                     _.forEach(value1, (value3, key2) => {
@@ -58,47 +56,25 @@ export class SqlLiteService {
                             value3 = value3.toString()
                         }
                         dataToInsert = dataToInsert + '"' + value3 + '"' + '' + ',';
+                        if (key2 === 'tag_id') {
+                            flag = true;
+                        }
                     })
-                    // this.insert(tableName, dataToInsert);
                     dataToInsert = dataToInsert.slice(0, -1);
-                    // console.log(dataToInsert)
                     this.db.transaction(function (tx) {
-                        // tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
                         tx.executeSql(`INSERT INTO ${tableName} VALUES (${dataToInsert})`, [], (res) => {
-//                            console.log('inserted', res)
-                            // return res;
+                            if (key1 === data.length - 1 && flag) {
+                                resolve('sucess');
+                            }
                         }, function (err) {
-                            console.log('error', err)
-                            // return err;
                         });
                     })
-//                    console.log('>>>>>>>>>>>>>>>>>>...scucesss', key1 === data.length - 1);
-                    if (key1 === data.length - 1) {
-                        resolve('sucess');
-                    }
                 })
-                // this._localStorageService.setItem('tablecount', 1);
             } else {
-                console.log('>>>>>>>>>>>>>>>>>>...errrror')
                 reject('errr');
             }
         });
     }
-
-    // insert(insert, dataToInsert) {
-    //     dataToInsert = dataToInsert.slice(0, -1);
-    //     console.log(dataToInsert)
-    //     this.db.transaction(function (tx) {
-    //         // tx.executeSql(`insert into tag_table VALUES (${dataToInsert})`, [], function (res) {
-    //         tx.executeSql(`INSERT INTO ${insert} VALUES (${dataToInsert})`, [], (res) => {
-    //             console.log('inserted', res)
-    //             return res;
-    //         }, function (err) {
-    //             console.log('error', err)
-    //             return err;
-    //         });
-    //     })
-    // }
 
     fetchMails(data, cb) {
         console.log('fetch email caleed data is ', data);
@@ -107,12 +83,24 @@ export class SqlLiteService {
         this.db.transaction(function (tx: any) {
             if (data.tag_id === 0 || data.tag_id === '0') {
                 tx.executeSql(`SELECT * FROM ${data.table} WHERE tag_id="" AND is_attachment=='false' LIMIT ${data.limit} OFFSET  ${((data.page) - 1)}  * ${(data.limit)} `, [], function (tx, results) {
-                    console.log('response fetched results', tx, results)
+                    console.log('response fetched results', tx, results, results.rows.length)
                     results['data'] = []
                     _.forEach(results.rows, (value, key) => {
+                        console.log(value.attachment);
+                        if (value.tag_id === '') {
+                            value.tag_id = [];
+                        }else {
+                            value.tag_id = value.tag_id.split(',');
+                        }
+                        if (value.attachment === '') {
+                            value.attachment = [];
+                        } else {
+                            value.attachment = value.attachment.split(',');
+                        }
                         if (value.is_attachment === 'false') {
                             value.is_attachment = false;
                         }
+                        value.from = value._sfrom;
                         results['data'].push(value)
                     })
                     fetcheddata = results;
@@ -127,13 +115,11 @@ export class SqlLiteService {
             } else {
                 console.log('errroorrr')
             }
-
         });
-
     }
     counteTotalmail(table, cb) {
         this.db.transaction(function (tx: any) {
-            tx.executeSql(`SELECT count(*) AS count FROM ${table}`, [], function (tx, results) {
+            tx.executeSql(`SELECT count(*) AS count FROM ${table} WHERE tag_id="" AND is_attachment=='false'`, [], function (tx, results) {
                 let count = '';
                 count = results['rows'][0]['count']
                 cb(count);
@@ -146,6 +132,5 @@ export class SqlLiteService {
             tx.executeSql('DROP TABLE emailFetch');
         })
     }
-
 }
 

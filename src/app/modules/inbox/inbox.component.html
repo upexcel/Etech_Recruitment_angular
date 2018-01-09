@@ -64,6 +64,8 @@
                             [tags]="tagsForEmailListAndModel.Automatic" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"
                             [inboxMailsTagsForEmailListAndModel]="inboxMailsTagsForEmailListAndModel" (deleteAndAssignTag)="assign($event, emails._id); emaillist.data.splice(i,1)" [intervieweeList]="intervieweeList"></app-emailbox>
                     </div>
+                    <md-spinner id="loginSpinner" *ngIf="loadingEmail" class="spin"></md-spinner>
+                    <div *ngIf="loadingEmail"><h4 class="countMail" *ngIf="count>0">{{count}}/100</h4></div>
                 </div>
             </div>
         </div>

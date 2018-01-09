@@ -1,6 +1,7 @@
 import {
     Component,
     OnInit,
+    NgZone,
     OnDestroy
 } from '@angular/core';
 import {
@@ -49,6 +50,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     Math: any;
     emaillist: any;
     loading = false;
+    loadingEmail = false;
     tag_id: string;
     tags: any;
     data: any;
@@ -78,7 +80,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     email: any;
     intervieweeList: any;
     count: any;
-    constructor(public _SqlLiteService: SqlLiteService, public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
+    constructor(private zone: NgZone, public _SqlLiteService: SqlLiteService, public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
@@ -92,6 +94,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
         this.emailIds = [];
         this.loading = true;
+        this.loadingEmail = true;
         this.data = {
             'page': 1,
             'tag_id': 0,
@@ -99,7 +102,17 @@ export class InboxComponent implements OnInit, OnDestroy {
         };
         this._SqlLiteService.createSqlLiteDB()
         this._SqlLiteService.createSqlLiteTable().then((res) => {
-            this.getEmailandInsertSqlite();
+            console.log(res);
+            this.data.table = 'emailFetch';
+            this._SqlLiteService.fetchMails(this.data, fetch => {
+                this.addSelectedFieldInEmailList(fetch);
+                if (fetch['data'].length === 0 || fetch['data'].length === 'undefined') {
+                    this.loadingEmail = true;
+                    this.getEmailandInsertSqlite();
+                }else {
+                    this.loadingEmail = false;
+                }
+            });
         })
         this.defaultOpen();
         setTimeout(() => {
@@ -121,45 +134,51 @@ export class InboxComponent implements OnInit, OnDestroy {
     getEmailandInsertSqlite() {
         return new Promise((resolve, reject) => {
 
-            console.log(">>>>>>>>>>>>>>res", this.count);
             let refVariable;
             this.getemails.getData().subscribe((res) => {
                 refVariable = JSON.parse(JSON.stringify(res));
-                this.count++;
+                this.zone.run(() => {
+                    this.count++;
+                });
                 let manageData = (data, callback) => {
                     let first_data = data.splice(0, 1)[0];
                     if (first_data.emailFetch) {
                         this._SqlLiteService.insertSqlLiteTable('emailFetch', first_data.emailFetch).then((respo) => {
-                            console.log('dsfdsdfsdrrrr', respo);
-                            // this.defaultOpen();
-                            if (data && data.length) {
-                                console.log("************************************")
+                            if (data && data.length !== 1) {
                                 manageData(data, callback)
                             } else {
                                 callback(true)
                             }
                         }, (err) => {
-                            console.log('eeeeeeeeeeeeee', err);
-                            // this.defaultOpen();
                         })
                     }
                 }
-
                 manageData(res, (response) => {
-                    console.log("res**********",refVariable)
                     if (this.count <= 9 && refVariable[0].emailFetch.length <= 100) {
                         this.getEmailandInsertSqlite()
                     } else {
+                        this.defaultfetchEmail();
                         resolve(true);
                     }
                 })
             })
-            //        _.forEach(res, (value, key) => {
-            //
-            //        });
         })
     }
-
+    defaultfetchEmail() {
+        this.count = null;
+        this.data.table = 'emailFetch';
+        this.loadingEmail = true;
+        this.loading = true;
+        this._SqlLiteService.fetchMails(this.data, fetch => {
+            this.zone.run(() => {
+                this.loadingEmail = false;
+                this.loading = false;
+                this.addSelectedFieldInEmailList(fetch);
+            });
+            // this.addSelectedFieldInEmailList(fetch);
+            // console.log('fetched data from sqlite', fetch);
+        });
+    }
     defaultOpen() {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
@@ -183,12 +202,14 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     // this.addSelectedFieldInEmailList(data);
                                     // this.loading = false;
                                     // });
-                                    this.data.table = 'emailFetch';
-                                    this._SqlLiteService.fetchMails(this.data, (fetch) => {
-                                        this.addSelectedFieldInEmailList(fetch);
-                                        console.log('fetched data from sqlite', fetch);
-                                        this.loading = false;
-                                    })
+
+                                    // Sqlite below
+                                    // this.data.table = 'emailFetch';
+                                    // this._SqlLiteService.fetchMails(this.data, (fetch) => {
+                                    //     this.addSelectedFieldInEmailList(fetch);
+                                    //     console.log('fetched data from sqlite', fetch);
+                                    //     this.loading = false;
+                                    // })
 
                                 }
                             });
@@ -383,6 +404,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     emaillists(emailData: any, page?: number) {
+        console.log(emailData, page);
         this.lastSelectedTagData = emailData;
         this.emailParenttitle = emailData['parentTitle'];
         this.emailChildTitle = emailData['title'];
@@ -404,6 +426,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
+
         if (emailData['is_attach']) {
             this.data = {
                 'page': page || 1,
@@ -426,12 +449,16 @@ export class InboxComponent implements OnInit, OnDestroy {
         //     this.emailIds = [];
         //     this.loading = false;
         // });
+        console.log(this.data);
+
         this.data.table = 'emailFetch';
         this._SqlLiteService.fetchMails(this.data, (fetch) => {
-            this.addSelectedFieldInEmailList(fetch);
-            this.emailIds = [];
-            this.loading = false;
-            console.log('>>>>>>>>>>>>>>>>>>>>>>>>componenet fetch', fetch)
+            this.zone.run(() => {
+                this.emailIds = [];
+                this.loading = false;
+                this.loadingEmail = false;
+                this.addSelectedFieldInEmailList(fetch);
+            });
         })
     }
 
@@ -443,6 +470,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
+            this.loadingEmail = false;
         });
     }
 
@@ -452,6 +480,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
                 console.log('previous if called');
+                this.loadingEmail = true;
                 this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 console.log('previous else called');
@@ -461,11 +490,12 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     next() {
-        console.log(this.data.page)
+        console.log(this.data.page, this.emaillist.count , this.data.type);
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
                 console.log('next if called');
+                this.loadingEmail = true;
                 this.emaillists({'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle}, this.data.page);
             } else {
                 console.log('next else called');
