@@ -127,7 +127,7 @@ import {
     AddEmailTempComponent
 } from './modules/add-email-temp/add-email-temp.component';
 import {
-    AddNewSpamContactComponent  
+    AddNewSpamContactComponent
 } from './modules/add-spam-contact/add-spam-contact.component';
 import { AddTagModalComponent } from './modules/add-tag-modal/add-tag-modal.component';
 import { EmailModalComponent } from './modules/email-modal/email-modal.component';
@@ -148,7 +148,7 @@ import { ScheduleInterviewComponent } from './modules/schedule-interview/schedul
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { FetchEmailByDayComponent } from './modules/fetch-email-by-day/fetch-email-by-day.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
-import { SpamComponent  } from './modules/spam/spam.component';
+import { SpamComponent } from './modules/spam/spam.component';
 import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confirmation-dialog.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { CronStatusModelComponent } from './modules/cron-status-model/cron-status-model.component';
@@ -167,6 +167,8 @@ import { RlTagInputModule } from 'angular2-tag-input';
 import { AddCandidateComponent } from './modules/add-candidate/add-candidate.component';
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
+import { ViewNoteComponent } from './modules/view-note/view-note.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -225,7 +227,8 @@ import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/i
         AddCandidateComponent,
         IntervieweeInboxComponent,
         IntervieweeCandidateComponent,
-        AddNewSpamContactComponent
+        AddNewSpamContactComponent,
+        ViewNoteComponent
     ],
     imports: [
         BrowserModule,
@@ -287,7 +290,8 @@ import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/i
         AddNoteComponent,
         AddSubTagModalComponent,
         AddCandidateComponent,
-        AddNewSpamContactComponent
+        AddNewSpamContactComponent,
+        ViewNoteComponent
     ],
     bootstrap: [AppComponent]
 })

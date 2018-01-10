@@ -204,7 +204,7 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    moveSpamFromJobProfile(){
+    moveSpamFromJobProfile() {
         this.increaseAPiCount();
         return this.Intercepted.put(environment['apibase'] + 'remove/spamFromJobProfile', {})
             .map((res: Response) => {
@@ -215,7 +215,7 @@ export class ImapMailsService {
                 this.count = 0;
                 this.apiEndEvent.emit();
                 return Observable.throw(error.json() || 'Server error');
-            });        
+            });
     }
     addSpam(body: any): Observable<any> {
         this.increaseAPiCount();

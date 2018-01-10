@@ -174,9 +174,9 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
                     this.tagUpdate.assignTag(data).subscribe((res) => {
-                     this.snackBar.open('Added Successfully', '', {
-                        duration: 2000,
-                      });
+                        this.snackBar.open('Added Successfully', '', {
+                            duration: 2000,
+                        });
                         this.commonService.inboxRefreshEvent();
                     }, (err) => {
                         console.log(err);
@@ -195,9 +195,9 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             };
             this.tagUpdate.assignTag(this.body).subscribe((data) => {
                 this.idlist = [];
-                      this.snackBar.open('Added Successfully', '', {
-                        duration: 2000,
-                      });
+                this.snackBar.open('Added Successfully', '', {
+                    duration: 2000,
+                });
                 this.commonService.inboxRefreshEvent();
             }, (err) => {
                 console.log(err);

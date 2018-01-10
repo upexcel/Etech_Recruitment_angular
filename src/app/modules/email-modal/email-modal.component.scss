@@ -238,7 +238,7 @@ md-grid-tile {
 }
 .accordian-icon-box {
 	position: absolute;
-	cursor: pointer; 
+	cursor: pointer;
 	right: 0;
     top: 0;
     .material-icons {
@@ -290,7 +290,7 @@ md-grid-tile {
     min-height:160px !important;
     box-shadow: 2px 2px 4px 1px #fff !important;
     margin-bottom:15px !important;
-    
+
 }
 .fontstyle{
         margin-top: 8px;
@@ -322,4 +322,14 @@ md-grid-tile {
 }
 .childdiv:hover{
     cursor:pointer;
+}
+.avatar-image img {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    top: 10px;
+    position: absolute;
+}
+.avatar-image{
+  height: 30px;
 }
