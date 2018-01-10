@@ -3,6 +3,6 @@
   <hr>
   <md-card *ngFor="let data of candidateNote">
     <p class="viewNotehead">{{data.assignee}}<span id="datetime">{{data.date}}/ {{data.time}}</span></p>
-    <p>{{data.note}}</p>
+    <p [innerHTML]="data.note"></p>
   </md-card>
 </div>
