@@ -136,7 +136,7 @@ export class EmailboxComponent implements OnInit {
 
     emailNoteView(candidateNote: any) {
         this.dialogRef = this.dialog.open(ViewNoteComponent, {
-            height: 'auto',
+            height: '100%',
             width: 'auto'
         });
         this.dialogRef.componentInstance.candidateNote = candidateNote;
