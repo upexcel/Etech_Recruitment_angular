@@ -1,6 +1,6 @@
 <md-card class="background-white">
     <md-spinner class="commonSpinner" *ngIf="!historyList.data"></md-spinner>
-
+<div class="avatar-image" appAvatarDirective [email]="email.sender_mail"></div>
 <div class="m-b" *ngIf="historyList.data">
     <div id="topBtn" class="default-tag-buttons" >
         <!--<button id="backbtn" md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>-->

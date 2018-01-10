@@ -6,6 +6,7 @@ import { ScheduleInterviewComponent } from './../schedule-interview/schedule-int
 import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
+import { ViewNoteComponent } from './../view-note/view-note.component';
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-emailbox',
@@ -131,5 +132,14 @@ export class EmailboxComponent implements OnInit {
         this.assignEmail.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
             console.log(err)
         })
+    }
+
+    emailNoteView(candidateNote: any) {
+        console.log(candidateNote);
+        this.dialogRef = this.dialog.open(ViewNoteComponent, {
+            height: 'auto',
+            width: 'auto'
+        });
+        this.dialogRef.componentInstance.candidateNote = candidateNote;
     }
 }
