@@ -56,6 +56,7 @@ export class ImapMailsService {
         }
     }
     getEmailList(body: any): Observable<any> {
+        console.log(body)
         this.increaseAPiCount();
         if (!!body.type) {
             return this.Intercepted.put(environment['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
@@ -900,8 +901,8 @@ export class ImapMailsService {
     }
 
 // api get for sqldb
-    getData() {
-        return this.http.get(environment['apibase'] + 'new/inboxContent/100')
+    getData(body: any) {
+        return this.http.get(environment['apibase'] + `new/inboxContent/${body.limit}/${body.page}`)
         .map( (res: Response ) => {
             return res.json();
         })
@@ -909,6 +910,32 @@ export class ImapMailsService {
             return Observable.throw(error.json() || 'Server error');
         });
     }
+    // getData(body: any): Observable<any> {
+    //     this.increaseAPiCount();
+    //     if (!!body.type) {
+    //         return this.Intercepted.put(environment['apibase'] + `new/inboxContent/${body.tag_id}/${body.page}/${body.limit}`, body)
+    //             .map((res: Response) => {
+    //                 this.decreaseAPiCount();
+    //                 return res.json();
+    //             })
+    //             .catch((error: any) => {
+    //                 this.count = 0;
+    //                 this.apiEndEvent.emit();
+    //                 return Observable.throw(error.json() || 'Server error');
+    //             });
+    //     } else {
+    //         return this.Intercepted.put(environment['apibase'] + `new/inboxContent/${body.tag_id}/${body.page}/${body.limit}`, body)
+    //             .map((res: Response) => {
+    //                 this.decreaseAPiCount();
+    //                 return res.json();
+    //             })
+    //             .catch((error: any) => {
+    //                 this.count = 0;
+    //                 this.apiEndEvent.emit();
+    //                 return Observable.throw(error.json() || 'Server error');
+    //             });
+    //     }
+    // }
 
     getIntervieweeList(): Observable<any> {
         this.increaseAPiCount();

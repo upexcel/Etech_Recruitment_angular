@@ -87,7 +87,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.fetchNewEmails();
             });
         this.role = this._localStorageService.getItem('role');
-        this.count = 0;
+        this.count = 1;
 
     }
     ngOnInit() {
@@ -102,7 +102,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         };
         this._SqlLiteService.createSqlLiteDB()
         this._SqlLiteService.createSqlLiteTable().then((res) => {
-            console.log(res);
+            // console.log(res);
             this.data.table = 'emailFetch';
             this._SqlLiteService.fetchMails(this.data, fetch => {
                 this.addSelectedFieldInEmailList(fetch);
@@ -135,11 +135,9 @@ export class InboxComponent implements OnInit, OnDestroy {
         return new Promise((resolve, reject) => {
 
             let refVariable;
-            this.getemails.getData().subscribe((res) => {
+            this.getemails.getData({'page': this.count, 'limit': 100}).subscribe((res) => {
                 refVariable = JSON.parse(JSON.stringify(res));
-                this.zone.run(() => {
-                    this.count++;
-                });
+
                 let manageData = (data, callback) => {
                     let first_data = data.splice(0, 1)[0];
                     if (first_data.emailFetch) {
@@ -154,7 +152,12 @@ export class InboxComponent implements OnInit, OnDestroy {
                     }
                 }
                 manageData(res, (response) => {
-                    if (this.count <= 9 && refVariable[0].emailFetch.length <= 100) {
+                    this.zone.run(() => {
+                        this.count++;
+
+                    });
+                    // console.log(this.count, refVariable[0].emailFetch.length);
+                    if (this.count <= 5 && refVariable[0].emailFetch.length === 100) {
                         this.getEmailandInsertSqlite()
                     } else {
                         this.defaultfetchEmail();
@@ -182,7 +185,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     defaultOpen() {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
-                console.log('ondefaultopen', res.data);
+                // console.log('ondefaultopen', res.data);
                 this.formatTagsInArray(res.data);
                 if (res.data.length > 0) {
                     _.forEach(res.data, (value, key) => {
@@ -197,6 +200,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
                                     this.lastSelectedTagData = {'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle};
+                                    console.log(this.data)
                                     // this.getemails.getEmailList(this.data).subscribe((data) => {
                                     // console.log('>>>>>>>>>>>>>>>>>>>>api data', data)
                                     // this.addSelectedFieldInEmailList(data);
@@ -449,7 +453,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         //     this.emailIds = [];
         //     this.loading = false;
         // });
-        console.log(this.data);
+        // console.log(this.data);
 
         this.data.table = 'emailFetch';
         this._SqlLiteService.fetchMails(this.data, (fetch) => {
@@ -535,7 +539,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this._commonService.formateTags(data).then((res: any) => {
 
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
-            console.log('jdnjvsjd', this.tagsForEmailListAndModel);
+            // console.log('jdnjvsjd', this.tagsForEmailListAndModel);
 
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
             this.subject_for_genuine = res.subject_for_genuine;

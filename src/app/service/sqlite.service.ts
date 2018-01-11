@@ -43,6 +43,7 @@ export class SqlLiteService {
         })
     }
     insertSqlLiteTable(tableName, data) {
+        // console.log(data);
         return new Promise((resolve, reject) => {
             const findLength = _.keys(sqldata);
             let count = 0;
@@ -50,19 +51,39 @@ export class SqlLiteService {
             if (this._localStorageService.getItem('tablecount') !== 1) {
                 let flag = false;
                 _.forEach(data, (value1, key1: any) => {
-                    let dataToInsert: String = '';
+                    // let dataToInsert: String = '';
+                    // console.log(value1);
+                    let tablerow = '';
+                    let rowdata = '';
+
                     _.forEach(value1, (value3, key2) => {
+                        // console.log(value1[key2]);
                         if (typeof (value3) === 'object') {
-                            value3 = value3.toString()
+                            if (key2 === 'tag_id') {
+                                value3 = value3.toString();
+                            }else {
+                                value3 = JSON.stringify(value3);
+                                value3 = value3.replace(/"/g, '\'');
+                            }
                         }
-                        dataToInsert = dataToInsert + '"' + value3 + '"' + '' + ',';
+                        if (key2 === 'from') {
+                            key2 = '_sfrom';
+                        }
+                        tablerow = tablerow + '"' + key2 + '"' + '' + ',';
+                        rowdata = rowdata + '"' + value3 + '"' + '' + ',';
+                        // dataToInsert = dataToInsert + '"' + value3 + '"' + '' + ',';
                         if (key2 === 'tag_id') {
                             flag = true;
                         }
                     })
-                    dataToInsert = dataToInsert.slice(0, -1);
+                    console.log(tablerow, rowdata);
+                    // dataToInsert = dataToInsert.slice(0, -1);
+                    tablerow = tablerow.slice(0, -1);
+                    rowdata = rowdata.slice(0, -1);
+                    // console.log(dataToInsert);
                     this.db.transaction(function (tx) {
-                        tx.executeSql(`INSERT INTO ${tableName} VALUES (${dataToInsert})`, [], (res) => {
+                        tx.executeSql(`INSERT INTO ${tableName} (${tablerow}) VALUES (${rowdata})`, [], (res) => {
+                            console.log('inserted')
                             if (key1 === data.length - 1 && flag) {
                                 resolve('sucess');
                             }
@@ -77,7 +98,7 @@ export class SqlLiteService {
     }
 
     fetchMails(data, cb) {
-        console.log('fetch email caleed data is ', data);
+        // console.log('fetch email caleed data is ', data);
         let fetcheddata = {};
         const self = this;
         this.db.transaction(function (tx: any) {
@@ -86,19 +107,21 @@ export class SqlLiteService {
                     console.log('response fetched results', tx, results, results.rows.length)
                     results['data'] = []
                     _.forEach(results.rows, (value, key) => {
-                        console.log(value.attachment);
-                        if (value.tag_id === '') {
-                            value.tag_id = [];
-                        }else {
-                            value.tag_id = value.tag_id.split(',');
+                        // console.log(value);
+                        if (value.tag_id) {
+                            value.notes = value.notes.replace(/'/g, '"');
+                            value.tag_id = JSON.parse(value.tag_id);
                         }
-                        if (value.attachment === '') {
-                            value.attachment = [];
-                        } else {
-                            value.attachment = value.attachment.split(',');
+                        if (value.attachment) {
+                            value.notes = value.notes.replace(/'/g, '"');
+                            value.attachment = JSON.parse(value.attachment);
                         }
                         if (value.is_attachment === 'false') {
                             value.is_attachment = false;
+                        }
+                        if (value.notes) {
+                            value.notes = value.notes.replace(/'/g, '"');
+                            value.notes = JSON.parse(value.notes);
                         }
                         value.from = value._sfrom;
                         results['data'].push(value)
