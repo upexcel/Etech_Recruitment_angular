@@ -1,0 +1,4 @@
+{
+  "emailFetch" : "CREATE TABLE IF NOT EXISTS emailFetch (_id VARCHAR, _sfrom VARCHAR, mobile_no NUMBER DEFAULT null, sender_mail VARCHAR,date DATETIME,email_date DATETIME,subject VARCHAR,unread BOOLEAN,uid INTEGER,is_automatic_email_send INTEGER,default_tag VARCHAR,is_attachment BOOLEAN,notes VARCHAR,attachment VARCHAR, tag_id VARCHAR)",
+  "tag_table": "CREATE TABLE IF NOT EXISTS Tag(id INTEGER,email VARCHAR(255),title VARCHAR(255),color VARCHAR(255),subject VARCHAR(255),type VARCHAR,is_job_profile_tag INTEGER,_to DATETIME,_from DATETIME,assign_to_all_emails INTEGER,template_id INTEGER,default_id INTEGER,is_email_send INTEGER,job_description VARCHAR(255),priority VARCHAR(255),parent_id INTEGER,keyword VARCHAR(255),createdAt DATETIME,updatedAt DATETIME )"
+}

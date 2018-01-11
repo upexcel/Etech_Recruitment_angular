@@ -36,6 +36,7 @@ export class InboxSideNavComponent implements OnInit {
         });
     }
     getEmail(id, parantTagId, title, parentTitle) {
+        console.log(id, parantTagId, title, parentTitle);
         this.parantTagId = parantTagId;
         this.selectedId = (id === 0 ? parantTagId : id);
         this.menuShow = false;

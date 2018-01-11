@@ -53,5 +53,9 @@ export class LoginService {
         localStorage.removeItem('token');
         return Promise.resolve(true);
     }
+    removeTablecount(): Promise < boolean > {
+        localStorage.removeItem('tablecount');
+        return Promise.resolve(true);
+    }
 
 }

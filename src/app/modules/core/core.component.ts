@@ -5,6 +5,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { config } from './../../config/config';
 import { DialogService } from './../../service/dialog.service';
+import { SqlLiteService } from './../../service/sqlite.service';
 @Component({
     selector: 'app-core',
     templateUrl: './core.component.html',
@@ -15,7 +16,7 @@ export class CoreComponent implements OnInit {
     progressSpinnner = false;
     role: string;
     @Output() routerInboxPage: EventEmitter<any> = new EventEmitter(true);
-    constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService, private _localStorageService: LocalStorageService, private _dialogService: DialogService) {
+    constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService, private _localStorageService: LocalStorageService, private _dialogService: DialogService, private _sqlliteService: SqlLiteService) {
         this._router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {
                 if (event['url'] === '/core/inbox') {
@@ -60,10 +61,12 @@ export class CoreComponent implements OnInit {
     }
 
     logout() {
+        this._sqlliteService.dropTable()
         this.access.removeToken().then((data) => {
             if (data) {
                 this._router.navigate(['']);
             }
         });
+        this.access.removeTablecount()
     }
 }
