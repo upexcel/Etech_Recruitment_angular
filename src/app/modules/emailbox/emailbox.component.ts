@@ -6,6 +6,7 @@ import { ScheduleInterviewComponent } from './../schedule-interview/schedule-int
 import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
+import { ViewNoteComponent } from './../view-note/view-note.component';
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-emailbox',
@@ -25,6 +26,7 @@ export class EmailboxComponent implements OnInit {
     @Input() inboxMailsTagsForEmailListAndModel: any;
     @Input() intervieweeList: any
     @Output() refresh = new EventEmitter<string>();
+    @Output() refreshAndDelete = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
     @Output() refreshEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
@@ -68,7 +70,8 @@ export class EmailboxComponent implements OnInit {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.tagselected, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
                     this.assignEmail.assignTag(data).subscribe((res) => {
-                        this.deleteAndAssignTag.emit(data.tag_id);
+                        // this.deleteAndAssignTag.emit(data.tag_id);
+                        this.refreshAndDelete.emit()
                     }, (err) => {
                         console.log(err);
                     });
@@ -131,5 +134,13 @@ export class EmailboxComponent implements OnInit {
         this.assignEmail.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
             console.log(err)
         })
+    }
+
+    emailNoteView(candidateNote: any) {
+        this.dialogRef = this.dialog.open(ViewNoteComponent, {
+            height: '100%',
+            width: 'auto'
+        });
+        this.dialogRef.componentInstance.candidateNote = candidateNote;
     }
 }

@@ -18,11 +18,19 @@
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-input-container class="width-100">
-                    <input mdInput placeholder="Sender Mail" autoComplete="off" name="sender_mail" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" required ngModel>
+                    <input mdInput placeholder="Candidate Mail" autoComplete="off" name="sender_mail" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" required ngModel>
                     <md-error>Invalid Email</md-error>
                 </md-input-container>
+                <md-input-container class="width-100">
+                    <input mdInput placeholder="Candidate Name" autoComplete="off" name="from" required ngModel>
+                    <md-error>Required</md-error>
+                </md-input-container>
+                <md-input-container class="width-100">
+                    <input mdInput placeholder="Source" autoComplete="off" name="source" required ngModel>
+                    <md-error>Required</md-error>
+                </md-input-container>
                 <md-input-container class="width-25">
-                    <input mdInput type="text" maxlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
+                    <input mdInput type="text" maxlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" placeholder="Mobile Number" autoComplete="off" required name="mobile_no" ngModel>
                     <md-error>Invalid Mobile Number</md-error>
                 </md-input-container>
                 <md-input-container class="width-100">

@@ -204,3 +204,13 @@
 .assign-interviewee {
     float: right;
 }
+.noteView{
+  margin: 0px;
+  height: 26px;
+  cursor: pointer;
+}
+.noteView .noteicon{
+  line-height: 24px;
+  font-size: 27px !important;
+  color: grey;
+}

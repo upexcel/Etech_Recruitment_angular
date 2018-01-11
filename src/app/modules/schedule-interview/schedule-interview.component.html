@@ -1,6 +1,6 @@
 <div class="header">
     <p class="h-text">Schedule Interview</p>
-    <div style="float: right" *ngIf="!showForm || (scheduleBy != 'scheduleByDirect' )">
+    <div style="float: right" *ngIf="!showForm && !errorMessage">
         <md-spinner class="commonSpinner1" ></md-spinner>
     </div>
 </div>
