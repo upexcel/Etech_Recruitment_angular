@@ -39,6 +39,13 @@
           <md-spinner id="loginSpinner" *ngIf="loading" class="spin"></md-spinner>
         </md-card-actions>
       </form>
+      <md-card-actions class="fbLogin">
+        <button id="fb_login" md-raised-button class="width-100" (click)="fblogin()">
+          <img class="facebook" width="24px" src="assets/fb_icon.png"/> Sign In with Facebook
+        </button>
+      </md-card-actions>
+      <button id="fb_login" md-raised-button class="width-100" (click)="fblogout()">
+        logout</button>
     </md-card>
     <br>
     <div>

@@ -4,7 +4,7 @@ import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MdSnackBar } from '@angular/material';
-
+declare const FB: any;
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     loading: boolean;
     message: string;
     showmessage: boolean;
+    fbObj: any;
     constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
@@ -26,12 +27,33 @@ export class LoginComponent implements OnInit {
             this._localStorageService.clearItem('loginMessage');
         }
     }
+    statusChangeCallback(response: any) {
+        console.log(response.status);
+        if (response.status === 'connected') {
+            console.log('connected');
+            this.testAPI();
+        } else {
+            console.log('loginnn required');
+        }
+    }
 
     ngOnInit() {
         this.addForm = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$')])],
             password: ['', Validators.required],
             keeplogin: false
+        });
+
+        FB.init({
+            appId: '526179664434624',
+            cookie: true, // enable cookies to allow the server to access
+            // the session
+            xfbml: true, // parse social plugins on this page
+            version: 'v2.11' // use graph api version 2.8
+        });
+
+        FB.getLoginStatus((response) => {
+            this.statusChangeCallback(response);
         });
     }
     login() {
@@ -59,4 +81,44 @@ export class LoginComponent implements OnInit {
             });
         }
     }
+
+    fblogin() {
+        FB.login((result) => {
+            if (result.status === 'connected') {
+                this.testAPI();
+            }
+        }, { scope: 'user_friends,email' });
+    }
+    testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me?fields=id,email,name,gender,picture.width(150).height(150)', (res) => {
+            this.fbObj = {
+                'email': res.email,
+                'name': res.name,
+                'gender': res.gender,
+                'profile_pic' : res.picture.data.url,
+                'fb_id' : res.id
+            };
+            console.log('sucess', this.fbObj);
+            this.access.facebook_login(this.fbObj).subscribe((response: Response) => {
+                console.log('sucess', response);
+                if (response.status === 1) {
+                    this._localStorageService.setItem('fb_logStatus', true);
+                }
+                // this._router.navigate(['/core/interviewee-inbox']);
+            },
+            (err) => {
+                console.log(err);
+                // this.loading = false;
+                // this.showmessage = true;
+                // this.message = err.message;
+            });
+        });
+    }
+    fblogout() {
+        FB.logout((result) => {
+            console.log(result)
+        })
+    }
+
 }
