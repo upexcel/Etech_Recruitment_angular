@@ -24,6 +24,7 @@ import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-ta
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { SpamComponent } from './modules/spam/spam.component';
+import { CreateQuestionComponent } from './modules/createQuestion/createQuestion.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { SlackInfoComponent } from './modules/slack-info/slack-info.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
@@ -142,6 +143,10 @@ export const routes: Route[] = [{
                 }, {
                     path: 'spam',
                     component: SpamComponent,
+                    canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'createQuestion',
+                    component: CreateQuestionComponent,
                     canActivate: [LoginRouteGuard]
                 }]
             }, {

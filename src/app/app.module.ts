@@ -149,6 +149,7 @@ import { AddNewUserComponent } from './modules/add-new-user/add-new-user.compone
 import { FetchEmailByDayComponent } from './modules/fetch-email-by-day/fetch-email-by-day.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { SpamComponent } from './modules/spam/spam.component';
+import { CreateQuestionComponent } from './modules/createQuestion/createQuestion.component';
 import { ConfirmationDialogComponent } from './modules/confirmation-dialog/confirmation-dialog.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { CronStatusModelComponent } from './modules/cron-status-model/cron-status-model.component';
@@ -168,6 +169,7 @@ import { AddCandidateComponent } from './modules/add-candidate/add-candidate.com
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
 import { ViewNoteComponent } from './modules/view-note/view-note.component';
+import { AddQuestionDialogComponent } from './modules/addQuestionDialog/addQuestionDialog.component';
 
 @NgModule({
     declarations: [
@@ -228,7 +230,9 @@ import { ViewNoteComponent } from './modules/view-note/view-note.component';
         IntervieweeInboxComponent,
         IntervieweeCandidateComponent,
         AddNewSpamContactComponent,
-        ViewNoteComponent
+        ViewNoteComponent,
+        CreateQuestionComponent,
+        AddQuestionDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -291,7 +295,8 @@ import { ViewNoteComponent } from './modules/view-note/view-note.component';
         AddSubTagModalComponent,
         AddCandidateComponent,
         AddNewSpamContactComponent,
-        ViewNoteComponent
+        ViewNoteComponent,
+        AddQuestionDialogComponent
     ],
     bootstrap: [AppComponent]
 })

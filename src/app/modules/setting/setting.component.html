@@ -49,6 +49,9 @@
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('spam','Spam')">
                     <a md-line> Spam </a>
                 </md-list-item>
+                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('createQuestion','CreateQuestion')">
+                  <a md-line> Create Question </a>
+                </md-list-item>
             </md-list>
         </div>
         <div class="col-md-10 col-sm-10 content">

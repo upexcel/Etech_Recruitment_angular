@@ -1,0 +1,46 @@
+<div class="main" id="create-ques">
+  <md-card>
+    <md-card-title class="cardsub">
+       Interview Questions
+    </md-card-title>
+    <hr class="linespace">
+    <md-card-content>
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <md-select class="width-100" id="jab_profile" placeholder="Select Job Profile" name="jab_profile" required ngModel>
+            <md-option>
+              None
+            </md-option>
+            <md-option *ngFor="let tag of tags?.Automatic" [value]="tag.id" (click)="getQues(tag.id)">
+              {{tag.title}}
+            </md-option>
+          </md-select>
+        </div>
+      </div>
+      <md-card class="marTop3 padleft10" *ngFor="let ques of questions;let i = index">
+        <div class="btnIcons">
+            <button md-icon-button color=warn mdTooltip="click to delete!" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
+            <button md-icon-button color=primary mdTooltip="click to edit!" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
+          </div>
+        <md-list class="pad0">
+          <md-list-item class="pad0">
+          <div class="col-md-12 pad0">
+            <ul class="quesView">
+              <li><h4>Question {{i+1}}: &#09; {{ques.question }}</h4></li>
+              <li class="fontLi">Options:</li>
+              <ul class="padleft15" *ngFor="let opt of ques.options; let optid = index ">
+                <li class="col-md-6 col-sm-12 fontLi">{{optid+1}}. &#09; {{opt.option}}</li>
+              </ul>
+            </ul>
+          </div>
+        </md-list-item>
+        </md-list>
+</md-card>
+    </md-card-content>
+  </md-card>
+</div>
+<div id="addTag" class="pos-add" *ngIf="!loading">
+    <button md-fab (click)="addQues()">
+        <md-icon>add</md-icon>
+    </button>
+</div>
