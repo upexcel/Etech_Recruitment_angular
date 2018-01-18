@@ -1,0 +1,49 @@
+@import './../../variable.scss';
+
+md-toolbar {
+    box-shadow: 0 2px 5px 0 $toolbarcolor;
+}
+.width100 {
+    width: 100%;
+}
+
+.hovestyle {
+    padding: 10px 0px;
+    position: relative;
+    cursor: pointer;
+}
+.mainlogo {
+    background-color: $mainlogo;
+    text-align: center;
+    margin: auto;
+    padding: 13px;
+}
+.bgcolor {
+    background-color: #2e3e4e;
+    width: 100%;
+    height: 100%;
+}
+h4{
+    text-align: center;
+}
+.marAuto{
+  margin: auto;
+}
+.content{
+    padding: 12px;
+    background-color: #2e3e4e;
+}
+.right{
+  float: right;
+}
+.padd5{
+  padding: 5px;
+}
+.bodyInner{
+    border: 1px solid;
+    padding: 20px;
+    border-style: inset;
+}
+.row{
+  margin: 0px;
+}

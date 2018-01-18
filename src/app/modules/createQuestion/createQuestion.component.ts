@@ -90,7 +90,8 @@ export class CreateQuestionComponent implements OnInit {
     }
     editQues(id: any) {
         this.getTags.getQuesByid(id).subscribe(res => {
-            this.questionEdited = res.data[0];
+          console.log(res);
+            this.questionEdited = res.data;
             this.dialogRef = this.dialog.open(AddQuestionDialogComponent, {
                 height: '100%',
                 width: '40%'

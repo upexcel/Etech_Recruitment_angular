@@ -4,7 +4,7 @@ import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MdSnackBar } from '@angular/material';
-declare const FB: any;
+declare let FB: any;
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -16,24 +16,17 @@ export class LoginComponent implements OnInit {
     password: string;
     keeplogin: boolean;
     loading: boolean;
+    fbloading: boolean;
     message: string;
     showmessage: boolean;
     fbObj: any;
+    fbtoken: any;
     constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
                 duration: 2000,
             });
             this._localStorageService.clearItem('loginMessage');
-        }
-    }
-    statusChangeCallback(response: any) {
-        console.log(response.status);
-        if (response.status === 'connected') {
-            console.log('connected');
-            this.testAPI();
-        } else {
-            console.log('loginnn required');
         }
     }
 
@@ -47,13 +40,8 @@ export class LoginComponent implements OnInit {
         FB.init({
             appId: '526179664434624',
             cookie: true, // enable cookies to allow the server to access
-            // the session
             xfbml: true, // parse social plugins on this page
             version: 'v2.11' // use graph api version 2.8
-        });
-
-        FB.getLoginStatus((response) => {
-            this.statusChangeCallback(response);
         });
     }
     login() {
@@ -85,12 +73,13 @@ export class LoginComponent implements OnInit {
     fblogin() {
         FB.login((result) => {
             if (result.status === 'connected') {
+                this.fbtoken = result.authResponse.accessToken;
                 this.testAPI();
             }
         }, { scope: 'user_friends,email' });
     }
     testAPI() {
-        console.log('Welcome!  Fetching your information.... ');
+        this.fbloading = true;
         FB.api('/me?fields=id,email,name,gender,picture.width(150).height(150)', (res) => {
             this.fbObj = {
                 'email': res.email,
@@ -99,26 +88,22 @@ export class LoginComponent implements OnInit {
                 'profile_pic' : res.picture.data.url,
                 'fb_id' : res.id
             };
-            console.log('sucess', this.fbObj);
             this.access.facebook_login(this.fbObj).subscribe((response: Response) => {
-                console.log('sucess', response);
+                console.log('sucess', response.status);
                 if (response.status === 1) {
-                    this._localStorageService.setItem('fb_logStatus', true);
+                    this.fbloading = false;
+                    this._localStorageService.setItem('role', 'Candidate');
+                    this._localStorageService.setItem('userEmail', res.email);
+                    this._localStorageService.setItem('token', this.fbtoken);
+                    this._router.navigate(['/candidate/interviewques']);
                 }
-                // this._router.navigate(['/core/interviewee-inbox']);
             },
             (err) => {
                 console.log(err);
-                // this.loading = false;
-                // this.showmessage = true;
-                // this.message = err.message;
+                this.fbloading = false;
+                this.showmessage = true;
+                this.message = err.message;
             });
         });
     }
-    fblogout() {
-        FB.logout((result) => {
-            console.log(result)
-        })
-    }
-
 }

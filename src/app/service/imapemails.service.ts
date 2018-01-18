@@ -978,7 +978,7 @@ export class ImapMailsService {
     }
     getQues(job_profile: any): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `exams/getAllQuestions/${job_profile}`)
+        return this.http.get(environment['apibase'] + `exams/getAllQuestions/${job_profile}`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();
@@ -1005,6 +1005,19 @@ export class ImapMailsService {
     deleteQueByid(quesId: any): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `exams/deleteQuestion/${quesId}`)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
+    jobprofile(): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.get(environment['apibase'] + `exams/job_profile`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();

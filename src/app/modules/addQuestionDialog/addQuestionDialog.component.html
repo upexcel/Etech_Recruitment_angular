@@ -1,7 +1,8 @@
 <md-card>
   <form id="quesForm" autoComplete="off" #quesForm="ngForm" (ngSubmit)="createQues(quesForm)">
     <md-card-title class="cardsub">
-      Create New Questions
+      <p *ngIf="editabledialog">Edit Questions</p>
+      <p *ngIf="!editabledialog">Create Questions</p>
     </md-card-title>
     <hr class="linespace">
     <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
@@ -28,36 +29,48 @@
             </md-error>
           </md-input-container>
         </div>
-        <div id="right_answer" class="col-md-12 col-sm-12">
+        <!-- <div id="right_answer" class="col-md-12 col-sm-12">
           <md-input-container class="width-90">
             <input mdInput name="answer" type="text" placeholder="Answer" required [(ngModel)]="answer" autoComplete="off">
             <md-error>Answer Required</md-error>
           </md-input-container>
-        </div>
+        </div> -->
+        <md-radio-group>
+
+
         <div id="option-1" class="col-md-12 col-sm-12">
+          <md-radio-button value="1" (change)="answerRight($event)" [checked]="ans_id=='1'"></md-radio-button>
           <md-input-container class="width-90">
             <input mdInput name="option1" type="text" placeholder="Option-1" required [(ngModel)]="opt1" autoComplete="off">
             <md-error>Option-1 Required</md-error>
           </md-input-container>
         </div>
+
         <div id="option-2" class="col-md-12 col-sm-12">
+        <md-radio-button value="2" (change)="answerRight($event)" [checked]="ans_id=='2'"></md-radio-button>
+
           <md-input-container class="width-90">
             <input mdInput name="option2" type="text" placeholder="Option-2" required [(ngModel)]="opt2" autoComplete="off">
             <md-error>Option-2 Required</md-error>
           </md-input-container>
         </div>
         <div id="option-3" class="col-md-12 col-sm-12">
+        <md-radio-button value="3" (change)="answerRight($event)" [checked]="ans_id=='3'"></md-radio-button>
+
           <md-input-container class="width-90">
             <input mdInput name="option3" type="text" placeholder="Option-3" required [(ngModel)]="opt3" autoComplete="off">
             <md-error>Option-3 Required</md-error>
           </md-input-container>
         </div>
         <div id="option-4" class="col-md-12 col-sm-12">
+        <md-radio-button value="4" (change)="answerRight($event)" [checked]="ans_id=='4'"></md-radio-button>
+
           <md-input-container class="width-90">
             <input mdInput name="option4" type="text" placeholder="Option-4" required [(ngModel)]="opt4" autoComplete="off">
             <md-error>Option-4 Required</md-error>
           </md-input-container>
         </div>
+        </md-radio-group>
 
         <div id="FormButton" class="col-md-12">
           <button id="save" type="submit" md-raised-button color=primary [disabled]="quesForm.invalid"> Save </button>

@@ -170,6 +170,8 @@ import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interview
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
 import { ViewNoteComponent } from './modules/view-note/view-note.component';
 import { AddQuestionDialogComponent } from './modules/addQuestionDialog/addQuestionDialog.component';
+import { CandidateComponent } from './modules/candidate/candidate.component';
+import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
 
 @NgModule({
     declarations: [
@@ -232,7 +234,9 @@ import { AddQuestionDialogComponent } from './modules/addQuestionDialog/addQuest
         AddNewSpamContactComponent,
         ViewNoteComponent,
         CreateQuestionComponent,
-        AddQuestionDialogComponent
+        AddQuestionDialogComponent,
+        CandidateComponent,
+        InterviewQuestionComponent
     ],
     imports: [
         BrowserModule,

@@ -30,12 +30,23 @@ import { SlackInfoComponent } from './modules/slack-info/slack-info.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
+import { CandidateComponent } from './modules/candidate/candidate.component';
+import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component'
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
     component: DashboardComponent,
     data : { isHome : true }
 },
+    {
+        path: 'candidate',
+        component: CandidateComponent,
+        children: [{
+            path: 'interviewques',
+            component: InterviewQuestionComponent,
+            pathMatch: 'full'
+        }]
+    },
     {
         path: 'core',
         component: CoreComponent,
@@ -64,7 +75,7 @@ export const routes: Route[] = [{
             {
                 path: 'email-tracking',
                 component: EmailTrackingComponent,
-                canActivate: [LoginRouteGuard],
+                canActivate: [LoginRouteGuard]
             },
             {
                 path: 'interviewee-inbox',

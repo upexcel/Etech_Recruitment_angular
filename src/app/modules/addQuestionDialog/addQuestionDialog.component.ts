@@ -19,6 +19,8 @@ export class AddQuestionDialogComponent implements OnInit {
     opt2: any;
     opt3: any;
     opt4: any;
+    ans_id: any;
+    answerOpt: any;
     options= [];
     message: string;
     showmessage: boolean;
@@ -31,12 +33,15 @@ export class AddQuestionDialogComponent implements OnInit {
     ngOnInit() {
         this.loading = true;
         this.getAllTag();
+        console.log(this.questionEditable);
         if (this.questionEditable) {
+            console.log(this.questionEditable);
             this.job_profile = this.questionEditable.job_profile[0];
             this.questionId = this.questionEditable._id;
             this.question = this.questionEditable.question;
             this.answer = this.questionEditable.answer;
             this.opt1 = this.questionEditable.options[0].option;
+            this.ans_id = this.questionEditable.answer;
             this.opt2 = this.questionEditable.options[1].option;
             this.opt3 = this.questionEditable.options[2].option;
             this.opt4 = this.questionEditable.options[3].option;
@@ -84,7 +89,10 @@ export class AddQuestionDialogComponent implements OnInit {
     }
     close() {
     }
-
+    answerRight(val) {
+        this.ans_id = val.value;
+        console.log(val.source, val.value);
+    }
     createQues(form: NgForm) {
         let quesdata;
         if (form.valid) {
@@ -95,7 +103,7 @@ export class AddQuestionDialogComponent implements OnInit {
             quesdata = {
                 'job_profile': form.value.job_profile,
                 'question' : form.value.question,
-                'answer' : form.value.answer,
+                'answer' : parseInt(this.ans_id),
                 'options': [{
                     'option': form.value.option1,
                     'opt_id': 1
@@ -114,6 +122,8 @@ export class AddQuestionDialogComponent implements OnInit {
                 }]
             };
         }
+        console.log(quesdata);
+
         this.loading = true;
         this.showmessage = false;
         if (this.editabledialog) {
