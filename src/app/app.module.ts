@@ -172,7 +172,7 @@ import { ViewNoteComponent } from './modules/view-note/view-note.component';
 import { AddQuestionDialogComponent } from './modules/addQuestionDialog/addQuestionDialog.component';
 import { CandidateComponent } from './modules/candidate/candidate.component';
 import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
-
+import { PreviewAnswerComponent } from './modules/previewAnswer/previewAnswer.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -236,7 +236,8 @@ import { InterviewQuestionComponent } from './modules/interviewQuestion/intervie
         CreateQuestionComponent,
         AddQuestionDialogComponent,
         CandidateComponent,
-        InterviewQuestionComponent
+        InterviewQuestionComponent,
+        PreviewAnswerComponent
     ],
     imports: [
         BrowserModule,
@@ -300,7 +301,8 @@ import { InterviewQuestionComponent } from './modules/interviewQuestion/intervie
         AddCandidateComponent,
         AddNewSpamContactComponent,
         ViewNoteComponent,
-        AddQuestionDialogComponent
+        AddQuestionDialogComponent,
+        PreviewAnswerComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -2,6 +2,8 @@
   <div class="bgcolor">
     <div class="row" id="toolbar">
       <md-toolbar id="topnav" color="accent">
+        <span><img class="profile_img" [src]="img"></span>
+        <span>{{candidateName}}</span>
         <div class="mainlogo">
           <img src="assets/logo.png">
         </div>
@@ -11,7 +13,7 @@
       </md-toolbar>
         <div class="content">
           <div class="row">
-            <div class="col-md-12 ">
+            <div class="col-md-12 pad0">
 
               <router-outlet ></router-outlet>
             </div>

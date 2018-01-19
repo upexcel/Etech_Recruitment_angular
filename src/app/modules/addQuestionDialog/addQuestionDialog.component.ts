@@ -85,6 +85,13 @@ export class AddQuestionDialogComponent implements OnInit {
                 }
             }
         }
+        if (this.tags['Automatic']) {
+            _.forEach(this.tags['Automatic'], (val, key) => {
+                if (!val.is_job_profile_tag) {
+                    this.tags['Automatic'].splice(key, 1);
+                }
+            })
+        }
         this.loading = false;
     }
     close() {

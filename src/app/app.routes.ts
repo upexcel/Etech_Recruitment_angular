@@ -42,7 +42,7 @@ export const routes: Route[] = [{
         path: 'candidate',
         component: CandidateComponent,
         children: [{
-            path: 'interviewques',
+            path: 'interviewques/:id',
             component: InterviewQuestionComponent,
             pathMatch: 'full'
         }]

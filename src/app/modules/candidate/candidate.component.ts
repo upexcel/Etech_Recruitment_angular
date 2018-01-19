@@ -15,9 +15,12 @@ export class CandidateComponent implements OnInit {
     questions: any;
     options: any;
     job_pro: any [];
+    candidateName: any;
     selectedJob: any;
+    img: any;
     constructor(private _localStorageService: LocalStorageService, private getTags: ImapMailsService, private access: LoginService, private _router: Router) {
-
+        this.candidateName = localStorage.getItem('user');
+        this.img = localStorage.getItem('img');
     }
     statusChangeCallback(response: any) {
         console.log(response);
@@ -41,11 +44,8 @@ export class CandidateComponent implements OnInit {
 
     fblogout() {
         FB.logout((result) => {
-            this.access.removeToken().then((data) => {
-                if (data) {
-                    this._router.navigate(['']);
-                }
-            });
+            localStorage.clear();
+            this._router.navigate(['']);
         })
     }
 

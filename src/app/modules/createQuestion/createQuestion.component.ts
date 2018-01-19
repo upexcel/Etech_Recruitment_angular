@@ -5,6 +5,7 @@ import { NgForm, FormControl, Validators } from '@angular/forms';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
 import { AddQuestionDialogComponent } from '../addQuestionDialog/addQuestionDialog.component';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-createquestion',
@@ -60,6 +61,13 @@ export class CreateQuestionComponent implements OnInit {
                     this.tags['Automatic'].push(data[i]);
                 }
             }
+        }
+        if (this.tags['Automatic']) {
+            _.forEach(this.tags['Automatic'], (val, key) => {
+                if (!val.is_job_profile_tag) {
+                    this.tags['Automatic'].splice(key, 1);
+                }
+            })
         }
         this.loading = false;
     }

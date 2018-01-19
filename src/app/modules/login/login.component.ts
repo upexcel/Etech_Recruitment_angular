@@ -88,14 +88,15 @@ export class LoginComponent implements OnInit {
                 'profile_pic' : res.picture.data.url,
                 'fb_id' : res.id
             };
-            this.access.facebook_login(this.fbObj).subscribe((response: Response) => {
-                console.log('sucess', response.status);
+            this.access.facebook_login(this.fbObj).subscribe(response => {
+                console.log('sucess', response);
                 if (response.status === 1) {
                     this.fbloading = false;
-                    this._localStorageService.setItem('role', 'Candidate');
-                    this._localStorageService.setItem('userEmail', res.email);
-                    this._localStorageService.setItem('token', this.fbtoken);
-                    this._router.navigate(['/candidate/interviewques']);
+                    localStorage.setItem('role', 'Candidate');
+                    localStorage.setItem('user', response.data.name);
+                    localStorage.setItem('token', this.fbtoken);
+                    localStorage.setItem('img', response.data.profile_pic);
+                    this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
                 }
             },
             (err) => {

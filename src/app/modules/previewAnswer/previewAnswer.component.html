@@ -1,0 +1,14 @@
+<div>
+  <h4 class="heading">Attempted Question with Response</h4>
+  <hr>
+  <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of attemptedQues;let id = index">
+    <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
+    <p class="pid">Options:</p>
+    <ul class="width100 fontsize">
+      <li *ngFor="let option of ques.options" class="width100">{{option.option}}<span class="rightIcon" *ngIf="option.opt_id===ques.ans_id"><i class="material-icons">done</i></span></li>
+    </ul>
+  </div>
+  <button md-raised-button color=primary class="right submitans" (click)="submit()">Final Submit</button>
+  <button md-raised-button  class="right submitans grey" (click)="close()">Back</button>
+
+</div>

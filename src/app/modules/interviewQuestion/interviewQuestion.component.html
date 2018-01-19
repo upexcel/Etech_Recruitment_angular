@@ -15,20 +15,19 @@
     </md-list-item>
   </md-list>
 </md-card>
-<md-card *ngIf="!hide">
-    <md-card-title>
-      <h4>Test Questions</h4>
-    </md-card-title>
-    <md-list class="pad0">
-      <md-list-item class="pad0" *ngFor="let ques of questions;let id = index">
-        <div class="col-md-12 col-sm-12 marAuto bodyInner">
+<div *ngIf="!hide" class="col-md-12 bodyInner">
+      <div><h4>Test Questions</h4>
+        <p>
+          <span class="right style">Question Attempted:&nbsp;&nbsp;{{selectedAnswer.length}}/{{questions.length}}</span>
+
+        </p>
+      </div>
+        <div class="col-md-12 col-sm-12 marAuto bodyInner" *ngFor="let ques of questions;let id = index">
           <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
           <p class="pid">Options:</p>
           <md-radio-group class="width100 fontsize">
-            <md-radio-button *ngFor="let option of ques.options" name="{{option.option}}" value="{{option.opt_id}}" class="width100 padd5" (click)="selectans(option)">{{option.option}}</md-radio-button>
+            <md-radio-button *ngFor="let option of ques.options" name="{{option.option}}" value="{{option.opt_id}}" class="width100" (click)="selectedAns(ques._id,option.opt_id)">{{option.option}}</md-radio-button>
           </md-radio-group>
-          <button md-raised-button color=primary class="right" (click)="submit()">Submit</button>
         </div>
-      </md-list-item>
-    </md-list>
-</md-card>
+        <button md-raised-button color=primary class="right submitans" (click)="savePreview()">Save and Preview</button>
+   </div>

@@ -1028,4 +1028,17 @@ export class ImapMailsService {
               return Observable.throw(error.json() || 'Server error');
           });
     }
+    submitTest(data): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.post(environment['apibase'] + `exams/submitExam`, data)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
 }
