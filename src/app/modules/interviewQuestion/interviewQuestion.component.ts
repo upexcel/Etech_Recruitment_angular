@@ -6,7 +6,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/mate
 import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
-
+declare const FB: any;
 @Component({
     selector: 'app-interviewques',
     templateUrl: './interviewQuestion.component.html',
@@ -22,11 +22,15 @@ export class InterviewQuestionComponent implements OnInit {
     selectedAnswer= [];
     allansRecord: any;
     user_id: any;
+    thankyou = false;
     temp: any;
     constructor(public dialog: MdDialog, private act_route: ActivatedRoute, private _mdSnackBar: MdSnackBar, private getTags: ImapMailsService, private _router: Router) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
-        if (!localStorage.getItem('token')) {
+        if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id ) {
             this._router.navigate(['/login']);
+        }
+        if (localStorage.getItem('thank') === 'true') {
+            this.thankyou = true;
         }
         this.hide = true;
         this.getTags.jobprofile().subscribe(res => {
@@ -46,8 +50,14 @@ export class InterviewQuestionComponent implements OnInit {
     getQues() {
         if (this.selectedJob) {
             this.getTags.getQues(this.selectedJob).subscribe(res => {
-                this.hide = false;
-                this.questions = res.data;
+                if (res.data.length > 0) {
+                    this.hide = false;
+                    this.questions = res.data;
+                } else {
+                    this._mdSnackBar.open('Test not available', '', {
+                        duration: 2000,
+                    });
+                }
             }, err => {
                 console.log(err);
                 this.hide = true;
@@ -78,36 +88,47 @@ export class InterviewQuestionComponent implements OnInit {
         });
     }
     savePreview() {
-        this.dialogRef = this.dialog.open(PreviewAnswerComponent, {
-            height: '100%',
-            width: '50%'
-        });
-        this.dialogRef.componentInstance.selectedAnswer = this.selectedAnswer;
-        this.dialogRef.componentInstance.allQuestion = this.questions;
+        if (this.selectedAnswer.length > 0) {
+            this.dialogRef = this.dialog.open(PreviewAnswerComponent, {
+                height: '100%',
+                width: '50%'
+            });
+            this.dialogRef.componentInstance.selectedAnswer = this.selectedAnswer;
+            this.dialogRef.componentInstance.allQuestion = this.questions;
 
-        this.dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this._mdSnackBar.open(result, '', {
-                    duration: 2000,
-                });
-                this.dialogRef = null;
-                this.submit();
-            }
-        });
+            this.dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.dialogRef = null;
+                    this.submit();
+                }
+            });
+        } else {
+            this._mdSnackBar.open('Attempt atlest one Question', '', {
+                duration: 2000,
+            });
+        }
     }
     submit() {
         this.allansRecord = {
             'job_profile': this.selectedJob,
-            'user_id': this.user_id,
+            'fb_id': this.user_id,
             'answers': this.selectedAnswer
         }
         this.getTags.submitTest(this.allansRecord).subscribe(res => {
-            console.log(res);
             this._mdSnackBar.open(res.message, '', {
                 duration: 2000,
             });
+            this.thankyou = true;
+            setTimeout(() => {
+                FB.logout((result) => {
+                    localStorage.clear();
+                    this._router.navigate(['']);
+                })
+            }, 10000)
         }, err => {
-            console.log(err);
+            this._mdSnackBar.open(err.message, '', {
+                duration: 2000
+            });
         });
     }
 };

@@ -11,7 +11,7 @@
             <md-option>
               None
             </md-option>
-            <md-option *ngFor="let tag of tags?.Automatic" [value]="tag.id" (click)="getQues(tag.id)">
+            <md-option *ngFor="let tag of jobprofile_tag" [value]="tag.id" (click)="getQues(tag.id)">
               {{tag.title}}
             </md-option>
           </md-select>

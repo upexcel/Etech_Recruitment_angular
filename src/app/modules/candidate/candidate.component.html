@@ -2,10 +2,11 @@
   <div class="bgcolor">
     <div class="row" id="toolbar">
       <md-toolbar id="topnav" color="accent">
-        <span><img class="profile_img" [src]="img"></span>
-        <span>{{candidateName}}</span>
+        <div>
+          <span><img class="profile_img" [src]="img"></span>
+          <span>{{candidateName}}</span>
+        </div>
         <div class="mainlogo">
-          <img src="assets/logo.png">
         </div>
         <div id="logout" class="hovestyle" (click)="fblogout()">
           <p class="mainnav">Logout</p>
@@ -15,7 +16,7 @@
           <div class="row">
             <div class="col-md-12 pad0">
 
-              <router-outlet ></router-outlet>
+              <router-outlet (update) = "fblogout()"></router-outlet>
             </div>
           </div>
         </div>

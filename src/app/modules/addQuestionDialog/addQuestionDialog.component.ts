@@ -27,6 +27,7 @@ export class AddQuestionDialogComponent implements OnInit {
     questionEditable: any;
     editabledialog= false;
     questionId: any;
+    jobprofile_tag= [];
 
     constructor(private dialogRef: MdDialogRef<any>, private getTags: ImapMailsService) {
     }
@@ -87,9 +88,9 @@ export class AddQuestionDialogComponent implements OnInit {
         }
         if (this.tags['Automatic']) {
             _.forEach(this.tags['Automatic'], (val, key) => {
-                if (!val.is_job_profile_tag) {
-                    this.tags['Automatic'].splice(key, 1);
-                }
+                if (val.is_job_profile_tag) {
+                    this.jobprofile_tag.push(val);
+                };
             })
         }
         this.loading = false;

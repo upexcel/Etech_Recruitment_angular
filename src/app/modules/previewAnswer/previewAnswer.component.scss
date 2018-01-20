@@ -1,6 +1,6 @@
 .bodyInner{
     box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    background: skyblue;
+    background: #ececec;
     padding: 15px;
     margin-bottom: 5px;
 }
@@ -27,16 +27,7 @@ h3{
 .marAuto{
   margin: auto;
 }
-.material-icons{
-    font-size: 22px;
-    font-weight: bold;
-}
-ul li .rightIcon{
-  position: absolute;
-    left: 12px;
-    margin-top: -1px;
-    color: red;
-}
+
 .right{
   float: right;
 }
@@ -46,4 +37,8 @@ ul li .rightIcon{
 }
 .grey{
   background: #cacaca;
+}
+.responseColor{
+  color: green;
+  font-weight: bold;
 }

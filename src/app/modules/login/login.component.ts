@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     showmessage: boolean;
     fbObj: any;
     fbtoken: any;
-    constructor(private formBuilder: FormBuilder, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
+    constructor(private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
                 duration: 2000,
@@ -91,12 +91,15 @@ export class LoginComponent implements OnInit {
             this.access.facebook_login(this.fbObj).subscribe(response => {
                 console.log('sucess', response);
                 if (response.status === 1) {
-                    this.fbloading = false;
-                    localStorage.setItem('role', 'Candidate');
-                    localStorage.setItem('user', response.data.name);
-                    localStorage.setItem('token', this.fbtoken);
-                    localStorage.setItem('img', response.data.profile_pic);
-                    this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
+                    this.zone.run(() => {
+                        this.fbloading = false;
+                        localStorage.setItem('role', JSON.stringify('Candidate'));
+                        localStorage.setItem('user', response.data.name);
+                        localStorage.setItem('user_id', response.data.fb_id)
+                        localStorage.setItem('token', this.fbtoken);
+                        localStorage.setItem('img', response.data.profile_pic);
+                        this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
+                    });
                 }
             },
             (err) => {

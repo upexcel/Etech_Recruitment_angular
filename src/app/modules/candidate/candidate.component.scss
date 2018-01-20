@@ -13,10 +13,7 @@ md-toolbar {
     cursor: pointer;
 }
 .mainlogo {
-    background-color: $mainlogo;
-    text-align: center;
-    margin: auto;
-    padding: 13px;
+   flex: 1 1 auto;
 }
 .bgcolor {
     background-color: #2e3e4e;

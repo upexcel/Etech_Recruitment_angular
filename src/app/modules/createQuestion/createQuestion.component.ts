@@ -19,6 +19,7 @@ export class CreateQuestionComponent implements OnInit {
     questions: any[];
     selectedJobid: any;
     questionEdited: any;
+    jobprofile_tag= [];
     constructor(private getTags: ImapMailsService, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -64,9 +65,9 @@ export class CreateQuestionComponent implements OnInit {
         }
         if (this.tags['Automatic']) {
             _.forEach(this.tags['Automatic'], (val, key) => {
-                if (!val.is_job_profile_tag) {
-                    this.tags['Automatic'].splice(key, 1);
-                }
+                if (val.is_job_profile_tag) {
+                    this.jobprofile_tag.push(val);
+                };
             })
         }
         this.loading = false;
@@ -98,7 +99,7 @@ export class CreateQuestionComponent implements OnInit {
     }
     editQues(id: any) {
         this.getTags.getQuesByid(id).subscribe(res => {
-          console.log(res);
+            console.log(res);
             this.questionEdited = res.data;
             this.dialogRef = this.dialog.open(AddQuestionDialogComponent, {
                 height: '100%',

@@ -5,7 +5,7 @@
     <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
     <p class="pid">Options:</p>
     <ul class="width100 fontsize">
-      <li *ngFor="let option of ques.options" class="width100">{{option.option}}<span class="rightIcon" *ngIf="option.opt_id===ques.ans_id"><i class="material-icons">done</i></span></li>
+      <li *ngFor="let option of ques.options" class="width100" [ngClass]="{'responseColor':option.opt_id===ques.ans_id}">{{option.option}}</li>
     </ul>
   </div>
   <button md-raised-button color=primary class="right submitans" (click)="submit()">Final Submit</button>

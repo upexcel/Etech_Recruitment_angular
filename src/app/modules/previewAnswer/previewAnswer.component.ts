@@ -32,7 +32,7 @@ export class PreviewAnswerComponent implements OnInit {
         this.dialogRef.close();
     }
     submit() {
-        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+        this._dialogService.openConfirmationBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
             if (res === 'yes') {
                 this.dialogRef.close('final Submit');
             }
