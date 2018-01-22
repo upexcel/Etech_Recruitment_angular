@@ -122,7 +122,7 @@ export class InterviewQuestionComponent implements OnInit {
             setTimeout(() => {
                 FB.logout((result) => {
                     localStorage.clear();
-                    this._router.navigate(['']);
+                    this._router.navigate(['/login']);
                 })
             }, 10000)
         }, err => {

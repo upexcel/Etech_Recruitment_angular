@@ -8,6 +8,7 @@ import * as moment from 'moment';
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
     intervieweeList: any;
+    fblogindata: any;
     constructor(public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
@@ -223,5 +224,13 @@ export class CommonService {
                 })
             }
         })
+    }
+    storeFbdata(data) {
+        if (data === 'verifyEmail') {
+            return this.fblogindata;
+        } else {
+            this.fblogindata = data;
+            return 'added';
+        }
     }
 }

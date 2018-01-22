@@ -31,7 +31,9 @@ import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
 import { CandidateComponent } from './modules/candidate/candidate.component';
-import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component'
+import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
+import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
+
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
@@ -44,6 +46,10 @@ export const routes: Route[] = [{
         children: [{
             path: 'interviewques/:id',
             component: InterviewQuestionComponent,
+            pathMatch: 'full'
+        }, {
+            path: 'verifycandidate',
+            component: VerifyCandidateComponent,
             pathMatch: 'full'
         }]
     },

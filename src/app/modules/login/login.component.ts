@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
+import { CommonService } from '../../service/common.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MdSnackBar } from '@angular/material';
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
     showmessage: boolean;
     fbObj: any;
     fbtoken: any;
-    constructor(private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
+    constructor(private commonService: CommonService, private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
                 duration: 2000,
@@ -83,22 +84,29 @@ export class LoginComponent implements OnInit {
         FB.api('/me?fields=id,email,name,gender,picture.width(150).height(150)', (res) => {
             this.fbObj = {
                 'email': res.email,
+                'appliedEmail': res.email,
                 'name': res.name,
                 'gender': res.gender,
                 'profile_pic' : res.picture.data.url,
                 'fb_id' : res.id
             };
             this.access.facebook_login(this.fbObj).subscribe(response => {
+                let added = this.commonService.storeFbdata(this.fbObj);
                 console.log('sucess', response);
+                localStorage.setItem('role', JSON.stringify('Candidate'));
+                localStorage.setItem('user', res.name);
+                localStorage.setItem('user_id', res.id)
+                localStorage.setItem('token', this.fbtoken);
+                localStorage.setItem('img', res.picture.data.url);
                 if (response.status === 1) {
                     this.zone.run(() => {
                         this.fbloading = false;
-                        localStorage.setItem('role', JSON.stringify('Candidate'));
-                        localStorage.setItem('user', response.data.name);
-                        localStorage.setItem('user_id', response.data.fb_id)
-                        localStorage.setItem('token', this.fbtoken);
-                        localStorage.setItem('img', response.data.profile_pic);
                         this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
+                    });
+                }
+                if (response.status === 2) {
+                    this.zone.run(() => {
+                        this._router.navigate(['/candidate/verifycandidate']);
                     });
                 }
             },
