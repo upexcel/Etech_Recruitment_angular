@@ -174,6 +174,7 @@ import { CandidateComponent } from './modules/candidate/candidate.component';
 import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
 import { PreviewAnswerComponent } from './modules/previewAnswer/previewAnswer.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
+import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -239,7 +240,8 @@ import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandid
         CandidateComponent,
         InterviewQuestionComponent,
         PreviewAnswerComponent,
-        VerifyCandidateComponent
+        VerifyCandidateComponent,
+        CandidateScoreComponent
     ],
     imports: [
         BrowserModule,
