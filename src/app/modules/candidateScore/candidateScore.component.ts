@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
@@ -14,7 +14,11 @@ import * as _ from 'lodash';
 })
 export class CandidateScoreComponent implements OnInit {
     scores: any;
-    constructor(private _getScore: ImapMailsService, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
+    keyword: any;
+    start_date: any;
+    option: any;
+    end_date: any;
+    constructor(private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
         const blankscore = {};
@@ -23,62 +27,32 @@ export class CandidateScoreComponent implements OnInit {
 
     getScore(data) {
         this._getScore.score(data).subscribe(res => {
-            console.log(res);
-            this.scores = res;
+            this._ngzone.run(() => {
+                console.log(res);
+                this.scores = res;
+            });
         },
         err => {
             console.log(err);
         });
     }
     searchScorelist(searchform: NgForm) {
+
         console.log(searchform.value);
+        this.option = searchform.value['option'];
+        // this.key = searchform.value['keyword'];
         if (searchform.valid) {
-            // if (!!searchform.value['currentTag']) {
-            //     if (this.data['is_attach']) {
-            //         this.data = {
-            //             'page': 1,
-            //             'tag_id': this.emailParentId,
-            //             'default_id': this.emailChildId,
-            //             'limit': 100,
-            //             'type': searchform.value['option'],
-            //             'keyword': searchform.value['keyword'],
-            //             'selected': searchform.value['currentTag'],
-            //             'is_attach': this.data['is_attach']
-            //         };
-            //     } else {
-            //         this.data = {
-            //             'page': 1,
-            //             'tag_id': this.emailParentId,
-            //             'default_id': this.emailChildId,
-            //             'limit': 100,
-            //             'type': searchform.value['option'],
-            //             'keyword': searchform.value['keyword'],
-            //             'selected': searchform.value['currentTag']
-            //         };
-            //     }
-            // } else {
-            //     this.data = {
-            //         'page': 1,
-            //         'limit': 100,
-            //         'type': searchform.value['option'],
-            //         'keyword': searchform.value['keyword'],
-            //         'selected': searchform.value['currentTag']
-            //     };
-            // }
-            // this.loading = true;
-            // this.showmessage = false;
-            // this.getemails.getEmailList(this.data).subscribe((data) => {
-            //     if (data.data.length > 0) {
-            //         this.addSelectedFieldInEmailList(data);
-            //         this.emailIds = [];
-            //         this.loading = false;
-            //     } else {
-            //         this.message = data.message;
-            //         this.showmessage = true;
-            //         this.emaillist = [];
-            //         this.loading = false;
-            //     }
-            // });
+            let dataS;
+            if (this.option === 'name') {
+                dataS = { search_type: this.option, name: this.keyword };
+            }
+            if (this.option === 'email') {
+                dataS = { search_type: this.option, user_email: this.keyword };
+            }
+            if (this.option === 'date') {
+                dataS = { search_type: this.option, start_date: this.start_date, end_date: this.end_date };
+            }
+            this.getScore(dataS);
         }
     }
 }
