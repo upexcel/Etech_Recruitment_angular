@@ -13,12 +13,12 @@
           <input mdInput name="keyword" placeholder="Search" required [(ngModel)]="keyword" (ngModelChange)="searchScorelist(searchForm)">
         </md-input-container>
         <md-input-container class="mar-pos wid-200" *ngIf="option==='date'">
-          <input matInput name="start_date" [mdDatepicker]="picker" placeholder="Choose start date" [(ngModel)]="start_date">
+          <input matInput name="start_date" [mdDatepicker]="picker" required placeholder="Choose start date" [(ngModel)]="start_date">
           <button mdSuffix [mdDatepickerToggle]="picker"></button>
           <md-datepicker #picker></md-datepicker>
         </md-input-container>
         <md-input-container class="mar-pos wid-200" *ngIf="option==='date'">
-          <input matInput name="end_date" [mdDatepicker]="picker1" placeholder="Choose end date" [(ngModel)]="end_date">
+          <input matInput name="end_date" [mdDatepicker]="picker1" required placeholder="Choose end date" [(ngModel)]="end_date">
           <button mdSuffix [mdDatepickerToggle]="picker1"></button>
           <md-datepicker #picker1></md-datepicker>
         </md-input-container>

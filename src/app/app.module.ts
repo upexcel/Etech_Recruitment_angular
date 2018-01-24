@@ -175,10 +175,14 @@ import { InterviewQuestionComponent } from './modules/interviewQuestion/intervie
 import { PreviewAnswerComponent } from './modules/previewAnswer/previewAnswer.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
+import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
+import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
+
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
+        CandidateLoginComponent,
         CoreComponent,
         InboxComponent,
         EmailLogsComponent,
@@ -241,7 +245,8 @@ import { CandidateScoreComponent } from './modules/candidateScore/candidateScore
         InterviewQuestionComponent,
         PreviewAnswerComponent,
         VerifyCandidateComponent,
-        CandidateScoreComponent
+        CandidateScoreComponent,
+        OtpdialogComponent
     ],
     imports: [
         BrowserModule,
@@ -306,7 +311,8 @@ import { CandidateScoreComponent } from './modules/candidateScore/candidateScore
         AddNewSpamContactComponent,
         ViewNoteComponent,
         AddQuestionDialogComponent,
-        PreviewAnswerComponent
+        PreviewAnswerComponent,
+        OtpdialogComponent
     ],
     bootstrap: [AppComponent]
 })

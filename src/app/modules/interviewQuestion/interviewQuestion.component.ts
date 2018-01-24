@@ -27,7 +27,7 @@ export class InterviewQuestionComponent implements OnInit {
     constructor(public dialog: MdDialog, private act_route: ActivatedRoute, private _mdSnackBar: MdSnackBar, private getTags: ImapMailsService, private _router: Router) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
         if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id ) {
-            this._router.navigate(['/login']);
+            this._router.navigate(['/candidatelogin']);
         }
         if (localStorage.getItem('thank') === 'true') {
             this.thankyou = true;

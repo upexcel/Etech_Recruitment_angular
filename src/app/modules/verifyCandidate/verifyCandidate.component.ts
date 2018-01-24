@@ -5,6 +5,8 @@ import { ImapMailsService } from './../../service/imapemails.service';
 import { CommonService } from '../../service/common.service';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
+import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
+import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
 
 @Component({
     selector: 'app-verify-candidate',
@@ -16,8 +18,11 @@ export class VerifyCandidateComponent implements OnInit {
     fbdata: any;
     enterEmail: any;
     loading= false;
+    error = false;
+    errorMsg: any;
     addForm: FormGroup;
-    constructor(private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService) {
+    dialogRef: MdDialogRef<any>;
+    constructor(public dialog: MdDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService) {
     }
 
     ngOnInit() {
@@ -45,11 +50,24 @@ export class VerifyCandidateComponent implements OnInit {
                 console.log(response)
                 if (response.status === 1) {
                     this.ngzone.run(() => {
-                        this.loading = false;
-                        this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
+                        this.dialogRef = this.dialog.open(OtpdialogComponent, {
+                            height: '225px',
+                            width: '300px'
+                        });
+                        this.dialogRef.componentInstance.fb_id = this.fbdata.fb_id;
+                        this.dialogRef.afterClosed().subscribe(result => {
+                            this.loading = false;
+                            console.log(result)
+                            if (result) {
+                                this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
+                            }
+                            this.dialogRef = null;
+                        });
                     });
                 } else {
-                    this.contactHr();
+                    this.loading = false;
+                    this.errorMsg = 'Email Not found';
+                    this.error = true;
                 }
             });
         }

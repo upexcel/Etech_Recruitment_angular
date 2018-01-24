@@ -1,0 +1,12 @@
+<div>
+  <h4 class="heading">Enter OTP</h4>
+  <hr>
+    <form (ngSubmit)="submitOtp()">
+        <md-card-subtitle id="loginError" class="error" *ngIf="error">{{errorMsg}}</md-card-subtitle>
+        <md-input-container class="col-sm-12 col-md-12">
+          <input type="tel " maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <=57' name="otp" mdInput placeholder="Enter OTP" [(ngModel)]="otp" autoComplete="off" required>
+        </md-input-container>
+        <button md-raised-button color=primary class="right" type="submit" >Submit</button>
+    </form>
+  <p>Note: Contact HR for OTP</p>
+</div>
