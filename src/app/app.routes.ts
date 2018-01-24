@@ -24,17 +24,36 @@ import { JobProfileTagComponent } from './modules/job-profile-tag/job-profile-ta
 import { AddNewUserComponent } from './modules/add-new-user/add-new-user.component';
 import { UsersListComponent } from './modules/users-list/users-list.component';
 import { SpamComponent } from './modules/spam/spam.component';
+import { CreateQuestionComponent } from './modules/createQuestion/createQuestion.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { SlackInfoComponent } from './modules/slack-info/slack-info.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
+import { CandidateComponent } from './modules/candidate/candidate.component';
+import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
+import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
+import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
+
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
     component: DashboardComponent,
     data : { isHome : true }
 },
+    {
+        path: 'candidate',
+        component: CandidateComponent,
+        children: [{
+            path: 'interviewques/:id',
+            component: InterviewQuestionComponent,
+            pathMatch: 'full'
+        }, {
+            path: 'verifycandidate',
+            component: VerifyCandidateComponent,
+            pathMatch: 'full'
+        }]
+    },
     {
         path: 'core',
         component: CoreComponent,
@@ -63,7 +82,7 @@ export const routes: Route[] = [{
             {
                 path: 'email-tracking',
                 component: EmailTrackingComponent,
-                canActivate: [LoginRouteGuard],
+                canActivate: [LoginRouteGuard]
             },
             {
                 path: 'interviewee-inbox',
@@ -142,6 +161,14 @@ export const routes: Route[] = [{
                 }, {
                     path: 'spam',
                     component: SpamComponent,
+                    canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'createQuestion',
+                    component: CreateQuestionComponent,
+                    canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'candidateScore',
+                    component: CandidateScoreComponent,
                     canActivate: [LoginRouteGuard]
                 }]
             }, {

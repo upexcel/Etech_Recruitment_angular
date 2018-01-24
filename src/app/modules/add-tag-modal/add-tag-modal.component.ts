@@ -36,7 +36,7 @@ export class AddTagModalComponent implements OnInit {
     }
 
     addTag(form: NgForm) {
-        console.log(form.value.keyword.toString());
+        // console.log(form.value.keyword.toString());
         this.showMessage = false;
         this.showloading = true;
         if (form.valid) {

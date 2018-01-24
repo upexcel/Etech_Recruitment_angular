@@ -950,4 +950,108 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    creteQues(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/addQuestion`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    updateQues(body: any, questionId: String): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/updateQuestion/${questionId}`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getQues(job_profile: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.get(environment['apibase'] + `exams/getAllQuestions/${job_profile}`)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
+    getQuesByid(quesId: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `exams/getQuestionById/${quesId}`)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
+    deleteQueByid(quesId: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `exams/deleteQuestion/${quesId}`)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
+    jobprofile(): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.get(environment['apibase'] + `exams/job_profile`)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
+    submitTest(data): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.post(environment['apibase'] + `exams/submitExam`, data)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
+    score(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/showExamResult`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
 }

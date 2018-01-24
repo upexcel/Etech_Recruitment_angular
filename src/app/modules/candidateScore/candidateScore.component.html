@@ -1,0 +1,54 @@
+<div class="col-md-12 col-lg-12 table-responsive bodyInner">
+  <h3 class="heading">Candidates Scores</h3>
+  <div class="col-md-12 no-pad marBott20">
+    <md-card class="card-pos">
+      <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchScorelist(searchForm)">
+        <md-select name="option" placeholder="Search In" required [(ngModel)]="option">
+          <md-option value="name">Name</md-option>
+          <md-option value="email">Email</md-option>
+          <md-option value="date">Date</md-option>
+        </md-select>
+
+        <md-input-container class="mar-pos wid-300" *ngIf="option!=='date'">
+          <input mdInput name="keyword" placeholder="Search" required [(ngModel)]="keyword" (ngModelChange)="searchScorelist(searchForm)">
+        </md-input-container>
+        <md-input-container class="mar-pos wid-200" *ngIf="option==='date'">
+          <input matInput name="start_date" [mdDatepicker]="picker" placeholder="Choose start date" [(ngModel)]="start_date">
+          <button mdSuffix [mdDatepickerToggle]="picker"></button>
+          <md-datepicker #picker></md-datepicker>
+        </md-input-container>
+        <md-input-container class="mar-pos wid-200" *ngIf="option==='date'">
+          <input matInput name="end_date" [mdDatepicker]="picker1" placeholder="Choose end date" [(ngModel)]="end_date">
+          <button mdSuffix [mdDatepickerToggle]="picker1"></button>
+          <md-datepicker #picker1></md-datepicker>
+        </md-input-container>
+        <button name="searchbtn" type="submit" md-raised-button color=primary [disabled]="searchForm.invalid"> Search </button>
+        <button name="searchbtn" md-raised-button [disabled]="searchForm.invalid" (click)="getScore('');searchForm.reset()">
+        Clear Search </button>
+      </form>
+    </md-card>
+  </div>
+    <table class="col-md-12 list table">
+        <thead >
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Facebook ID</th>
+            <th>Test Date</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of scores; let id=index">
+            <td>{{id+1}}</td>
+            <td>{{data.from}}</td>
+            <td>{{data.sender_mail}}</td>
+            <td>{{data.fb_id}}</td>
+            <td>{{data.email_date| date}}</td>
+            <td class="green">{{data.examScore}}</td>
+          </tr>
+        </tbody>
+    </table>
+
+</div>

@@ -1,0 +1,41 @@
+<md-card *ngIf="!contacthr && !enterEmail">
+    <md-list class="pad0">
+      <md-list-item class="pad0">
+        <div class="col-md-4 col-sm-12 marAuto bodyInner">
+          <md-card-title>
+            <h4>Select Below</h4>
+            <hr>
+          </md-card-title>
+          <div>
+          <button md-fab color=primary class="marAuto btnwidth" (click)="checkUser()">Have you Applied Before</button>
+          <p class="or">OR</p>
+          <button md-fab color=primary class="marAuto btnwidth" (click)="contactHr()">Its Walk-In</button>
+          </div>
+        </div>
+
+      </md-list-item>
+    </md-list>
+</md-card>
+<div *ngIf="contacthr">
+  <div class="col-md-12">
+    <h1>Contact HR</h1>
+  </div>
+</div>
+
+<md-card *ngIf="enterEmail">
+    <md-list class="pad0">
+      <md-list-item class="pad0">
+        <div class="col-md-4 col-sm-12 marAuto bodyInner">
+            <h4>Enter Email</h4>
+            <form id="loginForm" autoComplete="off" [formGroup]="addForm" (ngSubmit)="verifyLogin()">
+            <md-input-container class="width-100">
+              <input id="email" mdInput type="email"  formControlName="email" placeholder="Email" autoComplete="off">
+              <md-error>Enter Valid Email</md-error>
+            </md-input-container>
+            <button md-raised-button color=primary *ngIf="!loading" type="submit" class="right">Submit</button>
+            <md-spinner id="loginSpinner" *ngIf="loading" class="spin"></md-spinner>
+            </form>
+        </div>
+      </md-list-item>
+    </md-list>
+</md-card>

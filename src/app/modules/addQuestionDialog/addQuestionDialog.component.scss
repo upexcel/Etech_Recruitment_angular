@@ -1,0 +1,17 @@
+@import './../../variable.scss';
+.width-90 {
+    width: 90%;
+}
+.cardsub {
+    color: inherit;
+    font-size: 18px;
+}
+.error {
+    color: $red;
+    text-align: center;
+    position: relative;
+    left: -70px;
+}
+#save{
+  float: right;
+}

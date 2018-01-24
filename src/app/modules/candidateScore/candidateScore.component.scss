@@ -1,0 +1,74 @@
+@import './../../variable.scss';
+.bodyInner{
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+    padding: 20px;
+    margin-bottom: 5px;
+    background: white;
+}
+h3{
+    margin-top: 10px;
+}
+.table>tbody>tr>td{
+    border-bottom: 1px solid #ddd;
+}
+.green{
+    color:green;
+    font-weight: bold;
+}
+.card-pos {
+  position: relative;
+  padding: 10px;
+  width: 100%;
+}
+
+.marBott20{
+  margin-bottom: 20px;
+}
+.wid-300 {
+  width: 360px;
+}
+
+@media screen and (min-width: 320px) {
+  .wid-300 {
+    width: 100%;
+  }
+  .mar-pos {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 6px;
+  }
+  .card-pos {
+    form {
+      .mat-select {
+        padding-top: 10px;
+      }
+    }
+  }
+}
+@media screen and (min-width: 480px) {
+  .wid-300 {
+    width: 100%;
+  }
+  .mar-pos {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 6px;
+  }
+  .card-pos {
+    form {
+      .mat-select {
+        padding-top: 10px;
+      }
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .wid-300 {
+    width: 360px;
+  }
+  .mar-pos {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 6px;
+  }
+}
