@@ -32,10 +32,14 @@ export class AddQuestionDialogComponent implements OnInit {
     job_id: any;
     examgroup= [];
     examId: any;
-
+    count= 2;
+    inputbox= [];
     constructor(private dialogRef: MdDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
+        this.inputbox = [
+          {'option': '', 'opt_id': 1}, {'option': '', 'opt_id': 2}
+        ];
         this.loading = true;
         this.getAllTag();
         this.getExamGroup();
@@ -47,19 +51,29 @@ export class AddQuestionDialogComponent implements OnInit {
             this.question = this.questionEditable.question;
             this.answer = this.questionEditable.answer;
             this.examId = this.questionEditable.exam_subject;
-            this.opt1 = this.questionEditable.options[0].option;
+            // this.opt1 = this.questionEditable.options[0].option;
             this.ans_id = this.questionEditable.answer;
-            this.opt2 = this.questionEditable.options[1].option;
-            this.opt3 = this.questionEditable.options[2].option;
-            this.opt4 = this.questionEditable.options[3].option;
+            // this.opt2 = this.questionEditable.options[1].option;
+            // this.opt3 = this.questionEditable.options[2].option;
+            // this.opt4 = this.questionEditable.options[3].option;
             this.editabledialog = true;
+            this.inputbox = this.questionEditable.options;
+            this.count = this.questionEditable.options.length;
         }
         console.log(this.job_id);
         if (this.job_id) {
             this.job_profile = this.job_id;
         }
     }
-
+    add() {
+        this.count++;
+        this.inputbox.push({'option': '', 'opt_id': this.count})
+    }
+    remove(id) {
+        console.log(id)
+        this.count--;
+        this.inputbox.splice(id, 1)
+    }
     getAllTag() {
         this.getTags.getAllTags()
             .subscribe((data) => {
@@ -123,43 +137,20 @@ export class AddQuestionDialogComponent implements OnInit {
     }
     createQues(form: NgForm) {
         let quesdata;
-        console.log(form.value)
+        console.log(form.value, this.inputbox);
         if (form.valid) {
-            // this.options.push(form.value.option1);
-            // this.options.push(form.value.option2);
-            // this.options.push(form.value.option3);
-            // this.options.push(form.value.option4);
             quesdata = {
                 'job_profile': form.value.job_profile,
                 'question' : form.value.question,
                 'answer' : parseInt(this.ans_id),
                 'exam_subject': form.value.examId,
-                'options': [{
-                    'option': form.value.option1,
-                    'opt_id': 1
-                },
-                {
-                    'option': form.value.option2,
-                    'opt_id': 2
-                },
-                {
-                    'option': form.value.option3,
-                    'opt_id': 3
-                },
-                {
-                    'option': form.value.option4,
-                    'opt_id': 4
-                },
-                {
-                    'option': form.value.option5,
-                    'opt_id': 5
-                }]
+                'options': this.inputbox
             };
         }
         if (this.job_id) {
             quesdata.job_profile = this.job_id;
         }
-        console.log(quesdata);
+        // console.log(quesdata);
 
         this.loading = true;
         this.showmessage = false;

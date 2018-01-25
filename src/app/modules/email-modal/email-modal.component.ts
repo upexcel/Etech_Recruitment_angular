@@ -258,7 +258,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
     }
     addNote(candidateid: any) {
         this.dialogRef = this.dialog.open(AddNoteComponent, {
-            height: '30%',
+            height: '35%',
             width: '30%'
         });
         this.dialogRef.componentInstance.candidateid = candidateid;

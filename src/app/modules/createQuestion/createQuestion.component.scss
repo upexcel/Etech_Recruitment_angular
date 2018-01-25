@@ -27,7 +27,7 @@ ul,li{
   margin-top: 3px !important;
 }
 .marTop3{
-  margin-top: 10px !important;
+  margin-top: 1px !important;
 }
 .pad0{
   padding: 0px !important;
@@ -60,4 +60,16 @@ ul,li{
 .error{
   text-align: center;
   color: red;
+}
+md-panel-description{
+  display: block;
+  flex-grow: 0;
+  float: right;
+}
+.warning{
+  text-align: center;
+    color: #828282;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 20px;
 }

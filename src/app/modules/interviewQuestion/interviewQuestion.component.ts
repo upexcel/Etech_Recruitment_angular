@@ -24,6 +24,7 @@ export class InterviewQuestionComponent implements OnInit {
     user_id: any;
     thankyou = false;
     temp: any;
+    total: any;
     constructor(public dialog: MdDialog, private act_route: ActivatedRoute, private _mdSnackBar: MdSnackBar, private getTags: ImapMailsService, private _router: Router) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
         if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id ) {
@@ -53,6 +54,7 @@ export class InterviewQuestionComponent implements OnInit {
                 if (res.data.length > 0) {
                     this.hide = false;
                     this.questions = res.data;
+                    this.total = res.count;
                 } else {
                     this._mdSnackBar.open('Test not available', '', {
                         duration: 2000,

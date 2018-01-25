@@ -24,6 +24,9 @@ export class CreateQuestionComponent implements OnInit {
     group: any;
     jobprofile_tag= [];
     add= false;
+    panelOpenState= false;
+    QueNotAvailable= false;
+    messageQues: any;
     constructor(private getTags: ImapMailsService, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -74,13 +77,22 @@ export class CreateQuestionComponent implements OnInit {
                 };
             })
         }
+        console.log(this.jobprofile_tag);
         this.loading = false;
+        this.selectedJobid = this.jobprofile_tag[0].id;
+        this.getQues(this.selectedJobid);
     }
     getQues(job_id: any) {
         this.add = true;
         this.selectedJobid = job_id;
         this.getTags.getQues(job_id).subscribe(res => {
             this.questions = res.data;
+            if (res.data.length === 0) {
+                this.QueNotAvailable = true;
+                this.messageQues = 'Questions Not Available';
+            }else {
+                this.QueNotAvailable = false;
+            }
         }, err => {
             console.log(err);
             this.loading = false;
@@ -142,15 +154,21 @@ export class CreateQuestionComponent implements OnInit {
     };
     createGroup(form: NgForm) {
         this.showmessage = false;
-        if (form.valid) {
-            let data = { 'exam_subject': form.value.group };
+        console.log(form.value.group);
+        if (form.value.group) {
+            const data = { 'exam_subject': form.value.group };
             this.getTags.createGroup(data).subscribe(resp => {
                 console.log('created', resp);
+                form.reset();
+                this.getQues(this.selectedJobid);
             }, err => {
                 console.log(err);
                 this.message = err.message;
                 this.showmessage = true;
             });
+        }else {
+            this.message = 'Invalid Name';
+            this.showmessage = true;
         }
     }
 

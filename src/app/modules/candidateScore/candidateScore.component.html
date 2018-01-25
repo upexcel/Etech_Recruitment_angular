@@ -10,7 +10,7 @@
         </md-select>
 
         <md-input-container class="mar-pos wid-300" *ngIf="option!=='date'">
-          <input mdInput name="keyword" placeholder="Search" required [(ngModel)]="keyword" (ngModelChange)="searchScorelist(searchForm)">
+          <input mdInput name="keyword" placeholder="Search" required [(ngModel)]="keyword">
         </md-input-container>
         <md-input-container class="mar-pos wid-200" *ngIf="option==='date'">
           <input matInput name="start_date" [mdDatepicker]="picker" required placeholder="Choose start date" [(ngModel)]="start_date">
@@ -23,7 +23,7 @@
           <md-datepicker #picker1></md-datepicker>
         </md-input-container>
         <button name="searchbtn" type="submit" md-raised-button color=primary [disabled]="searchForm.invalid"> Search </button>
-        <button name="searchbtn" md-raised-button [disabled]="searchForm.invalid" (click)="getScore('');searchForm.reset()">
+        <button name="searchbtn" md-raised-button  (click)="getScore('');searchForm.reset()">
         Clear Search </button>
       </form>
     </md-card>
@@ -45,7 +45,7 @@
             <td>{{data.from}}</td>
             <td>{{data.sender_mail}}</td>
             <td>{{data.fb_id}}</td>
-            <td>{{data.email_date| date}}</td>
+            <td>{{data.exam_date| date}}</td>
             <td class="green">{{data.examScore}}</td>
           </tr>
         </tbody>
