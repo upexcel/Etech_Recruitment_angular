@@ -18,8 +18,12 @@ export class CreateQuestionComponent implements OnInit {
     tags: any[];
     questions: any[];
     selectedJobid: any;
+    showmessage= false;
+    message: any;
     questionEdited: any;
+    group: any;
     jobprofile_tag= [];
+    add= false;
     constructor(private getTags: ImapMailsService, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -73,6 +77,7 @@ export class CreateQuestionComponent implements OnInit {
         this.loading = false;
     }
     getQues(job_id: any) {
+        this.add = true;
         this.selectedJobid = job_id;
         this.getTags.getQues(job_id).subscribe(res => {
             this.questions = res.data;
@@ -86,7 +91,7 @@ export class CreateQuestionComponent implements OnInit {
             height: '100%',
             width: '40%'
         });
-
+        this.dialogRef.componentInstance.job_id = this.selectedJobid;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this._mdSnackBar.open(result.message, '', {
@@ -135,5 +140,18 @@ export class CreateQuestionComponent implements OnInit {
         });
 
     };
+    createGroup(form: NgForm) {
+        this.showmessage = false;
+        if (form.valid) {
+            let data = { 'exam_subject': form.value.group };
+            this.getTags.createGroup(data).subscribe(resp => {
+                console.log('created', resp);
+            }, err => {
+                console.log(err);
+                this.message = err.message;
+                this.showmessage = true;
+            });
+        }
+    }
 
 }

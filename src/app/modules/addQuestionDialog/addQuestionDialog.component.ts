@@ -19,6 +19,7 @@ export class AddQuestionDialogComponent implements OnInit {
     opt2: any;
     opt3: any;
     opt4: any;
+    opt5: any;
     ans_id: any;
     answerOpt: any;
     options= [];
@@ -28,12 +29,16 @@ export class AddQuestionDialogComponent implements OnInit {
     editabledialog= false;
     questionId: any;
     jobprofile_tag= [];
+    job_id: any;
+    examgroup= [];
+    examId: any;
 
     constructor(private dialogRef: MdDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
         this.loading = true;
         this.getAllTag();
+        this.getExamGroup();
         console.log(this.questionEditable);
         if (this.questionEditable) {
             console.log(this.questionEditable);
@@ -41,6 +46,7 @@ export class AddQuestionDialogComponent implements OnInit {
             this.questionId = this.questionEditable._id;
             this.question = this.questionEditable.question;
             this.answer = this.questionEditable.answer;
+            this.examId = this.questionEditable.exam_subject;
             this.opt1 = this.questionEditable.options[0].option;
             this.ans_id = this.questionEditable.answer;
             this.opt2 = this.questionEditable.options[1].option;
@@ -48,12 +54,26 @@ export class AddQuestionDialogComponent implements OnInit {
             this.opt4 = this.questionEditable.options[3].option;
             this.editabledialog = true;
         }
+        console.log(this.job_id);
+        if (this.job_id) {
+            this.job_profile = this.job_id;
+        }
     }
 
     getAllTag() {
         this.getTags.getAllTags()
             .subscribe((data) => {
                 this.formatTagsInArray(data);
+            }, (err) => {
+                console.log(err);
+                this.loading = false;
+            });
+    }
+    getExamGroup() {
+        this.getTags.examGroup()
+            .subscribe((data) => {
+                console.log(data);
+                this.examgroup = data;
             }, (err) => {
                 console.log(err);
                 this.loading = false;
@@ -103,15 +123,17 @@ export class AddQuestionDialogComponent implements OnInit {
     }
     createQues(form: NgForm) {
         let quesdata;
+        console.log(form.value)
         if (form.valid) {
-            this.options.push(form.value.option1);
-            this.options.push(form.value.option2);
-            this.options.push(form.value.option3);
-            this.options.push(form.value.option4);
+            // this.options.push(form.value.option1);
+            // this.options.push(form.value.option2);
+            // this.options.push(form.value.option3);
+            // this.options.push(form.value.option4);
             quesdata = {
                 'job_profile': form.value.job_profile,
                 'question' : form.value.question,
                 'answer' : parseInt(this.ans_id),
+                'exam_subject': form.value.examId,
                 'options': [{
                     'option': form.value.option1,
                     'opt_id': 1
@@ -127,8 +149,15 @@ export class AddQuestionDialogComponent implements OnInit {
                 {
                     'option': form.value.option4,
                     'opt_id': 4
+                },
+                {
+                    'option': form.value.option5,
+                    'opt_id': 5
                 }]
             };
+        }
+        if (this.job_id) {
+            quesdata.job_profile = this.job_id;
         }
         console.log(quesdata);
 

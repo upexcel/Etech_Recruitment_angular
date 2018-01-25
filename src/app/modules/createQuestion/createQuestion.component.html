@@ -6,15 +6,22 @@
     <hr class="linespace">
     <md-card-content>
       <div class="row">
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-4 col-sm-12" style="padding-top: 15px;">
           <md-select class="width-100" id="jab_profile" placeholder="Select Job Profile" name="jab_profile" required ngModel>
-            <md-option>
-              None
-            </md-option>
             <md-option *ngFor="let tag of jobprofile_tag" [value]="tag.id" (click)="getQues(tag.id)">
               {{tag.title}}
             </md-option>
           </md-select>
+        </div>
+        <div class="col-md-5 col-sm-12 alignRight">
+          <form #groupForm="ngForm" (ngSubmit)="createGroup(groupForm)">
+            <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
+              <md-input-container>
+                <input mdInput type="text" name="group" [(ngModel)]="group" required placeholder="Create New Group" autoComplete="off">
+                <md-error>Enter Valid Email</md-error>
+              </md-input-container>
+              <button md-raised-button color=primary type="submit" [disabled]="groupForm.invalid">Create</button>
+          </form>
         </div>
       </div>
       <md-card class="marTop3 padleft10" *ngFor="let ques of questions;let i = index">
@@ -35,11 +42,11 @@
           </div>
         </md-list-item>
         </md-list>
-</md-card>
+      </md-card>
     </md-card-content>
   </md-card>
 </div>
-<div id="addTag" class="pos-add" *ngIf="!loading">
+<div id="addTag" class="pos-add" *ngIf="!loading && add">
     <button md-fab (click)="addQues()">
         <md-icon>add</md-icon>
     </button>
