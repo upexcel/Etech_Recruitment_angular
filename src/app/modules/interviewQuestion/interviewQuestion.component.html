@@ -37,6 +37,7 @@
             </md-expansion-panel-header >
               <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
                 <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
+                <pre *ngIf="ques.description" [innerHTML]="ques.description"></pre>
                 <p class="pid">Options:</p>
                 <md-radio-group class="width100 fontsize">
                   <div *ngFor="let option of ques.options" class="width100 padradio">

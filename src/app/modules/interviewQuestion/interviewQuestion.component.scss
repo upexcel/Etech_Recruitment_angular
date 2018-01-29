@@ -26,7 +26,7 @@ h4{
     background: white;
 }
 .bodyInner2{
-   box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.2), 0 0px 1px 0 rgba(0, 0, 0, 0.14), 0 0px 1px 0 rgba(0, 0, 0, 0.12);
+    border-top: 1px solid #e2e2e2;
     padding: 20px;
     margin-top: 1px;
     margin-bottom: 15px;
@@ -81,4 +81,7 @@ md-panel-description{
   display: block;
   flex-grow: 0;
   float: right;
+}
+pre{
+  border: 0px;
 }

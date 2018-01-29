@@ -26,19 +26,18 @@
       <br>
       <div class="row">
         <div id="Question" class="col-md-12 col-sm-12">
-          <md-input-container class="width-90">
+          <md-input-container class="width-100">
             <input mdInput name="question" type="text" placeholder="Question" required  [(ngModel)]="question" autoComplete="off">
             <md-error>
                 Question field is required
             </md-error>
           </md-input-container>
         </div>
-        <!-- <div id="right_answer" class="col-md-12 col-sm-12">
-          <md-input-container class="width-90">
-            <input mdInput name="answer" type="text" placeholder="Answer" required [(ngModel)]="answer" autoComplete="off">
-            <md-error>Answer Required</md-error>
+        <div id="decription" class="col-md-12 col-sm-12">
+          <md-input-container class="width-100">
+            <textarea mdInput name="desc"  placeholder="Description (Optional)" [(ngModel)]="desc" autoComplete="off"></textarea>
           </md-input-container>
-        </div> -->
+        </div>
         <md-radio-group>
 
 

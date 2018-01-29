@@ -34,6 +34,7 @@ export class AddQuestionDialogComponent implements OnInit {
     examId: any;
     count= 2;
     inputbox= [];
+    desc: any;
     constructor(private dialogRef: MdDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
@@ -49,6 +50,7 @@ export class AddQuestionDialogComponent implements OnInit {
             this.question = this.questionEditable.question;
             this.answer = this.questionEditable.answer;
             this.examId = this.questionEditable.exam_subject;
+            this.desc = this.questionEditable.description;
             // this.opt1 = this.questionEditable.options[0].option;
             this.ans_id = this.questionEditable.answer;
             // this.opt2 = this.questionEditable.options[1].option;
@@ -133,6 +135,7 @@ export class AddQuestionDialogComponent implements OnInit {
             quesdata = {
                 'job_profile': form.value.job_profile,
                 'question' : form.value.question,
+                'description': form.value.desc,
                 'answer' : parseInt(this.ans_id),
                 'exam_subject': form.value.examId,
                 'options': this.inputbox

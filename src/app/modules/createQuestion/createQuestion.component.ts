@@ -83,7 +83,7 @@ export class CreateQuestionComponent implements OnInit {
     getQues(job_id: any) {
         this.add = true;
         this.selectedJobid = job_id;
-        this.getTags.getQues(job_id).subscribe(res => {
+        this.getTags.getQuesAdmin(job_id).subscribe(res => {
             this.questions = res.data;
             if (res.data.length === 0) {
                 this.QueNotAvailable = true;
