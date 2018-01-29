@@ -42,7 +42,7 @@ export class CandidateLoginComponent implements OnInit {
         });
 
         FB.init({
-            appId: '526179664434624',
+            appId: '931203880372732',
             cookie: true, // enable cookies to allow the server to access
             xfbml: true, // parse social plugins on this page
             version: 'v2.11' // use graph api version 2.8
@@ -59,6 +59,7 @@ export class CandidateLoginComponent implements OnInit {
         }, { scope: 'user_friends,email' });
     }
     testAPI() {
+        this.fbloading = true;
         FB.api('/me?fields=id,email,name,gender,picture.width(150).height(150)', (res) => {
             this.fbObj = {
                 'email': res.email,
@@ -88,11 +89,14 @@ export class CandidateLoginComponent implements OnInit {
                         this.dialogRef.afterClosed().subscribe(result => {
                             if (result) {
                                 this.fbloading = true;
+                            }else {
+                                this.fbloading = false;
                             }
                             this.dialogRef = null;
                             console.log(result, 'jjjjjjjjjjjjjjjjjjjj')
                         });
                     } else if (response.status === 2) {
+                        this.fbloading = false;
                         this._router.navigate(['/verifycandidate']);
                     }
 

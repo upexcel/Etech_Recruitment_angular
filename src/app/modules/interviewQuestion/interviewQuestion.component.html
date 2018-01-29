@@ -24,15 +24,6 @@
 
         </p>
       </div>
-        <!-- <div class="col-md-12 col-sm-12 marAuto bodyInner" *ngFor="let ques of questions;let id = index">
-          <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
-          <p class="pid">Options:</p>
-          <md-radio-group class="width100 fontsize">
-            <div *ngFor="let option of ques.options" class="width100 padradio">
-            <md-radio-button  name="{{option.option}}" value="{{option.opt_id}}" (click)="selectedAns(ques._id,option.opt_id)"></md-radio-button>{{option.option}}
-            </div>
-          </md-radio-group>
-        </div> -->
         <md-accordion class="col-xs-12 col-md-12 col-sm-12">
 
           <md-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -44,7 +35,7 @@
                 Total Questions: {{group.questions.length}}
               </md-panel-description>
             </md-expansion-panel-header >
-              <div class="col-md-12 col-sm-12 marAuto bodyInner" *ngFor="let ques of group.questions;let id = index">
+              <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
                 <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
                 <p class="pid">Options:</p>
                 <md-radio-group class="width100 fontsize">

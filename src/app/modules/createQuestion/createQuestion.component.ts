@@ -159,6 +159,9 @@ export class CreateQuestionComponent implements OnInit {
             const data = { 'exam_subject': form.value.group };
             this.getTags.createGroup(data).subscribe(resp => {
                 console.log('created', resp);
+                this._mdSnackBar.open('Group created Sucessfully', '', {
+                    duration: 2000
+                });
                 form.reset();
                 this.getQues(this.selectedJobid);
             }, err => {
