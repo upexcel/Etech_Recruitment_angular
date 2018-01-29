@@ -43,9 +43,7 @@ export class AddQuestionDialogComponent implements OnInit {
         this.loading = true;
         this.getAllTag();
         this.getExamGroup();
-        console.log(this.questionEditable);
         if (this.questionEditable) {
-            console.log(this.questionEditable);
             this.job_profile = this.questionEditable.job_profile[0];
             this.questionId = this.questionEditable._id;
             this.question = this.questionEditable.question;
@@ -60,7 +58,6 @@ export class AddQuestionDialogComponent implements OnInit {
             this.inputbox = this.questionEditable.options;
             this.count = this.questionEditable.options.length;
         }
-        console.log(this.job_id);
         if (this.job_id) {
             this.job_profile = this.job_id;
         }
@@ -70,7 +67,6 @@ export class AddQuestionDialogComponent implements OnInit {
         this.inputbox.push({'option': '', 'opt_id': this.count})
     }
     remove(id) {
-        console.log(id)
         this.count--;
         this.inputbox.splice(id, 1)
     }
@@ -79,17 +75,14 @@ export class AddQuestionDialogComponent implements OnInit {
             .subscribe((data) => {
                 this.formatTagsInArray(data);
             }, (err) => {
-                console.log(err);
                 this.loading = false;
             });
     }
     getExamGroup() {
         this.getTags.examGroup()
             .subscribe((data) => {
-                console.log(data);
                 this.examgroup = data;
             }, (err) => {
-                console.log(err);
                 this.loading = false;
             });
     }
@@ -133,11 +126,9 @@ export class AddQuestionDialogComponent implements OnInit {
     }
     answerRight(val) {
         this.ans_id = val.value;
-        console.log(val.source, val.value);
     }
     createQues(form: NgForm) {
         let quesdata;
-        console.log(form.value, this.inputbox);
         if (form.valid) {
             quesdata = {
                 'job_profile': form.value.job_profile,
@@ -150,7 +141,6 @@ export class AddQuestionDialogComponent implements OnInit {
         if (this.job_id) {
             quesdata.job_profile = this.job_id;
         }
-        // console.log(quesdata);
 
         this.loading = true;
         this.showmessage = false;

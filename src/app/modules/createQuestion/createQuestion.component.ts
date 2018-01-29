@@ -39,7 +39,6 @@ export class CreateQuestionComponent implements OnInit {
             .subscribe((data) => {
                 this.formatTagsInArray(data);
             }, (err) => {
-                console.log(err);
                 this.loading = false;
             });
     }
@@ -77,7 +76,6 @@ export class CreateQuestionComponent implements OnInit {
                 };
             })
         }
-        console.log(this.jobprofile_tag);
         this.loading = false;
         this.selectedJobid = this.jobprofile_tag[0].id;
         this.getQues(this.selectedJobid);
@@ -94,7 +92,6 @@ export class CreateQuestionComponent implements OnInit {
                 this.QueNotAvailable = false;
             }
         }, err => {
-            console.log(err);
             this.loading = false;
         });
     }
@@ -116,7 +113,6 @@ export class CreateQuestionComponent implements OnInit {
     }
     editQues(id: any) {
         this.getTags.getQuesByid(id).subscribe(res => {
-            console.log(res);
             this.questionEdited = res.data;
             this.dialogRef = this.dialog.open(AddQuestionDialogComponent, {
                 height: '100%',
@@ -144,28 +140,23 @@ export class CreateQuestionComponent implements OnInit {
                 this.getTags.deleteQueByid(id).subscribe(resp => {
                     this.getQues(this.selectedJobid);
                 }, err => {
-                    console.log(err);
                 });
             }
         }, (err) => {
-            console.log(err);
         });
 
     };
     createGroup(form: NgForm) {
         this.showmessage = false;
-        console.log(form.value.group);
         if (form.value.group) {
             const data = { 'exam_subject': form.value.group };
             this.getTags.createGroup(data).subscribe(resp => {
-                console.log('created', resp);
                 this._mdSnackBar.open('Group created Sucessfully', '', {
                     duration: 2000
                 });
                 form.reset();
                 this.getQues(this.selectedJobid);
             }, err => {
-                console.log(err);
                 this.message = err.message;
                 this.showmessage = true;
             });

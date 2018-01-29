@@ -71,7 +71,6 @@ export class CandidateLoginComponent implements OnInit {
             };
             this.access.facebook_login(this.fbObj).subscribe(response => {
                 let added = this.commonService.storeFbdata(this.fbObj);
-                console.log('sucess', response);
                 // localStorage.setItem('role', JSON.stringify('Candidate'));
                 // localStorage.setItem('user', res.name);
                 // localStorage.setItem('user_id', res.id)
@@ -93,7 +92,6 @@ export class CandidateLoginComponent implements OnInit {
                                 this.fbloading = false;
                             }
                             this.dialogRef = null;
-                            console.log(result, 'jjjjjjjjjjjjjjjjjjjj')
                         });
                     } else if (response.status === 2) {
                         this.fbloading = false;
@@ -103,7 +101,6 @@ export class CandidateLoginComponent implements OnInit {
                 })
             },
             (err) => {
-                console.log(err);
                 this.fbloading = false;
                 this.showmessage = true;
                 this.message = err.message;

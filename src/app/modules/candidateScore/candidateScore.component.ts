@@ -28,17 +28,14 @@ export class CandidateScoreComponent implements OnInit {
     getScore(data) {
         this._getScore.score(data).subscribe(res => {
             this._ngzone.run(() => {
-                console.log(res);
                 this.scores = res;
             });
         },
         err => {
-            console.log(err);
         });
     }
     searchScorelist(searchform: NgForm) {
 
-        console.log(searchform.value);
         this.option = searchform.value['option'];
         // this.key = searchform.value['keyword'];
         if (searchform.valid) {

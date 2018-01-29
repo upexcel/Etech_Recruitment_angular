@@ -27,7 +27,6 @@ export class VerifyCandidateComponent implements OnInit {
 
     ngOnInit() {
         this.fbdata = this.commonService.storeFbdata('verifyEmail');
-        console.log(this.fbdata)
         this.addForm = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$')])],
         });
@@ -45,9 +44,7 @@ export class VerifyCandidateComponent implements OnInit {
         if (this.addForm.valid) {
             this.loading = true;
             this.fbdata['appliedEmail'] = this.addForm.controls['email'].value;
-            console.log(this.fbdata)
             this.access.facebook_login(this.fbdata).subscribe(response => {
-                console.log(response)
                 if (response.status === 1) {
                     this.ngzone.run(() => {
                         this.dialogRef = this.dialog.open(OtpdialogComponent, {
@@ -57,7 +54,6 @@ export class VerifyCandidateComponent implements OnInit {
                         this.dialogRef.componentInstance.fb_id = this.fbdata.fb_id;
                         this.dialogRef.afterClosed().subscribe(result => {
                             this.loading = false;
-                            console.log(result)
                             if (result) {
                                 this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
                             }

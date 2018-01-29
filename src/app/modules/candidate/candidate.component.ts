@@ -23,11 +23,8 @@ export class CandidateComponent implements OnInit {
         this.img = localStorage.getItem('img');
     }
     statusChangeCallback(response: any) {
-        console.log(response);
         if (response.status === 'connected') {
-            console.log('connected');
         } else {
-            console.log('loginnn required');
         }
     }
     ngOnInit() {

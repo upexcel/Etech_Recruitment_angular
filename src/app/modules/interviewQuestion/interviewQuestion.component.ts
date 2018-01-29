@@ -36,14 +36,11 @@ export class InterviewQuestionComponent implements OnInit {
         this.hide = true;
         this.getTags.jobprofile().subscribe(res => {
             this.job_pro = res;
-            console.log(res);
         }, err => {
-            console.log(err);
         });
     }
     ngOnInit() {
             // this.user_id=this.act_route.snapshot.paramMap.get('id')
-        console.log(this.user_id);
     }
     selected(job_id) {
         this.selectedJob = job_id;
@@ -61,7 +58,6 @@ export class InterviewQuestionComponent implements OnInit {
                     });
                 }
             }, err => {
-                console.log(err);
                 this.hide = true;
             });
         } else {
@@ -72,14 +68,12 @@ export class InterviewQuestionComponent implements OnInit {
     }
 
     selectedAns(quesId: any, ansId: any) {
-        console.log(quesId, ansId)
         this.temp = { 'Q_id': quesId, 'ans_id': ansId };
         if (this.selectedAnswer.length > 0 && this.filterdata(quesId)) {
             this.selectedAnswer.push(this.temp);
         } else {
             this.selectedAnswer.push(this.temp);
         }
-        console.log(this.selectedAnswer);
     }
     filterdata(quesId) {
         _.forEach(this.selectedAnswer, (val, key) => {
