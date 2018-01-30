@@ -136,7 +136,7 @@ export class AddQuestionDialogComponent implements OnInit {
                 'job_profile': form.value.job_profile,
                 'question' : form.value.question,
                 'description': form.value.desc,
-                'answer' : parseInt(this.ans_id),
+                'answer' : parseInt(this.ans_id, 10),
                 'exam_subject': form.value.examId,
                 'options': this.inputbox
             };

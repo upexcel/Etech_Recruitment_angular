@@ -42,7 +42,7 @@ export class CandidateLoginComponent implements OnInit {
         });
 
         FB.init({
-            appId: '931203880372732',
+            appId: '338741636641474',
             cookie: true, // enable cookies to allow the server to access
             xfbml: true, // parse social plugins on this page
             version: 'v2.11' // use graph api version 2.8
@@ -93,8 +93,9 @@ export class CandidateLoginComponent implements OnInit {
                             }
                             this.dialogRef = null;
                         });
-                    } else if (response.status === 2) {
+                    } else {
                         this.fbloading = false;
+                        localStorage.setItem('walkinUser', JSON.stringify(this.fbObj));
                         this._router.navigate(['/verifycandidate']);
                     }
 

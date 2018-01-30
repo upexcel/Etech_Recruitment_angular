@@ -42,7 +42,7 @@ export class CandidateComponent implements OnInit {
     fblogout() {
         FB.logout((result) => {
             this._router.navigate(['/candidatelogin']);
-            localStorage.clear();
+            // localStorage.clear();
         })
     }
 

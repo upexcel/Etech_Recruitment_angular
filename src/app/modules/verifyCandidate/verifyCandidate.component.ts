@@ -7,6 +7,7 @@ import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
 import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
+import { WalkinCandidateComponent } from '../walkin-candidate/walkin-candidate.component';
 
 @Component({
     selector: 'app-verify-candidate',
@@ -33,8 +34,22 @@ export class VerifyCandidateComponent implements OnInit {
 
     }
     contactHr() {
-        this.contacthr = true;
-        this.enterEmail = false;
+        this.dialogRef = this.dialog.open(WalkinCandidateComponent, {
+            height: '100%',
+            width: '60%'
+        });
+        this.dialogRef.afterClosed().subscribe(result => {
+            console.log(result);
+            if (result) {
+                this.contacthr = true;
+                this.enterEmail = false;
+                setTimeout(() => {
+                    this._router.navigate(['/candidatelogin']);
+                    localStorage.clear();
+                }, 5000);
+            }
+            this.dialogRef = null;
+        });
     }
     checkUser() {
         this.contacthr = false;

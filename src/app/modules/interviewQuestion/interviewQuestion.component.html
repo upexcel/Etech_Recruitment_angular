@@ -2,7 +2,7 @@
 
   <md-list class="pad0">
     <md-list-item class="pad0">
-      <div class="col-md-4 col-sm-12 marAuto bodyInner">
+      <div *ngIf="!notag" class="col-md-4 col-sm-12 marAuto bodyInner">
         <md-card-title>
           <h4>Select Job profile</h4>
           <hr>
@@ -14,6 +14,7 @@
         </md-radio-group>
         <button md-raised-button color=primary class="right" (click)="getQues()">Submit</button>
       </div>
+      <div  class="col-md-4 col-sm-12 marAuto bodyInner" *ngIf="notag"><h4>{{contactHR}}</h4></div>
     </md-list-item>
   </md-list>
 </md-card>
@@ -21,7 +22,7 @@
       <div><h4>Test Questions</h4>
         <p>
           <span class="right style">Question Attempted:&nbsp;&nbsp;{{selectedAnswer.length}}/{{total}}</span>
-
+          <span>Remaining time:<span class="alert">{{timer}}</span></span>
         </p>
       </div>
         <md-accordion class="col-xs-12 col-md-12 col-sm-12">

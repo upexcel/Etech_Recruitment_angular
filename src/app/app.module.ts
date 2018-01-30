@@ -177,6 +177,7 @@ import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandid
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
 import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
 import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
+import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 
 @NgModule({
     declarations: [
@@ -246,7 +247,8 @@ import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
         PreviewAnswerComponent,
         VerifyCandidateComponent,
         CandidateScoreComponent,
-        OtpdialogComponent
+        OtpdialogComponent,
+        WalkinCandidateComponent
     ],
     imports: [
         BrowserModule,
@@ -312,7 +314,8 @@ import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
         ViewNoteComponent,
         AddQuestionDialogComponent,
         PreviewAnswerComponent,
-        OtpdialogComponent
+        OtpdialogComponent,
+        WalkinCandidateComponent
     ],
     bootstrap: [AppComponent]
 })

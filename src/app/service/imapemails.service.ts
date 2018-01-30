@@ -1028,9 +1028,9 @@ export class ImapMailsService {
               return Observable.throw(error.json() || 'Server error');
           });
     }
-    jobprofile(): Observable<any> {
+    jobprofile(body: any): Observable<any> {
         this.increaseAPiCount();
-        return this.http.get(environment['apibase'] + `exams/job_profile`)
+        return this.http.post(environment['apibase'] + `exams/job_profile`, body)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();
@@ -1083,6 +1083,19 @@ export class ImapMailsService {
     examGroup(): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `exams/getExamSubjects`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    addWalkinCandidate(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.post(environment['apibase'] + `exams/addNewCandidate`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
