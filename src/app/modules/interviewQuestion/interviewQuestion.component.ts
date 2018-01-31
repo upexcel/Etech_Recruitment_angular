@@ -6,6 +6,7 @@ import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/mate
 import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
+import { config } from './../../config/config';
 @Component({
     selector: 'app-interviewques',
     templateUrl: './interviewQuestion.component.html',
@@ -26,7 +27,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     total: any;
     timer: any;
     redAlert= false;
-    maxtime = 7200000;
+    maxtime: any;
     notag: any;
     interval: any;
     contactHR: any;
@@ -55,6 +56,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.hide = false;
             this.selectedJob = localStorage.getItem('_idjob');
             this.getQues();
+        }else {
+            this.maxtime = config.testMaxtime;
         }
     }
     ngOnDestroy() {
@@ -70,6 +73,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 if (res.data.length > 0) {
                     this.hide = false;
                     this.questions = res.data;
+                    console.log(this.questions);
                     this.total = res.count;
                     this.timerstart();
                 } else {

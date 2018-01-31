@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
+import { config } from './../../config/config';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class AddCandidateComponent implements OnInit {
                     form.value.default_tag = this.emailChildId;
                 }
             }
+            form.value['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no']
             this.apiService.addNewCandidate(form.value).subscribe((res) => {
                 this.dialogRef.close();
                 this.snackBar.open('Candidate Added', '', {

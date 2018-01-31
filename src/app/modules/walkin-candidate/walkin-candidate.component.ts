@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
+import { config } from './../../config/config';
 
 @Component({
     selector: 'app-walkin-candidate-temp',
@@ -23,6 +24,7 @@ export class WalkinCandidateComponent implements OnInit {
             data['sender_mail'] = this.walkinData.email;
             data['from'] = this.walkinData.name;
             data['fb_id'] = this.walkinData.fb_id;
+            data['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no'];
             console.log(data)
             this.apiService.addWalkinCandidate(data).subscribe((res) => {
                 this.dialogRef.close('sucess');
