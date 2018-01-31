@@ -80,6 +80,10 @@ export class VerifyCandidateComponent implements OnInit {
                     this.errorMsg = 'Email Not found';
                     this.error = true;
                 }
+            }, err => {
+                this.loading = false;
+                this.errorMsg = err.message;
+                this.error = true;
             });
         }
     }

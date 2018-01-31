@@ -9,11 +9,9 @@ h4{
     padding: 12px;
     background-color: #2e3e4e;
 }
-.right{
-  float: right;
-}
+
 .submitans{
-  margin: 25px 20px 25px 0px;
+  margin: 25px 0px 25px 0px;
   padding: 5px 20px 5px 20px;
 }
 .padd5{
@@ -85,7 +83,60 @@ md-panel-description{
 pre{
   border: 0px;
 }
-.alert{
-  color: red;
+.bold{
   font-weight: bold;
 }
+.timer{
+  color: red;
+}
+md-accordion{
+  padding: 0px !important;
+}
+md-expansion-panel-header{
+  padding: 0 15px;
+}
+/deep/ md-expansion-panel div.mat-expansion-panel-body{
+  padding: 0 5px !important;
+}
+.pad0{
+  padding: 0px;
+}
+.flRight{
+  float: right;
+}
+@media (min-width:426px){
+  .width400{
+    max-width: 400px;
+  }
+}
+@media (min-width:768px){
+  .left{
+    float: left;
+  }
+  .right{
+    float: right;
+  }
+}
+@media (max-width:425px){
+  md-expansion-panel-header{
+    padding: 0 10px;
+  }
+  .bodyInner2{
+    padding: 10px;
+  }
+  .pad0{
+    padding: 0px;
+    margin: 3px 0px 3px 0px;
+  }
+  .style{
+    font-size: 13px;
+    font-weight: bold;
+    padding: 10px 0px;
+    color: #424141;
+  }
+  .submitans{
+    margin: 25px 0px 5px 0px;
+    padding: 5px 20px 5px 20px;
+  }
+}
+

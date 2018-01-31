@@ -27,6 +27,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     total: any;
     timer: any;
     redAlert= false;
+    totalQues= [];
     maxtime: any;
     notag: any;
     interval: any;
@@ -73,7 +74,12 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 if (res.data.length > 0) {
                     this.hide = false;
                     this.questions = res.data;
-                    console.log(this.questions);
+                    _.forEach(this.questions, (val, key) => {
+                        _.forEach(val.questions, (val1, key1) => {
+                            this.totalQues.push(val1._id);
+                        })
+                    })
+                    console.log(this.totalQues);
                     this.total = res.count;
                     this.timerstart();
                 } else {
@@ -100,14 +106,14 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             let seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
 
             this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
-            console.log(this.timer);
+            // console.log(this.timer);
             if (this.maxtime <= 0) {
                 clearInterval(this.interval);
                 localStorage.removeItem('maxtime');
                 this.submit();
             }
         }, 1000);
-        console.log(this.timer, this.maxtime);
+        // console.log(this.timer, this.maxtime);
     }
 
     selectedAns(quesId: any, ansId: any) {
@@ -151,7 +157,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.allansRecord = {
             'job_profile': this.selectedJob,
             'fb_id': this.user_id,
-            'answers': this.selectedAnswer
+            'answers': this.selectedAnswer,
+            'questionIds': this.totalQues
         }
         this.getTags.submitTest(this.allansRecord).subscribe(res => {
             this._mdSnackBar.open(res.message, '', {
@@ -162,7 +169,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             setTimeout(() => {
                 this._router.navigate(['/candidatelogin']);
                 localStorage.clear();
-            }, 10000);
+            }, 5000);
         }, err => {
             this._mdSnackBar.open(err.message, '', {
                 duration: 2000

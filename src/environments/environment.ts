@@ -5,5 +5,6 @@
 
 export const environment = {
     production: false,
-    'apibase': 'http://localhost:8091/'
+    'apibase': 'http://localhost:8091/',
+    'fb_loginAppid' : '338741636641474'
 };

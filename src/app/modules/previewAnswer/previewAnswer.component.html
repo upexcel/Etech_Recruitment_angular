@@ -3,6 +3,7 @@
   <hr>
   <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of attemptedQues;let id = index">
     <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
+    <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
     <p class="pid">Options:</p>
     <ul class="width100 fontsize">
       <li *ngFor="let option of ques.options" class="width100" [ngClass]="{'responseColor':option.opt_id===ques.ans_id}">{{option.option}}</li>

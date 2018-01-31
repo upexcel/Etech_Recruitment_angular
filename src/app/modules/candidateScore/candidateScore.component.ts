@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
-import { DialogService } from './../../service/dialog.service';
-import { AddQuestionDialogComponent } from '../addQuestionDialog/addQuestionDialog.component';
+import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import * as _ from 'lodash';
 
 @Component({
@@ -18,7 +17,9 @@ export class CandidateScoreComponent implements OnInit {
     start_date: any;
     option: any;
     end_date: any;
-    constructor(private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
+    detailedScore: any;
+    dialogRef: MdDialogRef<any>;
+    constructor (private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MdSnackBar, public dialog: MdDialog) { }
 
     ngOnInit() {
         const blankscore = {};
@@ -34,10 +35,27 @@ export class CandidateScoreComponent implements OnInit {
         err => {
         });
     }
+    getDetailedScore(fb_id: any) {
+        this._getScore.detailedScore({'fb_id': fb_id}).subscribe(res => {
+            this._ngzone.run(() => {
+                console.log(res)
+                // this.detailedScore = res;
+                this.dialogRef = this.dialog.open(PreviewScoreComponent, {
+                    height: '100%',
+                    width: '50%'
+                });
+                this.dialogRef.componentInstance.detailedScore = res.data;
+                this.dialogRef.afterClosed().subscribe(result => {
+                    this.dialogRef = null;
+                });
+            });
+        }, err => {
+            console.log(err);
+        });
+    }
     searchScorelist(searchform: NgForm) {
 
         this.option = searchform.value['option'];
-        // this.key = searchform.value['keyword'];
         if (searchform.valid) {
             let dataS;
             if (this.option === 'name') {

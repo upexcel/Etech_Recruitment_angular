@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
 import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
+import { environment } from '../../../environments/environment';
+import { config } from './../../config/config';
 declare let FB: any;
 
 @Component({
@@ -42,10 +44,10 @@ export class CandidateLoginComponent implements OnInit {
         });
 
         FB.init({
-            appId: '338741636641474',
+            appId: environment['fb_loginAppid'],
             cookie: true, // enable cookies to allow the server to access
             xfbml: true, // parse social plugins on this page
-            version: 'v2.11' // use graph api version 2.8
+            version: config.fb_version // use graph api version 2.8
         });
     }
 
@@ -102,9 +104,11 @@ export class CandidateLoginComponent implements OnInit {
                 })
             },
             (err) => {
-                this.fbloading = false;
-                this.showmessage = true;
-                this.message = err.message;
+                this.zone.run(() => {
+                    this.fbloading = false;
+                    this.message = err.message;
+                    this.showmessage = true;
+                })
             });
         });
     }

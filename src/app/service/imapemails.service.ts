@@ -1067,6 +1067,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    detailedScore(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/getCandidateResult`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     createGroup(body: any): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `exams/examSubjects`, body)

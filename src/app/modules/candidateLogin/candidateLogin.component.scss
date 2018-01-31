@@ -60,3 +60,8 @@ img.facebook{
     background: #29487d;
     color: white;
 }
+@media (max-width:425px){
+  .login-card{
+    max-width: 100%;
+  }
+}

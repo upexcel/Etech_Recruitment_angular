@@ -31,22 +31,22 @@
     <table class="col-md-12 list table">
         <thead >
           <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Facebook ID</th>
+            <th>Facebook link</th>
             <th>Test Date</th>
             <th>Score</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of scores; let id=index">
-            <td>{{id+1}}</td>
             <td>{{data.from}}</td>
             <td>{{data.sender_mail}}</td>
-            <td>{{data.fb_id}}</td>
-            <td>{{data.exam_date| date}}</td>
+            <td><a href="http://www.facebook.com/{{data.fb_id}}" target="blank">Check Profile</a></td>
+            <td>{{data.exam_date|  date: 'medium'}}</td>
             <td class="green">{{data.examScore}}</td>
+            <td><a class="link" (click)="getDetailedScore(data.fb_id)">View Report</a></td>
           </tr>
         </tbody>
     </table>

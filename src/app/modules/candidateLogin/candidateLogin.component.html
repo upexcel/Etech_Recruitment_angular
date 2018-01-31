@@ -6,6 +6,7 @@
     <md-card>
       <h4>Candidate Sign In</h4>
       <hr>
+      <md-card-subtitle id="loginError" class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
       <md-card-actions class="fbLogin">
         <button *ngIf="!fbloading" id="fb_login" md-raised-button class="width-100" (click)="fblogin()">
           <img class="facebook" width="24px" src="assets/fb_icon.png"/> Sign In with Facebook

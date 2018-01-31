@@ -1,0 +1,23 @@
+<div>
+<h4 class="heading">Detailed Score</h4>
+  <hr>
+  <div class="score col-md-12 col-sm-12">
+      <p class="col-md-6 col-sm-6 scoreDet">Total Question: {{detailedScore.totalQuestions}}</p>
+      <p class="col-md-6 col-sm-6 scoreDet">Candidate Attempted: {{detailedScore.attempted_questions}}</p>
+      <p class="col-md-6 col-sm-6 scoreDet">Right Attempted: {{detailedScore.exam_score}}</p>
+      <p class="col-md-6 col-sm-6 scoreDet">Wrong Attempted: {{detailedScore.wrong_answers}}</p>
+  </div>
+  <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of detailedScore.questions;let id = index">
+    <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
+    <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
+    <p class="pid">Options:</p>
+    <ul class="width100 fontsize">
+      <li *ngFor="let option of ques.options" class="width100">{{option.option}}</li>
+    </ul>
+    <p class="red" *ngIf="!ques.candidate_answer">Not Attempted</p>
+    <p class="pink" *ngIf="ques.candidate_answer">Candidate Answer: {{ques.candidate_answer}}</p>
+    <p class="green">Right Answer: {{ques.answer}}</p>
+
+  </div>
+  <button md-raised-button  class="right submitans" (click)="close()">close</button>
+</div>
