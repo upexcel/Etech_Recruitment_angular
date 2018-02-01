@@ -1,5 +1,7 @@
 <div>
-  <h4 class="heading">Enter OTP</h4>
+  <h4 class="heading">You are are about to start your test. Since all tests are confidential, its mandatory that you do it after approval of our
+  HR.
+  <br> confirm the sames, please ask HR for OTP password</h4>
   <hr>
     <form (ngSubmit)="submitOtp()">
         <md-card-subtitle id="loginError" class="error" *ngIf="error">{{errorMsg}}</md-card-subtitle>
@@ -8,5 +10,6 @@
         </md-input-container>
         <button md-raised-button color=primary class="right" type="submit" >Submit</button>
     </form>
-  <p>Note: This is confidential<br>Please contact HR for OTP</p>
+  <!-- <p>You are are about to start your test. Since all tests are confidential, its mandatory that you do it after approval of our
+  HR. <br> confirm the sames, please ask HR for OTP password</p> -->
 </div>

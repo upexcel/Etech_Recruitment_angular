@@ -12,8 +12,10 @@
 }
 h4{
   text-align: center;
+    font-size: 15px;
+    color: red;
 }
-h1{
+h3{
      font-size: 44px;
     color: white;
     margin-top: 10%;
@@ -65,4 +67,15 @@ h1{
     max-width: 100%;
     width: 100%;
   }
+}
+h5{
+  font-size: 15px;
+    text-align: center;
+    color: dimgrey;
+}
+
+.subhead{
+  font-size: 18px;
+  text-align: center;
+  color: white;
 }

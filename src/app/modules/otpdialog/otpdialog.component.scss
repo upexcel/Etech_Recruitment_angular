@@ -1,5 +1,7 @@
 .heading{
-  text-align: center
+  text-align: center;
+  font-size: 15px;
+  color: darkslategrey;
 }
 
 p{
@@ -13,5 +15,9 @@ p{
 }
 .error{
   color: #ff0000;
-    text-align: center;
+  text-align: center;
+}
+hr{
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

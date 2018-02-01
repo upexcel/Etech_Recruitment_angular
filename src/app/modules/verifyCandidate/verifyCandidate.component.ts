@@ -33,7 +33,7 @@ export class VerifyCandidateComponent implements OnInit {
         });
 
     }
-    contactHr() {
+    addWalkinCandidate() {
         this.dialogRef = this.dialog.open(WalkinCandidateComponent, {
             height: '100%',
             width: '60%'
