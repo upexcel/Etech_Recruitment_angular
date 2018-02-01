@@ -14,7 +14,6 @@ export class PreviewScoreComponent implements OnInit {
     constructor(public dialogRef: MdDialogRef<any>, private _dialogService: DialogService) {
     }
     ngOnInit() {
-        console.log(this.detailedScore);
     }
     close() {
         this.dialogRef.close();

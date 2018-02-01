@@ -39,7 +39,6 @@ export class VerifyCandidateComponent implements OnInit {
             width: '60%'
         });
         this.dialogRef.afterClosed().subscribe(result => {
-            console.log(result);
             if (result) {
                 this.contacthr = true;
                 this.enterEmail = false;

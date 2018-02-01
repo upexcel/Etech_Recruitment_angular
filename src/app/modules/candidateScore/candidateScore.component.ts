@@ -38,8 +38,6 @@ export class CandidateScoreComponent implements OnInit {
     getDetailedScore(fb_id: any) {
         this._getScore.detailedScore({'fb_id': fb_id}).subscribe(res => {
             this._ngzone.run(() => {
-                console.log(res)
-                // this.detailedScore = res;
                 this.dialogRef = this.dialog.open(PreviewScoreComponent, {
                     height: '100%',
                     width: '50%'
@@ -50,7 +48,6 @@ export class CandidateScoreComponent implements OnInit {
                 });
             });
         }, err => {
-            console.log(err);
         });
     }
     searchScorelist(searchform: NgForm) {

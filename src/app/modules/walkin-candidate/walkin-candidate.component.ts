@@ -13,7 +13,6 @@ export class WalkinCandidateComponent implements OnInit {
     walkinData: any;
     constructor(public dialogRef: MdDialogRef<any>, private apiService: ImapMailsService, public snackBar: MdSnackBar) {
         this.walkinData = JSON.parse(localStorage.getItem('walkinUser'))
-        console.log(this.walkinData);
     }
 
     ngOnInit() { }
@@ -25,14 +24,12 @@ export class WalkinCandidateComponent implements OnInit {
             data['from'] = this.walkinData.name;
             data['fb_id'] = this.walkinData.fb_id;
             data['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no'];
-            console.log(data)
             this.apiService.addWalkinCandidate(data).subscribe((res) => {
                 this.dialogRef.close('sucess');
                 this.snackBar.open('Candidate Added', '', {
                     duration: 2000,
                 });
             }, (err) => {
-                console.log(err)
             })
         }
     }

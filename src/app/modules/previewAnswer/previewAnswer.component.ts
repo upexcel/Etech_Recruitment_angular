@@ -16,13 +16,9 @@ export class PreviewAnswerComponent implements OnInit {
     constructor(public dialogRef: MdDialogRef<any>, private _dialogService: DialogService) {
     }
     ngOnInit() {
-       console.log(this.allQuestion, this.selectedAnswer)
         _.forEach(this.selectedAnswer, (val, key) => {
-            console.log(val);
             _.forEach(this.allQuestion, (val2, key2) => {
-                console.log(val2.questions);
                 _.forEach(val2.questions, (val3, key3) => {
-                    console.log(val3);
                     if (val.Q_id === val3._id) {
                         val3['ans_id'] = val.ans_id;
                         this.attemptedQues.push(val3);
@@ -30,7 +26,6 @@ export class PreviewAnswerComponent implements OnInit {
                 });
             });
         })
-        console.log(this.attemptedQues);
     }
     close() {
         this.dialogRef.close();
@@ -41,7 +36,6 @@ export class PreviewAnswerComponent implements OnInit {
                 this.dialogRef.close('final Submit');
             }
         }, (err) => {
-            console.log(err);
         });
     }
 }

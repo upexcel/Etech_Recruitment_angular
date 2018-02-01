@@ -45,9 +45,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             if (res.status === 0) {
                 this.notag = true;
                 this.contactHR = res.message;
-                console.log(res)
             }else {
-                console.log(res);
                 this.job_pro = res;
             }
         }, err => {});
@@ -80,7 +78,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                             this.totalQues.push(val1._id);
                         })
                     })
-                    console.log(this.totalQues);
                     this.total = res.count;
                     this.timerstart();
                 } else {
@@ -107,14 +104,12 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             let seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
 
             this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
-            // console.log(this.timer);
             if (this.maxtime <= 0) {
                 clearInterval(this.interval);
                 localStorage.removeItem('maxtime');
                 this.submit();
             }
         }, 1000);
-        // console.log(this.timer, this.maxtime);
     }
 
     selectedAns(quesId: any, ansId: any) {
