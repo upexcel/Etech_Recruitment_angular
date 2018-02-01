@@ -62,6 +62,7 @@ export class CandidateLoginComponent implements OnInit {
     }
     testAPI() {
         this.fbloading = true;
+        this.showmessage = false;
         FB.api('/me?fields=id,email,name,gender,picture.width(150).height(150)', (res) => {
             this.fbObj = {
                 'email': res.email,

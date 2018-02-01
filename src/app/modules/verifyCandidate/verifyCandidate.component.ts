@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
 import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from '../walkin-candidate/walkin-candidate.component';
-
+declare const FB: any;
 @Component({
     selector: 'app-verify-candidate',
     templateUrl: './verifyCandidate.component.html',
@@ -44,8 +44,7 @@ export class VerifyCandidateComponent implements OnInit {
                 this.contacthr = true;
                 this.enterEmail = false;
                 setTimeout(() => {
-                    this._router.navigate(['/candidatelogin']);
-                    localStorage.clear();
+                    this.fblogout();
                 }, 5000);
             }
             this.dialogRef = null;
@@ -86,5 +85,11 @@ export class VerifyCandidateComponent implements OnInit {
                 this.error = true;
             });
         }
+    }
+    fblogout() {
+        FB.logout((result) => {
+            localStorage.clear();
+            this._router.navigate(['/candidatelogin']);
+        })
     }
 }

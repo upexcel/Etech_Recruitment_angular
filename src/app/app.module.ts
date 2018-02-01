@@ -179,6 +179,7 @@ import { CandidateScoreComponent } from './modules/candidateScore/candidateScore
 import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
 import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
+import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 
 @NgModule({
     declarations: [
@@ -250,7 +251,8 @@ import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-cand
         CandidateScoreComponent,
         OtpdialogComponent,
         WalkinCandidateComponent,
-        PreviewScoreComponent
+        PreviewScoreComponent,
+        PendingCandidateComponent
     ],
     imports: [
         BrowserModule,

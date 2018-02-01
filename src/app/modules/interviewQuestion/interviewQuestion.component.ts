@@ -7,6 +7,7 @@ import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
 import { config } from './../../config/config';
+declare const FB: any;
 @Component({
     selector: 'app-interviewques',
     templateUrl: './interviewQuestion.component.html',
@@ -167,13 +168,18 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             clearInterval(this.interval);
             this.thankyou = true;
             setTimeout(() => {
-                this._router.navigate(['/candidatelogin']);
-                localStorage.clear();
+                this.fblogout();
             }, 5000);
         }, err => {
             this._mdSnackBar.open(err.message, '', {
                 duration: 2000
             });
         });
+    }
+    fblogout() {
+        FB.logout((result) => {
+            localStorage.clear();
+            this._router.navigate(['/candidatelogin']);
+        })
     }
 };

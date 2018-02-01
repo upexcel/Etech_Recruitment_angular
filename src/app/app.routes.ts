@@ -35,7 +35,7 @@ import { InterviewQuestionComponent } from './modules/interviewQuestion/intervie
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
 import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
-
+import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
@@ -170,6 +170,10 @@ export const routes: Route[] = [{
                 }, {
                     path: 'candidateScore',
                     component: CandidateScoreComponent,
+                    canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'pendingCandidate',
+                    component: PendingCandidateComponent,
                     canActivate: [LoginRouteGuard]
                 }]
             }, {
