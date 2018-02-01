@@ -1,0 +1,82 @@
+@import './../../variable.scss';
+.main {
+    width: 100%;
+    min-height: 100%;
+}
+.cardsub {
+    color: inherit;
+    font-size: 18px;
+}
+
+.pos-add {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+}
+ul,li{
+  list-style: none;
+}
+.quesView{
+  padding-left: 0px;
+}
+.quesView h4{
+  font-size: 14px;
+  color: #616161;
+  font-weight: 700;
+}
+.marTop10{
+  margin-top: 3px !important;
+}
+.marTop3{
+  margin-top: 1px !important;
+}
+.pad0{
+  padding: 0px !important;
+}
+
+.padleft15{
+  padding-left: 15px;
+}
+.padleft10{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.ans{
+  font-weight: bold;
+}
+.btnIcons{
+  position: absolute !important;
+  right: 0px !important;
+  top: 0px !important;
+}
+.fontLi{
+    font-size: 12px;
+    color: #5a5a5a;
+    font-weight: bold;
+}
+.alignRight{
+    text-align: right;
+    float: right;
+}
+.error{
+  text-align: center;
+  color: red;
+}
+md-panel-description{
+  display: block;
+  flex-grow: 0;
+  float: right;
+}
+.warning{
+  text-align: center;
+    color: #828282;
+    font-weight: bold;
+    padding: 20px;
+    font-size: 20px;
+}
+md-expansion-panel md-card{
+  box-shadow : 0 0px 0px 0px rgba(0,0,0,0.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 1px 0 rgba(0,0,0,.12) !important;
+}
+pre{
+  border: 0px;
+}

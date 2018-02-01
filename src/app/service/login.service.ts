@@ -54,4 +54,15 @@ export class LoginService {
         return Promise.resolve(true);
     }
 
+    facebook_login(body: any): Observable < any > {
+        return this.http.post(environment['apibase'] + 'exam/signup_login_fb', body, this.options)
+          .map((res: Response) => res.json())
+          .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+    fbOtp_login(body: any): Observable < any > {
+        return this.http.post(environment['apibase'] + 'exams/verifyExamToken', body, this.options)
+          .map((res: Response) => res.json())
+          .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+    }
+
 }
