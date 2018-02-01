@@ -1,8 +1,9 @@
-<md-card *ngIf="hide && !thankyou ">
+<md-card *ngIf="hide && !thankyou " class="col-xs-12 col-md-12 col-sm-12 bodyInner">
 
-  <md-list class="pad0">
-    <md-list-item class="pad0">
-      <div class="col-md-4 col-sm-12 marAuto bodyInner">
+  <!-- <md-list class="pad0"> -->
+    <!-- <md-list-item class="pad0"> -->
+      <md-spinner id="loginSpinner" *ngIf="loading" class="spin"></md-spinner>
+      <div *ngIf="!notag && !loading" class="marAuto bodyInner width400">
         <md-card-title>
           <h4>Select Job profile</h4>
           <hr>
@@ -12,32 +13,57 @@
           <md-radio-button name="{{option.title}}" value="{{option.id}}" (click)="selected(option.id)"></md-radio-button>{{option.title}}
           </div>
         </md-radio-group>
-        <button md-raised-button color=primary class="right" (click)="getQues()">Submit</button>
+        <md-card-actions>
+        <button md-raised-button color=primary class="flRight" (click)="getQues()">Submit</button>
+        </md-card-actions>
       </div>
-    </md-list-item>
-  </md-list>
+      <div class="col-md-4 col-sm-12 marAuto bodyInner" *ngIf="notag"><h4>{{contactHR}}</h4></div>
+    <!-- </md-list-item> -->
+  <!-- </md-list> -->
 </md-card>
 <div *ngIf="!hide && !thankyou" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
       <div><h4>Test Questions</h4>
-        <p>
-          <span class="right style">Question Attempted:&nbsp;&nbsp;{{selectedAnswer.length}}/{{questions.length}}</span>
 
+        <p class="col-md-6 col-sm-6 col-xs-12 pad0">
+          <!-- <span class="left style">Remaining time:
+            <span class="timer">{{timer}}</span>
+          </span> -->
+        </p>
+        <p class="col-md-6 col-sm-6 col-xs-12 pad0">
+          <span class="right style">Question Attempted:
+            <span class="bold">{{selectedAnswer.length}}/{{total}}</span>
+          </span>
         </p>
       </div>
-        <div class="col-md-12 col-sm-12 marAuto bodyInner" *ngFor="let ques of questions;let id = index">
-          <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
-          <p class="pid">Options:</p>
-          <md-radio-group class="width100 fontsize">
-            <div *ngFor="let option of ques.options" class="width100 padradio">
-            <md-radio-button  name="{{option.option}}" value="{{option.opt_id}}" (click)="selectedAns(ques._id,option.opt_id)"></md-radio-button>{{option.option}}
-            </div>
-          </md-radio-group>
-        </div>
-        <button md-raised-button color=primary class="right submitans" (click)="savePreview()">Save and Preview</button>
+        <md-accordion class="col-xs-12 col-md-12 col-sm-12">
+
+          <md-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <md-expansion-panel-header>
+              <md-panel-title>
+                {{group.group_name}}
+              </md-panel-title>
+              <md-panel-description>
+                Total Questions: {{group.questions.length}}
+              </md-panel-description>
+            </md-expansion-panel-header>
+              <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
+                <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
+                <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
+                <p class="pid">Options:</p>
+                <md-radio-group class="width100 fontsize">
+                  <div *ngFor="let option of ques.options" class="width100 padradio">
+                    <md-radio-button name="{{option.option}}" value="{{option.opt_id}}" (click)="selectedAns(ques._id,option.opt_id)"></md-radio-button>{{option.option}}
+                  </div>
+                </md-radio-group>
+              </div>
+          </md-expansion-panel>
+        </md-accordion>
+        <button md-raised-button color=primary class="flRight submitans" (click)="savePreview()">Save and Preview</button>
    </div>
 <div *ngIf="thankyou">
   <div class="col-md-12">
     <h1>Thank You</h1>
-    <h3 class="subhead">Your Response is recorded! </h3>
+    <h3 class="subhead">Your response has been recorded, please contact HR for further instructions.
+      <br>You will be logged out automatically...</h3>
   </div>
 </div>

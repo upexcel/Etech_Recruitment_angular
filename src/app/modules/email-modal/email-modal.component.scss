@@ -333,3 +333,20 @@ md-grid-tile {
 .avatar-image{
   height: 30px;
 }
+a.link:hover{
+    cursor: pointer;
+}
+.blue{
+  background: #29487d;
+}
+.right{
+  float: right;
+}
+.report{
+  line-height: 20px !important;
+  margin: 0px 4px 0px 4px !important;
+  font-weight: bold !important;
+  color: #fff !important;
+  font-size: 12px !important;
+  background: darkseagreen !important;
+}

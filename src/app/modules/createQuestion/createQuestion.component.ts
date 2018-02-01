@@ -18,8 +18,15 @@ export class CreateQuestionComponent implements OnInit {
     tags: any[];
     questions: any[];
     selectedJobid: any;
+    showmessage= false;
+    message: any;
     questionEdited: any;
+    group: any;
     jobprofile_tag= [];
+    add= false;
+    panelOpenState= false;
+    QueNotAvailable= false;
+    messageQues: any;
     constructor(private getTags: ImapMailsService, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -32,7 +39,6 @@ export class CreateQuestionComponent implements OnInit {
             .subscribe((data) => {
                 this.formatTagsInArray(data);
             }, (err) => {
-                console.log(err);
                 this.loading = false;
             });
     }
@@ -71,13 +77,21 @@ export class CreateQuestionComponent implements OnInit {
             })
         }
         this.loading = false;
+        this.selectedJobid = this.jobprofile_tag[0].id;
+        this.getQues(this.selectedJobid);
     }
     getQues(job_id: any) {
+        this.add = true;
         this.selectedJobid = job_id;
-        this.getTags.getQues(job_id).subscribe(res => {
+        this.getTags.getQuesAdmin(job_id).subscribe(res => {
             this.questions = res.data;
+            if (res.data.length === 0) {
+                this.QueNotAvailable = true;
+                this.messageQues = 'Questions Not Available';
+            }else {
+                this.QueNotAvailable = false;
+            }
         }, err => {
-            console.log(err);
             this.loading = false;
         });
     }
@@ -86,7 +100,7 @@ export class CreateQuestionComponent implements OnInit {
             height: '100%',
             width: '40%'
         });
-
+        this.dialogRef.componentInstance.job_id = this.selectedJobid;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this._mdSnackBar.open(result.message, '', {
@@ -99,7 +113,6 @@ export class CreateQuestionComponent implements OnInit {
     }
     editQues(id: any) {
         this.getTags.getQuesByid(id).subscribe(res => {
-            console.log(res);
             this.questionEdited = res.data;
             this.dialogRef = this.dialog.open(AddQuestionDialogComponent, {
                 height: '100%',
@@ -127,13 +140,30 @@ export class CreateQuestionComponent implements OnInit {
                 this.getTags.deleteQueByid(id).subscribe(resp => {
                     this.getQues(this.selectedJobid);
                 }, err => {
-                    console.log(err);
                 });
             }
         }, (err) => {
-            console.log(err);
         });
 
     };
+    createGroup(form: NgForm) {
+        this.showmessage = false;
+        if (form.value.group) {
+            const data = { 'exam_subject': form.value.group };
+            this.getTags.createGroup(data).subscribe(resp => {
+                this._mdSnackBar.open('Group created Sucessfully', '', {
+                    duration: 2000
+                });
+                form.reset();
+                this.getQues(this.selectedJobid);
+            }, err => {
+                this.message = err.message;
+                this.showmessage = true;
+            });
+        }else {
+            this.message = 'Invalid Name';
+            this.showmessage = true;
+        }
+    }
 
 }

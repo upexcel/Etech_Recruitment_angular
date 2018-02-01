@@ -1,5 +1,5 @@
 <md-card>
-  <form id="quesForm" autoComplete="off" #quesForm="ngForm" (ngSubmit)="createQues(quesForm)">
+  <form id="quesForm" autoComplete="off" #quesForm="ngForm">
     <md-card-title class="cardsub">
       <p *ngIf="editabledialog">Edit Questions</p>
       <p *ngIf="!editabledialog">Create Questions</p>
@@ -8,13 +8,17 @@
     <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
     <md-card-content>
       <div class="row">
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-6 col-sm-12" *ngIf="questionEditable">
           <md-select class="width-100" id="job_profile" placeholder="Select Job Profile" name="job_profile" required [(ngModel)]="job_profile">
-            <md-option>
-              None
-            </md-option>
             <md-option *ngFor="let tag of jobprofile_tag" [value]="tag.id">
               {{tag.title}}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <md-select class="width-100" id="examGroup" placeholder="Select Group" name="examId" required [(ngModel)]="examId">
+            <md-option *ngFor="let tag of examgroup" [value]="tag.id">
+              {{tag.exam_subject}}
             </md-option>
           </md-select>
         </div>
@@ -22,58 +26,71 @@
       <br>
       <div class="row">
         <div id="Question" class="col-md-12 col-sm-12">
-          <md-input-container class="width-90">
+          <md-input-container class="width-100">
             <input mdInput name="question" type="text" placeholder="Question" required  [(ngModel)]="question" autoComplete="off">
             <md-error>
                 Question field is required
             </md-error>
           </md-input-container>
         </div>
-        <!-- <div id="right_answer" class="col-md-12 col-sm-12">
-          <md-input-container class="width-90">
-            <input mdInput name="answer" type="text" placeholder="Answer" required [(ngModel)]="answer" autoComplete="off">
-            <md-error>Answer Required</md-error>
+        <div id="decription" class="col-md-12 col-sm-12">
+          <md-input-container class="width-100">
+            <textarea mdInput name="desc"  placeholder="Description (Optional)" [(ngModel)]="desc" autoComplete="off"></textarea>
           </md-input-container>
-        </div> -->
+        </div>
         <md-radio-group>
 
 
-        <div id="option-1" class="col-md-12 col-sm-12">
+        <!-- <div id="option-1" class="col-md-12 col-sm-12">
           <md-radio-button value="1" (change)="answerRight($event)" [checked]="ans_id=='1'"></md-radio-button>
           <md-input-container class="width-90">
             <input mdInput name="option1" type="text" placeholder="Option-1" required [(ngModel)]="opt1" autoComplete="off">
             <md-error>Option-1 Required</md-error>
           </md-input-container>
-        </div>
+        </div> -->
 
-        <div id="option-2" class="col-md-12 col-sm-12">
+        <!-- <div id="option-2" class="col-md-12 col-sm-12">
         <md-radio-button value="2" (change)="answerRight($event)" [checked]="ans_id=='2'"></md-radio-button>
 
           <md-input-container class="width-90">
             <input mdInput name="option2" type="text" placeholder="Option-2" required [(ngModel)]="opt2" autoComplete="off">
             <md-error>Option-2 Required</md-error>
           </md-input-container>
-        </div>
-        <div id="option-3" class="col-md-12 col-sm-12">
+        </div> -->
+        <!-- <div id="option-3" class="col-md-12 col-sm-12">
         <md-radio-button value="3" (change)="answerRight($event)" [checked]="ans_id=='3'"></md-radio-button>
 
           <md-input-container class="width-90">
-            <input mdInput name="option3" type="text" placeholder="Option-3" required [(ngModel)]="opt3" autoComplete="off">
-            <md-error>Option-3 Required</md-error>
+            <input mdInput name="option3" type="text" placeholder="Option-3"  [(ngModel)]="opt3" autoComplete="off">
+            <md-error>Option-3</md-error>
           </md-input-container>
-        </div>
-        <div id="option-4" class="col-md-12 col-sm-12">
+        </div> -->
+        <!-- <div id="option-4" class="col-md-12 col-sm-12">
         <md-radio-button value="4" (change)="answerRight($event)" [checked]="ans_id=='4'"></md-radio-button>
 
           <md-input-container class="width-90">
-            <input mdInput name="option4" type="text" placeholder="Option-4" required [(ngModel)]="opt4" autoComplete="off">
-            <md-error>Option-4 Required</md-error>
+            <input mdInput name="option4" type="text" placeholder="Option-4"  [(ngModel)]="opt4" autoComplete="off">
+            <md-error>Option-4</md-error>
           </md-input-container>
-        </div>
-        </md-radio-group>
+        </div> -->
+        <div id="option-5" class="col-md-12 col-sm-12" *ngFor="let input of inputbox; let id=index;">
+          <md-radio-button value="{{input.opt_id}}" (change)="answerRight($event)" [checked]="ans_id==input.opt_id"></md-radio-button>
 
+          <md-input-container class="width-90">
+            <input mdInput name="option{{id+1}}" type="text" placeholder="Option-{{id+1}}" [(ngModel)]="input.option" autoComplete="off">
+            <md-error>Option{{id+3}}</md-error>
+          </md-input-container>
+          <button *ngIf="input.opt_id>2" style="position:absolute" md-icon-button color=warn mdTooltip="click to delete!" (click)="remove(id)">
+            <i class="material-icons">clear</i>
+          </button>
+        </div>
+
+        </md-radio-group>
+        <button style="padding-left: 10px;" md-icon-button color=primary [disabled]="count>4" (click)="add()" mdTooltip="Add more option!">
+          <i class="material-icons">add_circle_outline</i>
+        </button>
         <div id="FormButton" class="col-md-12">
-          <button id="save" type="submit" md-raised-button color=primary [disabled]="quesForm.invalid"> Save </button>
+          <button id="save"  md-raised-button color=primary [disabled]="quesForm.invalid" (click)="createQues(quesForm)"> Save </button>
         </div>
       </div>
     </md-card-content>

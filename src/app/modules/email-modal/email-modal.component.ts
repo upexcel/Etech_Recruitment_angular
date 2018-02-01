@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdDialog, MdDialogConfig, MdDialogRef ,MdSnackBar} from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef , MdSnackBar} from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -13,6 +13,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
+import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 
 @Component({
     selector: 'app-email-modal',
@@ -258,7 +259,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
     }
     addNote(candidateid: any) {
         this.dialogRef = this.dialog.open(AddNoteComponent, {
-            height: '30%',
+            height: '35%',
             width: '30%'
         });
         this.dialogRef.componentInstance.candidateid = candidateid;
@@ -300,6 +301,16 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             }
 
         }
+    }
+    getDetailedScore(fb_id: any) {
+        this.dialogRef = this.dialog.open(PreviewScoreComponent, {
+            height: '100%',
+            width: '50%'
+        });
+        this.dialogRef.componentInstance.fb_id = fb_id;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
     }
 
 }

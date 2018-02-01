@@ -34,7 +34,8 @@ import { CandidateComponent } from './modules/candidate/candidate.component';
 import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
-
+import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
+import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
@@ -48,11 +49,11 @@ export const routes: Route[] = [{
             path: 'interviewques/:id',
             component: InterviewQuestionComponent,
             pathMatch: 'full'
-        }, {
-            path: 'verifycandidate',
-            component: VerifyCandidateComponent,
-            pathMatch: 'full'
         }]
+    }, {
+        path: 'verifycandidate',
+        component: VerifyCandidateComponent,
+        pathMatch: 'full'
     },
     {
         path: 'core',
@@ -170,6 +171,10 @@ export const routes: Route[] = [{
                     path: 'candidateScore',
                     component: CandidateScoreComponent,
                     canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'pendingCandidate',
+                    component: PendingCandidateComponent,
+                    canActivate: [LoginRouteGuard]
                 }]
             }, {
                 path: 'changepassword',
@@ -182,6 +187,10 @@ export const routes: Route[] = [{
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'candidatelogin',
+        component: CandidateLoginComponent
     },
     {
         path: 'forgot',

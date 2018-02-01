@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
-import { DialogService } from './../../service/dialog.service';
-import { AddQuestionDialogComponent } from '../addQuestionDialog/addQuestionDialog.component';
+import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import * as _ from 'lodash';
 
 @Component({
@@ -18,7 +17,9 @@ export class CandidateScoreComponent implements OnInit {
     start_date: any;
     option: any;
     end_date: any;
-    constructor(private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
+    detailedScore: any;
+    dialogRef: MdDialogRef<any>;
+    constructor (private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MdSnackBar, public dialog: MdDialog) { }
 
     ngOnInit() {
         const blankscore = {};
@@ -28,19 +29,25 @@ export class CandidateScoreComponent implements OnInit {
     getScore(data) {
         this._getScore.score(data).subscribe(res => {
             this._ngzone.run(() => {
-                console.log(res);
                 this.scores = res;
             });
         },
         err => {
-            console.log(err);
+        });
+    }
+    getDetailedScore(fb_id: any) {
+        this.dialogRef = this.dialog.open(PreviewScoreComponent, {
+            height: '100%',
+            width: '50%'
+        });
+        this.dialogRef.componentInstance.fb_id = fb_id;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
         });
     }
     searchScorelist(searchform: NgForm) {
 
-        console.log(searchform.value);
         this.option = searchform.value['option'];
-        // this.key = searchform.value['keyword'];
         if (searchform.valid) {
             let dataS;
             if (this.option === 'name') {

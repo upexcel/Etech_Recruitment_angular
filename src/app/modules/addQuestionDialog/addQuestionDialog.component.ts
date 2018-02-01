@@ -19,6 +19,7 @@ export class AddQuestionDialogComponent implements OnInit {
     opt2: any;
     opt3: any;
     opt4: any;
+    opt5: any;
     ans_id: any;
     answerOpt: any;
     options= [];
@@ -28,34 +29,62 @@ export class AddQuestionDialogComponent implements OnInit {
     editabledialog= false;
     questionId: any;
     jobprofile_tag= [];
-
+    job_id: any;
+    examgroup= [];
+    examId: any;
+    count= 2;
+    inputbox= [];
+    desc: any;
     constructor(private dialogRef: MdDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
+        this.inputbox = [
+          {'option': '', 'opt_id': 1}, {'option': '', 'opt_id': 2}
+        ];
         this.loading = true;
         this.getAllTag();
-        console.log(this.questionEditable);
+        this.getExamGroup();
         if (this.questionEditable) {
-            console.log(this.questionEditable);
             this.job_profile = this.questionEditable.job_profile[0];
             this.questionId = this.questionEditable._id;
             this.question = this.questionEditable.question;
             this.answer = this.questionEditable.answer;
-            this.opt1 = this.questionEditable.options[0].option;
+            this.examId = this.questionEditable.exam_subject;
+            this.desc = this.questionEditable.description;
+            // this.opt1 = this.questionEditable.options[0].option;
             this.ans_id = this.questionEditable.answer;
-            this.opt2 = this.questionEditable.options[1].option;
-            this.opt3 = this.questionEditable.options[2].option;
-            this.opt4 = this.questionEditable.options[3].option;
+            // this.opt2 = this.questionEditable.options[1].option;
+            // this.opt3 = this.questionEditable.options[2].option;
+            // this.opt4 = this.questionEditable.options[3].option;
             this.editabledialog = true;
+            this.inputbox = this.questionEditable.options;
+            this.count = this.questionEditable.options.length;
+        }
+        if (this.job_id) {
+            this.job_profile = this.job_id;
         }
     }
-
+    add() {
+        this.count++;
+        this.inputbox.push({'option': '', 'opt_id': this.count})
+    }
+    remove(id) {
+        this.count--;
+        this.inputbox.splice(id, 1)
+    }
     getAllTag() {
         this.getTags.getAllTags()
             .subscribe((data) => {
                 this.formatTagsInArray(data);
             }, (err) => {
-                console.log(err);
+                this.loading = false;
+            });
+    }
+    getExamGroup() {
+        this.getTags.examGroup()
+            .subscribe((data) => {
+                this.examgroup = data;
+            }, (err) => {
                 this.loading = false;
             });
     }
@@ -99,38 +128,22 @@ export class AddQuestionDialogComponent implements OnInit {
     }
     answerRight(val) {
         this.ans_id = val.value;
-        console.log(val.source, val.value);
     }
     createQues(form: NgForm) {
         let quesdata;
         if (form.valid) {
-            this.options.push(form.value.option1);
-            this.options.push(form.value.option2);
-            this.options.push(form.value.option3);
-            this.options.push(form.value.option4);
             quesdata = {
                 'job_profile': form.value.job_profile,
                 'question' : form.value.question,
-                'answer' : parseInt(this.ans_id),
-                'options': [{
-                    'option': form.value.option1,
-                    'opt_id': 1
-                },
-                {
-                    'option': form.value.option2,
-                    'opt_id': 2
-                },
-                {
-                    'option': form.value.option3,
-                    'opt_id': 3
-                },
-                {
-                    'option': form.value.option4,
-                    'opt_id': 4
-                }]
+                'description': form.value.desc,
+                'answer' : parseInt(this.ans_id, 10),
+                'exam_subject': form.value.examId,
+                'options': this.inputbox
             };
         }
-        console.log(quesdata);
+        if (this.job_id) {
+            quesdata.job_profile = this.job_id;
+        }
 
         this.loading = true;
         this.showmessage = false;

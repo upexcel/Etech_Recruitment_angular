@@ -6,9 +6,10 @@
     <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
         <h5>{{countEmailSubject(email.subject)}}</h5>
         <h6 class="inline">
-            <md-icon *ngIf="email.is_attachment" class="attach">attach_file</md-icon> {{email.date | date: 'medium'}}
+           <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span> <md-icon *ngIf="email.is_attachment" class="attach">attach_file</md-icon> {{email.date | date: 'medium'}}
         </h6>
-        <p>{{email.sender_mail}} - From {{email.from}}</p>
+        <p>{{email.sender_mail}} - From {{email.from}}, Source: <span *ngIf="email.source">{{email.source}}</span>
+          <span *ngIf="!email.source">IMAP</span></p>
     </div>
     <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
         <md-select placeholder="Interviewee" *ngIf="tagselected"  class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">

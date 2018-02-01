@@ -1,6 +1,13 @@
 <md-card class="background-white">
     <md-spinner class="commonSpinner" *ngIf="!historyList.data"></md-spinner>
 <div class="avatar-image" appAvatarDirective [email]="email.sender_mail"></div>
+<div class="right">
+  <span *ngIf="email.fb_id"><a href="http://facebook.com/{{email.fb_id}}" target="blank">Facebook Profile</a></span>
+  <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span>
+  <span *ngIf="email.examScore || email.examScore ==0">
+    <button md-raised-button mdTooltip="View Report" mdTooltipPosition="below" class="report"  (click)="getDetailedScore(email.fb_id)">Test Report</button>
+    </span>
+</div>
 <div class="m-b" *ngIf="historyList.data">
     <div id="topBtn" class="default-tag-buttons" >
         <!--<button id="backbtn" md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>-->
@@ -21,7 +28,9 @@
     <div [@collapseChange]="H_email.accordianIsOpen" *ngIf="H_email.accordianIsOpen">
     <div class="p-y">
         from
-        <a>{{H_email.from}} {{H_email.sender_mail}}</a>
+        <a>{{H_email.from}} {{H_email.sender_mail}}</a>, Source:
+        <span *ngIf="email.source">{{email.source}}</span>
+        <span *ngIf="!email.source">IMAP</span>
         <span class="text-xs"> on {{H_email.date | date: 'medium'}}</span>
         <md-select style="float: right;" placeholder="Interviewee" class="assign-interviewee" [(ngModel)]="H_email.interviewee" (ngModelChange)="assignInterviewee(H_email.interviewee)">
             <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>

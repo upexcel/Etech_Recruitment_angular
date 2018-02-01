@@ -17,27 +17,25 @@ export class PreviewAnswerComponent implements OnInit {
     }
     ngOnInit() {
         _.forEach(this.selectedAnswer, (val, key) => {
-            console.log(val);
             _.forEach(this.allQuestion, (val2, key2) => {
-                console.log(val.Q_id === val2._id);
-                if (val.Q_id === val2._id) {
-                    val2['ans_id'] = val.ans_id
-                    this.attemptedQues.push(val2);
-                }
+                _.forEach(val2.questions, (val3, key3) => {
+                    if (val.Q_id === val3._id) {
+                        val3['ans_id'] = val.ans_id;
+                        this.attemptedQues.push(val3);
+                    }
+                });
             });
         })
-        console.log(this.attemptedQues);
     }
     close() {
         this.dialogRef.close();
     }
     submit() {
-        this._dialogService.openConfirmationBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
+        this._dialogService.confirmSubmitTestBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
             if (res === 'yes') {
                 this.dialogRef.close('final Submit');
             }
         }, (err) => {
-            console.log(err);
         });
     }
 }

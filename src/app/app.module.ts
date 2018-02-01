@@ -173,12 +173,19 @@ import { AddQuestionDialogComponent } from './modules/addQuestionDialog/addQuest
 import { CandidateComponent } from './modules/candidate/candidate.component';
 import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
 import { PreviewAnswerComponent } from './modules/previewAnswer/previewAnswer.component';
+import { PreviewScoreComponent } from './modules/previewScore/previewScore.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
+import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
+import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
+import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
+import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
+
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
+        CandidateLoginComponent,
         CoreComponent,
         InboxComponent,
         EmailLogsComponent,
@@ -241,7 +248,11 @@ import { CandidateScoreComponent } from './modules/candidateScore/candidateScore
         InterviewQuestionComponent,
         PreviewAnswerComponent,
         VerifyCandidateComponent,
-        CandidateScoreComponent
+        CandidateScoreComponent,
+        OtpdialogComponent,
+        WalkinCandidateComponent,
+        PreviewScoreComponent,
+        PendingCandidateComponent
     ],
     imports: [
         BrowserModule,
@@ -306,7 +317,10 @@ import { CandidateScoreComponent } from './modules/candidateScore/candidateScore
         AddNewSpamContactComponent,
         ViewNoteComponent,
         AddQuestionDialogComponent,
-        PreviewAnswerComponent
+        PreviewAnswerComponent,
+        OtpdialogComponent,
+        WalkinCandidateComponent,
+        PreviewScoreComponent
     ],
     bootstrap: [AppComponent]
 })

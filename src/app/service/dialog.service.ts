@@ -102,4 +102,21 @@ export class DialogService {
             });
         });
     }
+    confirmSubmitTestBox(message) {
+        return new Promise((resolve, reject) => {
+            this.dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+                'height': '210px',
+                'width': '200px'
+            });
+            this.dialogRef.componentInstance.message = message;
+            this.dialogRef.afterClosed().subscribe(result => {
+                this.dialogRef = null;
+                if (result) {
+                    resolve(result);
+                } else {
+                    resolve();
+                }
+            });
+        });
+    }
 }

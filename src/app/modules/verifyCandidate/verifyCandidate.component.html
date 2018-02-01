@@ -1,33 +1,40 @@
-<md-card *ngIf="!contacthr && !enterEmail">
+<div class="outerbody">
+  <div class="logo">
+    <img class="img-responsive" src="assets/logo.png">
+  </div>
+<div *ngIf="!contacthr && !enterEmail">
     <md-list class="pad0">
       <md-list-item class="pad0">
         <div class="col-md-4 col-sm-12 marAuto bodyInner">
           <md-card-title>
-            <h4>Select Below</h4>
+            <h4>We couldn't find your email address in our system. Please select option below</h4>
             <hr>
           </md-card-title>
           <div>
           <button md-fab color=primary class="marAuto btnwidth" (click)="checkUser()">Have you Applied Before</button>
           <p class="or">OR</p>
-          <button md-fab color=primary class="marAuto btnwidth" (click)="contactHr()">Its Walk-In</button>
+          <button md-fab color=primary class="marAuto btnwidth" (click)="addWalkinCandidate()">Its Walk-In</button>
           </div>
         </div>
 
       </md-list-item>
     </md-list>
-</md-card>
+</div>
 <div *ngIf="contacthr">
   <div class="col-md-12">
-    <h1>Contact HR</h1>
+    <h3 class="heading">Thank You!</h3>
+    <h2 class="subhead">You Are added as walkin Candidate , please contact HR for further instructions.
+      <br>You will be logged out automatically...</h2>
   </div>
 </div>
 
-<md-card *ngIf="enterEmail">
+<div *ngIf="enterEmail">
     <md-list class="pad0">
       <md-list-item class="pad0">
         <div class="col-md-4 col-sm-12 marAuto bodyInner">
-            <h4>Enter Email</h4>
+            <h5>Input the email id with which you have already applied, so we can find your job application easily</h5>
             <form id="loginForm" autoComplete="off" [formGroup]="addForm" (ngSubmit)="verifyLogin()">
+            <md-card-subtitle id="loginError" class="error" *ngIf="error">{{errorMsg}}</md-card-subtitle>
             <md-input-container class="width-100">
               <input id="email" mdInput type="email"  formControlName="email" placeholder="Email" autoComplete="off">
               <md-error>Enter Valid Email</md-error>
@@ -38,4 +45,5 @@
         </div>
       </md-list-item>
     </md-list>
-</md-card>
+</div>
+</div>

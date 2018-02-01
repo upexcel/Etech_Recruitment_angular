@@ -976,6 +976,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    getQuesAdmin(job_profile: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `exams/getQuestionsForAdmin/${job_profile}`)
+          .map((res: Response) => {
+              this.decreaseAPiCount();
+              return res.json();
+          })
+          .catch((error: any) => {
+              this.count = 0;
+              this.apiEndEvent.emit();
+              return Observable.throw(error.json() || 'Server error');
+          });
+    }
     getQues(job_profile: any): Observable<any> {
         this.increaseAPiCount();
         return this.http.get(environment['apibase'] + `exams/getAllQuestions/${job_profile}`)
@@ -1015,9 +1028,9 @@ export class ImapMailsService {
               return Observable.throw(error.json() || 'Server error');
           });
     }
-    jobprofile(): Observable<any> {
+    jobprofile(body: any): Observable<any> {
         this.increaseAPiCount();
-        return this.http.get(environment['apibase'] + `exams/job_profile`)
+        return this.http.post(environment['apibase'] + `exams/job_profile`, body)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();
@@ -1044,6 +1057,84 @@ export class ImapMailsService {
     score(body: any): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `exams/showExamResult`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    detailedScore(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/getCandidateResult`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    createGroup(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/examSubjects`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    examGroup(): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `exams/getExamSubjects`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    addWalkinCandidate(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.post(environment['apibase'] + `exams/addNewCandidate`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    pendingList(): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `exams/getPendingList`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    approveCandidate(body: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/approveCandidate`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
