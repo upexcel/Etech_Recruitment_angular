@@ -36,18 +36,13 @@ export class CandidateScoreComponent implements OnInit {
         });
     }
     getDetailedScore(fb_id: any) {
-        this._getScore.detailedScore({'fb_id': fb_id}).subscribe(res => {
-            this._ngzone.run(() => {
-                this.dialogRef = this.dialog.open(PreviewScoreComponent, {
-                    height: '100%',
-                    width: '50%'
-                });
-                this.dialogRef.componentInstance.detailedScore = res.data;
-                this.dialogRef.afterClosed().subscribe(result => {
-                    this.dialogRef = null;
-                });
-            });
-        }, err => {
+        this.dialogRef = this.dialog.open(PreviewScoreComponent, {
+            height: '100%',
+            width: '50%'
+        });
+        this.dialogRef.componentInstance.fb_id = fb_id;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
         });
     }
     searchScorelist(searchform: NgForm) {
