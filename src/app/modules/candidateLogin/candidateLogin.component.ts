@@ -7,7 +7,6 @@ import { LocalStorageService } from '../../service/local-storage.service';
 import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
 import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
 import { environment } from '../../../environments/environment';
-import { config } from './../../config/config';
 declare let FB: any;
 
 @Component({
@@ -47,7 +46,7 @@ export class CandidateLoginComponent implements OnInit {
             appId: environment['fb_loginAppid'],
             cookie: true, // enable cookies to allow the server to access
             xfbml: true, // parse social plugins on this page
-            version: config.fb_version // use graph api version 2.8
+            version: environment['fb_version'] // use graph api version 2.8
         });
     }
 
