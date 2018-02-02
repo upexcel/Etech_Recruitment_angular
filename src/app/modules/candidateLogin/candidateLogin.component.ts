@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../../service/login.service';
 import { CommonService } from '../../service/common.service';
@@ -12,7 +13,8 @@ declare let FB: any;
 @Component({
     selector: 'app-candidate-login',
     templateUrl: './candidateLogin.component.html',
-    styleUrls: ['./candidateLogin.component.scss']
+    styleUrls: ['./candidateLogin.component.scss'],
+    providers: [ Title]
 })
 export class CandidateLoginComponent implements OnInit {
     addForm: FormGroup;
@@ -26,7 +28,8 @@ export class CandidateLoginComponent implements OnInit {
     fbObj: any;
     fbtoken: any;
     dialogRef: MdDialogRef<any>;
-    constructor(public dialog: MdDialog, private commonService: CommonService, private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
+    constructor(private title: Title, public dialog: MdDialog, private commonService: CommonService, private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
+        this.title.setTitle('Test Papers');
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
                 duration: 2000,
