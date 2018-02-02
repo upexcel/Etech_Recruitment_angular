@@ -17,7 +17,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     questions: any;
     options: any;
     job_pro: any [];
-    hide= true;
+    hide= false;
     dialogRef: MdDialogRef<any>;
     selectedJob: any;
     selectedAnswer= [];
@@ -56,6 +56,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.hide = false;
                     this.start(this.selectedJob);
                 }else {
+                    this.loading = true;
                     this.job_pro = res;
                 }
             }
