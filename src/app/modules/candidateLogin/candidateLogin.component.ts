@@ -44,13 +44,6 @@ export class CandidateLoginComponent implements OnInit {
             password: ['', Validators.required],
             keeplogin: false
         });
-
-        FB.init({
-            appId: environment['fb_loginAppid'],
-            cookie: true, // enable cookies to allow the server to access
-            xfbml: true, // parse social plugins on this page
-            version: environment['fb_version'] // use graph api version 2.8
-        });
     }
 
 
