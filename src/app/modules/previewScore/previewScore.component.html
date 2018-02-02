@@ -9,7 +9,7 @@
         <p class="col-md-6 col-sm-6 scoreDet">Wrong Attempted: {{detailedData.wrong_answers}}</p>
     </div>
     <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of detailedData?.questions;let id = index">
-      <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
+      <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
       <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
       <p class="pid">Options:</p>
       <ul class="width100 fontsize">
