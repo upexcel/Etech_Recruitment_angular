@@ -53,6 +53,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 if (res.length === 1) {
                     this.selectedJob = res[0].id;
                     localStorage.setItem('_idjob', this.selectedJob );
+                    this.hide = false;
                     this.start(this.selectedJob);
                 }else {
                     this.job_pro = res;

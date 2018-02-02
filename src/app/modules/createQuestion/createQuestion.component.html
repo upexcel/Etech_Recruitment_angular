@@ -45,7 +45,7 @@
               <md-list-item class="pad0">
               <div class="col-md-12 pad0">
                 <ul class="quesView">
-                  <li><h4>Question {{i+1}}: &#09; {{ques.question }}</h4></li>
+                  <li><h4>Question {{i+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h4></li>
                   <li *ngIf="ques.description"><pre [innerHTML]="ques.description | safeHtml"></pre></li>
                   <li class="fontLi">Options:</li>
                   <ul class="padleft15" *ngFor="let opt of ques.options; let optid = index ">
