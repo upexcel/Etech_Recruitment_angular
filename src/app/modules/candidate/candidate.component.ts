@@ -24,21 +24,21 @@ export class CandidateComponent implements OnInit {
         this.candidateName = localStorage.getItem('user');
         this.img = localStorage.getItem('img');
     }
-    statusChangeCallback(response: any) {
-        if (response.status === 'connected') {
-        } else {
-        }
-    }
+    // statusChangeCallback(response: any) {
+    //     if (response.status === 'connected') {
+    //     } else {
+    //     }
+    // }
     ngOnInit() {
-        FB.init({
-            appId: environment['fb_loginAppid'],
-            cookie: true, // enable cookies to allow the server to access
-            xfbml: true, // parse social plugins on this page
-            version: config.fb_version // use graph api version 2.8
-        });
-        FB.getLoginStatus((response) => {
-            this.statusChangeCallback(response);
-        });
+        // FB.init({
+        //     appId: environment['fb_loginAppid'],
+        //     cookie: true, // enable cookies to allow the server to access
+        //     xfbml: true, // parse social plugins on this page
+        //     version: config.fb_version // use graph api version 2.8
+        // });
+        // FB.getLoginStatus((response) => {
+        //     this.statusChangeCallback(response);
+        // });
     }
 
     fblogout() {
