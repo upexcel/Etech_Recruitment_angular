@@ -187,7 +187,35 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             }, (err) => {
                 console.log(err);
             });
+        } else if (title === 'Reject') {
+            this.dialogRef = this.dialog.open(AddNoteComponent, {
+                height: '35%',
+                width: '30%'
+            });
+            this.dialogRef.componentInstance.candidateid = emailData._id;
+            this.dialogRef.componentInstance.title = title;
+            this.dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.body = null;
+                    this.idlist.push(emailId);
+                    this.body = {
+                        'tag_id': id,
+                        'mongo_id': this.idlist
+                    };
+                    this.tagUpdate.assignTag(this.body).subscribe((data) => {
+                        this.idlist = [];
+                        this.snackBar.open('Added Successfully', '', {
+                            duration: 2000,
+                        });
+                        this.commonService.inboxRefreshEvent();
+                    }, (err) => {
+                        console.log(err);
+                    });
+                    this._location.back();
+                }
+            })
         } else {
+            console.log('modalRejct')
             this.body = null;
             this.idlist.push(emailId);
             this.body = {
