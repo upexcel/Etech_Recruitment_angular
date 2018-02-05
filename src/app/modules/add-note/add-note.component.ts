@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef } from '@angular/core';
+import { Component, ViewContainerRef, OnInit} from '@angular/core';
 import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
@@ -11,14 +11,20 @@ import { CommonService } from './../../service/common.service';
     templateUrl: './add-note.component.html',
     styleUrls: ['./add-note.component.scss'],
 })
-export class AddNoteComponent {
+export class AddNoteComponent implements OnInit {
     note = '';
     formOpen = true;
     candidateid: any;
     data: any;
     emailList: any;
+    title: any;
+    rejectNote= false;
     constructor(public dialogRef: MdDialogRef<any>, public _apiService: ImapMailsService) {
-
+    }
+    ngOnInit() {
+        if (this.title) {
+            this.rejectNote = true;
+        }
     }
     save(form: NgForm) {
         if (form.valid) {
