@@ -34,7 +34,7 @@
           </span> -->
         </p>
         <p class="col-md-6 col-sm-6 col-xs-12 pad0">
-          <span class="right style">Question Attempted:
+          <span class="right style" *ngIf="total">Question Attempted:
             <span class="bold">{{selectedAnswer.length}}/{{total}}</span>
           </span>
         </p>
