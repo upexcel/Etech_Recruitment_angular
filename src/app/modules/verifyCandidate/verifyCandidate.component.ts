@@ -35,7 +35,7 @@ export class VerifyCandidateComponent implements OnInit {
     }
     addWalkinCandidate() {
         this.dialogRef = this.dialog.open(WalkinCandidateComponent, {
-            height: '100%',
+            height: '70%',
             width: '60%'
         });
         this.dialogRef.afterClosed().subscribe(result => {
