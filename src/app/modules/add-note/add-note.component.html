@@ -1,5 +1,6 @@
 <div class="header">
-    <p class="h-text">Add Note</p>
+    <p *ngIf="!rejectNote" class="h-text">Add Note</p>
+    <p *ngIf="rejectNote" class="h-text">Reason For Rejection</p>
 </div>
 <form autoComplete="off" #addNote="ngForm" *ngIf="formOpen">
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">

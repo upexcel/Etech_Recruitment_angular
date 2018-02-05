@@ -7,6 +7,8 @@ import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { ViewNoteComponent } from './../view-note/view-note.component';
+import { AddNoteComponent } from './../add-note/add-note.component';
+
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-emailbox',
@@ -79,6 +81,18 @@ export class EmailboxComponent implements OnInit {
             }, (err) => {
                 console.log(err);
             });
+        } else if (title === 'Reject') {
+            this.dialogRef = this.dialog.open(AddNoteComponent, {
+                height: '35%',
+                width: '30%'
+            });
+            this.dialogRef.componentInstance.candidateid = emailData._id;
+            this.dialogRef.componentInstance.title = title;
+            this.dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.deleteAndAssignTag.emit(id);
+                }
+            })
         } else {
             this.deleteAndAssignTag.emit(id);
         }
