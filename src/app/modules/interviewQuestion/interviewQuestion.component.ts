@@ -49,7 +49,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 this.contactHR = res.message;
             }else {
                 console.log(res);
-                this.loading = false;
                 if (res.length === 1) {
                     this.selectedJob = res[0].id;
                     localStorage.setItem('_idjob', this.selectedJob );
@@ -90,6 +89,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
     start(id: any) {
         this.getTags.getQues(id).subscribe(res => {
+            this.loading = false;
             if (res.data.length > 0) {
                 this.hide = false;
                 this.questions = res.data;
