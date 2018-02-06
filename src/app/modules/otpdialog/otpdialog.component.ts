@@ -29,6 +29,7 @@ export class OtpdialogComponent implements OnInit {
                     localStorage.setItem('user', response.data.name);
                     localStorage.setItem('user_id', response.data.fb_id);
                     localStorage.setItem('img', response.data.profile_pic);
+                    localStorage.setItem('start', JSON.stringify(new Date()));
                     this._router.navigate(['/candidate/interviewques', this.fb_id]);
                 });
             } else if (response.status === 2) {

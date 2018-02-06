@@ -13,12 +13,17 @@ export class PreviewScoreComponent implements OnInit {
     detailedData: any;
     fb_id: any;
     fbloading= false;
+    hours: any;
+    min: any;
     constructor(public dialogRef: MdDialogRef<any>, private getdata: ImapMailsService, private _dialogService: DialogService) {
     }
     ngOnInit() {
         this.fbloading = true;
         this.getdata.detailedScore({'fb_id': this.fb_id}).subscribe(res => {
             this.detailedData = res.data;
+            let time = this.detailedData['taken_time_minutes'];
+            this.hours = Math.floor(time / 60);
+            this.min = Math.floor(time % 60);
             this.fbloading = false;
         }, err => {
         });

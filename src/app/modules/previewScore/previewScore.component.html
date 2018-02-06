@@ -7,6 +7,7 @@
         <p class="col-md-6 col-sm-6 scoreDet">Candidate Attempted: {{detailedData.attempted_questions}}</p>
         <p class="col-md-6 col-sm-6 scoreDet">Right Attempted: {{detailedData.exam_score}}</p>
         <p class="col-md-6 col-sm-6 scoreDet">Wrong Attempted: {{detailedData.wrong_answers}}</p>
+        <p class="col-md-6 col-sm-6 scoreDet">Time Taken: {{hours}}h {{min}}min</p>
     </div>
     <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of detailedData?.questions;let id = index">
       <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
