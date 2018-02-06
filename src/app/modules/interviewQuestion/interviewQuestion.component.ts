@@ -165,11 +165,17 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }
     }
     submit() {
+        let startTime= new Date(JSON.parse(localStorage.getItem('start')));
+        let endTime = new Date();
+        let totalHours = (endTime.getHours() - startTime.getHours());
+        let minutes = (endTime.getMinutes() - startTime.getMinutes());
+        let totalMinutes= (totalHours * 60) + minutes;
         this.allansRecord = {
             'job_profile': this.selectedJob,
             'fb_id': this.user_id,
             'answers': this.selectedAnswer,
-            'questionIds': this.totalQues
+            'questionIds': this.totalQues,
+            'taken_time_minutes': totalMinutes
         }
         this.getTags.submitTest(this.allansRecord).subscribe(res => {
             // clearInterval(this.interval);
