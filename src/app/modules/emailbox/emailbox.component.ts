@@ -113,7 +113,7 @@ export class EmailboxComponent implements OnInit {
             }, (err) => {
                 console.log(err);
             });
-        } else if (title === 'Reject') {
+        } else if (title === 'Reject' || title === 'cv rejected') {
             this.dialogRef = this.dialog.open(AddNoteComponent, {
                 height: '35%',
                 width: '30%'
