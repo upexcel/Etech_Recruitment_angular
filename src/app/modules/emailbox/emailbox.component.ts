@@ -43,38 +43,9 @@ export class EmailboxComponent implements OnInit {
         this.removeSelected();
         this.role = this._localStorageService.getItem('role');
         if (this.email.tag_id.length !== 0) {
-            this.filtertag();
+            this.tagAssigned = this.commonService.filtertag(this.email.default_tag, this.allTags.Default, this.tagselected);
         };
     }
-
-    filtertag() {
-        let keyCount;
-        if (this.email.default_tag) {
-            _.forEach(this.allTags.Default, (val1, key) => {
-                if (val1.id === this.tagselected || val1.id === 1 && (this.tagselected === 3 || this.tagselected === 4 || this.tagselected === 5)) {
-                    keyCount = key;
-                }
-                if (keyCount) {
-                    this.tagAssigned.push(this.allTags.Default[keyCount]);
-                    if (keyCount < this.allTags.Default.length) {
-                        keyCount++;
-                    }
-                }
-            });
-        } else {
-            this.tagAssigned = this.allTags.Default;
-        }
-        if ((this.tagselected === 3 || this.tagselected === 4 || this.tagselected === 5)) {
-            const tempArr = [];
-            _.forEach(this.tagAssigned, (val, key) => {
-                if (val.id !== 1) {
-                    tempArr.push(val);
-                }
-            });
-            this.tagAssigned = tempArr;
-        };
-    }
-
     emailSelection() {
         if (this.email.selected) {
             this.selectEmail.emit(this.email.sender_mail);

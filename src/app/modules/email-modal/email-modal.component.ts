@@ -93,35 +93,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
         }
         this.getIntervieweeList();
         if (this.email.tag_id.length !== 0) {
-            this.filtertag();
-        };
-    }
-
-    filtertag() {
-        let keyCount;
-        if (this.email.default_tag) {
-            _.forEach(this.tags.Default, (val1, key) => {
-                if (val1.id === this.selectedTag || val1.id === 1 && (this.selectedTag === 3 || this.selectedTag === 4 || this.selectedTag === 5)) {
-                    keyCount = key;
-                }
-                if (keyCount) {
-                    this.tagAssigned.push(this.tags.Default[keyCount]);
-                    if (keyCount < this.tags.Default.length) {
-                        keyCount++;
-                    }
-                }
-            });
-        } else {
-            this.tagAssigned = this.tags.Default;
-        }
-        if ((this.selectedTag === 3 || this.selectedTag === 4 || this.selectedTag === 5)) {
-            const tempArr = [];
-            _.forEach(this.tagAssigned, (val, key) => {
-                if (val.id !== 1) {
-                    tempArr.push(val);
-                }
-            });
-            this.tagAssigned = tempArr;
+            this.tagAssigned = this.commonService.filtertag(this.email.default_tag, this.tags.Default, this.selectedTag);
         };
     }
 
