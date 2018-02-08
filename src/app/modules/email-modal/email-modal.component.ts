@@ -51,6 +51,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
     user: any;
     mongoid: any;
     intervieweeList: any;
+    tagAssigned= [];
     constructor(public snackBar: MdSnackBar,public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
         if (!this._localStorageService.getItem('selectedTag')) {
@@ -91,6 +92,9 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             }, 100);
         }
         this.getIntervieweeList();
+        if (this.email.tag_id.length !== 0) {
+            this.tagAssigned = this.commonService.filtertag(this.email.default_tag, this.tags.Default, this.selectedTag);
+        };
     }
 
     getIntervieweeList() {
