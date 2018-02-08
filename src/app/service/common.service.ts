@@ -233,4 +233,34 @@ export class CommonService {
             return 'added';
         }
     }
+    filtertag(emailDefautltTag, tagsDefault, selectedTag) {
+        let keyCount;
+        let tagAssigned = [];
+        if (emailDefautltTag) {
+            _.forEach(tagsDefault, (tag, key) => {
+                if (tag.id === selectedTag || tag.id === 1 && (selectedTag === 3 || selectedTag === 4 || selectedTag === 5)) {
+                    keyCount = key;
+                }
+                if (keyCount) {
+                    tagAssigned.push(tagsDefault[keyCount]);
+                    if (keyCount < tagsDefault.length) {
+                        keyCount++;
+                    }
+                }
+            });
+        } else {
+            tagAssigned = tagsDefault;
+        }
+        if ((selectedTag === 3 || selectedTag === 4 || selectedTag === 5)) {
+            const tagAssignTemp = [];
+            _.forEach(tagAssigned, (val, key) => {
+                if (val.id !== 1) {
+                    tagAssignTemp.push(val);
+                }
+            });
+            tagAssigned = tagAssignTemp;
+        };
+        return tagAssigned;
+    }
+
 }
