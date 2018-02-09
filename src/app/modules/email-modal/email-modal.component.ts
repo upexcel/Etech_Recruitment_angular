@@ -84,7 +84,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         };
         if ((this.selectedEmail['attachment'] === 'true') && (this.selectedEmail['is_attachment'] === 'true')) {
             this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data) => {
-                // this.showEmail(data.data);
                 this.getCandiatehistory();
             }, (err) => {
                 this.error = true;
@@ -142,11 +141,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             console.log(err);
         });
     }
-
-    // showEmail(singlemail: any) {
-    //     this.selectedEmail = '';
-    //     this.selectedEmail = singlemail;
-    // }
 
     openAccordian(singleEmail) {
         this.selectedEmail = '';
