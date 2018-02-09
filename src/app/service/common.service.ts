@@ -233,34 +233,44 @@ export class CommonService {
             return 'added';
         }
     }
-    filtertag(emailDefautltTag, tagsDefault, selectedTag) {
-        let keyCount;
+    filtertag(emailDefautltTag, tagsAll, tagFilter, selectedTag) {
+        let newTag;
         let tagAssigned = [];
-        if (emailDefautltTag) {
-            _.forEach(tagsDefault, (tag, key) => {
-                if (tag.id === selectedTag || tag.id === 1 && (selectedTag === 3 || selectedTag === 4 || selectedTag === 5)) {
-                    keyCount = key;
-                }
-                if (keyCount) {
-                    tagAssigned.push(tagsDefault[keyCount]);
-                    if (keyCount < tagsDefault.length) {
-                        keyCount++;
-                    }
+        _.forEach(tagFilter, (profile, key) => {
+            _.forEach(emailDefautltTag.tag_id, (tagid, key2) => {
+                if (profile.id == tagid) {
+                    newTag = profile.subchild;
                 }
             });
-        } else {
-            tagAssigned = tagsDefault;
+        })
+        if (newTag && emailDefautltTag.default_tag) {
+            _.forEach(newTag, (tag, index) => {
+                if (tag.id === selectedTag) {
+                    tagAssigned = this.pushTagInarray(index, newTag);
+                }
+            });
+        }else {
+            tagAssigned = this.pushTagInarray(0, newTag);
         }
-        if ((selectedTag === 3 || selectedTag === 4 || selectedTag === 5)) {
-            const tagAssignTemp = [];
-            _.forEach(tagAssigned, (val, key) => {
-                if (val.id !== 1) {
-                    tagAssignTemp.push(val);
-                }
-            });
-            tagAssigned = tagAssignTemp;
-        };
-        return tagAssigned;
+        const TagArray = [];
+        _.forEach(tagAssigned, (data, key) => {
+            if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
+                // TagArray.push(data);
+            }else {
+                TagArray.push(data);
+            }
+        });
+        return TagArray;
+    }
+
+    pushTagInarray(id, allTag) {
+        const tag = [];
+        for (let index = id; index < allTag.length; index++) {
+            tag.push(allTag[index]);
+        }
+        tag.push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 })
+
+        return tag;
     }
 
 }
