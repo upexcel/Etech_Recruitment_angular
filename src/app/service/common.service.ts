@@ -212,7 +212,7 @@ export class CommonService {
     }
     getIntervieweeList() {
         return new Promise((resolve, reject) => {
-            if (this.intervieweeList && this.intervieweeList.lenght) {
+            if (this.intervieweeList && this.intervieweeList.length) {
                 resolve(this.intervieweeList);
             } else {
                 this._apiService.getIntervieweeList().subscribe((res) => {

@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdDialog, MdDialogConfig, MdDialogRef , MdSnackBar} from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -32,10 +32,9 @@ import { PreviewScoreComponent } from '../previewScore/previewScore.component';
         ])
     ]
 })
-export class EmailModalComponent implements OnInit, OnDestroy {
+export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit {
     dialogConfig: MdDialogRef<any>;
     dialogRef: MdDialogRef<any>;
-    email: any;
     tags: any;
     body: any;
     historyList: any;
@@ -51,35 +50,41 @@ export class EmailModalComponent implements OnInit, OnDestroy {
     user: any;
     mongoid: any;
     intervieweeList: any;
-    tagAssigned= [];
-    tagfilter= [];
-    constructor(public snackBar: MdSnackBar,public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
-        this.email = this._localStorageService.getItem('email');
-        if (!this._localStorageService.getItem('selectedTag')) {
-            this.selectedTag = -1;
-        } else {
-            this.selectedTag = this._localStorageService.getItem('selectedTag');
+    tagAssigned = [];
+    tagfilter = [];
+    constructor(public snackBar: MdSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+        this.selectedEmail = {
+            selectedTag: this.route.snapshot.paramMap.get('selectedTag'),
+            id: this.route.snapshot.paramMap.get('id'),
+            attachment: this.route.snapshot.paramMap.get('attachment'),
+            is_attachment: this.route.snapshot.paramMap.get('is_attachment'),
+            tag_id: this.route.snapshot.paramMap.get('tag_id').split(','),
+            default_tag: this.route.snapshot.paramMap.get('default_tag'),
+            sender_mail: this.route.snapshot.paramMap.get('sender_mail'),
+            examScore: this.route.snapshot.paramMap.get('examScore'),
+            fb_id: this.route.snapshot.paramMap.get('fb_id')
         }
+        this.selectedTag = this.selectedEmail['selectedTag'];
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
         this.inboxMailsTagsForEmailListAndModel = this._localStorageService.getItem('inboxMailsTagsForEmailListAndModel');
     }
 
+    ngAfterContentInit() {
+        document.getElementById('sideNav').classList.add('sidehide');
+    }
+
     ngOnInit() {
-        document.getElementById('topnav').classList.add('sidehide');
-        document.getElementById('leftPart').classList.add('sidehide');
-        document.getElementById('rightPart').classList.add('fullwidth');
-        this.selectedEmail = this.email;
         this.historyList = [];
         this.idlist = [];
         this.user = this._localStorageService.getItem('userEmail');
         this.body = {
             'status': false,
-            'mongo_id': this.route.snapshot.paramMap.get('id')
+            'mongo_id': this.selectedEmail['id']
         };
-        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
+        if ((this.selectedEmail['attachment'] === 'true') && (this.selectedEmail['is_attachment'] === 'true')) {
             this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data) => {
-                this.showEmail(data.data);
+                // this.showEmail(data.data);
                 this.getCandiatehistory();
             }, (err) => {
                 this.error = true;
@@ -94,8 +99,8 @@ export class EmailModalComponent implements OnInit, OnDestroy {
         }
         this.getIntervieweeList();
         this.tagfilter = this._localStorageService.getItem('tagFilter');
-        if (this.email.tag_id.length !== 0) {
-            this.tagAssigned = this.commonService.filtertag(this.email, this.tags.Default, this.tagfilter, this.selectedTag);
+        if (this.selectedEmail.tag_id.length !== 0) {
+            this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tags.Default, this.tagfilter, this.selectedTag * 1);
         };
     }
 
@@ -109,41 +114,39 @@ export class EmailModalComponent implements OnInit, OnDestroy {
 
     assignInterviewee(interviewee) {
         const apiData = {
-            mongo_id: this.email._id,
+            mongo_id: this.selectedEmail._id,
             interviewee: interviewee
         }
-        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
+        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => { }, (err) => {
             console.log(err)
         })
     }
 
     ngOnDestroy() {
-        document.getElementById('topnav').classList.remove('sidehide');
-        document.getElementById('leftPart').classList.remove('sidehide');
-        document.getElementById('rightPart').classList.remove('fullwidth');
+        document.getElementById('sideNav').classList.remove('sidehide');
     }
 
     getCandiatehistory() {
-        if (this.email.sender_mail) {
-            this.getCandidateHistoryApi(this.email.sender_mail);
+        if (this.selectedEmail['sender_mail']) {
+            this.getCandidateHistoryApi(this.selectedEmail['sender_mail']);
         } else {
-            this.getCandidateHistoryApi(this.email._id);
+            this.getCandidateHistoryApi(this.selectedEmail['id']);
         }
     }
 
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            this.historyList = this.commonService.formateEmailHistoryData(data, this.route.snapshot.paramMap.get('id'));
+            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
         }, (err) => {
             console.log(err);
         });
     }
 
-    showEmail(singlemail: any) {
-        this.selectedEmail = '';
-        this.selectedEmail = singlemail;
-    }
+    // showEmail(singlemail: any) {
+    //     this.selectedEmail = '';
+    //     this.selectedEmail = singlemail;
+    // }
 
     openAccordian(singleEmail) {
         this.selectedEmail = '';
@@ -285,7 +288,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             height: '90%',
             width: '70%'
         });
-        this.dialogRef.componentInstance.emailList = [this.email['sender_mail']];
+        this.dialogRef.componentInstance.emailList = [this.selectedEmail['sender_mail']];
         this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
@@ -303,7 +306,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             const time = moment(new Date()).format('hh:mm:ss a');
             for (let i = 0; i <= this.historyList.data.length; i++) {
                 if (this.historyList.data[i]._id === result.notedata.mongo_id) {
-                    this.historyList.data[i].notes.push({'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time})
+                    this.historyList.data[i].notes.push({ 'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time })
                 }
             }
             this.dialogRef = null;
@@ -312,12 +315,13 @@ export class EmailModalComponent implements OnInit, OnDestroy {
 
     eventHandler(event, notedate, notetime, mongoid) {
         this.mongoid = mongoid;
-        this.updatedData = {note: event.target.outerText, mongo_id: mongoid, note_date: notedate, note_time: notetime
+        this.updatedData = {
+            note: event.target.outerText, mongo_id: mongoid, note_date: notedate, note_time: notetime
         }
     }
     update(event, i) {
         if (this.updatedData !== undefined) {
-            this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {}, (err) => {
+            this.tagUpdate.updateNote(this.updatedData).subscribe((data) => { }, (err) => {
                 this.error = true;
                 this.errorMessageText = err.message;
             });

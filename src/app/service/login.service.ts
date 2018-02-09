@@ -50,7 +50,7 @@ export class LoginService {
     }
 
     removeToken(): Promise < boolean > {
-        localStorage.removeItem('token');
+        localStorage.clear();
         return Promise.resolve(true);
     }
 
