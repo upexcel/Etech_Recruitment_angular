@@ -254,7 +254,7 @@ export class CommonService {
         }
         const TagArray = [];
         _.forEach(tagAssigned, (data, key) => {
-            if (data.title === 'First Round' || data.title === 'Second Round' || data.title === 'Third Round') {
+            if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
                 // TagArray.push(data);
             }else {
                 TagArray.push(data);
