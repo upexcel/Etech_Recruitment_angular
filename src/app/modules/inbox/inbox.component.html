@@ -1,8 +1,8 @@
-<md-sidenav-container>
+<md-sidenav-container class="fixed">
     <div class="container-fluid">
         <div class="row">
             <div id="leftPart" class="col-md-2 no-pad background-white">
-                <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)" (getTags)="getAllTag()"></app-inbox-side-nav>
+                <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)" (getTags)="getAllTag()" class="sideNavFix"></app-inbox-side-nav>
             </div>
             <div id="rightPart" class="col-md-10 no-pad">
                 <div class="content">
