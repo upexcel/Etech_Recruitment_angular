@@ -99,7 +99,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.getIntervieweeList();
         this.tagfilter = this._localStorageService.getItem('tagFilter');
         if (this.selectedEmail.tag_id.length !== 0) {
-            this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tags.Default, this.tagfilter, this.selectedTag * 1);
+            this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tagfilter, this.selectedTag * 1);
         };
     }
 
