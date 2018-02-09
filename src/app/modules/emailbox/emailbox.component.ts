@@ -22,6 +22,7 @@ export class EmailboxComponent implements OnInit {
     selectedMid: string[];
     tagAssigned= [];
     @Input() email: any;
+    @Input() tagfilter: any;
     @Input() tags: any[];
     @Input() allTags: any;
     @Input() tagselected: any;
@@ -43,7 +44,7 @@ export class EmailboxComponent implements OnInit {
         this.removeSelected();
         this.role = this._localStorageService.getItem('role');
         if (this.email.tag_id.length !== 0) {
-            this.tagAssigned = this.commonService.filtertag(this.email.default_tag, this.allTags.Default, this.tagselected);
+            this.tagAssigned = this.commonService.filtertag(this.email, this.allTags.Default, this.tagfilter, this.tagselected);
         };
     }
     emailSelection() {
