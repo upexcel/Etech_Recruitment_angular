@@ -75,6 +75,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     goToPageNo: number;
     email: any;
     intervieweeList: any;
+    allTagfilter: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -107,6 +108,16 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.refresh();
         });
         this.getIntervieweeList();
+        this.getTagFilter();
+    }
+    getTagFilter() {
+        this.getemails.getAllTagsMain().subscribe(res => {
+            _.forEach(res.data, (tag, key) => {
+                if (tag.title === 'candidate') {
+                    this.allTagfilter = tag.data;
+                }
+            })
+        });
     }
 
     defaultOpen() {
@@ -273,6 +284,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         // }
         this._localStorageService.setItem('email', email);
         this._localStorageService.setItem('selectedTag', this.selectedTag);
+        this._localStorageService.setItem('tagFilter', this.allTagfilter);
         this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
         this._localStorageService.setItem('dataForInterviewScheduleRound', this.dataForInterviewScheduleRound);
         this._localStorageService.setItem('inboxMailsTagsForEmailListAndModel', this.inboxMailsTagsForEmailListAndModel);
@@ -292,6 +304,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     getAllTag() {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
+                this.getTagFilter();
                 this.formatTagsInArray(res.data);
             }, (err) => {
                 this.loading = false;
