@@ -64,7 +64,13 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             examScore: this.route.snapshot.paramMap.get('examScore'),
             fb_id: this.route.snapshot.paramMap.get('fb_id')
         }
-        this.selectedTag = this.selectedEmail['selectedTag'];
+        if (this.selectedEmail['default_tag'] === 'false') {
+            this.selectedEmail['default_tag'] = '';
+        }
+        if (this.selectedEmail['tag_id'][0] === 'false') {
+            this.selectedEmail['tag_id'] = [];
+        };
+        this.selectedTag = this.selectedEmail['selectedTag'] * 1;
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
         this.inboxMailsTagsForEmailListAndModel = this._localStorageService.getItem('inboxMailsTagsForEmailListAndModel');
