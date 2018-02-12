@@ -193,7 +193,6 @@ export class CommonService {
     }
 
     formateEmailHistoryData(data, emailId) {
-        console.log(data, emailId)
         const deletedData = _.find(data.data, { '_id': emailId });
         _.remove(data.data, {
             '_id': emailId
