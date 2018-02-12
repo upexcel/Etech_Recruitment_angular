@@ -44,7 +44,7 @@ export class EmailboxComponent implements OnInit {
         this.removeSelected();
         this.role = this._localStorageService.getItem('role');
         if (this.email.tag_id.length !== 0) {
-            this.tagAssigned = this.commonService.filtertag(this.email, this.allTags.Default, this.tagfilter, this.tagselected);
+            this.tagAssigned = this.commonService.filtertag(this.email, this.tagfilter, this.tagselected);
         };
     }
     emailSelection() {
