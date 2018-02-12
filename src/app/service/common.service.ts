@@ -193,6 +193,7 @@ export class CommonService {
     }
 
     formateEmailHistoryData(data, emailId) {
+        console.log(data, emailId)
         const deletedData = _.find(data.data, { '_id': emailId });
         _.remove(data.data, {
             '_id': emailId
@@ -212,7 +213,7 @@ export class CommonService {
     }
     getIntervieweeList() {
         return new Promise((resolve, reject) => {
-            if (this.intervieweeList && this.intervieweeList.lenght) {
+            if (this.intervieweeList && this.intervieweeList.length) {
                 resolve(this.intervieweeList);
             } else {
                 this._apiService.getIntervieweeList().subscribe((res) => {
@@ -233,8 +234,8 @@ export class CommonService {
             return 'added';
         }
     }
-    filtertag(emailDefautltTag, tagsAll, tagFilter, selectedTag) {
-        let newTag;
+    filtertag(emailDefautltTag, tagFilter, selectedTag) {
+        let newTag = [];
         let tagAssigned = [];
         _.forEach(tagFilter, (profile, key) => {
             _.forEach(emailDefautltTag.tag_id, (tagid, key2) => {

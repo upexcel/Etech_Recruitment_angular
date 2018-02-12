@@ -51,6 +51,7 @@ export class LoginService {
 
     removeToken(): Promise < boolean > {
         localStorage.removeItem('token');
+        localStorage.removeItem('tagShowId');
         return Promise.resolve(true);
     }
 

@@ -277,7 +277,12 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.emaillist['data'][index]['unread'] = false;
         }
         // if (environment['picasa']) {
-        const landingUrl = window.location + '/email/' + email._id;
+        console.log(email)
+        let attachment = false;
+        if (email['attachment'] && email['attachment'].length === 0) {
+            attachment = true;
+        }
+        const landingUrl = window['origin'] + '/#/core/email/' + email._id + '/' + email['sender_mail'] + '/' + this.selectedTag + '/' + attachment + '/' + email['is_attachment'] + '/' + email['default_tag'] + '/' + email['tag_id'] + '/' + (email['fb_id'] ? email['fb_id'] : false) + '/' + (email['examScore'] ? email['examScore'] : false);
         window.open(landingUrl);
         // }else {
         //     this._router.navigate(['core/inbox/email', email._id]);
