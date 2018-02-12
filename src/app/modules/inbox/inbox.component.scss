@@ -171,9 +171,13 @@
     left: 0;
     background-color: white;
     overflow-x: hidden;
+    padding-bottom: 1em;
   }
   .fixed{
     position: fixed !important;
+  }
+  .content{
+    padding-bottom: 5em;
   }
 
 }
