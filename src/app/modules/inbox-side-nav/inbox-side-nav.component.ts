@@ -17,6 +17,8 @@ export class InboxSideNavComponent implements OnInit {
     thirdlist = false;
     selectedId: string;
     parantTagId: string;
+    showId: any;
+    showAlltag: boolean;
     @Input() tags: any[];
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
@@ -34,6 +36,11 @@ export class InboxSideNavComponent implements OnInit {
                 });
             }
         });
+        if (localStorage.getItem('tagShowId')) {
+            this.showId = localStorage.getItem('tagShowId');
+        }else{
+            this.showAlltag = true;
+        }
     }
     getEmail(id, parantTagId, title, parentTitle) {
         this.parantTagId = parantTagId;
@@ -104,5 +111,11 @@ export class InboxSideNavComponent implements OnInit {
     hidetag() {
         this.showHide = null;
        // this.showaddtag = false;
+    }
+    showHideMenu(id) {
+        this.showAlltag=false;
+        this.showId = id
+        localStorage.setItem('tagShowId', id);
+        console.log(id)
     }
 }

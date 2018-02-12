@@ -161,3 +161,19 @@
 .fullwidth{
   width: 100%;
 }
+@media(min-width:992px){
+  .sideNavFix{
+    height: 589px;
+    width: 16.6%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+  }
+  .fixed{
+    position: fixed !important;
+  }
+
+}

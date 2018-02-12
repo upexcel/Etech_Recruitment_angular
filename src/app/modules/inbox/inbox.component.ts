@@ -126,6 +126,12 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.formatTagsInArray(res.data);
                 if (res.data.length > 0) {
                     _.forEach(res.data, (value, key) => {
+                        // console.log(value);
+                        // if (value['title'] === 'candidate') {
+                        //     if (!localStorage.getItem('tagShowId')) {
+                        //         localStorage.setItem('tagShowId', value.data[0].id);
+                        //     }
+                        // }
                         if (value['title'] === 'inbox') {
                             _.forEach(value['data'], (subMenuValue, subMenukey) => {
                                 if (subMenuValue['title'] === 'Mails') {
