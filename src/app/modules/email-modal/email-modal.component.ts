@@ -140,12 +140,19 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     getCandidateHistoryApi(apiData) {
-        this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
+        if (localStorage.getItem(`email/inbox/${apiData}`)) {
+            this.historyList = JSON.parse(localStorage.getItem(`email/inbox/${apiData}`));
+            this.historyList = this.commonService.formateEmailHistoryData(this.historyList, this.selectedEmail['id']);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
-        }, (err) => {
-            console.log(err);
-        });
+        } else {
+            this._localStorageService.getAllHistory(apiData).then((data) => {
+                this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
+                this._localStorageService.setItem('email', this.historyList['data'][0]);
+            }, (err) => {
+                console.log(err);
+            });
+        }
+
     }
 
     openAccordian(singleEmail) {
