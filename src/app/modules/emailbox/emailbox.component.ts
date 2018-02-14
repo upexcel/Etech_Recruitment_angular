@@ -8,6 +8,7 @@ import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { ViewNoteComponent } from './../view-note/view-note.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
+import { config } from './../../config/config';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,9 +38,11 @@ export class EmailboxComponent implements OnInit {
     @Output() removeEmail = new EventEmitter<string>();
     @Output() deleteAndAssignTag = new EventEmitter();
     role: string;
+    url:string;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
     ngOnInit() {
+        this.url = config.avatarUrl;
         this.selectedMid = [];
         this.removeSelected();
         this.role = this._localStorageService.getItem('role');
