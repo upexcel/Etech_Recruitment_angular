@@ -1,8 +1,7 @@
 import {
     Component,
     OnInit,
-    OnDestroy,
-    HostListener
+    OnDestroy
 } from '@angular/core';
 import {
     Router,
@@ -87,7 +86,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     }
     ngOnInit() {
-        let hello = this;
+        let scope = this;
         this.emailIds = [];
         this.loading = true;
         this.data = {
@@ -114,7 +113,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         window.addEventListener("storage", message_receive);
         function message_receive(ev) {
             if (ev.key == 'message') {
-                hello.refresh();
+                scope.refresh();
             }
         }
     }

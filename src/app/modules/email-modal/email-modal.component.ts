@@ -146,6 +146,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         }, (err) => {
             console.log(err);
         });
+        console.log("schedule");
     }
 
     openAccordian(singleEmail) {
@@ -189,7 +190,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         });
                         this.commonService.inboxRefreshEvent();
                         message_broadcast({ 'command': 'reset' });
-                        console.log("schedule");
                     }, (err) => {
                         console.log(err);
                     });
