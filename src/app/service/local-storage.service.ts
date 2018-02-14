@@ -5,12 +5,12 @@ import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {historylog, Emaillist, SystemVar} from './mock-data';
-import {InterceptedHttp} from './http.interceptor';
 import {Subject} from 'rxjs/Subject';
 import * as _ from 'lodash';
+import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class LocalStorageService {
-    constructor( private Intercepted: InterceptedHttp) { }
+    constructor( private http: HttpClient) { }
 
     setItem(key, data) {
         localStorage.setItem(key, JSON.stringify(data));
@@ -25,7 +25,7 @@ export class LocalStorageService {
     }
 
     emailHistory(Email_id: any): Observable<any> {
-        return this.Intercepted.get(environment['apibase'] + `email/inbox/${Email_id}`)
+        return this.http.get(environment['apibase'] + `email/inbox/${Email_id}`)
             .map((res: Response) => {
                 return res.json();
             })

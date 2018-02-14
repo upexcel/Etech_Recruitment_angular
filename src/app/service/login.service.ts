@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
-import { InterceptedHttp } from './http.interceptor';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
@@ -11,7 +11,7 @@ export class LoginService {
     headers: any;
     options: any;
 
-    constructor(public http: Http, public Intercepted: InterceptedHttp) {
+    constructor(public http: Http, public Intercepted: HttpClient) {
         this.headers = new Headers({
             'Content-Type': 'application/json'
         });
@@ -41,7 +41,7 @@ export class LoginService {
     verifyAccess(): Observable < any > {
         return this.Intercepted.get(environment['apibase'] + 'verify')
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
+            .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 
     storeToken(token: string): Promise < boolean > {
