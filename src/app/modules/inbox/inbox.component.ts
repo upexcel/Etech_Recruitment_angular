@@ -86,7 +86,6 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     }
     ngOnInit() {
-        let scope = this;
         this.emailIds = [];
         this.loading = true;
         this.data = {
@@ -110,12 +109,12 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
         this.getIntervieweeList();
         this.getTagFilter();
-        window.addEventListener("storage", broadcast_receive);
-        function broadcast_receive(ev) {
-            if (ev.key == 'changed') {
-                scope.refresh();
+        window.addEventListener("storage", (ev) => {
+            if (ev.key == 'updateInbox') {
+                this.refresh();
             }
-        }
+        });
+
     }
     getTagFilter() {
         this.getemails.getAllTagsMain().subscribe(res => {

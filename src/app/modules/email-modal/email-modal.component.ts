@@ -189,7 +189,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                             duration: 2000,
                         });
                         this.commonService.inboxRefreshEvent();
-                        broadcast_send({ 'any':'value' });
+                        this.broadcast_send();
                     }, (err) => {
                         console.log(err);
                     });
@@ -219,7 +219,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                             duration: 2000,
                         });
                         this.commonService.inboxRefreshEvent();
-                        broadcast_send({ 'any':'value' });
+                        this.broadcast_send();
                     }, (err) => {
                         console.log(err);
                     });
@@ -240,17 +240,17 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                     duration: 2000,
                 });
                 this.commonService.inboxRefreshEvent();
-                broadcast_send({ 'any':'value' });
+                this.broadcast_send();
             }, (err) => {
                 console.log(err);
             });
             this._location.back();
         }
-
-        function broadcast_send(value) {
-            localStorage.setItem('changed', JSON.stringify(value));
-            localStorage.removeItem('changed');
-        }
+    }
+    
+    broadcast_send() {
+        localStorage.setItem('updateInbox','');
+        localStorage.removeItem('updateInbox');
     }
 
     openAttachment(link: string) {
