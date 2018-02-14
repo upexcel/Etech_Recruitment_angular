@@ -119,6 +119,10 @@ export class InboxComponent implements OnInit, OnDestroy {
             })
         });
     }
+    getHistory(email) {
+        this._localStorageService.getAllHistory(email['data']).then((historyEmail) => {
+        });
+    }
 
     defaultOpen() {
         this.getemails.getAllTagsMain()
@@ -140,6 +144,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.getemails.getEmailList(this.data).subscribe((data) => {
                                         this.addSelectedFieldInEmailList(data);
                                         this.loading = false;
+                                        this.getHistory(data);
                                     });
                                 }
                             });
@@ -382,6 +387,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
+            this.getHistory(data);
         });
     }
 

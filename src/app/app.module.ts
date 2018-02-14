@@ -12,8 +12,10 @@ import {
     HttpModule,
     Http,
     XHRBackend,
-    RequestOptions
+    RequestOptions,
 } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import {
     BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
@@ -112,10 +114,7 @@ import {
     AutomaticTagModalComponent
 } from './modules/automatic-tag-modal/automatic-tag-modal.component';
 import {
-    httpFactory
-} from './service/http.factory';
-import {
-    InterceptedHttp
+    IntercepterHttp
 } from './service/http.interceptor';
 import {
     SmtpComponentFormComponent
@@ -253,7 +252,9 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
         PendingCandidateComponent
     ],
     imports: [
+        HttpClientModule,
         BrowserModule,
+        HttpClientModule,
         BrowserAnimationsModule,
         MaterialModule,
         MdButtonModule,
@@ -277,6 +278,7 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
         RlTagInputModule
     ],
     providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: IntercepterHttp, multi: true },
         ImapMailsService,
         LoginService,
         CommonService,
@@ -284,12 +286,7 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
         DialogService,
         SpamDialogService,
         DashboardService,
-        LoginRouteGuard,
-        {
-            provide: InterceptedHttp,
-            useFactory: httpFactory,
-            deps: [XHRBackend, RequestOptions]
-        }
+        LoginRouteGuard
     ],
     entryComponents: [
         ManualTagModalComponent,
