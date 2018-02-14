@@ -3,7 +3,7 @@
         <div class="col-md-12" id="inbox-col" *ngFor="let email of inboxEmail" (click)="openEmails(email)">
             <md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
                 <div class="avatar-image">
-                    <img src="https://pikmail.herokuapp.com/{{email.sender_mail}}" onerror="this.src='assets/user.jpg'">
+                    <img src="{{url}}/{{email.sender_mail}}" onerror="this.src='assets/user.jpg'">
                 </div>
                 <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}">
                     <h5>{{countEmailSubject(email.subject)}}</h5>
