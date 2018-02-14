@@ -188,6 +188,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                             duration: 2000,
                         });
                         this.commonService.inboxRefreshEvent();
+                        message_broadcast({ 'command': 'reset' });
+                        console.log("schedule");
                     }, (err) => {
                         console.log(err);
                     });
@@ -217,6 +219,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                             duration: 2000,
                         });
                         this.commonService.inboxRefreshEvent();
+                        message_broadcast({ 'command': 'reset' });
                     }, (err) => {
                         console.log(err);
                     });
@@ -224,7 +227,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                 }
             })
         } else {
-            console.log('modalRejct')
+            console.log('modalRejct');
             this.body = null;
             this.idlist.push(emailId);
             this.body = {
@@ -237,10 +240,16 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                     duration: 2000,
                 });
                 this.commonService.inboxRefreshEvent();
+                message_broadcast({ 'command': 'reset' });
             }, (err) => {
                 console.log(err);
             });
             this._location.back();
+        }
+
+        function message_broadcast(message) {
+            localStorage.setItem('message', JSON.stringify(message));
+            localStorage.removeItem('message');
         }
     }
 

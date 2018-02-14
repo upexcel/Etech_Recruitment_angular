@@ -1,7 +1,8 @@
 import {
     Component,
     OnInit,
-    OnDestroy
+    OnDestroy,
+    HostListener
 } from '@angular/core';
 import {
     Router,
@@ -86,6 +87,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     }
     ngOnInit() {
+        let hello = this;
         this.emailIds = [];
         this.loading = true;
         this.data = {
@@ -109,6 +111,12 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
         this.getIntervieweeList();
         this.getTagFilter();
+        window.addEventListener("storage", message_receive);
+        function message_receive(ev) {
+            if (ev.key == 'message') {
+                hello.refresh();
+            }
+        }
     }
     getTagFilter() {
         this.getemails.getAllTagsMain().subscribe(res => {
@@ -485,6 +493,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             console.log(err)
         })
     }
+
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
