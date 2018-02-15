@@ -12,7 +12,8 @@ import {
 import {
     ImapMailsService
 } from '../../service/imapemails.service';
-import { LocalStorageService } from './../../service/local-storage.service'
+import { LocalStorageService } from './../../service/local-storage.service';
+import { config } from './../../config/config';
 @Component({
     selector: 'app-interviewee-inbox',
     templateUrl: './interviewee-inbox.component.html',
@@ -20,9 +21,11 @@ import { LocalStorageService } from './../../service/local-storage.service'
 })
 export class IntervieweeInboxComponent implements OnInit, OnDestroy {
     inboxEmail: any;
+    url:string;
     constructor(private _apiService: ImapMailsService, private _localStorageService: LocalStorageService) {
     }
     ngOnInit() {
+        this.url = config.avatarUrl;
         this.getInboxMails();
     }
 
