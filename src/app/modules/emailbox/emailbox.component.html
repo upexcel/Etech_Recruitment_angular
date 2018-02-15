@@ -1,11 +1,11 @@
-<md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
+<md-card class="emailstyle  {{email.unread ? 'unchecked': 'checked'}}" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
   <div class="avatar-image" (click)="email.selected = !email.selected; emailSelection()">
     <img src="{{url}}/{{email.sender_mail}}" onerror="this.src='assets/user.jpg'">      
   </div>
   <div class="emailcheckbox" *ngIf="role !== 'Guest'" [style.visibility]="email.selected ? 'visible' : 'hidden'">
     <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
   </div>
-  <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
+  <div class="detailloc" (click)="openEmails(email)">
     <h5>{{countEmailSubject(email.subject)}}</h5>
     <h6 class="inline">
       <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span>
