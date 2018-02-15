@@ -37,16 +37,6 @@ export class LocalStorageService {
     getAllHistory(emails: any) {
         emails = JSON.parse(JSON.stringify(emails));
         return new Promise((resolve, reject) => {
-            // let historyData = [];
-            // _.forEach(emails, (email, key) => {
-            //     if (!localStorage.getItem(`email/inbox/${email['sender_mail']}`)) {
-            //         this.emailHistory(email['sender_mail']).subscribe(data => {
-            //             if (key === emails.length - 1) {
-            //                 resolve(historyData);
-            //             }
-            //         })
-            //     }
-            // })
             let historyData = (allEmails, callback) => {
                 let first_data = allEmails.splice(0, 1)[0];
                 if (first_data) {

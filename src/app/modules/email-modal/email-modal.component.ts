@@ -146,7 +146,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             const date2 = new Date();
             const timeDiff = Math.abs(date2.getTime() - date1.getTime());
             const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-            console.log((timeDiff / 1000), diffDays, diffDays > 1);
             if (diffDays > 1) {
                 this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
                     this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
