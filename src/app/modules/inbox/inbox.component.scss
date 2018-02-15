@@ -187,23 +187,12 @@
     padding-bottom: 5em;
   }
   .sendEmail {
-    display: inline-block;
     position: fixed;
     z-index: 1;
     top: 75vh;
     left: 85vw;
-    padding: 1rem 2.4rem;
-    background: #4285f4!important;
-    border-radius: 25px;
-    border: none;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
-    transition: transform 0.5s,background 0.5s;
-    color: #fff;
     font-weight: bold;
-    font-size: 115%;
+    background: #1182f3;
   }
-  .sendEmail:hover {
-    transform: scale(1.1);
-    background: #175ed0 !important;
-  }
+
 }

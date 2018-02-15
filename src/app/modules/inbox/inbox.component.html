@@ -53,7 +53,7 @@
                         <a style="margin-right: 4px;" *ngIf="selectedTagTitle == 'All' && emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" (click)="sendEmailToAll('notGenuine')">Not Genuine</a>
                         <a *ngIf="selectedTagTitle == 'All' && this.role !== 'Guest' && emaillist && emaillist.data && emaillist.data.length > 0"
                             style="margin-right: 4px;" (click)="sendEmailToPendingCandidates()">Pending  Candidates <span *ngIf="sendFailedEmailListCount || sendSuccessEmailListCount">Success: {{sendSuccessEmailListCount}}, Failed: {{sendFailedEmailListCount}} </span></a>
-                            <button class="sendEmail" *ngIf="emailIds.length > 0 && this.role !== 'Guest'" (click)="composeEmail()">
+                            <button md-raised-button color="primary" class="sendEmail" *ngIf="emailIds.length > 0 && this.role !== 'Guest'" (click)="composeEmail()">
                                 Send Email
                             </button>
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId && selectedTagTitle == 'All'" class="pull-right" (click)="cronStatus()"> Get Cron Status </a>
