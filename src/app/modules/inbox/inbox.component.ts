@@ -109,6 +109,12 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
         this.getIntervieweeList();
         this.getTagFilter();
+        window.addEventListener("storage", (ev) => {
+            if (ev.key == 'updateInbox') {
+                this.refresh();
+            }
+        });
+
     }
     getTagFilter() {
         this.getemails.getAllTagsMain().subscribe(res => {
@@ -491,6 +497,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             console.log(err)
         })
     }
+
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
