@@ -49,13 +49,13 @@
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('spam','Spam')">
                     <a md-line> Spam </a>
                 </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('pendingCandidate','PendingCandidate')">
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('pendingCandidate','PendingCandidate')">
                   <a md-line> Pending Candidate </a>
                 </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('createQuestion','CreateQuestion')">
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('createQuestion','CreateQuestion')">
                   <a md-line> Create Question </a>
                 </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('candidateScore','Candidate Score')">
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('candidateScore','Candidate Score')">
                   <a md-line> Candidate Score </a>
                 </md-list-item>
             </md-list>
