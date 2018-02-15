@@ -40,7 +40,7 @@ export class LoginService {
 
     verifyAccess(): Observable < any > {
         return this.Intercepted.get(environment['apibase'] + 'verify')
-            .map((res: Response) => res.json())
+            .map((res: Response) => res)
             .catch((error: any) => Observable.throw(error || 'Server error'));
     }
 

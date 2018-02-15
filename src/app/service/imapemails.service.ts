@@ -5,7 +5,7 @@ import {environment} from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {historylog, Emaillist, SystemVar} from './mock-data';
-import { HttpClient} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs/Subject';
 
 
@@ -112,7 +112,6 @@ export class ImapMailsService {
         return this.http.get(environment['apibase'] + 'dashboard')
             .map((res: Response) => {
                 this.decreaseAPiCount();
-                console.log(res)
                 return res.json();
             })
             .catch((error: any) => {
@@ -376,7 +375,7 @@ export class ImapMailsService {
     }
     emailAttachment(id: string): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `email/mailAttachment/${id}`)
+        return this.Intercepted.put(environment['apibase'] + `email/mailAttachment/${id}`, {})
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res;
@@ -640,7 +639,7 @@ export class ImapMailsService {
     }
     activateImap(email_id: any): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `imap/statusActive/${email_id}`)
+        return this.Intercepted.put(environment['apibase'] + `imap/statusActive/${email_id}`, {})
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res;
@@ -679,7 +678,7 @@ export class ImapMailsService {
     }
     testSmtp(email: string): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `smtp/testSmtp/${email}`)
+        return this.Intercepted.put(environment['apibase'] + `smtp/testSmtp/${email}`, {})
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res;
@@ -692,7 +691,7 @@ export class ImapMailsService {
     }
     changeSmtpStatus(email: string): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `smtp/changeStatus/${email}`)
+        return this.Intercepted.put(environment['apibase'] + `smtp/changeStatus/${email}`, {})
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res;
@@ -1034,12 +1033,12 @@ export class ImapMailsService {
         return this.http.post(environment['apibase'] + `exams/job_profile`, body)
           .map((res: Response) => {
               this.decreaseAPiCount();
-              return res;
+              return res.json();
           })
           .catch((error: any) => {
               this.count = 0;
               this.apiEndEvent.emit();
-              return Observable.throw(error || 'Server error');
+              return Observable.throw(error.json() || 'Server error');
           });
     }
     submitTest(data): Observable<any> {
@@ -1047,12 +1046,12 @@ export class ImapMailsService {
         return this.http.post(environment['apibase'] + `exams/submitExam`, data)
           .map((res: Response) => {
               this.decreaseAPiCount();
-              return res;
+              return res.json();
           })
           .catch((error: any) => {
               this.count = 0;
               this.apiEndEvent.emit();
-              return Observable.throw(error || 'Server error');
+              return Observable.throw(error.json() || 'Server error');
           });
     }
     score(body: any): Observable<any> {
@@ -1112,12 +1111,12 @@ export class ImapMailsService {
         return this.http.post(environment['apibase'] + `exams/addNewCandidate`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
-                return res;
+                return res.json();
             })
             .catch((error: any) => {
                 this.count = 0;
                 this.apiEndEvent.emit();
-                return Observable.throw(error || 'Server error');
+                return Observable.throw(error.json() || 'Server error');
             });
     }
     pendingList(): Observable<any> {

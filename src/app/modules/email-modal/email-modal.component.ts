@@ -145,9 +145,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.historyList = this.commonService.formateEmailHistoryData(this.historyList, this.selectedEmail['id']);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
         } else {
-            this._localStorageService.getAllHistory(apiData).then((data) => {
+            this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
                 this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
-                this._localStorageService.setItem('email', this.historyList['data'][0]);
             }, (err) => {
                 console.log(err);
             });

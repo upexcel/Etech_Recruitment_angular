@@ -10,7 +10,8 @@ import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class LocalStorageService {
-    constructor( private http: HttpClient) { }
+    emaillocal: any;
+    constructor( private Intercepted: HttpClient) { }
 
     setItem(key, data) {
         localStorage.setItem(key, JSON.stringify(data));
@@ -25,26 +26,41 @@ export class LocalStorageService {
     }
 
     emailHistory(Email_id: any): Observable<any> {
-        return this.http.get(environment['apibase'] + `email/inbox/${Email_id}`)
+        return this.Intercepted.get(environment['apibase'] + `email/inbox/${Email_id}`)
             .map((res: Response) => {
-                return res.json();
+                return res;
             })
             .catch((error: any) => {
-                return Observable.throw(error.json() || 'Server error');
+                return Observable.throw(error || 'Server error');
             });
     }
     getAllHistory(emails: any) {
+        emails = JSON.parse(JSON.stringify(emails));
         return new Promise((resolve, reject) => {
-            let historyData = [];
-            _.forEach(emails, (email, key) => {
-                if (!localStorage.getItem(`email/inbox/${email['sender_mail']}`)) {
-                    this.emailHistory(email['sender_mail']).subscribe(data => {
-                        this.setItem(`email/inbox/${email['sender_mail']}`, data);
-                        if (key === emails.length - 1) {
-                            resolve(historyData);
+            // let historyData = [];
+            // _.forEach(emails, (email, key) => {
+            //     if (!localStorage.getItem(`email/inbox/${email['sender_mail']}`)) {
+            //         this.emailHistory(email['sender_mail']).subscribe(data => {
+            //             if (key === emails.length - 1) {
+            //                 resolve(historyData);
+            //             }
+            //         })
+            //     }
+            // })
+            let historyData = (allEmails, callback) => {
+                let first_data = allEmails.splice(0, 1)[0];
+                if (first_data) {
+                    this.emailHistory(first_data['sender_mail']).subscribe(res => {
+                        if (allEmails && allEmails.length !== 1) {
+                            historyData(allEmails, callback);
+                        } else {
+                            callback(true);
                         }
                     })
                 }
+            }
+            historyData(emails, response => {
+                resolve(response);
             })
         })
     }
