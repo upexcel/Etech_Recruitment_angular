@@ -24,7 +24,7 @@ export class IntercepterHttp implements HttpInterceptor {
                 if (req.url.match(/inbox/g)) {
                     let url = req.url.replace(environment['apibase'], '');
                     url = url.replace(`?accessToken=${localStorage.getItem('token')}`, '');
-                    localStorage.setItem(url, JSON.stringify(req.body));
+                    localStorage.setItem(url, JSON.stringify({'date': new Date(), 'data': req.body}));
                 }
             }
         })

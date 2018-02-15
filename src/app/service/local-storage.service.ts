@@ -50,13 +50,21 @@ export class LocalStorageService {
             let historyData = (allEmails, callback) => {
                 let first_data = allEmails.splice(0, 1)[0];
                 if (first_data) {
-                    this.emailHistory(first_data['sender_mail']).subscribe(res => {
+                    if (!localStorage.getItem(`email/inbox/${first_data['sender_mail']}`)) {
+                        this.emailHistory(first_data['sender_mail']).subscribe(res => {
+                            if (allEmails && allEmails.length !== 1) {
+                                historyData(allEmails, callback);
+                            } else {
+                                callback(true);
+                            }
+                        })
+                    }else {
                         if (allEmails && allEmails.length !== 1) {
                             historyData(allEmails, callback);
                         } else {
                             callback(true);
                         }
-                    })
+                    }
                 }
             }
             historyData(emails, response => {
