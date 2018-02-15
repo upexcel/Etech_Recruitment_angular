@@ -1,45 +1,61 @@
-<md-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
-    <div class="avatar-image" appAvatarDirective [email]="email.sender_mail" (click)="email.selected = !email.selected; emailSelection()"></div>
-    <div class="emailcheckbox" *ngIf="role !== 'Guest'" [style.visibility]="email.selected ? 'visible' : 'hidden'">
-        <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
-    </div>
-    <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
-        <h5>{{countEmailSubject(email.subject)}}</h5>
-        <h6 class="inline">
-           <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span> <md-icon *ngIf="email.is_attachment" class="attach">attach_file</md-icon> {{email.date | date: 'medium'}}
-        </h6>
-        <p>{{email.sender_mail}} - From {{email.from}}, Source: <span *ngIf="email.source">{{email.source}}</span>
-          <span *ngIf="!email.source">IMAP</span></p>
-    </div>
-    <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
-        <md-select placeholder="Interviewee" *ngIf="tagselected"  class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
-            <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
-        </md-select>
-        <div class="default-tag-buttons row" *ngIf="tagselected && tagAssigned">
-            <span *ngFor="let tag of tagAssigned; trackBy: allTagsDefaultTrack;">
-                    <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id==null" id="{{tag.title}}" (click)="assignTag(tag.id, email._id, tag.title, email)">
-                        <button md-raised-button class="cyan" [ngStyle]="getColor(tag.title)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-                    </button>
-                </div>
-                </span>
-                <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()"><i class="material-icons unreadIcon">drafts</i></p>
-                <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()"><i class="material-icons unreadIcon">markunread</i></p>
-                <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" mdTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
-                  <i class="material-icons noteicon">note</i>
-                </p>
+<md-card class="emailstyle  {{email.unread ? 'unchecked': 'checked'}}" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
+  <div class="avatar-image" (click)="email.selected = !email.selected; emailSelection()">
+    <img src="{{url}}/{{email.sender_mail}}" onerror="this.src='assets/user.jpg'">      
+  </div>
+  <div class="emailcheckbox" *ngIf="role !== 'Guest'" [style.visibility]="email.selected ? 'visible' : 'hidden'">
+    <md-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></md-checkbox>
+  </div>
+  <div class="detailloc" (click)="openEmails(email)">
+    <h5>{{countEmailSubject(email.subject)}}</h5>
+    <h6 class="inline">
+      <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span>
+      <md-icon *ngIf="email.is_attachment" class="attach">attach_file</md-icon> {{email.date | date: 'medium'}}
+    </h6>
+    <p>{{email.sender_mail}} - From {{email.from}}, Source:
+      <span *ngIf="email.source">{{email.source}}</span>
+      <span *ngIf="!email.source">IMAP</span>
+    </p>
+  </div>
+  <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
+    <md-select placeholder="Interviewee" *ngIf="tagselected" class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
+      <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
+    </md-select>
+    <div class="default-tag-buttons row" *ngIf="tagselected && tagAssigned">
+      <span *ngFor="let tag of tagAssigned; trackBy: allTagsDefaultTrack;">
+        <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id==null" id="{{tag.title}}"
+          (click)="assignTag(tag.id, email._id, tag.title, email)">
+          <button md-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
+            <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+          </button>
         </div>
-        <div class="default-tag-buttons row" *ngIf="!tagselected">
-            <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack;">
-                    <div class="col-md-2 col-sm-2 col-xs-6" (click)="assignTag(tag.id, email._id, tag.title, email)">
-                        <button md-raised-button class="cyan" [ngStyle]="getColor(tag.title)"><i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-                        </button>
-                </div>
-                </span>
-                <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()"><i class="material-icons unreadIcon">drafts</i></p>
-                <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()"><i class="material-icons unreadIcon">markunread</i></p>
-                <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" mdTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
-                  <i class="material-icons noteicon">note</i>
-                </p>
-        </div>
+      </span>
+      <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
+        <i class="material-icons unreadIcon">drafts</i>
+      </p>
+      <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()">
+        <i class="material-icons unreadIcon">markunread</i>
+      </p>
+      <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" mdTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
+        <i class="material-icons noteicon">note</i>
+      </p>
     </div>
+    <div class="default-tag-buttons row" *ngIf="!tagselected">
+      <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack;">
+        <div class="col-md-2 col-sm-2 col-xs-6" (click)="assignTag(tag.id, email._id, tag.title, email)">
+          <button md-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
+            <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+          </button>
+        </div>
+      </span>
+      <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
+        <i class="material-icons unreadIcon">drafts</i>
+      </p>
+      <p class="col-md-2 col-sm-2 col-xs-6 markunread" mdTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()">
+        <i class="material-icons unreadIcon">markunread</i>
+      </p>
+      <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" mdTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
+        <i class="material-icons noteicon">note</i>
+      </p>
+    </div>
+  </div>
 </md-card>
