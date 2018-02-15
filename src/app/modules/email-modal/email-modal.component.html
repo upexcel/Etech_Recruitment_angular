@@ -1,7 +1,7 @@
 <md-spinner class="commonSpinner" *ngIf="!historyList"></md-spinner>
 <md-card class="background-white" *ngIf="historyList && historyList.data">
     <div class="avatar-image">
-        <img src="{{url}}/{{email.sender_mail}}" onerror="this.src='assets/user.jpg'">
+        <img src="{{url}}/{{selectedEmail.sender_mail}}" onerror="this.src='assets/user.jpg'">
     </div>
     <div class="right"  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">
         <span>
