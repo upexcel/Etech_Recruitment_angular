@@ -75,6 +75,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     goToPageNo: number;
     email: any;
     intervieweeList: any;
+    selectedOption: any;
     allTagfilter: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
@@ -93,6 +94,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             'tag_id': 0,
             'limit': 100
         };
+        this.selectedOption = 'email';
         this.defaultOpen();
         setTimeout(() => {
             if (this._location.path().substr(0, 17) === '/core/inbox/email') {

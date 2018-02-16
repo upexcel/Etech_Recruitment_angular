@@ -6,14 +6,14 @@
             </div>
             <div id="rightPart" class="col-md-10 no-pad">
                 <div class="content">
-                    <p class="bblue" *ngIf="emaillist && showInboxEmailList">Job Profile Template Sent</p>
+                    <p class="bblue" *ngIf="emaillist && showInboxEmailList">{{emailParenttitle}} > {{emailChildTitle}}</p>
                     <div class="m-b" *ngIf="showInboxEmailList && emaillist">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-10 no-pad">
                                     <md-card class="card-pos">
                                         <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
-                                            <md-select name="option" placeholder="Search In" required ngModel>
+                                            <md-select name="option" placeholder="Search In" required [(ngModel)]="selectedOption">
                                                 <md-option value="email">Email</md-option>
                                                 <md-option value="subject">Subject</md-option>
                                                 <md-option value="name">Name</md-option>
@@ -38,10 +38,10 @@
                                     <button md-button class="d-w" (click)="next()">
                                                         <md-icon>keyboard_arrow_right</md-icon>
                                                     </button>
-                                    <form class="form-inline" class="go-to-page-form">
-                                            <input [(ngModel)]="goToPageNo" type="number" class="form-control" placeholder="Page No" [ngModelOptions]="{standalone: true}">
-                                        <button md-button (click)="gotTopage(goToPageNo)" [disabled]="!goToPageNo || goToPageNo < 0" class="btn btn-default">Go To Page</button>
-                                    </form>
+                                    <div class="go-to-page-form">
+                                        <input [(ngModel)]="goToPageNo" type="number" id="goInput" class="form-control" placeholder="Page No" [ngModelOptions]="{standalone: true}">
+                                        <button md-mini-fab (click)="gotTopage(goToPageNo)" id="goBtn"[disabled]="!goToPageNo || goToPageNo < 0">Go</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

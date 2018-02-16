@@ -24,6 +24,7 @@
   margin-bottom: 10px;
   font-size: 175%;
   font-weight: bold;
+  text-transform: capitalize;
 }
 .posload {
     left: 44%;
@@ -35,7 +36,7 @@
     margin: 0px 10px;
   }
   button {
-    margin: 2px 42px;
+    // margin: 2px 42px;
   }
 }
 
@@ -195,4 +196,19 @@
     background: #1182f3;
   }
 
+}
+.go-to-page-form{
+  display: inline-flex;
+}
+#goInput::placeholder {
+   font-size: 11px;
+}
+.go-to-page-form #goInput{
+    width: 80px;
+    height: 37px;
+    padding: 4px;
+}
+.go-to-page-form #goBtn{
+  width: 35px;
+  height: 35px;
 }
