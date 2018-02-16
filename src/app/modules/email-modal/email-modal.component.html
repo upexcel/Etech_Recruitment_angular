@@ -45,8 +45,10 @@
 
             <div class="default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && selectedTag && selectedTag >= 0">
                 <!-- All tag have parent id in field,
-                  In case of default tag value of parent_id is null,
-                  but in case of subtag there is some value in parent_id   -->
+                In case of default tag value of parent_id is null,
+                but in case of subtag there is some value in parent_id   .
+                I have added tag.parent_id==null to remove all tags which are auto generated, so that tags like Noida, Gurgoan, etc don't
+                show up-->
               <span *ngFor="let tag of tagAssigned; trackBy: tagsDefaultTrack">
                     <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)">
                         <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
