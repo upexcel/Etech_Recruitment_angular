@@ -186,5 +186,13 @@
   .content{
     padding-bottom: 5em;
   }
+  .sendEmail {
+    position: fixed;
+    z-index: 1;
+    top: 75vh;
+    left: 85vw;
+    font-weight: bold;
+    background: #1182f3;
+  }
 
 }
