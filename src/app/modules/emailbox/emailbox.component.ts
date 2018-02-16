@@ -39,6 +39,7 @@ export class EmailboxComponent implements OnInit {
     @Output() deleteAndAssignTag = new EventEmitter();
     role: string;
     url:string;
+    starred:boolean = false;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -163,5 +164,23 @@ export class EmailboxComponent implements OnInit {
             width: 'auto'
         });
         this.dialogRef.componentInstance.candidateNote = candidateNote;
+    }
+    markStarred() {
+        // this.starred = !this.starred;
+        // console.log(this.starred);
+        // this.assignEmail.markStarred({
+        //     'status': false,
+        //     'mongo_id': this.email._id            
+        // }).subscribe((data) => {
+        //     this.refreshEmail.emit(this.email);
+        // }, (err) => {
+        //     console.log(err);
+        // })
+        // if(this.email.xyz && this.email.xyz.length){
+        //  
+        // }else{
+        //   
+        // }
+        // console.log(this.email)
     }
 }

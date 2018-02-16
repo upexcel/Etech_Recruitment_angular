@@ -16,6 +16,10 @@
       <span *ngIf="!email.source">IMAP</span>
     </p>
   </div>
+  <div *ngIf=!starred class="mark__email not__starred" (click)="markStarred()">
+  </div>
+  <div *ngIf=starred class="mark__email starred" (click)="markStarred()">
+  </div>
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
     <md-select placeholder="Interviewee" *ngIf="tagselected" class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
       <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>

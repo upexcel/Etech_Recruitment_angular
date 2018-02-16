@@ -216,3 +216,17 @@
   font-size: 27px !important;
   color: grey;
 }
+.mark__email {
+    position: absolute;
+    top: 19px;
+    right: 10px;
+    height: 18px;
+    width: 18px;
+    transform: scale(1.2);
+}
+.starred {
+    background: url(/assets/starred.png);
+}
+.not__starred {
+    background: url(/assets/not_starred.png);
+}
