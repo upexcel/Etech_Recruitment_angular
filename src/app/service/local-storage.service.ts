@@ -8,10 +8,11 @@ import {historylog, Emaillist, SystemVar} from './mock-data';
 import {Subject} from 'rxjs/Subject';
 import * as _ from 'lodash';
 import { HttpClient } from '@angular/common/http';
+import { HttpCacheService } from '../service/cache.service';
 @Injectable()
 export class LocalStorageService {
     emaillocal: any;
-    constructor( private Intercepted: HttpClient) { }
+    constructor( private Intercepted: HttpClient, private cache: HttpCacheService) { }
 
     setItem(key, data) {
         localStorage.setItem(key, JSON.stringify(data));
@@ -26,35 +27,31 @@ export class LocalStorageService {
     }
 
     emailHistory(Email_id: any): Observable<any> {
-        return this.Intercepted.get(environment['apibase'] + `email/inbox/${Email_id}`)
-            .map((res: Response) => {
-                return res;
-            })
-            .catch((error: any) => {
-                return Observable.throw(error || 'Server error');
-            });
+        if (this.cache.get(`${environment['apibase']}email/inbox/${Email_id}`)) {
+            return Observable.of(this.cache.get(environment['apibase'] + `email/inbox/${Email_id}`).body)
+        }else {
+            return this.Intercepted.get(environment['apibase'] + `email/inbox/${Email_id}`)
+                .map((res: Response) => {
+                    return res;
+                })
+                .catch((error: any) => {
+                    return Observable.throw(error || 'Server error');
+                });
+        }
     }
     getAllHistory(emails: any) {
         emails = JSON.parse(JSON.stringify(emails));
         return new Promise((resolve, reject) => {
-            let historyData = (allEmails, callback) => {
-                let first_data = allEmails.splice(0, 1)[0];
+            const historyData = (allEmails, callback) => {
+                const first_data = allEmails.splice(0, 1)[0];
                 if (first_data) {
-                    if (!localStorage.getItem(`email/inbox/${first_data['sender_mail']}`)) {
-                        this.emailHistory(first_data['sender_mail']).subscribe(res => {
-                            if (allEmails && allEmails.length !== 1) {
-                                historyData(allEmails, callback);
-                            } else {
-                                callback(true);
-                            }
-                        })
-                    }else {
+                    this.emailHistory(first_data['sender_mail']).subscribe(res => {
                         if (allEmails && allEmails.length !== 1) {
                             historyData(allEmails, callback);
                         } else {
                             callback(true);
                         }
-                    }
+                    })
                 }
             }
             historyData(emails, response => {

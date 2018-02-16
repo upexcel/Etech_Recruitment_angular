@@ -140,31 +140,12 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     getCandidateHistoryApi(apiData) {
-
-        if (localStorage.getItem(`email/inbox/${apiData}`)) {
-            const date1 = new Date(JSON.parse(localStorage.getItem(`email/inbox/${apiData}`))['date']);
-            const date2 = new Date();
-            const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-            const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-            if (diffDays > 1) {
-                this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-                    this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
-                }, (err) => {
-                    console.log(err);
-                });
-            } else {
-                this.historyList = JSON.parse(localStorage.getItem(`email/inbox/${apiData}`))['data'];
-                this.historyList = this.commonService.formateEmailHistoryData(this.historyList, this.selectedEmail['id']);
-                this._localStorageService.setItem('email', this.historyList['data'][0]);
-            }
-
-        } else {
-            this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-                this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
-            }, (err) => {
-                console.log(err);
-            });
-        }
+        this._localStorageService.emailHistory(apiData).subscribe((data) => {
+            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
+        }, (err) => {
+            console.log(err);
+        });
+        // }
 
     }
 
@@ -268,7 +249,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     broadcast_send() {
-        localStorage.setItem('updateInbox','');
+        localStorage.setItem('updateInbox', '');
         localStorage.removeItem('updateInbox');
     }
 

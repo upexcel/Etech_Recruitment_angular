@@ -117,6 +117,12 @@ import {
     IntercepterHttp
 } from './service/http.interceptor';
 import {
+    CacheIntercepter
+} from './service/cache.interceptor';
+import {
+    HttpCacheService
+} from './service/cache.service';
+import {
     SmtpComponentFormComponent
 } from './modules/smtp-component-form/smtp-component-form.component';
 import {
@@ -279,6 +285,7 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: IntercepterHttp, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: CacheIntercepter, multi: true },
         ImapMailsService,
         LoginService,
         CommonService,
@@ -286,7 +293,8 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
         DialogService,
         SpamDialogService,
         DashboardService,
-        LoginRouteGuard
+        LoginRouteGuard,
+        HttpCacheService
     ],
     entryComponents: [
         ManualTagModalComponent,
