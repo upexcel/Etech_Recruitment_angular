@@ -59,6 +59,7 @@ export const config = {
     round1: 'First Round',
     round2: 'Second Round',
     round3: 'Third Round',
-    avatarUrl: 'https://pikmail.herokuapp.com'
+    avatarUrl: 'https://pikmail.herokuapp.com',
+    emailLimit: 20
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
