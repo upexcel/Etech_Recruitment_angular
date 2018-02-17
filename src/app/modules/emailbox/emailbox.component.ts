@@ -131,7 +131,6 @@ export class EmailboxComponent implements OnInit {
             this.assignEmail.MarkASUnreadStatus({
                 'mongo_id': this.email._id
             }).subscribe((data) => {
-                this.refreshEmail.emit(this.email);
             }, (err) => {
                 console.log(err);
             });
@@ -140,12 +139,11 @@ export class EmailboxComponent implements OnInit {
                 'status': false,
                 'mongo_id': this.email._id
             }).subscribe((data) => {
-                this.refreshEmail.emit(this.email);
             }, (err) => {
                 console.log(err);
             });
         }
-
+        this.refreshEmail.emit(this.email);
     }
 
     assignInterviewee(interviewee) {

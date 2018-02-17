@@ -37,6 +37,7 @@ import { DialogService } from './../../service/dialog.service';
 import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 import { AddCandidateComponent } from './../add-candidate/add-candidate.component';
+import { config } from './../../config/config';
 @Component({
     selector: 'app-inbox',
     templateUrl: './inbox.component.html',
@@ -75,7 +76,9 @@ export class InboxComponent implements OnInit, OnDestroy {
     goToPageNo: number;
     email: any;
     intervieweeList: any;
+    selectedOption: any;
     allTagfilter: any;
+    emailLimit:number;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -86,13 +89,15 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     }
     ngOnInit() {
+        this.emailLimit = config.emailLimit;
         this.emailIds = [];
         this.loading = true;
         this.data = {
             'page': 1,
             'tag_id': 0,
-            'limit': 100
+            'limit': this.emailLimit
         };
+        this.selectedOption = 'email';
         this.defaultOpen();
         setTimeout(() => {
             if (this._location.path().substr(0, 17) === '/core/inbox/email') {
@@ -111,7 +116,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.getTagFilter();
         window.addEventListener("storage", (ev) => {
             if (ev.key == 'updateInbox') {
-                this.refresh();
+                this.updateInbox(ev.newValue);
             }
         });
 
@@ -134,14 +139,16 @@ export class InboxComponent implements OnInit, OnDestroy {
                     _.forEach(res.data, (value, key) => {
                         if (value['title'] === 'inbox') {
                             _.forEach(value['data'], (subMenuValue, subMenukey) => {
-                                if (subMenuValue['title'] === 'Mails') {
+                                if (subMenuValue['title'] === 'Attachment') {
                                     this.data.tag_id = subMenuValue['id'];
                                     this.selectedTag = subMenuValue['id'];
                                     this.selectedTagTitle = subMenuValue['title'] || '';
                                     // this.emailParentId = '0';
-                                    this.emailChildId = subMenuValue['id'].toString() || '0';
+                                    this.emailChildId = subMenuValue['id'] || '0';
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
+                                    let newData = this.data;
+                                    newData['is_attach'] = true;
                                     this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
                                     this.getemails.getEmailList(this.data).subscribe((data) => {
                                         this.addSelectedFieldInEmailList(data);
@@ -174,7 +181,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                         'page': 1,
                         'tag_id': this.emailParentId,
                         'default_id': this.emailChildId,
-                        'limit': 100,
+                        'limit': this.emailLimit,
                         'type': searchform.value['option'],
                         'keyword': searchform.value['keyword'],
                         'selected': searchform.value['currentTag'],
@@ -185,7 +192,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                         'page': 1,
                         'tag_id': this.emailParentId,
                         'default_id': this.emailChildId,
-                        'limit': 100,
+                        'limit': this.emailLimit,
                         'type': searchform.value['option'],
                         'keyword': searchform.value['keyword'],
                         'selected': searchform.value['currentTag']
@@ -194,7 +201,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             } else {
                 this.data = {
                     'page': 1,
-                    'limit': 100,
+                    'limit': this.emailLimit,
                     'type': searchform.value['option'],
                     'keyword': searchform.value['keyword'],
                     'selected': searchform.value['currentTag']
@@ -372,7 +379,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                 'page': page || 1,
                 'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
                 'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
-                'limit': 100,
+                'limit': this.emailLimit,
                 'is_attach': emailData['is_attach']
             };
         } else {
@@ -380,7 +387,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                 'page': page || 1,
                 'tag_id': emailData.parantTagId || ((emailData.id === 0) ? 0 : emailData.id) || 0,
                 'default_id': (emailData.parantTagId ? emailData.id : 0).toString() || '0',
-                'limit': 100
+                'limit': this.emailLimit
             };
         }
         this.loading = true;
@@ -491,8 +498,10 @@ export class InboxComponent implements OnInit, OnDestroy {
             console.log(err)
         })
     }
-
-
+    updateInbox(id) {
+        _.remove(this.emaillist.data,{'_id':id});
+        localStorage.removeItem('updateInbox');
+    }
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.inboxRefreshSubscription.unsubscribe();
