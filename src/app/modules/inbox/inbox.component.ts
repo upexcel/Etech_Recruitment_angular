@@ -111,7 +111,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.getTagFilter();
         window.addEventListener("storage", (ev) => {
             if (ev.key == 'updateInbox') {
-                this.refresh();
+                this.updateInbox(ev.newValue);
             }
         });
 
@@ -491,8 +491,10 @@ export class InboxComponent implements OnInit, OnDestroy {
             console.log(err)
         })
     }
-
-
+    updateInbox(id) {
+        _.remove(this.emaillist.data,{'_id':id});
+        localStorage.removeItem('updateInbox');
+    }
     ngOnDestroy() {
         this.subscription.unsubscribe();
         this.inboxRefreshSubscription.unsubscribe();
