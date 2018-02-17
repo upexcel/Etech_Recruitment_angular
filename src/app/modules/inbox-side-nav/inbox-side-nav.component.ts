@@ -29,7 +29,7 @@ export class InboxSideNavComponent implements OnInit {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
                 _.forEach(tagValue['data'], (tagSubValue, tagSubKey) => {
-                    if (tagSubValue['title'] === 'Mails') {
+                    if (tagSubValue['title'] === 'Attachment') {
                         this.selectedId = tagSubValue['id'];
                         this.parantTagId = '0';
                     }
@@ -113,9 +113,13 @@ export class InboxSideNavComponent implements OnInit {
        // this.showaddtag = false;
     }
     showHideMenu(id) {
-        this.showAlltag=false;
-        this.showId = id
-        localStorage.setItem('tagShowId', id);
-        console.log(id)
+        if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
+            localStorage.removeItem('tagShowId');
+            this.showAlltag = true;
+        }else {
+            this.showAlltag = false;
+            this.showId = id;
+            localStorage.setItem('tagShowId', id);
+        }
     }
 }

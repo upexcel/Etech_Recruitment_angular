@@ -49,15 +49,22 @@
                 <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('spam','Spam')">
                     <a md-line> Spam </a>
                 </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('pendingCandidate','PendingCandidate')">
-                  <a md-line> Pending Candidate </a>
+                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="testingSysopen=!testingSysopen">
+                  <a md-line> Inventory Test System </a>
+                  <md-icon>{{testingSysopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
                 </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('createQuestion','CreateQuestion')">
-                  <a md-line> Create Question </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('candidateScore','Candidate Score')">
-                  <a md-line> Candidate Score </a>
-                </md-list-item>
+                <md-list *ngIf="testingSysopen">
+                  <md-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('pendingCandidate','PendingCandidate')">
+                    <a md-line> Pending Candidate </a>
+                  </md-list-item>
+                  <md-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('createQuestion','CreateQuestion')">
+                    <a md-line> Create Question </a>
+                  </md-list-item>
+                  <md-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('candidateScore','Candidate Score')">
+                    <a md-line> Candidate Score </a>
+                  </md-list-item>
+                </md-list>
+
             </md-list>
         </div>
         <div class="col-md-10 col-sm-10 content">
