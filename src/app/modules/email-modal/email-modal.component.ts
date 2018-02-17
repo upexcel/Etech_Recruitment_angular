@@ -144,13 +144,13 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     getCandidateHistoryApi(apiData) {
-        this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
+        this._localStorageService.emailHistory(apiData).subscribe((data) => {
             this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
-            this._localStorageService.setItem('email', this.historyList['data'][0]);
         }, (err) => {
             console.log(err);
         });
-        console.log("schedule");
+        // }
+
     }
 
     openAccordian(singleEmail) {
@@ -251,7 +251,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this._location.back();
         }
     }
-    
+
     broadcast_send() {
         localStorage.setItem('updateInbox',this.selectedEmail['id']);
     }
