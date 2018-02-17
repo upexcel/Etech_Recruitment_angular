@@ -54,6 +54,7 @@ export const config = {
         maintainAspectRatio: false,
     },
     dashboardChartRefreshTime: 60000,
+    fetchMailInterval: 300000,
     scheduleInterviewBy: 'scheduleByDirect',
     emailTrackingRecordPerPage: 100,
     round1: 'First Round',
