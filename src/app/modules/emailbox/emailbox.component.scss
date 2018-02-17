@@ -65,7 +65,7 @@
         word-break: break-word;
         display: inline-block;
         margin: 0;
-        font-weight: bold;
+        font-weight: inherit;
     }
 }
 .inline {
@@ -73,7 +73,7 @@
     right: 6px;
     margin: 0;
     top: 3px;
-    font-weight: bold;
+    font-weight: inherit;
 }
 .attach {
     width: 8px;
@@ -83,10 +83,12 @@
     vertical-align: sub;
 }
 .checked {
-    opacity: 0.6;
+    opacity: 0.8;
+    font-weight: 100; 
 }
 .unchecked {
     opacity: 1;
+    font-weight: bold;
 }
 .labels {
       background-color: #6887ff;

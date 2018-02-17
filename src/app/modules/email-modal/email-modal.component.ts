@@ -14,6 +14,8 @@ import * as moment from 'moment';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
+import { config } from './../../config/config';
+
 
 @Component({
     selector: 'app-email-modal',
@@ -52,6 +54,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     intervieweeList: any;
     tagAssigned = [];
     tagfilter = [];
+    url:string;
     constructor(public snackBar: MdSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.selectedEmail = {
             selectedTag: this.route.snapshot.paramMap.get('selectedTag'),
@@ -81,6 +84,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     ngOnInit() {
+        this.url = config.avatarUrl;
         this.historyList = [];
         this.idlist = [];
         this.user = this._localStorageService.getItem('userEmail');
@@ -249,8 +253,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     broadcast_send() {
-        localStorage.setItem('updateInbox', '');
-        localStorage.removeItem('updateInbox');
+        localStorage.setItem('updateInbox',this.selectedEmail['id']);
     }
 
     openAttachment(link: string) {

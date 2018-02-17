@@ -22,6 +22,7 @@ export class CandidateScoreComponent implements OnInit {
     constructor (private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MdSnackBar, public dialog: MdDialog) { }
 
     ngOnInit() {
+        this.option = 'email' ;
         const blankscore = {};
         this.getScore(blankscore);
     }
