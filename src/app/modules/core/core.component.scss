@@ -75,6 +75,11 @@ md-sidenav-container {
     position: absolute;
     right: 10px;
 }
+.cursor-cv{
+    cursor: pointer;
+    position: absolute;
+    right: 40px;
+}
 .mat-list-item-content {
     height: auto !important;
 }
@@ -85,7 +90,7 @@ md-sidenav-container {
         stroke: #fff;
     }
     position: absolute;
-    right: 40px;
+    right: 80px;
 }
 .sidehide{
    display: none;
