@@ -253,8 +253,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
     
     broadcast_send() {
-        localStorage.setItem('updateInbox','');
-        localStorage.removeItem('updateInbox');
+        localStorage.setItem('updateInbox',this.selectedEmail['id']);
     }
 
     openAttachment(link: string) {
