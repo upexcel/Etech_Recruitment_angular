@@ -29,7 +29,7 @@ export class InboxSideNavComponent implements OnInit {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
                 _.forEach(tagValue['data'], (tagSubValue, tagSubKey) => {
-                    if (tagSubValue['title'] === 'Mails') {
+                    if (tagSubValue['title'] === 'Attachment') {
                         this.selectedId = tagSubValue['id'];
                         this.parantTagId = '0';
                     }

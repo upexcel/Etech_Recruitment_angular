@@ -136,14 +136,16 @@ export class InboxComponent implements OnInit, OnDestroy {
                     _.forEach(res.data, (value, key) => {
                         if (value['title'] === 'inbox') {
                             _.forEach(value['data'], (subMenuValue, subMenukey) => {
-                                if (subMenuValue['title'] === 'Mails') {
+                                if (subMenuValue['title'] === 'Attachment') {
                                     this.data.tag_id = subMenuValue['id'];
                                     this.selectedTag = subMenuValue['id'];
                                     this.selectedTagTitle = subMenuValue['title'] || '';
                                     // this.emailParentId = '0';
-                                    this.emailChildId = subMenuValue['id'].toString() || '0';
+                                    this.emailChildId = subMenuValue['id'] || '0';
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
+                                    let newData = this.data;
+                                    newData['is_attach'] = true;
                                     this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
                                     this.getemails.getEmailList(this.data).subscribe((data) => {
                                         this.addSelectedFieldInEmailList(data);
