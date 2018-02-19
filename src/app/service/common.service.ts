@@ -236,6 +236,7 @@ export class CommonService {
     filtertag(emailDefautltTag, tagFilter, selectedTag) {
         let newTag = [];
         let tagAssigned = [];
+        const TagArray = [];
         _.forEach(tagFilter, (profile, key) => {
             _.forEach(emailDefautltTag.tag_id, (tagid, key2) => {
                 if (profile.id == tagid) {
@@ -243,16 +244,15 @@ export class CommonService {
                 }
             });
         })
-        if (newTag && emailDefautltTag.default_tag) {
+        if (newTag.length > 0 && emailDefautltTag.default_tag) {
             _.forEach(newTag, (tag, index) => {
-                if (tag.id === selectedTag) {
+                if (tag.id == selectedTag) {
                     tagAssigned = this.pushTagInarray(index, newTag);
                 }
             });
         }else {
             tagAssigned = this.pushTagInarray(0, newTag);
         }
-        const TagArray = [];
         _.forEach(tagAssigned, (data, key) => {
             if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
                 // TagArray.push(data);
