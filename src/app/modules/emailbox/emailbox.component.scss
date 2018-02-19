@@ -223,10 +223,15 @@
     height: 18px;
     width: 18px;
     transform: scale(1.2);
+    cursor: pointer;
 }
 .starred {
     background: url(/assets/starred.png);
 }
 .not__starred {
     background: url(/assets/not_starred.png);
+}
+.mark__email:hover {
+    opacity: 0.8;
+    transform: scale(1.4);
 }

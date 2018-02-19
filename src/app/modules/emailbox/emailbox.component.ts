@@ -163,22 +163,24 @@ export class EmailboxComponent implements OnInit {
         });
         this.dialogRef.componentInstance.candidateNote = candidateNote;
     }
-    markStarred() {
-        // this.starred = !this.starred;
-        // console.log(this.starred);
-        // this.assignEmail.markStarred({
-        //     'status': false,
-        //     'mongo_id': this.email._id            
-        // }).subscribe((data) => {
-        //     this.refreshEmail.emit(this.email);
-        // }, (err) => {
-        //     console.log(err);
-        // })
-        // if(this.email.xyz && this.email.xyz.length){
-        //  
-        // }else{
-        //   
-        // }
-        // console.log(this.email)
+    markStarred(email) {
+        let body={
+            'mongo_id': this.email._id 
+        }
+        if(this.email.candiate_star && this.email.candiate_star.length) {
+            this.starred = false;
+        } else {
+            this.starred = true;        
+        }
+        this.assignEmail.markStarred(this.starred, body).subscribe(()=> {
+            this.assignEmail.getStarredMails().subscribe(data=>{
+                console.log(data);
+            });
+           
+        }, (err) => {
+            console.log(err);
+        })
+        
+        console.log(this.email)
     }
 }
