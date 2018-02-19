@@ -182,9 +182,9 @@ export class EmailboxComponent implements OnInit {
         })
     }
     moveToSpam() {
-
+    //logic to move email to spam (backend now available)
     }
     moveToArchive() {
-        
+    //logic to move email to archive (backend now available)
     }
 }
