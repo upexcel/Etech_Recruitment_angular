@@ -95,7 +95,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.data = {
             'page': 1,
             'tag_id': 0,
-            'limit': this.emailLimit,
+            'limit': this.emailLimit
         };
         this.selectedOption = 'email';
         this.defaultOpen();
@@ -407,7 +407,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         }
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
-            console.log(data);
             this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
