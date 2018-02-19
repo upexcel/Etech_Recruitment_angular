@@ -1,6 +1,6 @@
 <button md-icon-button (click)="menuShow = !menuShow"> <md-icon>menu</md-icon> </button>
 <div id="side" class="inbox-nav" [ngClass]="{'showMenu': menuShow}">
-        <div class="starred__mails">
+        <div class="starred__mails" (click)="getStarredMails()">
             Starred Mails
             <img src="assets/starred.png">
         </div>

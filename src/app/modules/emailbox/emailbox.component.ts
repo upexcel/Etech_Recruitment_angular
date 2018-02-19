@@ -36,6 +36,7 @@ export class EmailboxComponent implements OnInit {
     @Output() refreshEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
+    @Output() removeStarredEmail = new EventEmitter<string>();
     @Output() deleteAndAssignTag = new EventEmitter();
     role: string;
     url:string;
@@ -169,18 +170,15 @@ export class EmailboxComponent implements OnInit {
         }
         if(this.email.candiate_star && this.email.candiate_star.length) {
             this.starred = false;
+            this.email.candiate_star = [];
+            this.removeStarredEmail.emit(this.email.sender_mail)
         } else {
-            this.starred = true;        
+            this.starred = true;
+            this.email.candiate_star = [0];
         }
         this.assignEmail.markStarred(this.starred, body).subscribe(()=> {
-            this.assignEmail.getStarredMails().subscribe(data=>{
-                console.log(data);
-            });
-           
         }, (err) => {
             console.log(err);
         })
-        
-        console.log(this.email)
     }
 }
