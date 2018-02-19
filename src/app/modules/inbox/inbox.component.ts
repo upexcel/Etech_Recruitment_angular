@@ -118,8 +118,22 @@ export class InboxComponent implements OnInit, OnDestroy {
             if (ev.key == 'updateInbox') {
                 this.updateInbox(ev.newValue);
             }
+            console.log(this.emaillist);
         });
 
+    }
+    starred(data){
+        this.loading = true;
+        this.getemails.getStarredMails().subscribe((data)=>{
+            this.addSelectedFieldInEmailList(data);
+            this.emailIds = [];
+            this.loading = false;
+        },(err)=>{
+            console.log(err);
+        })
+    }
+    removeStarredEmails(id: string) {
+        this.emailIds.splice(this.emailIds.indexOf(id), 1);
     }
     getTagFilter() {
         this.getemails.getAllTagsMain().subscribe(res => {
@@ -230,7 +244,9 @@ export class InboxComponent implements OnInit, OnDestroy {
     removeEmails(id: string) {
         this.emailIds.splice(this.emailIds.indexOf(id), 1);
     }
-
+    removeStarredEmail(id: string) {
+        this.emailIds.splice(this.emailIds.indexOf(id), 1);
+    }
     composeEmail() {
         this.dialogRef = this.dialog.open(ComposeEmailComponent, {
             height: '90%',
@@ -391,6 +407,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         }
         this.loading = true;
         this.getemails.getEmailList(this.data).subscribe((data) => {
+            console.log(data);
             this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
