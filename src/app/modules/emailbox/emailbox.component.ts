@@ -36,9 +36,11 @@ export class EmailboxComponent implements OnInit {
     @Output() refreshEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
+    @Output() removeStarredEmail = new EventEmitter<string>();
     @Output() deleteAndAssignTag = new EventEmitter();
     role: string;
     url:string;
+    starred:boolean = false;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -161,5 +163,22 @@ export class EmailboxComponent implements OnInit {
             width: 'auto'
         });
         this.dialogRef.componentInstance.candidateNote = candidateNote;
+    }
+    markStarred(email) {
+        let body={
+            'mongo_id': this.email._id 
+        }
+        if(this.email.candiate_star && this.email.candiate_star.length) {
+            this.starred = false;
+            this.email.candiate_star = [];
+            this.removeStarredEmail.emit(this.email.sender_mail)
+        } else {
+            this.starred = true;
+            this.email.candiate_star = [0];
+        }
+        this.assignEmail.markStarred(this.starred, body).subscribe(()=> {
+        }, (err) => {
+            console.log(err);
+        })
     }
 }
