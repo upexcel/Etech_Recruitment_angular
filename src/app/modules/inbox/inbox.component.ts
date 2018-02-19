@@ -95,7 +95,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.data = {
             'page': 1,
             'tag_id': 0,
-            'limit': this.emailLimit
+            'limit': this.emailLimit,
         };
         this.selectedOption = 'email';
         this.defaultOpen();
@@ -144,11 +144,10 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.selectedTag = subMenuValue['id'];
                                     this.selectedTagTitle = subMenuValue['title'] || '';
                                     // this.emailParentId = '0';
-                                    this.emailChildId = subMenuValue['id'] || '0';
+                                    this.emailChildId = subMenuValue['id'];
                                     this.emailParenttitle = value['title'];
                                     this.emailChildTitle = subMenuValue['title'] || '';
-                                    let newData = this.data;
-                                    newData['is_attach'] = true;
+                                    this.data.is_attach = true;
                                     this.lastSelectedTagData = { 'id': this.data.tag_id, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle, 'parentTitle': this.emailParenttitle };
                                     this.getemails.getEmailList(this.data).subscribe((data) => {
                                         this.addSelectedFieldInEmailList(data);
@@ -366,11 +365,11 @@ export class InboxComponent implements OnInit, OnDestroy {
         } else {
             this.emailChildId = emailData.id.toString() || '0';
         }
-        if (emailData.title === 'All') {
-            this.selectedTagTitle = emailData.title;
-        } else {
-            this.selectedTagTitle = '';
-        }
+        // if (emailData.title === 'All') {
+        //     this.selectedTagTitle = emailData.title;
+        // } else {
+        //     this.selectedTagTitle = '';
+        // }
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
@@ -413,7 +412,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.emailChildTitle, 'parentTitle': this.emailParenttitle, 'is_attach': this.data.is_attach}, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -424,7 +423,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page < this.emaillist.count / this.data.limit) {
             this.data.page = this.data.page + 1;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.emailChildTitle, 'parentTitle': this.emailParenttitle, 'is_attach': this.data.is_attach }, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -432,10 +431,11 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     gotTopage(pageNo) {
+        pageNo = parseInt(pageNo, 10);
         if (pageNo <= Math.ceil(this.emaillist.count / this.data.limit)) {
             this.data.page = pageNo;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.selectedTagTitle }, this.data.page);
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.emailChildTitle, 'parentTitle': this.emailParenttitle, 'is_attach': this.data.is_attach }, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }

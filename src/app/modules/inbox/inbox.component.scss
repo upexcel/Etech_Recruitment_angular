@@ -201,14 +201,17 @@
   display: inline-flex;
 }
 #goInput::placeholder {
-   font-size: 11px;
+   font-size: 12px;
 }
 .go-to-page-form #goInput{
-    width: 80px;
+    width: 60px;
     height: 37px;
     padding: 4px;
 }
 .go-to-page-form #goBtn{
   width: 35px;
   height: 35px;
+}
+#goBtn[disabled]{
+  background:rgb(160, 160, 160);
 }
