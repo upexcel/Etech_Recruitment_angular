@@ -11,13 +11,20 @@ md-list {
     }
 }
 .active {
-  background-color: $hovecolor;
+    background-color: #21425b !important;
+    color: #fff !important;
+    font-weight: bold;
+}
+.active a:hover {
+    background: rgba(0,0,0,0) !important;
+}
+.sub-title:hover {
+    background-color:#F3F3F3 !important;  
 }
 .blue {
     color:$borderleftblue;
 }
 .mainnav {
-    margin-left: 6px;
     padding: 4px 0px;
     position: relative;
     cursor: pointer;
@@ -45,10 +52,11 @@ md-list {
     font-weight: bold;
 }
 .mainnav a {
-    font-size: 12px;
-    //font-weight: bold;
     text-transform: capitalize;
-    color: #000;
+    color: rgba(0,0,0,0.9);
+    display: block;
+    padding-top: 5px;
+    font-size: 125%;
 }
 a:hover {
     text-decoration: none;
@@ -60,17 +68,19 @@ a:hover {
     right: 0;
 }
 .subenav {
-    margin-left: 6px;
-    // padding: 4px 0px;
     cursor: pointer;
+}
+.subTag {
+    margin: 0;
 }
 .subenav p {
     margin: 0px;
-    padding: 2px;
     position: relative;
 }
 .subenav a {
-    font-size: 12px;
+    font-size: inherit;
+    color: inherit;
+    padding: 3px 0;
 }
 .logodesign {
     color: $white;
@@ -103,8 +113,9 @@ a:hover {
     position: relative;
 }
 .plus{
-    float: right;
-    margin-right: 10px;
+    position: absolute;
+    top: 3px;
+    right: 10px;
 }
 .delete{
     float: right;
@@ -130,6 +141,52 @@ position: absolute;
    margin-top: -41px;
    right: 13px;
 }
-.Subchild{
- padding: 4px 0px;
+.Subchild a {
+    padding-left: 10px;
+}
+.subenav a:hover{
+    background: rgba(128,128,128, 0.3);
+}
+.starred__mails {
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.9);
+    display: block;
+    padding-top: 5px;
+    font-size: 125%;
+    font-weight: bold;
+    cursor: pointer;
+}
+.starred__mails img {
+    position: absolute;
+    top: 5px;
+    right: 74px;
+    width: 22px;
+    height: 22px;
+}
+.starred__mails:hover img{
+    -webkit-animation: rotation 1.5s linear infinite;
+}
+@-webkit-keyframes rotation {
+    from {
+            -webkit-transform: rotate(0deg);
+    }
+    to {
+            -webkit-transform: rotate(360deg);
+    }
+}
+@-moz-keyframes rotation {
+    from {
+            -moz-transform: rotate(0deg);
+    }
+    to {
+            -moz-transform: rotate(360deg);
+    }
+}
+@keyframes rotation {
+    from {
+            transform: rotate(0deg);
+    }
+    to {
+            transform: rotate(360deg);
+    }
 }

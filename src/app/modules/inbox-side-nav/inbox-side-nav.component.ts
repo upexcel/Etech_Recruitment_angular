@@ -23,6 +23,7 @@ export class InboxSideNavComponent implements OnInit {
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
     @Output() getTags = new EventEmitter<any>();
+    @Output() getStarredEmails = new EventEmitter<any>();
     dialogRef: MdDialogRef < any > ;
     constructor(public _apiService: ImapMailsService, public dialog: MdDialog, private _dialogService: DialogService) { }
     ngOnInit() {
@@ -121,5 +122,8 @@ export class InboxSideNavComponent implements OnInit {
             this.showId = id;
             localStorage.setItem('tagShowId', id);
         }
+    }
+    getStarredMails() {
+        this.getStarredEmails.emit();
     }
 }

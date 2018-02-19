@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row">
             <div id="leftPart" class="col-md-2 no-pad background-white">
-                <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)" (getTags)="getAllTag()" class="sideNavFix"></app-inbox-side-nav>
+                <app-inbox-side-nav *ngIf="tags" [tags]="tags" (getEmails)="emaillists($event)" (getStarredEmails)="starred($event)" (getTags)="getAllTag()" class="sideNavFix"></app-inbox-side-nav>
             </div>
             <div id="rightPart" class="col-md-10 no-pad">
                 <div class="content">
@@ -61,7 +61,7 @@
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
                         <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refreshEmail)="refreshEmails($event)" (refreshAndDelete)="refresh($event); emaillist.data.splice(i,1)" (refresh)="refresh($event)"
-                            [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)"
+                            [tagselected]="selectedTag" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" (removeStarredEmail)="emaillist.data.splice(i,1)"
                             [tags]="tagsForEmailListAndModel.Automatic" [tagfilter]="allTagfilter" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"
                             [inboxMailsTagsForEmailListAndModel]="inboxMailsTagsForEmailListAndModel" (deleteAndAssignTag)="assign($event, emails._id); emaillist.data.splice(i,1)" [intervieweeList]="intervieweeList"></app-emailbox>
                     </div>
