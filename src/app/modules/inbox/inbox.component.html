@@ -39,7 +39,7 @@
                                                         <md-icon>keyboard_arrow_right</md-icon>
                                                     </button>
                                     <div class="go-to-page-form">
-                                        <input [(ngModel)]="goToPageNo" type="number" id="goInput" class="form-control" placeholder="Page No" [ngModelOptions]="{standalone: true}">
+                                        <input [(ngModel)]="goToPageNo" type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57 " id="goInput" class="form-control" placeholder="Page No" [ngModelOptions]="{standalone: true}">
                                         <button md-mini-fab (click)="gotTopage(goToPageNo)" id="goBtn"[disabled]="!goToPageNo || goToPageNo < 0">Go</button>
                                     </div>
                                 </div>
