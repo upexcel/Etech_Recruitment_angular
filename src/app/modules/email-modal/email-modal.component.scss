@@ -47,8 +47,10 @@ md-toolbar {
     margin-right: 5px;
 }
 .b-b {
-	border-bottom: 2px solid rgba(120,130,140,.13);
-	position: relative;
+	    border-bottom: 1px solid rgba(120, 130, 140, 0.13);
+    position: relative;
+    background: #f7f7f7;
+    padding-left: 5px;
 }
 .p-y {
 	padding-bottom: 1 rem !important;
@@ -65,7 +67,9 @@ md-toolbar {
 	font-size: .75rem;
 }
 .font-300 {
-	margin-bottom: 5px;
+  margin-bottom: 5px;
+  min-height: 42px;
+  margin-top: 5px;
 	font-weight: bold;
 }
 .ifset {
@@ -281,6 +285,8 @@ md-grid-tile {
 .maindiv{
     width:15%;
     padding-top:0px !important;
+    display: inline-block;
+    margin-left: 10px;
     padding-bottom: 4px !important;
     padding-left: 10px !important;
     padding-right: 10px !important;
@@ -349,4 +355,23 @@ a.link:hover{
   color: #fff !important;
   font-size: 12px !important;
   background: darkseagreen !important;
+}
+.bodyHeader div{
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    max-width: 50% !important;
+    text-overflow: ellipsis !important;
+    font-weight: normal !important;
+    font-size: 14px !important;
+    margin: 0px;
+}
+.bodyHeader{
+  overflow: hidden !important;
+    white-space: nowrap !important;
+    max-width: 50% !important;
+    text-overflow: ellipsis !important;
+    font-weight: normal !important;
+    font-size: 14px !important;
+    margin: 0px;
+    height: 20px;
 }
