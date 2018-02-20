@@ -79,6 +79,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     selectedOption: any;
     allTagfilter: any;
     emailLimit:number;
+    onStarredPage:boolean;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -123,6 +124,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     }
     starred(data){
+        this.onStarredPage = data;
         this.loading = true;
         this.getemails.getStarredMails().subscribe((data)=>{
             this.addSelectedFieldInEmailList(data);
@@ -132,9 +134,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             console.log(err);
         })
     }
-    removeStarredEmails(id: string) {
-        this.emailIds.splice(this.emailIds.indexOf(id), 1);
-    }
+
     getTagFilter() {
         this.getemails.getAllTagsMain().subscribe(res => {
             _.forEach(res.data, (tag, key) => {
@@ -244,8 +244,10 @@ export class InboxComponent implements OnInit, OnDestroy {
     removeEmails(id: string) {
         this.emailIds.splice(this.emailIds.indexOf(id), 1);
     }
-    removeStarredEmail(id: string) {
-        this.emailIds.splice(this.emailIds.indexOf(id), 1);
+    removeStarredMails(id) {
+        if(this.onStarredPage) {
+            this.emaillist.data.splice(id,1);
+        }
     }
     composeEmail() {
         this.dialogRef = this.dialog.open(ComposeEmailComponent, {
@@ -368,6 +370,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     emaillists(emailData: any, page?: number) {
+        this.onStarredPage = false;
         this.lastSelectedTagData = emailData;
         this.emailParenttitle = emailData['parentTitle'];
         this.emailChildTitle = emailData['title'];

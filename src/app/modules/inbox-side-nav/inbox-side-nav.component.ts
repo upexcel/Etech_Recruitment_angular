@@ -124,6 +124,6 @@ export class InboxSideNavComponent implements OnInit {
         }
     }
     getStarredMails() {
-        this.getStarredEmails.emit();
+        this.getStarredEmails.emit(true);
     }
 }
