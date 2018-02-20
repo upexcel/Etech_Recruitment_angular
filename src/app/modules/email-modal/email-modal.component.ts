@@ -91,8 +91,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                     this.error = true;
                     this.errorMessageText = err.message;
                 });
+            } else {
+                this.getCandiatehistory();
             }
-            this.getCandiatehistory();
             if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
                 setTimeout(() => {
                     document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
