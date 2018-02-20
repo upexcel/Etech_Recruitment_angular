@@ -119,7 +119,6 @@ export class InboxComponent implements OnInit, OnDestroy {
             if (ev.key == 'updateInbox') {
                 this.updateInbox(ev.newValue);
             }
-            console.log(this.emaillist);
         });
 
     }
@@ -311,7 +310,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (email['attachment'] && email['attachment'].length === 0) {
             attachment = true;
         }
-        const landingUrl = window['origin'] + '/#/core/email/' + email._id + '/' + email['sender_mail'] + '/' + this.selectedTag + '/' + attachment + '/' + email['is_attachment'] + '/' + (email['default_tag'] ? email['default_tag'] : false) + '/' + (email['tag_id'].length !== 0 ? email['tag_id'] : false) + '/' + (email['fb_id'] ? email['fb_id'] : false) + '/' + (email['examScore'] ? email['examScore'] : false);
+        const landingUrl = window['origin'] + '/#/core/email/' + email._id;
         window.open(landingUrl);
         // }else {
         //     this._router.navigate(['core/inbox/email', email._id]);
