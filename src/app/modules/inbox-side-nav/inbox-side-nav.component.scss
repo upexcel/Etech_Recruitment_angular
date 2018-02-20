@@ -69,9 +69,11 @@ a:hover {
 }
 .subenav {
     cursor: pointer;
+    position: relative;
 }
 .subTag {
     margin: 0;
+    padding-left: 10px;
 }
 .subenav p {
     margin: 0px;
@@ -132,17 +134,14 @@ a:hover {
     font-style: italic !important;
 }
 .toggleDown{
-position: absolute;
-   margin-top: -25px;
-   right: 13px;
+    position: absolute;
+    top: 80px;
+    right: 13px;
 }
 .toggleUp{
-position: absolute;
-   margin-top: -41px;
-   right: 13px;
-}
-.Subchild a {
-    padding-left: 10px;
+    position: absolute;
+    top: 80px;
+    right: 13px;
 }
 .subenav a:hover{
     background: rgba(128,128,128, 0.3);
