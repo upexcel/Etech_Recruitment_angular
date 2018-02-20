@@ -16,9 +16,9 @@
       <span *ngIf="!email.source">IMAP</span>
     </p>
   </div>
-  <div *ngIf="!email.candiate_star.length"  class="mark__email not__starred" (click)="markStarred(email.sender_mail)">
+  <div *ngIf="!email.candidate_star.length"  class="mark__email not__starred" (click)="markStarred(email.sender_mail)">
   </div>
-  <div *ngIf="email.candiate_star.length"  class="mark__email starred" (click)="markStarred(email.sender_mail)">
+  <div *ngIf="email.candidate_star.length"  class="mark__email starred" (click)="markStarred(email.sender_mail)">
   </div>
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
     <md-select placeholder="Interviewee" *ngIf="tagselected" class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
