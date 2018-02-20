@@ -235,21 +235,3 @@
     opacity: 0.8;
     transform: scale(1.4);
 }
-.spam-archive {
-    display: inline-block;
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    width: 10%;
-}
-.markSpam {
-    float: left;
-    cursor: pointer;
-}
-.markArchive {
-    float: right;
-    cursor: pointer;
-}
-.markSpam:hover, .markArchive:hover {
-    color:#bb0000;
-}

@@ -20,10 +20,6 @@
   </div>
   <div *ngIf="email.candidate_star.length"  class="mark__email starred" (click)="markStarred(email.sender_mail)">
   </div>
-  <div class=spam-archive>
-    <div class="markSpam" (click)="moveToSpam()">Spam</div>
-    <div class="markArchive" (click)="moveToArchive()">Archive</div>
-  </div> 
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
     <md-select placeholder="Interviewee" *ngIf="tagselected" class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
       <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
