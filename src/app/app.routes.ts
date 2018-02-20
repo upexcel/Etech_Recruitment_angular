@@ -70,7 +70,7 @@ export const routes: Route[] = [{
                 canActivate: [LoginRouteGuard],
             },
             {
-                path: 'email/:id/:sender_mail/:selectedTag/:attachment/:is_attachment/:default_tag/:tag_id/:fb_id/:examScore',
+                path: 'email/:id',
                 pathMatch: 'full',
                 component: EmailModalComponent,
                 canActivate: [LoginRouteGuard]
