@@ -166,7 +166,7 @@ export class EmailboxComponent implements OnInit {
     }
     markStarred(email) {
         let body={
-            'mongo_id': this.email._id 
+            'mongo_id': this.email._id
         }
         if(this.email.candiate_star && this.email.candiate_star.length) {
             this.starred = false;

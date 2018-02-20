@@ -56,24 +56,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     tagfilter = [];
     url:string;
     constructor(public snackBar: MdSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
-        this.selectedEmail = {
-            selectedTag: this.route.snapshot.paramMap.get('selectedTag'),
-            id: this.route.snapshot.paramMap.get('id'),
-            attachment: this.route.snapshot.paramMap.get('attachment'),
-            is_attachment: this.route.snapshot.paramMap.get('is_attachment'),
-            tag_id: this.route.snapshot.paramMap.get('tag_id').split(','),
-            default_tag: this.route.snapshot.paramMap.get('default_tag'),
-            sender_mail: this.route.snapshot.paramMap.get('sender_mail'),
-            examScore: this.route.snapshot.paramMap.get('examScore'),
-            fb_id: this.route.snapshot.paramMap.get('fb_id')
-        }
-        if (this.selectedEmail['default_tag'] === 'false') {
-            this.selectedEmail['default_tag'] = '';
-        }
-        if (this.selectedEmail['tag_id'][0] === 'false') {
-            this.selectedEmail['tag_id'] = [];
-        };
-        this.selectedTag = this.selectedEmail['selectedTag'] * 1;
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
         this.inboxMailsTagsForEmailListAndModel = this._localStorageService.getItem('inboxMailsTagsForEmailListAndModel');
@@ -84,33 +66,40 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     ngOnInit() {
-        this.url = config.avatarUrl;
-        this.historyList = [];
-        this.idlist = [];
-        this.user = this._localStorageService.getItem('userEmail');
-        this.body = {
-            'status': false,
-            'mongo_id': this.selectedEmail['id']
-        };
-        if ((this.selectedEmail['attachment'] === 'true') && (this.selectedEmail['is_attachment'] === 'true')) {
-            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data) => {
-                this.getCandiatehistory();
-            }, (err) => {
-                this.error = true;
-                this.errorMessageText = err.message;
-            });
+        this.selectedEmail = {
+            _id: this.route.snapshot.paramMap.get('id'),
         }
-        this.getCandiatehistory();
-        if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
-            setTimeout(() => {
-                document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
-            }, 100);
-        }
-        this.getIntervieweeList();
-        this.tagfilter = this._localStorageService.getItem('tagFilter');
-        if (this.selectedEmail.tag_id.length !== 0) {
-            this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tagfilter, this.selectedTag * 1);
-        };
+        this.tagUpdate.getCandidateHistory(this.selectedEmail['_id']).subscribe((data) => {
+            this.selectedEmail = data.data[0];
+            this.tagfilter = this._localStorageService.getItem('tagFilter');
+            if (this.selectedEmail.tag_id.length !== 0) {
+                this.selectedTag = this.selectedEmail['default_tag'] || '0';
+                this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tagfilter, this.selectedTag * 1);
+            };
+            this.url = config.avatarUrl;
+            this.historyList = [];
+            this.idlist = [];
+            this.user = this._localStorageService.getItem('userEmail');
+            this.body = {
+                'status': false,
+                'mongo_id': this.selectedEmail['_id']
+            };
+            if ((this.selectedEmail['attachment'] === 'true') && (this.selectedEmail['is_attachment'] === 'true')) {
+                this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data1) => {
+                    this.getCandiatehistory();
+                }, (err) => {
+                    this.error = true;
+                    this.errorMessageText = err.message;
+                });
+            }
+            this.getCandiatehistory();
+            if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
+                setTimeout(() => {
+                    document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
+                }, 100);
+            }
+            this.getIntervieweeList();
+        })
     }
 
     getIntervieweeList() {
@@ -139,18 +128,17 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         if (this.selectedEmail['sender_mail']) {
             this.getCandidateHistoryApi(this.selectedEmail['sender_mail']);
         } else {
-            this.getCandidateHistoryApi(this.selectedEmail['id']);
+            this.getCandidateHistoryApi(this.selectedEmail['_id']);
         }
     }
 
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['id']);
+            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
         }, (err) => {
             console.log(err);
         });
-        console.log("schedule");
     }
 
     openAccordian(singleEmail) {
@@ -251,9 +239,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this._location.back();
         }
     }
-    
+
     broadcast_send() {
-        localStorage.setItem('updateInbox',this.selectedEmail['id']);
+        localStorage.setItem('updateInbox',this.selectedEmail['_id']);
     }
 
     openAttachment(link: string) {

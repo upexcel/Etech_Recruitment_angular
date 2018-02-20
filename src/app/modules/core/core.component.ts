@@ -44,9 +44,9 @@ export class CoreComponent implements OnInit {
         this.getNewEmail.apiEndEvent.subscribe(() => {
             this.progressSpinnner = false;
         });
-        setInterval(() => {
-            this.emailRefresh();
-        }, config['fetchMailInterval']);
+        // setInterval(() => {
+        //     this.emailRefresh();
+        // }, config['fetchMailInterval']);
     }
 
     emailRefresh() {
