@@ -371,7 +371,6 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     emaillists(emailData: any, page?: number) {
         this.onStarredPage = false;
-        console.log(this.onStarredPage);
         this.lastSelectedTagData = emailData;
         this.emailParenttitle = emailData['parentTitle'];
         this.emailChildTitle = emailData['title'];
