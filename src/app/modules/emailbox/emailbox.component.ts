@@ -168,13 +168,13 @@ export class EmailboxComponent implements OnInit {
         let body={
             'mongo_id': this.email._id
         }
-        if(this.email.candiate_star && this.email.candiate_star.length) {
+        if(this.email.candidate_star && this.email.candidate_star.length) {
             this.starred = false;
-            this.email.candiate_star = [];
+            this.email.candidate_star = [];
             this.removeStarredEmail.emit(this.email.sender_mail)
         } else {
             this.starred = true;
-            this.email.candiate_star = [0];
+            this.email.candidate_star = [0];
         }
         this.assignEmail.markStarred(this.starred, body).subscribe(()=> {
         }, (err) => {
