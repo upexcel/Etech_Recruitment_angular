@@ -19,11 +19,53 @@
         </div>
         <h4 *ngIf="error" style="color: red; text-align: center;">{{errorMessageText}}</h4>
     </div>
+    <div class="p-y">
+      <md-select style="float: right;" placeholder="Interviewee" class="assign-interviewee" [(ngModel)]="selectedEmail.interviewee"
+        (ngModelChange)="assignInterviewee(selectedEmail.interviewee)">
+        <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
+      </md-select>
+    </div>
+    <div class="default-tag-buttons" *ngIf="historyList.data && selectedTag && selectedTag >= 0">
+          <!-- All tag have parent id in field,
+          In case of default tag value of parent_id is null,
+          but in case of subtag there is some value in parent_id   .
+          I have added tag.parent_id==null to remove all tags which are auto generated, so that tags like Noida, Gurgoan, etc don't
+          show up-->
+        <span *ngFor="let tag of tagAssigned; trackBy: tagsDefaultTrack">
+              <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
+                  <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+              </a>
+          </span>
+          <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
+      </div>
+      <div class="default-tag-buttons" *ngIf="historyList.data && !selectedTag || selectedTag == -1">
+          <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack">
+              <a md-raised-button class="cyan" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
+                  <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+              </a>
+          </span>
+          <!-- <span  class="cyan" (click)="addNote()">Add Note</span> -->
+          <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
+      </div>
+      <div *ngIf="selectedEmail.notes.length>0">
+          <h3>Notes</h3>
+          <div class="maindiv" *ngFor="let note of selectedEmail.notes ; let i = index ">
+              <p class="fontstyle word-break">{{note.assignee}}</p>
+              <div class="childdiv" contenteditable="true" mdTooltip="Edit Note" mdTooltipPosition="below" (input)="eventHandler($event,note.date,note.time,selectedEmail._id)"
+                (focusout)="update($event,i)">{{note.note}}
+              </div>
+              <div class="footer">
+                <p class="datestyle">{{note.date}} {{note.time}}</p>
+              </div>
+          </div>
+      </div>
     <div class="bod" *ngFor="let H_email of historyList.data; trackBy: historyListDataTrack;">
         <div class="b-b" *ngIf="selectedEmail">
             <h3 class="font-300" *ngIf="historyList.data.length == 1">{{H_email.subject}}</h3>
             <h3 class="font-300 pointer" [ngClass]=" (!H_email.accordianIsOpen) ? 'accordian-close' : 'accordian-open'" *ngIf="historyList.data.length > 1"
-                (click)="openAccordian(H_email)">{{H_email.subject}}</h3>
+                (click)="openAccordian(H_email)">{{H_email.subject}}
+            <p *ngIf="!H_email.accordianIsOpen && H_email.body !=''" [innerHTML]="H_email.body | safeHtml" class="bodyHeader"></p>
+            </h3>
             <div class="accordian-icon-box" *ngIf="historyList.data.length > 1" (click)="openAccordian(H_email)">
                 <md-icon style="font-size: 24px!important;" *ngIf="H_email.accordianIsOpen">keyboard_arrow_up</md-icon>
                 <span *ngIf="!H_email.accordianIsOpen">
@@ -31,39 +73,13 @@
                 <md-icon style="font-size: 24px!important;" *ngIf="!H_email.accordianIsOpen">keyboard_arrow_down</md-icon>
             </div>
         </div>
-        <div [@collapseChange]="H_email.accordianIsOpen" *ngIf="H_email.accordianIsOpen">
+        <div [@collapseChange]="H_email.accordianIsOpen" *ngIf="H_email.accordianIsOpen" class="pad5">
             <div class="p-y">
                 from
                 <a>{{H_email.from}} {{H_email.sender_mail}}</a>, Source:
                 <span *ngIf="H_email.source">{{H_email.source}}</span>
                 <span *ngIf="!H_email.source">IMAP</span>
                 <span class="text-xs"> on {{H_email.date | date: 'medium'}}</span>
-                <md-select style="float: right;" placeholder="Interviewee" class="assign-interviewee" [(ngModel)]="H_email.interviewee" (ngModelChange)="assignInterviewee(H_email.interviewee)">
-                    <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
-                </md-select>
-            </div>
-
-            <div class="default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && selectedTag && selectedTag >= 0">
-                <!-- All tag have parent id in field,
-                In case of default tag value of parent_id is null,
-                but in case of subtag there is some value in parent_id   .
-                I have added tag.parent_id==null to remove all tags which are auto generated, so that tags like Noida, Gurgoan, etc don't
-                show up-->
-              <span *ngFor="let tag of tagAssigned; trackBy: tagsDefaultTrack">
-                    <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)">
-                        <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-                    </a>
-                </span>
-                <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(H_email._id)">Add Note</button>
-            </div>
-            <div class="default-tag-buttons" *ngIf="historyList.data && H_email.accordianIsOpen && !selectedTag || selectedTag == -1">
-                <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack">
-                    <a md-raised-button class="cyan" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, H_email._id, tag.title, H_email)">
-                        <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-                    </a>
-                </span>
-                <!-- <span  class="cyan" (click)="addNote()">Add Note</span> -->
-                <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(H_email._id)">Add Note</button>
             </div>
             <div *ngIf="H_email?.attachment?.length" class="attachment-container" style="width: 60%; display: inline-block;">
                 <h4 class="at-hed">Attachments</h4>
@@ -80,18 +96,6 @@
                 </div>
             </div>
             <div [innerHTML]="H_email.body | safeHtml" class="email-body" [ngStyle]="{ 'width': (H_email?.attachment?.length) ? '36%' : '100%'}">
-            </div>
-            <div>
-                <h3>Notes</h3>
-                <div class="maindiv" *ngFor="let note of H_email.notes ; let i = index ">
-                    <p class="fontstyle word-break">{{note.assignee}}</p>
-                    <div class="childdiv" contenteditable="true" mdTooltip="Edit Note" mdTooltipPosition="below" (input)="eventHandler($event,note.date,note.time,H_email._id)"
-                        (focusout)="update($event,i)">{{note.note}}
-                    </div>
-                    <div class="footer">
-                        <p class="datestyle">{{note.date}} {{note.time}}</p>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="clearfix">

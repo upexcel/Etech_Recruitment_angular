@@ -69,30 +69,32 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.selectedEmail = {
             _id: this.route.snapshot.paramMap.get('id'),
         }
+        this.url = config.avatarUrl;
+        this.historyList = [];
+        this.idlist = [];
+        this.user = this._localStorageService.getItem('userEmail');
+        this.body = {
+            'status': false,
+            'mongo_id': this.selectedEmail['_id']
+        };
         this.tagUpdate.getCandidateHistory(this.selectedEmail['_id']).subscribe((data) => {
             this.selectedEmail = data.data[0];
+            // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            this.historyList['data'] = this.commonService.sortBydate(data)
             this.tagfilter = this._localStorageService.getItem('tagFilter');
             if (this.selectedEmail.tag_id.length !== 0) {
                 this.selectedTag = this.selectedEmail['default_tag'] || '0';
                 this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tagfilter, this.selectedTag * 1);
             };
-            this.url = config.avatarUrl;
-            this.historyList = [];
-            this.idlist = [];
-            this.user = this._localStorageService.getItem('userEmail');
-            this.body = {
-                'status': false,
-                'mongo_id': this.selectedEmail['_id']
-            };
             if ((this.selectedEmail['attachment'] === 'true') && (this.selectedEmail['is_attachment'] === 'true')) {
                 this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data1) => {
-                    this.getCandiatehistory();
+                    this.getCandidateHistoryApi(this.selectedEmail['_id']);
                 }, (err) => {
                     this.error = true;
                     this.errorMessageText = err.message;
                 });
             } else {
-                this.getCandiatehistory();
+                // this.getCandiatehistory();
             }
             if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
                 setTimeout(() => {
@@ -135,7 +137,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
 
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            this.historyList['data'] = this.commonService.sortBydate(data);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
         }, (err) => {
             console.log(err);
@@ -143,10 +146,10 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     openAccordian(singleEmail) {
-        this.selectedEmail = '';
-        this.selectedEmail = singleEmail;
-        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
-            this.getEmailAttachment(this.selectedEmail);
+        // this.selectedEmail = '';
+        // this.selectedEmail = singleEmail;
+        if (singleEmail.attachment && singleEmail.attachment.length === 0 && singleEmail.is_attachment) {
+            this.getEmailAttachment(singleEmail);
         }
         for (let i = 0; i < this.historyList['data'].length; i++) {
             if (this.historyList['data'][i]['_id'] === singleEmail['_id']) {
@@ -301,15 +304,15 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             width: '30%'
         });
         this.dialogRef.componentInstance.candidateid = candidateid;
-        this.dialogRef.componentInstance.emailList = this.historyList;
+        this.dialogRef.componentInstance.emailList = this.selectedEmail;
         this.dialogRef.afterClosed().subscribe(result => {
             const date = moment(new Date()).format('DD-MM-YYYY');
             const time = moment(new Date()).format('hh:mm:ss a');
-            for (let i = 0; i <= this.historyList.data.length; i++) {
-                if (this.historyList.data[i]._id === result.notedata.mongo_id) {
-                    this.historyList.data[i].notes.push({ 'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time })
-                }
-            }
+            // for (let i = 0; i <= this.historyList.data.length; i++) {
+                // if (this.historyList.data[i]._id === result.notedata.mongo_id) {
+            this.selectedEmail['notes'].push({ 'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time })
+                // }
+            // }
             this.dialogRef = null;
         });
     }
