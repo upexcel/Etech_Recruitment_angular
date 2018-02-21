@@ -92,7 +92,12 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                 }, 100);
             }
             this.getIntervieweeList();
-            this.historyAttchement(this.historyList['data'])
+            this.historyList['data'][0]['accordianIsOpen'] = true;
+            this.historyAttchement(this.historyList['data']).then(res => {
+                this.openAttch().then((key: number) => {
+                    this.historyList['data'][key]['accordianIsOpen'] = true;
+                });
+            })
         })
     }
 
@@ -145,7 +150,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                 if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
                     this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
                         this.historyList['data'][index] = data['data'];
-                        this.historyList['data'][index]['accordianIsOpen'] = true;
+                        // this.historyList['data'][index]['accordianIsOpen'] = true;
                         if (allEmails && allEmails.length !== 0) {
                             historyData(allEmails, callback);
                         } else {
@@ -155,17 +160,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         this.error = true;
                         this.errorMessageText = err.message;
                     })
-                } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
-                    this.historyList['data'][index]['accordianIsOpen'] = true;
-                    if (allEmails && allEmails.length !== 0) {
-                        historyData(allEmails, callback);
-                    } else {
-                        callback(true);
-                    }
                 } else {
-                    if (index === 0) {
-                        this.historyList['data'][index]['accordianIsOpen'] = true;
-                    }
                     if (allEmails && allEmails.length !== 0) {
                         historyData(allEmails, callback);
                     } else {
@@ -175,6 +170,16 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             }
             historyData(emailAll, response => {
                 resolve(response);
+            })
+        })
+    }
+    openAttch() {
+        return new Promise((resolve, reject) => {
+            _.forEach(this.historyList['data'], (value, key) => {
+                console.log('data', value.attachment.length >= 1 && value.is_attachment)
+                if (value.attachment.length >= 1 && value.is_attachment) {
+                    resolve(key)
+                }
             })
         })
     }
