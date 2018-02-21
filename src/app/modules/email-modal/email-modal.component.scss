@@ -334,8 +334,8 @@ md-grid-tile {
 }
 .avatar-image img {
     border-radius: 50%;
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     top: 10px;
     position: absolute;
 }
@@ -377,4 +377,17 @@ a.link:hover{
     font-size: 14px !important;
     margin: 0px;
     height: 20px;
+}
+.bodyHeader p{
+  margin: 0px;
+}
+.p-y-img{
+    margin-left: 60px;
+    position: absolute;
+    margin-right: 130px;
+}
+@media (max-width:500px){
+  .hidexs{
+    display: none;
+  }
 }

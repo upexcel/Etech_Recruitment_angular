@@ -86,22 +86,13 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                 this.selectedTag = this.selectedEmail['default_tag'] || '0';
                 this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tagfilter, this.selectedTag * 1);
             };
-            if ((this.selectedEmail['attachment'] === 'true') && (this.selectedEmail['is_attachment'] === 'true')) {
-                this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data1) => {
-                    this.getCandidateHistoryApi(this.selectedEmail['_id']);
-                }, (err) => {
-                    this.error = true;
-                    this.errorMessageText = err.message;
-                });
-            } else {
-                // this.getCandiatehistory();
-            }
             if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
                 setTimeout(() => {
                     document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
                 }, 100);
             }
             this.getIntervieweeList();
+            this.historyAttchement(this.historyList['data'])
         })
     }
 
@@ -145,12 +136,50 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         });
     }
 
+    historyAttchement(emailAll: any) {
+        emailAll = JSON.parse(JSON.stringify(emailAll));
+        return new Promise((resolve, reject) => {
+            const historyData = (allEmails, callback) => {
+                const first_data = allEmails.splice(0, 1)[0];
+                const index = _.findIndex(this.historyList['data'], first_data)
+                if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
+                    this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
+                        this.historyList['data'][index] = data['data'];
+                        this.historyList['data'][index]['accordianIsOpen'] = true;
+                        if (allEmails && allEmails.length !== 0) {
+                            historyData(allEmails, callback);
+                        } else {
+                            callback(true);
+                        }
+                    }, (err) => {
+                        this.error = true;
+                        this.errorMessageText = err.message;
+                    })
+                } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
+                    this.historyList['data'][index]['accordianIsOpen'] = true;
+                    if (allEmails && allEmails.length !== 0) {
+                        historyData(allEmails, callback);
+                    } else {
+                        callback(true);
+                    }
+                } else {
+                    if (index === 0) {
+                        this.historyList['data'][index]['accordianIsOpen'] = true;
+                    }
+                    if (allEmails && allEmails.length !== 0) {
+                        historyData(allEmails, callback);
+                    } else {
+                        callback(true);
+                    }
+                }
+            }
+            historyData(emailAll, response => {
+                resolve(response);
+            })
+        })
+    }
+
     openAccordian(singleEmail) {
-        // this.selectedEmail = '';
-        // this.selectedEmail = singleEmail;
-        if (singleEmail.attachment && singleEmail.attachment.length === 0 && singleEmail.is_attachment) {
-            this.getEmailAttachment(singleEmail);
-        }
         for (let i = 0; i < this.historyList['data'].length; i++) {
             if (this.historyList['data'][i]['_id'] === singleEmail['_id']) {
                 if (this.historyList['data'][i]['accordianIsOpen']) {
