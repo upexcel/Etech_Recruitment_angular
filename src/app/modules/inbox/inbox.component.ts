@@ -258,6 +258,12 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.emailList = this.emailIds;
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
+            _.forEach(this.emaillist.data ,(value,key)=> {
+                console.log(value);
+                if(value.sender_mail == this.emailIds) {
+                    value.unread = false;
+                }
+            })
             this.dialogRef = null;
             this.emailIds = [];
             this.addSelectedFieldInEmailList(this.emaillist);
