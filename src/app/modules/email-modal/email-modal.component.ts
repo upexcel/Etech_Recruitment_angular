@@ -79,8 +79,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         };
         this.tagUpdate.getCandidateHistory(this.selectedEmail['_id']).subscribe((data) => {
             this.selectedEmail = data.data[0];
-            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
-            this._localStorageService.setItem('email', this.historyList['data'][0]);
+            // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            this.historyList['data'] = this.commonService.sortBydate(data)
             this.tagfilter = this._localStorageService.getItem('tagFilter');
             if (this.selectedEmail.tag_id.length !== 0) {
                 this.selectedTag = this.selectedEmail['default_tag'] || '0';
@@ -137,7 +137,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
 
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            this.historyList['data'] = this.commonService.sortBydate(data);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
         }, (err) => {
             console.log(err);

@@ -73,7 +73,7 @@
                 <md-icon style="font-size: 24px!important;" *ngIf="!H_email.accordianIsOpen">keyboard_arrow_down</md-icon>
             </div>
         </div>
-        <div [@collapseChange]="H_email.accordianIsOpen" *ngIf="H_email.accordianIsOpen">
+        <div [@collapseChange]="H_email.accordianIsOpen" *ngIf="H_email.accordianIsOpen" class="pad5">
             <div class="p-y">
                 from
                 <a>{{H_email.from}} {{H_email.sender_mail}}</a>, Source:
