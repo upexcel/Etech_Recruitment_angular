@@ -37,6 +37,7 @@ import { DialogService } from './../../service/dialog.service';
 import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 import { AddCandidateComponent } from './../add-candidate/add-candidate.component';
+import { RemoveMailsDialogComponent } from './../remove-mails-dialog/remove-mails-dialog.component';
 import { config } from './../../config/config';
 @Component({
     selector: 'app-inbox',
@@ -80,6 +81,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     allTagfilter: any;
     emailLimit:number;
     onStarredPage:boolean;
+    currentPage:any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -256,6 +258,12 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.emailList = this.emailIds;
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
+            _.forEach(this.emaillist.data ,(value,key)=> {
+                console.log(value);
+                if(value.sender_mail == this.emailIds) {
+                    value.unread = false;
+                }
+            })
             this.dialogRef = null;
             this.emailIds = [];
             this.addSelectedFieldInEmailList(this.emaillist);
@@ -370,6 +378,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     emaillists(emailData: any, page?: number) {
         this.onStarredPage = false;
+        this.currentPage = emailData.parentTitle;
         this.lastSelectedTagData = emailData;
         this.emailParenttitle = emailData['parentTitle'];
         this.emailChildTitle = emailData['title'];
@@ -519,6 +528,17 @@ export class InboxComponent implements OnInit, OnDestroy {
     updateInbox(id) {
         _.remove(this.emaillist.data,{'_id':id});
         localStorage.removeItem('updateInbox');
+    }
+    removeOldEmails() {
+        this.dialogRef = this.dialog.open(RemoveMailsDialogComponent, {
+            height: '60%',
+            width: '60%'
+        });
+        this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        this.dialogRef.afterClosed().subscribe(result => {
+        this.dialogRef = null;
+        this.refresh();
+        })
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();

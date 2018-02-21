@@ -1,0 +1,30 @@
+<div class="">
+  <h3>Move Mails To Inbox</h3>
+  <form autocomplete="off" #removeEmails="ngForm" (ngSubmit)="removeOldEmails(removeEmails.value)">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="from" type="date" placeholder="From date" #startDateValidator="ngModel" ngModel required>
+        </md-input-container>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <md-input-container class="width-100">
+          <input mdInput name="to" type="date" placeholder="To date" #endDateValidator="ngModel" ngModel required>
+        </md-input-container>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <md-checkbox name="unread" [(ngModel)]="unread" ngModel required>Mark Unread</md-checkbox>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-right">
+        <button md-raised-button (click)="close()">Close</button>
+        <button id="save" md-raised-button type="submit" color=primary [disabled]="startDateValidator.invalid || endDateValidator.invalid">
+          <span>Move</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
