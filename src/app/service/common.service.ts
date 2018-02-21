@@ -277,13 +277,6 @@ export class CommonService {
         newdata = _.sortBy(data.data, function(o) {
             return new Date(o.date);
         }).reverse();
-        _.forEach(newdata, (value, key) => {
-            if (key*1 === 0) {
-                value['accordianIsOpen'] = true;
-            } else {
-                value['accordianIsOpen'] = false;
-            }
-        })
         return newdata;
     }
 
