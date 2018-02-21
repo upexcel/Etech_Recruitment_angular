@@ -2,8 +2,8 @@
 
   <!-- <md-list class="pad0"> -->
     <!-- <md-list-item class="pad0"> -->
-      <md-spinner id="loginSpinner" *ngIf="loading" class="spin"></md-spinner>
-      <div *ngIf="!notag && !loading" class="marAuto bodyInner width400">
+
+      <div *ngIf="!notag" class="marAuto bodyInner width400">
         <md-card-title>
           <h4>Select Job profile</h4>
           <hr>
@@ -21,7 +21,11 @@
     <!-- </md-list-item> -->
   <!-- </md-list> -->
 </md-card>
-<div *ngIf="!hide && !thankyou" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
+<div class="col-xs-12 col-md-12 col-sm-12 bodyInner" *ngIf="loading">
+    <md-spinner id="loginSpinner" *ngIf="loading" class="spin"></md-spinner>
+</div>
+
+<div *ngIf="!hide && !thankyou && !loading" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
       <div><h4>Test Questions</h4>
 
         <p class="col-md-6 col-sm-6 col-xs-12 pad0">
@@ -30,7 +34,7 @@
           </span> -->
         </p>
         <p class="col-md-6 col-sm-6 col-xs-12 pad0">
-          <span class="right style">Question Attempted:
+          <span class="right style" *ngIf="total">Question Attempted:
             <span class="bold">{{selectedAnswer.length}}/{{total}}</span>
           </span>
         </p>
@@ -43,11 +47,11 @@
                 {{group.group_name}}
               </md-panel-title>
               <md-panel-description>
-                Total Questions: {{group.questions.length}}
+                Total Ques: {{group.questions.length}}
               </md-panel-description>
             </md-expansion-panel-header>
               <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
-                <h3>{{id+1}}. &nbsp;{{ques.question}}</h3>
+                <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
                 <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
                 <p class="pid">Options:</p>
                 <md-radio-group class="width100 fontsize">

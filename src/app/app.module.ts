@@ -159,7 +159,6 @@ import { CommonService } from './service/common.service';
 import { LocalStorageService } from './service/local-storage.service';
 import { DialogService } from './service/dialog.service';
 import { DashboardService } from './service/dashboard.service';
-import { AvatarDirectiveDirective } from './service/avatar-directive.directive';
 import { SpamDialogService } from './service/spamDialog.service';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
@@ -230,7 +229,6 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
         ScheduleInterviewComponent,
         ConfirmationDialogComponent,
         DashboardComponent,
-        AvatarDirectiveDirective,
         CronStatusModelComponent,
         AddNoteComponent,
         SlackInfoComponent,

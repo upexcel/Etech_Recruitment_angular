@@ -68,11 +68,12 @@ export const routes: Route[] = [{
                 path: 'inbox',
                 component: InboxComponent,
                 canActivate: [LoginRouteGuard],
-                children: [{
-                    path: 'email/:id',
-                    pathMatch: 'full',
-                    component: EmailModalComponent
-                }]
+            },
+            {
+                path: 'email/:id',
+                pathMatch: 'full',
+                component: EmailModalComponent,
+                canActivate: [LoginRouteGuard]
             },
             {
                 path: 'dashboard',

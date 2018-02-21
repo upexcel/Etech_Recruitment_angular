@@ -17,23 +17,31 @@ export class InboxSideNavComponent implements OnInit {
     thirdlist = false;
     selectedId: string;
     parantTagId: string;
+    showId: any;
+    showAlltag: boolean;
     @Input() tags: any[];
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
     @Output() getTags = new EventEmitter<any>();
+    @Output() getStarredEmails = new EventEmitter<any>();
     dialogRef: MdDialogRef < any > ;
     constructor(public _apiService: ImapMailsService, public dialog: MdDialog, private _dialogService: DialogService) { }
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
                 _.forEach(tagValue['data'], (tagSubValue, tagSubKey) => {
-                    if (tagSubValue['title'] === 'Mails') {
+                    if (tagSubValue['title'] === 'Attachment') {
                         this.selectedId = tagSubValue['id'];
                         this.parantTagId = '0';
                     }
                 });
             }
         });
+        if (localStorage.getItem('tagShowId')) {
+            this.showId = localStorage.getItem('tagShowId');
+        }else{
+            this.showAlltag = true;
+        }
     }
     getEmail(id, parantTagId, title, parentTitle) {
         this.parantTagId = parantTagId;
@@ -104,5 +112,18 @@ export class InboxSideNavComponent implements OnInit {
     hidetag() {
         this.showHide = null;
        // this.showaddtag = false;
+    }
+    showHideMenu(id) {
+        if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
+            localStorage.removeItem('tagShowId');
+            this.showAlltag = true;
+        }else {
+            this.showAlltag = false;
+            this.showId = id;
+            localStorage.setItem('tagShowId', id);
+        }
+    }
+    getStarredMails() {
+        this.getStarredEmails.emit(true);
     }
 }

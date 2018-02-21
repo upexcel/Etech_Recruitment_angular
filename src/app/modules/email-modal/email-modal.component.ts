@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdDialog, MdDialogConfig, MdDialogRef , MdSnackBar} from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -14,6 +14,8 @@ import * as moment from 'moment';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
+import { config } from './../../config/config';
+
 
 @Component({
     selector: 'app-email-modal',
@@ -32,10 +34,9 @@ import { PreviewScoreComponent } from '../previewScore/previewScore.component';
         ])
     ]
 })
-export class EmailModalComponent implements OnInit, OnDestroy {
+export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit {
     dialogConfig: MdDialogRef<any>;
     dialogRef: MdDialogRef<any>;
-    email: any;
     tags: any;
     body: any;
     historyList: any;
@@ -51,46 +52,48 @@ export class EmailModalComponent implements OnInit, OnDestroy {
     user: any;
     mongoid: any;
     intervieweeList: any;
-    constructor(public snackBar: MdSnackBar,public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
-        this.email = this._localStorageService.getItem('email');
-        if (!this._localStorageService.getItem('selectedTag')) {
-            this.selectedTag = -1;
-        } else {
-            this.selectedTag = this._localStorageService.getItem('selectedTag');
-        }
+    tagAssigned = [];
+    tagfilter = [];
+    url:string;
+    constructor(public snackBar: MdSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
         this.inboxMailsTagsForEmailListAndModel = this._localStorageService.getItem('inboxMailsTagsForEmailListAndModel');
     }
 
+    ngAfterContentInit() {
+        document.getElementById('sideNav').classList.add('sidehide');
+    }
+
     ngOnInit() {
-        document.getElementById('topnav').classList.add('sidehide');
-        document.getElementById('leftPart').classList.add('sidehide');
-        document.getElementById('rightPart').classList.add('fullwidth');
-        this.selectedEmail = this.email;
+        this.selectedEmail = {
+            _id: this.route.snapshot.paramMap.get('id'),
+        }
+        this.url = config.avatarUrl;
         this.historyList = [];
         this.idlist = [];
         this.user = this._localStorageService.getItem('userEmail');
         this.body = {
             'status': false,
-            'mongo_id': this.route.snapshot.paramMap.get('id')
+            'mongo_id': this.selectedEmail['_id']
         };
-        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
-            this.tagUpdate.emailAttachment(this.body.mongo_id).subscribe((data) => {
-                this.showEmail(data.data);
-                this.getCandiatehistory();
-            }, (err) => {
-                this.error = true;
-                this.errorMessageText = err.message;
-            });
-        }
-        this.getCandiatehistory();
-        if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
-            setTimeout(() => {
-                document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
-            }, 100);
-        }
-        this.getIntervieweeList();
+        this.tagUpdate.getCandidateHistory(this.selectedEmail['_id']).subscribe((data) => {
+            this.selectedEmail = data.data[0];
+            // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            this.historyList['data'] = this.commonService.sortBydate(data)
+            this.tagfilter = this._localStorageService.getItem('tagFilter');
+            if (this.selectedEmail.tag_id.length !== 0) {
+                this.selectedTag = this.selectedEmail['default_tag'] || '0';
+                this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tagfilter, this.selectedTag * 1);
+            };
+            if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
+                setTimeout(() => {
+                    document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
+                }, 100);
+            }
+            this.getIntervieweeList();
+            this.historyAttchement(this.historyList['data'])
+        })
     }
 
     getIntervieweeList() {
@@ -103,48 +106,80 @@ export class EmailModalComponent implements OnInit, OnDestroy {
 
     assignInterviewee(interviewee) {
         const apiData = {
-            mongo_id: this.email._id,
+            mongo_id: this.selectedEmail._id,
             interviewee: interviewee
         }
-        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
+        this.tagUpdate.assignInterviewee(apiData).subscribe((res) => { }, (err) => {
             console.log(err)
         })
     }
 
     ngOnDestroy() {
-        document.getElementById('topnav').classList.remove('sidehide');
-        document.getElementById('leftPart').classList.remove('sidehide');
-        document.getElementById('rightPart').classList.remove('fullwidth');
+        document.getElementById('sideNav').classList.remove('sidehide');
     }
 
     getCandiatehistory() {
-        if (this.email.sender_mail) {
-            this.getCandidateHistoryApi(this.email.sender_mail);
+        if (this.selectedEmail['sender_mail']) {
+            this.getCandidateHistoryApi(this.selectedEmail['sender_mail']);
         } else {
-            this.getCandidateHistoryApi(this.email._id);
+            this.getCandidateHistoryApi(this.selectedEmail['_id']);
         }
     }
 
     getCandidateHistoryApi(apiData) {
         this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
-            this.historyList = this.commonService.formateEmailHistoryData(data, this.route.snapshot.paramMap.get('id'));
+            // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
+            this.historyList['data'] = this.commonService.sortBydate(data);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
         }, (err) => {
             console.log(err);
         });
     }
 
-    showEmail(singlemail: any) {
-        this.selectedEmail = '';
-        this.selectedEmail = singlemail;
+    historyAttchement(emailAll: any) {
+        emailAll = JSON.parse(JSON.stringify(emailAll));
+        return new Promise((resolve, reject) => {
+            const historyData = (allEmails, callback) => {
+                const first_data = allEmails.splice(0, 1)[0];
+                const index = _.findIndex(this.historyList['data'], first_data)
+                if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
+                    this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
+                        this.historyList['data'][index] = data['data'];
+                        this.historyList['data'][index]['accordianIsOpen'] = true;
+                        if (allEmails && allEmails.length !== 0) {
+                            historyData(allEmails, callback);
+                        } else {
+                            callback(true);
+                        }
+                    }, (err) => {
+                        this.error = true;
+                        this.errorMessageText = err.message;
+                    })
+                } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
+                    this.historyList['data'][index]['accordianIsOpen'] = true;
+                    if (allEmails && allEmails.length !== 0) {
+                        historyData(allEmails, callback);
+                    } else {
+                        callback(true);
+                    }
+                } else {
+                    if (index === 0) {
+                        this.historyList['data'][index]['accordianIsOpen'] = true;
+                    }
+                    if (allEmails && allEmails.length !== 0) {
+                        historyData(allEmails, callback);
+                    } else {
+                        callback(true);
+                    }
+                }
+            }
+            historyData(emailAll, response => {
+                resolve(response);
+            })
+        })
     }
 
     openAccordian(singleEmail) {
-        this.selectedEmail = '';
-        this.selectedEmail = singleEmail;
-        if (this.selectedEmail.attachment && this.selectedEmail.attachment.length === 0 && this.selectedEmail.is_attachment) {
-            this.getEmailAttachment(this.selectedEmail);
-        }
         for (let i = 0; i < this.historyList['data'].length; i++) {
             if (this.historyList['data'][i]['_id'] === singleEmail['_id']) {
                 if (this.historyList['data'][i]['accordianIsOpen']) {
@@ -179,6 +214,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
                             duration: 2000,
                         });
                         this.commonService.inboxRefreshEvent();
+                        this.broadcast_send();
                     }, (err) => {
                         console.log(err);
                     });
@@ -187,7 +223,36 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             }, (err) => {
                 console.log(err);
             });
+        } else if (title === 'Reject' || title === 'CV Rejected') {
+            this.dialogRef = this.dialog.open(AddNoteComponent, {
+                height: '35%',
+                width: '30%'
+            });
+            this.dialogRef.componentInstance.candidateid = emailData._id;
+            this.dialogRef.componentInstance.title = title;
+            this.dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.body = null;
+                    this.idlist.push(emailId);
+                    this.body = {
+                        'tag_id': id,
+                        'mongo_id': this.idlist
+                    };
+                    this.tagUpdate.assignTag(this.body).subscribe((data) => {
+                        this.idlist = [];
+                        this.snackBar.open('Added Successfully', '', {
+                            duration: 2000,
+                        });
+                        this.commonService.inboxRefreshEvent();
+                        this.broadcast_send();
+                    }, (err) => {
+                        console.log(err);
+                    });
+                    this._location.back();
+                }
+            })
         } else {
+            console.log('modalRejct');
             this.body = null;
             this.idlist.push(emailId);
             this.body = {
@@ -200,11 +265,16 @@ export class EmailModalComponent implements OnInit, OnDestroy {
                     duration: 2000,
                 });
                 this.commonService.inboxRefreshEvent();
+                this.broadcast_send();
             }, (err) => {
                 console.log(err);
             });
             this._location.back();
         }
+    }
+
+    broadcast_send() {
+        localStorage.setItem('updateInbox',this.selectedEmail['_id']);
     }
 
     openAttachment(link: string) {
@@ -251,7 +321,7 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             height: '90%',
             width: '70%'
         });
-        this.dialogRef.componentInstance.emailList = [this.email['sender_mail']];
+        this.dialogRef.componentInstance.emailList = [this.selectedEmail['sender_mail']];
         this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
@@ -263,27 +333,28 @@ export class EmailModalComponent implements OnInit, OnDestroy {
             width: '30%'
         });
         this.dialogRef.componentInstance.candidateid = candidateid;
-        this.dialogRef.componentInstance.emailList = this.historyList;
+        this.dialogRef.componentInstance.emailList = this.selectedEmail;
         this.dialogRef.afterClosed().subscribe(result => {
             const date = moment(new Date()).format('DD-MM-YYYY');
             const time = moment(new Date()).format('hh:mm:ss a');
-            for (let i = 0; i <= this.historyList.data.length; i++) {
-                if (this.historyList.data[i]._id === result.notedata.mongo_id) {
-                    this.historyList.data[i].notes.push({'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time})
-                }
-            }
+            // for (let i = 0; i <= this.historyList.data.length; i++) {
+                // if (this.historyList.data[i]._id === result.notedata.mongo_id) {
+            this.selectedEmail['notes'].push({ 'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time })
+                // }
+            // }
             this.dialogRef = null;
         });
     }
 
     eventHandler(event, notedate, notetime, mongoid) {
         this.mongoid = mongoid;
-        this.updatedData = {note: event.target.outerText, mongo_id: mongoid, note_date: notedate, note_time: notetime
+        this.updatedData = {
+            note: event.target.outerText, mongo_id: mongoid, note_date: notedate, note_time: notetime
         }
     }
     update(event, i) {
         if (this.updatedData !== undefined) {
-            this.tagUpdate.updateNote(this.updatedData).subscribe((data) => {}, (err) => {
+            this.tagUpdate.updateNote(this.updatedData).subscribe((data) => { }, (err) => {
                 this.error = true;
                 this.errorMessageText = err.message;
             });

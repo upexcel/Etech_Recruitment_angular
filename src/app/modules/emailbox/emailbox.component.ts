@@ -7,6 +7,9 @@ import { CommonService } from './../../service/common.service';
 import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { ViewNoteComponent } from './../view-note/view-note.component';
+import { AddNoteComponent } from './../add-note/add-note.component';
+import { config } from './../../config/config';
+
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-emailbox',
@@ -18,7 +21,9 @@ export class EmailboxComponent implements OnInit {
     data: any;
     selected = false;
     selectedMid: string[];
+    tagAssigned= [];
     @Input() email: any;
+    @Input() tagfilter: any;
     @Input() tags: any[];
     @Input() allTags: any;
     @Input() tagselected: any;
@@ -31,16 +36,22 @@ export class EmailboxComponent implements OnInit {
     @Output() refreshEmail = new EventEmitter<any>();
     @Output() selectEmail = new EventEmitter<string>();
     @Output() removeEmail = new EventEmitter<string>();
+    @Output() removeStarredEmail = new EventEmitter<string>();
     @Output() deleteAndAssignTag = new EventEmitter();
     role: string;
+    url:string;
+    starred:boolean = false;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
     ngOnInit() {
+        this.url = config.avatarUrl;
         this.selectedMid = [];
         this.removeSelected();
         this.role = this._localStorageService.getItem('role');
+        if (this.email.tag_id.length !== 0) {
+            this.tagAssigned = this.commonService.filtertag(this.email, this.tagfilter, this.tagselected);
+        };
     }
-
     emailSelection() {
         if (this.email.selected) {
             this.selectEmail.emit(this.email.sender_mail);
@@ -79,6 +90,18 @@ export class EmailboxComponent implements OnInit {
             }, (err) => {
                 console.log(err);
             });
+        } else if (title === 'Reject' || title === 'CV Rejected') {
+            this.dialogRef = this.dialog.open(AddNoteComponent, {
+                height: '35%',
+                width: '30%'
+            });
+            this.dialogRef.componentInstance.candidateid = emailData._id;
+            this.dialogRef.componentInstance.title = title;
+            this.dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    this.deleteAndAssignTag.emit(id);
+                }
+            })
         } else {
             this.deleteAndAssignTag.emit(id);
         }
@@ -109,7 +132,6 @@ export class EmailboxComponent implements OnInit {
             this.assignEmail.MarkASUnreadStatus({
                 'mongo_id': this.email._id
             }).subscribe((data) => {
-                this.refreshEmail.emit(this.email);
             }, (err) => {
                 console.log(err);
             });
@@ -118,12 +140,11 @@ export class EmailboxComponent implements OnInit {
                 'status': false,
                 'mongo_id': this.email._id
             }).subscribe((data) => {
-                this.refreshEmail.emit(this.email);
             }, (err) => {
                 console.log(err);
             });
         }
-
+        this.refreshEmail.emit(this.email);
     }
 
     assignInterviewee(interviewee) {
@@ -142,5 +163,22 @@ export class EmailboxComponent implements OnInit {
             width: 'auto'
         });
         this.dialogRef.componentInstance.candidateNote = candidateNote;
+    }
+    markStarred(email) {
+        let body={
+            'mongo_id': this.email._id
+        }
+        if(this.email.candidate_star && this.email.candidate_star.length) {
+            this.starred = false;
+            this.email.candidate_star = [];
+            this.removeStarredEmail.emit(this.email.sender_mail)
+        } else {
+            this.starred = true;
+            this.email.candidate_star = [0];
+        }
+        this.assignEmail.markStarred(this.starred, body).subscribe(()=> {
+        }, (err) => {
+            console.log(err);
+        })
     }
 }

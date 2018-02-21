@@ -17,7 +17,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     questions: any;
     options: any;
     job_pro: any [];
-    hide= true;
+    hide= false;
     dialogRef: MdDialogRef<any>;
     selectedJob: any;
     selectedAnswer= [];
@@ -49,12 +49,13 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 this.contactHR = res.message;
             }else {
                 console.log(res);
-                this.loading = false;
                 if (res.length === 1) {
                     this.selectedJob = res[0].id;
                     localStorage.setItem('_idjob', this.selectedJob );
+                    this.hide = false;
                     this.start(this.selectedJob);
                 }else {
+                    this.loading = true;
                     this.job_pro = res;
                 }
             }
@@ -88,6 +89,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
     start(id: any) {
         this.getTags.getQues(id).subscribe(res => {
+            this.loading = false;
             if (res.data.length > 0) {
                 this.hide = false;
                 this.questions = res.data;
@@ -163,11 +165,17 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }
     }
     submit() {
+        let startTime= new Date(JSON.parse(localStorage.getItem('start')));
+        let endTime = new Date();
+        let totalHours = (endTime.getHours() - startTime.getHours());
+        let minutes = (endTime.getMinutes() - startTime.getMinutes());
+        let totalMinutes= (totalHours * 60) + minutes;
         this.allansRecord = {
             'job_profile': this.selectedJob,
             'fb_id': this.user_id,
             'answers': this.selectedAnswer,
-            'questionIds': this.totalQues
+            'questionIds': this.totalQues,
+            'taken_time_minutes': totalMinutes
         }
         this.getTags.submitTest(this.allansRecord).subscribe(res => {
             // clearInterval(this.interval);

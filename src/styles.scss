@@ -216,6 +216,18 @@ app-dashboard, app-root, app-login, .mat-sidenav-container {
   display: block;
   height: 100%;
 }
+.mat-sidenav-content::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+.mat-sidenav-content::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+.mat-sidenav-content::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #555;
+}
 app-core {
   width: 100%;
   height: 100%;
@@ -263,4 +275,21 @@ app-core {
 .cron-spinner {
   height: 30px !important;
   width: 30px !important;
+}
+#topnav {
+  background: linear-gradient(40deg,#1d3954,#45ece5) !important;
+  z-index: 2;
+  position: relative;
+}
+html::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
+}
+html::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+html::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  background-color: #555;
 }

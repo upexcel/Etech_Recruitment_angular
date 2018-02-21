@@ -20,7 +20,7 @@ export class AddSubTagModalComponent implements OnInit {
     originalcolor = color_list[0];
     availableColors = color_list;
     parentid: string;
-    emailFormControl = new FormControl('', [Validators.required, Validators.pattern(EMAIL_REGEX)]);
+    emailPattern = EMAIL_REGEX;
     constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
 
     ngOnInit() {
@@ -32,8 +32,7 @@ export class AddSubTagModalComponent implements OnInit {
     addTag(form: NgForm) {
         this.showMessage = false;
         this.showloading = true;
-        if (form.valid) {
-            form.value['email'] = this.emailFormControl.value;
+            // form.value['email'] = this.emailFormControl.value;
             form.value.color = this.originalcolor;
             form.value.parent_id = this.parentid;
             this.tagUpdate.addSubTag(form.value).subscribe((data) => {
@@ -45,7 +44,6 @@ export class AddSubTagModalComponent implements OnInit {
                 this.showloading = false;
                 this.message = err.message;
             });
-        }
     }
 
     availableColorsTrackBY(index, data) {

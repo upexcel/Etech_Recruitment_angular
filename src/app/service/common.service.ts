@@ -212,7 +212,7 @@ export class CommonService {
     }
     getIntervieweeList() {
         return new Promise((resolve, reject) => {
-            if (this.intervieweeList && this.intervieweeList.lenght) {
+            if (this.intervieweeList && this.intervieweeList.length) {
                 resolve(this.intervieweeList);
             } else {
                 this._apiService.getIntervieweeList().subscribe((res) => {
@@ -233,4 +233,51 @@ export class CommonService {
             return 'added';
         }
     }
+    filtertag(emailDefautltTag, tagFilter, selectedTag) {
+        let newTag = [];
+        let tagAssigned = [];
+        const TagArray = [];
+        _.forEach(tagFilter, (profile, key) => {
+            _.forEach(emailDefautltTag.tag_id, (tagid, key2) => {
+                if (profile.id == tagid) {
+                    newTag = profile.subchild;
+                }
+            });
+        })
+        if (newTag.length > 0 && emailDefautltTag.default_tag) {
+            _.forEach(newTag, (tag, index) => {
+                if (tag.id == selectedTag) {
+                    tagAssigned = this.pushTagInarray(index, newTag);
+                }
+            });
+        }else {
+            tagAssigned = this.pushTagInarray(0, newTag);
+        }
+        _.forEach(tagAssigned, (data, key) => {
+            if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
+                // TagArray.push(data);
+            }else {
+                TagArray.push(data);
+            }
+        });
+        return TagArray;
+    }
+
+    pushTagInarray(id, allTag) {
+        const tag = [];
+        for (let index = id; index < allTag.length; index++) {
+            tag.push(allTag[index]);
+        }
+        tag.push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 })
+
+        return tag;
+    }
+    sortBydate(data) {
+        let newdata = [];
+        newdata = _.sortBy(data.data, function(o) {
+            return new Date(o.date);
+        }).reverse();
+        return newdata;
+    }
+
 }
