@@ -49,7 +49,7 @@
             <div class="selected-color" *ngFor="let color of availableColors; trackBy: availableColorsTrackBY;" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
           </div>
         </div>
-        <div class="col-md-12 col-sm-12 text-right">
+        <div class="col-md-11 col-sm-11 text-right">
           <button md-raised-button (click)="close()">Close</button>
           <button id="save" md-raised-button type="submit" color=primary [disabled]="titleValidator.invalid || (emailValidator.invalid && (startDateValidator.invalid || endDateValidator.invalid) && subjectValidator.invalid) || showloading" (click)="addTag(addForm)"><span>Save </span></button>
         </div>

@@ -179,6 +179,7 @@ import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.
 import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
+import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove-mails-dialog.component';
 
 @NgModule({
     declarations: [
@@ -250,7 +251,8 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
         OtpdialogComponent,
         WalkinCandidateComponent,
         PreviewScoreComponent,
-        PendingCandidateComponent
+        PendingCandidateComponent,
+        RemoveMailsDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -318,7 +320,8 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
         PreviewAnswerComponent,
         OtpdialogComponent,
         WalkinCandidateComponent,
-        PreviewScoreComponent
+        PreviewScoreComponent,
+        RemoveMailsDialogComponent
     ],
     bootstrap: [AppComponent]
 })
