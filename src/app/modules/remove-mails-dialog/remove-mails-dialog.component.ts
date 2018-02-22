@@ -13,6 +13,7 @@ export class RemoveMailsDialogComponent implements OnInit {
   emailParentId: any;
   showMessage: boolean;
   showloading: boolean;
+  unread:boolean;
   constructor(public dialogRef: MdDialogRef<any>, private imapMailService: ImapMailsService) { }
 
   ngOnInit() {
