@@ -92,6 +92,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                     document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
                 }, 100);
             }
+            this.openAccordian(this.historyList['data'][0]);
             this.getIntervieweeList();
             this.historyAttchement(this.historyList['data'])
         })
@@ -132,6 +133,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
             this.historyList['data'] = this.commonService.sortBydate(data);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
+            this.openAccordian(this.historyList['data'][0]);
         }, (err) => {
             console.log(err);
         });
@@ -145,8 +147,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                 const index = _.findIndex(this.historyList['data'], first_data)
                 if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
                     this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
-                        this.historyList['data'][index] = data['data'];
-                        this.historyList['data'][index]['accordianIsOpen'] = true;
+                        this.getCandiatehistory();
+                        // this.historyList['data'][index] = data['data'];
+                        // this.historyList['data'][index]['accordianIsOpen'] = true;
                         if (allEmails && allEmails.length !== 0) {
                             historyData(allEmails, callback);
                         } else {
@@ -157,7 +160,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         this.errorMessageText = err.message;
                     })
                 } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
-                    this.historyList['data'][index]['accordianIsOpen'] = true;
+                    // this.historyList['data'][index]['accordianIsOpen'] = true;
                     if (allEmails && allEmails.length !== 0) {
                         historyData(allEmails, callback);
                     } else {
