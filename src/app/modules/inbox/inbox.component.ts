@@ -259,7 +259,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
             _.forEach(this.emaillist.data ,(value,key)=> {
-                console.log(value);
                 if(value.sender_mail == this.emailIds) {
                     value.unread = false;
                 }
@@ -392,11 +391,11 @@ export class InboxComponent implements OnInit, OnDestroy {
         } else {
             this.emailChildId = emailData.id.toString() || '0';
         }
-        // if (emailData.title === 'All') {
-        //     this.selectedTagTitle = emailData.title;
-        // } else {
-        //     this.selectedTagTitle = '';
-        // }
+        if (emailData.title === 'All') {
+            this.selectedTagTitle = emailData.title;
+        } else {
+            this.selectedTagTitle = '';
+        }
         this.selectedTag = emailData.id;
         this.data = null;
         this.showmessage = false;
