@@ -376,6 +376,17 @@ export class ImapMailsService {
     emailAttachment(id: string): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.put(environment['apibase'] + `email/mailAttachment/${id}`)
+        .retryWhen(error => {
+            return error.flatMap((error1: any) => {
+                console.log('error1',error1)
+                if (error1.status === 400) {
+                    return Observable.of(error1.status).delay(2000)
+                }
+                return Observable.throw({error: 'No retry'});
+            })
+               .take(20)
+               .concat(Observable.throw({error: 'Sorry, there was an error (after 5 retries)'}));
+        })
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
