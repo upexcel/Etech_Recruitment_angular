@@ -14,6 +14,7 @@ import * as moment from 'moment';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
+import { ChangeTagComponent } from '../../modules//change-tag/change-tag.component';
 import { config } from './../../config/config';
 
 
@@ -383,5 +384,15 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.dialogRef = null;
         });
     }
-
+    changeTag() {
+        this.dialogRef = this.dialog.open(ChangeTagComponent, {
+            height: '70%',
+            width:'50%'
+        });
+        this.dialogRef.componentInstance
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+        });
+        console.log(this.selectedTag);
+    }
 }
