@@ -18,12 +18,10 @@ export class TemplateEditComponent implements OnInit {
     subject: string;
     temp: any;
     subject_for_genuine: string;
-    production: boolean;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {
-        this.production = environment['production']
         this.tempName = this.temp.templateName;
         this.subject = this.temp.subject;
         this.ckeditorContent = this.temp.body;

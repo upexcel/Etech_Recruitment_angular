@@ -16,12 +16,10 @@ export class AddEmailTempComponent implements OnInit {
     message: string;
     showMessage: boolean;
     subject_for_genuine: string;
-    production: boolean;
     constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {
-        this.production = environment['production']
         this.showMessage = false;
         this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
     }
