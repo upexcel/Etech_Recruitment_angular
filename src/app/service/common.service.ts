@@ -234,24 +234,28 @@ export class CommonService {
         }
     }
     filtertag(email) {
-        console.log(this._localStorageService.getItem('allTags'))
-        const newTagFilter = this._localStorageService.getItem('tagFilter');
-        console.log(email['tag_id'], email['default_tag'])
-        if (email['tag_id'].length === 0 && email['default_tag'].length === 0) {
-            console.log('no tag default')
-        }
+        const allTags = this._localStorageService.getItem('allTags');
         let newArray = [];
-        if (newTagFilter && newTagFilter.length > 0) {
-            _.forEach(newTagFilter, (jobProfile, key) => {
-                if (email && email['tag_id'] && email['tag_id'].length && (email['tag_id'][0] * 1 === jobProfile['id'])) {
-                    console.log('match')
-                    console.log('jobProfile[subchild]', jobProfile['subchild'])
-                    const index = _.findIndex(jobProfile['subchild'], { id: email['default_tag'] * 1 });
-                    console.log(index)
-                    newArray = jobProfile['subchild'];
-                    if (index !== -1) {
-                        newArray = newArray.splice(index + 1)
-                    }
+        if (email['tag_id'].length === 0 && email['default_tag'].length === 0) {
+            _.forEach(allTags['data'], (filterData, filterKey) => {
+                if (filterData['title'] === 'candidate') {
+                    _.forEach(filterData['data'], (tagChildData, tagChildKey) => {
+                        newArray.push(tagChildData)
+                    })
+                }
+            })
+        } else {
+            _.forEach(allTags['data'], (filterData, filterKey) => {
+                if (filterData['title'] === 'candidate') {
+                    _.forEach(filterData['data'], (tagChildData, tagChildKey) => {
+                        if (email && email['tag_id'] && email['tag_id'].length && (email['tag_id'][0] * 1 === tagChildData['id'])) {
+                            const index = _.findIndex(tagChildData['subchild'], { id: email['default_tag'] * 1 });
+                            newArray = tagChildData['subchild'];
+                            if (index !== -1) {
+                                newArray = newArray.splice(index + 1)
+                            }
+                        }
+                    })
                 }
             })
         }
@@ -259,7 +263,6 @@ export class CommonService {
     }
 
     removeRoundsAddScheduleTag(tags) {
-        console.log('tagstags', tags)
         let count = 0;
         const finalArray = [];
         _.forEach(tags, (data, key) => {
@@ -274,7 +277,6 @@ export class CommonService {
         if (count) {
             finalArray.push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 })
         }
-        console.log(finalArray)
         return finalArray;
     }
 

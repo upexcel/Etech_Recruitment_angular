@@ -78,7 +78,6 @@ export class InboxComponent implements OnInit, OnDestroy {
     email: any;
     intervieweeList: any;
     selectedOption: any;
-    allTagfilter: any;
     emailLimit:number;
     onStarredPage:boolean;
     currentPage:any;
@@ -116,7 +115,6 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.refresh();
         });
         this.getIntervieweeList();
-        this.getTagFilter();
         window.addEventListener("storage", (ev) => {
             if (ev.key == 'updateInbox') {
                 this.updateInbox(ev.newValue);
@@ -134,16 +132,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         },(err)=>{
             console.log(err);
         })
-    }
-
-    getTagFilter() {
-        this.getemails.getAllTagsMain().subscribe(res => {
-            _.forEach(res.data, (tag, key) => {
-                if (tag.title === 'candidate') {
-                    this.allTagfilter = tag.data;
-                }
-            })
-        });
     }
 
     defaultOpen() {
@@ -325,7 +313,6 @@ export class InboxComponent implements OnInit, OnDestroy {
         // }
         this._localStorageService.setItem('email', email);
         this._localStorageService.setItem('selectedTag', this.selectedTag);
-        this._localStorageService.setItem('tagFilter', this.allTagfilter);
         this._localStorageService.setItem('tags', this.tagsForEmailListAndModel);
         this._localStorageService.setItem('dataForInterviewScheduleRound', this.dataForInterviewScheduleRound);
         this._localStorageService.setItem('inboxMailsTagsForEmailListAndModel', this.inboxMailsTagsForEmailListAndModel);
@@ -345,7 +332,6 @@ export class InboxComponent implements OnInit, OnDestroy {
     getAllTag() {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
-                this.getTagFilter();
                 this.formatTagsInArray(res.data);
             }, (err) => {
                 this.loading = false;
