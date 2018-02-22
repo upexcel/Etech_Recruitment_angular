@@ -149,6 +149,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     defaultOpen() {
         this.getemails.getAllTagsMain()
             .subscribe((res) => {
+                this._localStorageService.setItem('allTags', res);
                 this.formatTagsInArray(res.data);
                 if (res.data.length > 0) {
                     _.forEach(res.data, (value, key) => {

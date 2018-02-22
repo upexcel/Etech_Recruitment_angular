@@ -198,11 +198,11 @@ export class CommonService {
             '_id': emailId
         });
         data.data.unshift(deletedData)
-        _.forEach(data['data'], (value, key:any) => {
+        _.forEach(data['data'], (value, key: any) => {
             if (value['body']) {
                 value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
             }
-            if (key*1 === 0) {
+            if (key * 1 === 0) {
                 value['accordianIsOpen'] = true;
             } else {
                 value['accordianIsOpen'] = false;
@@ -233,48 +233,54 @@ export class CommonService {
             return 'added';
         }
     }
-    filtertag(emailDefautltTag, tagFilter, selectedTag) {
-        let newTag = [];
-        let tagAssigned = [];
-        const TagArray = [];
-        _.forEach(tagFilter, (profile, key) => {
-            _.forEach(emailDefautltTag.tag_id, (tagid, key2) => {
-                if (profile.id == tagid) {
-                    newTag = profile.subchild;
-                }
-            });
-        })
-        if (newTag.length > 0 && emailDefautltTag.default_tag) {
-            _.forEach(newTag, (tag, index) => {
-                if (tag.id == selectedTag) {
-                    tagAssigned = this.pushTagInarray(index, newTag);
-                }
-            });
-        }else {
-            tagAssigned = this.pushTagInarray(0, newTag);
+    filtertag(email) {
+        console.log(this._localStorageService.getItem('allTags'))
+        const newTagFilter = this._localStorageService.getItem('tagFilter');
+        console.log(email['tag_id'], email['default_tag'])
+        if (email['tag_id'].length === 0 && email['default_tag'].length === 0) {
+            console.log('no tag default')
         }
-        _.forEach(tagAssigned, (data, key) => {
-            if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
-                // TagArray.push(data);
-            }else {
-                TagArray.push(data);
+        let newArray = [];
+        if (newTagFilter && newTagFilter.length > 0) {
+            _.forEach(newTagFilter, (jobProfile, key) => {
+                if (email && email['tag_id'] && email['tag_id'].length && (email['tag_id'][0] * 1 === jobProfile['id'])) {
+                    console.log('match')
+                    console.log('jobProfile[subchild]', jobProfile['subchild'])
+                    const index = _.findIndex(jobProfile['subchild'], { id: email['default_tag'] * 1 });
+                    console.log(index)
+                    newArray = jobProfile['subchild'];
+                    if (index !== -1) {
+                        newArray = newArray.splice(index + 1)
+                    }
+                }
+            })
+        }
+        return this.removeRoundsAddScheduleTag(newArray);
+    }
+
+    removeRoundsAddScheduleTag(tags) {
+        console.log('tagstags', tags)
+        let count = 0;
+        const finalArray = [];
+        _.forEach(tags, (data, key) => {
+            if (data) {
+                if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
+                    count = 1
+                } else {
+                    finalArray.push(data);
+                }
             }
-        });
-        return TagArray;
-    }
-
-    pushTagInarray(id, allTag) {
-        const tag = [];
-        for (let index = id; index < allTag.length; index++) {
-            tag.push(allTag[index]);
+        })
+        if (count) {
+            finalArray.push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 })
         }
-        tag.push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 })
-
-        return tag;
+        console.log(finalArray)
+        return finalArray;
     }
+
     sortBydate(data) {
         let newdata = [];
-        newdata = _.sortBy(data.data, function(o) {
+        newdata = _.sortBy(data.data, function (o) {
             return new Date(o.date);
         }).reverse();
         return newdata;

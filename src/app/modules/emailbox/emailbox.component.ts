@@ -21,7 +21,7 @@ export class EmailboxComponent implements OnInit {
     data: any;
     selected = false;
     selectedMid: string[];
-    tagAssigned= [];
+    tagAssigned = [];
     @Input() email: any;
     @Input() tagfilter: any;
     @Input() tags: any[];
@@ -39,8 +39,8 @@ export class EmailboxComponent implements OnInit {
     @Output() removeStarredEmail = new EventEmitter<string>();
     @Output() deleteAndAssignTag = new EventEmitter();
     role: string;
-    url:string;
-    starred:boolean = false;
+    url: string;
+    starred: boolean = false;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
 
     ngOnInit() {
@@ -48,9 +48,10 @@ export class EmailboxComponent implements OnInit {
         this.selectedMid = [];
         this.removeSelected();
         this.role = this._localStorageService.getItem('role');
-        if (this.email.tag_id.length !== 0) {
-            this.tagAssigned = this.commonService.filtertag(this.email, this.tagfilter, this.tagselected);
-        };
+        // if (this.email.tag_id.length !== 0) {
+        this.tagAssigned = this.commonService.filtertag(this.email)
+        console.log(this.tagAssigned)
+        // };
     }
     emailSelection() {
         if (this.email.selected) {
@@ -120,7 +121,11 @@ export class EmailboxComponent implements OnInit {
     }
 
     allTagsDefaultTrack(index, data) {
-        return data['id'] || index;
+        if (data && data['id']) {
+            return data['id'];
+        } else {
+            return index;
+        }
     }
 
     inboxMailsTagsForEmailListAndModelDataTrack(index, data) {
@@ -152,7 +157,7 @@ export class EmailboxComponent implements OnInit {
             mongo_id: this.email._id,
             interviewee: interviewee
         }
-        this.assignEmail.assignInterviewee(apiData).subscribe((res) => {}, (err) => {
+        this.assignEmail.assignInterviewee(apiData).subscribe((res) => { }, (err) => {
             console.log(err)
         })
     }
@@ -165,10 +170,10 @@ export class EmailboxComponent implements OnInit {
         this.dialogRef.componentInstance.candidateNote = candidateNote;
     }
     markStarred(email) {
-        let body={
+        let body = {
             'mongo_id': this.email._id
         }
-        if(this.email.candidate_star && this.email.candidate_star.length) {
+        if (this.email.candidate_star && this.email.candidate_star.length) {
             this.starred = false;
             this.email.candidate_star = [];
             this.removeStarredEmail.emit(this.email.sender_mail)
@@ -176,7 +181,7 @@ export class EmailboxComponent implements OnInit {
             this.starred = true;
             this.email.candidate_star = [0];
         }
-        this.assignEmail.markStarred(this.starred, body).subscribe(()=> {
+        this.assignEmail.markStarred(this.starred, body).subscribe(() => {
         }, (err) => {
             console.log(err);
         })
