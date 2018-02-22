@@ -1,0 +1,33 @@
+.main {
+    position: relative;
+}
+.heading {
+    position: absolute;
+    top: 4px;
+    left: 20px;
+}
+.form {
+    position: absolute;
+    top: 65px;
+    left: 3%;
+    width: 85%;
+}
+.candidate {
+    display: inline-block;
+    font-weight: bold;
+    line-height: 1.5;
+}
+ul {
+    padding-left: 20px;
+    list-style-type: decimal;
+}
+.moveTo {
+    float: right;
+    margin-right: 27px;
+}
+.submit {
+    position: absolute;
+    right: 21px;
+    top: 200px;
+    margin-bottom: 20px;
+}

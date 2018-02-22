@@ -10,7 +10,11 @@
           <span class="text-xs hidexs"> on {{selectedEmail.date | date: 'medium'}}</span>
         </span>
     </div>
-
+    <div class="m-b">
+        <div id="topBtn" class="default-tag-buttons">
+            <button md-raised-button  mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
+        </div>
+    </div>
     <div class="right"  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">
         <span>
             <a href="http://facebook.com/{{selectedEmail.fb_id}}" target="blank">Facebook Profile</a>

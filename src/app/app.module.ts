@@ -180,6 +180,7 @@ import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove-mails-dialog.component';
+import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
 
 @NgModule({
     declarations: [
@@ -252,7 +253,8 @@ import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove
         WalkinCandidateComponent,
         PreviewScoreComponent,
         PendingCandidateComponent,
-        RemoveMailsDialogComponent
+        RemoveMailsDialogComponent,
+        ChangeTagComponent
     ],
     imports: [
         BrowserModule,
@@ -321,7 +323,8 @@ import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove
         OtpdialogComponent,
         WalkinCandidateComponent,
         PreviewScoreComponent,
-        RemoveMailsDialogComponent
+        RemoveMailsDialogComponent,
+        ChangeTagComponent
     ],
     bootstrap: [AppComponent]
 })
