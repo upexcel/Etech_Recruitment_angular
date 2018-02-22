@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { ImapMailsService } from 'app/service/imapemails.service';
 import { LocalStorageService } from 'app/service/local-storage.service';
@@ -20,7 +20,7 @@ export class ChangeTagComponent implements OnInit {
   jobProfile: Array<any> = [];
   tagIdTitle: Array<any> = [];
   placeholder;
-  constructor(public dialogRef: MdDialogRef<any>, public localStorageService: LocalStorageService, public imapMailsService: ImapMailsService) {
+  constructor(public dialogRef: MdDialogRef<any>, public localStorageService: LocalStorageService, public imapMailsService: ImapMailsService,public snackBar: MdSnackBar) {
     this.tags = localStorageService.getItem('tags')
   }
 
@@ -62,10 +62,13 @@ export class ChangeTagComponent implements OnInit {
       'mongo_id': id
     };
     this.showloading = true;
+    this.close();
     this.imapMailsService.assignTag(this.selected).subscribe((data) => {
       this.showloading =  false;
+      this.snackBar.open('Moved Successfully', '', {
+        duration: 2000,
+    })
       this.broadcast_send();
-      this.close();
     }, (err) => {
       console.log(err);
     });
