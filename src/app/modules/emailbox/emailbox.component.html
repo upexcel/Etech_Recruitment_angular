@@ -24,7 +24,7 @@
     <md-select placeholder="Interviewee" *ngIf="tagselected" class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
       <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
     </md-select>
-    <div class="default-tag-buttons row" *ngIf="tagselected && tagAssigned">
+    <div class="default-tag-buttons row" *ngIf="tagAssigned">
       <span *ngFor="let tag of tagAssigned; trackBy: allTagsDefaultTrack;">
         <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id==null" id="{{tag.title}}"
           (click)="assignTag(tag.id, email._id, tag.title, email)">
@@ -43,7 +43,7 @@
         <i class="material-icons noteicon">note</i>
       </p>
     </div>
-    <div class="default-tag-buttons row" *ngIf="!tagselected">
+    <!-- <div class="default-tag-buttons row" *ngIf="!tagselected">
       <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack;">
         <div class="col-md-2 col-sm-2 col-xs-6" (click)="assignTag(tag.id, email._id, tag.title, email)">
           <button md-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
@@ -60,6 +60,6 @@
       <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" mdTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
         <i class="material-icons noteicon">note</i>
       </p>
-    </div>
+    </div> -->
   </div>
 </md-card>

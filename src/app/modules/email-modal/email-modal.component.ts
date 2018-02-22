@@ -84,7 +84,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.tagfilter = this._localStorageService.getItem('tagFilter');
             if (this.selectedEmail.tag_id.length !== 0) {
                 this.selectedTag = this.selectedEmail['default_tag'] || '0';
-                this.tagAssigned = this.commonService.filtertag(this.selectedEmail, this.tagfilter, this.selectedTag * 1);
+                this.tagAssigned = this.commonService.filtertag(this.selectedEmail);
             };
             if (document.getElementsByClassName('mat-sidenav-content').length > 0) {
                 setTimeout(() => {

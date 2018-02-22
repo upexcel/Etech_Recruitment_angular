@@ -198,11 +198,11 @@ export class CommonService {
             '_id': emailId
         });
         data.data.unshift(deletedData)
-        _.forEach(data['data'], (value, key:any) => {
+        _.forEach(data['data'], (value, key: any) => {
             if (value['body']) {
                 value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ');
             }
-            if (key*1 === 0) {
+            if (key * 1 === 0) {
                 value['accordianIsOpen'] = true;
             } else {
                 value['accordianIsOpen'] = false;
@@ -233,48 +233,56 @@ export class CommonService {
             return 'added';
         }
     }
-    filtertag(emailDefautltTag, tagFilter, selectedTag) {
-        let newTag = [];
-        let tagAssigned = [];
-        const TagArray = [];
-        _.forEach(tagFilter, (profile, key) => {
-            _.forEach(emailDefautltTag.tag_id, (tagid, key2) => {
-                if (profile.id == tagid) {
-                    newTag = profile.subchild;
+    filtertag(email) {
+        const allTags = this._localStorageService.getItem('allTags');
+        let newArray = [];
+        if (email['tag_id'].length === 0 && email['default_tag'].length === 0) {
+            _.forEach(allTags['data'], (filterData, filterKey) => {
+                if (filterData['title'] === 'candidate') {
+                    _.forEach(filterData['data'], (tagChildData, tagChildKey) => {
+                        newArray.push(tagChildData)
+                    })
                 }
-            });
-        })
-        if (newTag.length > 0 && emailDefautltTag.default_tag) {
-            _.forEach(newTag, (tag, index) => {
-                if (tag.id == selectedTag) {
-                    tagAssigned = this.pushTagInarray(index, newTag);
+            })
+        } else {
+            _.forEach(allTags['data'], (filterData, filterKey) => {
+                if (filterData['title'] === 'candidate') {
+                    _.forEach(filterData['data'], (tagChildData, tagChildKey) => {
+                        if (email && email['tag_id'] && email['tag_id'].length && (email['tag_id'][0] * 1 === tagChildData['id'])) {
+                            const index = _.findIndex(tagChildData['subchild'], { id: email['default_tag'] * 1 });
+                            newArray = tagChildData['subchild'];
+                            if (index !== -1) {
+                                newArray = newArray.splice(index + 1)
+                            }
+                        }
+                    })
                 }
-            });
-        }else {
-            tagAssigned = this.pushTagInarray(0, newTag);
+            })
         }
-        _.forEach(tagAssigned, (data, key) => {
-            if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
-                // TagArray.push(data);
-            }else {
-                TagArray.push(data);
+        return this.removeRoundsAddScheduleTag(newArray);
+    }
+
+    removeRoundsAddScheduleTag(tags) {
+        let count = 0;
+        const finalArray = [];
+        _.forEach(tags, (data, key) => {
+            if (data) {
+                if (data.title === config['round1'] || data.title === config['round2'] || data.title === config['round3']) {
+                    count = 1
+                } else {
+                    finalArray.push(data);
+                }
             }
-        });
-        return TagArray;
-    }
-
-    pushTagInarray(id, allTag) {
-        const tag = [];
-        for (let index = id; index < allTag.length; index++) {
-            tag.push(allTag[index]);
+        })
+        if (count) {
+            finalArray.push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 })
         }
-        tag.push({ color: '#ba21d3', count: 0, id: 9999, title: 'Schedule', unread: 0 })
-
-        return tag;
+        return finalArray;
     }
+
     sortBydate(data) {
         let newdata = [];
-        newdata = _.sortBy(data.data, function(o) {
+        newdata = _.sortBy(data.data, function (o) {
             return new Date(o.date);
         }).reverse();
         return newdata;
