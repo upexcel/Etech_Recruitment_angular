@@ -386,13 +386,13 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
     changeTag() {
         this.dialogRef = this.dialog.open(ChangeTagComponent, {
-            height: '70%',
-            width:'50%'
+            height: '40%',
+            width: '60%'
         });
-        this.dialogRef.componentInstance
+        this.dialogRef.componentInstance.tagIdArray = this.selectedEmail['tag_id'];
+        this.dialogRef.componentInstance.id = this.selectedEmail['_id']
         this.dialogRef.afterClosed().subscribe(result => {
-            this.dialogRef = null;
-        });
-        console.log(this.selectedTag);
+        this.dialogRef = null;
+        })
     }
 }
