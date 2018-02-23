@@ -16,6 +16,7 @@
       <span *ngIf="email.source">{{email.source}}</span>
       <span *ngIf="!email.source">IMAP</span>
     </p>
+    <p *ngIf="email.is_attachment" class="emailbody">{{email.body}}</p>
   </div>
   <div *ngIf="!email.candidate_star || !email.candidate_star.length"  class="mark__email not__starred" (click)="markStarred(email.sender_mail)">
   </div>
