@@ -105,8 +105,9 @@ export class InboxSideNavComponent implements OnInit {
             console.log(err);
         });
     }
-    showtag(id) {
-        this.showHide = id;
+    showtag(subtag) {
+        console.log(subtag);
+        this.showHide = subtag.id;
        // this.showaddtag = true;
     }
     hidetag() {
