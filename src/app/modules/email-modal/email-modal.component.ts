@@ -78,7 +78,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             'status': false,
             'mongo_id': this.selectedEmail['_id']
         };
-        this.tagUpdate.getCandidateHistory(this.selectedEmail['_id']).subscribe((data) => {
+        this._localStorageService.emailHistory(this.selectedEmail['_id']).subscribe((data) => {
+            console.log(data)
             this.selectedEmail = data.data[0];
             // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
             this.historyList['data'] = this.commonService.sortBydate(data)
@@ -129,7 +130,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     getCandidateHistoryApi(apiData) {
-        this.tagUpdate.getCandidateHistory(apiData).subscribe((data) => {
+        this._localStorageService.emailHistory(apiData).subscribe((data) => {
             // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
             this.historyList['data'] = this.commonService.sortBydate(data);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
