@@ -237,7 +237,7 @@ export class CommonService {
     getTagTitle(email) {
         const allTags = this._localStorageService.getItem('allTags');
         if (email['tag_id'] && email['tag_id'].length === 0) {
-            email['tagTitle'] = 'Mails/Attachment';
+            email['tagTitle'] = config['allTagTitle'];
         } else {
             _.forEach(allTags['data'], (filterData, filterKey) => {
                 if (filterData['title'] === 'candidate') {
