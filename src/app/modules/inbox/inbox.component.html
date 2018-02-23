@@ -61,7 +61,7 @@
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId" class="pull-right" (click)="addCandidate()" style="margin-right: 4px;"> Add Candidate </a>
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
-                        <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refreshEmail)="refreshEmails($event)" (refreshAndDelete)="refresh($event); emaillist.data.splice(i,1)" (refresh)="refresh($event)"
+                        <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refreshEmail)="refreshEmails($event)" (refreshAndDelete)="refresh($event); emaillist.data.splice(i,1)" (deleteEmailFromList)="emaillist.data.splice(i,1)" (refresh)="refresh($event)"
                             [tagselected]="selectedTag" [isSearching]="isSearching" [email]="emails" (selectEmail)="addEmail($event)" (removeEmail)="removeEmails($event)" (removeStarredEmail)="removeStarredMails(i)"
                             [tags]="tagsForEmailListAndModel.Automatic" [tagfilter]="allTagfilter" [allTags]="tagsForEmailListAndModel" [dataForInterviewScheduleRound]="dataForInterviewScheduleRound"
                             [inboxMailsTagsForEmailListAndModel]="inboxMailsTagsForEmailListAndModel" (deleteAndAssignTag)="assign($event, emails._id); emaillist.data.splice(i,1)" [intervieweeList]="intervieweeList"></app-emailbox>

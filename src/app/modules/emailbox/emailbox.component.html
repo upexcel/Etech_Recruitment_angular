@@ -21,8 +21,8 @@
   </div>
   <div *ngIf="email && email.candidate_star && email.candidate_star.length"  class="mark__email starred" (click)="markStarred(email.sender_mail)">
   </div>
-  <div class=spam-archive>
-    <div class="markSpam" (click)="moveToSpam()">Spam</div>
+  <div class="spam-archive" *ngIf="email['tagTitle'] == allTagTitle" >
+    <div class="markSpam" (click)="moveToSpam(email)">Spam</div>
     <div class="markArchive" (click)="moveToArchive()">Archive</div>
   </div>
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
