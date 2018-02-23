@@ -33,9 +33,9 @@ export class RemoveMailsDialogComponent implements OnInit {
       'unread': data.unread != undefined ? data.unread : false
     }
     this.showloading = true;
+    this.close(this.role);
     this.imapMailService.removeOldEmails(body).subscribe(data => {
       this.showloading = false;
-      this.close(this.role);
     }, (err) => {
       console.log(err);
     });
