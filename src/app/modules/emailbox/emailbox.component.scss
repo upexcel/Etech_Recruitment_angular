@@ -288,3 +288,10 @@
 .markArchive:hover {
     color: #bb0000;
 }
+p.emailbody {
+    color: #336998;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    max-width: 100% !important;
+    text-overflow: ellipsis !important
+}
