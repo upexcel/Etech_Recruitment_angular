@@ -9,6 +9,7 @@
     <h5>{{countEmailSubject(email.subject)}}</h5>
     <h6 class="inline">
       <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span>
+      <span class="badge" *ngIf="email && isSearching && email['tagTitle']" >{{email['tagTitle']}}</span>
       <md-icon *ngIf="email.is_attachment" class="attach">attach_file</md-icon> {{email.date | date: 'medium'}}
     </h6>
     <p>{{email.sender_mail}} - From {{email.from}}, Source:
