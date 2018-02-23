@@ -236,7 +236,7 @@ export class CommonService {
     filtertag(email) {
         const allTags = this._localStorageService.getItem('allTags');
         let newArray = [];
-        if (email['tag_id'].length === 0 && email['default_tag'].length === 0) {
+        if (email['tag_id'] && email['tag_id'].length === 0) {
             _.forEach(allTags['data'], (filterData, filterKey) => {
                 if (filterData['title'] === 'candidate') {
                     _.forEach(filterData['data'], (tagChildData, tagChildKey) => {
