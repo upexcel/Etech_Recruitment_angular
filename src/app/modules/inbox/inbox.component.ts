@@ -82,6 +82,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     onStarredPage:boolean;
     currentPage:any;
     isSearching = false;
+    totalEmail: any;
+    fetchCv: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -124,6 +126,10 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.tagReassigned(ev.newValue);
             }
         });
+        this._core.fetcHistoryCv.subscribe(() => {
+            console.log(this.totalEmail)
+            this.getHistory(this.totalEmail);
+        });
 
     }
     starred(data){
@@ -136,6 +142,10 @@ export class InboxComponent implements OnInit, OnDestroy {
         },(err)=>{
             console.log(err);
         })
+    }
+    getHistory(email) {
+        this._localStorageService.getAllHistory(email['data']).then((historyEmail) => {
+        });
     }
 
     defaultOpen() {
@@ -160,6 +170,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                                     this.getemails.getEmailList(this.data).subscribe((data) => {
                                         this.addSelectedFieldInEmailList(data);
                                         this.loading = false;
+                                        this.totalEmail = data;
                                     });
                                 }
                             });
@@ -413,6 +424,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.addSelectedFieldInEmailList(data);
             this.emailIds = [];
             this.loading = false;
+            this.totalEmail = data;
         });
     }
 

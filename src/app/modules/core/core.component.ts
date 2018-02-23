@@ -14,6 +14,7 @@ export class CoreComponent implements OnInit {
     title = 'Inbox';
     progressSpinnner = false;
     role: string;
+    @Output() fetcHistoryCv: EventEmitter<any> = new EventEmitter(true);
     @Output() routerInboxPage: EventEmitter<any> = new EventEmitter(true);
     constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService, private _localStorageService: LocalStorageService, private _dialogService: DialogService) {
         this._router.events.subscribe((event) => {
@@ -51,6 +52,9 @@ export class CoreComponent implements OnInit {
 
     emailRefresh() {
         this.getNewEmail.fetchNewEmail();
+    }
+    fetchCv() {
+        this.fetcHistoryCv.emit()
     }
 
     goto(path: string, navtitle: string) {
