@@ -55,7 +55,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     intervieweeList: any;
     tagAssigned = [];
     tagfilter = [];
-    url:string;
+    url: string;
     constructor(public snackBar: MdSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
@@ -92,7 +92,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                     document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
                 }, 100);
             }
-            this.openAccordian(this.historyList['data'][0]);
+            this.openAccordian();
             this.getIntervieweeList();
             this.historyAttchement(this.historyList['data'])
         })
@@ -133,7 +133,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
             this.historyList['data'] = this.commonService.sortBydate(data);
             this._localStorageService.setItem('email', this.historyList['data'][0]);
-            this.openAccordian(this.historyList['data'][0]);
+            this.openAccordian();
         }, (err) => {
             console.log(err);
         });
@@ -148,8 +148,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                 if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
                     this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
                         this.getCandiatehistory();
-                        // this.historyList['data'][index] = data['data'];
-                        // this.historyList['data'][index]['accordianIsOpen'] = true;
                         if (allEmails && allEmails.length !== 0) {
                             historyData(allEmails, callback);
                         } else {
@@ -160,7 +158,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         this.errorMessageText = err.message;
                     })
                 } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
-                    // this.historyList['data'][index]['accordianIsOpen'] = true;
                     if (allEmails && allEmails.length !== 0) {
                         historyData(allEmails, callback);
                     } else {
@@ -183,19 +180,16 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         })
     }
 
-    openAccordian(singleEmail) {
-        for (let i = 0; i < this.historyList['data'].length; i++) {
-            if (this.historyList['data'][i]['_id'] === singleEmail['_id']) {
-                if (this.historyList['data'][i]['accordianIsOpen']) {
-                    this.historyList['data'][i]['accordianIsOpen'] = false;
-                } else {
-                    this.historyList['data'][i]['accordianIsOpen'] = true;
-                }
+    openAccordian() {
+        _.forEach(this.historyList['data'], (email, key) => {
+            if (key === 0) {
+                email['accordianIsOpen'] = true;
+            } else if (email.is_attachment) {
+                email['accordianIsOpen'] = true;
             } else {
-                // do not delete this is for close all other accordian
-                // this.historyList['data'][i]['accordianIsOpen'] = false;
+                email['accordianIsOpen'] = false;
             }
-        }
+        })
     }
 
     getEmailAttachment(email) {
@@ -278,7 +272,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     broadcast_send() {
-        localStorage.setItem('updateInbox',this.selectedEmail['_id']);
+        localStorage.setItem('updateInbox', this.selectedEmail['_id']);
     }
 
     openAttachment(link: string) {
@@ -342,9 +336,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             const date = moment(new Date()).format('DD-MM-YYYY');
             const time = moment(new Date()).format('hh:mm:ss a');
             // for (let i = 0; i <= this.historyList.data.length; i++) {
-                // if (this.historyList.data[i]._id === result.notedata.mongo_id) {
+            // if (this.historyList.data[i]._id === result.notedata.mongo_id) {
             this.selectedEmail['notes'].push({ 'note': result.notedata.note, 'date': date, 'assignee': this.user, 'time': time })
-                // }
+            // }
             // }
             this.dialogRef = null;
         });
@@ -395,7 +389,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogRef.componentInstance.tagIdArray = this.selectedEmail['tag_id'];
         this.dialogRef.componentInstance.id = this.selectedEmail['_id']
         this.dialogRef.afterClosed().subscribe(result => {
-        this.dialogRef = null;
+            this.dialogRef = null;
         })
     }
 }
