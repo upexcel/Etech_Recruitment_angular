@@ -532,19 +532,23 @@ export class InboxComponent implements OnInit, OnDestroy {
         _.remove(this.emaillist.data,{'_id':id});
         localStorage.removeItem('updateInbox');
     }
+    
     tagReassigned(id) {
         _.remove(this.emaillist.data,{'_id':id});
         localStorage.removeItem('tagReassigned');
     }
-    removeOldEmails() {
+    removeOldEmails(role) {
         this.dialogRef = this.dialog.open(RemoveMailsDialogComponent, {
             height: '60%',
             width: '60%'
         });
         this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        this.dialogRef.componentInstance.role = role;
         this.dialogRef.afterClosed().subscribe(result => {
         this.dialogRef = null;
-        this.refresh();
+        if(result==='Admin') {
+            this.refresh();
+        }
         })
     }
     ngOnDestroy() {

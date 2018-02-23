@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import * as _ from 'lodash';
 import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 import { CommonService } from './../../service/common.service';
@@ -39,10 +39,12 @@ export class EmailboxComponent implements OnInit {
     @Output() removeEmail = new EventEmitter<string>();
     @Output() removeStarredEmail = new EventEmitter<string>();
     @Output() deleteAndAssignTag = new EventEmitter();
+    @Output() deleteEmailFromList = new EventEmitter();
     role: string;
     url: string;
-    starred: boolean = false;
-    constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService) { }
+    starred = false;
+    allTagTitle = config['allTagTitle'];
+    constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService, public _snackBar: MdSnackBar) { }
 
     ngOnInit() {
         this.url = config.avatarUrl;
@@ -169,7 +171,7 @@ export class EmailboxComponent implements OnInit {
         this.dialogRef.componentInstance.candidateNote = candidateNote;
     }
     markStarred(email) {
-        let body = {
+        const body = {
             'mongo_id': this.email._id
         }
         if (this.email.candidate_star && this.email.candidate_star.length) {
@@ -184,5 +186,35 @@ export class EmailboxComponent implements OnInit {
         }, (err) => {
             console.log(err);
         })
+    }
+    moveToSpam(email) {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.assignEmail.moveEmailToSpam(email['sender_mail']).subscribe((response) => {
+                    this._snackBar.open('Moved to spam', '', {
+                        duration: 2000
+                    })
+                }, (err) => {
+                    console.log(err);
+                })
+                this.deleteEmailFromList.emit();
+            }
+        }, (err) => {
+        });
+    }
+    moveToArchive(email) {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.assignEmail.moveEmailToArchive(email['sender_mail']).subscribe((response) => {
+                    this._snackBar.open('Moved to archive', '', {
+                        duration: 2000
+                    })
+                }, (err) => {
+                    console.log(err);
+                })
+                this.deleteEmailFromList.emit();
+            }
+        }, (err) => {
+        });
     }
 }

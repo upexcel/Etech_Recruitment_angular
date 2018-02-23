@@ -1,4 +1,5 @@
-<div class="">
+<div [ngClass]="{'overflow':role==='HR'}">
+  <div *ngIf="role==='Admin'">
   <h3>Move Mails To Inbox</h3>
   <form autocomplete="off" #removeEmails="ngForm" (ngSubmit)="removeOldEmails(removeEmails.value)">
     <div class="row">
@@ -20,11 +21,19 @@
     </div>
     <div class="row">
       <div class="col-md-12 col-sm-12 text-right">
-        <button md-raised-button (click)="close()">Close</button>
+        <a md-raised-button (click)="close()">Close</a>
         <button id="save" md-raised-button type="submit" color=primary [disabled]="startDateValidator.invalid || endDateValidator.invalid">
           <span>Move</span>
         </button>
       </div>
     </div>
   </form>
+  </div>
+  <div *ngIf="role==='HR'">
+      <div class="row">
+          <div class="col-md-12 hr">
+            This Can Be Done By Admin Only.
+          </div>
+      </div>
+  </div>
 </div>
