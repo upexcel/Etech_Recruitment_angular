@@ -3,6 +3,7 @@
     display: flex;
     flex: 1;
 }
+
 .emailstyle {
     padding: 2px;
     margin-bottom: 2px;
@@ -12,12 +13,15 @@
         margin-left: 44px;
     }
 }
+
 .bleftblue {
     border-left: 5px solid $borderleftblue;
 }
+
 .bleftwhite {
     border-left: 5px solid #fff;
 }
+
 .logodesign {
     color: $white;
     display: inline-flex;
@@ -30,14 +34,17 @@
     margin-left: 4px;
     margin-right: 3px;
 }
+
 .heightwidth27 {
     height: 27px;
     width: 27px;
 }
+
 .logo {
     @extend .logodesign;
     @extend .heightwidth27;
 }
+
 .emailcheckbox {
     height: 40px;
     width: 40px;
@@ -49,14 +56,15 @@
     z-index: 9999;
     background-size: cover;
 }
+
 .detailloc {
     width: 75%;
     cursor: pointer;
     padding-right: 10px;
     margin-left: 44px;
-    p{
-        margin-bottom:0px;
-        margin-top:0px;
+    p {
+        margin-bottom: 0px;
+        margin-top: 0px;
         font-size: 12px;
         word-break: break-word;
     }
@@ -68,6 +76,7 @@
         font-weight: inherit;
     }
 }
+
 .inline {
     position: absolute;
     right: 6px;
@@ -75,6 +84,7 @@
     top: 3px;
     font-weight: inherit;
 }
+
 .attach {
     width: 8px;
     height: 8px;
@@ -82,51 +92,56 @@
     padding-right: 10px;
     vertical-align: sub;
 }
+
 .checked {
     opacity: 0.8;
-    font-weight: 100; 
+    font-weight: 100;
 }
+
 .unchecked {
     opacity: 1;
     font-weight: bold;
 }
+
 .labels {
-      background-color: #6887ff;
-      color: rgba(255,255,255,.87);
-      padding: .15em .35em;
-      font-size: 75%;
-      line-height: 1;
-      vertical-align: baseline;
-      font-weight: 700;
-      border-radius: .2rem;
-      text-align: center;
-      white-space: nowrap;
-      display: inline-block;
+    background-color: #6887ff;
+    color: rgba(255, 255, 255, .87);
+    padding: .15em .35em;
+    font-size: 75%;
+    line-height: 1;
+    vertical-align: baseline;
+    font-weight: 700;
+    border-radius: .2rem;
+    text-align: center;
+    white-space: nowrap;
+    display: inline-block;
 }
-.auto-tags{
+
+.auto-tags {
     font-size: 10px;
     margin: 0px 2px 0px 2px;
     vertical-align: bottom;
 }
 
-.default-tag-buttons{
+.default-tag-buttons {
     text-align: right;
     .col-md-2 {
         float: right;
         padding: 2px;
     }
-    .cyan{
-        line-height:20px!important;
+    .cyan {
+        line-height: 20px!important;
         margin: 0px 4px 0px 4px;
-        font-weight:bold;
-        color:#fff;
+        font-weight: bold;
+        color: #fff;
         font-size: 12px;
     }
-    .material-icons{
+    .material-icons {
         font-size: 14px!important;
-        line-height:1px;
+        line-height: 1px;
     }
 }
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
     .detailloc {
         min-height: 48px;
@@ -138,19 +153,20 @@
             font-size: 9px;
         }
     }
-    .default-tag-buttons{
-        .cyan{
+    .default-tag-buttons {
+        .cyan {
             margin: 2px;
             padding: 0px;
             width: 100%;
             font-size: 10px;
         }
-        .material-icons{
+        .material-icons {
             font-size: 14px!important;
-            line-height:1px;
+            line-height: 1px;
         }
     }
 }
+
 @media screen and (min-width: 480px) and (max-width: 767px) {
     .detailloc {
         min-height: 48px;
@@ -162,60 +178,67 @@
             font-size: 12px;
         }
     }
-    .default-tag-buttons{
-        .cyan{
+    .default-tag-buttons {
+        .cyan {
             padding: 0px;
             margin: 2px;
             width: 100%;
             font-size: 10px;
         }
-        .material-icons{
+        .material-icons {
             font-size: 14px!important;
-            line-height:1px;
+            line-height: 1px;
         }
     }
 }
+
 @media screen and (min-width: 768px) {
-    .default-tag-buttons{
-        .col-md-2{
+    .default-tag-buttons {
+        .col-md-2 {
             width: auto;
         }
-        .cyan{
-            line-height:20px!important;
+        .cyan {
+            line-height: 20px!important;
             margin: 0px 4px 0px 4px;
-            font-weight:bold;
-            color:#fff;
+            font-weight: bold;
+            color: #fff;
             font-size: 12px;
         }
-        .material-icons{
+        .material-icons {
             font-size: 14px!important;
-            line-height:1px;
+            line-height: 1px;
         }
     }
 }
-.markunread{
-  cursor: pointer;
-  padding: 0px;
-  margin-bottom: -9px;
+
+.markunread {
+    cursor: pointer;
+    padding: 0px;
+    margin-bottom: -9px;
 }
-.markunread .unreadIcon{
-  margin-top: 11px;
-  color: grey;
-  font-size: 27px !important;
+
+.markunread .unreadIcon {
+    margin-top: 11px;
+    color: grey;
+    font-size: 27px !important;
 }
+
 .assign-interviewee {
     float: right;
 }
-.noteView{
-  margin: 0px;
-  height: 26px;
-  cursor: pointer;
+
+.noteView {
+    margin: 0px;
+    height: 26px;
+    cursor: pointer;
 }
-.noteView .noteicon{
-  line-height: 24px;
-  font-size: 27px !important;
-  color: grey;
+
+.noteView .noteicon {
+    line-height: 24px;
+    font-size: 27px !important;
+    color: grey;
 }
+
 .mark__email {
     position: absolute;
     top: 19px;
@@ -225,16 +248,43 @@
     transform: scale(1.2);
     cursor: pointer;
 }
+
 .starred {
     background: url(/assets/starred.png);
 }
+
 .not__starred {
     background: url(/assets/not_starred.png);
 }
+
 .mark__email:hover {
     opacity: 0.8;
     transform: scale(1.4);
 }
+
 .badge {
     background: #2bbbad;
+}
+
+.spam-archive {
+    display: inline-block;
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    width: 10%;
+}
+
+.markSpam {
+    float: left;
+    cursor: pointer;
+}
+
+.markArchive {
+    float: right;
+    cursor: pointer;
+}
+
+.markSpam:hover,
+.markArchive:hover {
+    color: #bb0000;
 }
