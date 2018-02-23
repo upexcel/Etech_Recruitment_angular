@@ -81,6 +81,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     emailLimit:number;
     onStarredPage:boolean;
     currentPage:any;
+    isSearching = false;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -212,6 +213,7 @@ export class InboxComponent implements OnInit, OnDestroy {
             }
             this.loading = true;
             this.showmessage = false;
+            this.isSearching = true;
             this.getemails.getEmailList(this.data).subscribe((data) => {
                 if (data.data.length > 0) {
                     this.addSelectedFieldInEmailList(data);
@@ -364,6 +366,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     emaillists(emailData: any, page?: number) {
         this.onStarredPage = false;
+        this.isSearching = false;
         this.currentPage = emailData.parentTitle;
         this.lastSelectedTagData = emailData;
         this.emailParenttitle = emailData['parentTitle'];

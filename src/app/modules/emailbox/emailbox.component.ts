@@ -30,6 +30,7 @@ export class EmailboxComponent implements OnInit {
     @Input() dataForInterviewScheduleRound: any;
     @Input() inboxMailsTagsForEmailListAndModel: any;
     @Input() intervieweeList: any
+    @Input() isSearching: boolean;
     @Output() refresh = new EventEmitter<string>();
     @Output() refreshAndDelete = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
@@ -48,10 +49,8 @@ export class EmailboxComponent implements OnInit {
         this.selectedMid = [];
         this.removeSelected();
         this.role = this._localStorageService.getItem('role');
-        // if (this.email.tag_id.length !== 0) {
-        this.tagAssigned = this.commonService.filtertag(this.email)
-        console.log(this.tagAssigned)
-        // };
+        this.tagAssigned = this.commonService.filtertag(this.email);
+        this.email = this.commonService.getTagTitle(this.email);
     }
     emailSelection() {
         if (this.email.selected) {

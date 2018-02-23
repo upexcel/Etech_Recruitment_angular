@@ -233,6 +233,30 @@ export class CommonService {
             return 'added';
         }
     }
+
+    getTagTitle(email) {
+        const allTags = this._localStorageService.getItem('allTags');
+        if (email['tag_id'] && email['tag_id'].length === 0) {
+            email['tagTitle'] = 'Mails/Attachment';
+        } else {
+            _.forEach(allTags['data'], (filterData, filterKey) => {
+                if (filterData['title'] === 'candidate') {
+                    _.forEach(filterData['data'], (tagChildData, tagChildKey) => {
+                        if (email && email['tag_id'] && email['tag_id'].length && (email['tag_id'][0] * 1 === tagChildData['id'])) {
+                            const index = _.findIndex(tagChildData['subchild'], { id: email['default_tag'] * 1 });
+                            if (index === -1) {
+                                email['tagTitle'] = tagChildData['title'] + ' : All';
+                            } else {
+                                email['tagTitle'] = tagChildData['title'] + ' : ' + tagChildData['subchild'][index]['title'];
+                            }
+
+                        }
+                    })
+                }
+            })
+        }
+        return email;
+    }
     filtertag(email) {
         const allTags = this._localStorageService.getItem('allTags');
         let newArray = [];
