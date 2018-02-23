@@ -175,6 +175,10 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (data && data['data'].length > 0) {
             _.forEach(data['data'], (value, key) => {
                 value['selected'] = false;
+                if (value['body']) {
+                    value['body'] = value['body'].replace(/<\/?[^>]+(>|$)/g, ' ');
+                    value['body'] = value['body'].replace(/(\r\n|\n|\r)/gm, '');
+                }
             });
         }
         this.emaillist = data;
@@ -532,7 +536,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         _.remove(this.emaillist.data,{'_id':id});
         localStorage.removeItem('updateInbox');
     }
-    
+
     tagReassigned(id) {
         _.remove(this.emaillist.data,{'_id':id});
         localStorage.removeItem('tagReassigned');
