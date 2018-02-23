@@ -105,14 +105,6 @@ export class InboxSideNavComponent implements OnInit {
             console.log(err);
         });
     }
-    showtag(id) {
-        this.showHide = id;
-       // this.showaddtag = true;
-    }
-    hidetag() {
-        this.showHide = null;
-       // this.showaddtag = false;
-    }
     showHideMenu(id) {
         if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
             localStorage.removeItem('tagShowId');
