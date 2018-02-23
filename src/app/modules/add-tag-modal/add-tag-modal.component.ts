@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { color_list } from '../../config/config';
@@ -20,8 +20,8 @@ export class AddTagModalComponent implements OnInit {
     addTagType: string;
     originalcolor = color_list[0];
     availableColors = color_list;
-    tags= [];
-    constructor(public dialogRef: MdDialogRef < any > , private tagUpdate: ImapMailsService) {}
+    tags = [];
+    constructor(public dialogRef: MdDialogRef<any>, private tagUpdate: ImapMailsService, public _snackBar: MdSnackBar) { }
 
     ngOnInit() {
         if (this.addTagType === 'manual') {
@@ -54,6 +54,9 @@ export class AddTagModalComponent implements OnInit {
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
                 this.showloading = true;
+                this._snackBar.open('Job Profile Added', '' , {
+                    duration: 2000
+                })
             }, (err) => {
                 this.showMessage = true;
                 this.showloading = false;
