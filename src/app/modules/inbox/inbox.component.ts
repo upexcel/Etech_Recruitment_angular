@@ -478,6 +478,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     formatTagsInArray(data: any) {
         this.tags = JSON.parse(JSON.stringify(data));
+        this.getDefaultTagOpen(this.tags);
         this._commonService.formateTags(data).then((res: any) => {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
             this.dataForInterviewScheduleRound = res.dataForInterviewScheduleRound;
@@ -485,6 +486,16 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.inboxMailsTagsForEmailListAndModel = res.inboxMailsTagsForEmailListAndModel;
         }, (err) => { });
         this.loading = false;
+    }
+    getDefaultTagOpen(tags) {
+        this.tags = tags
+        _.forEach(this.tags, (tagValue, tagKey) => {
+            if (tagValue['title'] === 'candidate') {
+                _.forEach(tagValue['data'], (tagSubValue, tagSubKey) => {
+                    tagSubValue['defaultTagOpen'] = true
+                })
+            }
+        });
     }
 
     trackByEmails(index, email) {
