@@ -140,8 +140,9 @@ md-grid-tile {
 	margin-bottom: 0px;
 }
 .default-tag-buttons{
-	margin-bottom: 4px;
-	text-align: right;
+    margin-bottom: 15px;
+    text-align: right;
+    margin-top: 20px;
     .cyan{
         line-height:20px!important;
         margin: 0px 4px 0px 4px;
@@ -390,4 +391,9 @@ a.link:hover{
   .hidexs{
     display: none;
   }
+}
+.switch__job__profile {
+	position: absolute;
+	top: 40px;
+	right: 30px;
 }
