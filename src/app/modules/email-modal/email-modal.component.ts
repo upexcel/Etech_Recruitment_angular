@@ -243,6 +243,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         });
                         this.commonService.inboxRefreshEvent();
                         this.broadcast_send();
+                        if(this._localStorageService.getItem('close')) {
+                            this.close();
+                        }
                     }, (err) => {
                         console.log(err);
                     });
@@ -274,7 +277,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     broadcast_send() {
         localStorage.setItem('updateInbox', this.selectedEmail['_id']);
     }
-
+    close() {
+        window.close();
+    }
     openAttachment(link: string) {
         this.dialogConfig = this.setvardialog.open(OpenattachementComponent, {
             height: '100%',

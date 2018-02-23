@@ -1,10 +1,14 @@
-import { Component, ViewContainerRef, OnInit} from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { Component, ViewContainerRef, OnInit } from '@angular/core';
+import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar, } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 import { SetvaremailpreviewComponent } from './../setvaremailpreview/setvaremailpreview.component';
 import { CommonService } from './../../service/common.service';
+import { LocalStorageService } from 'app/service/local-storage.service';
+import { ConfirmationDialogComponent } from './../confirmation-dialog/confirmation-dialog.component';
+import { DialogService } from './../../service/dialog.service';
+
 
 @Component({
     selector: 'app-note',
@@ -18,22 +22,27 @@ export class AddNoteComponent implements OnInit {
     data: any;
     emailList: any;
     title: any;
-    rejectNote= false;
-    constructor(public dialogRef: MdDialogRef<any>, public _apiService: ImapMailsService) {
+    rejectNote = false;
+    closeWindow: boolean;
+    constructor(public dialog: MdDialog, public dialogRef: MdDialogRef<any>, public _apiService: ImapMailsService, public localStorageService: LocalStorageService, private _dialogService: DialogService) {
     }
     ngOnInit() {
         if (this.title) {
             this.rejectNote = true;
+        }
+        if (!this.localStorageService.getItem('close')) {
+            this.closeWindow = false;
+        } else {
+            this.closeWindow = this.localStorageService.getItem('close');
         }
     }
     save(form: NgForm) {
         if (form.valid) {
             form.value.note = this.note;
             form.value.mongo_id = this.candidateid
-            this._apiService.addNote(form.value).subscribe((data) => {
-                this.close();
-            })
-            this.dialogRef.close({'notedata': form.value});
+            this.localStorageService.setItem('close', form.value.closeWindow);
+            this._apiService.addNote(form.value).subscribe();
+            this.dialogRef.close({ 'notedata': form.value });
         }
     }
     close() {
