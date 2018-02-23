@@ -4,12 +4,14 @@ import { ImapMailsService } from './imapemails.service';
 import * as _ from 'lodash';
 import { LocalStorageService } from './local-storage.service';
 import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
+
 @Injectable()
 export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
     intervieweeList: any;
     fblogindata: any;
-    constructor(public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
+    constructor(public datePipe: DatePipe, public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
         if (title === 'Ignore') {
@@ -236,6 +238,10 @@ export class CommonService {
 
     getTagTitle(email) {
         const allTags = this._localStorageService.getItem('allTags');
+        email['date'] = this.datePipe.transform(email['date'], 'medium');
+        if (email['updatedAt']) {
+            email['updatedAt'] = this.datePipe.transform(email['updatedAt'], 'medium');
+        }
         if (email['tag_id'] && email['tag_id'].length === 0) {
             email['tagTitle'] = config['allTagTitle'];
         } else {

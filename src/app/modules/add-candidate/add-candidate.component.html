@@ -42,6 +42,6 @@
     </div>
     <div class="fx-pos">
         <button md-raised-button (click)="close()">Back</button>
-        <button md-raised-button color="accent" [disabled]="addCandidateForm.invalid" (click)="save(addCandidateForm)">Add</button>
+        <button md-raised-button color="accent" [disabled]="addCandidateForm.invalid" [ngClass]="diabledOnclick ?'disabled':''"  (click)="save(addCandidateForm)">Add</button>
     </div>
 </form>

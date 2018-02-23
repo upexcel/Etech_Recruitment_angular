@@ -17,6 +17,7 @@ import {
 import {
     BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
 import {
     MdButtonModule,
     MdCheckboxModule,
@@ -289,6 +290,7 @@ import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
         SpamDialogService,
         DashboardService,
         LoginRouteGuard,
+        DatePipe,
         {
             provide: InterceptedHttp,
             useFactory: httpFactory,
