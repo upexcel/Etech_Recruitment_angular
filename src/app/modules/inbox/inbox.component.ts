@@ -535,7 +535,9 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.role = role;
         this.dialogRef.afterClosed().subscribe(result => {
         this.dialogRef = null;
+        console.log(result);
         if(result==='Admin') {
+            console.log("hello");
             this.refresh();
         }
         })
