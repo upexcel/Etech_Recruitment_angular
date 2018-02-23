@@ -50,7 +50,7 @@
                     <div class="compose-email" *ngIf="showInboxEmailList">
                         <a *ngIf="emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" style="margin-right: 4px; text-decoration: none;">Send Email To: </a>
                         <a style="margin-right: 4px;" *ngIf="emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" (click)="sendEmailToAll()">All</a>
-                        <a style="margin-right: 4px;" *ngIf="emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" (click)="removeOldEmails()">Remove Emails From {{emailParenttitle}}</a>                                                
+                        <a style="margin-left: 4px;" *ngIf="emaillist && emailParentId && emaillist.data?.length > 0 && (this.role === 'Admin' || this.role ==='HR')" class="pull-right" (click)="removeOldEmails(this.role)">Remove Emails From {{emailParenttitle}}</a>                                                
                         <a style="margin-right: 4px;" *ngIf="selectedTagTitle == 'All' && emaillist && emailParentId && emaillist.data?.length > 0 && this.role !== 'Guest'" (click)="sendEmailToAll('notGenuine')">Not Genuine</a>
                         <a *ngIf="selectedTagTitle == 'All' && this.role !== 'Guest' && emaillist && emaillist.data && emaillist.data.length > 0"
                             style="margin-right: 4px;" (click)="sendEmailToPendingCandidates()">Pending  Candidates <span *ngIf="sendFailedEmailListCount || sendSuccessEmailListCount">Success: {{sendSuccessEmailListCount}}, Failed: {{sendFailedEmailListCount}} </span></a>
