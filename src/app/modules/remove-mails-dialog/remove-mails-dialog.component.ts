@@ -14,10 +14,16 @@ export class RemoveMailsDialogComponent implements OnInit {
   showMessage: boolean;
   showloading: boolean;
   unread:boolean;
+  role:any;
   constructor(public dialogRef: MdDialogRef<any>, private imapMailService: ImapMailsService) { }
 
   ngOnInit() {
     this.showloading = false;
+    if(this.role==='HR') {
+      setTimeout(()=>{
+        this.close(this.role);
+      },1000);
+    }
   }
   removeOldEmails(data) {
     const body = {
@@ -27,14 +33,15 @@ export class RemoveMailsDialogComponent implements OnInit {
       'unread': data.unread != undefined ? data.unread : false
     }
     this.showloading = true;
+    this.close(this.role);
     this.imapMailService.removeOldEmails(body).subscribe(data => {
       this.showloading = false;
-      this.close();
     }, (err) => {
       console.log(err);
     });
   }
-  close() {
-    this.dialogRef.close();
+  
+  close(value) {
+    this.dialogRef.close(value);
   }
 }
