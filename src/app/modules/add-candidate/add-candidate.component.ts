@@ -15,16 +15,16 @@ export class AddCandidateComponent implements OnInit {
     emailChildId: any;
     emailParenttitle: string;
     emailChildTitle: string;
+    diabledOnclick: boolean
     constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private apiService: ImapMailsService, public snackBar: MdSnackBar) {
+        this.diabledOnclick = false;
     }
 
     ngOnInit() { }
 
     save(form: NgForm) {
         if (form.valid) {
-            console.log(form.value)
-            console.log(this.emailParentId, this.emailChildId)
-            console.log(this.emailParenttitle, this.emailChildTitle)
+            this.diabledOnclick = true;
             if (this.emailParentId && this.emailChildId) {
                 if (this.emailParentId === this.emailChildId) {
                     form.value.tag_id = this.emailParentId;
@@ -41,6 +41,7 @@ export class AddCandidateComponent implements OnInit {
                     duration: 2000,
                 });
             }, (err) => {
+                this.diabledOnclick = false;
                 console.log(err)
             })
         }

@@ -52,3 +52,9 @@ md-card {
     text-align: center;
 }
 
+.disabled{
+  pointer-events: none !important;
+  background: rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.38);
+  box-shadow: none;
+}

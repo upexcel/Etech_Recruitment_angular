@@ -120,6 +120,9 @@ export class InboxComponent implements OnInit, OnDestroy {
             if (ev.key == 'updateInbox') {
                 this.updateInbox(ev.newValue);
             }
+            if(ev.key == 'tagReassigned') {
+                this.tagReassigned(ev.newValue);
+            }
         });
 
     }
@@ -517,6 +520,11 @@ export class InboxComponent implements OnInit, OnDestroy {
     updateInbox(id) {
         _.remove(this.emaillist.data,{'_id':id});
         localStorage.removeItem('updateInbox');
+    }
+    
+    tagReassigned(id) {
+        _.remove(this.emaillist.data,{'_id':id});
+        localStorage.removeItem('tagReassigned');
     }
     removeOldEmails(role) {
         this.dialogRef = this.dialog.open(RemoveMailsDialogComponent, {
