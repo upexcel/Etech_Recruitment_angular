@@ -17,6 +17,7 @@ import {
 import {
     BrowserAnimationsModule
 } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
 import {
     MdButtonModule,
     MdCheckboxModule,
@@ -287,6 +288,7 @@ import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove
         SpamDialogService,
         DashboardService,
         LoginRouteGuard,
+        DatePipe,
         {
             provide: InterceptedHttp,
             useFactory: httpFactory,
