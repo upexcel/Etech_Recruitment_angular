@@ -11,6 +11,7 @@ export class CommonService {
     @Output() inboxRefresh: EventEmitter<any> = new EventEmitter(true);
     intervieweeList: any;
     fblogindata: any;
+    date = new Date();
     constructor(public datePipe: DatePipe, public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
@@ -238,9 +239,15 @@ export class CommonService {
 
     getTagTitle(email) {
         const allTags = this._localStorageService.getItem('allTags');
-        email['date'] = this.datePipe.transform(email['date'], 'medium');
+        const emailYear = this.datePipe.transform(email['date'], 'y');
+        const currentYear = this.date.getFullYear();
+        let dateFilterString = 'MMM d, yy, h:mm a';
+        if (currentYear.toString() === emailYear) {
+            dateFilterString = 'MMM d, h:mm a';
+        }
+        email['date'] = this.datePipe.transform(email['date'], dateFilterString);
         if (email['updatedAt']) {
-            email['updatedAt'] = this.datePipe.transform(email['updatedAt'], 'medium');
+            email['updatedAt'] = this.datePipe.transform(email['updatedAt'], dateFilterString);
         }
         if (email['tag_id'] && email['tag_id'].length === 0) {
             email['tagTitle'] = config['allTagTitle'];

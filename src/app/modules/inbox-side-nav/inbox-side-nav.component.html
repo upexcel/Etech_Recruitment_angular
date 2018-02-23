@@ -23,20 +23,24 @@
                 </p>
                 <div id="subChild" *ngIf="subTag.subchild && (showAlltag ||subTag.id == showId)">
                 <span id="subTag" *ngFor="let subTagSubchild of subTag.subchild; let i = index; trackBy: subTagSubchildTrack">
-                  <a id="{{subTag.id}}" style="margin-left:10px;" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id">Default Tags</a>
+                  <a id="{{subTag.id}}" style="margin-left:10px;" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id">Default Tags
+                    <md-icon id="arrowdown" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id && !subTag.defaultTagOpen"
+                      class="toggleDown" (click)="subTag.defaultTagOpen=!subTag.defaultTagOpen">keyboard_arrow_down</md-icon>
+                    <md-icon id="arrowdown" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id && subTag.defaultTagOpen"
+                      class="toggleDown" (click)="subTag.defaultTagOpen=!subTag.defaultTagOpen">keyboard_arrow_up</md-icon>
+                  </a>
+
                     <div class="subTag" id="{{subTagSubchild.title}}" [class.active]="selectedId == subTagSubchild.id && parantTagId == subTag.id"
                         (click)="getEmail(subTagSubchild.id, subTag.id, subTagSubchild.title, subTag.title)">
                       <div id="defaultTag">
-                        <a id="addedtag" [class.tagstyle]="subTagSubchild.parent_id !=null" *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id">{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                        <a id="addedtag" [class.tagstyle]="subTagSubchild.parent_id !=null" *ngIf="subTagSubchild.parent_id !=null && subTag.defaultTagOpen">{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
                       </div>
-                          <div class="Subchild" *ngIf="subTagSubchild.parent_id ==null">
-                      <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
-                       </div>
-                       </div>
+                      <div class="Subchild" *ngIf="subTagSubchild.parent_id ==null">
+                          <a>{{subTagSubchild.title}} ({{subTagSubchild.unread}}/{{subTagSubchild.count}})</a>
+                      </div>
+                    </div>
 
-                     <md-icon *ngIf="subTagSubchild.parent_id !=null && showHide==subTag.id" mdTooltip="Delete Tab" mdTooltipPosition="below"  class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
-                    <md-icon id="arrowdown" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id && subTag.id!=showHide" class="toggleDown" (click)="showtag(subTag.id)">keyboard_arrow_down</md-icon>
-                    <md-icon  id="arrowup" *ngIf="subTagSubchild.parent_id !=null && subTag.subchild[i].parent_id !=subTag.subchild[i-1].parent_id &&  subTag.id==showHide" class="toggleUp" (click)="hidetag()">keyboard_arrow_up</md-icon>
+                     <md-icon *ngIf="subTagSubchild.parent_id !=null && subTag.defaultTagOpen" mdTooltip="Delete Tab" mdTooltipPosition="below"  class="delete" (click)="removeTag(subTagSubchild.type,subTagSubchild.id)">delete</md-icon>
                     </span>
                 </div>
 
