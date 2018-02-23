@@ -190,7 +190,7 @@ export class EmailboxComponent implements OnInit {
     moveToSpam(email) {
         this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
             if (res === 'yes') {
-                this.assignEmail.moveEmailToSpam(email['sender_mail']).subscribe((res) => {
+                this.assignEmail.moveEmailToSpam(email['sender_mail']).subscribe((response) => {
                     this._snackBar.open('Moved to spam', '', {
                         duration: 2000
                     })
@@ -202,7 +202,19 @@ export class EmailboxComponent implements OnInit {
         }, (err) => {
         });
     }
-    moveToArchive() {
-        //logic to move email to archive (backend now available)
+    moveToArchive(email) {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.assignEmail.moveEmailToArchive(email['sender_mail']).subscribe((response) => {
+                    this._snackBar.open('Moved to archive', '', {
+                        duration: 2000
+                    })
+                }, (err) => {
+                    console.log(err);
+                })
+                this.deleteEmailFromList.emit();
+            }
+        }, (err) => {
+        });
     }
 }

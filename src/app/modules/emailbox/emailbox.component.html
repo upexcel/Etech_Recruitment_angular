@@ -23,7 +23,7 @@
   </div>
   <div class="spam-archive" *ngIf="email['tagTitle'] == allTagTitle" >
     <div class="markSpam" (click)="moveToSpam(email)">Spam</div>
-    <div class="markArchive" (click)="moveToArchive()">Archive</div>
+    <div class="markArchive" (click)="moveToArchive(email)">Archive</div>
   </div>
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
     <md-select placeholder="Interviewee" *ngIf="tagselected" class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
