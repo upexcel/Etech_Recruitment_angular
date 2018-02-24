@@ -182,7 +182,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
 
     openAccordian() {
         _.forEach(this.historyList['data'], (email, key) => {
-            if (key === 0) {
+            if (key == 0) {
                 email['accordianIsOpen'] = true;
             } else if (email.is_attachment) {
                 email['accordianIsOpen'] = true;
