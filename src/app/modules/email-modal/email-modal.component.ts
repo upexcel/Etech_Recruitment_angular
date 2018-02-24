@@ -181,11 +181,17 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     openAccordian() {
+        let count = 1;
         _.forEach(this.historyList['data'], (email, key) => {
             if (key == 0) {
                 email['accordianIsOpen'] = true;
             } else if (email.is_attachment) {
-                email['accordianIsOpen'] = true;
+                if (count) {
+                    email['accordianIsOpen'] = true;
+                    count = 0;
+                } else {
+                    email['accordianIsOpen'] = false;
+                }
             } else {
                 email['accordianIsOpen'] = false;
             }
@@ -243,6 +249,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         });
                         this.commonService.inboxRefreshEvent();
                         this.broadcast_send();
+                        if(this._localStorageService.getItem('close')) {
+                            this.close();
+                        }
                     }, (err) => {
                         console.log(err);
                     });
@@ -274,7 +283,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     broadcast_send() {
         localStorage.setItem('updateInbox', this.selectedEmail['_id']);
     }
-
+    close() {
+        window.close();
+    }
     openAttachment(link: string) {
         this.dialogConfig = this.setvardialog.open(OpenattachementComponent, {
             height: '100%',
