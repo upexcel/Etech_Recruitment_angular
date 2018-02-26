@@ -28,17 +28,11 @@ export class AddNoteComponent implements OnInit {
         if (this.title) {
             this.rejectNote = true;
         }
-        if (!this.localStorageService.getItem('close')) {
-            this.closeWindow = false;
-        } else {
-            this.closeWindow = this.localStorageService.getItem('close');
-        }
     }
     save(form: NgForm) {
         if (form.valid) {
             form.value.note = this.note;
             form.value.mongo_id = this.candidateid
-            this.localStorageService.setItem('close', form.value.closeWindow);
             this._apiService.addNote(form.value).subscribe();
             this.dialogRef.close({ 'notedata': form.value });
         }
