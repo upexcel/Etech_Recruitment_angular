@@ -176,14 +176,20 @@ export class InboxComponent implements OnInit, OnDestroy {
             _.forEach(data['data'], (value, key) => {
                 value['selected'] = false;
                 if (value['body']) {
+                    value['body'] = this.stripHtml(value['body']);
                     value['body'] = value['body'].replace(/<\/?[^>]+(>|$)/g, ' ');
-                    value['body'] = value['body'].replace(/(\r\n|\n|\r)/gm, '');
+                    value['body'] = value['body'].replace(/(\r\n|\n|\r)/gm, ' ');
+                    value['body'] = value['body'].replace(/\s\s+/g, ' ');
                 }
             });
         }
         this.emaillist = data;
     }
-
+    stripHtml(htmlData) {
+        const temporalDivElement = document.createElement('div');
+        temporalDivElement.innerHTML = htmlData;
+        return temporalDivElement.textContent || temporalDivElement.innerText || '';
+    }
     searchEmail(searchform: NgForm) {
         if (searchform.valid) {
             if (!!searchform.value['currentTag']) {
