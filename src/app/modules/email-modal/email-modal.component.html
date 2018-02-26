@@ -59,6 +59,9 @@
           <!-- <span  class="cyan" (click)="addNote()">Add Note</span> -->
           <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
       </div>
+      <div class="closeWindow">
+        <input type="checkbox" name="closeWindow" (click)="closeTab()" [(ngModel)]="closeWindow"/> Close Window on Completion
+    </div>
       <div *ngIf="selectedEmail.notes.length>0">
           <h3>Notes</h3>
           <div class="maindiv" *ngFor="let note of selectedEmail.notes ; let i = index ">
@@ -71,9 +74,6 @@
               </div>
           </div>
       </div>
-      <div class="closeWindow">
-        <input type="checkbox" name="closeWindow" (click)="closeTab()" [(ngModel)]="closeWindow"/> Close Window on Completion
-    </div>
     <div class="bod" *ngFor="let H_email of historyList.data; trackBy: historyListDataTrack;">
         <div class="b-b" *ngIf="selectedEmail">
             <h3 class="font-300" *ngIf="historyList.data.length == 1">{{H_email.subject}}</h3>
