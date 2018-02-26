@@ -179,6 +179,7 @@ export class InboxComponent implements OnInit, OnDestroy {
                     value['body'] = this.stripHtml(value['body']);
                     value['body'] = value['body'].replace(/<\/?[^>]+(>|$)/g, ' ');
                     value['body'] = value['body'].replace(/(\r\n|\n|\r)/gm, ' ');
+                    value['body'] = value['body'].replace(/\s\s+/g, ' ');
                 }
             });
         }
