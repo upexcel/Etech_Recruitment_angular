@@ -71,6 +71,9 @@
               </div>
           </div>
       </div>
+      <div class="closeWindow">
+        <input type="checkbox" name="closeWindow" (click)="closeTab()" [(ngModel)]="closeWindow"/> Close Window on Completion
+    </div>
     <div class="bod" *ngFor="let H_email of historyList.data; trackBy: historyListDataTrack;">
         <div class="b-b" *ngIf="selectedEmail">
             <h3 class="font-300" *ngIf="historyList.data.length == 1">{{H_email.subject}}</h3>
