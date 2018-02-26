@@ -1221,4 +1221,17 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
- }
+    // deleteJobProfile(email: any): Observable<any> {
+    //     this.increaseAPiCount();
+    //     return this.Intercepted.put(environment['apibase'] + ``)
+    //         .map((res: Response) => {
+    //             this.decreaseAPiCount();
+    //             return res.json();
+    //         })
+    //         .catch((error: any) => {
+    //             this.count = 0;
+    //             this.apiEndEvent.emit();
+    //             return Observable.throw(error.json() || 'Server error');
+    //         });
+    // }
+}
