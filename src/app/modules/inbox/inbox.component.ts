@@ -368,7 +368,6 @@ export class InboxComponent implements OnInit, OnDestroy {
                     'default_id': this.emailChildId || '0',
                 }
                 this.getemails.markAllAsRead(apiData).subscribe((response) => {
-                    console.log(res)
                     _.forEach(this.emaillist.data, (email, key) => {
                         email['unread'] = false;
                         this.tags = this._commonService.markAllAsReadTag(this.tags, this.selectedTag, this.emailParentId);
