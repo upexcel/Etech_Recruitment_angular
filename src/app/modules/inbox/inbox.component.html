@@ -59,6 +59,7 @@
                             </button>
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId && selectedTagTitle == 'All'" class="pull-right" (click)="cronStatus()"> Get Cron Status </a>
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId" class="pull-right" (click)="addCandidate()" style="margin-right: 4px;"> Add Candidate </a>
+                        <a *ngIf="emaillist && this.role !== 'Guest'" class="pull-right" (click)="markAllRead()" style="margin-right: 4px;"> Mark All Read </a>
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
                         <app-emailbox *ngFor="let emails of emaillist.data; let i=index; trackBy: trackByEmails" (openEmail)="openEmails($event)" (refreshEmail)="refreshEmails($event)" (refreshAndDelete)="refresh($event); emaillist.data.splice(i,1)" (deleteEmailFromList)="emaillist.data.splice(i,1)" (refresh)="refresh($event)"
