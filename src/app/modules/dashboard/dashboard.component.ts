@@ -21,16 +21,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
     jobSelection = 'byDay';
     jobApplicationReadSelection = 'byDay';
     automaticEmailReadSelection = 'byDay';
-    dashboardIntervalSubscription: any;
+    // dashboardIntervalSubscription: any;
     loading= false;
     constructor(private access: LoginService, private _router: Router, private route: ActivatedRoute, private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
 
     ngOnInit() {
         this.subscription = this.route.data.subscribe(res => this.isHome = res.isHome);
         this.loadDashBoardData();
-        this.dashboardIntervalSubscription = setInterval(() => {
-            this.loadDashBoardData();
-        }, config.dashboardChartRefreshTime);
+        // this.dashboardIntervalSubscription = setInterval(() => {
+        //     this.loadDashBoardData();
+        // }, config.dashboardChartRefreshTime);
     }
 
     loadDashBoardData() {
@@ -51,7 +51,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         console.log(e);
     }
     ngOnDestroy() {
-        clearInterval(this.dashboardIntervalSubscription);
+        // clearInterval(this.dashboardIntervalSubscription);
     }
 
     logginpage() {
