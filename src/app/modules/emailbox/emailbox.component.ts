@@ -31,6 +31,7 @@ export class EmailboxComponent implements OnInit {
     @Input() inboxMailsTagsForEmailListAndModel: any;
     @Input() intervieweeList: any
     @Input() isSearching: boolean;
+    @Input() emailChildTitle: string;
     @Output() refresh = new EventEmitter<string>();
     @Output() refreshAndDelete = new EventEmitter<string>();
     @Output() openEmail = new EventEmitter<any>();
@@ -44,6 +45,7 @@ export class EmailboxComponent implements OnInit {
     url: string;
     starred = false;
     allTagTitle = config['allTagTitle'];
+    isRoundsTag = false;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService, public _snackBar: MdSnackBar) { }
 
     ngOnInit() {
@@ -53,6 +55,9 @@ export class EmailboxComponent implements OnInit {
         this.role = this._localStorageService.getItem('role');
         this.tagAssigned = this.commonService.filtertag(this.email);
         this.email = this.commonService.getTagTitle(this.email);
+        if (this.emailChildTitle === config['round1'] || this.emailChildTitle === config['round2'] || this.emailChildTitle === config['round3']) {
+            this.isRoundsTag = true;
+        }
     }
     emailSelection() {
         if (this.email.selected) {
