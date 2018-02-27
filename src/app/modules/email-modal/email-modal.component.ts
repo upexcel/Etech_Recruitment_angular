@@ -150,44 +150,44 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     historyAttchement(emailAll: any) {
-    //     emailAll = JSON.parse(JSON.stringify(emailAll));
-    //     return new Promise((resolve, reject) => {
-    //         const historyData = (allEmails, callback) => {
-    //             const first_data = allEmails.splice(0, 1)[0];
-    //             const index = _.findIndex(this.historyList['data'], first_data)
-    //             if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
-    //                 this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
-    //                     this.getCandiatehistory();
-    //                     if (allEmails && allEmails.length !== 0) {
-    //                         historyData(allEmails, callback);
-    //                     } else {
-    //                         callback(true);
-    //                     }
-    //                 }, (err) => {
-    //                     this.error = true;
-    //                     this.errorMessageText = err.message;
-    //                 })
-    //             } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
-    //                 if (allEmails && allEmails.length !== 0) {
-    //                     historyData(allEmails, callback);
-    //                 } else {
-    //                     callback(true);
-    //                 }
-    //             } else {
-    //                 if (index === 0) {
-    //                     this.historyList['data'][index]['accordianIsOpen'] = true;
-    //                 }
-    //                 if (allEmails && allEmails.length !== 0) {
-    //                     historyData(allEmails, callback);
-    //                 } else {
-    //                     callback(true);
-    //                 }
-    //             }
-    //         }
-    //         historyData(emailAll, response => {
-    //             resolve(response);
-    //         })
-    //     })
+        emailAll = JSON.parse(JSON.stringify(emailAll));
+        return new Promise((resolve, reject) => {
+            const historyData = (allEmails, callback) => {
+                const first_data = allEmails.splice(0, 1)[0];
+                const index = _.findIndex(this.historyList['data'], first_data)
+                if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
+                    this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
+                        this.getCandiatehistory();
+                        if (allEmails && allEmails.length !== 0) {
+                            historyData(allEmails, callback);
+                        } else {
+                            callback(true);
+                        }
+                    }, (err) => {
+                        this.error = true;
+                        this.errorMessageText = err.message;
+                    })
+                } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
+                    if (allEmails && allEmails.length !== 0) {
+                        historyData(allEmails, callback);
+                    } else {
+                        callback(true);
+                    }
+                } else {
+                    if (index === 0) {
+                        this.historyList['data'][index]['accordianIsOpen'] = true;
+                    }
+                    if (allEmails && allEmails.length !== 0) {
+                        historyData(allEmails, callback);
+                    } else {
+                        callback(true);
+                    }
+                }
+            }
+            historyData(emailAll, response => {
+                resolve(response);
+            })
+        })
     }
 
     openAccordian() {
