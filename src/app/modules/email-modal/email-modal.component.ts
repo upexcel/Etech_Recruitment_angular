@@ -57,6 +57,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     tagfilter = [];
     url: string;
     closeWindow: boolean;
+    currentTag:any;
     constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
@@ -98,6 +99,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.openAccordian();
             this.getIntervieweeList();
             this.historyAttchement(this.historyList['data']);
+            this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle;
         })
         if (this._localStorageService.getItem('close') === undefined || this._localStorageService.getItem('close') == null || this._localStorageService.getItem('close') === 'null') {
             this._localStorageService.setItem('close', false);
@@ -148,44 +150,44 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     historyAttchement(emailAll: any) {
-        emailAll = JSON.parse(JSON.stringify(emailAll));
-        return new Promise((resolve, reject) => {
-            const historyData = (allEmails, callback) => {
-                const first_data = allEmails.splice(0, 1)[0];
-                const index = _.findIndex(this.historyList['data'], first_data)
-                if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
-                    this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
-                        this.getCandiatehistory();
-                        if (allEmails && allEmails.length !== 0) {
-                            historyData(allEmails, callback);
-                        } else {
-                            callback(true);
-                        }
-                    }, (err) => {
-                        this.error = true;
-                        this.errorMessageText = err.message;
-                    })
-                } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
-                    if (allEmails && allEmails.length !== 0) {
-                        historyData(allEmails, callback);
-                    } else {
-                        callback(true);
-                    }
-                } else {
-                    if (index === 0) {
-                        this.historyList['data'][index]['accordianIsOpen'] = true;
-                    }
-                    if (allEmails && allEmails.length !== 0) {
-                        historyData(allEmails, callback);
-                    } else {
-                        callback(true);
-                    }
-                }
-            }
-            historyData(emailAll, response => {
-                resolve(response);
-            })
-        })
+    //     emailAll = JSON.parse(JSON.stringify(emailAll));
+    //     return new Promise((resolve, reject) => {
+    //         const historyData = (allEmails, callback) => {
+    //             const first_data = allEmails.splice(0, 1)[0];
+    //             const index = _.findIndex(this.historyList['data'], first_data)
+    //             if (first_data.attachment && first_data.attachment.length === 0 && first_data.is_attachment) {
+    //                 this.tagUpdate.emailAttachment(first_data['_id']).subscribe((data) => {
+    //                     this.getCandiatehistory();
+    //                     if (allEmails && allEmails.length !== 0) {
+    //                         historyData(allEmails, callback);
+    //                     } else {
+    //                         callback(true);
+    //                     }
+    //                 }, (err) => {
+    //                     this.error = true;
+    //                     this.errorMessageText = err.message;
+    //                 })
+    //             } else if (first_data.attachment && first_data.attachment.length >= 1 && first_data.is_attachment) {
+    //                 if (allEmails && allEmails.length !== 0) {
+    //                     historyData(allEmails, callback);
+    //                 } else {
+    //                     callback(true);
+    //                 }
+    //             } else {
+    //                 if (index === 0) {
+    //                     this.historyList['data'][index]['accordianIsOpen'] = true;
+    //                 }
+    //                 if (allEmails && allEmails.length !== 0) {
+    //                     historyData(allEmails, callback);
+    //                 } else {
+    //                     callback(true);
+    //                 }
+    //             }
+    //         }
+    //         historyData(emailAll, response => {
+    //             resolve(response);
+    //         })
+    //     })
     }
 
     openAccordian() {
@@ -218,6 +220,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     assignTag(id: string, emailId, title: string, emailData) {
+        console.log(this.currentTag);
         if (title === 'Schedule') {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
