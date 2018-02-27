@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatChipInputEvent } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { color_list } from '../../config/config';
 import * as moment from 'moment';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-automatic-tag-modal',
@@ -17,6 +18,11 @@ export class AutomaticTagModalComponent implements OnInit {
     temp_id: any;
     availableColors = color_list;
     tags = [];
+    separatorKeysCodes = [ENTER, COMMA];
+    visible = true;
+    selectable = true;
+    removable = true;
+    addOnBlur = true;
     constructor(public dialogRef: MatDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
@@ -33,6 +39,24 @@ export class AutomaticTagModalComponent implements OnInit {
         }
         if (this.tag['to']) {
             this.tag['to'] = moment(this.tag['to']).format('YYYY-MM-DD');
+        }
+    }
+
+    add(event: MatChipInputEvent): void {
+        const input = event.input;
+        const value = event.value;
+        if ((value || '').trim()) {
+            this.tags.push(value.trim());
+        }
+        if (input) {
+            input.value = '';
+        }
+    }
+
+    remove(tag: any): void {
+        const index = this.tags.indexOf(tag);
+        if (index >= 0) {
+            this.tags.splice(index, 1);
         }
     }
 

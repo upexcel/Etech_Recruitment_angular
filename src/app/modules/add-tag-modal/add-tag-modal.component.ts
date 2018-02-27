@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatChipInputEvent } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { color_list } from '../../config/config';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-add-tag-modal',
@@ -21,6 +22,11 @@ export class AddTagModalComponent implements OnInit {
     originalcolor = color_list[0];
     availableColors = color_list;
     tags = [];
+    separatorKeysCodes = [ENTER, COMMA];
+    visible = true;
+    selectable = true;
+    removable = true;
+    addOnBlur = true;
     constructor(public dialogRef: MatDialogRef<any>, private tagUpdate: ImapMailsService, public _snackBar: MatSnackBar) { }
 
     ngOnInit() {
@@ -35,6 +41,24 @@ export class AddTagModalComponent implements OnInit {
         this.showloading = false;
     }
 
+    add(event: MatChipInputEvent): void {
+        const input = event.input;
+        const value = event.value;
+        if ((value || '').trim()) {
+            this.tags.push(value.trim());
+        }
+        if (input) {
+            input.value = '';
+        }
+    }
+
+    remove(tag: any): void {
+        const index = this.tags.indexOf(tag);
+        if (index >= 0) {
+            this.tags.splice(index, 1);
+        }
+    }
+
     addTag(form: NgForm) {
         // console.log(form.value.keyword.toString());
         this.showMessage = false;
@@ -42,7 +66,7 @@ export class AddTagModalComponent implements OnInit {
         if (form.valid) {
             if (this.addTagType === 'jobProfile') {
                 form.value.is_job_profile_tag = 1;
-                form.value.keyword = form.value.keyword.toString();
+                form.value.keyword = this.tags.toString();
             }
             if (form.value.assign === '') {
                 form.value.assign = false;
@@ -54,7 +78,7 @@ export class AddTagModalComponent implements OnInit {
             this.tagUpdate.addTag(form.value).subscribe((data) => {
                 form.reset();
                 this.showloading = true;
-                this._snackBar.open('Job Profile Added', '' , {
+                this._snackBar.open('Job Profile Added', '', {
                     duration: 2000
                 })
             }, (err) => {

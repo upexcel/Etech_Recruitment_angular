@@ -12,8 +12,8 @@
         <input matInput placeholder="Email" [(ngModel)]="tag.email">
       </mat-form-field>
     </div>
-    </div>
-    <div class="row">
+  </div>
+  <div class="row">
     <div class="col-md-6 col-sm-12">
       <mat-form-field style="width: 100%">
         <input matInput placeholder="Subject" [(ngModel)]="tag.subject">
@@ -24,8 +24,8 @@
         <input matInput placeholder="From date" type="date" [(ngModel)]="tag.from">
       </mat-form-field>
     </div>
-    </div>
-    <div class="row">
+  </div>
+  <div class="row">
     <div class="col-md-6 col-sm-12">
       <mat-form-field style="width: 100%">
         <input matInput placeholder="To date" type="date" [(ngModel)]="tag.to">
@@ -41,24 +41,35 @@
         </mat-option>
       </mat-select>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <mat-form-field class="width-100">
+        <textarea matInput rows="4" placeholder="Job Description" [value]="tag.job_description" [(ngModel)]="tag.job_description"
+          required></textarea>
+      </mat-form-field>
     </div>
-    <div class="row">
-   <div class="col-md-6 col-sm-12">
-    <mat-form-field class="width-100">
-      <textarea matInput rows="4" placeholder="Job Description" [value]="tag.job_description" [(ngModel)]="tag.job_description" required></textarea>
-    </mat-form-field>
-  </div>
-  <div class="col-md-6 col-sm-12">
-    <mat-slide-toggle [checked]="tag.is_email_send" name="is_email_send" style="width: 100%;padding-top:18px;" [(ngModel)]="tag.is_email_send">Send Automatic Template</mat-slide-toggle>
-    <mat-slide-toggle [(ngModel)]="tag.assign_to_all_emails" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
-      name="assign" style="width: 100%">Assign to all existing mails</mat-slide-toggle>
-  </div>
+    <div class="col-md-6 col-sm-12">
+      <mat-slide-toggle [checked]="tag.is_email_send" name="is_email_send" style="width: 100%;padding-top:18px;" [(ngModel)]="tag.is_email_send">Send Automatic Template</mat-slide-toggle>
+      <mat-slide-toggle [(ngModel)]="tag.assign_to_all_emails" [checked]="tag.assign_to_all_emails" [ngClass]="{'toggle-green':tag.assign_to_all_emails}"
+        name="assign" style="width: 100%">Assign to all existing mails</mat-slide-toggle>
+    </div>
 
   </div>
   <div class="row">
-      <div class="col-md-6 col-sm-12">
-              <rl-tag-input id="editKeyword" name="keyword" placeholder="Keyword" [(ngModel)]="tags"> </rl-tag-input>
-        </div>
+    <div class="col-md-6 col-sm-12">
+      <mat-form-field class="chip-list">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (remove)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Keywords" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-list>
+      </mat-form-field>
+      <!-- <rl-tag-input id="editKeyword" name="keyword" placeholder="Keyword" [(ngModel)]="tags"> </rl-tag-input> -->
+    </div>
     <div class="col-md-6 col-sm-12">
       <h4> Tag Color </h4>
       <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
@@ -66,9 +77,9 @@
         <div class="selected-color" *ngFor="let color of availableColors" (click)="originalcolor = color" [ngStyle]="{'background-color': color}"></div>
       </div>
     </div>
-    </div>
-    <div class="col-md-6 col-sm-12" id="tagBtn">
-      <button mat-raised-button id="close" (click)="close()">Close</button>
-      <button mat-raised-button color=primary [disabled]="tag.job_description.length <= 0" (click)="save()">Save</button>
-    </div>
+  </div>
+  <div class="col-md-6 col-sm-12" id="tagBtn">
+    <button mat-raised-button id="close" (click)="close()">Close</button>
+    <button mat-raised-button color=primary [disabled]="tag.job_description.length <= 0" (click)="save()">Save</button>
+  </div>
 </div>

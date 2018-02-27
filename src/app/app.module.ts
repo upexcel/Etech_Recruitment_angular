@@ -39,7 +39,8 @@ import {
     MatRadioModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatInputModule
+    MatInputModule,
+    MatChipsModule
 } from '@angular/material';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {
@@ -175,7 +176,6 @@ import { SpamDialogService } from './service/spamDialog.service';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 import { DragulaModule } from 'ng2-dragula';
-import { RlTagInputModule } from 'angular2-tag-input';
 import { AddCandidateComponent } from './modules/add-candidate/add-candidate.component';
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
@@ -291,6 +291,7 @@ import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
         MatTooltipModule,
         MatExpansionModule,
         MatInputModule,
+        MatChipsModule,
         RouterModule.forRoot(routes, { useHash: true }),
         FormsModule,
         ReactiveFormsModule,
@@ -299,8 +300,7 @@ import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
         MatDatepickerModule,
         MatNativeDateModule,
         ChartsModule,
-        DragulaModule,
-        RlTagInputModule
+        DragulaModule
     ],
     providers: [
         ImapMailsService,
