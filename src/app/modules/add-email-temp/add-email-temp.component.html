@@ -7,6 +7,11 @@
       <div class="row">
         <div class="main col-sm-8">
             <p>
+                <md-select class="dropdown" placeholder="Job Profile" name="selectNewTag" ngModel required>
+                    <md-option class="dropdown__options" *ngFor="let tags of jobProfile" [value]="tags.tag_id">
+                        {{ tags.title }}
+                    </md-option>
+                </md-select>
                 <md-input-container class="width-100">
                     <input mdInput placeholder="Template Name" autoComplete="off" name="templateName" required ngModel>
                     <md-error>Required</md-error>

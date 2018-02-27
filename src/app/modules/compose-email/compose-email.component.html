@@ -25,9 +25,12 @@
                     <md-error>Required</md-error>
                 </md-input-container>
                 <md-select placeholder="Select Template" class="width-25" [(ngModel)]="selectedTemplate" (change)="selectTemplate(selectedTemplate)" [ngModelOptions]="{standalone: true}">
-                    <md-option *ngFor="let template of templates" [value]="template">
-                        {{ template.templateName }}
-                    </md-option>
+                    <span *ngFor="let template of templates">
+                        <!-- Replace the 1 below with condition -->
+                        <md-option  *ngIf=1 [value]="template">          
+                                {{ template.templateName }}
+                        </md-option>
+                    </span>
                 </md-select>
                 <ckeditor [config]="{uiColor: '#00ffff'}" debounce="500" [(ngModel)]="body" [ngModelOptions]="{standalone: true}"></ckeditor>
             </p>

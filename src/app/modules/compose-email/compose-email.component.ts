@@ -4,6 +4,7 @@ import {ImapMailsService} from '../../service/imapemails.service';
 import {NgForm} from '@angular/forms';
 import * as _ from 'lodash';
 import {SetvaremailpreviewComponent} from './../setvaremailpreview/setvaremailpreview.component';
+import { LocalStorageService } from 'app/service/local-storage.service';
 
 @Component({
     selector: 'app-compose-email-temp',
@@ -37,7 +38,7 @@ export class ComposeEmailComponent implements OnInit {
     notGenuine: any;
     resendEmailTrackingData: boolean;
     holdSubject: any;
-    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar, public localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {
@@ -137,7 +138,6 @@ export class ComposeEmailComponent implements OnInit {
             }
         });
     }
-
     close() {
         this.dialogRef.close();
     }
