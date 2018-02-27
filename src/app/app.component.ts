@@ -20,6 +20,15 @@ export class AppComponent implements OnInit {
             xfbml: true, // parse social plugins on this page
             version: environment['fb_version'] // use graph api version 2.8
         });
+        FB.getLoginStatus((response) => {
+            this.statusChangeCallback(response);
+        });
     }
+    statusChangeCallback(response: any) {
+        if (response.status !== 'connected') {
+            console.log('loginnn required');
+        }
+    }
+
 
 }

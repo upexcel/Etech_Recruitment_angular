@@ -20,11 +20,21 @@ export class PreviewScoreComponent implements OnInit {
     ngOnInit() {
         this.fbloading = true;
         this.getdata.detailedScore({'fb_id': this.fb_id}).subscribe(res => {
+            _.forEach(res.data.questions, (groupdata, keyGroup) => {
+                groupdata['totalAns'] = 0;
+                _.forEach(groupdata.questions, (questions, keyQues) => {
+                    if (questions.candidate_answer == questions.answer) {
+                        groupdata['totalAns']++;
+                    }
+                });
+            });
             this.detailedData = res.data;
-            let time = this.detailedData['taken_time_minutes'];
+            const time = this.detailedData['taken_time_minutes'];
             this.hours = Math.floor(time / 60);
             this.min = Math.floor(time % 60);
             this.fbloading = false;
+
+            console.log(this.detailedData);
         }, err => {
         });
     }

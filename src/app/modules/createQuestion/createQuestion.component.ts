@@ -95,6 +95,9 @@ export class CreateQuestionComponent implements OnInit {
             this.loading = false;
         });
     }
+    scroll() {
+        window.scroll(0, 0);
+    }
     addQues() {
         this.dialogRef = this.dialog.open(AddQuestionDialogComponent, {
             height: '100%',

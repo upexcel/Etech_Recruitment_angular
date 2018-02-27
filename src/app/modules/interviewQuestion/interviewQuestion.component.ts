@@ -37,7 +37,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     constructor(public dialog: MdDialog, private act_route: ActivatedRoute, private _mdSnackBar: MdSnackBar, private getTags: ImapMailsService, private _router: Router) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
         if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id ) {
-            this._router.navigate(['/candidatelogin']);
+            this._router.navigate(['/emailtestlogin']);
         }
         if (localStorage.getItem('thank') === 'true') {
             this.thankyou = true;
@@ -155,6 +155,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this.dialogRef = null;
+                    this.thankyou = true;
                     this.submit();
                 }
             });
@@ -163,6 +164,9 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 duration: 2000,
             });
         }
+    }
+    scroll() {
+        window.scrollTo(0, 0);
     }
     submit() {
         let startTime= new Date(JSON.parse(localStorage.getItem('start')));
@@ -179,20 +183,25 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }
         this.getTags.submitTest(this.allansRecord).subscribe(res => {
             // clearInterval(this.interval);
-            this.thankyou = true;
             setTimeout(() => {
                 this.fblogout();
             }, 5000);
         }, err => {
+            this.thankyou = false;
             this._mdSnackBar.open(err.message, '', {
                 duration: 2000
             });
         });
     }
     fblogout() {
-        FB.logout((result) => {
+        if (JSON.parse(localStorage.getItem('loginByfb'))) {
+            FB.logout((result) => {
+                localStorage.clear();
+                this._router.navigate(['/fbtestlogin']);
+            })
+        } else {
             localStorage.clear();
-            this._router.navigate(['/candidatelogin']);
-        })
+            this._router.navigate(['/emailtestlogin']);
+        }
     }
 };

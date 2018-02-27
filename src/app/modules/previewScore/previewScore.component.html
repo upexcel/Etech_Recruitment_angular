@@ -1,5 +1,7 @@
 <div>
-  <h4 class="heading">Detailed Score</h4>
+  <h4 class="heading">Detailed Score
+  <button md-raised-button class="closeBtn" (click)="close()" md-mini-fab><md-icon class="icon">close</md-icon></button>
+  </h4>
     <hr>
   <div *ngIf="!fbloading">
     <div class="score col-md-12 col-sm-12">
@@ -9,19 +11,30 @@
         <p class="col-md-6 col-sm-6 scoreDet">Wrong Attempted: {{detailedData.wrong_answers}}</p>
         <p class="col-md-6 col-sm-6 scoreDet">Time Taken: {{hours}}h {{min}}min</p>
     </div>
-    <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of detailedData?.questions;let id = index">
-      <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
-      <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
-      <p class="pid">Options:</p>
-      <ul class="width100 fontsize">
-        <li *ngFor="let option of ques.options" class="width100">{{option.option}}</li>
-      </ul>
-      <p class="red" *ngIf="!ques.candidate_answer">Not Attempted</p>
-      <p class="pink" *ngIf="ques.candidate_answer">Candidate Answer: {{ques.candidate_answer}}</p>
-      <p class="green">Right Answer: {{ques.answer}}</p>
+    <md-accordion class="col-xs-12 col-md-12 col-sm-12">
+      <md-expansion-panel *ngFor="let group of  detailedData?.questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <md-expansion-panel-header>
+          <md-panel-title style="text-transform:capitalize">
+            {{group.exam_subject}}
+          </md-panel-title>
+          <md-panel-description class="right" style="flex-grow:0">
+            Score: {{group.totalAns}}/{{group.questions.length}}
+          </md-panel-description>
+        </md-expansion-panel-header>
+        <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of group.questions;let id = index">
+          <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
+          <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
+          <p class="pid">Options:</p>
+          <ul class="width100 fontsize">
+            <li *ngFor="let option of ques.options" class="width100">{{option.option}}</li>
+          </ul>
+          <p class="red" *ngIf="!ques.candidate_answer">Not Attempted</p>
+          <p class="pink" *ngIf="ques.candidate_answer">Candidate Answer: {{ques.candidate_answer}}</p>
+          <p class="green">Right Answer: {{ques.answer}}</p>
 
-    </div>
-    <button md-raised-button  class="right submitans" (click)="close()">close</button>
+        </div>
+      </md-expansion-panel>
+    </md-accordion>
   </div>
   <div *ngIf="fbloading">
     <md-spinner id="loginSpinner" *ngIf="fbloading" class="spin"></md-spinner>
