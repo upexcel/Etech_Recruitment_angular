@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     jobApplicationReadSelection = 'byDay';
     automaticEmailReadSelection = 'byDay';
     // dashboardIntervalSubscription: any;
-    loading= false;
+    loading = false;
     constructor(private access: LoginService, private _router: Router, private route: ActivatedRoute, private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
 
     ngOnInit() {

@@ -6,73 +6,73 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-sm-12">
-        <md-input-container class="width-100">
-          <input mdInput name="title" id='title' placeholder="Title" ngModel required>
-          <md-error>Title Is Required</md-error>
-        </md-input-container>
+        <mat-form-field class="width-100">
+          <input matInput name="title" id='title' placeholder="Title" ngModel required>
+          <mat-error>Title Is Required</mat-error>
+        </mat-form-field>
       </div>
       <div class="col-md-6 col-sm-12">
-        <md-radio-group class="pos-radio width-100" name="type" [(ngModel)]="type" ngModel required>
-          <md-radio-button *ngIf="addTagType == 'manual'" name="type" value="Manual" (click)="types = 0">Manual Tag</md-radio-button>
-          <md-radio-button *ngIf="addTagType == 'automatic'" name="type" value="Automatic" (click)="types = 1">Automatic Tag</md-radio-button>
-          <md-radio-button *ngIf="addTagType == 'jobProfile'" name="type" value="Automatic" (click)="types = 1">Create Job Profile</md-radio-button>
-        </md-radio-group>
+        <mat-radio-group class="pos-radio width-100" name="type" [(ngModel)]="type" ngModel required>
+          <mat-radio-button *ngIf="addTagType == 'manual'" name="type" value="Manual" (click)="types = 0">Manual Tag</mat-radio-button>
+          <mat-radio-button *ngIf="addTagType == 'automatic'" name="type" value="Automatic" (click)="types = 1">Automatic Tag</mat-radio-button>
+          <mat-radio-button *ngIf="addTagType == 'jobProfile'" name="type" value="Automatic" (click)="types = 1">Create Job Profile</mat-radio-button>
+        </mat-radio-group>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-12">
-        <md-input-container class="width-100">
-          <input mdInput name="email" type="email" id="Email" placeholder="Email" ngModel>
-          <md-error>Invalid Email</md-error>
-        </md-input-container>
+        <mat-form-field class="width-100">
+          <input matInput name="email" type="email" id="Email" placeholder="Email" ngModel>
+          <mat-error>Invalid Email</mat-error>
+        </mat-form-field>
       </div>
       <div id="tagSubject" class="col-md-6 col-sm-12">
-        <md-input-container class="width-100">
-          <input mdInput name="subject" id="subject" placeholder="Subject" ngModel required>
-        </md-input-container>
+        <mat-form-field class="width-100">
+          <input matInput name="subject" id="subject" placeholder="Subject" ngModel required>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-12">
-        <md-input-container class="width-100">
-          <input mdInput name="from" type="date" id="fromDate" placeholder="From date" ngModel>
-        </md-input-container>
+        <mat-form-field class="width-100">
+          <input matInput name="from" type="date" id="fromDate" placeholder="From date" ngModel>
+        </mat-form-field>
       </div>
       <div class="col-md-6 col-sm-12">
-        <md-input-container class="width-100">
-          <input mdInput name="to" type="date" id="toDate" placeholder="To date" ngModel>
-        </md-input-container>
+        <mat-form-field class="width-100">
+          <input matInput name="to" type="date" id="toDate" placeholder="To date" ngModel>
+        </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div id="tagDescription" class="col-md-6 col-sm-12" *ngIf="addTagType == 'jobProfile'">
-        <md-input-container class="width-100">
-          <textarea mdInput rows="4" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
-          <md-error>Job Description Is Required</md-error>
-        </md-input-container>
+        <mat-form-field class="width-100">
+          <textarea matInput rows="4" name="job_description" type="textarea" placeholder="Job Description" ngModel required></textarea>
+          <mat-error>Job Description Is Required</mat-error>
+        </mat-form-field>
       </div>
       <div  class="col-md-6 col-sm-12" *ngIf="addTagType == 'jobProfile'">
-        <!-- <md-input-container class="width-100"> -->
+        <!-- <mat-form-field class="width-100"> -->
             <rl-tag-input id="addKeyword" name="keyword"  placeholder="Add Keyword" [(ngModel)]="tags"> </rl-tag-input>
-          <!-- <textarea mdInput rows="4" name="keyword" type="textarea" placeholder="Add Keyword" ngModel required></textarea> -->
-          <!-- <md-error>Add Keyword Is Required</md-error> -->
-        <!-- </md-input-container> -->
+          <!-- <textarea matInput rows="4" name="keyword" type="textarea" placeholder="Add Keyword" ngModel required></textarea> -->
+          <!-- <mat-error>Add Keyword Is Required</mat-error> -->
+        <!-- </mat-form-field> -->
       </div>
     </div>
     <div class="row">
       <div class="col-md-6 col-sm-12">
-        <md-select class="width-100" id="template" placeholder="Select Template" name="template_id" ngModel>
-          <md-option>
+        <mat-select class="width-100" id="template" placeholder="Select Template" name="template_id" ngModel>
+          <mat-option>
             None
-          </md-option>
-          <md-option *ngFor="let temp of tempList; trackBy: tempListTrack;" [value]="temp.id">
+          </mat-option>
+          <mat-option *ngFor="let temp of tempList; trackBy: tempListTrack;" [value]="temp.id">
             {{temp.templateName}}
-          </md-option>
-        </md-select>
+          </mat-option>
+        </mat-select>
       </div>
       <div class="col-md-6 col-sm-12">
-        <md-slide-toggle name="is_email_send" ngModel class="width-100" id="send_email">Send Automatic Template</md-slide-toggle>
-        <md-slide-toggle name="assign" ngModel class="width-100" id="assign">Assign to all existing mails</md-slide-toggle>
+        <mat-slide-toggle name="is_email_send" ngModel class="width-100" id="send_email">Send Automatic Template</mat-slide-toggle>
+        <mat-slide-toggle name="assign" ngModel class="width-100" id="assign">Assign to all existing mails</mat-slide-toggle>
       </div>
     </div>
     <div class="row">
@@ -85,8 +85,8 @@
         </div>
       </div>
       <div id="tagBtn" class="col-md-12 col-sm-12 text-right">
-        <button md-raised-button id="close" (click)="close()">Close</button>
-        <button md-raised-button id="save" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
+        <button mat-raised-button id="close" (click)="close()">Close</button>
+        <button mat-raised-button id="save" color=primary [disabled]="addForm.invalid || showloading" (click)="addTag(addForm)">
           <span>Save </span>
         </button>
       </div>

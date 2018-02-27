@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
-import { MdDialogConfig, MdDialogRef, MdSnackBar, } from '@angular/material';
+import { MatDialogConfig, MatDialogRef, MatSnackBar, } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
@@ -22,7 +22,7 @@ export class AddNoteComponent implements OnInit {
     title: any;
     rejectNote = false;
     closeWindow: boolean;
-    constructor(public dialogRef: MdDialogRef<any>, public _apiService: ImapMailsService, public localStorageService: LocalStorageService) {
+    constructor(public dialogRef: MatDialogRef<any>, public _apiService: ImapMailsService, public localStorageService: LocalStorageService) {
     }
     ngOnInit() {
         if (this.title) {

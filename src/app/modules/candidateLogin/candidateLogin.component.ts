@@ -5,8 +5,8 @@ import { LoginService } from '../../service/login.service';
 import { CommonService } from '../../service/common.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
-import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
-import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
+import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
+import { OtpdialogComponent } from '../otpdialog/otpdialog.component';
 import { environment } from '../../../environments/environment';
 declare let FB: any;
 
@@ -14,7 +14,7 @@ declare let FB: any;
     selector: 'app-candidate-login',
     templateUrl: './candidateLogin.component.html',
     styleUrls: ['./candidateLogin.component.scss'],
-    providers: [ Title]
+    providers: [Title]
 })
 export class CandidateLoginComponent implements OnInit {
     addForm: FormGroup;
@@ -27,8 +27,8 @@ export class CandidateLoginComponent implements OnInit {
     showmessage: boolean;
     fbObj: any;
     fbtoken: any;
-    dialogRef: MdDialogRef<any>;
-    constructor(private title: Title, public dialog: MdDialog, private commonService: CommonService, private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MdSnackBar) {
+    dialogRef: MatDialogRef<any>;
+    constructor(private title: Title, public dialog: MatDialog, private commonService: CommonService, private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MatSnackBar) {
         this.title.setTitle('Test Papers');
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
@@ -64,11 +64,11 @@ export class CandidateLoginComponent implements OnInit {
                 'appliedEmail': res.email,
                 'name': res.name,
                 'gender': res.gender,
-                'profile_pic' : res.picture.data.url,
-                'fb_id' : res.id
+                'profile_pic': res.picture.data.url,
+                'fb_id': res.id
             };
             this.access.facebook_login(this.fbObj).subscribe(response => {
-                let added = this.commonService.storeFbdata(this.fbObj);
+                const added = this.commonService.storeFbdata(this.fbObj);
                 // localStorage.setItem('role', JSON.stringify('Candidate'));
                 // localStorage.setItem('user', res.name);
                 // localStorage.setItem('user_id', res.id)
@@ -86,7 +86,7 @@ export class CandidateLoginComponent implements OnInit {
                         this.dialogRef.afterClosed().subscribe(result => {
                             if (result) {
                                 this.fbloading = true;
-                            }else {
+                            } else {
                                 this.fbloading = false;
                             }
                             this.dialogRef = null;
@@ -99,13 +99,13 @@ export class CandidateLoginComponent implements OnInit {
 
                 })
             },
-            (err) => {
-                this.zone.run(() => {
-                    this.fbloading = false;
-                    this.message = err.message;
-                    this.showmessage = true;
-                })
-            });
+                (err) => {
+                    this.zone.run(() => {
+                        this.fbloading = false;
+                        this.message = err.message;
+                        this.showmessage = true;
+                    })
+                });
         });
     }
 }

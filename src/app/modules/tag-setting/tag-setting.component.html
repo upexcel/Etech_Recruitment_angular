@@ -20,11 +20,11 @@
     <span class="tagname" (click)="openManual(tag)">
                 {{tag.title}}
             </span>
-    <md-icon class="iconset" (click)="removeTag(tag.id,'Manual')">cancel</md-icon>
+    <mat-icon class="iconset" (click)="removeTag(tag.id,'Manual')">cancel</mat-icon>
   </div>
 </div>
 <div class="pos-add" *ngIf="!loading">
-  <button id="AddTag" md-fab (click)="addTag()">
-    <md-icon>add</md-icon>
+  <button id="AddTag" mat-fab (click)="addTag()">
+    <mat-icon>add</mat-icon>
   </button>
 </div>

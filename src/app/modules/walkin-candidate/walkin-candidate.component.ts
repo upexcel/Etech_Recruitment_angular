@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { config } from './../../config/config';
@@ -11,7 +11,7 @@ import { config } from './../../config/config';
 })
 export class WalkinCandidateComponent implements OnInit {
     walkinData: any;
-    constructor(public dialogRef: MdDialogRef<any>, private apiService: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(public dialogRef: MatDialogRef<any>, private apiService: ImapMailsService, public snackBar: MatSnackBar) {
         this.walkinData = JSON.parse(localStorage.getItem('walkinUser'))
     }
 
@@ -19,7 +19,7 @@ export class WalkinCandidateComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
-            let data = form.value;
+            const data = form.value;
             data['sender_mail'] = this.walkinData.email;
             data['from'] = this.walkinData.name;
             data['fb_id'] = this.walkinData.fb_id;

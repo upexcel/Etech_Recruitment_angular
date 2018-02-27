@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {ImapMailsService} from './../../service/imapemails.service';
-import {MdSnackBar, MdDialogRef} from '@angular/material';
-import {config} from './../../config/config';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ImapMailsService } from './../../service/imapemails.service';
+import { MatSnackBar, MatDialogRef } from '@angular/material';
+import { config } from './../../config/config';
 
 @Component({
     selector: 'add-spam-contact',
@@ -16,7 +16,7 @@ export class AddNewSpamContactComponent implements OnInit {
     showmessage: boolean;
     activity: any;
     formData: any;
-    constructor(private dialogRef: MdDialogRef<any>, private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(private dialogRef: MatDialogRef<any>, private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -34,8 +34,8 @@ export class AddNewSpamContactComponent implements OnInit {
         if (this.addNewSpamContactForm.valid) {
             this.loading = true;
             this.showmessage = false;
-            if (this.activity == "edit") {
-                this.addNewSpamContactForm.value['id']=this.formData['id'];
+            if (this.activity === 'edit') {
+                this.addNewSpamContactForm.value['id'] = this.formData['id'];
                 this._imapMailsService.updateSpam(this.addNewSpamContactForm.value).subscribe((res) => {
                     this.loading = false;
                     this.showmessage = false;

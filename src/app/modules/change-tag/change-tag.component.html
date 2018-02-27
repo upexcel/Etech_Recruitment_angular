@@ -12,16 +12,16 @@
         The Candidate is not assigned yet.
       </div>
       <div class="moveTo">
-        <md-select [placeholder]="placeholder" #selectNewTag="ngModel" name="selectNewTag" ngModel required>
-          <md-option *ngFor="let tags of jobProfile" [value]="tags.title">
+        <mat-select [placeholder]="placeholder" #selectNewTag="ngModel" name="selectNewTag" ngModel required>
+          <mat-option *ngFor="let tags of jobProfile" [value]="tags.title">
             {{ tags.title }}
-          </md-option>
-        </md-select>
+          </mat-option>
+        </mat-select>
       </div>
     </div>
     <div class="submit">
-      <button md-raised-button (click)="close()">Close</button>
-      <button id="change" md-raised-button type="submit" color=primary [disabled]="selectNewTag.invalid">
+      <button mat-raised-button (click)="close()">Close</button>
+      <button id="change" mat-raised-button type="submit" color=primary [disabled]="selectNewTag.invalid">
         <span>Change Tag</span>
       </button>
     </div>

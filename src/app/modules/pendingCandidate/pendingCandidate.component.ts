@@ -11,10 +11,10 @@ import * as _ from 'lodash';
 export class PendingCandidateComponent implements OnInit {
     candiadteList: any;
     tags: any;
-    jobprofile_tag= [];
+    jobprofile_tag = [];
     messageShow: any;
-    message= false;
-    constructor (private _getScore: ImapMailsService, private _ngzone: NgZone) { }
+    message = false;
+    constructor(private _getScore: ImapMailsService, private _ngzone: NgZone) { }
 
     getPendingCandidateList() {
         this._getScore.pendingList().subscribe(res => {
@@ -26,8 +26,8 @@ export class PendingCandidateComponent implements OnInit {
                 }
             });
         },
-        err => {
-        });
+            err => {
+            });
     }
     jobprofile() {
         this._getScore.getAllTags().subscribe(res => {
@@ -35,8 +35,8 @@ export class PendingCandidateComponent implements OnInit {
                 this.formatTagsInArray(res);
             });
         },
-        err => {
-        });
+            err => {
+            });
     }
     formatTagsInArray(data: any) {
         this.tags = [];
@@ -77,7 +77,7 @@ export class PendingCandidateComponent implements OnInit {
         this.jobprofile();
     }
     assignTag(tag_id: any, email: any) {
-        this._getScore.approveCandidate({'email': email, 'tag_id': tag_id}).subscribe(res => {
+        this._getScore.approveCandidate({ 'email': email, 'tag_id': tag_id }).subscribe(res => {
             this.getPendingCandidateList();
         }, err => {
         });

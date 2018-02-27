@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { color_list } from '../../config/config';
@@ -21,7 +21,7 @@ export class AddTagModalComponent implements OnInit {
     originalcolor = color_list[0];
     availableColors = color_list;
     tags = [];
-    constructor(public dialogRef: MdDialogRef<any>, private tagUpdate: ImapMailsService, public _snackBar: MdSnackBar) { }
+    constructor(public dialogRef: MatDialogRef<any>, private tagUpdate: ImapMailsService, public _snackBar: MatSnackBar) { }
 
     ngOnInit() {
         if (this.addTagType === 'manual') {

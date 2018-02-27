@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { color_list } from '../../config/config';
 import * as moment from 'moment';
@@ -16,13 +16,13 @@ export class AutomaticTagModalComponent implements OnInit {
     originaltitle = '';
     temp_id: any;
     availableColors = color_list;
-    tags= [];
-    constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
+    tags = [];
+    constructor(public dialogRef: MatDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
         if (this.tag.keyword === null || this.tag.keyword === ['']) {
             this.tags = [];
-        }else {
+        } else {
             this.tags = this.tag.keyword.split(',');
         }
         this.originaltitle = this.tag.title;
@@ -39,7 +39,7 @@ export class AutomaticTagModalComponent implements OnInit {
     save() {
         if (this.tags.length === 0) {
             this.tag.keyword = null;
-        }else {
+        } else {
             this.tag.keyword = this.tags.toString();
         }
         this.tag.title = this.originaltitle;

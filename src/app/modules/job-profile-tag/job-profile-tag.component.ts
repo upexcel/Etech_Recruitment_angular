@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ManualTagModalComponent } from '../manual-tag-modal/manual-tag-modal.component';
 import { AutomaticTagModalComponent } from '../automatic-tag-modal/automatic-tag-modal.component';
 import { AddTagModalComponent } from '../add-tag-modal/add-tag-modal.component';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
 import { DragulaService } from 'ng2-dragula';
 import * as _ from 'lodash';
@@ -14,11 +14,11 @@ import * as _ from 'lodash';
     styleUrls: ['./job-profile-tag.component.scss']
 })
 export class JobProfileTagComponent implements OnInit {
-    dialogRef: MdDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     loading = false;
     tempList: any;
     tags: any[];
-    constructor(private dragulaService: DragulaService, private getTags: ImapMailsService, public dialog: MdDialog, public viewContainerRef: ViewContainerRef, public snackBar: MdSnackBar, private _dialogService: DialogService) {
+    constructor(private dragulaService: DragulaService, private getTags: ImapMailsService, public dialog: MatDialog, public viewContainerRef: ViewContainerRef, public snackBar: MatSnackBar, private _dialogService: DialogService) {
         dragulaService.drop.subscribe((value) => {
             this.onDrop(value.slice(1));
         });

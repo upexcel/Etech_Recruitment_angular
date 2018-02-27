@@ -1,71 +1,71 @@
 <div class="container-fluid">
     <div class="row">
-        <button md-icon-button class="setting-menu" (click)="menuShow = !menuShow"> <md-icon>menu</md-icon> </button>
+        <button mat-icon-button class="setting-menu" (click)="menuShow = !menuShow"> <mat-icon>menu</mat-icon> </button>
         <div class="col-md-2 col-sm-2 sidenav no-pad" [ngClass]="{'showMenu': menuShow}">
-            <md-list>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('imap','IMAP Server Setting')">
-                    <a md-line> IMAP Server Setting </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('smtp','SMTP Server Setting')">
-                    <a md-line> SMTP Server Setting </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('slackinfo','Slack info')">
-                    <a md-line> Slack Info </a>
-                </md-list-item>
+            <mat-list>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('imap','IMAP Server Setting')">
+                    <a mat-line> IMAP Server Setting </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('smtp','SMTP Server Setting')">
+                    <a mat-line> SMTP Server Setting </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('slackinfo','Slack info')">
+                    <a mat-line> Slack Info </a>
+                </mat-list-item>
 
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="listopen=!listopen">
-                    <a md-line>  Template Setting </a>
-                    <md-icon>{{listopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
-                </md-list-item>
-                <md-list *ngIf="listopen">
-                    <md-list-item class="subnavlist" (click)="goto('emailtemplate','Email Templates')">
+                <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="listopen=!listopen">
+                    <a mat-line>  Template Setting </a>
+                    <mat-icon>{{listopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
+                </mat-list-item>
+                <mat-list *ngIf="listopen">
+                    <mat-list-item class="subnavlist" (click)="goto('emailtemplate','Email Templates')">
                         <a>Email Templates</a>
-                    </md-list-item>
-                    <md-list-item class="subnavlist" (click)="goto('emailvariable','Email Variables')">
+                    </mat-list-item>
+                    <mat-list-item class="subnavlist" (click)="goto('emailvariable','Email Variables')">
                         <a>Email Variables</a>
-                    </md-list-item>
-                </md-list>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('tagsetting','Tag Setting')">
-                    <a md-line> Tag Setting </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('automaticTags','Automatic Tags')">
-                    <a md-line> Automatic Tags </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
-                    <a md-line> Job Profile </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('usersList','Users List')">
-                    <a md-line> Users List </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('useractivity','Users Log')">
-                    <a md-line> Users Log </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('emailLogs','Email Logs')">
-                    <a md-line> Email Logs </a>
-                </md-list-item>
-                <md-list-item class="navlist" (click)="goto('resetPassword','Reset Password')">
-                    <a md-line> Reset Password </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('spam','Spam')">
-                    <a md-line> Spam </a>
-                </md-list-item>
-                <md-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="testingSysopen=!testingSysopen">
-                  <a md-line> Interview Test System </a>
-                  <md-icon>{{testingSysopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</md-icon>
-                </md-list-item>
-                <md-list *ngIf="testingSysopen">
-                  <md-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('pendingCandidate','PendingCandidate')">
-                    <a md-line> Pending Candidate </a>
-                  </md-list-item>
-                  <md-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('createQuestion','CreateQuestion')">
-                    <a md-line> Create Question </a>
-                  </md-list-item>
-                  <md-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('candidateScore','Candidate Score')">
-                    <a md-line> Candidate Score </a>
-                  </md-list-item>
-                </md-list>
+                    </mat-list-item>
+                </mat-list>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('tagsetting','Tag Setting')">
+                    <a mat-line> Tag Setting </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('automaticTags','Automatic Tags')">
+                    <a mat-line> Automatic Tags </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
+                    <a mat-line> Job Profile </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('usersList','Users List')">
+                    <a mat-line> Users List </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('useractivity','Users Log')">
+                    <a mat-line> Users Log </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('emailLogs','Email Logs')">
+                    <a mat-line> Email Logs </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" (click)="goto('resetPassword','Reset Password')">
+                    <a mat-line> Reset Password </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin'" (click)="goto('spam','Spam')">
+                    <a mat-line> Spam </a>
+                </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="testingSysopen=!testingSysopen">
+                  <a mat-line> Interview Test System </a>
+                  <mat-icon>{{testingSysopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
+                </mat-list-item>
+                <mat-list *ngIf="testingSysopen">
+                  <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('pendingCandidate','PendingCandidate')">
+                    <a mat-line> Pending Candidate </a>
+                  </mat-list-item>
+                  <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('createQuestion','CreateQuestion')">
+                    <a mat-line> Create Question </a>
+                  </mat-list-item>
+                  <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('candidateScore','Candidate Score')">
+                    <a mat-line> Candidate Score </a>
+                  </mat-list-item>
+                </mat-list>
 
-            </md-list>
+            </mat-list>
         </div>
         <div class="col-md-10 col-sm-10 content">
             <router-outlet></router-outlet>
