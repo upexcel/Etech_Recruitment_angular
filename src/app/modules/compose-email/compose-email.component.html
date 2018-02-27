@@ -24,11 +24,6 @@
                     <input mdInput placeholder="Campaign Name" autoComplete="off" name="campaign_name" required [(ngModel)]="campaign_name">
                     <md-error>Required</md-error>
                 </md-input-container>
-                <md-select placeholder="Job Profile" class="col-md-3" name="selectNewTag" ngModel (ngModelChange)="change($event)" required>
-                    <md-option *ngFor="let tags of jobProfile" [value]="tags.title">
-                        {{ tags.title }}
-                    </md-option>
-                </md-select>
                 <md-select placeholder="Select Template" class="width-25" [(ngModel)]="selectedTemplate" (change)="selectTemplate(selectedTemplate)" [ngModelOptions]="{standalone: true}" [disabled]="!currentJobProfile">
                     <span *ngFor="let template of templates">
                         <!-- Replace the 1 below with condition -->

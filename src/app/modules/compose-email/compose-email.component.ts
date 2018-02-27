@@ -38,9 +38,6 @@ export class ComposeEmailComponent implements OnInit {
     notGenuine: any;
     resendEmailTrackingData: boolean;
     holdSubject: any;
-    tags:any;
-    jobProfile:Array<any> = [];
-    currentJobProfile:string;
     constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar, public localStorageService: LocalStorageService) {
     }
 
@@ -51,13 +48,6 @@ export class ComposeEmailComponent implements OnInit {
             this.templates = res;
         }, (err) => {
             console.log(err);
-        });
-        this.tags = this.localStorageService.getItem('tags');
-        this.jobProfile.push({title:'For All Job Profile'});
-        _.forEach(this.tags['Automatic'], (value, key) => {
-          if(value.id != null && value.id !=0){
-          this.jobProfile.push({ title: value.title });
-         }
         });
     }
     selectTemplate(seletectTemplated) {
@@ -147,9 +137,6 @@ export class ComposeEmailComponent implements OnInit {
                 this.dialogRef = null;
             }
         });
-    }
-    change(value) {
-        this.currentJobProfile = value;
     }
     close() {
         this.dialogRef.close();

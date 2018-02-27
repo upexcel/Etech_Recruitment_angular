@@ -27,10 +27,10 @@ export class AddEmailTempComponent implements OnInit {
         this.showMessage = false;
         this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.tags = this.localStorageService.getItem('tags');
-        this.jobProfile.push({title: 'Template will be valid across all Job Profile'});
+        this.jobProfile.push({title: 'Template will be valid across all Job Profile', tag_id:0});
         _.forEach(this.tags['Automatic'], (value, key) => {
           if(value.id != null && value.id !=0){
-          this.jobProfile.push({ title: value.title });
+          this.jobProfile.push({ title: value.title, tag_id: value.id });
         }
         })
     }

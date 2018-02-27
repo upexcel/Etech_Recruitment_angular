@@ -8,7 +8,7 @@
         <div class="main col-sm-8">
             <p>
                 <md-select class="dropdown" placeholder="Job Profile" name="selectNewTag" ngModel required>
-                    <md-option class="dropdown__options" *ngFor="let tags of jobProfile" [value]="tags.title">
+                    <md-option class="dropdown__options" *ngFor="let tags of jobProfile" [value]="tags.tag_id">
                         {{ tags.title }}
                     </md-option>
                 </md-select>
