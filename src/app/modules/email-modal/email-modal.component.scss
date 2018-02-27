@@ -402,3 +402,17 @@ a.link:hover{
 	width: 213px;
 	margin-left: 83%;
 }
+.badge {
+	background: #2bbbad;
+	display: inline-block;
+    min-width: 10px;
+    padding: 4px 12px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 10px;
+}

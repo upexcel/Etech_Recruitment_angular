@@ -57,6 +57,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     tagfilter = [];
     url: string;
     closeWindow: boolean;
+    currentTag:any; // new variable to show tag of the candidate
     constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
@@ -64,7 +65,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     ngAfterContentInit() {
-        document.getElementById('sideNav').classList.add('sidehide');
+        setTimeout(() => {
+            document.getElementById('sideNav').classList.add('sidehide');
+        })
     }
 
     ngOnInit() {
@@ -96,6 +99,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.openAccordian();
             this.getIntervieweeList();
             this.historyAttchement(this.historyList['data']);
+            this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle; //used to get the tag for the selected Candidate.
         })
         if (this._localStorageService.getItem('close') === undefined || this._localStorageService.getItem('close') == null || this._localStorageService.getItem('close') === 'null') {
             this._localStorageService.setItem('close', false);
@@ -216,6 +220,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     assignTag(id: string, emailId, title: string, emailData) {
+        console.log(this.currentTag);
         if (title === 'Schedule') {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
@@ -302,7 +307,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogConfig = this.setvardialog.open(OpenattachementComponent, {
             height: '100%',
             width: '120%'
-        });
+        });[matDatepickerFilter]="dateFilter"
         this.dialogConfig.componentInstance.link = link;
         this.dialogConfig.afterClosed().subscribe(result => {
             this.dialogConfig = null;
