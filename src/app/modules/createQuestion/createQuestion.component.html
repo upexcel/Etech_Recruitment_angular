@@ -26,8 +26,7 @@
       </div>
 
       <mat-accordion>
-
-        <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false" (click)="scroll()">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{group.group_name}}

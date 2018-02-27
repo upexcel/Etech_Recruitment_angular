@@ -187,18 +187,20 @@ import { PreviewAnswerComponent } from './modules/previewAnswer/previewAnswer.co
 import { PreviewScoreComponent } from './modules/previewScore/previewScore.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
-import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
+import { FbtestloginComponent} from './modules/fbtestlogin/fbtestlogin.component';
 import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove-mails-dialog.component';
 import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
+import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        CandidateLoginComponent,
+        FbtestloginComponent,
+        EmailtestloginComponent,
         CoreComponent,
         InboxComponent,
         EmailLogsComponent,
@@ -266,7 +268,8 @@ import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
         PreviewScoreComponent,
         PendingCandidateComponent,
         RemoveMailsDialogComponent,
-        ChangeTagComponent
+        ChangeTagComponent,
+        EmailtestloginComponent
     ],
     imports: [
         BrowserModule,

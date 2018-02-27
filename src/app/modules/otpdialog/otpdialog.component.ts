@@ -25,6 +25,7 @@ export class OtpdialogComponent implements OnInit {
             if (response.status === 1) {
                 this.dialogRef.close();
                 this.zone.run(() => {
+                    localStorage.setItem('token', 'true');
                     localStorage.setItem('role', JSON.stringify('Candidate'));
                     localStorage.setItem('user', response.data.name);
                     localStorage.setItem('user_id', response.data.fb_id);

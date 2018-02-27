@@ -34,8 +34,9 @@ import { CandidateComponent } from './modules/candidate/candidate.component';
 import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
-import { CandidateLoginComponent} from './modules/candidateLogin/candidateLogin.component';
+import { FbtestloginComponent} from './modules/fbtestlogin/fbtestlogin.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
+import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
@@ -190,8 +191,11 @@ export const routes: Route[] = [{
         component: LoginComponent
     },
     {
-        path: 'candidatelogin',
-        component: CandidateLoginComponent
+        path: 'fbtestlogin',
+        component: FbtestloginComponent
+    }, {
+        path: 'emailtestlogin',
+        component: EmailtestloginComponent
     },
     {
         path: 'forgot',
