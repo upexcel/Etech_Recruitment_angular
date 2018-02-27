@@ -6,7 +6,7 @@
 <mat-spinner *ngIf="loading" class="spin"></mat-spinner>
 <div class="dashboard" [style.padding-top]="isHome ? '100px' : '0px'" *ngIf="dashboardData">
   <mat-card>
-    <mat-card-title>{{isHome}}Jobs Application</mat-card-title>
+    <mat-card-title>Jobs Application</mat-card-title>
     <mat-select placeholder="" class="job-selection" [(ngModel)]="jobSelection">
       <mat-option value="byDay">
         Day Wise
