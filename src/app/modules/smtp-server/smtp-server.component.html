@@ -1,11 +1,11 @@
 <div class="main">
   <app-smtp-component-form (addedSMTP)="getSmtpList()"></app-smtp-component-form>
     <div>
-        <md-card>
-            <md-card-subtitle class="cardsub">
+        <mat-card>
+            <mat-card-subtitle class="cardsub">
                 SMTP Settings
-            </md-card-subtitle>
-            <md-card-content class="table-responsive">
+            </mat-card-subtitle>
+            <mat-card-content class="table-responsive">
                 <table id="table" class="list table">
                     <thead>
                         <tr>
@@ -25,18 +25,18 @@
                             <td>{{setting.server_port}}</td>
                             <td>{{setting.type}}</td>
                             <td>
-                                <md-icon id="status" class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email, setting.status)"><i class="material-icons">{{setting.status ? 'done' : 'clear'}}</i></md-icon>
+                                <mat-icon id="status" class="{{setting.status ? 'on':'off'}}" (click)="changeStatus(setting.email, setting.status)"><i class="material-icons">{{setting.status ? 'done' : 'clear'}}</i></mat-icon>
                             </td>
                             <td>
-                                <button id="test" md-button class="chartcolor" (click)="test(setting.email)">TEST</button>
+                                <button id="test" mat-button class="chartcolor" (click)="test(setting.email)">TEST</button>
                             </td>
                             <td>
-                                <button id="remove" md-button class="chartcolor" [disabled]="setting.status" (click)="remove(setting.id)">REMOVE</button>
+                                <button id="remove" mat-button class="chartcolor" [disabled]="setting.status" (click)="remove(setting.id)">REMOVE</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-            </md-card-content>
-        </md-card>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

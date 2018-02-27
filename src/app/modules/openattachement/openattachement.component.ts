@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class OpenattachementComponent implements OnInit {
     link: any;
-    constructor ( public setvardialog: MdDialog, public dialogRef: MdDialogRef <any>, sanitizer: DomSanitizer ) { }
+    constructor ( public setvardialog: MatDialog, public dialogRef: MatDialogRef <any>, sanitizer: DomSanitizer ) { }
 
     ngOnInit() {
         this.dialogRef.updatePosition({ top: '0px', left: '125px' });

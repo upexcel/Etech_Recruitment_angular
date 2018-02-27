@@ -1,36 +1,36 @@
 <div class="content">
-  <md-grid-list cols="8" rowHeight="80px">
-    <md-grid-tile [colspan]="7">
+  <mat-grid-list cols="8" rowHeight="80px">
+    <mat-grid-tile [colspan]="7">
       <h2 class="h2pos">
         Email Tracking
       </h2>
-    </md-grid-tile>
-    <md-grid-tile [colspan]="1">
-      <button md-icon-button [mdMenuTriggerFor]="menu">
-        <md-icon>more_vert</md-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
 
-      <md-menu #menu="mdMenu">
-        <button md-menu-item *ngFor="let tracking of trackingData" [disabled]="tracking.campaign_name == selectedTrackingData.campaign_name"
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let tracking of trackingData" [disabled]="tracking.campaign_name == selectedTrackingData.campaign_name"
           [ngClass]="{ active: (tracking.campaign_name == selectedTrackingData.campaign_name) }" (click)="selectedTracking(tracking)">
           <span>{{ tracking.campaign_name }}</span>
         </button>
-      </md-menu>
-    </md-grid-tile>
-  </md-grid-list>
+      </mat-menu>
+    </mat-grid-tile>
+  </mat-grid-list>
 
-  <md-list *ngIf="selectedTrackingData">
-    <md-list-item>
+  <mat-list *ngIf="selectedTrackingData">
+    <mat-list-item>
       <div class="activity">
         <span>
           <b>Campaign Name:</b> {{selectedTrackingData.campaign_name}},
           <b>Total: </b>{{selectedTrackingData.count.total}},
           <b>Percentage: </b>{{selectedTrackingData.count.percentage}}%</span>
         <div class="text-right">
-          <button md-raised-button color="clan" (click)="previewEmail()">View Template</button>
-          <button md-raised-button color="clan" (click)="resendEmail()">Resend Email</button>
-          <button md-raised-button color="warn" (click)="deleteCampaign(selectedTrackingData)">Delete Campaign</button>
-          <md-slide-toggle [(ngModel)]="seenUnseen" mdTooltip="{{(seenUnseen) ? 'Seen' : 'Unseen'}}">Seen/Unseen</md-slide-toggle>
+          <button mat-raised-button color="clan" (click)="previewEmail()">View Template</button>
+          <button mat-raised-button color="clan" (click)="resendEmail()">Resend Email</button>
+          <button mat-raised-button color="warn" (click)="deleteCampaign(selectedTrackingData)">Delete Campaign</button>
+          <mat-slide-toggle [(ngModel)]="seenUnseen" matTooltip="{{(seenUnseen) ? 'Seen' : 'Unseen'}}">Seen/Unseen</mat-slide-toggle>
         </div>
         <div class="table-responsive">
           <table class="list table">
@@ -66,6 +66,6 @@
           </table>
         </div>
       </div>
-    </md-list-item>
-  </md-list>
+    </mat-list-item>
+  </mat-list>
 </div>

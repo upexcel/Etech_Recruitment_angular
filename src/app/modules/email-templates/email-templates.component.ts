@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { AddEmailTempComponent } from '../add-email-temp/add-email-temp.component';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
 import { TestTemplateComponent } from '../test-template/test-template.component';
-import { MdSnackBar } from '@angular/material';
 import { LocalStorageService } from 'app/service/local-storage.service';
 import * as _ from 'lodash';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-email-templates',
@@ -14,14 +14,14 @@ import * as _ from 'lodash';
     styleUrls: ['./email-templates.component.scss']
 })
 export class EmailTemplatesComponent implements OnInit {
-    dialogRef: MdDialogRef < any > ;
+    dialogRef: MatDialogRef < any > ;
     userVar: string[];
     sysVar: string[];
     tempData: string[];
     tags:any;
     jobProfile:Array<any>= [];
     currentJobProfile:string;
-    constructor(public dialog: MdDialog, private getVariable: ImapMailsService, public snackBar: MdSnackBar, public localStorageService: LocalStorageService) { }
+    constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public snackBar: MatSnackBar, public localStorageService: LocalStorageService) { }
 
     ngOnInit() {
         this.getVariable.getUserVariable().subscribe((data) => {

@@ -1,12 +1,12 @@
-<div class="well cantain">
+<div class="well contain">
     <div class="row head">
-        <md-select placeholder="Job Profile" class="col-md-3" name="selectNewTag" ngModel (ngModelChange)="change($event)" required>
-            <md-option *ngFor="let tags of jobProfile" [value]="tags.tag_id">
+        <mat-select placeholder="Job Profile" class="col-md-3" style="width:16%" name="selectNewTag" ngModel (ngModelChange)="change($event)" required>
+            <mat-option *ngFor="let tags of jobProfile" [value]="tags.tag_id">
                 {{ tags.title }}
-            </md-option>
-        </md-select>
-        <div class="col-md-9 text-right">
-            <button md-raised-button color=accent  (click)="addTemp()">ADD NEW TEMPLATE</button>
+            </mat-option>
+        </mat-select>
+        <div class="col-md-10 text-right">
+            <button mat-raised-button color=accent  (click)="addTemp()">ADD NEW TEMPLATE</button>
         </div>
     </div>
     <div class="row">

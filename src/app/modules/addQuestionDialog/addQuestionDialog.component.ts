@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import * as _ from 'lodash';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { ImapMailsService } from '../../service/imapemails.service';
@@ -22,24 +22,24 @@ export class AddQuestionDialogComponent implements OnInit {
     opt5: any;
     ans_id: any;
     answerOpt: any;
-    options= [];
+    options = [];
     message: string;
     showmessage: boolean;
     questionEditable: any;
-    editabledialog= false;
+    editabledialog = false;
     questionId: any;
-    jobprofile_tag= [];
+    jobprofile_tag = [];
     job_id: any;
-    examgroup= [];
+    examgroup = [];
     examId: any;
-    count= 2;
-    inputbox= [];
+    count = 2;
+    inputbox = [];
     desc: any;
-    constructor(private dialogRef: MdDialogRef<any>, private getTags: ImapMailsService) {
+    constructor(private dialogRef: MatDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
         this.inputbox = [
-          {'option': '', 'opt_id': 1}, {'option': '', 'opt_id': 2}
+            { 'option': '', 'opt_id': 1 }, { 'option': '', 'opt_id': 2 }
         ];
         this.loading = true;
         this.getAllTag();
@@ -66,7 +66,7 @@ export class AddQuestionDialogComponent implements OnInit {
     }
     add() {
         this.count++;
-        this.inputbox.push({'option': '', 'opt_id': this.count})
+        this.inputbox.push({ 'option': '', 'opt_id': this.count })
     }
     remove(id) {
         this.count--;
@@ -134,9 +134,9 @@ export class AddQuestionDialogComponent implements OnInit {
         if (form.valid) {
             quesdata = {
                 'job_profile': form.value.job_profile,
-                'question' : form.value.question,
+                'question': form.value.question,
                 'description': form.value.desc,
-                'answer' : parseInt(this.ans_id, 10),
+                'answer': parseInt(this.ans_id, 10),
                 'exam_subject': form.value.examId,
                 'options': this.inputbox
             };
@@ -162,7 +162,7 @@ export class AddQuestionDialogComponent implements OnInit {
                 this.loading = false;
                 this.showmessage = false;
                 this.dialogRef.close(res);
-                    // this.form.reset();
+                // this.form.reset();
             }, err => {
                 this.loading = false;
                 this.showmessage = true;

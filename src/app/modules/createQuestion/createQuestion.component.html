@@ -1,48 +1,48 @@
 <div class="main" id="create-ques">
-  <md-card>
-    <md-card-title class="cardsub">
+  <mat-card>
+    <mat-card-title class="cardsub">
        Interview Questions
-    </md-card-title>
+    </mat-card-title>
     <hr class="linespace">
-    <md-card-content>
+    <mat-card-content>
       <div class="row">
         <div class="col-md-4 col-sm-12" style="padding-top: 15px;">
-          <md-select class="width-100" id="jab_profile" placeholder="Select Job Profile" name="jab_profile" required [(ngModel)]="selectedJobid">
-            <md-option *ngFor="let tag of jobprofile_tag" [value]="tag.id" (click)="getQues(tag.id)">
+          <mat-select class="width-100" id="jab_profile" placeholder="Select Job Profile" name="jab_profile" required [(ngModel)]="selectedJobid">
+            <mat-option *ngFor="let tag of jobprofile_tag" [value]="tag.id" (click)="getQues(tag.id)">
               {{tag.title}}
-            </md-option>
-          </md-select>
+            </mat-option>
+          </mat-select>
         </div>
         <div class="col-md-5 col-sm-12 alignRight">
           <form #groupForm="ngForm" (ngSubmit)="createGroup(groupForm)">
-            <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
-              <md-input-container>
-                <input mdInput type="text" name="group" [(ngModel)]="group"  placeholder="Create New Group" autoComplete="off">
-              </md-input-container>
-              <button md-raised-button color=primary type="submit" [disabled]="groupForm.invalid">Create</button>
+            <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
+              <mat-form-field>
+                <input matInput type="text" name="group" [(ngModel)]="group"  placeholder="Create New Group" autoComplete="off">
+              </mat-form-field>
+              <button mat-raised-button color=primary type="submit" [disabled]="groupForm.invalid">Create</button>
           </form>
         </div>
         <div class="col-md-12 warning" *ngIf="QueNotAvailable">{{messageQues}}</div>
       </div>
 
-      <md-accordion>
+      <mat-accordion>
 
-        <md-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-          <md-expansion-panel-header>
-            <md-panel-title>
+        <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
               {{group.group_name}}
-            </md-panel-title>
-            <md-panel-description>
+            </mat-panel-title>
+            <mat-panel-description>
               Total Questions: {{group.questions.length}}
-            </md-panel-description>
-          </md-expansion-panel-header>
-          <md-card class="marTop3 padleft10 bodyInner2" *ngFor="let ques of group.questions;let i = index">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-card class="marTop3 padleft10 bodyInner2" *ngFor="let ques of group.questions;let i = index">
             <div class="btnIcons">
-                <button md-icon-button color=warn mdTooltip="click to delete!" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
-                <button md-icon-button color=primary mdTooltip="click to edit!" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
+                <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
+                <button mat-icon-button color=primary matTooltip="click to edit!" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
               </div>
-            <md-list class="pad0">
-              <md-list-item class="pad0">
+            <mat-list class="pad0">
+              <mat-list-item class="pad0">
               <div class="col-md-12 pad0">
                 <ul class="quesView">
                   <li><h4>Question {{i+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h4></li>
@@ -53,16 +53,16 @@
                   </ul>
                 </ul>
               </div>
-            </md-list-item>
-            </md-list>
-          </md-card>
-        </md-expansion-panel>
-      </md-accordion>
-    </md-card-content>
-  </md-card>
+            </mat-list-item>
+            </mat-list>
+          </mat-card>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
 </div>
 <div id="addTag" class="pos-add" *ngIf="!loading && add">
-    <button md-fab (click)="addQues()">
-        <md-icon>add</md-icon>
+    <button mat-fab (click)="addQues()">
+        <mat-icon>add</mat-icon>
     </button>
 </div>

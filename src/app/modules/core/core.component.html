@@ -1,5 +1,5 @@
-<md-sidenav-container class="width100">
-  <md-sidenav #sidenav class="main">
+<mat-sidenav-container class="width100">
+  <mat-sidenav #sidenav class="main">
     <div class="mainlogo">
       <img src="assets/logo.png">
     </div>
@@ -29,25 +29,25 @@
       <p class="mainnav">Logout</p>
     </div>
     <hr>
-  </md-sidenav>
+  </mat-sidenav>
   <div class="bgcolor container-fluid">
     <div class="row" id="toolbar">
-      <md-toolbar id="topnav" color="accent">
-        <button id="sideNav" md-icon-button (click)="sidenav.open()">
-          <md-icon>menu</md-icon>
+      <mat-toolbar id="topnav" color="accent">
+        <button id="sideNav" mat-icon-button (click)="sidenav.open()">
+          <mat-icon>menu</mat-icon>
         </button>
         <span>{{title}}</span>
-        <button md-icon-button mdTooltip="Fetch Latest Emails" class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
-          <md-icon>system_update_alt</md-icon>
+        <button mat-icon-button matTooltip="Fetch Latest Emails" class="cursor-pt" *ngIf="title == 'Inbox'" (click)="emailRefresh()">
+          <mat-icon>system_update_alt</mat-icon>
         </button>
-        <button md-icon-button mdTooltip="Fetch Emails By Days" class="cursor-pt" *ngIf="title == 'Settings'" (click)="fetchEmailByDay()">
+        <button mat-icon-button matTooltip="Fetch Emails By Days" class="cursor-pt" *ngIf="title == 'Settings'" (click)="fetchEmailByDay()">
           <i>
-        <small><md-icon>system_update_alt</md-icon></small>
+        <small><mat-icon>system_update_alt</mat-icon></small>
         </i>
       </button>
-        <md-spinner id="spinner" class="commonSpinner" *ngIf="progressSpinnner"></md-spinner>
-      </md-toolbar>
+        <mat-spinner id="spinner" class="commonSpinner" *ngIf="progressSpinnner"></mat-spinner>
+      </mat-toolbar>
       <router-outlet></router-outlet>
     </div>
   </div>
-</md-sidenav-container>
+</mat-sidenav-container>

@@ -1,8 +1,8 @@
 @import './../../variable.scss';
 .sidenav {
     background-color: #fff;
-    md-list {
-        md-list-item:hover {
+    mat-list {
+        mat-list-item:hover {
             background-color: $hovecolor;
         }
     }
@@ -11,6 +11,7 @@
     position: relative;
     cursor: pointer;
     padding: 8px 0;
+    height: auto!important;
     a {
         font-size: 12px;
         font-weight: bold;
@@ -21,12 +22,13 @@
     margin-left: 10px;
     padding: 4px 0px;
     cursor: pointer;
+    height: auto !important;
 }
 .subnavlist a {
     color: #000;
     font-size: 12px;
 }
-md-list-item {
+mat-list-item {
     a:hover {
         text-decoration: none;
     }

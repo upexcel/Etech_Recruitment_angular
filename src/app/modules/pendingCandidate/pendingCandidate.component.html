@@ -16,11 +16,11 @@
             <td><a href="http://www.facebook.com/{{data.fb_id}}" target="blank">Check Profile</a></td>
             <td>
               <div class="col-md-12 col-sm-12">
-              <md-select class="width-100" id="job_profile" placeholder="Assign Job Profile" name="job_profile" required>
-                <md-option *ngFor="let tag of jobprofile_tag" [value]="tag.id" (click)="assignTag(tag.id, data.sender_mail)">
+              <mat-select class="width-100" id="job_profile" placeholder="Assign Job Profile" name="job_profile" required>
+                <mat-option *ngFor="let tag of jobprofile_tag" [value]="tag.id" (click)="assignTag(tag.id, data.sender_mail)">
                   {{tag.title}}
-                </md-option>
-              </md-select>
+                </mat-option>
+              </mat-select>
             </div>
           </td>
           </tr>

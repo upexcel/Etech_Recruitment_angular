@@ -21,9 +21,9 @@
       <p class="green">Right Answer: {{ques.answer}}</p>
 
     </div>
-    <button md-raised-button  class="right submitans" (click)="close()">close</button>
+    <button mat-raised-button  class="right submitans" (click)="close()">close</button>
   </div>
   <div *ngIf="fbloading">
-    <md-spinner id="loginSpinner" *ngIf="fbloading" class="spin"></md-spinner>
+    <mat-spinner id="loginSpinner" *ngIf="fbloading" class="spin"></mat-spinner>
   </div>
 </div>

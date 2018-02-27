@@ -17,6 +17,20 @@ html, body {
 .cdk-overlay-pane {
     overflow: hidden !important;
 }
+.commonSpinner {
+  width: 50px!important;
+  height: 50px!important;
+  position: absolute !important;
+  svg {
+      width: 50px!important;
+      height: 50px!important;
+  }
+  circle {
+      stroke: #fff;
+  }
+  position: absolute;
+  right: 40px;
+}
 .commonSpinner1 {
     width: 50px !important;
     height: 36px !important;

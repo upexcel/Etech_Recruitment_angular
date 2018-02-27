@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
 import { AddQuestionDialogComponent } from '../addQuestionDialog/addQuestionDialog.component';
 import * as _ from 'lodash';
@@ -14,20 +14,20 @@ import * as _ from 'lodash';
 })
 export class CreateQuestionComponent implements OnInit {
     loading = false;
-    dialogRef: MdDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     tags: any[];
     questions: any[];
     selectedJobid: any;
-    showmessage= false;
+    showmessage = false;
     message: any;
     questionEdited: any;
     group: any;
-    jobprofile_tag= [];
-    add= false;
-    panelOpenState= false;
-    QueNotAvailable= false;
+    jobprofile_tag = [];
+    add = false;
+    panelOpenState = false;
+    QueNotAvailable = false;
     messageQues: any;
-    constructor(private getTags: ImapMailsService, private _mdSnackBar: MdSnackBar, public dialog: MdDialog, private _dialogService: DialogService) { }
+    constructor(private getTags: ImapMailsService, private _mdSnackBar: MatSnackBar, public dialog: MatDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
         this.loading = true;
@@ -88,7 +88,7 @@ export class CreateQuestionComponent implements OnInit {
             if (res.data.length === 0) {
                 this.QueNotAvailable = true;
                 this.messageQues = 'Questions Not Available';
-            }else {
+            } else {
                 this.QueNotAvailable = false;
             }
         }, err => {
@@ -160,7 +160,7 @@ export class CreateQuestionComponent implements OnInit {
                 this.message = err.message;
                 this.showmessage = true;
             });
-        }else {
+        } else {
             this.message = 'Invalid Name';
             this.showmessage = true;
         }
