@@ -64,7 +64,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     ngAfterContentInit() {
-        document.getElementById('sideNav').classList.add('sidehide');
+        setTimeout(() => {
+            document.getElementById('sideNav').classList.add('sidehide');
+        })
     }
 
     ngOnInit() {
