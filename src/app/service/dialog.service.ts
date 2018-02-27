@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ScheduleInterviewComponent } from './../modules/schedule-interview/schedule-interview.component';
 import { AddNewUserComponent } from './../modules/add-new-user/add-new-user.component';
 import { ConfirmationDialogComponent } from './../modules/confirmation-dialog/confirmation-dialog.component';
@@ -9,8 +9,8 @@ import { CronStatusModelComponent } from './../modules/cron-status-model/cron-st
 
 @Injectable()
 export class DialogService {
-    dialogRef: MdDialogRef<any>;
-    constructor(public dialog: MdDialog) { }
+    dialogRef: MatDialogRef<any>;
+    constructor(public dialog: MatDialog) { }
 
     openScheduleInterview(data) {
         return new Promise((resolve, reject) => {

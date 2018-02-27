@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { AddSubTagModalComponent } from '../add-sub-tag-modal/add-sub-tag-modal.component';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
 
 import * as _ from 'lodash';
@@ -24,8 +24,8 @@ export class InboxSideNavComponent implements OnInit {
     @Output() getEmails = new EventEmitter<any>();
     @Output() getTags = new EventEmitter<any>();
     @Output() getStarredEmails = new EventEmitter<any>();
-    dialogRef: MdDialogRef < any > ;
-    constructor(public _apiService: ImapMailsService, public dialog: MdDialog, private _dialogService: DialogService) { }
+    dialogRef: MatDialogRef<any>;
+    constructor(public _apiService: ImapMailsService, public dialog: MatDialog, private _dialogService: DialogService) { }
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
@@ -39,7 +39,7 @@ export class InboxSideNavComponent implements OnInit {
         });
         if (localStorage.getItem('tagShowId')) {
             this.showId = localStorage.getItem('tagShowId');
-        }else{
+        } else {
             this.showAlltag = true;
         }
     }
@@ -82,7 +82,7 @@ export class InboxSideNavComponent implements OnInit {
     }
     addTag(parentid: any) {
         this.dialogRef = this.dialog.open(AddSubTagModalComponent, {});
-       // this.dialogRef.componentInstance.tempList = this.tempList;
+        // this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.componentInstance.addTagType = 'Default';
         this.dialogRef.componentInstance.parentid = parentid;
         this.dialogRef.afterClosed().subscribe(result => {
@@ -109,7 +109,7 @@ export class InboxSideNavComponent implements OnInit {
         if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
             localStorage.removeItem('tagShowId');
             this.showAlltag = true;
-        }else {
+        } else {
             this.showAlltag = false;
             this.showId = id;
             localStorage.setItem('tagShowId', id);

@@ -1,32 +1,32 @@
 <div class="col-md-12 col-lg-12 table-responsive bodyInner">
   <h3 class="heading">Candidates Scores</h3>
   <div class="col-md-12 no-pad marBott20">
-    <md-card class="card-pos">
+    <mat-card class="card-pos">
       <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchScorelist(searchForm)">
-        <md-select name="option" placeholder="Search In" required [(ngModel)]="option">
-          <md-option value="name">Name</md-option>
-          <md-option value="email">Email</md-option>
-          <md-option value="date">Date</md-option>
-        </md-select>
+        <mat-select name="option" placeholder="Search In" required [(ngModel)]="option">
+          <mat-option value="name">Name</mat-option>
+          <mat-option value="email">Email</mat-option>
+          <mat-option value="date">Date</mat-option>
+        </mat-select>
 
-        <md-input-container class="mar-pos wid-300" *ngIf="option!=='date'">
-          <input mdInput name="keyword" placeholder="Search" required [(ngModel)]="keyword">
-        </md-input-container>
-        <md-input-container class="mar-pos wid-200" *ngIf="option==='date'">
-          <input matInput name="start_date" [mdDatepicker]="picker" required placeholder="Choose start date" [(ngModel)]="start_date">
-          <button mdSuffix [mdDatepickerToggle]="picker"></button>
-          <md-datepicker #picker></md-datepicker>
-        </md-input-container>
-        <md-input-container class="mar-pos wid-200" *ngIf="option==='date'">
-          <input matInput name="end_date" [mdDatepicker]="picker1" required placeholder="Choose end date" [(ngModel)]="end_date">
-          <button mdSuffix [mdDatepickerToggle]="picker1"></button>
-          <md-datepicker #picker1></md-datepicker>
-        </md-input-container>
-        <button name="searchbtn" type="submit" md-raised-button color=primary [disabled]="searchForm.invalid"> Search </button>
-        <button name="searchbtn" md-raised-button  (click)="getScore('');searchForm.reset()">
+        <mat-form-field class="mar-pos wid-300" *ngIf="option!=='date'">
+          <input matInput name="keyword" placeholder="Search" required [(ngModel)]="keyword">
+        </mat-form-field>
+        <mat-form-field class="mar-pos wid-200" *ngIf="option==='date'">
+          <input matInput name="start_date" [matDatepicker]="picker" required placeholder="Choose start date" [(ngModel)]="start_date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="mar-pos wid-200" *ngIf="option==='date'">
+          <input matInput name="end_date" [matDatepicker]="picker1" required placeholder="Choose end date" [(ngModel)]="end_date">
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <button name="searchbtn" type="submit" mat-raised-button color=primary [disabled]="searchForm.invalid"> Search </button>
+        <button name="searchbtn" mat-raised-button  (click)="getScore('');searchForm.reset()">
         Clear Search </button>
       </form>
-    </md-card>
+    </mat-card>
   </div>
     <table class="col-md-12 list table">
         <thead >

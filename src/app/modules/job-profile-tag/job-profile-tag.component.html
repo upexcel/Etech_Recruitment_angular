@@ -10,14 +10,14 @@
             <span class="tagname" (click)="openAutomatic(tag)">
                 {{tag.title}}
             </span>
-            <md-icon id="deleteTag" class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</md-icon>
+            <mat-icon id="deleteTag" class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</mat-icon>
         </div>
     </span>
 </span>
 </div>
 
 <div id="addTag" class="pos-add" *ngIf="!loading">
-    <button md-fab (click)="addTag()">
-        <md-icon>add</md-icon>
+    <button mat-fab (click)="addTag()">
+        <mat-icon>add</mat-icon>
     </button>
 </div>

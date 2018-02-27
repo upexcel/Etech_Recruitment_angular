@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { color_list } from '../../config/config';
 
@@ -13,7 +13,7 @@ export class ManualTagModalComponent implements OnInit {
     originalcolor = '';
     originaltitle = '';
     availableColors = color_list;
-    constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
+    constructor(public dialogRef: MatDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
         this.originaltitle = this.tag.title;

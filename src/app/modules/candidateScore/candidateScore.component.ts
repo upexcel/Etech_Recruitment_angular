@@ -2,7 +2,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import * as _ from 'lodash';
 
@@ -18,8 +18,8 @@ export class CandidateScoreComponent implements OnInit {
     option: any;
     end_date: any;
     detailedScore: any;
-    dialogRef: MdDialogRef<any>;
-    constructor (private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MdSnackBar, public dialog: MdDialog) { }
+    dialogRef: MatDialogRef<any>;
+    constructor (private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MatSnackBar, public dialog: MatDialog) { }
 
     ngOnInit() {
         this.option = 'email' ;

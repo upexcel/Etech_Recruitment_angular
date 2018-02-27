@@ -1,7 +1,7 @@
-<md-card id="spamList_table">
+<mat-card id="spamList_table">
     <div>
     <h3 class="heading left">Spam List</h3>
-    <button small md-raised-button mdTooltip="Send Email" mdTooltipPosition="below" class="cyan right send-email" (click)="gotoSpam()">Move to Spam</button>
+    <button small mat-raised-button matTooltip="Send Email" mdTooltipPosition="below" class="cyan right send-email" (click)="gotoSpam()">Move to Spam</button>
     </div>
     <div class="clear"></div>
     <div class="table-responsive" id="spamList-table">
@@ -25,9 +25,9 @@
         </table>
     </div>
 
-</md-card>
+</mat-card>
 <div class="pos-add" id="add-user">
-    <a md-fab (click)="addSpam()">
-       <md-icon>add</md-icon>
+    <a mat-fab (click)="addSpam()">
+       <mat-icon>add</mat-icon>
     </a>
 </div>

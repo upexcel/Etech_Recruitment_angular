@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ImapMailsService } from './../../service/imapemails.service';
-import { MdSnackBar, MdDialogRef } from '@angular/material';
+import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { config } from './../../config/config';
 
 @Component({
@@ -11,7 +11,7 @@ import { config } from './../../config/config';
 })
 export class FetchEmailByDayComponent implements OnInit {
     daysForm: FormGroup;
-    constructor(private dialogRef: MdDialogRef<any>, private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(private dialogRef: MatDialogRef<any>, private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MatSnackBar) {
         this.daysForm = this.formBuilder.group({
             'days': [null, Validators.compose([Validators.required, Validators.pattern('^[1-9][0-9]*$')])]
         });

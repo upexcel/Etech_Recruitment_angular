@@ -1,36 +1,36 @@
 <div class="nav" *ngIf="isHome">
   <img src="assets/logo.png" class="img-responsive" alt="Excellence Technologies" />
-  <p (click)="logginpage()" mdTooltip="Login"><i class="material-icons">power_settings_new</i></p>
+  <p (click)="logginpage()" matTooltip="Login"><i class="material-icons">power_settings_new</i></p>
 
 </div>
-<md-spinner *ngIf="loading" class="spin"></md-spinner>
-<div class="dashboard" *ngIf="dashboardData">
-  <md-card>
-    <md-card-title>Jobs Application</md-card-title>
-    <md-select placeholder="" class="job-selection" [(ngModel)]="jobSelection">
-      <md-option value="byDay">
+<mat-spinner *ngIf="loading" class="spin"></mat-spinner>
+<div class="dashboard" [style.padding-top]="isHome ? '100px' : '0px'" *ngIf="dashboardData">
+  <mat-card>
+    <mat-card-title>{{isHome}}Jobs Application</mat-card-title>
+    <mat-select placeholder="" class="job-selection" [(ngModel)]="jobSelection">
+      <mat-option value="byDay">
         Day Wise
-      </md-option>
-      <md-option value="byMonth">
+      </mat-option>
+      <mat-option value="byMonth">
         Month Wise
-      </md-option>
-    </md-select>
-    <md-card-content *ngIf="jobSelection == 'byDay'" >
+      </mat-option>
+    </mat-select>
+    <mat-card-content *ngIf="jobSelection == 'byDay'" >
       <div class="charts">
         <canvas baseChart [datasets]="dashboardData.day_wise" [labels]="dashboardData.day_wise[0]['dates']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
-    </md-card-content>
-    <md-card-content *ngIf="jobSelection == 'byMonth'">
+    </mat-card-content>
+    <mat-card-content *ngIf="jobSelection == 'byMonth'">
       <div class="charts">
         <canvas baseChart [datasets]="dashboardData.month_wise" [labels]="dashboardData.month_wise[0]['months']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
-    </md-card-content>
-  </md-card>
-  <md-card>
-    <md-card-title>Jobs Application - Round Distribution</md-card-title>
-    <md-card-content>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Jobs Application - Round Distribution</mat-card-title>
+    <mat-card-content>
       <div class="pie-chart" *ngFor="let round of dashboardData.rounds; let i = index;">
         <p><b>{{round.label}}</b></p>
         <div>
@@ -38,53 +38,53 @@
             [chartType]="'pie'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
       </div>
-    </md-card-content>
-  </md-card>
-  <md-card>
-    <md-card-title>Jobs Application Read</md-card-title>
-      <md-select placeholder="" class="job-selection" [(ngModel)]="jobApplicationReadSelection">
-        <md-option value="byDay">
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-title>Jobs Application Read</mat-card-title>
+      <mat-select placeholder="" class="job-selection" [(ngModel)]="jobApplicationReadSelection">
+        <mat-option value="byDay">
           By Day
-        </md-option>
-        <md-option value="byUser">
+        </mat-option>
+        <mat-option value="byUser">
           By User
-        </md-option>
-      </md-select>
-      <md-card-content *ngIf="jobApplicationReadSelection == 'byDay'">
+        </mat-option>
+      </mat-select>
+      <mat-card-content *ngIf="jobApplicationReadSelection == 'byDay'">
         <div class="charts">
             <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_email_data" [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
               [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
-      </md-card-content>
-      <md-card-content *ngIf="jobApplicationReadSelection == 'byUser'">
+      </mat-card-content>
+      <mat-card-content *ngIf="jobApplicationReadSelection == 'byUser'">
         <div class="charts">
             <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_mail_by_user" [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
               [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
         </div>
-      </md-card-content>
-  </md-card>
+      </mat-card-content>
+  </mat-card>
 
-  <md-card>
-    <md-card-title>Automatic Email</md-card-title>
-    <md-select placeholder="" class="job-selection" [(ngModel)]="automaticEmailReadSelection">
-      <md-option value="byDay">
+  <mat-card>
+    <mat-card-title>Automatic Email</mat-card-title>
+    <mat-select placeholder="" class="job-selection" [(ngModel)]="automaticEmailReadSelection">
+      <mat-option value="byDay">
         By Day
-      </md-option>
-      <md-option value="byProfile">
+      </mat-option>
+      <mat-option value="byProfile">
         By Profile
-      </md-option>
-    </md-select>
-    <md-card-content *ngIf="automaticEmailReadSelection == 'byDay'">
+      </mat-option>
+    </mat-select>
+    <mat-card-content *ngIf="automaticEmailReadSelection == 'byDay'">
       <div class="charts">
         <canvas baseChart [datasets]="dashboardData.email_stat" [labels]="dashboardData.email_stat[0]['dates']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
-    </md-card-content>
-    <md-card-content  *ngIf="automaticEmailReadSelection == 'byProfile'">
+    </mat-card-content>
+    <mat-card-content  *ngIf="automaticEmailReadSelection == 'byProfile'">
       <div class="charts">
         <canvas baseChart width="200" height="200" [datasets]="dashboardData.email_stat_by_job_profile" [labels]="dashboardData.email_stat_by_job_profile[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
         [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
-    </md-card-content>
-  </md-card>
+    </mat-card-content>
+  </mat-card>
 </div>

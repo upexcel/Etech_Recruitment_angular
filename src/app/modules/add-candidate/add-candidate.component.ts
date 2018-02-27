@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { config } from './../../config/config';
@@ -16,7 +16,7 @@ export class AddCandidateComponent implements OnInit {
     emailParenttitle: string;
     emailChildTitle: string;
     diabledOnclick: boolean
-    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private apiService: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(public setvardialog: MatDialog, public dialogRef: MatDialogRef<any>, private apiService: ImapMailsService, public snackBar: MatSnackBar) {
         this.diabledOnclick = false;
     }
 

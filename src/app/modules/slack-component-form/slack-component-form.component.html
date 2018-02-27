@@ -1,27 +1,27 @@
 <div class="mainform">
-   <md-card>
+   <mat-card>
       <form autoComplete="off" [formGroup]="slackinfoForm" (ngSubmit)="addInfo(slackinfoForm.value)">
-      <md-card-subtitle class="cardsub">
+      <mat-card-subtitle class="cardsub">
          Slack Information
-      </md-card-subtitle>
-      <md-card-subtitle class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
-      <md-card-content>
+      </mat-card-subtitle>
+      <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
+      <mat-card-content>
          <div class="row">
             <div class="col-md-6 col-sm-12">
-               <md-input-container class="width-90">
-                  <input type="text" mdInput name="teamname" placeholder="Team-name"  autoComplete="off" [formControl]="slackinfoForm.controls['teamName']">
-               </md-input-container>
+               <mat-form-field class="width-90">
+                  <input type="text" matInput name="teamname" placeholder="Team-name"  autoComplete="off" [formControl]="slackinfoForm.controls['teamName']">
+               </mat-form-field>
             </div>
             <div class="col-md-6 col-sm-12">
-               <md-input-container class="width-90">
-                  <input mdInput name="token" type="text" placeholder="token" [formControl]="slackinfoForm.controls['token']"   autoComplete="off">
-               </md-input-container>
+               <mat-form-field class="width-90">
+                  <input matInput name="token" type="text" placeholder="token" [formControl]="slackinfoForm.controls['token']"   autoComplete="off">
+               </mat-form-field>
             </div>
              <div class="col-md-12">
-               <button type="submit" md-raised-button color=primary  [disabled]="!slackinfoForm.valid"> Save</button>
+               <button type="submit" mat-raised-button color=primary  [disabled]="!slackinfoForm.valid"> Save</button>
             </div>
          </div>
-      </md-card-content>
+      </mat-card-content>
       </form>
-   </md-card>
+   </mat-card>
 </div>

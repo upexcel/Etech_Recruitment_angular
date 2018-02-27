@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import * as _ from 'lodash';
 import { ScheduleInterviewComponent } from './../schedule-interview/schedule-interview.component';
 import { CommonService } from './../../service/common.service';
@@ -17,7 +17,7 @@ import { config } from './../../config/config';
     styleUrls: ['./emailbox.component.scss']
 })
 export class EmailboxComponent implements OnInit {
-    dialogRef: MdDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     data: any;
     selected = false;
     selectedMid: string[];
@@ -46,7 +46,7 @@ export class EmailboxComponent implements OnInit {
     starred = false;
     allTagTitle = config['allTagTitle'];
     isRoundsTag = false;
-    constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _dialogService: DialogService, public _snackBar: MdSnackBar) { }
+    constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _dialogService: DialogService, public _snackBar: MatSnackBar) { }
 
     ngOnInit() {
         this.url = config.avatarUrl;

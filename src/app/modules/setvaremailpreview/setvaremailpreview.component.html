@@ -1,25 +1,25 @@
 <div *ngIf="first" class="main-container">
-    <h1 md-dialog-title>Enter Values</h1>
+    <h1 mat-dialog-title>Enter Values</h1>
     <hr>
     <form class="m-p" autoComplete="off" #setVar="ngForm">
         <table class="full" cellspacing="0">
             <tr *ngFor="let variable of pendingVariables">
                 <td>
-                    <md-input-container class="full">
-                        <input mdInput placeholder="{{variable.name}}" [(ngModel)]="variable.value" autoComplete="off" name="{{variable.name}}" required>
-                    </md-input-container>
+                    <mat-form-field class="full">
+                        <input matInput placeholder="{{variable.name}}" [(ngModel)]="variable.value" autoComplete="off" name="{{variable.name}}" required>
+                    </mat-form-field>
                 </td>
             </tr>
         </table>
     </form>
     <div class="fx-pos">
-        <button md-raised-button (click)="close()">CLOSE</button>
-        <button md-raised-button type="submit" color="accent" (click)="setVariable(setVar)">PREVIEW MAIL</button>
+        <button mat-raised-button (click)="close()">CLOSE</button>
+        <button mat-raised-button type="submit" color="accent" (click)="setVariable(setVar)">PREVIEW MAIL</button>
     </div>
 </div>
 <div *ngIf="!first" class="main-container">
-    <h1 md-dialog-title class="a-c">Mail Preview
-        <button md-raised-button style="float: right;" (click)="close()" md-mini-fab><md-icon>close</md-icon></button>
+    <h1 mat-dialog-title class="a-c">Mail Preview
+        <button mat-raised-button style="float: right;" (click)="close()" mat-mini-fab><mat-icon>close</mat-icon></button>
     </h1>
     <hr>
         <table class="full" cellspacing="0">
@@ -35,7 +35,7 @@
             </tr>
         </table>
     <div class="fx-pos">
-        <button md-raised-button (click)="close()" *ngIf="userDetails">CLOSE</button>
-        <button md-raised-button type="submit" color="accent" (click)="sendEmail()" *ngIf="userDetails" >SEND MAIL</button>
+        <button mat-raised-button (click)="close()" *ngIf="userDetails">CLOSE</button>
+        <button mat-raised-button type="submit" color="accent" (click)="sendEmail()" *ngIf="userDetails" >SEND MAIL</button>
     </div>
 </div>

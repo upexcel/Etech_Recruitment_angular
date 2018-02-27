@@ -5,8 +5,8 @@ import { ImapMailsService } from './../../service/imapemails.service';
 import { CommonService } from '../../service/common.service';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
-import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
-import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
+import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
+import { OtpdialogComponent } from '../otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from '../walkin-candidate/walkin-candidate.component';
 declare const FB: any;
 @Component({
@@ -15,15 +15,15 @@ declare const FB: any;
     styleUrls: ['./verifyCandidate.component.scss']
 })
 export class VerifyCandidateComponent implements OnInit {
-    contacthr= false;
+    contacthr = false;
     fbdata: any;
     enterEmail: any;
-    loading= false;
+    loading = false;
     error = false;
     errorMsg: any;
     addForm: FormGroup;
-    dialogRef: MdDialogRef<any>;
-    constructor(public dialog: MdDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService) {
+    dialogRef: MatDialogRef<any>;
+    constructor(public dialog: MatDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService) {
     }
 
     ngOnInit() {

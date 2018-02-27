@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import * as _ from 'lodash';
 
 @Component({
@@ -11,7 +11,7 @@ export class ViewNoteComponent implements OnInit {
     candidateNote: any;
     data11: any;
 
-    constructor(public dialogRef: MdDialogRef<any>) {
+    constructor(public dialogRef: MatDialogRef<any>) {
     }
     ngOnInit() {
         _.forEach(this.candidateNote, (val, key) => {

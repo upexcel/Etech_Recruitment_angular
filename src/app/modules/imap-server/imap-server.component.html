@@ -1,10 +1,10 @@
 <div class="main" id="imap-table">
     <app-imap-component-form (addedImap)="getImapList()"></app-imap-component-form>
-    <md-card>
-        <md-card-subtitle class="cardsub">
+    <mat-card>
+        <mat-card-subtitle class="cardsub">
             IMAP/POP3 Settings <small class="note">**NOTE : First you need to ON the Allow less secure apps button on your Gmail account <a target="_blank" href="https://myaccount.google.com/lesssecureapps">https://myaccount.google.com/lesssecureapps</a></small>
-        </md-card-subtitle>
-        <md-card-content class="table-responsive">
+        </mat-card-subtitle>
+        <mat-card-content class="table-responsive">
             <table class="table list" id="table">
                 <thead>
                     <tr>
@@ -25,13 +25,13 @@
                         <td>{{setting.server_port}}</td>
                         <td>{{setting.type}}</td>
                         <td>
-                            <md-icon id="switchState" class="material-icons {{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</md-icon>
+                            <mat-icon id="switchState" class="material-icons {{setting.active ? 'on':'off'}}" (click)="activateImap(setting.email)">power_settings_new</mat-icon>
                         </td>
                         <td>
-                            <button md-button class="chartcolor" [disabled]="setting.active" (click)="remove(setting.id)">REMOVE</button>
+                            <button mat-button class="chartcolor" [disabled]="setting.active" (click)="remove(setting.id)">REMOVE</button>
                         </td>
                         <td>
-                            <md-icon class="chartcolor" style="vertical-align: middle;">insert_chart</md-icon>
+                            <mat-icon class="chartcolor" style="vertical-align: middle;">insert_chart</mat-icon>
                             {{setting.fetched_email_count}}/{{setting.total_emails}} <br/>
                             <span class="fetch-till">Fetch Till : {{setting.fetched_mail_till}}</span>
                         </td>
@@ -39,6 +39,6 @@
                     </tr>
                 </tbody>
             </table>
-        </md-card-content>
-    </md-card>
+        </mat-card-content>
+    </mat-card>
 </div>

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SpamDialogService} from './../../service/spamDialog.service';
 import {ImapMailsService} from './../../service/imapemails.service';
 import * as _ from 'lodash';
-import {MdSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
     selector: 'app-spam-list',
@@ -15,7 +15,7 @@ export class SpamComponent implements OnInit {
     spamList: Array<any>;
     totalCount: number;
     Math: any;
-    constructor(public _snackBar: MdSnackBar, public _spamDialogService: SpamDialogService, public _imapMailsService: ImapMailsService) {
+    constructor(public _snackBar: MatSnackBar, public _spamDialogService: SpamDialogService, public _imapMailsService: ImapMailsService) {
     }
 
     ngOnInit() {

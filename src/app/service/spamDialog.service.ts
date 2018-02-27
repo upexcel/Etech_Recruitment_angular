@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { ScheduleInterviewComponent } from './../modules/schedule-interview/schedule-interview.component';
-import {AddNewSpamContactComponent } from './../modules/add-spam-contact/add-spam-contact.component';
+import { AddNewSpamContactComponent } from './../modules/add-spam-contact/add-spam-contact.component';
 import { ConfirmationDialogComponent } from './../modules/confirmation-dialog/confirmation-dialog.component';
 import { SetvaremailpreviewComponent } from './../modules/setvaremailpreview/setvaremailpreview.component';
 import { FetchEmailByDayComponent } from './../modules/fetch-email-by-day/fetch-email-by-day.component';
@@ -9,8 +9,8 @@ import { CronStatusModelComponent } from './../modules/cron-status-model/cron-st
 
 @Injectable()
 export class SpamDialogService {
-    dialogRef: MdDialogRef<any>;
-    constructor(public dialog: MdDialog) { }
+    dialogRef: MatDialogRef<any>;
+    constructor(public dialog: MatDialog) { }
 
     openScheduleInterview(data) {
         return new Promise((resolve, reject) => {
@@ -33,11 +33,11 @@ export class SpamDialogService {
             });
         });
     }
-    openAddSpam(activity,formData?) {
+    openAddSpam(activity, formData?) {
         return new Promise((resolve, reject) => {
             this.dialogRef = this.dialog.open(AddNewSpamContactComponent);
-            this.dialogRef.componentInstance.activity=activity;
-            this.dialogRef.componentInstance.formData=formData;
+            this.dialogRef.componentInstance.activity = activity;
+            this.dialogRef.componentInstance.formData = formData;
             this.dialogRef.afterClosed().subscribe(result => {
                 this.dialogRef = null;
                 if (result) {

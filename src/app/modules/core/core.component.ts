@@ -18,11 +18,15 @@ export class CoreComponent implements OnInit {
     constructor(private _router: Router, public getNewEmail: ImapMailsService, private access: LoginService, private _localStorageService: LocalStorageService, private _dialogService: DialogService) {
         this._router.events.subscribe((event) => {
             if (event instanceof NavigationStart) {
+                if (event['url']) {
+                    this.title = config['titles'][event['url'].substr(0, 13)];
+                } else {
+                    this.title = config['titles'][event['snapshot']['_routerState']['url'].substr(0, 13)];
+                }
                 if (event['url'] === '/core/inbox') {
                     this.routerInboxPage.emit();
                 }
             }
-            this.title = config['titles'][event['url'].substr(0, 13)];
         });
         this.role = this._localStorageService.getItem('role');
     }

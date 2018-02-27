@@ -2,7 +2,7 @@
   padding: 10px;
   padding-top: 100px;
   background-color: #2e3e4e;
-  md-card {
+  mat-card {
     margin: 10px;
     .charts {
       canvas {
@@ -23,63 +23,63 @@
 }
 
 @media screen and (min-width: 320px) {
-  md-card{
-    md-card-title {
+  mat-card{
+    mat-card-title {
       font-size: 16px;
     }
-    md-select{
+    mat-select{
       height: 22px;
       max-width: 100px;
     }
-    md-card-content{
+    mat-card-content{
       text-align: center;
     }
   }
 }
 @media screen and (min-width: 480px) {
-  md-card{
-    md-card-title {
+  mat-card{
+    mat-card-title {
       font-size: 16px;
     }
-    md-select{
+    mat-select{
       height: 22px;
       max-width: 100px;
     }
-    md-card-content{
+    mat-card-content{
       text-align: center;
     }
   }
 }
 @media screen and (min-width: 768px) {
-  md-card{
-    md-card-title {
+  mat-card{
+    mat-card-title {
       font-size: 18px;
     }
     .mat-select-trigger{
       height: 22px;
     }
-    md-card-content{
+    mat-card-content{
       text-align: center;
     }
   }
 }
 @media screen and (min-width: 900px) {
-  md-card{
-    md-card-title {
+  mat-card{
+    mat-card-title {
       font-size: 20px;
     }
   }
 }
 @media screen and (min-width: 1024px) {
-  md-card{
-    md-card-title {
+  mat-card{
+    mat-card-title {
       font-size: 22px;
     }
   }
 }
 @media screen and (min-width: 1200px) {
-  md-card{
-    md-card-title {
+  mat-card{
+    mat-card-title {
       font-size: 24px;
     }
   }
