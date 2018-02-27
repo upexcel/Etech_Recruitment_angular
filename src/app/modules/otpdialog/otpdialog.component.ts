@@ -1,5 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 
@@ -13,15 +13,15 @@ import * as _ from 'lodash';
 export class OtpdialogComponent implements OnInit {
     fb_id: any;
     otp: any;
-    error= false;
+    error = false;
     errorMsg: any;
 
-    constructor(private access: LoginService, private _router: Router, public zone: NgZone, public dialogRef: MdDialogRef<any>) {
+    constructor(private access: LoginService, private _router: Router, public zone: NgZone, public dialogRef: MatDialogRef<any>) {
     }
     ngOnInit() {
     }
     submitOtp() {
-        this.access.fbOtp_login({'fb_id': this.fb_id, 'examToken': this.otp}).subscribe(response => {
+        this.access.fbOtp_login({ 'fb_id': this.fb_id, 'examToken': this.otp }).subscribe(response => {
             if (response.status === 1) {
                 this.dialogRef.close();
                 this.zone.run(() => {

@@ -1,7 +1,7 @@
 import { Component, OnInit, Output,	EventEmitter } from '@angular/core';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { MdDatepicker } from '@angular/material';
+import { MatDatepicker } from '@angular/material';
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 

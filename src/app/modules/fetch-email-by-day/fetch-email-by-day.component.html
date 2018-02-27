@@ -1,27 +1,27 @@
 <div class="mainform">
     <form autoComplete="off" [formGroup]="daysForm">
-        <md-card-title class="cardsub">
+        <mat-card-title class="cardsub">
             Enter No Of Days
-        </md-card-title>
-        <md-card-content>
+        </mat-card-title>
+        <mat-card-content>
             <table class="width-100">
                 <tr>
                     <td class="width-50">
-                        <md-input-container class="width-100">
-                            <input mdInput placeholder="no of days" type="number" [formControl]="daysForm.controls['days']">
-                        </md-input-container>
-                        <md-error *ngIf="!daysForm.controls['days'].valid && daysForm.controls['days'].touched">
+                        <mat-form-field class="width-100">
+                            <input matInput placeholder="no of days" type="number" [formControl]="daysForm.controls['days']">
+                        </mat-form-field>
+                        <mat-error *ngIf="!daysForm.controls['days'].valid && daysForm.controls['days'].touched">
                             Please enter no of days
-                        </md-error>
+                        </mat-error>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <button type="submit" md-raised-button color=primary [disabled]="daysForm.invalid" (click)="sendData()"> Submit </button>
-                        <button md-raised-button (click)="close()"> Close </button>
+                        <button type="submit" mat-raised-button color=primary [disabled]="daysForm.invalid" (click)="sendData()"> Submit </button>
+                        <button mat-raised-button (click)="close()"> Close </button>
                     </td>
                 </tr>
             </table>
-        </md-card-content>
+        </mat-card-content>
     </form>
 </div>

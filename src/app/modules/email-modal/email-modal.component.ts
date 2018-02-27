@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, AfterContentInit, ViewEncapsulation, NgZone, trigger, state, animate, transition, style } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -36,8 +36,8 @@ import { config } from './../../config/config';
     ]
 })
 export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit {
-    dialogConfig: MdDialogRef<any>;
-    dialogRef: MdDialogRef<any>;
+    dialogConfig: MatDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     tags: any;
     body: any;
     historyList: any;
@@ -56,15 +56,18 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     tagAssigned = [];
     tagfilter = [];
     url: string;
-    closeWindow:boolean;
-    constructor(public snackBar: MdSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MdDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    closeWindow: boolean;
+    currentTag:any; // new variable to show tag of the candidate
+    constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
         this.inboxMailsTagsForEmailListAndModel = this._localStorageService.getItem('inboxMailsTagsForEmailListAndModel');
     }
 
     ngAfterContentInit() {
-        document.getElementById('sideNav').classList.add('sidehide');
+        setTimeout(() => {
+            document.getElementById('sideNav').classList.add('sidehide');
+        })
     }
 
     ngOnInit() {
@@ -96,12 +99,13 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.openAccordian();
             this.getIntervieweeList();
             this.historyAttchement(this.historyList['data']);
+            this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle; //used to get the tag for the selected Candidate.
         })
-        if (this._localStorageService.getItem('close')==undefined || this._localStorageService.getItem('close')==null || this._localStorageService.getItem('close')=="null"){
-            this._localStorageService.setItem('close',false);
+        if (this._localStorageService.getItem('close') === undefined || this._localStorageService.getItem('close') == null || this._localStorageService.getItem('close') === 'null') {
+            this._localStorageService.setItem('close', false);
         }
-            this.closeWindow = this._localStorageService.getItem('close');
-            
+        this.closeWindow = this._localStorageService.getItem('close');
+
     }
 
     getIntervieweeList() {
@@ -188,8 +192,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
 
     openAccordian() {
         let count = 1;
-        _.forEach(this.historyList['data'], (email, key:any) => {
-            if (key == 0) {
+        _.forEach(this.historyList['data'], (email, key: any) => {
+            if (key === 0) {
                 email['accordianIsOpen'] = true;
             } else if (email.is_attachment) {
                 if (count) {
@@ -216,6 +220,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     assignTag(id: string, emailId, title: string, emailData) {
+        console.log(this.currentTag);
         if (title === 'Schedule') {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
@@ -225,7 +230,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         });
                         this.commonService.inboxRefreshEvent();
                         this.broadcast_send();
-                        if(this._localStorageService.getItem('close')) {
+                        if (this._localStorageService.getItem('close')) {
                             this.close();
                         }
                     }, (err) => {
@@ -258,7 +263,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                         });
                         this.commonService.inboxRefreshEvent();
                         this.broadcast_send();
-                        if(this._localStorageService.getItem('close')) {
+                        if (this._localStorageService.getItem('close')) {
                             this.close();
                         }
                     }, (err) => {
@@ -282,7 +287,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                 });
                 this.commonService.inboxRefreshEvent();
                 this.broadcast_send();
-                if(this._localStorageService.getItem('close')) {
+                if (this._localStorageService.getItem('close')) {
                     this.close();
                 }
             }, (err) => {
@@ -416,6 +421,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         })
     }
     closeTab() {
-        this._localStorageService.setItem('close',!this.closeWindow);
+        this._localStorageService.setItem('close', !this.closeWindow);
     }
 }

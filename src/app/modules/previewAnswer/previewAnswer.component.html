@@ -9,7 +9,7 @@
       <li *ngFor="let option of ques.options" class="width100" [ngClass]="{'responseColor':option.opt_id===ques.ans_id}">{{option.option}}</li>
     </ul>
   </div>
-  <button md-raised-button color=primary class="right submitans" (click)="submit()">Final Submit</button>
-  <button md-raised-button  class="right submitans grey" (click)="close()">Back</button>
+  <button mat-raised-button color=primary class="right submitans" (click)="submit()">Final Submit</button>
+  <button mat-raised-button  class="right submitans grey" (click)="close()">Back</button>
 
 </div>

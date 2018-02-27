@@ -6,14 +6,14 @@
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main">
             <p>
-                <md-input-container class="width-75">
-                    <textarea mdInput placeholder="" autoComplete="off" name="note" required [(ngModel)]="note"></textarea>
-                    <md-error>Required</md-error>
-                </md-input-container>
+                <mat-form-field class="width-75">
+                    <textarea matInput placeholder="" autoComplete="off" name="note" required [(ngModel)]="note"></textarea>
+                    <mat-error>Required</mat-error>
+                </mat-form-field>
             </p>
         </div>
     </div>
     <div class="fx-pos">
-    	<button md-raised-button color="accent" (click)="save(addNote)">Save</button>
+    	<button mat-raised-button color="accent" (click)="save(addNote)">Save</button>
     </div>
 </form>

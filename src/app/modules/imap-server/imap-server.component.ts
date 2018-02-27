@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-imap-server',
@@ -10,7 +10,7 @@ import { MdSnackBar } from '@angular/material';
 export class ImapServerComponent implements OnInit {
     imapSettingJson: any[];
     loading: boolean;
-    constructor(private imapServices: ImapMailsService, public snackBar: MdSnackBar) {}
+    constructor(private imapServices: ImapMailsService, public snackBar: MatSnackBar) {}
 
     ngOnInit() {
         this.getImapList();

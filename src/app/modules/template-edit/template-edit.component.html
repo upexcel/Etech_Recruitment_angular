@@ -6,14 +6,14 @@
       <div class="row">
         <div class="main col-sm-8">
             <p>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Template Name" [(ngModel)]="tempName" autoComplete="off" name="templateName" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Subject" [(ngModel)]="subject" autoComplete="off" name="subject" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Template Name" [(ngModel)]="tempName" autoComplete="off" name="templateName" required ngModel>
+                    <mat-error>Required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Subject" [(ngModel)]="subject" autoComplete="off" name="subject" required ngModel>
+                    <mat-error>Required</mat-error>
+                </mat-form-field>
                 <ckeditor name="body"
                     [(ngModel)]="ckeditorContent"
                     [config]="{uiColor: '#00ffff'}"
@@ -23,26 +23,26 @@
         </div>
         <div class="side">
             <div class="col-sm-4">
-            <md-card class="side-nav">
-                <button md-button class="h-d">System Variables</button>
-                <md-card-content class="d-c">
-                    <a md-button class="con-btn" *ngFor="let svar of sysVar">{{svar.variableCode}}</a>
-                </md-card-content>
-            </md-card>
+            <mat-card class="side-nav">
+                <button mat-button class="h-d">System Variables</button>
+                <mat-card-content class="d-c">
+                    <a mat-button class="con-btn" *ngFor="let svar of sysVar">{{svar.variableCode}}</a>
+                </mat-card-content>
+            </mat-card>
             <br/>
-            <md-card class="side-nav">
-                <button md-button class="h-d">User Variables</button>
-                <md-card-content class="d-c">
-                    <a md-button class="con-btn" *ngFor="let uvar of userVar">{{uvar.variableCode}}</a>
-                </md-card-content>
-            </md-card>
+            <mat-card class="side-nav">
+                <button mat-button class="h-d">User Variables</button>
+                <mat-card-content class="d-c">
+                    <a mat-button class="con-btn" *ngFor="let uvar of userVar">{{uvar.variableCode}}</a>
+                </mat-card-content>
+            </mat-card>
         </div>
       </div>
     </div>
   </div>
     <hr>
     <div class="fx-pos">
-    	<button md-raised-button type="button" (click)="close()">Back</button>
-    	<button md-raised-button type="submit" color="accent">Update</button>
+    	<button mat-raised-button type="button" (click)="close()">Back</button>
+    	<button mat-raised-button type="submit" color="accent">Update</button>
     </div>
 </form>

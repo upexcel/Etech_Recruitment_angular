@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
 import { SetvaremailpreviewComponent } from '../setvaremailpreview/setvaremailpreview.component';
@@ -11,7 +11,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
     styleUrls: ['./test-template.component.scss']
 })
 export class TestTemplateComponent implements OnInit {
-    dialogConfig: MdDialogRef <any> ;
+    dialogConfig: MatDialogRef<any>;
     first: boolean;
     userDetails: any;
     temp: any;
@@ -20,7 +20,7 @@ export class TestTemplateComponent implements OnInit {
     templateName: string;
     subject_for_genuine: string;
     pendingVariables: any;
-    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, public getTemp: ImapMailsService) { }
+    constructor(public setvardialog: MatDialog, public dialogRef: MatDialogRef<any>, public getTemp: ImapMailsService) { }
 
     ngOnInit() {
         this.first = true;
@@ -79,7 +79,7 @@ export class TestTemplateComponent implements OnInit {
                 const start_pos = str.indexOf('|') + 1;
                 const end_pos = str.indexOf('|', start_pos);
                 const defaultValue = str.substring(start_pos, end_pos);
-                this.pendingVariables.push({name: str, value: defaultValue});
+                this.pendingVariables.push({ name: str, value: defaultValue });
             });
         }
     }

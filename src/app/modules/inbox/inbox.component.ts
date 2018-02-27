@@ -13,15 +13,15 @@ import {
     ImapMailsService
 } from '../../service/imapemails.service';
 import {
-    MdDialog,
-    MdDialogConfig,
-    MdDialogRef
+    MatDialog,
+    MatDialogConfig,
+    MatDialogRef
 } from '@angular/material';
 import {
     EmailModalComponent
 } from '../email-modal/email-modal.component';
 import {
-    MdSnackBar
+    MatSnackBar
 } from '@angular/material';
 import {
     NgForm,
@@ -45,7 +45,7 @@ import { config } from './../../config/config';
     styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit, OnDestroy {
-    dialogRef: MdDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     Math: any;
     emaillist: any;
     loading = false;
@@ -78,11 +78,11 @@ export class InboxComponent implements OnInit, OnDestroy {
     email: any;
     intervieweeList: any;
     selectedOption: any;
-    emailLimit:number;
-    onStarredPage:boolean;
-    currentPage:any;
+    emailLimit: number;
+    onStarredPage: boolean;
+    currentPage: any;
     isSearching = false;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MatDialog, public getemails: ImapMailsService, public snackBar: MatSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
@@ -116,24 +116,24 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.refresh();
         });
         this.getIntervieweeList();
-        window.addEventListener("storage", (ev) => {
-            if (ev.key == 'updateInbox') {
+        window.addEventListener('storage', (ev) => {
+            if (ev.key === 'updateInbox') {
                 this.updateInbox(ev.newValue);
             }
-            if(ev.key == 'tagReassigned') {
+            if (ev.key === 'tagReassigned') {
                 this.tagReassigned(ev.newValue);
             }
         });
 
     }
-    starred(data){
+    starred(data) {
         this.onStarredPage = data;
         this.loading = true;
-        this.getemails.getStarredMails().subscribe((data)=>{
-            this.addSelectedFieldInEmailList(data);
+        this.getemails.getStarredMails().subscribe((res) => {
+            this.addSelectedFieldInEmailList(res);
             this.emailIds = [];
             this.loading = false;
-        },(err)=>{
+        }, (err) => {
             console.log(err);
         })
     }
@@ -250,8 +250,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.emailIds.splice(this.emailIds.indexOf(id), 1);
     }
     removeStarredMails(id) {
-        if(this.onStarredPage) {
-            this.emaillist.data.splice(id,1);
+        if (this.onStarredPage) {
+            this.emaillist.data.splice(id, 1);
         }
     }
     composeEmail() {
@@ -262,8 +262,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.emailList = this.emailIds;
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
-            _.forEach(this.emaillist.data ,(value,key)=> {
-                if(value.sender_mail == this.emailIds) {
+            _.forEach(this.emaillist.data, (value, key) => {
+                if (value.sender_mail === this.emailIds) {
                     value.unread = false;
                 }
             })
@@ -359,6 +359,25 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.notify(err.message, '');
         });
     }
+
+    markAllRead() {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                const apiData = {
+                    'tag_id': this.emailParentId || 0,
+                    'default_id': this.emailChildId || '0',
+                }
+                this.getemails.markAllAsRead(apiData).subscribe((response) => {
+                    _.forEach(this.emaillist.data, (email, key) => {
+                        email['unread'] = false;
+                        this.tags = this._commonService.markAllAsReadTag(this.tags, this.selectedTag, this.emailParentId);
+                    })
+                }, (err) => {
+                    console.log(err)
+                })
+            }
+        })
+    }
     sendEmailToAll(notGenuine?) {
         this.dialogRef = this.dialog.open(ComposeEmailComponent, {
             height: '90%',
@@ -441,7 +460,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         if (this.data.page > 1) {
             this.data.page = this.data.page - 1;
             if (!this.data.type) {
-                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.emailChildTitle, 'parentTitle': this.emailParenttitle, 'is_attach': this.data.is_attach}, this.data.page);
+                this.emaillists({ 'id': this.emailChildId, 'parantTagId': this.emailParentId, 'title': this.emailChildTitle, 'parentTitle': this.emailParenttitle, 'is_attach': this.data.is_attach }, this.data.page);
             } else {
                 this.searchEmailList(this.data.page);
             }
@@ -539,12 +558,12 @@ export class InboxComponent implements OnInit, OnDestroy {
         })
     }
     updateInbox(id) {
-        _.remove(this.emaillist.data,{'_id':id});
+        _.remove(this.emaillist.data, { '_id': id });
         localStorage.removeItem('updateInbox');
     }
 
     tagReassigned(id) {
-        _.remove(this.emaillist.data,{'_id':id});
+        _.remove(this.emaillist.data, { '_id': id });
         localStorage.removeItem('tagReassigned');
     }
     removeOldEmails(role) {
@@ -555,10 +574,10 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.emailParentId = this.emailParentId;
         this.dialogRef.componentInstance.role = role;
         this.dialogRef.afterClosed().subscribe(result => {
-        this.dialogRef = null;
-        if(result==='Admin') {
-            this.refresh();
-        }
+            this.dialogRef = null;
+            if (result === 'Admin') {
+                this.refresh();
+            }
         })
     }
     ngOnDestroy() {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, trigger, state, animate, transition, style } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { OpenattachementComponent } from '../openattachement/openattachement.component';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -28,8 +28,8 @@ import { AddNoteComponent } from './../add-note/add-note.component';
     ]
 })
 export class IntervieweeCandidateComponent implements OnInit, OnDestroy {
-    dialogConfig: MdDialogRef<any>;
-    dialogRef: MdDialogRef<any>;
+    dialogConfig: MatDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     email: any;
     body: any;
     historyList: any;
@@ -41,7 +41,7 @@ export class IntervieweeCandidateComponent implements OnInit, OnDestroy {
     updatedData: any
     user: any;
     mongoid: any;
-    constructor(private route: ActivatedRoute, public setvardialog: MdDialog, private tagUpdate: ImapMailsService, public dialog: MdDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    constructor(private route: ActivatedRoute, public setvardialog: MatDialog, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
     }
 

@@ -6,7 +6,7 @@ import { CommonService } from '../../service/common.service';
 import { config } from './../../config/config'
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
-import { MdSnackBar, MdDialog, MdDialogRef } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
 import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
 
 @Component({
@@ -20,8 +20,8 @@ export class EmailtestloginComponent implements OnInit {
     loading = false;
     showmessage= false;
     message: any;
-    dialogRef: MdDialogRef<any>;
-    constructor(private title: Title, public dialog: MdDialog, private commonService: CommonService, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService) {
+    dialogRef: MatDialogRef<any>;
+    constructor(private title: Title, public dialog: MatDialog, private commonService: CommonService, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService) {
         this.title.setTitle('Test Papers');
     }
 

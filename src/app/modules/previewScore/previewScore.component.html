@@ -1,6 +1,6 @@
 <div>
   <h4 class="heading">Detailed Score
-  <button md-raised-button class="closeBtn" (click)="close()" md-mini-fab><md-icon class="icon">close</md-icon></button>
+  <button mat-raised-button class="closeBtn" (click)="close()" mat-mini-fab><mat-icon class="icon">close</mat-icon></button>
   </h4>
     <hr>
   <div *ngIf="!fbloading">
@@ -11,16 +11,16 @@
         <p class="col-md-6 col-sm-6 scoreDet">Wrong Attempted: {{detailedData.wrong_answers}}</p>
         <p class="col-md-6 col-sm-6 scoreDet">Time Taken: {{hours}}h {{min}}min</p>
     </div>
-    <md-accordion class="col-xs-12 col-md-12 col-sm-12">
-      <md-expansion-panel *ngFor="let group of  detailedData?.questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <md-expansion-panel-header>
-          <md-panel-title style="text-transform:capitalize">
+    <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
+      <mat-expansion-panel *ngFor="let group of  detailedData?.questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title style="text-transform:capitalize">
             {{group.exam_subject}}
-          </md-panel-title>
-          <md-panel-description class="right" style="flex-grow:0">
+          </mat-panel-title>
+          <mat-panel-description class="right" style="flex-grow:0">
             Score: {{group.totalAns}}/{{group.questions.length}}
-          </md-panel-description>
-        </md-expansion-panel-header>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
         <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of group.questions;let id = index">
           <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
           <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
@@ -33,10 +33,10 @@
           <p class="green">Right Answer: {{ques.answer}}</p>
 
         </div>
-      </md-expansion-panel>
-    </md-accordion>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
   <div *ngIf="fbloading">
-    <md-spinner id="loginSpinner" *ngIf="fbloading" class="spin"></md-spinner>
+    <mat-spinner id="loginSpinner" *ngIf="fbloading" class="spin"></mat-spinner>
   </div>
 </div>

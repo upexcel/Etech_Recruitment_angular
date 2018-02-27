@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { CommonService } from '../../service/common.service';
 import * as _ from 'lodash';
@@ -28,8 +28,8 @@ export class ScheduleInterviewComponent implements OnInit {
     maxDate: any;
     showSelectedDate = null;
     errorMessage: string;
-    scheduleBy:string | null = config['scheduleInterviewBy'];
-    constructor(private _fb: FormBuilder, private dialogRef: MdDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
+    scheduleBy: string | null = config['scheduleInterviewBy'];
+    constructor(private _fb: FormBuilder, private dialogRef: MatDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
         this.interviewForm = this._fb.group({
             'selectedInterviewRound': [null, Validators.compose([Validators.required])],
             'selectedInterviewTemplate': [null, Validators.compose([Validators.required])],

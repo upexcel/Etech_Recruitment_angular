@@ -195,6 +195,24 @@ export class CommonService {
         return tags;
     }
 
+    markAllAsReadTag(tags, selectedTag, parantId) {
+        _.forEach(tags, (value, key) => {
+            _.forEach(value['data'], (dataValue, dataKey) => {
+                if (!selectedTag && dataValue['title'] === 'Mails') {
+                    dataValue['unread'] = 0;
+                }
+                if (parantId && parantId * 1 === dataValue['id'] * 1) {
+                    _.forEach(dataValue['subchild'], (subchildValue, subchildKey) => {
+                        if (subchildValue['id'] === selectedTag) {
+                            subchildValue['unread'] = 0;
+                        }
+                    });
+                }
+            });
+        });
+        return tags;
+    }
+
     formateEmailHistoryData(data, emailId) {
         const deletedData = _.find(data.data, { '_id': emailId });
         _.remove(data.data, {

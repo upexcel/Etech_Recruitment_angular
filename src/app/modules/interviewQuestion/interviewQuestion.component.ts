@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { LocalStorageService } from '../../service/local-storage.service';
-import { MdDialog, MdDialogConfig, MdDialogRef, MdSnackBar } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
@@ -16,25 +16,25 @@ declare const FB: any;
 export class InterviewQuestionComponent implements OnInit, OnDestroy {
     questions: any;
     options: any;
-    job_pro: any [];
-    hide= false;
-    dialogRef: MdDialogRef<any>;
+    job_pro: any[];
+    hide = false;
+    dialogRef: MatDialogRef<any>;
     selectedJob: any;
-    selectedAnswer= [];
+    selectedAnswer = [];
     allansRecord: any;
     user_id: any;
     thankyou = false;
     temp: any;
     total: any;
     timer: any;
-    redAlert= false;
-    totalQues= [];
+    redAlert = false;
+    totalQues = [];
     maxtime: any;
     notag: any;
     interval: any;
     contactHR: any;
     loading = true;
-    constructor(public dialog: MdDialog, private act_route: ActivatedRoute, private _mdSnackBar: MdSnackBar, private getTags: ImapMailsService, private _router: Router) {
+    constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private getTags: ImapMailsService, private _router: Router) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
         if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id ) {
             this._router.navigate(['/emailtestlogin']);
@@ -42,24 +42,24 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         if (localStorage.getItem('thank') === 'true') {
             this.thankyou = true;
         }
-        this.getTags.jobprofile({'fb_id': this.user_id}).subscribe(res => {
+        this.getTags.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
             if (res.status === 0) {
                 this.loading = false;
                 this.notag = true;
                 this.contactHR = res.message;
-            }else {
+            } else {
                 console.log(res);
                 if (res.length === 1) {
                     this.selectedJob = res[0].id;
-                    localStorage.setItem('_idjob', this.selectedJob );
+                    localStorage.setItem('_idjob', this.selectedJob);
                     this.hide = false;
                     this.start(this.selectedJob);
-                }else {
+                } else {
                     this.loading = true;
                     this.job_pro = res;
                 }
             }
-        }, err => {});
+        }, err => { });
     }
     ngOnInit() {
         if (localStorage.getItem('sessionStart')) {
@@ -67,7 +67,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.hide = false;
             this.selectedJob = localStorage.getItem('_idjob');
             this.getQues();
-        }else {
+        } else {
             // this.maxtime = config.testMaxtime;
         }
     }
@@ -169,11 +169,11 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         window.scrollTo(0, 0);
     }
     submit() {
-        let startTime= new Date(JSON.parse(localStorage.getItem('start')));
-        let endTime = new Date();
-        let totalHours = (endTime.getHours() - startTime.getHours());
-        let minutes = (endTime.getMinutes() - startTime.getMinutes());
-        let totalMinutes= (totalHours * 60) + minutes;
+        const startTime = new Date(JSON.parse(localStorage.getItem('start')));
+        const endTime = new Date();
+        const totalHours = (endTime.getHours() - startTime.getHours());
+        const minutes = (endTime.getMinutes() - startTime.getMinutes());
+        const totalMinutes = (totalHours * 60) + minutes;
         this.allansRecord = {
             'job_profile': this.selectedJob,
             'fb_id': this.user_id,

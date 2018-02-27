@@ -1,9 +1,12 @@
 @import './../../variable.scss';
 
 .pos-radio {
-	md-radio-button{
+	mat-radio-button{
 		margin-top: 16px;
 	}
+}
+.chip-list {
+	width: 100%;
 }
 .width-100 {
 	width: 100%;

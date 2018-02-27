@@ -1,14 +1,14 @@
 @import './../../variable.scss';
-md-sidenav {
+mat-sidenav {
     width: 280px;
 }
 @media screen and (min-width: 320px) {
-    md-sidenav {
+    mat-sidenav {
         width: 240px;
     }
 }
 @media screen and (min-width: 480px) {
-    md-sidenav {
+    mat-sidenav {
         width: 280px;
     }
 }
@@ -24,7 +24,7 @@ md-sidenav {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: #555;
   }
-md-toolbar {
+mat-toolbar {
     box-shadow: 0 2px 5px 0 $toolbarcolor;
 }
 .width100 {
@@ -40,9 +40,9 @@ md-toolbar {
     position: relative;
     cursor: pointer;
 }
-md-sidenav-container {
+mat-sidenav-container {
     height: 100%;
-    md-sidenav {
+    mat-sidenav {
         hr {
             margin: -1px 0px 0px;
             height: 1px;
@@ -77,15 +77,6 @@ md-sidenav-container {
 }
 .mat-list-item-content {
     height: auto !important;
-}
-.commonSpinner {
-    width: 50px;
-    height: 50px;
-    path {
-        stroke: #fff;
-    }
-    position: absolute;
-    right: 40px;
 }
 .sidehide{
    display: none;

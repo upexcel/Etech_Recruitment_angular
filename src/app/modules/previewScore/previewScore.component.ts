@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
@@ -12,10 +12,10 @@ import * as _ from 'lodash';
 export class PreviewScoreComponent implements OnInit {
     detailedData: any;
     fb_id: any;
-    fbloading= false;
+    fbloading = false;
     hours: any;
     min: any;
-    constructor(public dialogRef: MdDialogRef<any>, private getdata: ImapMailsService, private _dialogService: DialogService) {
+    constructor(public dialogRef: MatDialogRef<any>, private getdata: ImapMailsService, private _dialogService: DialogService) {
     }
     ngOnInit() {
         this.fbloading = true;

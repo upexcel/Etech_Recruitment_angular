@@ -27,7 +27,7 @@
 	top: 10px;
 	right: 30px;
 }
-md-toolbar {
+mat-toolbar {
 	background-color: cyan;
 }
 .header {
@@ -82,7 +82,7 @@ md-toolbar {
 .no-pos {
 	padding: 0px !important;
 }
-md-grid-tile {
+mat-grid-tile {
 	overflow: visible;
 }
 .mat-grid-tile {
@@ -401,4 +401,18 @@ a.link:hover{
 	display: inline-block;
 	width: 213px;
 	margin-left: 83%;
+}
+.badge {
+	background: #2bbbad;
+	display: inline-block;
+    min-width: 10px;
+    padding: 4px 12px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 10px;
 }
