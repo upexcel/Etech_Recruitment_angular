@@ -44,7 +44,7 @@ export class VerifyCandidateComponent implements OnInit {
                 this.enterEmail = false;
                 setTimeout(() => {
                     this.fblogout();
-                }, 5000);
+                }, 60000);
             }
             this.dialogRef = null;
         });
