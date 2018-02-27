@@ -307,7 +307,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogConfig = this.setvardialog.open(OpenattachementComponent, {
             height: '100%',
             width: '120%'
-        });[matDatepickerFilter]="dateFilter"
+        });
         this.dialogConfig.componentInstance.link = link;
         this.dialogConfig.afterClosed().subscribe(result => {
             this.dialogConfig = null;
