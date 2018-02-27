@@ -25,7 +25,7 @@ export class CronStatusModelComponent implements OnInit {
             this.pending_candidate_status = res['pending_candidate_status'];
             this.send_to_all_status = res['send_to_all_status'];
         }, (err) => {
-            console.log(err);
+            console.log(err); 
         })
     }
 
