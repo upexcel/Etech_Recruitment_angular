@@ -8,6 +8,7 @@
           <span *ngIf="selectedEmail.source" class="hidexs"> Source: {{selectedEmail.source}}</span>
           <span *ngIf="!selectedEmail.source" class="hidexs"> Source: IMAP</span>
           <span class="text-xs hidexs"> on {{selectedEmail.date | date: 'medium'}}</span>
+          <!-- Addded A span to show Current Job Profile of Candidate -->
           <span class="badge"> {{currentTag}}</span>
         </span>
     </div>

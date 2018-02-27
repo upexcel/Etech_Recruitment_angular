@@ -27,6 +27,7 @@
                 <mat-form-field>
                     <input matInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}"
                            [disabled]="!selectedInterviewRound">
+                           <!-- Removed  [min]="minDate" [max]="maxDate" [matDatepickerFilter]="dateFilter" to remove the restriction from date Picker -->
                            <input matInput [matDatepicker]="picker" placeholder="Select Date"
                            [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
                            <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="!selectedInterviewRound"></mat-datepicker-toggle>
@@ -37,6 +38,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <mat-select placeholder="Select Time" class="width-100" [formControl]="interviewForm.controls['selectedInterviewTime']">
+                    <!-- Removed [disabled] to enable the time dropdown -->
                     <mat-option *ngFor="let timeData of timeListData; trackBy: timeListDataTrack;" [value]="timeData.time">{{ timeData.time }}</mat-option>
                 </mat-select>
             </div>
