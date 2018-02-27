@@ -5,43 +5,43 @@
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main">
             <p>
-                <md-card class="width-100" style="box-shadow: none;" *ngIf="emailParentId">
-                    <md-card-header>
-                        <md-card-subtitle>Tag*</md-card-subtitle>
-                        <md-card-subtitle>{{emailParenttitle}} -
+                <mat-card class="width-100" style="box-shadow: none;" *ngIf="emailParentId">
+                    <mat-card-header>
+                        <mat-card-subtitle>Tag*</mat-card-subtitle>
+                        <mat-card-subtitle>{{emailParenttitle}} -
                             <b>{{emailChildTitle}}</b>
-                        </md-card-subtitle>
-                    </md-card-header>
-                </md-card>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Subject" autoComplete="off" name="subject" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Candidate Mail" autoComplete="off" name="sender_mail" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" required ngModel>
-                    <md-error>Invalid Email</md-error>
-                </md-input-container>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Candidate Name" autoComplete="off" name="from" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Source" autoComplete="off" name="source" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="width-25">
-                    <input mdInput type="text" maxlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" placeholder="Mobile Number" autoComplete="off" required name="mobile_no" ngModel>
-                    <md-error>Invalid Mobile Number</md-error>
-                </md-input-container>
-                <!-- <md-input-container class="width-100">
-                    <textarea mdInput rows="4" name="body" type="textarea" placeholder="Email Body" ngModel required></textarea>
-                    <md-error>Body Is Required</md-error>
-                </md-input-container> -->
+                        </mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Subject" autoComplete="off" name="subject" required ngModel>
+                    <mat-error>Required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Candidate Mail" autoComplete="off" name="sender_mail" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" required ngModel>
+                    <mat-error>Invalid Email</mat-error>
+                </mat-form-field>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Candidate Name" autoComplete="off" name="from" required ngModel>
+                    <mat-error>Required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Source" autoComplete="off" name="source" required ngModel>
+                    <mat-error>Required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="width-25">
+                    <input matInput type="text" maxlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" placeholder="Mobile Number" autoComplete="off" required name="mobile_no" ngModel>
+                    <mat-error>Invalid Mobile Number</mat-error>
+                </mat-form-field>
+                <!-- <mat-form-field class="width-100">
+                    <textarea matInput rows="4" name="body" type="textarea" placeholder="Email Body" ngModel required></textarea>
+                    <mat-error>Body Is Required</mat-error>
+                </mat-form-field> -->
             </p>
         </div>
     </div>
     <div class="fx-pos">
-        <button md-raised-button (click)="close()">Back</button>
-        <button md-raised-button color="accent" [disabled]="addCandidateForm.invalid" [ngClass]="diabledOnclick ?'disabled':''"  (click)="save(addCandidateForm)">Add</button>
+        <button mat-raised-button (click)="close()">Back</button>
+        <button mat-raised-button color="accent" [disabled]="addCandidateForm.invalid" [ngClass]="diabledOnclick ?'disabled':''"  (click)="save(addCandidateForm)">Add</button>
     </div>
 </form>

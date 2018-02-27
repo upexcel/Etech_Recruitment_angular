@@ -1,13 +1,13 @@
 <div class="row">
     <div class="col-md-12 text-right">
-        <button md-raised-button color=accent (click)="addVariable()">ADD NEW VARIABLE</button>
+        <button mat-raised-button color=accent (click)="addVariable()">ADD NEW VARIABLE</button>
     </div>
     <div class="col-md-12">
         <div class="header" *ngIf="userVar">
-            <md-card>
+            <mat-card>
                 <h3>User Variable(s)</h3>
-                <md-divider></md-divider>
-                <md-card-content class="table-responsive">
+                <mat-divider></mat-divider>
+                <mat-card-content class="table-responsive">
                     <table class="list table">
                         <thead>
                             <tr>
@@ -23,19 +23,19 @@
                                     <p [innerHTML]="variable.variableValue | safeHtml"></p>
                                 </td>
                                 <td class="del-wid">
-                                    <md-icon class="red" (click)="delete(variable.id)">delete</md-icon>
+                                    <mat-icon class="red" (click)="delete(variable.id)">delete</mat-icon>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </md-card-content>
-            </md-card>
+                </mat-card-content>
+            </mat-card>
         </div>
         <div class="header" *ngIf="sysVar">
-            <md-card>
+            <mat-card>
                 <h3>System Variable(s)</h3>
-                <md-divider></md-divider>
-                <md-card-content class="table-responsive">
+                <mat-divider></mat-divider>
+                <mat-card-content class="table-responsive">
                     <table class="list table">
                         <thead>
                             <tr>
@@ -48,8 +48,8 @@
                             </tr>
                         </tbody>
                     </table>
-                </md-card-content>
-            </md-card>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>

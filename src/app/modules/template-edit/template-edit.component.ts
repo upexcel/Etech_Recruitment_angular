@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { environment } from '../../../environments/environment';
@@ -18,7 +18,7 @@ export class TemplateEditComponent implements OnInit {
     subject: string;
     temp: any;
     subject_for_genuine: string;
-    constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
+    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {

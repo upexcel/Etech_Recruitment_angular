@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ImapMailsService } from './../../service/imapemails.service';
-import { MdSnackBar, MdDialogRef } from '@angular/material';
+import { MatSnackBar, MatDialogRef } from '@angular/material';
 import { config } from './../../config/config';
 
 @Component({
@@ -15,7 +15,7 @@ export class CronStatusModelComponent implements OnInit {
     notRepliedCandidate: number;
     pending_candidate_status: number;
     send_to_all_status: number;
-    constructor(private dialogRef: MdDialogRef<any>, private _imapMailsService: ImapMailsService) { }
+    constructor(private dialogRef: MatDialogRef<any>, private _imapMailsService: ImapMailsService) { }
 
     ngOnInit() {
         this.loading = true;

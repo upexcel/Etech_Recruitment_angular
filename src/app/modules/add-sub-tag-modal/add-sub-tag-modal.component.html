@@ -6,39 +6,39 @@
     <div class="container-fluid">
       <div class="row">
         <div id="title" class="col-md-6 col-sm-12">
-          <md-input-container class="width-100">
-            <input mdInput name="title" placeholder="Title" #titleValidator="ngModel" ngModel required>
-            <md-error>Title Is Required</md-error>
-          </md-input-container>
+          <mat-form-field class="width-100">
+            <input matInput name="title" placeholder="Title" #titleValidator="ngModel" ngModel required>
+            <mat-error>Title Is Required</mat-error>
+          </mat-form-field>
         </div>
         <div class="col-md-6 col-sm-12">
-          <md-radio-group class="pos-radio width-100" name="type" [(ngModel)]="type" ngModel required>
-            <md-radio-button *ngIf="addTagType == 'Default'" name="type" value="Default">Default Tag</md-radio-button>
-          </md-radio-group>
+          <mat-radio-group class="pos-radio width-100" name="type" [(ngModel)]="type" ngModel required>
+            <mat-radio-button *ngIf="addTagType == 'Default'" name="type" value="Default">Default Tag</mat-radio-button>
+          </mat-radio-group>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <md-input-container class="width-100">
-            <input mdInput name="email" type="email" placeholder="Email" ngModel [pattern]="emailPattern" #emailValidator="ngModel" required>
-          </md-input-container>
+          <mat-form-field class="width-100">
+            <input matInput name="email" type="email" placeholder="Email" ngModel [pattern]="emailPattern" #emailValidator="ngModel" required>
+          </mat-form-field>
         </div>
         <div id="subject" class="col-md-6 col-sm-12">
-          <md-input-container class="width-100">
-            <input mdInput name="subject" placeholder="Subject" #subjectValidator="ngModel" ngModel required>
-          </md-input-container>
+          <mat-form-field class="width-100">
+            <input matInput name="subject" placeholder="Subject" #subjectValidator="ngModel" ngModel required>
+          </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <md-input-container class="width-100">
-            <input mdInput name="from" type="date" placeholder="From date" #startDateValidator="ngModel" ngModel required>
-          </md-input-container>
+          <mat-form-field class="width-100">
+            <input matInput name="from" type="date" placeholder="From date" #startDateValidator="ngModel" ngModel required>
+          </mat-form-field>
         </div>
         <div class="col-md-6 col-sm-12">
-          <md-input-container class="width-100">
-            <input mdInput name="to" type="date" placeholder="To date" #endDateValidator="ngModel" ngModel required>
-          </md-input-container>
+          <mat-form-field class="width-100">
+            <input matInput name="to" type="date" placeholder="To date" #endDateValidator="ngModel" ngModel required>
+          </mat-form-field>
         </div>
       </div>
       <div class="row">
@@ -50,8 +50,8 @@
           </div>
         </div>
         <div class="col-md-11 col-sm-11 text-right">
-          <button md-raised-button (click)="close()">Close</button>
-          <button id="save" md-raised-button type="submit" color=primary [disabled]="titleValidator.invalid || (emailValidator.invalid && (startDateValidator.invalid || endDateValidator.invalid) && subjectValidator.invalid) || showloading" (click)="addTag(addForm)"><span>Save </span></button>
+          <button mat-raised-button (click)="close()">Close</button>
+          <button id="save" mat-raised-button type="submit" color=primary [disabled]="titleValidator.invalid || (emailValidator.invalid && (startDateValidator.invalid || endDateValidator.invalid) && subjectValidator.invalid) || showloading" (click)="addTag(addForm)"><span>Save </span></button>
         </div>
       </div>
     </div>

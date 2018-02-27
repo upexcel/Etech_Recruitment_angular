@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ImapMailsService } from './../../service/imapemails.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-reset-password',
@@ -13,7 +13,7 @@ export class ResetPasswordComponent implements OnInit {
     loading: boolean;
     message: string;
     showmessage: boolean;
-    constructor(private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MdSnackBar) {
+    constructor(private formBuilder: FormBuilder, private _imapMailsService: ImapMailsService, public snackBar: MatSnackBar) {
         this.resetPasswordForm = this.formBuilder.group({
             'old_password' : [null, Validators.required],
             'new_password' : [null, Validators.required]

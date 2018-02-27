@@ -1,26 +1,26 @@
 <div class="content">
-  <md-grid-list cols="8" rowHeight="80px">
-    <md-grid-tile [colspan]="7">
+  <mat-grid-list cols="8" rowHeight="80px">
+    <mat-grid-tile [colspan]="7">
       <h2 class="h2pos">
         Users Log
       </h2>
-    </md-grid-tile>
-    <md-grid-tile [colspan]="1">
-      <button md-icon-button [mdMenuTriggerFor]="menu">
-   <md-icon>more_vert</md-icon>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="1">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+   <mat-icon>more_vert</mat-icon>
   </button>
 
-      <md-menu #menu="mdMenu">
-        <button md-menu-item *ngFor="let email of usersLog; trackBy: usersLogTrack;" (click)="selectedUser(email)">
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngFor="let email of usersLog; trackBy: usersLogTrack;" (click)="selectedUser(email)">
     <span>{{email.email}}</span>
   </button>
-      </md-menu>
-    </md-grid-tile>
-  </md-grid-list>
+      </mat-menu>
+    </mat-grid-tile>
+  </mat-grid-list>
 
-  <md-list>
+  <mat-list>
 
-    <md-list-item>
+    <mat-list-item>
       <div class="activity">
         <span *ngIf="selectUserLog && selectUserLog.email"><b>User Email:</b> {{selectUserLog.email}}</span>
         <p class="error" *ngIf="selectUserLog && !selectUserLog.action">{{errorMessage}}</p>
@@ -45,7 +45,7 @@
           </table>
         </div>
       </div>
-    </md-list-item>
-  </md-list>
+    </mat-list-item>
+  </mat-list>
   <br>
 </div>

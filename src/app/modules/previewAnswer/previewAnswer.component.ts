@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { Component, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 
@@ -11,9 +11,9 @@ import * as _ from 'lodash';
 export class PreviewAnswerComponent implements OnInit {
     allQuestion: any;
     selectedAnswer: any;
-    attemptedQues= [];
+    attemptedQues = [];
 
-    constructor(public dialogRef: MdDialogRef<any>, private _dialogService: DialogService) {
+    constructor(public dialogRef: MatDialogRef<any>, private _dialogService: DialogService) {
     }
     ngOnInit() {
         _.forEach(this.selectedAnswer, (val, key) => {

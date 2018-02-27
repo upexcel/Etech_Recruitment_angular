@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { AddVarComponent } from '../add-var/add-var.component';
 import { EditVariableComponent } from '../edit-variable/edit-variable.component';
@@ -11,10 +11,10 @@ import { DialogService } from '../../service/dialog.service';
     styleUrls: ['./email-variables.component.scss']
 })
 export class EmailVariablesComponent implements OnInit {
-    dialogRef: MdDialogRef < any > ;
+    dialogRef: MatDialogRef < any > ;
     userVar: string[];
     sysVar: string[];
-    constructor(public dialog: MdDialog, private getVariable: ImapMailsService, public _dialogService: DialogService) { }
+    constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public _dialogService: DialogService) { }
 
     ngOnInit() {
         this.loadVariables();

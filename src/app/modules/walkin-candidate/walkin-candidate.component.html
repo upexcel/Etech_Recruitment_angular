@@ -5,25 +5,25 @@
     <div class="con-pg" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
         <div class="main">
             <p>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Candidate" autoComplete="off" name="Candidate" disabled [(ngModel)]="walkinData.name">
-                </md-input-container>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Sender Mail" autoComplete="off" name="sender_mail" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" disabled [(ngModel)]="walkinData.email">
-                </md-input-container>
-                <md-input-container class="width-100">
-                    <input mdInput placeholder="Source" autoComplete="off" name="source" required ngModel>
-                    <md-error>Required</md-error>
-                </md-input-container>
-                <md-input-container class="">
-                    <input mdInput type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57" maxlength="10" required pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
-                    <md-error>Invalid Mobile Number</md-error>
-                </md-input-container>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Candidate" autoComplete="off" name="Candidate" disabled [(ngModel)]="walkinData.name">
+                </mat-form-field>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Sender Mail" autoComplete="off" name="sender_mail" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" disabled [(ngModel)]="walkinData.email">
+                </mat-form-field>
+                <mat-form-field class="width-100">
+                    <input matInput placeholder="Source" autoComplete="off" name="source" required ngModel>
+                    <mat-error>Required</mat-error>
+                </mat-form-field>
+                <mat-form-field class="">
+                    <input matInput type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57" maxlength="10" required pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
+                    <mat-error>Invalid Mobile Number</mat-error>
+                </mat-form-field>
             </p>
         </div>
     </div>
     <div class="fx-pos">
-        <button md-raised-button (click)="close()">Back</button>
-        <button md-raised-button color="accent" [disabled]="addCandidateForm.invalid" (click)="save(addCandidateForm)">Add</button>
+        <button mat-raised-button (click)="close()">Back</button>
+        <button mat-raised-button color="accent" [disabled]="addCandidateForm.invalid" (click)="save(addCandidateForm)">Add</button>
     </div>
 </form>

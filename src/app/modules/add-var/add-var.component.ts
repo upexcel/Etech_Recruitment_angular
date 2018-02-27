@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 
@@ -15,7 +15,7 @@ export class AddVarComponent implements OnInit {
     body: any;
     message: string;
     showMessage: boolean;
-    constructor(public dialogRef: MdDialogRef<any>, private getVariable: ImapMailsService) {
+    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService) {
     }
 
     ngOnInit() {

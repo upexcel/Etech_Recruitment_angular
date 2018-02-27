@@ -3,9 +3,9 @@
 </div>
 <hr>
 <div class="body">
-    <md-input-container>
-        <input mdInput placeholder="Title" [(ngModel)]="originaltitle">
-    </md-input-container>
+    <mat-form-field>
+        <input matInput placeholder="Title" [(ngModel)]="originaltitle">
+    </mat-form-field>
     <h5>Select color</h5>
     <div class="selected-color" [ngStyle]="{'background-color': originalcolor}"></div>
     <div class="color-box">
@@ -13,6 +13,6 @@
     </div>
 </div>
 <div class="footer">
-    <a md-raised-button (click)="close()">Close</a>
-    <a md-raised-button color=primary (click)="save()">Save</a>
+    <a mat-raised-button (click)="close()">Close</a>
+    <a mat-raised-button color=primary (click)="save()">Save</a>
 </div>

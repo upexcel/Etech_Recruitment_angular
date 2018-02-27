@@ -19,16 +19,28 @@ import {
 } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import {
-    MdButtonModule,
-    MdCheckboxModule,
-    MdSidenavModule,
-    MdIconModule,
-    MdProgressSpinnerModule,
-    MdDialogModule,
-    MdSnackBarModule,
-    MaterialModule,
-    MdDatepickerModule,
-    MdNativeDateModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatToolbarModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatListModule,
+    MatSlideToggleModule,
+    MatRadioModule,
+    MatTooltipModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatChipsModule
 } from '@angular/material';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {
@@ -164,7 +176,6 @@ import { SpamDialogService } from './service/spamDialog.service';
 import { AddSubTagModalComponent } from './modules/add-sub-tag-modal/add-sub-tag-modal.component';
 import { EmailTrackingComponent } from './modules/email-tracking/email-tracking.component';
 import { DragulaModule } from 'ng2-dragula';
-import { RlTagInputModule } from 'angular2-tag-input';
 import { AddCandidateComponent } from './modules/add-candidate/add-candidate.component';
 import { IntervieweeInboxComponent } from './modules/interviewee-inbox/interviewee-inbox.component';
 import { IntervieweeCandidateComponent } from './modules/interviewee-candidate/interviewee-candidate.component';
@@ -260,26 +271,36 @@ import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        MaterialModule,
-        MdButtonModule,
-        MdDatepickerModule,
-        MdNativeDateModule,
-        MdCheckboxModule,
-        MdSidenavModule,
-        MdIconModule,
-        MdDialogModule,
-        MdProgressSpinnerModule,
-        MdSnackBarModule,
+        MatButtonModule,
+        MatNativeDateModule,
+        MatCheckboxModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+        MatSnackBarModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatToolbarModule,
+        MatSelectModule,
+        MatGridListModule,
+        MatMenuModule,
+        MatListModule,
+        MatSlideToggleModule,
+        MatRadioModule,
+        MatTooltipModule,
+        MatExpansionModule,
+        MatInputModule,
+        MatChipsModule,
         RouterModule.forRoot(routes, { useHash: true }),
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
         CKEditorModule,
-        MdDatepickerModule,
-        MdNativeDateModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         ChartsModule,
-        DragulaModule,
-        RlTagInputModule
+        DragulaModule
     ],
     providers: [
         ImapMailsService,

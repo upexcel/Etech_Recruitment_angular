@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './../../service/login.service';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-forget-password',
@@ -13,7 +13,7 @@ export class ForgetPasswordComponent implements OnInit {
     loading: boolean;
     message: string;
     showmessage: boolean;
-    constructor(private formBuilder: FormBuilder, private _loginService: LoginService, public snackBar: MdSnackBar) {
+    constructor(private formBuilder: FormBuilder, private _loginService: LoginService, public snackBar: MatSnackBar) {
         this.forgotForm = this.formBuilder.group({
             'email' : [null, Validators.compose([
                 Validators.required,

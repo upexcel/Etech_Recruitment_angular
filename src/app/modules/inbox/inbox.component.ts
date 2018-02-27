@@ -13,15 +13,15 @@ import {
     ImapMailsService
 } from '../../service/imapemails.service';
 import {
-    MdDialog,
-    MdDialogConfig,
-    MdDialogRef
+    MatDialog,
+    MatDialogConfig,
+    MatDialogRef
 } from '@angular/material';
 import {
     EmailModalComponent
 } from '../email-modal/email-modal.component';
 import {
-    MdSnackBar
+    MatSnackBar
 } from '@angular/material';
 import {
     NgForm,
@@ -45,7 +45,7 @@ import { config } from './../../config/config';
     styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit, OnDestroy {
-    dialogRef: MdDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     Math: any;
     emaillist: any;
     loading = false;
@@ -82,7 +82,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     onStarredPage: boolean;
     currentPage: any;
     isSearching = false;
-    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MdDialog, public getemails: ImapMailsService, public snackBar: MdSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
+    constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MatDialog, public getemails: ImapMailsService, public snackBar: MatSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
             () => {
@@ -116,11 +116,11 @@ export class InboxComponent implements OnInit, OnDestroy {
             this.refresh();
         });
         this.getIntervieweeList();
-        window.addEventListener("storage", (ev) => {
-            if (ev.key == 'updateInbox') {
+        window.addEventListener('storage', (ev) => {
+            if (ev.key === 'updateInbox') {
                 this.updateInbox(ev.newValue);
             }
-            if (ev.key == 'tagReassigned') {
+            if (ev.key === 'tagReassigned') {
                 this.tagReassigned(ev.newValue);
             }
         });
@@ -129,8 +129,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     starred(data) {
         this.onStarredPage = data;
         this.loading = true;
-        this.getemails.getStarredMails().subscribe((data) => {
-            this.addSelectedFieldInEmailList(data);
+        this.getemails.getStarredMails().subscribe((res) => {
+            this.addSelectedFieldInEmailList(res);
             this.emailIds = [];
             this.loading = false;
         }, (err) => {
@@ -263,7 +263,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {
             _.forEach(this.emaillist.data, (value, key) => {
-                if (value.sender_mail == this.emailIds) {
+                if (value.sender_mail === this.emailIds) {
                     value.unread = false;
                 }
             })

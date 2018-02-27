@@ -4,7 +4,7 @@ import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 import { config } from './../../config/config';
 import { ComposeEmailComponent } from './../compose-email/compose-email.component';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 
 @Component({
     selector: 'app-email-tracking',
@@ -14,10 +14,10 @@ import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
 export class EmailTrackingComponent implements OnInit {
     trackingData: any;
     selectedTrackingData: any;
-    dialogConfig: MdDialogRef<any>;
-    dialogRef: MdDialogRef<any>;
+    dialogConfig: MatDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
     seenUnseen = true;
-    constructor(private _apiService: ImapMailsService, public _dialogService: DialogService, public dialog: MdDialog) { }
+    constructor(private _apiService: ImapMailsService, public _dialogService: DialogService, public dialog: MatDialog) { }
     ngOnInit() {
         this.emailTrackingData();
     }

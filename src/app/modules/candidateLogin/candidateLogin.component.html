@@ -3,18 +3,18 @@
     <img class="img-responsive" src="assets/logo.png">
   </div>
   <div class="login-card">
-    <md-card>
+    <mat-card>
       <h4>Interview Test Papers</h4>
       <hr>
       <h5>Login with your facebook account to take interview test paper, in case of any questions please contact HR</h5>
-      <md-card-subtitle id="loginError" class="error" *ngIf="showmessage">{{message}}</md-card-subtitle>
-      <md-card-actions class="fbLogin">
-        <button *ngIf="!fbloading" id="fb_login" md-raised-button class="width-100" (click)="fblogin()">
+      <mat-card-subtitle id="loginError" class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
+      <mat-card-actions class="fbLogin">
+        <button *ngIf="!fbloading" id="fb_login" mat-raised-button class="width-100" (click)="fblogin()">
           <img class="facebook" width="24px" src="assets/fb_icon.png"/> Sign In with Facebook
         </button>
-        <md-spinner id="loginSpinner" *ngIf="fbloading" class="spin"></md-spinner>
-      </md-card-actions>
-    </md-card>
+        <mat-spinner id="loginSpinner" *ngIf="fbloading" class="spin"></mat-spinner>
+      </mat-card-actions>
+    </mat-card>
     <br>
   </div>
 </div>

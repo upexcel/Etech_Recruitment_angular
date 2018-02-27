@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog, MdDialogConfig, MdDialogRef } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogRef, MatChipInputEvent } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { color_list } from '../../config/config';
 import * as moment from 'moment';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-automatic-tag-modal',
@@ -16,13 +17,18 @@ export class AutomaticTagModalComponent implements OnInit {
     originaltitle = '';
     temp_id: any;
     availableColors = color_list;
-    tags= [];
-    constructor(public dialogRef: MdDialogRef<any>, private tagupdate: ImapMailsService) { }
+    tags = [];
+    separatorKeysCodes = [ENTER, COMMA];
+    visible = true;
+    selectable = true;
+    removable = true;
+    addOnBlur = true;
+    constructor(public dialogRef: MatDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
         if (this.tag.keyword === null || this.tag.keyword === ['']) {
             this.tags = [];
-        }else {
+        } else {
             this.tags = this.tag.keyword.split(',');
         }
         this.originaltitle = this.tag.title;
@@ -36,10 +42,28 @@ export class AutomaticTagModalComponent implements OnInit {
         }
     }
 
+    add(event: MatChipInputEvent): void {
+        const input = event.input;
+        const value = event.value;
+        if ((value || '').trim()) {
+            this.tags.push(value.trim());
+        }
+        if (input) {
+            input.value = '';
+        }
+    }
+
+    remove(tag: any): void {
+        const index = this.tags.indexOf(tag);
+        if (index >= 0) {
+            this.tags.splice(index, 1);
+        }
+    }
+
     save() {
         if (this.tags.length === 0) {
             this.tag.keyword = null;
-        }else {
+        } else {
             this.tag.keyword = this.tags.toString();
         }
         this.tag.title = this.originaltitle;

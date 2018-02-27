@@ -1,5 +1,5 @@
-<md-spinner class="commonSpinner" *ngIf="!historyList"></md-spinner>
-<md-card class="background-white" *ngIf="historyList && historyList.data">
+<mat-spinner class="commonSpinner" *ngIf="!historyList"></mat-spinner>
+<mat-card class="background-white" *ngIf="historyList && historyList.data">
     <div class="avatar-image">
         <img src="{{url}}/{{selectedEmail.sender_mail}}" onerror="this.src='assets/user.jpg'">
         <span class="p-y-img">
@@ -12,7 +12,7 @@
     </div>
     <div class="m-b">
         <div id="topBtn" class="default-tag-buttons">
-            <button md-raised-button  mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
+            <button mat-raised-button  mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
         </div>
     </div>
     <div class="right"  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">
@@ -21,21 +21,21 @@
         </span>
         <span>Exam Score: {{selectedEmail.examScore}},</span>
         <span>
-            <button md-raised-button mdTooltip="View Report" mdTooltipPosition="below" class="report" (click)="getDetailedScore(selectedEmail.fb_id)">Test Report</button>
+            <button mat-raised-button matTooltip="View Report" mdTooltipPosition="below" class="report" (click)="getDetailedScore(selectedEmail.fb_id)">Test Report</button>
         </span>
     </div>
     <div class="m-b">
         <div id="topBtn" class="default-tag-buttons">
-            <!--<button id="backbtn" md-raised-button mdTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>-->
-            <button md-raised-button mdTooltip="Send Email" mdTooltipPosition="below" class="cyan send-email" (click)="sendEmail()">Send Email</button>
+            <!--<button id="backbtn" mat-raised-button matTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>-->
+            <button mat-raised-button matTooltip="Send Email" mdTooltipPosition="below" class="cyan send-email" (click)="sendEmail()">Send Email</button>
         </div>
         <h4 *ngIf="error" style="color: red; text-align: center;">{{errorMessageText}}</h4>
     </div>
     <div class="p-y">
-      <md-select style="float: right;" placeholder="Interviewee" class="assign-interviewee" [(ngModel)]="selectedEmail.interviewee"
+      <mat-select style="float: right;" placeholder="Interviewee" class="assign-interviewee" [(ngModel)]="selectedEmail.interviewee"
         (ngModelChange)="assignInterviewee(selectedEmail.interviewee)">
-        <md-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</md-option>
-      </md-select>
+        <mat-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</mat-option>
+      </mat-select>
     </div>
     <div class="default-tag-buttons" *ngIf="historyList.data && selectedTag && selectedTag >= 0">
           <!-- All tag have parent id in field,
@@ -44,20 +44,20 @@
           I have added tag.parent_id==null to remove all tags which are auto generated, so that tags like Noida, Gurgoan, etc don't
           show up-->
         <span *ngFor="let tag of tagAssigned; trackBy: tagsDefaultTrack">
-              <a md-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
+              <a mat-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
                   <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
               </a>
           </span>
-          <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
+          <button mat-raised-button matTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
       </div>
       <div class="default-tag-buttons" *ngIf="historyList.data && !selectedTag || selectedTag == -1">
           <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack">
-              <a md-raised-button class="cyan" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
+              <a mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
                   <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
               </a>
           </span>
           <!-- <span  class="cyan" (click)="addNote()">Add Note</span> -->
-          <button md-raised-button mdTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
+          <button mat-raised-button matTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
       </div>
       <div class="closeWindow">
         <input type="checkbox" name="closeWindow" (click)="closeTab()" [(ngModel)]="closeWindow"/> Close Window on Completion
@@ -66,7 +66,7 @@
           <h3>Notes</h3>
           <div class="maindiv" *ngFor="let note of selectedEmail.notes ; let i = index ">
               <p class="fontstyle word-break">{{note.assignee}}</p>
-              <div class="childdiv" contenteditable="true" mdTooltip="Edit Note" mdTooltipPosition="below" (input)="eventHandler($event,note.date,note.time,selectedEmail._id)"
+              <div class="childdiv" contenteditable="true" matTooltip="Edit Note" mdTooltipPosition="below" (input)="eventHandler($event,note.date,note.time,selectedEmail._id)"
                 (focusout)="update($event,i)">{{note.note}}
               </div>
               <div class="footer">
@@ -88,8 +88,8 @@
                 <span>
                     <i *ngIf="H_email.is_attachment" class="material-icons">attach_file</i>{{H_email.date | date: 'medium'}}
                 </span>
-                <md-icon style="font-size: 24px!important;" *ngIf="!H_email.accordianIsOpen">keyboard_arrow_down</md-icon>
-                <md-icon style="font-size: 24px!important;" *ngIf="H_email.accordianIsOpen">keyboard_arrow_up</md-icon>
+                <mat-icon style="font-size: 24px!important;" *ngIf="!H_email.accordianIsOpen">keyboard_arrow_down</mat-icon>
+                <mat-icon style="font-size: 24px!important;" *ngIf="H_email.accordianIsOpen">keyboard_arrow_up</mat-icon>
             </div>
         </div>
         <div [@collapseChange]="H_email.accordianIsOpen" *ngIf="H_email.accordianIsOpen" class="pad5">
@@ -121,4 +121,4 @@
         </div>
 
     </div>
-</md-card>
+</mat-card>
