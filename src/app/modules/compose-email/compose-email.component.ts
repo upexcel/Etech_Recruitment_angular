@@ -4,6 +4,7 @@ import {ImapMailsService} from '../../service/imapemails.service';
 import {NgForm} from '@angular/forms';
 import * as _ from 'lodash';
 import {SetvaremailpreviewComponent} from './../setvaremailpreview/setvaremailpreview.component';
+import { LocalStorageService } from 'app/service/local-storage.service';
 
 @Component({
     selector: 'app-compose-email-temp',
@@ -37,7 +38,10 @@ export class ComposeEmailComponent implements OnInit {
     notGenuine: any;
     resendEmailTrackingData: boolean;
     holdSubject: any;
-    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar) {
+    tags:any;
+    jobProfile:Array<any> = [];
+    currentJobProfile:string;
+    constructor(public setvardialog: MdDialog, public dialogRef: MdDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MdSnackBar, public localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {
@@ -47,6 +51,13 @@ export class ComposeEmailComponent implements OnInit {
             this.templates = res;
         }, (err) => {
             console.log(err);
+        });
+        this.tags = this.localStorageService.getItem('tags');
+        this.jobProfile.push({title:'For All Job Profile'});
+        _.forEach(this.tags['Automatic'], (value, key) => {
+          if(value.id != null && value.id !=0){
+          this.jobProfile.push({ title: value.title });
+         }
         });
     }
     selectTemplate(seletectTemplated) {
@@ -137,7 +148,9 @@ export class ComposeEmailComponent implements OnInit {
             }
         });
     }
-
+    change(value) {
+        this.currentJobProfile = value;
+    }
     close() {
         this.dialogRef.close();
     }
