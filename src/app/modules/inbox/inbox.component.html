@@ -6,15 +6,15 @@
             </div>
             <div id="rightPart" class="col-md-10 no-pad">
                 <div class="content">
-                    <p class="bblue" *ngIf="emaillist && showInboxEmailList">{{emailParenttitle}} - {{emailChildTitle}}</p>
                     <!-- <button md-raised-button *ngIf="selectedTagTitle == 'All'&& emaillist && emailParentId && emaillist.data" mdTooltip="Close Job Profile" mdTooltipPosition="below" class="delete" (click)="deletedProfile()">Close Job Profile</button> -->
-                    <div class="m-b" *ngIf="showInboxEmailList && emaillist">
+                    <div class="m-b well" *ngIf="showInboxEmailList && emaillist">
+                        <p class="bblue" *ngIf="emaillist && showInboxEmailList">{{emailParenttitle}} - {{emailChildTitle}}</p>
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-10 no-pad">
+                                <div class="col-md-9 no-pad">
                                     <mat-card class="card-pos">
                                         <form autoComplete="off" #searchForm="ngForm" (ngSubmit)="searchEmail(searchForm)">
-                                            <mat-select name="option" placeholder="Search In" required [(ngModel)]="selectedOption">
+                                            <mat-select style="width: 15%;" name="option" placeholder="Search In" required [(ngModel)]="selectedOption">
                                                 <mat-option value="email">Email</mat-option>
                                                 <mat-option value="subject">Subject</mat-option>
                                                 <mat-option value="name">Name</mat-option>
@@ -30,15 +30,17 @@
                                     </mat-card>
                                 </div>
                                 <div class="col-md-2 pagination">
-                                    <a mat-raised-button class="b-r pos">
-                                                    {{data.page}} / {{emaillist.count? Math.ceil(emaillist.count/data.limit): '1'}}
-                                                    </a>
-                                    <button [disabled]="data.page == 1" mat-button class="d-w" (click)="previous()">
-                                                        <mat-icon>keyboard_arrow_left</mat-icon>
-                                                    </button>
-                                    <button mat-button class="d-w" (click)="next()">
-                                                        <mat-icon>keyboard_arrow_right</mat-icon>
-                                                    </button>
+                                    <div class="page">
+                                        <b>Page {{data.page}} - {{emaillist.count? Math.ceil(emaillist.count/data.limit): '1'}}</b> of <b>{{emaillist.count? Math.ceil(emaillist.count/data.limit): '1'}}</b>
+                                    </div>
+                                    <div class="navbutton">
+                                        <button [disabled]="data.page == 1" mat-button class="d-w" (click)="previous()">
+                                                            <mat-icon>keyboard_arrow_left</mat-icon>
+                                                        </button>
+                                        <button mat-button class="d-w" (click)="next()">
+                                                            <mat-icon>keyboard_arrow_right</mat-icon>
+                                                        </button>
+                                    </div>
                                     <div class="go-to-page-form">
                                         <input [(ngModel)]="goToPageNo" type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57 " id="goInput" class="form-control" placeholder="Page No" [ngModelOptions]="{standalone: true}">
                                         <button mat-mini-fab (click)="gotTopage(goToPageNo)" id="goBtn"[disabled]="!goToPageNo || goToPageNo < 0">Go</button>
