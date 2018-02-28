@@ -62,14 +62,14 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }, err => { });
     }
     ngOnInit() {
-        if (localStorage.getItem('sessionStart')) {
+        // if (localStorage.getItem('sessionStart')) {
             // this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
-            this.hide = false;
-            this.selectedJob = localStorage.getItem('_idjob');
-            this.getQues();
-        } else {
+            // this.hide = false;
+            // this.selectedJob = localStorage.getItem('_idjob');
+            // this.getQues();
+        // } else {
             // this.maxtime = config.testMaxtime;
-        }
+        // }
     }
     ngOnDestroy() {
         // clearInterval(this.interval);
