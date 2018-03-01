@@ -26,6 +26,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     thankyou = false;
     temp: any;
     total: any;
+    questionsAttemped = 0;
     timer: any;
     redAlert = false;
     totalQues = [];
@@ -34,15 +35,38 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     interval: any;
     contactHR: any;
     loading = true;
-    constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private getTags: ImapMailsService, private _router: Router) {
+    constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private _apiService: ImapMailsService, private _router: Router, private _localStorageService: LocalStorageService) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
-        if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id ) {
+        if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id) {
             this._router.navigate(['/emailtestlogin']);
         }
         if (localStorage.getItem('thank') === 'true') {
             this.thankyou = true;
         }
-        this.getTags.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
+    }
+    ngOnInit() {
+        if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
+            this.selectedJob = localStorage.getItem('_idjob');
+            this.hide = false;
+            this.start(this.selectedJob);
+        } else {
+            this.getJobProfile();
+        }
+        // if (localStorage.getItem('sessionStart')) {
+        // this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
+        // this.hide = false;
+        // this.selectedJob = localStorage.getItem('_idjob');
+        // this.getQues();
+        // } else {
+        // this.maxtime = config.testMaxtime;
+        // }
+    }
+    ngOnDestroy() {
+        // clearInterval(this.interval);
+    }
+
+    getJobProfile() {
+        this._apiService.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
             if (res.status === 0) {
                 this.loading = false;
                 this.notag = true;
@@ -55,29 +79,20 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.hide = false;
                     this.start(this.selectedJob);
                 } else {
-                    this.loading = true;
+                    this.loading = false;
+                    this.notag = false;
+                    this.hide = true;
                     this.job_pro = res;
                 }
             }
         }, err => { });
     }
-    ngOnInit() {
-        // if (localStorage.getItem('sessionStart')) {
-            // this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
-            // this.hide = false;
-            // this.selectedJob = localStorage.getItem('_idjob');
-            // this.getQues();
-        // } else {
-            // this.maxtime = config.testMaxtime;
-        // }
-    }
-    ngOnDestroy() {
-        // clearInterval(this.interval);
-    }
+
     selected(job_id) {
         this.selectedJob = job_id;
         localStorage.setItem('_idjob', job_id);
     }
+
     getQues() {
         if (this.selectedJob) {
             this.start(this.selectedJob);
@@ -87,28 +102,50 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             });
         }
     }
+
     start(id: any) {
-        this.getTags.getQues(id).subscribe(res => {
+        if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
+            this.hide = false;
             this.loading = false;
-            if (res.data.length > 0) {
-                this.hide = false;
-                this.questions = res.data;
-                _.forEach(this.questions, (val, key) => {
-                    _.forEach(val.questions, (val1, key1) => {
-                        this.totalQues.push(val1._id);
-                    })
+            const res = this._localStorageService.getItem('QuestionsWithUserAnswers')
+            this.questions = res.data;
+            console.log(this.questions)
+            _.forEach(this.questions, (val, key) => {
+                _.forEach(val.questions, (val1, key1) => {
+                    console.log(val1, key1)
+                    this.totalQues.push(val1._id);
+                    if (val1['selected']) {
+                        ++this.questionsAttemped;
+                    }
                 })
-                this.total = res.count;
-                localStorage.setItem('sessionStart', 'true')
-                // this.timerstart();
-            } else {
-                this._mdSnackBar.open('Test not available', '', {
-                    duration: 2000,
-                });
-            }
-        }, err => {
-            this.hide = true;
-        });
+            })
+            this.total = res.count;
+            localStorage.setItem('sessionStart', 'true')
+            // this.timerstart();
+        } else {
+            this._apiService.getQues(id).subscribe(res => {
+                this.loading = false;
+                if (res.data.length > 0) {
+                    this._localStorageService.setItem('QuestionsWithUserAnswers', res);
+                    this.hide = false;
+                    this.questions = res.data;
+                    _.forEach(this.questions, (val, key) => {
+                        _.forEach(val.questions, (val1, key1) => {
+                            this.totalQues.push(val1._id);
+                        })
+                    })
+                    this.total = res.count;
+                    localStorage.setItem('sessionStart', 'true')
+                    // this.timerstart();
+                } else {
+                    this._mdSnackBar.open('Test not available', '', {
+                        duration: 2000,
+                    });
+                }
+            }, err => {
+                this.hide = true;
+            });
+        }
     }
     // timerstart() {
     //     this.interval = setInterval(() => {
@@ -128,6 +165,20 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     // }
 
     selectedAns(quesId: any, ansId: any) {
+        const localQuestionsWithUserAnswers = this._localStorageService.getItem('QuestionsWithUserAnswers')
+        localQuestionsWithUserAnswers['data'] = this.questions;
+        this._localStorageService.clearItem('QuestionsWithUserAnswers');
+        setTimeout(() => {
+            this.questionsAttemped = 0;
+            _.forEach(this.questions, (val, key) => {
+                _.forEach(val.questions, (val1, key1) => {
+                    if (val1['selected']) {
+                        ++this.questionsAttemped;
+                    }
+                })
+            })
+            this._localStorageService.setItem('QuestionsWithUserAnswers', localQuestionsWithUserAnswers);
+        }, 100)
         this.temp = { 'Q_id': quesId, 'ans_id': ansId };
         if (this.selectedAnswer.length > 0 && this.filterdata(quesId)) {
             this.selectedAnswer.push(this.temp);
@@ -135,6 +186,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.selectedAnswer.push(this.temp);
         }
     }
+
     filterdata(quesId) {
         _.forEach(this.selectedAnswer, (val, key) => {
             if (val.Q_id === quesId) {
@@ -143,6 +195,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             }
         });
     }
+
     savePreview() {
         if (this.selectedAnswer.length > 0) {
             this.dialogRef = this.dialog.open(PreviewAnswerComponent, {
@@ -165,9 +218,11 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             });
         }
     }
+
     scroll() {
         window.scrollTo(0, 0);
     }
+
     submit() {
         const startTime = new Date(JSON.parse(localStorage.getItem('start')));
         const endTime = new Date();
@@ -181,7 +236,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             'questionIds': this.totalQues,
             'taken_time_minutes': totalMinutes
         }
-        this.getTags.submitTest(this.allansRecord).subscribe(res => {
+        this._apiService.submitTest(this.allansRecord).subscribe(res => {
             // clearInterval(this.interval);
             setTimeout(() => {
                 this.fblogout();
