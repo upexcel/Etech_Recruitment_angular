@@ -44,7 +44,7 @@ export class VerifyCandidateComponent implements OnInit {
                 this.enterEmail = false;
                 setTimeout(() => {
                     this.fblogout();
-                }, 5000);
+                }, 60000);
             }
             this.dialogRef = null;
         });
@@ -64,11 +64,11 @@ export class VerifyCandidateComponent implements OnInit {
                             height: '225px',
                             width: '300px'
                         });
-                        this.dialogRef.componentInstance.fb_id = this.fbdata.fb_id;
+                        this.dialogRef.componentInstance.fb_id = response.fb_id;
                         this.dialogRef.afterClosed().subscribe(result => {
                             this.loading = false;
                             if (result) {
-                                this._router.navigate(['/candidate/interviewques', response.data.fb_id]);
+                                this._router.navigate(['/candidate/interviewques', response.fb_id]);
                             }
                             this.dialogRef = null;
                         });
@@ -86,9 +86,14 @@ export class VerifyCandidateComponent implements OnInit {
         }
     }
     fblogout() {
-        FB.logout((result) => {
+        if (JSON.parse(localStorage.getItem('loginByfb'))) {
+            FB.logout((result) => {
+                localStorage.clear();
+                this._router.navigate(['/fbtestlogin']);
+            })
+        } else {
             localStorage.clear();
-            this._router.navigate(['/candidatelogin']);
-        })
+            this._router.navigate(['/emailtestlogin']);
+        }
     }
 }

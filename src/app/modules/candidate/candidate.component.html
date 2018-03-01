@@ -3,8 +3,8 @@
     <div class="row" id="toolbar">
       <mat-toolbar id="topnav" color="accent">
         <div>
-          <span><img class="profile_img" [src]="img"></span>
-          <span>{{candidateName}}</span>
+          <span><img class="profile_img" [src]="img" onerror="this.src='assets/user.jpg'"></span>
+          <span class="name">{{candidateName}}</span>
         </div>
         <div class="mainlogo">
         </div>

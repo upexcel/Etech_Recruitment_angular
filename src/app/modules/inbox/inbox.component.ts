@@ -585,5 +585,17 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.inboxRefreshSubscription.unsubscribe();
         this.fetchEmailSubscription.unsubscribe();
     }
+    deletedProfile(type, tagid) {
+        this._dialogService.openConfirmationBox('Are you sure want to close this job profile,\n this operation cannot be undone?').then((res) => {
+            if (res === 'yes') {
+                // this.getemails.deleteJobProfile(type, tagid).subscribe((data) => {
+                // }, (err) => {
+                //     console.log(err);
+                // });
+            }
+        }, (err) => {
+            console.log(err);
+        });
+    }
 
 }

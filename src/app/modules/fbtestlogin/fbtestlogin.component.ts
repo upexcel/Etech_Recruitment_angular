@@ -11,12 +11,12 @@ import { environment } from '../../../environments/environment';
 declare let FB: any;
 
 @Component({
-    selector: 'app-candidate-login',
-    templateUrl: './candidateLogin.component.html',
-    styleUrls: ['./candidateLogin.component.scss'],
-    providers: [Title]
+    selector: 'app-fbtestlogin',
+    templateUrl: './fbtestlogin.component.html',
+    styleUrls: ['./fbtestlogin.component.scss'],
+    providers: [ Title]
 })
-export class CandidateLoginComponent implements OnInit {
+export class FbtestloginComponent implements OnInit {
     addForm: FormGroup;
     email: string;
     password: string;
@@ -59,6 +59,7 @@ export class CandidateLoginComponent implements OnInit {
         this.fbloading = true;
         this.showmessage = false;
         FB.api('/me?fields=id,email,name,gender,picture.width(150).height(150)', (res) => {
+            console.log(res)
             this.fbObj = {
                 'email': res.email,
                 'appliedEmail': res.email,
@@ -67,12 +68,12 @@ export class CandidateLoginComponent implements OnInit {
                 'profile_pic': res.picture.data.url,
                 'fb_id': res.id
             };
+            localStorage.setItem('loginByfb', 'true');
             this.access.facebook_login(this.fbObj).subscribe(response => {
                 const added = this.commonService.storeFbdata(this.fbObj);
                 // localStorage.setItem('role', JSON.stringify('Candidate'));
                 // localStorage.setItem('user', res.name);
                 // localStorage.setItem('user_id', res.id)
-                localStorage.setItem('token', this.fbtoken);
                 // localStorage.setItem('img', res.picture.data.url);
 
                 this.zone.run(() => {
@@ -86,7 +87,8 @@ export class CandidateLoginComponent implements OnInit {
                         this.dialogRef.afterClosed().subscribe(result => {
                             if (result) {
                                 this.fbloading = true;
-                            } else {
+                                localStorage.setItem('token', 'true');
+                            }else {
                                 this.fbloading = false;
                             }
                             this.dialogRef = null;

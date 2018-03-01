@@ -1,0 +1,32 @@
+<div class="outerbody">
+  <div class="logo">
+    <img class="img-responsive" src="assets/logo.png">
+  </div>
+  <div class="login-card">
+    <mat-card>
+      <h4>Interview Test Papers</h4>
+      <hr>
+      <h5>Login with your Email-Id to take interview test paper, in case of any questions please contact HR</h5>
+      <mat-card-subtitle id="loginError" class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
+      <mat-card-actions class="fbLogin no-mar">
+        <form (ngSubmit)="submit(heroForm)" #heroForm="ngForm">
+          <mat-input-container class="width-100">
+            <input matInput placeholder="Full Name" autoComplete="off" name="name" ngModel required>
+            <mat-error>Full Name Required</mat-error>
+          </mat-input-container>
+          <mat-input-container class="width-100">
+            <input matInput placeholder="Email" autoComplete="off" name="email" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$" ngModel required>
+            <mat-error>Invalid Email</mat-error>
+          </mat-input-container>
+          <mat-select class="width-100" id="gender" placeholder="Select Gender" name="gender" required ngModel>
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+          </mat-select>
+          <button *ngIf="!loading" mat-raised-button color=primary class="width-100" [disabled]="heroForm.invalid" type="submit">Submit</button>
+          <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
+        </form>
+      </mat-card-actions>
+    </mat-card>
+    <br>
+  </div>
+</div>
