@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { LocalStorageService } from '../../service/local-storage.service';
@@ -8,11 +8,13 @@ import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
 import { config } from './../../config/config';
 declare const FB: any;
+
 @Component({
     selector: 'app-interviewques',
     templateUrl: './interviewQuestion.component.html',
     styleUrls: ['./interviewQuestion.component.scss']
 })
+
 export class InterviewQuestionComponent implements OnInit, OnDestroy {
     questions: any;
     options: any;
@@ -35,6 +37,13 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     interval: any;
     contactHR: any;
     loading = true;
+    isSubmitted = true;
+    // @HostListener('window:beforeunload', ['$event'])
+    // onChange($event) {
+    //     if (this.isSubmitted) {
+    //         $event.returnValue = 'If you Reload your page, All your answers will be lost. Are you sure you want to do this?';
+    //     }
+    // }
     constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private _apiService: ImapMailsService, private _router: Router, private _localStorageService: LocalStorageService) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
         if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id) {
@@ -72,7 +81,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 this.notag = true;
                 this.contactHR = res.message;
             } else {
-                console.log(res);
                 if (res.length === 1) {
                     this.selectedJob = res[0].id;
                     localStorage.setItem('_idjob', this.selectedJob);
@@ -173,7 +181,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.questionsAttemped = 0;
             _.forEach(this.questions, (val, key) => {
-                console.log(val, key)
                 _.forEach(val.questions, (val1, key1) => {
                     if (val1['selected']) {
                         this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
@@ -244,6 +251,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             'questionIds': this.totalQues,
             'taken_time_minutes': totalMinutes
         }
+        this.isSubmitted = false;
         this._apiService.submitTest(this.allansRecord).subscribe(res => {
             // clearInterval(this.interval);
             setTimeout(() => {
