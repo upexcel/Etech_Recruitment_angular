@@ -7,6 +7,7 @@ import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
 import { config } from './../../config/config';
+import { instructions } from './../../config/config';
 declare const FB: any;
 
 @Component({
@@ -38,6 +39,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     contactHR: any;
     loading = true;
     isSubmitted = true;
+    instructionsRead:boolean = false;
+    instructions:Array<string> = instructions;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -69,6 +72,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         // } else {
         // this.maxtime = config.testMaxtime;
         // }
+        if(this._localStorageService.getItem('instructions')!=null) {
+            this.instructionsRead = this._localStorageService.getItem('instructions');
+        }
+
     }
     ngOnDestroy() {
         // clearInterval(this.interval);
@@ -274,5 +281,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             localStorage.clear();
             this._router.navigate(['/emailtestlogin']);
         }
+    }
+    onRead() {
+        this.instructionsRead = true;
+        this._localStorageService.setItem('instructions',this.instructionsRead);
+
     }
 };

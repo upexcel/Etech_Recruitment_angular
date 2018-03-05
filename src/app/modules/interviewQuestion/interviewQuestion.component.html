@@ -1,73 +1,82 @@
-<mat-card *ngIf="hide && !thankyou " class="col-xs-12 col-md-12 col-sm-12 bodyInner">
-
-  <!-- <mat-list class="pad0"> -->
-    <!-- <mat-list-item class="pad0"> -->
-
-      <div *ngIf="!notag" class="marAuto bodyInner width400">
-        <mat-card-title>
-          <h4>Select Job profile</h4>
-          <hr>
-        </mat-card-title>
-        <mat-radio-group >
-          <div *ngFor="let option of job_pro" class="width100 padradio">
-          <mat-radio-button name="{{option.title}}" value="{{option.id}}" (click)="selected(option.id)"></mat-radio-button>{{option.title}}
-          </div>
-        </mat-radio-group>
-        <mat-card-actions>
-        <button mat-raised-button color=primary class="flRight" (click)="getQues()">Submit</button>
-        </mat-card-actions>
-      </div>
-      <div class="col-md-4 col-sm-12 marAuto bodyInner" *ngIf="notag"><h4>{{contactHR}}</h4></div>
-    <!-- </mat-list-item> -->
-  <!-- </mat-list> -->
-</mat-card>
-<div class="col-xs-12 col-md-12 col-sm-12 bodyInner" *ngIf="loading">
-    <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
-</div>
-
-<div *ngIf="!hide && !thankyou && !loading" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
-      <div><h4>Test Questions</h4>
-
-        <p class="col-md-6 col-sm-6 col-xs-12 pad0">
-          <!-- <span class="left style">Remaining time:
-            <span class="timer">{{timer}}</span>
-          </span> -->
-        </p>
-        <p class="col-md-6 col-sm-6 col-xs-12 pad0">
-          <span class="right style" *ngIf="total">Question Attempted:
-            <span class="bold">{{questionsAttemped}}/{{total}}</span>
-          </span>
-        </p>
-      </div>
-        <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
-
-          <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                {{group.group_name}}
-              </mat-panel-title>
-              <mat-panel-description>
-                Total Ques: {{group.questions.length}}
-              </mat-panel-description>
-            </mat-expansion-panel-header>
-              <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
-                <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
-                <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
-                <p class="pid">Options:</p>
-                <mat-radio-group class="width100 fontsize" [(ngModel)]="ques.selected">
-                  <div *ngFor="let option of ques.options" class="width100 padradio">
-                    <mat-radio-button name="{{ques._id}}" [value]="option.opt_id" (click)="selectedAns(ques._id,option.opt_id)">{{option.option}}</mat-radio-button>
-                  </div>
-                </mat-radio-group>
-              </div>
-          </mat-expansion-panel>
-        </mat-accordion>
-        <button mat-raised-button color=primary class="flRight submitans" (click)="savePreview()">Preview</button>
-   </div>
-<div *ngIf="thankyou">
-  <div class="col-md-12">
-    <h1>Thank You</h1>
-    <h3 class="subhead">Your response has been recorded, please contact HR for further instructions.
-      <br>You will be logged out automatically...</h3>
+<div *ngIf="instructionsRead">
+  <mat-card *ngIf="hide && !thankyou " class="col-xs-12 col-md-12 col-sm-12 bodyInner">
+  
+    <!-- <mat-list class="pad0"> -->
+      <!-- <mat-list-item class="pad0"> -->
+  
+        <div *ngIf="!notag" class="marAuto bodyInner width400">
+          <mat-card-title>
+            <h4>Select Job profile</h4>
+            <hr>
+          </mat-card-title>
+          <mat-radio-group >
+            <div *ngFor="let option of job_pro" class="width100 padradio">
+            <mat-radio-button name="{{option.title}}" value="{{option.id}}" (click)="selected(option.id)"></mat-radio-button>{{option.title}}
+            </div>
+          </mat-radio-group>
+          <mat-card-actions>
+          <button mat-raised-button color=primary class="flRight" (click)="getQues()">Submit</button>
+          </mat-card-actions>
+        </div>
+        <div class="col-md-4 col-sm-12 marAuto bodyInner" *ngIf="notag"><h4>{{contactHR}}</h4></div>
+      <!-- </mat-list-item> -->
+    <!-- </mat-list> -->
+  </mat-card>
+  <div class="col-xs-12 col-md-12 col-sm-12 bodyInner" *ngIf="loading">
+      <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
   </div>
+  
+  <div *ngIf="!hide && !thankyou && !loading" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
+        <div><h4>Test Questions</h4>
+  
+          <p class="col-md-6 col-sm-6 col-xs-12 pad0">
+            <!-- <span class="left style">Remaining time:
+              <span class="timer">{{timer}}</span>
+            </span> -->
+          </p>
+          <p class="col-md-6 col-sm-6 col-xs-12 pad0">
+            <span class="right style" *ngIf="total">Question Attempted:
+              <span class="bold">{{questionsAttemped}}/{{total}}</span>
+            </span>
+          </p>
+        </div>
+          <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
+  
+            <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{group.group_name}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  Total Ques: {{group.questions.length}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
+                  <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
+                  <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
+                  <p class="pid">Options:</p>
+                  <mat-radio-group class="width100 fontsize" [(ngModel)]="ques.selected">
+                    <div *ngFor="let option of ques.options" class="width100 padradio">
+                      <mat-radio-button name="{{ques._id}}" [value]="option.opt_id" (click)="selectedAns(ques._id,option.opt_id)">{{option.option}}</mat-radio-button>
+                    </div>
+                  </mat-radio-group>
+                </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+          <button mat-raised-button color=primary class="flRight submitans btn-block" (click)="savePreview()">Preview</button>
+     </div>
+  <div *ngIf="thankyou">
+    <div class="col-md-12">
+      <h1>Thank You</h1>
+      <h3 class="subhead">Your response has been recorded, please contact HR for further instructions.
+        <br>You will be logged out automatically...</h3>
+    </div>
+  </div>
+</div>
+<div *ngIf="!instructionsRead" class="well">
+  <div class="heading">Instructions</div>
+    <ol class="instructions">
+        <li *ngFor="let instruction of instructions"><p [innerHTML]="instruction" ></p></li>
+    </ol>
+    <button  mat-raised-button color=primary class="btn-block" (click)="onRead()">Continue</button>
 </div>
