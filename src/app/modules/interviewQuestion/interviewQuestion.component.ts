@@ -104,17 +104,17 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
 
     start(id: any) {
+        this.selectedAnswer = [];
         if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
             this.hide = false;
             this.loading = false;
             const res = this._localStorageService.getItem('QuestionsWithUserAnswers')
             this.questions = res.data;
-            console.log(this.questions)
             _.forEach(this.questions, (val, key) => {
                 _.forEach(val.questions, (val1, key1) => {
-                    console.log(val1, key1)
                     this.totalQues.push(val1._id);
                     if (val1['selected']) {
+                        this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
                         ++this.questionsAttemped;
                     }
                 })
@@ -132,6 +132,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     _.forEach(this.questions, (val, key) => {
                         _.forEach(val.questions, (val1, key1) => {
                             this.totalQues.push(val1._id);
+                            this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
                         })
                     })
                     this.total = res.count;
@@ -165,36 +166,39 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     // }
 
     selectedAns(quesId: any, ansId: any) {
+        this.selectedAnswer = [];
         const localQuestionsWithUserAnswers = this._localStorageService.getItem('QuestionsWithUserAnswers')
         localQuestionsWithUserAnswers['data'] = this.questions;
         this._localStorageService.clearItem('QuestionsWithUserAnswers');
         setTimeout(() => {
             this.questionsAttemped = 0;
             _.forEach(this.questions, (val, key) => {
+                console.log(val, key)
                 _.forEach(val.questions, (val1, key1) => {
                     if (val1['selected']) {
+                        this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
                         ++this.questionsAttemped;
                     }
                 })
             })
             this._localStorageService.setItem('QuestionsWithUserAnswers', localQuestionsWithUserAnswers);
         }, 100)
-        this.temp = { 'Q_id': quesId, 'ans_id': ansId };
-        if (this.selectedAnswer.length > 0 && this.filterdata(quesId)) {
-            this.selectedAnswer.push(this.temp);
-        } else {
-            this.selectedAnswer.push(this.temp);
-        }
+        // this.temp = { 'Q_id': quesId, 'ans_id': ansId };
+        // if (this.selectedAnswer.length > 0 && this.filterdata(quesId)) {
+        //     this.selectedAnswer.push(this.temp);
+        // } else {
+        //     this.selectedAnswer.push(this.temp);
+        // }
     }
 
-    filterdata(quesId) {
-        _.forEach(this.selectedAnswer, (val, key) => {
-            if (val.Q_id === quesId) {
-                this.selectedAnswer.splice(key, 1);
-                return false;
-            }
-        });
-    }
+    // filterdata(quesId) {
+    //     _.forEach(this.selectedAnswer, (val, key) => {
+    //         if (val.Q_id === quesId) {
+    //             this.selectedAnswer.splice(key, 1);
+    //             return false;
+    //         }
+    //     });
+    // }
 
     savePreview() {
         if (this.selectedAnswer.length > 0) {
@@ -220,7 +224,11 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
 
     scroll() {
-        window.scrollTo(0, 0);
+        setTimeout(() => {
+            if (document && document.getElementsByTagName('mat-sidenav-content').length > 0) {
+                document.getElementsByTagName('mat-sidenav-content')[0].scrollTop = 50;
+            }
+        }, 100)
     }
 
     submit() {

@@ -80,8 +80,13 @@ mat-panel-description{
   flex-grow: 0;
   float: right;
 }
-pre{
+pre{    
   border: 0px;
+  white-space: normal;
+  overflow-y: auto;
+  position: relative;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 .bold{
   font-weight: bold;

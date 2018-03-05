@@ -41,7 +41,7 @@
       </div>
         <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
 
-          <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false" (click)="scroll()">
+          <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{group.group_name}}
@@ -56,7 +56,7 @@
                 <p class="pid">Options:</p>
                 <mat-radio-group class="width100 fontsize" [(ngModel)]="ques.selected">
                   <div *ngFor="let option of ques.options" class="width100 padradio">
-                    <mat-radio-button name="{{ques._id}}" [value]="option.opt_id" (click)="selectedAns(ques._id,option.opt_id)"></mat-radio-button>{{option.option}}
+                    <mat-radio-button name="{{ques._id}}" [value]="option.opt_id" (click)="selectedAns(ques._id,option.opt_id)">{{option.option}}</mat-radio-button>
                   </div>
                 </mat-radio-group>
               </div>
