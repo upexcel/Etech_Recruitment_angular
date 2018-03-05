@@ -41,7 +41,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     onChange($event) {
       if(this.isSubmitted) 
       {
-          $event.returnValue='Your data will be lost!';
+          $event.returnValue='If you Reload your page, All your answers will be lost. Are you sure you want to do this?';
       }
     }
     constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private getTags: ImapMailsService, private _router: Router) {
