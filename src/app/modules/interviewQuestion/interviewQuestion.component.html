@@ -35,13 +35,13 @@
         </p>
         <p class="col-md-6 col-sm-6 col-xs-12 pad0">
           <span class="right style" *ngIf="total">Question Attempted:
-            <span class="bold">{{selectedAnswer.length}}/{{total}}</span>
+            <span class="bold">{{questionsAttemped}}/{{total}}</span>
           </span>
         </p>
       </div>
         <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
 
-          <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false" (click)="scroll()">
+          <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{group.group_name}}
@@ -54,15 +54,15 @@
                 <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
                 <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
                 <p class="pid">Options:</p>
-                <mat-radio-group class="width100 fontsize">
+                <mat-radio-group class="width100 fontsize" [(ngModel)]="ques.selected">
                   <div *ngFor="let option of ques.options" class="width100 padradio">
-                    <mat-radio-button name="{{option.option}}" value="{{option.opt_id}}" (click)="selectedAns(ques._id,option.opt_id)"></mat-radio-button>{{option.option}}
+                    <mat-radio-button name="{{ques._id}}" [value]="option.opt_id" (click)="selectedAns(ques._id,option.opt_id)">{{option.option}}</mat-radio-button>
                   </div>
                 </mat-radio-group>
               </div>
           </mat-expansion-panel>
         </mat-accordion>
-        <button mat-raised-button color=primary class="flRight submitans" (click)="savePreview()">Save and Preview</button>
+        <button mat-raised-button color=primary class="flRight submitans" (click)="savePreview()">Preview</button>
    </div>
 <div *ngIf="thankyou">
   <div class="col-md-12">

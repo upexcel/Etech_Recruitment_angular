@@ -16,7 +16,7 @@ declare let FB: any;
 export class CandidateComponent implements OnInit {
     questions: any;
     options: any;
-    job_pro: any [];
+    job_pro: any[];
     candidateName: any;
     selectedJob: any;
     img: any;
@@ -42,10 +42,15 @@ export class CandidateComponent implements OnInit {
     }
 
     fblogout() {
-        FB.logout((result) => {
+        if (JSON.parse(localStorage.getItem('loginByfb'))) {
+            FB.logout((result) => {
+                localStorage.clear();
+                this._router.navigate(['/candidatelogin']);
+            })
+        } else {
             localStorage.clear();
-            this._router.navigate(['/candidatelogin']);
-        })
+            this._router.navigate(['/emailtestlogin']);
+        }
     }
 
 }
