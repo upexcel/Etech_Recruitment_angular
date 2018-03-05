@@ -187,7 +187,6 @@ import { PreviewAnswerComponent } from './modules/previewAnswer/previewAnswer.co
 import { PreviewScoreComponent } from './modules/previewScore/previewScore.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
-import { FbtestloginComponent} from './modules/fbtestlogin/fbtestlogin.component';
 import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
@@ -199,7 +198,6 @@ import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin
     declarations: [
         AppComponent,
         LoginComponent,
-        FbtestloginComponent,
         EmailtestloginComponent,
         CoreComponent,
         InboxComponent,
