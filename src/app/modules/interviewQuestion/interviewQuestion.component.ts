@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { LocalStorageService } from '../../service/local-storage.service';
@@ -8,11 +8,13 @@ import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
 import { config } from './../../config/config';
 declare const FB: any;
+    
 @Component({
     selector: 'app-interviewques',
     templateUrl: './interviewQuestion.component.html',
     styleUrls: ['./interviewQuestion.component.scss']
 })
+
 export class InterviewQuestionComponent implements OnInit, OnDestroy {
     questions: any;
     options: any;
@@ -34,6 +36,14 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     interval: any;
     contactHR: any;
     loading = true;
+    isSubmitted = true;
+    @HostListener('window:beforeunload', ['$event'])
+    onChange($event) {
+      if(this.isSubmitted) 
+      {
+          $event.returnValue='Your data will be lost!';
+      }
+    }
     constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private getTags: ImapMailsService, private _router: Router) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
         if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id ) {
@@ -181,6 +191,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             'questionIds': this.totalQues,
             'taken_time_minutes': totalMinutes
         }
+        this.isSubmitted = false;
         this.getTags.submitTest(this.allansRecord).subscribe(res => {
             // clearInterval(this.interval);
             setTimeout(() => {
