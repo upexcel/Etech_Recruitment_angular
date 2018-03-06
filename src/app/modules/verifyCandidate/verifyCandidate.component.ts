@@ -49,36 +49,8 @@ export class VerifyCandidateComponent implements OnInit {
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.contacthr = true;
-                this.enterEmail = false;   //  Added Direct Login when Hr approve with 30 seconds wait
-                    this.apiFire =  setInterval(()=> {
-                    this.emailTestObj = this.localStorageService.getItem('walkinUser');
-                    this.access.candidate_login(this.emailTestObj).subscribe(response => {
-                        let added = this.commonService.storeFbdata(this.emailTestObj);
-                        this.ngzone.run(() => {
-                            if (response.status === 1) {
-                                clearInterval(this.apiFire);
-                                this.dialogRef = this.dialog.open(OtpdialogComponent, {
-                                    height: '225px',
-                                    width: '300px'
-                                });
-                                this.dialogRef.componentInstance.fb_id = response.fb_id;
-                                this.dialogRef.afterClosed().subscribe(result => {
-                                    if (result) {
-                                        this.loading = true;
-                                    } else {
-                                        this.loading = false;
-                                    }
-                                    this.dialogRef = null;
-                                });
-                            }
-                        })
-                    },(err) => {
-                        console.log(err);
-                        this.ngzone.run(() => {
-                            this.loading = false;
-                        })
-                    })
-                },30000);
+                this.enterEmail = false;
+                this._router.navigate(['/ThankYou']);                    
             }
             this.dialogRef = null;
         });
