@@ -272,15 +272,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         });
     }
     fblogout() {
-        if (JSON.parse(localStorage.getItem('loginByfb'))) {
-            FB.logout((result) => {
-                localStorage.clear();
-                this._router.navigate(['/fbtestlogin']);
-            })
-        } else {
             localStorage.clear();
             this._router.navigate(['/emailtestlogin']);
-        }
     }
     onRead() {
         this.instructionsRead = true;
