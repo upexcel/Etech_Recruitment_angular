@@ -49,8 +49,10 @@ export class SetvaremailpreviewComponent implements OnInit {
                 this.snackBar.open('Mail Send', '', {
                     duration: 2000,
                 });
+                this.dialogRef.close('done');                
             }, (err) => {
-                console.log(err)
+                console.log(err);
+                this.dialogRef.close('done');
             });
         } else if (this.temp['default_id'] || this.temp['tag_id']) {
             if (this.notGenuine) {
@@ -58,8 +60,10 @@ export class SetvaremailpreviewComponent implements OnInit {
                     this.snackBar.open(`Mail Sending to ${data.no_of_candidate}`, '', {
                         duration: 2000,
                     });
+                    this.dialogRef.close('done');                    
                 }, (err) => {
-                    console.log(err)
+                    console.log(err);
+                    this.dialogRef.close('done');
                 });
             } else {
                 this.apiServices.sendEmail(this.temp).subscribe((data) => {
@@ -67,7 +71,8 @@ export class SetvaremailpreviewComponent implements OnInit {
                         duration: 2000,
                     });
                 }, (err) => {
-                    console.log(err)
+                    console.log(err);
+                    this.dialogRef.close('done');
                 });
             }
         } else {
@@ -76,11 +81,13 @@ export class SetvaremailpreviewComponent implements OnInit {
                     this.snackBar.open('Email Send', '', {
                         duration: 2000,
                     });
+                    this.dialogRef.close('done');
                 }, (err) => {
                     this.snackBar.open(err.message, '', {
                         duration: 2000,
                     });
                     console.log(err);
+                    this.dialogRef.close('done');
                 });
             } else {
                 this.temp['emails'] = this.userDetails['CandidateEmail'];
@@ -88,15 +95,16 @@ export class SetvaremailpreviewComponent implements OnInit {
                     this.snackBar.open('Email Send', '', {
                         duration: 2000,
                     });
+                    this.dialogRef.close('done');
                 }, (err) => {
                     this.snackBar.open(err.message, '', {
                         duration: 2000,
                     });
                     console.log(err);
+                    this.dialogRef.close('done');
                 });
             }
         }
-        this.dialogRef.close('done');
     }
 
     close() {

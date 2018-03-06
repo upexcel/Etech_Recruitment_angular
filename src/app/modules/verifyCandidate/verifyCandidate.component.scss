@@ -80,18 +80,19 @@ h5{
   color: white;
 }
 .loader-dots i {
+    opacity: 0;
     font-size: 24px !important;
     font-family: cursive !important;
     font-weight: 800;transition: .5;
     animation: loading-dots 1.5s linear infinite alternate;
 }
 .loader-dots i:nth-child(1){
-    opacity: 0;
+    // opacity: 0;
     transition: .5;
     animation-delay: .5s;
 }
 .loader-dots i:nth-child(2){
-    opacity: .5;
+    // opacity: .5;
     transition: .5;
     animation-delay: 1s;
 }
