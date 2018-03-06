@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
 import { OtpdialogComponent } from '../otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from '../walkin-candidate/walkin-candidate.component';
-declare const FB: any;
+import { LocalStorageService } from '../../service/local-storage.service';
+
 @Component({
     selector: 'app-verify-candidate',
     templateUrl: './verifyCandidate.component.html',
@@ -23,7 +24,8 @@ export class VerifyCandidateComponent implements OnInit {
     errorMsg: any;
     addForm: FormGroup;
     dialogRef: MatDialogRef<any>;
-    constructor(public dialog: MatDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService) {
+    emailTestObj;
+    constructor(public dialog: MatDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService, public localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {
@@ -41,10 +43,30 @@ export class VerifyCandidateComponent implements OnInit {
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.contacthr = true;
-                this.enterEmail = false;
-                setTimeout(() => {
-                    this.fblogout();
-                }, 60000);
+                this.enterEmail = false;   //  Added Direct Login when Hr approve with 30 seconds wait
+                setInterval(()=> {
+                    this.emailTestObj = this.localStorageService.getItem('walkinUser');
+                    this.access.facebook_login(this.emailTestObj).subscribe(response => {
+                        let added = this.commonService.storeFbdata(this.emailTestObj);
+                        this.ngzone.run(() => {
+                            if (response.status === 1) {
+                                this.dialogRef = this.dialog.open(OtpdialogComponent, {
+                                    height: '225px',
+                                    width: '300px'
+                                });
+                                this.dialogRef.componentInstance.fb_id = response.fb_id;
+                                this.dialogRef.afterClosed().subscribe(result => {
+                                    if (result) {
+                                        this.loading = true;
+                                    } else {
+                                        this.loading = false;
+                                    }
+                                    this.dialogRef = null;
+                                });
+                            }
+                        })
+                    })
+                },30000);
             }
             this.dialogRef = null;
         });
