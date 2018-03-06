@@ -65,3 +65,10 @@ export const config = {
     allTagTitle: 'Mails/Attachment'
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
+export const instructions = [
+    "The test consists of 3 sections <b>Aptitude, English, Logical.</b> There is a time limit of <b>1 hr.</b>",
+    "Press “Finish & Submit” only after you have completed all 3 sections.",
+    "Do not <b>close/refresh</b> the test at all in between, if you do you will might have to start your test paper from scratch.", 
+    "Test is given best in landscape mode. So change your mobile display to landscape mode.", 
+    "Do not open any other tabs in your browser, if you open a new tab it will get recorded." 
+    ];

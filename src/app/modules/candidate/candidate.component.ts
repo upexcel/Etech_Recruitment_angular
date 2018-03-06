@@ -7,7 +7,6 @@ import { NgForm } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { config } from './../../config/config';
 
-declare let FB: any;
 @Component({
     selector: 'app-candidate',
     templateUrl: './candidate.component.html',
@@ -16,7 +15,7 @@ declare let FB: any;
 export class CandidateComponent implements OnInit {
     questions: any;
     options: any;
-    job_pro: any [];
+    job_pro: any[];
     candidateName: any;
     selectedJob: any;
     img: any;
@@ -30,22 +29,11 @@ export class CandidateComponent implements OnInit {
     //     }
     // }
     ngOnInit() {
-        // FB.init({
-        //     appId: environment['fb_loginAppid'],
-        //     cookie: true, // enable cookies to allow the server to access
-        //     xfbml: true, // parse social plugins on this page
-        //     version: config.fb_version // use graph api version 2.8
-        // });
-        // FB.getLoginStatus((response) => {
-        //     this.statusChangeCallback(response);
-        // });
     }
 
     fblogout() {
-        FB.logout((result) => {
-            localStorage.clear();
-            this._router.navigate(['/candidatelogin']);
-        })
+        localStorage.clear();
+        this._router.navigate(['/emailtestlogin']);
     }
 
 }

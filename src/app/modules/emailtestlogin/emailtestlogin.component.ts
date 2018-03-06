@@ -26,6 +26,7 @@ export class EmailtestloginComponent implements OnInit {
     }
 
     ngOnInit() {
+        localStorage.clear();
     }
     submit(form: NgForm) {
         console.log(form.valid, form.value)
