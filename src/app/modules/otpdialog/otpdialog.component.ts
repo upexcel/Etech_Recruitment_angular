@@ -21,7 +21,7 @@ export class OtpdialogComponent implements OnInit {
     ngOnInit() {
     }
     submitOtp() {
-        this.access.fbOtp_login({ 'fb_id': this.fb_id, 'examToken': this.otp }).subscribe(response => {
+        this.access.candidateOtp_login({ 'fb_id': this.fb_id, 'examToken': this.otp }).subscribe(response => {
             if (response.status === 1) {
                 this.dialogRef.close();
                 this.zone.run(() => {

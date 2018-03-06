@@ -25,6 +25,7 @@ export class VerifyCandidateComponent implements OnInit {
     addForm: FormGroup;
     dialogRef: MatDialogRef<any>;
     emailTestObj;
+    apiFire;
     constructor(public dialog: MatDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService, public localStorageService: LocalStorageService) {
     }
 
@@ -35,6 +36,11 @@ export class VerifyCandidateComponent implements OnInit {
         });
 
     }
+    ngOnDestroy() {
+        if(this.apiFire) {
+            clearInterval(this.apiFire);            
+        }
+    }
     addWalkinCandidate() {
         this.dialogRef = this.dialog.open(WalkinCandidateComponent, {
             height: '70%',
@@ -44,12 +50,13 @@ export class VerifyCandidateComponent implements OnInit {
             if (result) {
                 this.contacthr = true;
                 this.enterEmail = false;   //  Added Direct Login when Hr approve with 30 seconds wait
-                setInterval(()=> {
+                    this.apiFire =  setInterval(()=> {
                     this.emailTestObj = this.localStorageService.getItem('walkinUser');
-                    this.access.facebook_login(this.emailTestObj).subscribe(response => {
+                    this.access.candidate_login(this.emailTestObj).subscribe(response => {
                         let added = this.commonService.storeFbdata(this.emailTestObj);
                         this.ngzone.run(() => {
                             if (response.status === 1) {
+                                clearInterval(this.apiFire);
                                 this.dialogRef = this.dialog.open(OtpdialogComponent, {
                                     height: '225px',
                                     width: '300px'
@@ -65,6 +72,11 @@ export class VerifyCandidateComponent implements OnInit {
                                 });
                             }
                         })
+                    },(err) => {
+                        console.log(err);
+                        this.ngzone.run(() => {
+                            this.loading = false;
+                        })
                     })
                 },30000);
             }
@@ -79,7 +91,7 @@ export class VerifyCandidateComponent implements OnInit {
         if (this.addForm.valid) {
             this.loading = true;
             this.fbdata['appliedEmail'] = this.addForm.controls['email'].value;
-            this.access.facebook_login(this.fbdata).subscribe(response => {
+            this.access.candidate_login(this.fbdata).subscribe(response => {
                 if (response.status === 1) {
                     this.ngzone.run(() => {
                         this.dialogRef = this.dialog.open(OtpdialogComponent, {
