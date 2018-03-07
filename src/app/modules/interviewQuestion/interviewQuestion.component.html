@@ -3,7 +3,6 @@
   
     <!-- <mat-list class="pad0"> -->
       <!-- <mat-list-item class="pad0"> -->
-  
         <div *ngIf="!notag" class="marAuto bodyInner width400">
           <mat-card-title>
             <h4>Select Job profile</h4>
@@ -27,18 +26,19 @@
   </div>
   
   <div *ngIf="!hide && !thankyou && !loading" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
-        <div><h4>Test Questions</h4>
+        <div class="margin-bottom"><h4>Test Questions</h4>
   
           <p class="col-md-6 col-sm-6 col-xs-12 pad0">
             <!-- <span class="left style">Remaining time:
               <span class="timer">{{timer}}</span>
             </span> -->
           </p>
-          <p class="col-md-6 col-sm-6 col-xs-12 pad0">
+          <p class="col-md-4 col-sm-4 col-xs-8 pad0">
             <span class="right style" *ngIf="total">Question Attempted:
               <span class="bold">{{questionsAttemped}}/{{total}}</span>
             </span>
           </p>
+          <button mat-raised-button color="primary" class="help-position" (click)="onHelp()" [disabled]=disabled>Call For Help</button>          
         </div>
           <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
   
