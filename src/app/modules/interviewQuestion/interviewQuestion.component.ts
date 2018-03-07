@@ -41,6 +41,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     isSubmitted = true;
     instructionsRead:boolean = false;
     instructions:Array<string> = instructions;
+    disabled:boolean;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -75,7 +76,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         if(this._localStorageService.getItem('instructions')!=null) {
             this.instructionsRead = this._localStorageService.getItem('instructions');
         }
-
     }
     ngOnDestroy() {
         // clearInterval(this.interval);
@@ -279,5 +279,21 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.instructionsRead = true;
         this._localStorageService.setItem('instructions',this.instructionsRead);
 
+    }
+    onHelp() {
+        this.disabled = true;
+        this._apiService.helpMe({'fb_id': this.user_id,}).subscribe(res => {
+            if(res.status ==1) {
+                this.disabled = false;
+                this._mdSnackBar.open('Please Wait! We have sent a message to HR.', '', {
+                    duration: 4000,
+                });
+            }
+        },err=> {
+            this.disabled = false;
+            this._mdSnackBar.open('Something went wrong, Please try agian.', '', {
+                duration: 4000,
+            });           
+        })
     }
 };
