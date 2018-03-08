@@ -4,14 +4,19 @@
         <thead >
           <tr>
             <th>Name</th>
+            <th></th>
             <th>Email</th>
             <th>Facebook link</th>
             <th>Assign Tag</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of candiadteList; let id=index">
-            <td>{{data.from}}</td>
+          <tr *ngFor="let data of candidateList; let id=index">
+            <td>{{data.from}}
+            </td>
+            <td>
+                <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delCandidate(data._id)"><i class="material-icons">delete</i></button>
+            </td>
             <td>{{data.sender_mail}}</td>
             <td><a href="http://www.facebook.com/{{data.fb_id}}" target="blank">Check Profile</a></td>
             <td>

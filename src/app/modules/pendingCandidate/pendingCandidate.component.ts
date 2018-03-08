@@ -9,17 +9,18 @@ import * as _ from 'lodash';
     styleUrls: ['./pendingCandidate.component.scss']
 })
 export class PendingCandidateComponent implements OnInit {
-    candiadteList: any;
+    candidateList: any;
     tags: any;
     jobprofile_tag = [];
     messageShow: any;
     message = false;
+    loading:boolean;
     constructor(private _getScore: ImapMailsService, private _ngzone: NgZone) { }
 
     getPendingCandidateList() {
         this._getScore.pendingList().subscribe(res => {
             this._ngzone.run(() => {
-                this.candiadteList = res;
+                this.candidateList = res;
                 if (res.length === 0) {
                     this.messageShow = 'No Pending Candidates';
                     this.message = true;
@@ -79,6 +80,12 @@ export class PendingCandidateComponent implements OnInit {
     assignTag(tag_id: any, email: any) {
         this._getScore.approveCandidate({ 'email': email, 'tag_id': tag_id }).subscribe(res => {
             this.getPendingCandidateList();
+        }, err => {
+        });
+    }
+    delCandidate(id) {
+        _.remove(this.candidateList,{'_id':id});
+        this._getScore.removeCandidate(id).subscribe(res => {
         }, err => {
         });
     }
