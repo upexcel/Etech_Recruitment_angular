@@ -100,7 +100,7 @@ mat-accordion{
 mat-expansion-panel-header{
   padding: 0 15px;
 }
-/deep/ mat-expansion-panel div.mat-expansion-panel-body{
+.mat-expansion-panel div.mat-expansion-panel-body{
   padding: 0 5px !important;
 }
 .pad0{

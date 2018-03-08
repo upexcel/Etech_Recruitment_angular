@@ -1,5 +1,6 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material'
 import { ImapMailsService } from '../../service/imapemails.service';
 import * as _ from 'lodash';
 
@@ -15,7 +16,7 @@ export class PendingCandidateComponent implements OnInit {
     messageShow: any;
     message = false;
     loading:boolean;
-    constructor(private _getScore: ImapMailsService, private _ngzone: NgZone) { }
+    constructor(private _getScore: ImapMailsService, private _ngzone: NgZone, public _matSnackBar: MatSnackBar) { }
 
     getPendingCandidateList() {
         this._getScore.pendingList().subscribe(res => {
@@ -86,7 +87,15 @@ export class PendingCandidateComponent implements OnInit {
     delCandidate(id) {
         _.remove(this.candidateList,{'_id':id});
         this._getScore.removeCandidate(id).subscribe(res => {
-        }, err => {
-        });
+            if(res.status ==1) {
+                this._matSnackBar.open('Candidate Successfully Deleted.', '', {
+                    duration: 4000,
+                });
+            }
+        },err=> {
+            this._matSnackBar.open('Something went wrong, Please try agian.', '', {
+                duration: 4000,
+            });           
+        })
     }
 }
