@@ -6,7 +6,6 @@
             <th>Name</th>
             <th></th>
             <th>Email</th>
-            <th>Facebook link</th>
             <th>Assign Tag</th>
           </tr>
         </thead>
@@ -15,7 +14,6 @@
             <td>{{data.from}}</td>
             <td><button mat-icon-button color=warn matTooltip="click to delete!" (click)="delCandidate(data._id)"><i class="material-icons">delete</i></button></td>
             <td>{{data.sender_mail}}</td>
-            <td><a href="http://www.facebook.com/{{data.fb_id}}" target="blank">Check Profile</a></td>
             <td>
               <div class="col-md-12 col-sm-12">
               <mat-select class="width-100" id="job_profile" placeholder="Assign Job Profile" name="job_profile" required>
