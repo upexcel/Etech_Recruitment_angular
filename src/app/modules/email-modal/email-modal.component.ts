@@ -421,6 +421,11 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogRef.componentInstance.tagIdArray = this.selectedEmail['tag_id'];
         this.dialogRef.componentInstance.id = this.selectedEmail['_id']
         this.dialogRef.afterClosed().subscribe(result => {
+            if(result == 'done') {
+                if (this._localStorageService.getItem('close')) {
+                    this.close();
+                }    
+            }
             this.dialogRef = null;
         })
     }
