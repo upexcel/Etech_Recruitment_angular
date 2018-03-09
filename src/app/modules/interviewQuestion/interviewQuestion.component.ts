@@ -42,6 +42,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     instructionsRead:boolean = false;
     instructions:Array<string> = instructions;
     disabled:boolean;
+    timeExp: boolean;
+    timerMin: any;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -65,20 +67,22 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         } else {
             this.getJobProfile();
         }
-        // if (localStorage.getItem('sessionStart')) {
-        // this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
-        // this.hide = false;
-        // this.selectedJob = localStorage.getItem('_idjob');
-        // this.getQues();
-        // } else {
-        // this.maxtime = config.testMaxtime;
-        // }
+        if (localStorage.getItem('sessionStart') && localStorage.getItem('maxtime') !== 'null') {
+            this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
+            this.hide = false;
+            this.selectedJob = localStorage.getItem('_idjob');
+            if (localStorage.getItem('limitExpire')) {
+                this.timeExp = true;
+            }
+            this.getQues();
+            this.timerstart();
+        }
         if(this._localStorageService.getItem('instructions')!=null) {
             this.instructionsRead = this._localStorageService.getItem('instructions');
         }
     }
     ngOnDestroy() {
-        // clearInterval(this.interval);
+        clearInterval(this.interval);
     }
 
     getJobProfile() {
@@ -135,8 +139,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 })
             })
             this.total = res.count;
-            localStorage.setItem('sessionStart', 'true')
-            // this.timerstart();
         } else {
             this._apiService.getQues(id).subscribe(res => {
                 this.loading = false;
@@ -151,8 +153,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                         })
                     })
                     this.total = res.count;
-                    localStorage.setItem('sessionStart', 'true')
-                    // this.timerstart();
                 } else {
                     this._mdSnackBar.open('Test not available', '', {
                         duration: 2000,
@@ -163,22 +163,31 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             });
         }
     }
-    // timerstart() {
-    //     this.interval = setInterval(() => {
-    //         this.maxtime = this.maxtime - 1000;
-    //         localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
-    //         let hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //         let minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
-    //         let seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
+    timerstart() {
+        this.interval = setInterval(() => {
+            this.maxtime = this.maxtime - 1000;
+            localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
+            let hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
 
-    //         this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
-    //         if (this.maxtime <= 0) {
-    //             clearInterval(this.interval);
-    //             localStorage.removeItem('maxtime');
-    //             this.submit();
-    //         }
-    //     }, 1000);
-    // }
+            this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
+            this.timerMin = minutes + ' min ' + seconds + ' sec ';
+            if (this.maxtime === 0) {
+                if(!localStorage.getItem('limitExpire')) {
+                    this.maxtime = config.timeGrace;
+                    this.timeExp = true;
+                    localStorage.setItem('limitExpire', 'true');
+                    alert(`Test Time Expires. You have ${config.timeGrace / 60000} Minute to submit your response`);
+                } else {
+                    clearInterval(this.interval);
+                    localStorage.removeItem('maxtime');
+                    this.thankyou = true;
+                    this.submit();
+                }
+            }
+        }, 1000);
+    }
 
     selectedAns(quesId: any, ansId: any) {
         this.selectedAnswer = [];
@@ -260,7 +269,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }
         this.isSubmitted = false;
         this._apiService.submitTest(this.allansRecord).subscribe(res => {
-            // clearInterval(this.interval);
+            clearInterval(this.interval);
             setTimeout(() => {
                 this.fblogout();
             }, 5000);
@@ -272,11 +281,14 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         });
     }
     fblogout() {
-            localStorage.clear();
-            this._router.navigate(['/emailtestlogin']);
+        localStorage.clear();
+        this._router.navigate(['/emailtestlogin']);
     }
     onRead() {
         this.instructionsRead = true;
+        this.maxtime = config.testMaxtime;
+        localStorage.setItem('sessionStart', 'true');
+        this.timerstart();
         this._localStorageService.setItem('instructions',this.instructionsRead);
 
     }
@@ -293,7 +305,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.disabled = false;
             this._mdSnackBar.open('Something went wrong, Please try agian.', '', {
                 duration: 4000,
-            });           
+            });
         })
     }
 };
