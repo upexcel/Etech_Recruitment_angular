@@ -17,7 +17,7 @@ declare const FB: any;
 })
 
 export class InterviewQuestionComponent implements OnInit, OnDestroy {
-    questions: any;
+    questions = [];
     options: any;
     job_pro: any[];
     hide = false;
@@ -129,6 +129,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.loading = false;
             const res = this._localStorageService.getItem('QuestionsWithUserAnswers')
             this.questions = res.data;
+            console.log(this.questions)
             _.forEach(this.questions, (val, key) => {
                 _.forEach(val.questions, (val1, key1) => {
                     this.totalQues.push(val1._id);
@@ -146,6 +147,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this._localStorageService.setItem('QuestionsWithUserAnswers', res);
                     this.hide = false;
                     this.questions = res.data;
+            console.log(this.questions);
+
                     _.forEach(this.questions, (val, key) => {
                         _.forEach(val.questions, (val1, key1) => {
                             this.totalQues.push(val1._id);
@@ -174,11 +177,14 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
             this.timerMin = minutes + ' min ' + seconds + ' sec ';
             if (this.maxtime === 0) {
-                if(!localStorage.getItem('limitExpire')) {
-                    this.maxtime = config.timeGrace;
-                    this.timeExp = true;
-                    localStorage.setItem('limitExpire', 'true');
-                    alert(`Test Time Expires. You have ${config.timeGrace / 60000} Minute to submit your response`);
+                if (!localStorage.getItem('limitExpire')) {
+                    const snackBarRef = this._mdSnackBar.open('You time for taking the exam is over, Please submit all your questions in next 2minutes" and if in next 2mintues questions are not submitted. it will automatically submit', 'OK', {
+                    });
+                    snackBarRef.onAction().subscribe(() => {
+                        this.maxtime = config.timeGrace;
+                        this.timeExp = true;
+                        localStorage.setItem('limitExpire', 'true');
+                    });
                 } else {
                     clearInterval(this.interval);
                     localStorage.removeItem('maxtime');
