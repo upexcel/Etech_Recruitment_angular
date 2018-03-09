@@ -56,7 +56,7 @@ export class ThankYouComponent implements OnInit {
       this.count--;
       if(this.count==0) {
         this.count = 30;
-        console.log(this.again);
+        this.again = "Again";
       }
     },1000)
   }
