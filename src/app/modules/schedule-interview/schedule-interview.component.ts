@@ -40,6 +40,7 @@ export class ScheduleInterviewComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.minDate = new Date();
         if (this.emailData.mobile_no && this.emailData.mobile_no.length > 0) {
             this.emailData.mobile_no = this.emailData.mobile_no.substr(3, this.emailData.mobile_no.length);
             if (this.emailData.mobile_no === 'undefined') {
@@ -51,9 +52,9 @@ export class ScheduleInterviewComponent implements OnInit {
             if (res.flag) {
                 this.scheduleApi.getScheduleData().subscribe((data) => {
                     this.scheduleData = data;
-                    this.minDate = new Date(data[0]['date']);
-                    this.maxDate = new Date(data[data.length - 1]['date']);
-                    this.getTeamplateList();
+                    // this.minDate = new Date(data[0]['date']);
+                    // this.maxDate = new Date(data[data.length - 1]['date']);
+                    this.getTemplateList();
                 }, (err) => {
                     console.log(err);
                 });
@@ -84,7 +85,7 @@ export class ScheduleInterviewComponent implements OnInit {
         this.interviewForm.get('selectedInterviewTime').enable();
         this.interviewForm.get('selectedInterviewTime').setValue(null);
         this.showSelectedDate = selectedDate;
-        this.timeListData = _.filter(this.scheduleData, { 'date': this._commonService.formateDate(selectedDate) })[0]['time_slots'][this.selectedInterviewRound['value']];
+        this.timeListData = this.scheduleData[0]['time_slots']['first_round'];
     }
 
     scheduleInterview(data) {
@@ -99,7 +100,6 @@ export class ScheduleInterviewComponent implements OnInit {
         };
         this.dialogRef.close(apiData);
     }
-
     scheduleInterviewDirect(data) {
         const apiData = {
             'tag_id': data.id,
@@ -120,7 +120,7 @@ export class ScheduleInterviewComponent implements OnInit {
         this.dialogRef.close('back');
     }
 
-    getTeamplateList() {
+    getTemplateList() {
         this.scheduleApi.getTemplate().subscribe(data => {
             this.templateData = data;
             this.showForm = true;
