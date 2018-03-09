@@ -2,8 +2,8 @@ export const config = {
     'interviewRounds': [{ 'name': 'First Round', 'value': 'first_round' }, { 'name': 'Second Round', 'value': 'second_round' }, { 'name': 'Third Round', 'value': 'third_round' }],
     'userType': ['Admin', 'Hr', 'Guest', 'Interviewee', 'Candidate'],
     'mobileNoPrefix': '+91',
-    'testMaxtime': 120000,
-    'timeGrace': 120000,
+    'testMaxtime': 3600000,
+    'timeGrace': 300000,
     'titles': { '/core/dashboa': 'Dashboard', '/core/setting': 'Settings', '/core/inbox': 'Inbox', '/core/inbox/e': 'Inbox', '/core/email-t': 'Email Tracking', '/core/intervi': 'Inbox'},
     'roles': { 'HR': ['/core/setting/emailtemplate', '/core/setting/createQuestion', '/core/setting/pendingCandidate', '/core/setting/candidateScore', '/core/setting/emailvariable', '/core/setting/tagsetting', '/core/setting/automaticTags', '/core/setting/jobProfileTags', '/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Guest': ['/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Interviewee': ['/core/interviewee-inbox', '/core/setting/resetPassword', '/core/dashboard']},
     'dashboardChartColor': [
