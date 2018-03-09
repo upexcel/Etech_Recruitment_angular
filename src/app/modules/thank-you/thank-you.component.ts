@@ -18,7 +18,7 @@ export class ThankYouComponent implements OnInit {
   dialogRef: MatDialogRef<any>;
   counter;
   count = 30;
-  again:string = null;
+  again:boolean;
   constructor(public dialog: MatDialog, private ngzone: NgZone, private access: LoginService, public commonService: CommonService, public localStorageService: LocalStorageService) { }
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class ThankYouComponent implements OnInit {
       this.count--;
       if(this.count==0) {
         this.count = 30;
-        this.again = "Again";
+        this.again = true;
       }
     },1000)
   }
