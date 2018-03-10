@@ -18,8 +18,6 @@ export class ViewNoteComponent implements OnInit {
         _.forEach(this.candidateNote, (val, key) => {
             val.note = val.note.replace(new RegExp('\n', 'g'), '<br />');
         });
-        // console.log(this.candidateNote);
-        // console.log(_.sortBy(this.candidateNote,['date','time']).reverse());
     }
     close() {
     }
