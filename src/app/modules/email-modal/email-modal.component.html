@@ -18,9 +18,6 @@
         </div>
     </div>
     <div class="right"  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">
-        <span>
-            <a href="http://facebook.com/{{selectedEmail.fb_id}}" target="blank">Facebook Profile</a>
-        </span>
         <span>Exam Score: {{selectedEmail.examScore}},</span>
         <span>
             <button mat-raised-button matTooltip="View Report" mdTooltipPosition="below" class="report" (click)="getDetailedScore(selectedEmail.fb_id)">Test Report</button>

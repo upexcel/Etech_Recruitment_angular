@@ -8,7 +8,6 @@ import * as _ from 'lodash';
 import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
 import { config } from './../../config/config';
 import { instructions } from './../../config/config';
-declare const FB: any;
 
 @Component({
     selector: 'app-interviewques',
