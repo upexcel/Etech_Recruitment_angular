@@ -14,10 +14,10 @@ export class ViewNoteComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<any>) {
     }
     ngOnInit() {
+        this.candidateNote = _.sortBy(this.candidateNote,['date','time']).reverse();
         _.forEach(this.candidateNote, (val, key) => {
             val.note = val.note.replace(new RegExp('\n', 'g'), '<br />');
         });
-
     }
     close() {
     }
