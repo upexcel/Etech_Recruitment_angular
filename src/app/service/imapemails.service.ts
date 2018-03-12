@@ -1248,7 +1248,7 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    // For candidate delete 
+    // For candidate delete
     removeCandidate(param): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.delete(environment['apibase'] + `exams/deletePendingCandidate/${param}`)
@@ -1262,4 +1262,18 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
- }
+    // For bulk Archive Mail
+    archiveAllMail(data: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + `email/archive`, data)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+}

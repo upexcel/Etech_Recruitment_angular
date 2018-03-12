@@ -194,6 +194,7 @@ import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove
 import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
 import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
 import { ThankYouComponent } from './modules/thank-you/thank-you.component';
+import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.component';
 
 @NgModule({
     declarations: [
@@ -269,7 +270,8 @@ import { ThankYouComponent } from './modules/thank-you/thank-you.component';
         RemoveMailsDialogComponent,
         ChangeTagComponent,
         EmailtestloginComponent,
-        ThankYouComponent
+        ThankYouComponent,
+        ArchiveMailComponent
     ],
     imports: [
         BrowserModule,
@@ -350,7 +352,8 @@ import { ThankYouComponent } from './modules/thank-you/thank-you.component';
         WalkinCandidateComponent,
         PreviewScoreComponent,
         RemoveMailsDialogComponent,
-        ChangeTagComponent
+        ChangeTagComponent,
+        ArchiveMailComponent
     ],
     bootstrap: [AppComponent]
 })
