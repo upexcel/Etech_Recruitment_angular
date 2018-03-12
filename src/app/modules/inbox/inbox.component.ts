@@ -82,6 +82,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     onStarredPage: boolean;
     currentPage: any;
     isSearching = false;
+    noOfMails: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MatDialog, public getemails: ImapMailsService, public snackBar: MatSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -488,6 +489,14 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.searchEmailList(this.data.page);
             }
         }
+    }
+    getMails() {
+        this.emailLimit = this.noOfMails;
+        this.data['limit'] = this.noOfMails;
+        this.getemails.getEmailList(this.data).subscribe((data) => {
+            this.addSelectedFieldInEmailList(data);
+            this.loading = false;
+        });
     }
 
     fetchNewEmails() {
