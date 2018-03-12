@@ -60,6 +60,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     closeWindow: boolean;
     currentTag:any; // new variable to show tag of the candidate
     color: string;
+    result:any;
     callStatus = config.callStatus;
     constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
@@ -311,8 +312,10 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         if(value == 'updateInbox') {
             localStorage.setItem('updateInbox', this.selectedEmail['_id']);
         } else if (value=='callStatus') {
-            const data = {'id':this.selectedEmail['_id'],'color':this.color};
-            
+            const data = {'id':this.selectedEmail['_id'],'callingStatus':this.result['callingStatus']};
+            if(this.result['callSuccessTime']) {
+                data['callSuccessTime'] = this.result['callSuccessTime'];
+            }
             localStorage.setItem('callStatus',JSON.stringify(data));
         }
     }
@@ -454,7 +457,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogRef.componentInstance.id = this.selectedEmail._id;
         this.dialogRef.afterClosed().subscribe(result => {
             if(result!=undefined) {
-                this.color=result['callingStatus'];
+                this.color = result['callingStatus'];
+                this.result = result;
                 this.broadcast_send('callStatus');
                 this.callTip(result);
             }

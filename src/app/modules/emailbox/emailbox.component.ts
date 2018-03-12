@@ -10,7 +10,7 @@ import { ViewNoteComponent } from './../view-note/view-note.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
 import * as moment from 'moment'; 
-import { config, callToolTips } from './../../config/config';
+import { config } from './../../config/config';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -254,14 +254,15 @@ export class EmailboxComponent implements OnInit {
     }
     callTip(data) {
       this.callStatus = this.commonService.callToolTips(data);
+      console.log(data);
     }
 
     updateEmailCallStatus(value) {
         const data = JSON.parse(value);
         if(this.email._id == data.id){
-            this.color = data.color;
-            this.email['callingStatus'] = data.color;
-            this.callTip(this.email['callingStatus']);
+            this.color = data.callingStatus;
+            this.email['callingStatus'] = this.color;
+            this.callTip({'callingStatus': data.callingStatus, 'callSuccessTime': data.callSuccessTime});
         }
     }
 }
