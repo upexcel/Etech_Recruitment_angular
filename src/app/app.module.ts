@@ -194,6 +194,7 @@ import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove
 import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
 import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
 import { ThankYouComponent } from './modules/thank-you/thank-you.component';
+import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.component';
 import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.component';
 
 @NgModule({
@@ -271,6 +272,7 @@ import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.comp
         ChangeTagComponent,
         EmailtestloginComponent,
         ThankYouComponent,
+        ArchiveMailComponent,
         SetCallLogsComponent
     ],
     imports: [
@@ -353,6 +355,7 @@ import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.comp
         PreviewScoreComponent,
         RemoveMailsDialogComponent,
         ChangeTagComponent,
+        ArchiveMailComponent,
         SetCallLogsComponent
     ],
     bootstrap: [AppComponent]
