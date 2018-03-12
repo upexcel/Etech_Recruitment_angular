@@ -254,7 +254,6 @@ export class EmailboxComponent implements OnInit {
     }
     callTip(data) {
       this.callStatus = this.commonService.callToolTips(data);
-      console.log(data);
     }
 
     updateEmailCallStatus(value) {
