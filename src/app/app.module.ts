@@ -193,6 +193,7 @@ import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCan
 import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove-mails-dialog.component';
 import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
 import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
+import { ThankYouComponent } from './modules/thank-you/thank-you.component';
 
 @NgModule({
     declarations: [
@@ -267,7 +268,8 @@ import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin
         PendingCandidateComponent,
         RemoveMailsDialogComponent,
         ChangeTagComponent,
-        EmailtestloginComponent
+        EmailtestloginComponent,
+        ThankYouComponent
     ],
     imports: [
         BrowserModule,

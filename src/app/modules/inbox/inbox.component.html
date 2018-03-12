@@ -45,6 +45,10 @@
                                         <input [(ngModel)]="goToPageNo" type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57 " id="goInput" class="form-control" placeholder="Page No" [ngModelOptions]="{standalone: true}">
                                         <button mat-mini-fab (click)="gotTopage(goToPageNo)" id="goBtn"[disabled]="!goToPageNo || goToPageNo < 0">Go</button>
                                     </div>
+                                    <div class="go-to-page-form">
+                                        <input [(ngModel)]="noOfMails" type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57 " id="goInput" class="form-control" placeholder="Email Limit" [ngModelOptions]="{standalone: true}">
+                                        <button mat-mini-fab (click)="getMails()" id="goBtn"[disabled]="!noOfMails || noOfMails < 0">Set</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

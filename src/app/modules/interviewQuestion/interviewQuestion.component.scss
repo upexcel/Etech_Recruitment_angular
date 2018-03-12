@@ -80,7 +80,7 @@ mat-panel-description{
   flex-grow: 0;
   float: right;
 }
-pre{    
+pre{
   border: 0px;
   white-space: normal;
   overflow-y: auto;
@@ -100,7 +100,7 @@ mat-accordion{
 mat-expansion-panel-header{
   padding: 0 15px;
 }
-/deep/ mat-expansion-panel div.mat-expansion-panel-body{
+.mat-expansion-panel div.mat-expansion-panel-body{
   padding: 0 5px !important;
 }
 .pad0{
@@ -157,9 +157,9 @@ mat-expansion-panel-header{
 .heading {
   font-size: 230%;
   color: rgba(0,0,0,0.8);
-  text-align: center; 
+  text-align: center;
   padding-bottom: 10px;
-  text-transform: uppercase; 
+  text-transform: uppercase;
 }
 ol {
   font-weight: bold;
@@ -171,3 +171,35 @@ ol {
 .instructions li p {
   font-weight: normal;
 }
+.help-position {
+  padding: 0px 8px;
+  line-height: 27px;
+}
+.margin-bottom {
+  margin-bottom: 10px;
+}
+
+.blink {
+    color:red;
+    -webkit-animation: blink 1s step-end infinite;
+    animation: blink 1s step-end infinite;
+    -moz-animation:1s blink linear infinite;
+  }
+  @keyframes blink {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+    }
+  @-moz-keyframes blink {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+    }
+
+  @-webkit-keyframes blink {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+    }
+
+
