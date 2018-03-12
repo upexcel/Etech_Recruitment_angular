@@ -10,7 +10,7 @@ import { ViewNoteComponent } from './../view-note/view-note.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
 import * as moment from 'moment'; 
-import { config } from './../../config/config';
+import { config, callToolTips } from './../../config/config';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,10 +48,8 @@ export class EmailboxComponent implements OnInit {
     starred = false;
     allTagTitle = config['allTagTitle'];
     isRoundsTag = false;
-    color;
-    callStatus = "Call Status";
-    time;
-    date;
+    color: string;
+    callStatus = config.callStatus;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _dialogService: DialogService, public _snackBar: MatSnackBar) { }
 
     ngOnInit() {
@@ -255,17 +253,7 @@ export class EmailboxComponent implements OnInit {
         })
     }
     callTip(data) {
-        if(data['callSuccessTime']) {
-        this.date = moment(new Date(data['callSuccessTime'])).format('DD-MM-YYYY');
-        this.time = moment(new Date(data['callSuccessTime'])).format('hh:mm:ss a');
-        }
-        
-        switch(data['callingStatus']) {
-            case 'missed':  this.callStatus = "Didn't Pickup";  break;
-            case 'error':   this.callStatus = "Call Not Connected";  break;
-            case 'success': this.callStatus = `Talked To Candidate on ${this.date} at ${this.time}`;  break;
-            case 'again':   this.callStatus = "Call Again Later";  break;
-        }
+      this.callStatus = this.commonService.callToolTips(data);
     }
 
     updateEmailCallStatus(value) {

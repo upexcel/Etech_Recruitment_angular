@@ -8,7 +8,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
   styleUrls: ['./set-call-logs.component.scss']
 })
 export class SetCallLogsComponent implements OnInit {
-  id;
+  id: string;
   constructor(public dialogRef: MatDialogRef<any>, public imap: ImapMailsService, private _mdSnackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -18,20 +18,20 @@ export class SetCallLogsComponent implements OnInit {
     let body = {
       'callingStatus': value
     }
-    if(value=='success') {
+    if (value == 'success') {
       body['callSuccessTime'] = new Date();
     }
     this.dialogRef.close(body);
     this.imap.setCallStatus(this.id, body).subscribe((res) => {
-      if(res.status==1) {
+      if (res.status == 1) {
         this._mdSnackBar.open('Call Status Recorded.', '', {
           duration: 2000,
-      });
+        });
       }
     }, (err) => {
       this._mdSnackBar.open('Something went wrong, Please try again.', '', {
         duration: 2000,
-    });
+      });
     })
 
   }

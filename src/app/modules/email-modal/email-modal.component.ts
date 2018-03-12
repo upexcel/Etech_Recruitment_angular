@@ -59,10 +59,8 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     url: string;
     closeWindow: boolean;
     currentTag:any; // new variable to show tag of the candidate
-    color;
-    callStatus = "Call Status";;
-    time;
-    date;
+    color: string;
+    callStatus = config.callStatus;
     constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
@@ -463,17 +461,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         })
     }
     callTip(data) {
-        console.log(data);
-        if(data['callSuccessTime']) {
-            this.date = moment(new Date(data['callSuccessTime'])).format('DD-MM-YYYY');
-            this.time = moment(new Date(data['callSuccessTime'])).format('hh:mm:ss a');
-            }
-            switch(data['callingStatus']) {
-                case 'missed':  this.callStatus = "Didn't Pickup";  break;
-                case 'error':   this.callStatus = "Call Not Connected";  break;
-                case 'success': this.callStatus = `Talked To Candidate on ${this.date} at ${this.time}`;  break;
-                case 'again':   this.callStatus = "Call Again Later";  break;
-            }
+        this.callStatus = this.commonService.callToolTips(data);
     }
     closeTab() {
         this._localStorageService.setItem('close', !this.closeWindow);
