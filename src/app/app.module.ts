@@ -195,6 +195,7 @@ import { ChangeTagComponent } from './modules/change-tag/change-tag.component';
 import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
 import { ThankYouComponent } from './modules/thank-you/thank-you.component';
 import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.component';
+import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.component';
 
 @NgModule({
     declarations: [
@@ -271,7 +272,8 @@ import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.compon
         ChangeTagComponent,
         EmailtestloginComponent,
         ThankYouComponent,
-        ArchiveMailComponent
+        ArchiveMailComponent,
+        SetCallLogsComponent
     ],
     imports: [
         BrowserModule,
@@ -353,7 +355,8 @@ import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.compon
         PreviewScoreComponent,
         RemoveMailsDialogComponent,
         ChangeTagComponent,
-        ArchiveMailComponent
+        ArchiveMailComponent,
+        SetCallLogsComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -63,7 +63,8 @@ export const config = {
     round3: 'Third Round',
     avatarUrl: 'https://pikmail.herokuapp.com',
     emailLimit: 20,
-    allTagTitle: 'Mails/Attachment'
+    allTagTitle: 'Mails/Attachment',
+    callStatus:"Call Status",
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
 export const instructions = [
@@ -73,3 +74,10 @@ export const instructions = [
     "Test is given best in landscape mode. So change your mobile display to landscape mode.",
     "Do not open any other tabs in your browser, if you open a new tab it will get recorded."
     ];
+export const callToolTips ={
+    'missed':  "Didn't Pickup",
+    'error':   "Call Not Connected",
+    'success': "Talked To Candidate on ",
+    'again':   "Call Again Later"
+}
+

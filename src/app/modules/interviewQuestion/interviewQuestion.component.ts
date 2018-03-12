@@ -73,7 +73,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             if (localStorage.getItem('limitExpire')) {
                 this.timeExp = true;
             }
-            this.getQues();
             this.timerstart();
         }
         if(this._localStorageService.getItem('instructions')!=null) {

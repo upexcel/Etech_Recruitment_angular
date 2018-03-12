@@ -10,8 +10,11 @@
           <span class="text-xs hidexs"> on {{selectedEmail.date | date: 'medium'}}</span>
           <!-- Addded A span to show Current Job Profile of Candidate -->
           <span class="badge"> {{currentTag}}</span>
+          <span class="call" [matTooltip]="callStatus" (click)="callDetails()" *ngIf="selectedEmail.default_tag != ''">
+              <i class="material-icons phone" [ngClass]="color">phone_android</i>
+          </span>
         </span>
-    </div>
+    </div>     
     <div class="m-b">
         <div id="topBtn" class="default-tag-buttons">
             <button mat-raised-button  mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>

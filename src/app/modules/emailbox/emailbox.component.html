@@ -34,13 +34,13 @@
     <div class="default-tag-buttons row" *ngIf="tagAssigned">
       <span *ngFor="let tag of tagAssigned; trackBy: allTagsDefaultTrack;">
         <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id==null" id="{{tag.title}}"
-          (click)="assignTag(tag.id, email._id, tag.title, email)">
-          <button mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
-            <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-          </button>
-        </div>
-      </span>
-      <p class="col-md-2 col-sm-2 col-xs-6 markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
+        (click)="assignTag(tag.id, email._id, tag.title, email)">
+        <button mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
+          <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+        </button>
+      </div>
+    </span>
+    <p class="col-md-2 col-sm-2 col-xs-6 markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
         <i class="material-icons unreadIcon">drafts</i>
       </p>
       <p class="col-md-2 col-sm-2 col-xs-6 markunread" matTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()">
@@ -48,6 +48,9 @@
       </p>
       <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" matTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
         <i class="material-icons noteicon">note</i>
+      </p>
+      <p class="col-md-2 col-sm-2 col-xs-6 call" [matTooltip]="callStatus" (click)="callDetails()" *ngIf="email.default_tag != ''">
+        <i class="material-icons phone" [ngClass]="color">phone_android</i>
       </p>
     </div>
     <!-- <div class="default-tag-buttons row" *ngIf="!tagselected">

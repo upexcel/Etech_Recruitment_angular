@@ -1,0 +1,10 @@
+<div class="width">
+    <div class="tab">
+      <button class="mat-raised-button btn-danger bottom" (click)="changeStatus('missed')">Didn't Pickup</button><br/>
+      <button class="mat-raised-button btn-warning" (click)="changeStatus('error')">Call Not Connected</button>
+    </div>
+    <div class="tab right">
+      <button class="mat-raised-button btn-success bottom" (click)="changeStatus('success')">Talked To Candidate</button><br/>
+      <button class="mat-raised-button btn-info" (click)="changeStatus('again')">Call Again Later</button>
+    </div>
+</div>

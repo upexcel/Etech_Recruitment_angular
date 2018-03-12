@@ -1262,6 +1262,19 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+    setCallStatus(param,body): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + `email/candidate/${param}`,body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     // For bulk Archive Mail
     archiveAllMail(data: any): Observable<any> {
         this.increaseAPiCount();
