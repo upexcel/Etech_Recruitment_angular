@@ -21,7 +21,7 @@ export class PendingCandidateComponent implements OnInit {
     getPendingCandidateList() {
         this._getScore.pendingList().subscribe(res => {
             this._ngzone.run(() => {
-                this.candidateList = res;
+                this.candidateList = _.sortBy(res,['date']).reverse();
                 if (res.length === 0) {
                     this.messageShow = 'No Pending Candidates';
                     this.message = true;

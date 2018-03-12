@@ -416,3 +416,26 @@ a.link:hover{
     vertical-align: middle;
     border-radius: 10px;
 }
+.call {
+    cursor: pointer;
+}
+.call .phone {
+    font-size: 23px !important;
+    vertical-align: middle;
+    color: grey;
+}
+.call .default {
+    color:grey;
+}
+.missed {
+    color: #ac2925 !important;
+}
+.success {
+    color: #398439 !important;
+}
+.error {
+    color:#d58512 !important;
+}
+.again {
+    color:#269abc !important;
+}

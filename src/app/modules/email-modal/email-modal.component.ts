@@ -15,6 +15,7 @@ import { ComposeEmailComponent } from './../compose-email/compose-email.componen
 import { AddNoteComponent } from './../add-note/add-note.component';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import { ChangeTagComponent } from '../../modules//change-tag/change-tag.component';
+import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
 import { config } from './../../config/config';
 
 
@@ -58,6 +59,10 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     url: string;
     closeWindow: boolean;
     currentTag:any; // new variable to show tag of the candidate
+    color;
+    callStatus = "Call Status";;
+    time;
+    date;
     constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
@@ -84,6 +89,14 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         };
         this.tagUpdate.getCandidateHistory(this.selectedEmail['_id']).subscribe((data) => {
             this.selectedEmail = data.data[0];
+            if(this.selectedEmail.callingStatus) {
+                const data = {'callingStatus':this.selectedEmail.callingStatus};
+                this.color = this.selectedEmail.callingStatus;
+                if(this.selectedEmail.callSuccessTime) {
+                    data['callSuccessTime'] = this.selectedEmail.callSuccessTime;
+                }
+                this.callTip(data);
+            }
             // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
             this.historyList['data'] = this.commonService.sortBydate(data)
             this.tagfilter = this._localStorageService.getItem('tagFilter');
@@ -228,7 +241,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                             duration: 2000,
                         });
                         this.commonService.inboxRefreshEvent();
-                        this.broadcast_send();
+                        this.broadcast_send('updateInbox');
                         if (this._localStorageService.getItem('close')) {
                             this.close();
                         }
@@ -261,7 +274,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                             duration: 2000,
                         });
                         this.commonService.inboxRefreshEvent();
-                        this.broadcast_send();
+                        this.broadcast_send('updateInbox');
                         if (this._localStorageService.getItem('close')) {
                             this.close();
                         }
@@ -285,7 +298,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
                     duration: 2000,
                 });
                 this.commonService.inboxRefreshEvent();
-                this.broadcast_send();
+                this.broadcast_send('updateInbox');
                 if (this._localStorageService.getItem('close')) {
                     this.close();
                 }
@@ -296,8 +309,14 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         }
     }
 
-    broadcast_send() {
-        localStorage.setItem('updateInbox', this.selectedEmail['_id']);
+    broadcast_send(value) {
+        if(value == 'updateInbox') {
+            localStorage.setItem('updateInbox', this.selectedEmail['_id']);
+        } else if (value=='callStatus') {
+            const data = {'id':this.selectedEmail['_id'],'color':this.color};
+            
+            localStorage.setItem('callStatus',JSON.stringify(data));
+        }
     }
     close() {
         window.close();
@@ -428,6 +447,33 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             }
             this.dialogRef = null;
         })
+    }
+    callDetails() {
+        this.dialogRef = this.dialog.open(SetCallLogsComponent, {
+            height: '30%',
+            width: 'auto'
+        });
+        this.dialogRef.componentInstance.id = this.selectedEmail._id;
+        this.dialogRef.afterClosed().subscribe(result => {
+            if(result!=undefined) {
+                this.color=result['callingStatus'];
+                this.broadcast_send('callStatus');
+                this.callTip(result);
+            }
+        })
+    }
+    callTip(data) {
+        console.log(data);
+        if(data['callSuccessTime']) {
+            this.date = moment(new Date(data['callSuccessTime'])).format('DD-MM-YYYY');
+            this.time = moment(new Date(data['callSuccessTime'])).format('hh:mm:ss a');
+            }
+            switch(data['callingStatus']) {
+                case 'missed':  this.callStatus = "Didn't Pickup";  break;
+                case 'error':   this.callStatus = "Call Not Connected";  break;
+                case 'success': this.callStatus = `Talked To Candidate on ${this.date} at ${this.time}`;  break;
+                case 'again':   this.callStatus = "Call Again Later";  break;
+            }
     }
     closeTab() {
         this._localStorageService.setItem('close', !this.closeWindow);
