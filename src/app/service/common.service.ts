@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
-import { config } from './../config/config';
+import { config,callToolTips } from './../config/config';
 import { ImapMailsService } from './imapemails.service';
 import * as _ from 'lodash';
 import { LocalStorageService } from './local-storage.service';
@@ -12,6 +12,7 @@ export class CommonService {
     intervieweeList: any;
     fblogindata: any;
     date = new Date();
+
     constructor(public datePipe: DatePipe, public _apiService: ImapMailsService, private _localStorageService: LocalStorageService) { }
 
     getDefaultTagColor(title) {
@@ -343,4 +344,16 @@ export class CommonService {
         return newdata;
     }
 
+    callToolTips(data) {
+        let date, time;
+        if(data['callSuccessTime']) {
+            date = moment(new Date(data['callSuccessTime'])).format('DD-MM-YYYY');
+            time = moment(new Date(data['callSuccessTime'])).format('hh:mm:ss a');
+        }
+        if(data['callingStatus'] != "success") {
+            return callToolTips[`${data['callingStatus']}`];
+        } else {
+            return callToolTips[`${data['callingStatus']}`] + `${date} at ${time}`;
+        }
+    }
 }
