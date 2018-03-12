@@ -8,6 +8,8 @@ import { DialogService } from './../../service/dialog.service';
 import { LocalStorageService } from './../../service/local-storage.service';
 import { ViewNoteComponent } from './../view-note/view-note.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
+import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
+import * as moment from 'moment'; 
 import { config } from './../../config/config';
 
 @Component({
@@ -46,6 +48,8 @@ export class EmailboxComponent implements OnInit {
     starred = false;
     allTagTitle = config['allTagTitle'];
     isRoundsTag = false;
+    color: string;
+    callStatus = config.callStatus;
     constructor(private _localStorageService: LocalStorageService, private assignEmail: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _dialogService: DialogService, public _snackBar: MatSnackBar) { }
 
     ngOnInit() {
@@ -58,6 +62,19 @@ export class EmailboxComponent implements OnInit {
         if (this.emailChildTitle === config['round1'] || this.emailChildTitle === config['round2'] || this.emailChildTitle === config['round3']) {
             this.isRoundsTag = true;
         }
+        if(this.email.callingStatus) {
+            const data = {'callingStatus':this.email.callingStatus};
+            this.color = this.email.callingStatus;
+            if(this.email.callSuccessTime) {
+                data['callSuccessTime'] = this.email.callSuccessTime;
+            }
+            this.callTip(data);
+        }
+        window.addEventListener('storage', (ev) => {
+            if (ev.key === 'callStatus') {
+                this.updateEmailCallStatus(ev.newValue);
+            }
+        });
     }
     emailSelection() {
         if (this.email.selected) {
@@ -221,5 +238,30 @@ export class EmailboxComponent implements OnInit {
             }
         }, (err) => {
         });
+    }
+    callDetails() {
+        this.dialogRef = this.dialog.open(SetCallLogsComponent, {
+            height: '30%',
+            width: 'auto'
+        });
+        this.dialogRef.componentInstance.id = this.email._id;
+        this.dialogRef.afterClosed().subscribe(result => {
+            if(result!=undefined) {
+                this.color=result['callingStatus'];
+                this.callTip(result);
+            }
+        })
+    }
+    callTip(data) {
+      this.callStatus = this.commonService.callToolTips(data);
+    }
+
+    updateEmailCallStatus(value) {
+        const data = JSON.parse(value);
+        if(this.email._id == data.id){
+            this.color = data.callingStatus;
+            this.email['callingStatus'] = this.color;
+            this.callTip({'callingStatus': data.callingStatus, 'callSuccessTime': data.callSuccessTime});
+        }
     }
 }

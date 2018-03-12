@@ -239,7 +239,29 @@
     font-size: 27px !important;
     color: grey;
 }
-
+.call {
+    cursor: pointer;
+}
+.call .phone {
+    font-size: 23px !important;
+    vertical-align: middle;
+    color: grey;
+}
+.call .default {
+    color:grey;
+}
+.missed {
+    color: #ac2925 !important;
+}
+.success {
+    color: #398439 !important;
+}
+.error {
+    color:#d58512 !important;
+}
+.again {
+    color:#269abc !important;
+}
 .mark__email {
     position: absolute;
     top: 19px;
