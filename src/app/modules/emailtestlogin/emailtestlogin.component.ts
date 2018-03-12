@@ -26,6 +26,7 @@ export class EmailtestloginComponent implements OnInit {
     }
 
     ngOnInit() {
+        localStorage.clear();
     }
     submit(form: NgForm) {
         console.log(form.valid, form.value)
@@ -36,7 +37,7 @@ export class EmailtestloginComponent implements OnInit {
             this.loading = true;
             this.showmessage = false;
             localStorage.setItem('loginByfb', 'false');
-            this.access.facebook_login(this.emailTestObj).subscribe(response => {
+            this.access.candidate_login(this.emailTestObj).subscribe(response => {
                 console.log(response);
                 let added = this.commonService.storeFbdata(this.emailTestObj);
                 this.zone.run(() => {

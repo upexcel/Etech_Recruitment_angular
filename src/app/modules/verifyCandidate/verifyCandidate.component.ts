@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
 import { OtpdialogComponent } from '../otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from '../walkin-candidate/walkin-candidate.component';
-declare const FB: any;
+import { LocalStorageService } from '../../service/local-storage.service';
+
 @Component({
     selector: 'app-verify-candidate',
     templateUrl: './verifyCandidate.component.html',
@@ -23,7 +24,9 @@ export class VerifyCandidateComponent implements OnInit {
     errorMsg: any;
     addForm: FormGroup;
     dialogRef: MatDialogRef<any>;
-    constructor(public dialog: MatDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService) {
+    emailTestObj;
+    apiFire;
+    constructor(public dialog: MatDialog, private ngzone: NgZone, private _router: Router, private access: LoginService, private formBuilder: FormBuilder, private commonService: CommonService, public localStorageService: LocalStorageService) {
     }
 
     ngOnInit() {
@@ -32,6 +35,11 @@ export class VerifyCandidateComponent implements OnInit {
             email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$')])],
         });
 
+    }
+    ngOnDestroy() {
+        if(this.apiFire) {
+            clearInterval(this.apiFire);            
+        }
     }
     addWalkinCandidate() {
         this.dialogRef = this.dialog.open(WalkinCandidateComponent, {
@@ -42,9 +50,7 @@ export class VerifyCandidateComponent implements OnInit {
             if (result) {
                 this.contacthr = true;
                 this.enterEmail = false;
-                setTimeout(() => {
-                    this.fblogout();
-                }, 60000);
+                this._router.navigate(['/ThankYou']);                    
             }
             this.dialogRef = null;
         });
@@ -57,7 +63,7 @@ export class VerifyCandidateComponent implements OnInit {
         if (this.addForm.valid) {
             this.loading = true;
             this.fbdata['appliedEmail'] = this.addForm.controls['email'].value;
-            this.access.facebook_login(this.fbdata).subscribe(response => {
+            this.access.candidate_login(this.fbdata).subscribe(response => {
                 if (response.status === 1) {
                     this.ngzone.run(() => {
                         this.dialogRef = this.dialog.open(OtpdialogComponent, {
@@ -86,14 +92,7 @@ export class VerifyCandidateComponent implements OnInit {
         }
     }
     fblogout() {
-        if (JSON.parse(localStorage.getItem('loginByfb'))) {
-            FB.logout((result) => {
-                localStorage.clear();
-                this._router.navigate(['/fbtestlogin']);
-            })
-        } else {
-            localStorage.clear();
-            this._router.navigate(['/emailtestlogin']);
-        }
+        localStorage.clear();
+        this._router.navigate(['/emailtestlogin']);
     }
 }

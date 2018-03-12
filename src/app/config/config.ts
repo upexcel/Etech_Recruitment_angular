@@ -2,7 +2,8 @@ export const config = {
     'interviewRounds': [{ 'name': 'First Round', 'value': 'first_round' }, { 'name': 'Second Round', 'value': 'second_round' }, { 'name': 'Third Round', 'value': 'third_round' }],
     'userType': ['Admin', 'Hr', 'Guest', 'Interviewee', 'Candidate'],
     'mobileNoPrefix': '+91',
-    'testMaxtime': 7200000,
+    'testMaxtime': 3600000,
+    'timeGrace': 300000,
     'titles': { '/core/dashboa': 'Dashboard', '/core/setting': 'Settings', '/core/inbox': 'Inbox', '/core/inbox/e': 'Inbox', '/core/email-t': 'Email Tracking', '/core/intervi': 'Inbox'},
     'roles': { 'HR': ['/core/setting/emailtemplate', '/core/setting/createQuestion', '/core/setting/pendingCandidate', '/core/setting/candidateScore', '/core/setting/emailvariable', '/core/setting/tagsetting', '/core/setting/automaticTags', '/core/setting/jobProfileTags', '/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Guest': ['/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Interviewee': ['/core/interviewee-inbox', '/core/setting/resetPassword', '/core/dashboard']},
     'dashboardChartColor': [
@@ -65,3 +66,10 @@ export const config = {
     allTagTitle: 'Mails/Attachment'
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
+export const instructions = [
+    "The test consists of 3 sections <b>Aptitude, English, Logical.</b> There is a time limit of <b>1 hr.</b>",
+    "Press “Finish & Submit” only after you have completed all 3 sections.",
+    "Do not <b>close/refresh</b> the test at all in between, if you do you will might have to start your test paper from scratch.",
+    "Test is given best in landscape mode. So change your mobile display to landscape mode.",
+    "Do not open any other tabs in your browser, if you open a new tab it will get recorded."
+    ];

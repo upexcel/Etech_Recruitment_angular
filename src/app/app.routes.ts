@@ -34,9 +34,9 @@ import { CandidateComponent } from './modules/candidate/candidate.component';
 import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
-import { FbtestloginComponent} from './modules/fbtestlogin/fbtestlogin.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
+import { ThankYouComponent } from './modules/thank-you/thank-you.component';
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
@@ -54,6 +54,10 @@ export const routes: Route[] = [{
     }, {
         path: 'verifycandidate',
         component: VerifyCandidateComponent,
+        pathMatch: 'full'
+    },{
+        path:'ThankYou',
+        component: ThankYouComponent,
         pathMatch: 'full'
     },
     {
@@ -191,9 +195,6 @@ export const routes: Route[] = [{
         component: LoginComponent
     },
     {
-        path: 'fbtestlogin',
-        component: FbtestloginComponent
-    }, {
         path: 'emailtestlogin',
         component: EmailtestloginComponent
     },

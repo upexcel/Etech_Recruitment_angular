@@ -33,7 +33,6 @@
           <tr>
             <th>Name</th>
             <th>Email</th>
-            <th>Facebook link</th>
             <th>Test Date</th>
             <th>Score</th>
             <th></th>
@@ -43,7 +42,6 @@
           <tr *ngFor="let data of scores; let id=index">
             <td>{{data.from}}</td>
             <td>{{data.sender_mail}}</td>
-            <td><a href="http://www.facebook.com/{{data.fb_id}}" target="blank">Check Profile</a></td>
             <td>{{data.exam_date|  date: 'medium'}}</td>
             <td class="green">{{data.examScore}}</td>
             <td><a class="link" (click)="getDetailedScore(data.fb_id)">View Report</a></td>

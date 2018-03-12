@@ -220,7 +220,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     assignTag(id: string, emailId, title: string, emailData) {
-        console.log(this.currentTag);
         if (title === 'Schedule') {
             this._dialogService.openScheduleInterview({ 'tagId': id, 'emailId': emailId, 'dataForInterviewScheduleRound': this.dataForInterviewScheduleRound, 'tagselected': this.selectedTag, 'emailData': emailData }).then((data: any) => {
                 if (data && data.tag_id) {
@@ -351,6 +350,11 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
+            if(result=="done") {
+                if (this._localStorageService.getItem('close')) {
+                this.close();
+                }           
+            }
         });
     }
     addNote(candidateid: any) {
@@ -417,6 +421,11 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogRef.componentInstance.tagIdArray = this.selectedEmail['tag_id'];
         this.dialogRef.componentInstance.id = this.selectedEmail['_id']
         this.dialogRef.afterClosed().subscribe(result => {
+            if(result == 'done') {
+                if (this._localStorageService.getItem('close')) {
+                    this.close();
+                }    
+            }
             this.dialogRef = null;
         })
     }
