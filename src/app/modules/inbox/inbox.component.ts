@@ -38,6 +38,7 @@ import { environment } from '../../../environments/environment';
 import * as _ from 'lodash';
 import { AddCandidateComponent } from './../add-candidate/add-candidate.component';
 import { RemoveMailsDialogComponent } from './../remove-mails-dialog/remove-mails-dialog.component';
+import { ArchiveMailComponent } from './../archive-mail/archive-mail.component';
 import { config } from './../../config/config';
 @Component({
     selector: 'app-inbox',
@@ -610,6 +611,20 @@ export class InboxComponent implements OnInit, OnDestroy {
         }, (err) => {
             console.log(err);
         });
+    }
+    markAllArchive() {
+        this.dialogRef = this.dialog.open(ArchiveMailComponent, {
+            height: '60%',
+            width: '60%'
+        });
+        this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        this.dialogRef.componentInstance.is_attachment = this.data.is_attach;
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
+            if (result) {
+                this.refresh();
+            }
+        })
     }
 
 }
