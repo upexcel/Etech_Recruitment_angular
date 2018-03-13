@@ -13,6 +13,7 @@ export class ArchiveMailComponent implements OnInit {
     is_attachment: any;
     showloading: boolean;
     data: any;
+    email: any;
     constructor(public dialogRef: MatDialogRef<any>, private imapMailService: ImapMailsService) { }
 
     ngOnInit() {
@@ -27,12 +28,23 @@ export class ArchiveMailComponent implements OnInit {
             }
         }
     }
-    archiveAllMail(value) {
-        this.data['start'] = new Date(value.from);
-        this.data['end'] = new Date(value.to);
+    showTotalMail(date, value) {
+        if (date == 'start') {
+            this.data['start'] = value;
+        } else {
+            this.data['end'] = value;
+        }
+        if (this.data['start'] && this.data['end']) {
+            this.imapMailService.archivefindTotalMail(this.data).subscribe(res => {
+                this.email = res.data;
+            }, (err) => {
+                console.log(err);
+            });
+        }
+    }
+    archiveAllMail() {
         this.showloading = true;
         this.imapMailService.archiveAllMail(this.data).subscribe(res => {
-            this.showloading = false;
             this.close(res);
         }, (err) => {
             console.log(err);
