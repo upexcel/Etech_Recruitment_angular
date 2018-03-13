@@ -3,6 +3,9 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { environment } from '../../../environments/environment';
+import { LocalStorageService } from '../../service/local-storage.service';
+import * as _ from "lodash";
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-template-edit',
@@ -18,21 +21,28 @@ export class TemplateEditComponent implements OnInit {
     subject: string;
     temp: any;
     subject_for_genuine: string;
-    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService) {
+    tags: any;
+    jobProfile:Array<any>= [];
+    tempJobProfileId:any;
+    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService, public localStorageService: LocalStorageService,public commonService: CommonService) {
     }
 
     ngOnInit() {
+        this.tempJobProfileId = this.temp.job_profile;
         this.tempName = this.temp.templateName;
         this.subject = this.temp.subject;
         this.ckeditorContent = this.temp.body;
         this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
+        this.tags = this.localStorageService.getItem('tags');
+        this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
     }
 
     update(form: NgForm) {
         this.updateData = {
             'templateName': this.tempName,
             'subject': this.subject,
-            'body': this.ckeditorContent
+            'body': this.ckeditorContent,
+            'job_profile': form.value.job_profile,
         };
         this.getVariable.updateTemplate(this.updateData, this.temp.id).subscribe((data) => {
             form.reset();

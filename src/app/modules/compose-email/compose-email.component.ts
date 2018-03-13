@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import * as _ from 'lodash';
+import { LocalStorageService } from 'app/service/local-storage.service';
 import { SetvaremailpreviewComponent } from './../setvaremailpreview/setvaremailpreview.component';
 
 @Component({
@@ -37,7 +38,8 @@ export class ComposeEmailComponent implements OnInit {
     notGenuine: any;
     resendEmailTrackingData: boolean;
     holdSubject: any;
-    constructor(public setvardialog: MatDialog, public dialogRef: MatDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MatSnackBar) {
+    parentId:any; //used to show job specific template in the dropdown
+    constructor(public setvardialog: MatDialog, public dialogRef: MatDialogRef<any>, private sendToManyEmail: ImapMailsService) {
     }
 
     ngOnInit() {
@@ -137,7 +139,6 @@ export class ComposeEmailComponent implements OnInit {
             }
         });
     }
-
     close() {
         this.dialogRef.close();
     }

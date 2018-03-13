@@ -4,7 +4,11 @@ import { AddEmailTempComponent } from '../add-email-temp/add-email-temp.componen
 import { ImapMailsService } from '../../service/imapemails.service';
 import { TemplateEditComponent } from '../template-edit/template-edit.component';
 import { TestTemplateComponent } from '../test-template/test-template.component';
+import { LocalStorageService } from 'app/service/local-storage.service';
+import * as _ from 'lodash';
+import { config } from './../../config/config';
 import { MatSnackBar } from '@angular/material';
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-email-templates',
@@ -16,7 +20,10 @@ export class EmailTemplatesComponent implements OnInit {
     userVar: string[];
     sysVar: string[];
     tempData: string[];
-    constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public snackBar: MatSnackBar) { }
+    tags:any;
+    jobProfile:Array<any> = config.showJobProfile;
+    currentJobProfile:any;
+    constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public snackBar: MatSnackBar, public localStorageService: LocalStorageService, public commonService:CommonService) { }
 
     ngOnInit() {
         this.getVariable.getUserVariable().subscribe((data) => {
@@ -26,6 +33,9 @@ export class EmailTemplatesComponent implements OnInit {
             this.sysVar = data;
         });
         this.loadTemp();
+        this.currentJobProfile = this.jobProfile[0].tag_id;
+        this.tags = this.localStorageService.getItem('tags');
+        this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
     }
 
     loadTemp() {
@@ -104,5 +114,9 @@ export class EmailTemplatesComponent implements OnInit {
 
     tempDataTrack(index, data) {
         return data['id'] || index;
+    }
+
+    change(value) {
+        this.currentJobProfile = value;
     }
 }

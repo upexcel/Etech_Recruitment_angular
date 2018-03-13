@@ -3,6 +3,10 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { environment } from '../../../environments/environment';
 import { NgForm } from '@angular/forms';
+import { LocalStorageService } from 'app/service/local-storage.service';
+import { config } from './../../config/config';
+import * as _ from 'lodash';
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-add-email-temp',
@@ -16,12 +20,16 @@ export class AddEmailTempComponent implements OnInit {
     message: string;
     showMessage: boolean;
     subject_for_genuine: string;
-    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService) {
+    tags:any;
+    jobProfile:Array<any> = config.createJobProfile;
+    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService, public localStorageService:LocalStorageService, public commonService: CommonService) {
     }
 
     ngOnInit() {
         this.showMessage = false;
         this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
+        this.tags = this.localStorageService.getItem('tags');
+        this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
     }
 
     save(form: NgForm) {
