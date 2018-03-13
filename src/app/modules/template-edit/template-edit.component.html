@@ -6,6 +6,11 @@
       <div class="row">
         <div class="main col-sm-8">
             <p>
+                <mat-select placeholder="Job Profile" class="col-md-3 jobProfile" name="job_profile" [(ngModel)]="tempJobProfileId" (ngModelChange)="change($event)" required>
+                    <mat-option *ngFor="let tags of jobProfile" [value]="tags.tag_id">
+                        {{ tags.title }}
+                    </mat-option>
+                </mat-select>
                 <mat-form-field class="width-100">
                     <input matInput placeholder="Template Name" [(ngModel)]="tempName" autoComplete="off" name="templateName" required ngModel>
                     <mat-error>Required</mat-error>

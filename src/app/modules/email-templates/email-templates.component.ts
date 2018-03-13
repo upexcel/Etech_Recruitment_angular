@@ -20,7 +20,7 @@ export class EmailTemplatesComponent implements OnInit {
     tempData: string[];
     tags:any;
     jobProfile:Array<any>= [];
-    currentJobProfile:string;
+    currentJobProfile:any;
     constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public snackBar: MatSnackBar, public localStorageService: LocalStorageService) { }
 
     ngOnInit() {
@@ -33,7 +33,7 @@ export class EmailTemplatesComponent implements OnInit {
         this.loadTemp();
         this.tags = this.localStorageService.getItem('tags');
         this.jobProfile.push({ title:'For All Job Profile', tag_id: 0 });
-        this.currentJobProfile = this.jobProfile[0];
+        this.currentJobProfile = this.jobProfile[0].tag_id;
         _.forEach(this.tags['Automatic'], (value, key) => {
           if(value.id != null && value.id !=0){
           this.jobProfile.push({ title: value.title, tag_id: value.id });
@@ -121,6 +121,5 @@ export class EmailTemplatesComponent implements OnInit {
 
     change(value) {
         this.currentJobProfile = value;
-        console.log(this.currentJobProfile);
     }
 }

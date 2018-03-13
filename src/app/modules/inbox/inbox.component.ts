@@ -260,6 +260,11 @@ export class InboxComponent implements OnInit, OnDestroy {
             height: '90%',
             width: '70%'
         });
+        if(this.emailParentId == null || this.emailParentId ==0 || this.emailParentId == "null" || this.emailParentId == undefined) {
+            this.dialogRef.componentInstance.parentId = 0;
+        } else {
+            this.dialogRef.componentInstance.parentId = this.emailParentId;
+        }
         this.dialogRef.componentInstance.emailList = this.emailIds;
         this.dialogRef.componentInstance.subject_for_genuine = this.subject_for_genuine;
         this.dialogRef.afterClosed().subscribe(result => {

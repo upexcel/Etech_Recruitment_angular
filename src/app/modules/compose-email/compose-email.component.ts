@@ -38,6 +38,7 @@ export class ComposeEmailComponent implements OnInit {
     notGenuine: any;
     resendEmailTrackingData: boolean;
     holdSubject: any;
+    parentId:any;
     constructor(public setvardialog: MatDialog, public dialogRef: MatDialogRef<any>, private sendToManyEmail: ImapMailsService, public snackBar: MatSnackBar, public localStorageService: LocalStorageService) {
     }
 

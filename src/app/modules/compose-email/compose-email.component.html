@@ -26,8 +26,8 @@
                 </mat-form-field>
                 <mat-select placeholder="Select Template" class="width-25" [(ngModel)]="selectedTemplate" (change)="selectTemplate(selectedTemplate)" [ngModelOptions]="{standalone: true}">
                     <span *ngFor="let template of templates">
-                        <!-- Replace the 1 below with condition -->
-                        <mat-option  *ngIf=1 [value]="template">          
+                        <!-- Replace the 1 below with condition  -->
+                        <mat-option  *ngIf="(parentId == template.job_profile || parentId == 0)" [value]="template">          
                                 {{ template.templateName }}
                         </mat-option>
                     </span>
