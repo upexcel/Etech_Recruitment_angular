@@ -65,8 +65,8 @@ export const config = {
     emailLimit: 20,
     allTagTitle: 'Mails/Attachment',
     callStatus:"Call Status",
-    jobProfile:[{title: 'Template will be valid across all Job Profile', tag_id:0}],
-    jobProfile1:[{title: 'For All Job Profiles', tag_id:0}],
+    createJobProfile: [{title: 'Template will be valid across all Job Profile', tag_id:0}],
+    showJobProfile: [{title: 'For All Job Profiles', tag_id:0}],
     
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];

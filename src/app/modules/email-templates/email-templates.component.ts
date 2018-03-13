@@ -21,7 +21,7 @@ export class EmailTemplatesComponent implements OnInit {
     sysVar: string[];
     tempData: string[];
     tags:any;
-    jobProfile:Array<any> = config.jobProfile1;
+    jobProfile:Array<any> = config.showJobProfile;
     currentJobProfile:any;
     constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public snackBar: MatSnackBar, public localStorageService: LocalStorageService, public commonService:CommonService) { }
 

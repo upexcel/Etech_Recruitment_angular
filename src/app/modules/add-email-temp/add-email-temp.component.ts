@@ -21,7 +21,7 @@ export class AddEmailTempComponent implements OnInit {
     showMessage: boolean;
     subject_for_genuine: string;
     tags:any;
-    jobProfile:Array<any> = config.jobProfile;
+    jobProfile:Array<any> = config.createJobProfile;
     constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService, public localStorageService:LocalStorageService, public commonService: CommonService) {
     }
 
