@@ -1,22 +1,29 @@
 <div>
     <h3>Move Mails To Archive</h3>
-    <form autocomplete="off" #archiveMail="ngForm" (ngSubmit)="archiveAllMail(archiveMail.value)">
+    <form autocomplete="off" #archiveMail="ngForm" (ngSubmit)="archiveAllMail()">
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <mat-form-field class="width-100">
-            <input matInput name="from" type="date" placeholder="From date" #startDateValidator="ngModel" ngModel required>
+          <mat-form-field>
+            <input matInput [matDatepicker]="pickerfrom" name="from" placeholder="Choose a date" ngModel required (ngModelChange)="showTotalMail('start',$event)">
+            <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
+            <mat-datepicker #pickerfrom></mat-datepicker>
           </mat-form-field>
+
         </div>
         <div class="col-md-6 col-sm-12">
-          <mat-form-field class="width-100">
-            <input matInput name="to" type="date" placeholder="To date" #endDateValidator="ngModel" ngModel required>
+          <mat-form-field>
+            <input matInput [matDatepicker]="pickerTo" name="to" placeholder="Choose a date" ngModel required (ngModelChange)="showTotalMail('end',$event)">
+            <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+            <mat-datepicker #pickerTo></mat-datepicker>
           </mat-form-field>
+
         </div>
       </div>
+      <div class="alert alert-warning bold" *ngIf="email>=0">Total No of emails - {{email}}</div>
       <div class="row">
         <div class="col-md-12 col-sm-12 text-right">
           <a mat-raised-button (click)="close(false)">Close</a>
-          <button id="save" mat-raised-button type="submit" color=primary [disabled]="startDateValidator.invalid || endDateValidator.invalid">
+          <button id="save" mat-raised-button type="submit" color=primary [disabled]="!email">
             <span>Archive</span>
           </button>
         </div>
