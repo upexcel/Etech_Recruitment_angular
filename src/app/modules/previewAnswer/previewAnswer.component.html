@@ -1,13 +1,12 @@
 <div>
-  <h4 class="heading">Attempted Question with Response</h4>
+  <h4 class="heading">Test Summary</h4>
   <hr>
-  <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of attemptedQues;let id = index">
-    <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
-    <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
-    <p class="pid">Options:</p>
-    <ul class="width100 fontsize">
-      <li *ngFor="let option of ques.options" class="width100" [ngClass]="{'responseColor':option.opt_id===ques.ans_id}">{{option.option}}</li>
-    </ul>
+  <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of this.allQuestion">
+      {{ques.group_name}}<span class="right">{{ques.attempted}}/{{ques.questions.length}}</span>
+  </div>
+  <div class="col-md-12 col-sm-12 bodyInner" style="margin-top: 1px;">
+    <span class="bold">Total Attempted</span>
+    <span class="right">{{questionsAttemped}}/{{totalQuestion}}</span>
   </div>
   <button mat-raised-button color=primary class="right submitans" (click)="submit()">Final Submit</button>
   <button mat-raised-button  class="right submitans grey" (click)="close()">Back</button>

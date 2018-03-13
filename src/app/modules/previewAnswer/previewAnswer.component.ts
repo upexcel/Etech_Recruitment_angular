@@ -10,22 +10,25 @@ import * as _ from 'lodash';
 })
 export class PreviewAnswerComponent implements OnInit {
     allQuestion: any;
+    attempted: any;
     selectedAnswer: any;
-    attemptedQues = [];
+    totalQuestion = 0;
+    questionsAttemped: any;
 
     constructor(public dialogRef: MatDialogRef<any>, private _dialogService: DialogService) {
     }
     ngOnInit() {
-        _.forEach(this.selectedAnswer, (val, key) => {
-            _.forEach(this.allQuestion, (val2, key2) => {
-                _.forEach(val2.questions, (val3, key3) => {
-                    if (val.Q_id === val3._id) {
-                        val3['ans_id'] = val.ans_id;
-                        this.attemptedQues.push(val3);
+        _.forEach(this.allQuestion, (group, key2) => {
+            group['attempted'] = 0;
+            _.forEach(group.questions, (question, key3) => {
+                this.totalQuestion++;
+                _.forEach(this.selectedAnswer, (answer, key) => {
+                    if (answer.Q_id === question._id) {
+                        group['attempted']++;
                     }
                 });
             });
-        })
+        });
     }
     close() {
         this.dialogRef.close();
