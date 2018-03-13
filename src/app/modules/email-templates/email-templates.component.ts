@@ -6,7 +6,9 @@ import { TemplateEditComponent } from '../template-edit/template-edit.component'
 import { TestTemplateComponent } from '../test-template/test-template.component';
 import { LocalStorageService } from 'app/service/local-storage.service';
 import * as _ from 'lodash';
+import { config } from './../../config/config';
 import { MatSnackBar } from '@angular/material';
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-email-templates',
@@ -19,9 +21,9 @@ export class EmailTemplatesComponent implements OnInit {
     sysVar: string[];
     tempData: string[];
     tags:any;
-    jobProfile:Array<any>= [];
+    jobProfile:Array<any> = config.jobProfile1;
     currentJobProfile:any;
-    constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public snackBar: MatSnackBar, public localStorageService: LocalStorageService) { }
+    constructor(public dialog: MatDialog, private getVariable: ImapMailsService, public snackBar: MatSnackBar, public localStorageService: LocalStorageService, public commonService:CommonService) { }
 
     ngOnInit() {
         this.getVariable.getUserVariable().subscribe((data) => {
@@ -31,14 +33,9 @@ export class EmailTemplatesComponent implements OnInit {
             this.sysVar = data;
         });
         this.loadTemp();
-        this.tags = this.localStorageService.getItem('tags');
-        this.jobProfile.push({ title:'For All Job Profile', tag_id: 0 });
         this.currentJobProfile = this.jobProfile[0].tag_id;
-        _.forEach(this.tags['Automatic'], (value, key) => {
-          if(value.id != null && value.id !=0){
-          this.jobProfile.push({ title: value.title, tag_id: value.id });
-         }
-        });
+        this.tags = this.localStorageService.getItem('tags');
+        this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
     }
 
     loadTemp() {

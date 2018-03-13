@@ -356,4 +356,13 @@ export class CommonService {
             return callToolTips[`${data['callingStatus']}`] + `${date} at ${time}`;
         }
     }
+
+    jobProfile(tags,jobProfile) {
+        _.forEach(tags['Automatic'], (value, key) => {
+            if(value.id != null && value.id !=0){
+            jobProfile.push({ title: value.title, tag_id: value.id });
+           }
+          });
+          return jobProfile;
+    }
 }

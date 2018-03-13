@@ -5,6 +5,7 @@ import { NgForm } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { LocalStorageService } from '../../service/local-storage.service';
 import * as _ from "lodash";
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-template-edit',
@@ -23,7 +24,7 @@ export class TemplateEditComponent implements OnInit {
     tags: any;
     jobProfile:Array<any>= [];
     tempJobProfileId:any;
-    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService, public localStorageService: LocalStorageService) {
+    constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService, public localStorageService: LocalStorageService,public commonService: CommonService) {
     }
 
     ngOnInit() {
@@ -33,11 +34,7 @@ export class TemplateEditComponent implements OnInit {
         this.ckeditorContent = this.temp.body;
         this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.tags = this.localStorageService.getItem('tags');
-        _.forEach(this.tags['Automatic'], (value, key) => {
-          if(value.id != null && value.id !=0){
-          this.jobProfile.push({ title: value.title, tag_id: value.id });
-         }
-        });
+        this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
     }
 
     update(form: NgForm) {

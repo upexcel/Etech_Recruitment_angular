@@ -1,6 +1,6 @@
 <div class="well contain">
     <div class="row head">
-        <mat-select placeholder="Job Profile" class="col-md-3" style="width:16%" name="job_profile" [(ngModel)]="currentJobProfile" (ngModelChange)="change($event)" required>
+        <mat-select placeholder="Job Profile" class="col-md-3 width"  name="job_profile" [(ngModel)]="currentJobProfile" (ngModelChange)="change($event)" required>
             <mat-option *ngFor="let tags of jobProfile" [value]="tags.tag_id">
                 {{ tags.title }}
             </mat-option>
@@ -11,7 +11,6 @@
     </div>
     <div class="row">
         <div class="col-md-6" *ngFor="let temps of tempData; let i=index; trackBy: tempDataTrack;">
-          <!--  FOR JOB PROFILE FILTER (BACKEND NOT DONE) -->
             <div *ngIf="currentJobProfile==temps.job_profile || currentJobProfile==0">
                 <app-single-template [temp]="temps" (testTemp)="testTemplate($event)" (deleteTemp)="deleteTempId($event); tempData.splice(i,1)" (edits)="editTemp($event)"></app-single-template>
             </div>
