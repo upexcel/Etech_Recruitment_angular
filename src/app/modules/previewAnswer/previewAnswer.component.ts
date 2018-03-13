@@ -19,7 +19,7 @@ export class PreviewAnswerComponent implements OnInit {
     }
     ngOnInit() {
         _.forEach(this.allQuestion, (group, key2) => {
-            group['attempted'] = 0*1;
+            group['attempted'] = 0;
             _.forEach(group.questions, (question, key3) => {
                 this.totalQuestion++;
                 _.forEach(this.selectedAnswer, (answer, key) => {
