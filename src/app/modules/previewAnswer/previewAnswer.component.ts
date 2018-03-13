@@ -13,7 +13,7 @@ export class PreviewAnswerComponent implements OnInit {
     attempted: any;
     selectedAnswer: any;
     totalQuestion = 0;
-    attemptedQues = 0;
+    questionsAttemped: any;
 
     constructor(public dialogRef: MatDialogRef<any>, private _dialogService: DialogService) {
     }
@@ -29,10 +29,6 @@ export class PreviewAnswerComponent implements OnInit {
                 });
             });
         });
-        _.forEach(this.allQuestion, (data, key) => {
-            this.attemptedQues = this.attemptedQues + data['attempted'];
-        });
-
     }
     close() {
         this.dialogRef.close();

@@ -229,6 +229,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 width: '50%'
             });
             this.dialogRef.componentInstance.selectedAnswer = this.selectedAnswer;
+            this.dialogRef.componentInstance.questionsAttemped = this.questionsAttemped;
             this.dialogRef.componentInstance.allQuestion = this.questions;
 
             this.dialogRef.afterClosed().subscribe(result => {
