@@ -3,7 +3,7 @@
     <img class="img-responsive" src="assets/logo.png">
   </div>
   <div class="login-card">
-    <mat-card>
+    <mat-card class="well">
       <h4>Interview Test Papers</h4>
       <hr>
       <h5>Login with your Email-Id to take interview test paper, in case of any questions please contact HR</h5>
@@ -23,7 +23,7 @@
             <mat-option value="female">Female</mat-option>
           </mat-select>
           <button *ngIf="!loading" mat-raised-button color=primary class="width-100" [disabled]="heroForm.invalid" type="submit">Submit</button>
-          <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
+          <mat-spinner id="loginSpinner" *ngIf="loading" class="spin commonSpinner1"></mat-spinner>
         </form>
       </mat-card-actions>
     </mat-card>

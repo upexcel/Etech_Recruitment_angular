@@ -32,8 +32,12 @@ html, body {
   right: 40px;
 }
 .commonSpinner1 {
-    width: 50px !important;
-    height: 36px !important;
+    width: 40px !important;
+    height: 40px !important;
+    svg {
+      width: 40px!important;
+      height: 40px!important;
+  }
     path {
         stroke: black;
     }

@@ -4,6 +4,7 @@ import { CommonService } from '../../service/common.service';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
 import { OtpdialogComponent } from '../otpdialog/otpdialog.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,37 +20,21 @@ export class ThankYouComponent implements OnInit {
   counter;
   count = 30;
   again:boolean;
-  constructor(public dialog: MatDialog, private ngzone: NgZone, private access: LoginService, public commonService: CommonService, public localStorageService: LocalStorageService) { }
+  constructor(public dialog: MatDialog, private ngzone: NgZone, private access: LoginService, public commonService: CommonService, public localStorageService: LocalStorageService, public _router: Router) { }
 
   ngOnInit() {
     this.apiFire = setInterval(() => {
       this.emailTestObj = this.localStorageService.getItem('walkinUser');
       this.access.candidate_login(this.emailTestObj).subscribe(response => {
         let added = this.commonService.storeFbdata(this.emailTestObj);
-        this.ngzone.run(() => {
           if (response.status === 1) {
             clearInterval(this.apiFire);
             clearInterval(this.counter);
-            this.dialogRef = this.dialog.open(OtpdialogComponent, {
-              height: '225px',
-              width: '300px'
-            });
-            this.dialogRef.componentInstance.fb_id = response.fb_id;
-            this.dialogRef.afterClosed().subscribe(result => {
-              if (result) {
-                this.loading = true;
-              } else {
-                this.loading = false;
-              }
-              this.dialogRef = null;
-            });
+            this._router.navigate([`/otp/${response.fb_id}`]);            
           }
-        })
       }, (err) => {
         console.log(err);
-        this.ngzone.run(() => {
           this.loading = false;
-        })
       })
     }, 30000);
     this.counter = setInterval(()=>{

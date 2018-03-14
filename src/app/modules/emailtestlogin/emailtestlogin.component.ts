@@ -38,31 +38,14 @@ export class EmailtestloginComponent implements OnInit {
             this.showmessage = false;
             localStorage.setItem('loginByfb', 'false');
             this.access.candidate_login(this.emailTestObj).subscribe(response => {
-                console.log(response);
-                let added = this.commonService.storeFbdata(this.emailTestObj);
-                this.zone.run(() => {
-                    if (response.status === 1) {
-                        this.dialogRef = this.dialog.open(OtpdialogComponent, {
-                            height: '225px',
-                            width: '300px'
-                        });
-                        this.dialogRef.componentInstance.fb_id = response.fb_id;
-
-                        this.dialogRef.afterClosed().subscribe(result => {
-                            if (result) {
-                                this.loading = true;
-                            }else {
-                                this.loading = false;
-                            }
-                            this.dialogRef = null;
-                        });
-                    } else {
-                        this.loading = false;
-                        localStorage.setItem('walkinUser', JSON.stringify(this.emailTestObj));
-                        this._router.navigate(['/verifycandidate']);
-                    }
-
-                })
+            this.commonService.storeFbdata(this.emailTestObj);
+                if (response.status === 1) {
+                    this._router.navigate([`/otp/${response.fb_id}`]);
+                } else {
+                    this.loading = false;
+                    localStorage.setItem('walkinUser', JSON.stringify(this.emailTestObj));
+                    this._router.navigate(['/verifycandidate']);
+                }
             },
             (err) => {
                 console.log(err);
