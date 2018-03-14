@@ -67,6 +67,7 @@
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId && selectedTagTitle == 'All'" class="pull-right" (click)="cronStatus()"> Get Cron Status </a>
                         <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId" class="pull-right" (click)="addCandidate()" style="margin-right: 4px;"> Add Candidate </a>
                         <a *ngIf="emaillist && this.role !== 'Guest'" class="pull-right" (click)="markAllRead()" style="margin-right: 4px;"> Mark All Read </a>
+                        <a *ngIf="emaillist && this.role !== 'Interviewee'" class="pull-right" (click)="showReadOnly()" style="margin-right: 4px;"> Show Only Read </a>
                         <a *ngIf="emaillist && (!emailParentId || emailParenttitle=='inbox') && this.role !== 'Guest'" class="pull-right" (click)="markAllArchive()" style="margin-right: 4px;"> Archive </a>
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel">
