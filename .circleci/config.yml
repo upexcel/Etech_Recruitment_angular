@@ -7,8 +7,8 @@ jobs:
       - image: cypress/base:8
       - image: node:8.6.0
 
-    working_directory: ~/app
+    working_directory: ~/recruit
     steps:
       - checkout:
-          path: ~/
+          path: ~/recruit
       - run: npm run build
