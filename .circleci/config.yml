@@ -7,7 +7,7 @@ jobs:
       - image: cypress/base:8
         environment:
 
-    working_directory: ~/app
+    working_directory: ~/package.json
     parallelism: 1
     steps:
       - run: npm build
