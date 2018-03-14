@@ -57,7 +57,6 @@ export class ImapMailsService {
     }
     getEmailList(body: any): Observable<any> {
         this.increaseAPiCount();
-        console.log(body);
         if (!!body.type) {
             return this.Intercepted.put(environment['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
                 .map((res: Response) => {

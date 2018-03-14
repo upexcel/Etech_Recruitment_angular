@@ -185,8 +185,6 @@ export class InboxComponent implements OnInit, OnDestroy {
             });
         }
         this.emaillist = data;
-        console.log(this.emailParentId,"parent tag")
-        console.log(this.emailChildId,"child tag")
     }
     stripHtml(htmlData) {
         const temporalDivElement = document.createElement('div');
