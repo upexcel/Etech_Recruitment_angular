@@ -5,23 +5,7 @@ jobs:
     docker:
       # the Docker image with Cypress dependencies
       - image: cypress/base:8
-        environment:
-          - TERM: xterm
-      - image: node:8.6.0
-      - image: mongo:3.4.4
-      - image: mysql:5.7
-        environment:
-          - MYSQL_ROOT_PASSWORD=java@123
-          - MYSQL_ALLOW_EMPTY_PASSWORD=true
-          - MYSQL_HOST=127.0.0.1
-
-    working_directory: ~/app
-    parallelism: 1
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - v1-npm-deps-{{ checksum "package.json" }}
-            - v1-npm-deps
       - run: npm run build
 
