@@ -34,7 +34,7 @@ export class EmailTemplatesComponent implements OnInit {
         });
         this.loadTemp();
         this.currentJobProfile = this.jobProfile[0].tag_id;
-        this.tags = this.localStorageService.getItem('tags');
+        this.tags = this.localStorageService.getItem('allTags');
         this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
     }
 

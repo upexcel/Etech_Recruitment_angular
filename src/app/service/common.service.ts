@@ -358,7 +358,7 @@ export class CommonService {
     }
 
     jobProfile(tags,jobProfile) {
-        _.forEach(tags['Automatic'], (value, key) => {
+        _.forEach(tags['data'][0]['data'], (value, key) => {
             if(value.id != null && value.id !=0){
             jobProfile.push({ title: value.title, tag_id: value.id });
            }

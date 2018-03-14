@@ -28,7 +28,7 @@ export class AddEmailTempComponent implements OnInit {
     ngOnInit() {
         this.showMessage = false;
         this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
-        this.tags = this.localStorageService.getItem('tags');
+        this.tags = this.localStorageService.getItem('allTags');
         this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
     }
 
