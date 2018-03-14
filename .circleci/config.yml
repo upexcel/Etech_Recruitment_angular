@@ -10,4 +10,4 @@ jobs:
     working_directory: ~/app
     parallelism: 1
     steps:
-      - run: ng serve --prod
+      - run: npm build
