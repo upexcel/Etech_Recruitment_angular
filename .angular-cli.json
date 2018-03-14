@@ -21,7 +21,8 @@
             "styles.scss",
             "theme.scss",
             "../node_modules/bootstrap/dist/css/bootstrap.min.css",
-            "../node_modules/dragula/dist/dragula.min.css"
+            "../node_modules/dragula/dist/dragula.min.css",
+            "../node_modules/font-awesome/css/font-awesome.css"
         ],
         "scripts": [
             "../node_modules/chart.js/dist/Chart.bundle.min.js"

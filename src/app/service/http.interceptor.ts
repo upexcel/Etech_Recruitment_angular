@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ConnectionBackend, RequestOptions, Request, RequestOptionsArgs, Response, Http, Headers } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs/Rx';
+// import { DialogService } from './dialog.service'
 
 @Injectable()
 export class InterceptedHttp extends Http {
+    private tokenExpireCall = new Subject<any>();
+    tokenExpMehtodCalled$ = this.tokenExpireCall.asObservable();
     constructor(backend: ConnectionBackend, defaultOptions: RequestOptions) {
         super(backend, defaultOptions);
     }
@@ -45,12 +48,13 @@ export class InterceptedHttp extends Http {
     }
 
     request(url: string | Request, options?: RequestOptionsArgs): Observable<Response> {
+
+
         return super.request(url, options).catch((error) => {
             if ((error.status === 401 || error.status === 403) && (window.location.href.match(/\?/g) || []).length < 2) {
                 window.localStorage.setItem('loginMessage', JSON.stringify('Token Expire. Please login Again.'));
-                const getUrl = window.location;
-                const baseUrl = getUrl.protocol + '//' + getUrl.host + '/' + getUrl.pathname.split('/')[1];
-                window.location.replace(baseUrl);
+
+                this.tokenExpireCall.next();
             }
             return Observable.throw(error);
         });

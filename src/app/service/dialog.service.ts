@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { ScheduleInterviewComponent } from './../modules/schedule-interview/schedule-interview.component';
 import { AddNewUserComponent } from './../modules/add-new-user/add-new-user.component';
@@ -6,11 +6,20 @@ import { ConfirmationDialogComponent } from './../modules/confirmation-dialog/co
 import { SetvaremailpreviewComponent } from './../modules/setvaremailpreview/setvaremailpreview.component';
 import { FetchEmailByDayComponent } from './../modules/fetch-email-by-day/fetch-email-by-day.component';
 import { CronStatusModelComponent } from './../modules/cron-status-model/cron-status-model.component';
+import { TokenExpireComponent } from './../modules/token-expire/token-expire.component';
+import {InterceptedHttp} from './http.interceptor';
+import { Subscription } from 'rxjs/Rx';
 
 @Injectable()
 export class DialogService {
     dialogRef: MatDialogRef<any>;
-    constructor(public dialog: MatDialog) { }
+    expire: Subscription
+    constructor(public dialog: MatDialog, public token: InterceptedHttp ) {
+        this.expire = this.token.tokenExpMehtodCalled$.subscribe(() => {
+            this.tokenExprire();
+        });
+    }
+
 
     openScheduleInterview(data) {
         return new Promise((resolve, reject) => {
@@ -117,6 +126,15 @@ export class DialogService {
                     resolve();
                 }
             });
+        });
+    }
+    tokenExprire() {
+        this.dialogRef = this.dialog.open(TokenExpireComponent, {
+            height: '300px',
+            width: '300px',
+        });
+        this.dialogRef.afterClosed().subscribe(result => {
+            this.dialogRef = null;
         });
     }
 }
