@@ -10,4 +10,4 @@ jobs:
     working_directory: ~/package.json
     parallelism: 1
     steps:
-      - run: npm build
+      - run: npm run build
