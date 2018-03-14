@@ -196,6 +196,7 @@ import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin
 import { ThankYouComponent } from './modules/thank-you/thank-you.component';
 import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.component';
 import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.component';
+import { OtppageComponent } from './modules/otppage/otppage.component';
 
 @NgModule({
     declarations: [
@@ -273,7 +274,8 @@ import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.comp
         EmailtestloginComponent,
         ThankYouComponent,
         ArchiveMailComponent,
-        SetCallLogsComponent
+        SetCallLogsComponent,
+        OtppageComponent
     ],
     imports: [
         BrowserModule,
