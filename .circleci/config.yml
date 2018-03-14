@@ -5,10 +5,11 @@ jobs:
     docker:
       # the Docker image with Cypress dependencies
       - image: cypress/base:8
+        environment:
+          - TERM: xterm
       - image: node:8.6.0
 
-    working_directory: ~/recruit
     steps:
-      - checkout:
-          path: ~/recruit
+      - checkout
+      - run: npm install
       - run: npm run build
