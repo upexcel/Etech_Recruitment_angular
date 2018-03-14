@@ -23,18 +23,4 @@ jobs:
           keys:
             - v1-npm-deps-{{ checksum "package.json" }}
             - v1-npm-deps
-        -run: npm run build
-      # - run: npm install
-      # - run: npm rebuild node-sass --force
-      # - run: npm install pm2 -g
-      # - run: pm2 start npm --name recruit_front -- run start
-      # - run: apt-get install git
-      # - run: git clone https://github.com/nodeexcel/api_hr_recruitment
-      # - run: cd api_hr_recruitment && npm install && pm2 start npm --name recruit_backend -- run start
-      # - save_cache:
-      #     key: v1-npm-deps-{{ checksum "package.json" }}
-      #     paths:
-      #       - node_modules
-      # - run: npm install cypress
-      # - run: ss -lptn 'sport = :4200'
-      # - run: ss -lptn 'sport = :8091'
+        - run: npm run build
