@@ -6,7 +6,7 @@
       <div class="row">
         <div class="main col-sm-8">
             <p>
-                <mat-select placeholder="Job Profile" class="col-md-3 jobProfile" name="job_profile" [(ngModel)]="tempJobProfileId" (ngModelChange)="change($event)" required>
+                <mat-select placeholder="Job Profile" class="col-md-3 jobProfile" name="job_profile" [(ngModel)]="tempJobProfileId" required>
                     <mat-option *ngFor="let tags of jobProfile" [value]="tags.tag_id">
                         {{ tags.title }}
                     </mat-option>
