@@ -17,7 +17,7 @@ export class OtppageComponent implements OnInit {
   constructor(private access: LoginService, private _router: Router, public activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.fb_id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.fb_id = this.activatedRoute.snapshot.paramMap.get('candidateId');
   }
   submitOtp() {
     this.loading = true;

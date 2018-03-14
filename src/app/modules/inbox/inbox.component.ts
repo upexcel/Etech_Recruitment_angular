@@ -126,7 +126,6 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.tagReassigned(ev.newValue);
             }
         });
-
     }
     starred(data) {
         this.onStarredPage = data;
@@ -624,6 +623,13 @@ export class InboxComponent implements OnInit, OnDestroy {
             if (result) {
                 this.refresh();
             }
+        })
+    }
+
+    showReadOnly() {
+        this.data['unread'] = false;
+        this.getemails.getEmailList(this.data).subscribe((res)=> {
+            this.addSelectedFieldInEmailList(res);
         })
     }
 
