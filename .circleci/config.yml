@@ -5,6 +5,7 @@ jobs:
     docker:
       # the Docker image with Cypress dependencies
       - image: cypress/base:8
+    working_directory: ~/app
     steps:
       - run: npm run build
 
