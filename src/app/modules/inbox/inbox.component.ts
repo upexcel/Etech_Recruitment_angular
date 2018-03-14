@@ -126,7 +126,6 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.tagReassigned(ev.newValue);
             }
         });
-
     }
     starred(data) {
         this.onStarredPage = data;
@@ -186,6 +185,8 @@ export class InboxComponent implements OnInit, OnDestroy {
             });
         }
         this.emaillist = data;
+        console.log(this.emailParentId,"parent tag")
+        console.log(this.emailChildId,"child tag")
     }
     stripHtml(htmlData) {
         const temporalDivElement = document.createElement('div');
@@ -625,6 +626,15 @@ export class InboxComponent implements OnInit, OnDestroy {
                 this.refresh();
             }
         })
+    }
+
+    showReadOnly() {
+        this.data['unread'] = false;
+        
+        this.getemails.showReadOnly(this.data).subscribe((res)=> {
+            this.addSelectedFieldInEmailList(res);
+        })
+
     }
 
 }

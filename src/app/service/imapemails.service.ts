@@ -57,6 +57,7 @@ export class ImapMailsService {
     }
     getEmailList(body: any): Observable<any> {
         this.increaseAPiCount();
+        console.log(body);
         if (!!body.type) {
             return this.Intercepted.put(environment['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
                 .map((res: Response) => {
@@ -1292,6 +1293,21 @@ export class ImapMailsService {
     archivefindTotalMail(data: any): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.post(environment['apibase'] + `email/archiveCount`, data)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    showReadOnly(body) {
+        console.log(body)
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
