@@ -5,17 +5,10 @@ jobs:
     docker:
       # the Docker image with Cypress dependencies
       - image: cypress/base:8
-        environment:
-          - TERM: xterm
       - image: node:8.6.0
 
-    working_directory: ~/
-    parallelism: 1
+    working_directory: package.json
     steps:
-      # - checkout
-      # - restore_cache:
-      #     keys:
-      #       - v1-npm-deps-{{ checksum "package.json" }}
-      #       - v1-npm-deps
+
       - run: npm install
       - run: npm run build
