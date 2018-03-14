@@ -8,10 +8,7 @@ jobs:
       - image: node:8.6.0
 
     working_directory: ~/app
-    parallelism: 1
     steps:
-      - restore_cache:
-          keys:
-            - v1-npm-deps-{{ checksum "package.json" }}
-      - run: npm install
+      - checkout:
+          path: ~/
       - run: npm run build
