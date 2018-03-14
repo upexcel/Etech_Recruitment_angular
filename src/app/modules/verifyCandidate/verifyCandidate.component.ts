@@ -54,7 +54,7 @@ export class VerifyCandidateComponent implements OnInit {
             this.fbdata['appliedEmail'] = this.addForm.controls['email'].value;
             this.access.candidate_login(this.fbdata).subscribe(response => {
                 if (response.status === 1) {
-                    this._router.navigate([`/testpageotp/${response.fb_id}`]);
+                    this._router.navigate([`/otp/${response.fb_id}`]);
                 } else {
                     this.loading = false;
                     this.errorMsg = 'Email Not found';
