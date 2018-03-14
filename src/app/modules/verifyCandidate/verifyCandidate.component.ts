@@ -42,18 +42,7 @@ export class VerifyCandidateComponent implements OnInit {
         }
     }
     addWalkinCandidate() {
-        this.dialogRef = this.dialog.open(WalkinCandidateComponent, {
-            height: '70%',
-            width: '60%'
-        });
-        this.dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.contacthr = true;
-                this.enterEmail = false;
-                this._router.navigate(['/ThankYou']);                    
-            }
-            this.dialogRef = null;
-        });
+        this._router.navigate(['/addwalkin']);
     }
     checkUser() {
         this.contacthr = false;
@@ -65,20 +54,7 @@ export class VerifyCandidateComponent implements OnInit {
             this.fbdata['appliedEmail'] = this.addForm.controls['email'].value;
             this.access.candidate_login(this.fbdata).subscribe(response => {
                 if (response.status === 1) {
-                    this.ngzone.run(() => {
-                        this.dialogRef = this.dialog.open(OtpdialogComponent, {
-                            height: '225px',
-                            width: '300px'
-                        });
-                        this.dialogRef.componentInstance.fb_id = response.fb_id;
-                        this.dialogRef.afterClosed().subscribe(result => {
-                            this.loading = false;
-                            if (result) {
-                                this._router.navigate(['/candidate/interviewques', response.fb_id]);
-                            }
-                            this.dialogRef = null;
-                        });
-                    });
+                    this._router.navigate([`/otp/${response.fb_id}`]);
                 } else {
                     this.loading = false;
                     this.errorMsg = 'Email Not found';

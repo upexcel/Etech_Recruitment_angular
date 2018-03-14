@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { config } from './../../config/config';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-walkin-candidate-temp',
@@ -11,30 +12,34 @@ import { config } from './../../config/config';
 })
 export class WalkinCandidateComponent implements OnInit {
     walkinData: any;
-    constructor(public dialogRef: MatDialogRef<any>, private apiService: ImapMailsService, public snackBar: MatSnackBar) {
+    loading: boolean;
+    
+    constructor(private apiService: ImapMailsService, public snackBar: MatSnackBar, public _router: Router) {
         this.walkinData = JSON.parse(localStorage.getItem('walkinUser'))
     }
 
-    ngOnInit() { }
+    ngOnInit() {}
 
     save(form: NgForm) {
         if (form.valid) {
+            this.loading = true;
             const data = form.value;
             data['sender_mail'] = this.walkinData.email;
             data['from'] = this.walkinData.name;
             data['fb_id'] = this.walkinData.fb_id;
             data['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no'];
             this.apiService.addWalkinCandidate(data).subscribe((res) => {
-                this.dialogRef.close('sucess');
+                this.loading = false;
                 this.snackBar.open('Candidate Added', '', {
                     duration: 2000,
                 });
+                this._router.navigate(['/ThankYou']);
             }, (err) => {
+                this.loading = false;
+                this.snackBar.open('Something Went Wrong', '', {
+                    duration: 2000,
+                });
             })
         }
-    }
-
-    close() {
-        this.dialogRef.close();
     }
 }

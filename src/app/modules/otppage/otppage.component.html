@@ -1,0 +1,21 @@
+<div>
+  <div class="logo">
+    <img class="img-responsive" src="assets/logo.png">
+  </div>
+  <div class="well form-container">
+    <h4 class="heading">
+      You are are about to start your test.
+      <br/>Since all tests are confidential, it's mandatory that you do it after approval of our HR.
+      <br /> confirm the sames, please ask HR for OTP password</h4>
+    <hr>
+    <form class="form" (ngSubmit)="submitOtp()">
+      <mat-card-subtitle id="loginError" class="error" *ngIf="error">{{errorMsg}}</mat-card-subtitle>
+      <mat-form-field class="width">
+        <input type="tel " maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <=57' name="otp" matInput placeholder="Enter OTP"
+          [(ngModel)]="otp" autoComplete="off" required>
+      </mat-form-field>
+      <button *ngIf="!loading" mat-raised-button color=primary class="btn-block" type="submit">Submit</button>
+      <mat-spinner id="loginSpinner" *ngIf="loading" class="spin commonSpinner1"></mat-spinner>
+    </form>
+  </div>
+</div>>

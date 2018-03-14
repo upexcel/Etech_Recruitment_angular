@@ -37,6 +37,9 @@ import { CandidateScoreComponent } from './modules/candidateScore/candidateScore
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin.component';
 import { ThankYouComponent } from './modules/thank-you/thank-you.component';
+import { OtppageComponent } from './modules/otppage/otppage.component';
+import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
+
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
@@ -51,11 +54,23 @@ export const routes: Route[] = [{
             component: InterviewQuestionComponent,
             pathMatch: 'full'
         }]
-    }, {
+    },
+    {
         path: 'verifycandidate',
         component: VerifyCandidateComponent,
         pathMatch: 'full'
-    },{
+    },
+    {
+        path: 'addwalkin',
+        component: WalkinCandidateComponent,
+        pathMatch: 'full'
+    },
+    {
+        path: 'otp/:candidateId',
+        component: OtppageComponent,
+        pathMatch: 'full'
+    },
+    {
         path:'ThankYou',
         component: ThankYouComponent,
         pathMatch: 'full'

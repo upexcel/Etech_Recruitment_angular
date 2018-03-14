@@ -5,7 +5,7 @@
 <div *ngIf="!contacthr && !enterEmail">
     <mat-list class="pad0">
       <mat-list-item class="pad0">
-        <div class="col-md-4 col-sm-12 marAuto bodyInner">
+        <div class="col-md-4 col-sm-12 marAuto bodyInner well">
           <mat-card-title>
             <h4>We couldn't find your email address in our system. Please select option below</h4>
             <hr>
@@ -23,7 +23,7 @@
 <div *ngIf="enterEmail">
     <mat-list class="pad0">
       <mat-list-item class="pad0">
-        <div class="col-md-4 col-sm-12 marAuto bodyInner">
+        <div class="col-md-4 col-sm-12 marAuto bodyInner well">
             <h5>Input the email id with which you have already applied, so we can find your job application easily</h5>
             <form id="loginForm" autoComplete="off" [formGroup]="addForm" (ngSubmit)="verifyLogin()">
             <mat-card-subtitle id="loginError" class="error" *ngIf="error">{{errorMsg}}</mat-card-subtitle>
@@ -31,8 +31,8 @@
               <input id="email" matInput type="email"  formControlName="email" placeholder="Email" autoComplete="off">
               <mat-error>Enter Valid Email</mat-error>
             </mat-form-field>
-            <button mat-raised-button color=primary *ngIf="!loading" type="submit" class="right">Submit</button>
-            <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
+            <button mat-raised-button color=primary *ngIf="!loading" type="submit" class="btn-block">Submit</button>
+            <mat-spinner id="loginSpinner" *ngIf="loading" class="spin commonSpinner1"></mat-spinner>
             </form>
         </div>
       </mat-list-item>
