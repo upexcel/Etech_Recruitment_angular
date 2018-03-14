@@ -66,7 +66,7 @@ export class ImapMailsService {
                 .catch((error: any) => {
                     this.count = 0;
                     this.apiEndEvent.emit();
-                    return Observable.throw(error || 'Server error');
+                    return Observable.throw(error.json() || 'Server error');
                 });
         } else {
             return this.Intercepted.put(environment['apibase'] + `email/fetch/${body.tag_id}/${body.page}/${body.limit}`, body)
@@ -77,7 +77,7 @@ export class ImapMailsService {
                 .catch((error: any) => {
                     this.count = 0;
                     this.apiEndEvent.emit();
-                    return Observable.throw(error || 'Server error');
+                    return Observable.throw(error.json() || 'Server error');
                 });
         }
     }
