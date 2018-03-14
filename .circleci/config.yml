@@ -9,7 +9,6 @@ jobs:
           - TERM: xterm
       - image: node:8.6.0
 
-    working_directory: root
     parallelism: 1
     steps:
       # - checkout
