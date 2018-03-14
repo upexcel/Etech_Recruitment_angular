@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
     loading: boolean;
     message: string;
     showmessage: boolean;
+    checked: boolean;
     constructor(private commonService: CommonService, private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MatSnackBar) {
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required],
             keeplogin: false
         });
+        this.checked = true;
     }
     login() {
         if (this.addForm.valid) {
