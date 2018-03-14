@@ -39,7 +39,7 @@ export class ArchiveMailComponent implements OnInit {
                 this.email = res.data;
             }, (err) => {
                 console.log(err);
-            });
+            });'''.;,'p-0
         }
     }
     archiveAllMail() {
