@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
     loading: boolean;
     message: string;
     showmessage: boolean;
-    checked: boolean;
     constructor(private commonService: CommonService, private formBuilder: FormBuilder, private zone: NgZone, private access: LoginService, private _router: Router, public _localStorageService: LocalStorageService, public _snackbar: MatSnackBar) {
         if (this._localStorageService.getItem('loginMessage')) {
             this._snackbar.open(this._localStorageService.getItem('loginMessage'), '', {
@@ -32,8 +31,8 @@ export class LoginComponent implements OnInit {
         this.addForm = this.formBuilder.group({
             email: ['', Validators.compose([Validators.required, Validators.pattern('^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$')])],
             password: ['', Validators.required],
+            keeplogin: true
         });
-        this.checked = true;
     }
     login() {
         if (this.addForm.valid) {
