@@ -30,7 +30,7 @@ export class ThankYouComponent implements OnInit {
           if (response.status === 1) {
             clearInterval(this.apiFire);
             clearInterval(this.counter);
-            this._router.navigate([`/otp/${response.fb_id}`]);            
+            this._router.navigate([`/testpageotp/${response.fb_id}`]);            
           }
       }, (err) => {
         console.log(err);

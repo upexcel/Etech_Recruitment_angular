@@ -18,15 +18,11 @@ export class WalkinCandidateComponent implements OnInit {
         this.walkinData = JSON.parse(localStorage.getItem('walkinUser'))
     }
 
-    ngOnInit() { 
-        console.log(this.loading);
-        
-    }
+    ngOnInit() {}
 
     save(form: NgForm) {
         if (form.valid) {
             this.loading = true;
-            console.log(this.loading);
             const data = form.value;
             data['sender_mail'] = this.walkinData.email;
             data['from'] = this.walkinData.name;

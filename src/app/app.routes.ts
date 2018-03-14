@@ -66,7 +66,7 @@ export const routes: Route[] = [{
         pathMatch: 'full'
     },
     {
-        path: 'otp/:id',
+        path: 'testpageotp/:id',
         component: OtppageComponent,
         pathMatch: 'full'
     },

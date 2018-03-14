@@ -38,9 +38,9 @@ export class EmailtestloginComponent implements OnInit {
             this.showmessage = false;
             localStorage.setItem('loginByfb', 'false');
             this.access.candidate_login(this.emailTestObj).subscribe(response => {
-            let added = this.commonService.storeFbdata(this.emailTestObj);
+            this.commonService.storeFbdata(this.emailTestObj);
                 if (response.status === 1) {
-                    this._router.navigate([`/otp/${response.fb_id}`]);
+                    this._router.navigate([`/testpageotp/${response.fb_id}`]);
                 } else {
                     this.loading = false;
                     localStorage.setItem('walkinUser', JSON.stringify(this.emailTestObj));
