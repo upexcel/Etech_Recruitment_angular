@@ -5,9 +5,5 @@ jobs:
     docker:
       # the Docker image with Cypress dependencies
       - image: cypress/base:8
-        environment:
-
-    working_directory: ~/package.json
-    parallelism: 1
     steps:
-      - run: npm build
+      - run: npm run build
