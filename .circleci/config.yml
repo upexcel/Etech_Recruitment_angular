@@ -12,5 +12,5 @@ jobs:
     working_directory: ~/app
     parallelism: 1
     steps:
-      - run: npm intall
+      - run: npm install
       - run: npm run build
