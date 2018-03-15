@@ -84,6 +84,8 @@ export class InboxComponent implements OnInit, OnDestroy {
     currentPage: any;
     isSearching = false;
     noOfMails: any;
+    activeStatus: any;
+    tempArray: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MatDialog, public getemails: ImapMailsService, public snackBar: MatSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -403,6 +405,9 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     emaillists(emailData: any, page?: number) {
+        if (emailData.active_status) {
+            this.activeStatus = emailData.active_status;
+        }
         this.onStarredPage = false;
         this.isSearching = false;
         this.currentPage = emailData.parentTitle;
@@ -521,6 +526,15 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     formatTagsInArray(data: any) {
         this.tags = JSON.parse(JSON.stringify(data));
+        _.forEach(this.tags, (tagValue, tagKey) => {
+            if (tagValue['title'] === 'candidate') {
+                this.tempArray = _.groupBy(tagValue['data'], 'active_status');
+                tagValue['data'] = this.tempArray['true']
+                _.forEach(this.tempArray['false'], (tagData, key) => {
+                    tagValue['data'].push(tagData)
+                });
+            }
+        });
         this.getDefaultTagOpen(this.tags);
         this._commonService.formateTags(data).then((res: any) => {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
@@ -599,13 +613,21 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.inboxRefreshSubscription.unsubscribe();
         this.fetchEmailSubscription.unsubscribe();
     }
-    deletedProfile(type, tagid) {
+    closeProfile() {
+        if (this.activeStatus) {
+            this.activeStatus = false
+        };
         this._dialogService.openConfirmationBox('Are you sure want to close this job profile,\n this operation cannot be undone?').then((res) => {
             if (res === 'yes') {
-                // this.getemails.deleteJobProfile(type, tagid).subscribe((data) => {
-                // }, (err) => {
-                //     console.log(err);
-                // });
+                const body = {
+                    id: this.selectedTag ,
+                    status: this.activeStatus
+                };
+                this.getemails.closeJobProfile(body).subscribe((data) => {
+                    this.defaultOpen();
+                }, (err) => {
+                    console.log(err);
+                });
             }
         }, (err) => {
             console.log(err);

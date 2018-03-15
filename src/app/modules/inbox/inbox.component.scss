@@ -249,14 +249,13 @@
 }
 .delete{
     color: white;
-    position: absolute;
-    right: 1vw;
-    margin-top: 0vw;
     cursor: pointer;
     font-size: 14px;
-    line-height: 30px;
+    line-height: 28px;
     background: #f35353;
     font-weight: 800;
-    box-shadow: 0 0px 5px 0px #8c8b8b;
     padding: 0px 6px 0px 5px;
+}
+.right{
+  float: right;
 }

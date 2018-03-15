@@ -19,6 +19,7 @@ export class InboxSideNavComponent implements OnInit {
     parantTagId: string;
     showId: any;
     showAlltag: boolean;
+    tempArray: any;
     @Input() tags: any[];
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
@@ -43,7 +44,7 @@ export class InboxSideNavComponent implements OnInit {
             this.showAlltag = true;
         }
     }
-    getEmail(id, parantTagId, title, parentTitle) {
+    getEmail(id, parantTagId, title, parentTitle, active_status) {
         this.parantTagId = parantTagId;
         this.selectedId = (id === 0 ? parantTagId : id);
         this.menuShow = false;
@@ -52,7 +53,7 @@ export class InboxSideNavComponent implements OnInit {
         } else if (title === 'Attachment') {
             this.getEmails.emit({ 'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle, 'is_attach': true });
         } else {
-            this.getEmails.emit({ 'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle });
+            this.getEmails.emit({ 'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle, 'active_status': active_status });
         }
     }
     openSubMenu(title) {
@@ -105,14 +106,16 @@ export class InboxSideNavComponent implements OnInit {
             console.log(err);
         });
     }
-    showHideMenu(id) {
-        if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
-            localStorage.removeItem('tagShowId');
-            this.showAlltag = true;
-        } else {
-            this.showAlltag = false;
-            this.showId = id;
-            localStorage.setItem('tagShowId', id);
+    showHideMenu(id, active_status) {
+        if (active_status) {
+            if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
+                localStorage.removeItem('tagShowId');
+                this.showAlltag = true;
+            } else {
+                this.showAlltag = false;
+                this.showId = id;
+                localStorage.setItem('tagShowId', id);
+            }
         }
     }
     getStarredMails() {
