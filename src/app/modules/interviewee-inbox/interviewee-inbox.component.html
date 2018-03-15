@@ -1,16 +1,26 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12" id="inbox-col" *ngFor="let email of inboxEmail" (click)="openEmails(email)">
+        <div class="col-md-12 emailbox" id="inbox-col" *ngFor="let email of inboxEmail; let i = index ">
             <mat-card class="emailstyle" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
                 <div class="avatar-image">
                     <img src="{{url}}/{{email.sender_mail}}" onerror="this.src='assets/user.jpg'">
                 </div>
-                <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}">
+                <div class="detailloc {{email.unread ? 'unchecked': 'checked'}}" (click)="openEmails(email)">
                     <h5>{{countEmailSubject(email.subject)}}</h5>
                     <h6 class="inline">
                         <mat-icon *ngIf="email.is_attachment" class="attach">attach_file</mat-icon> {{email.date | date: 'medium'}}
                     </h6>
                     <p>{{email.sender_mail}} - From {{email.from}}</p>
+                </div>
+                <div class="default-tag-buttons row buttons" *ngIf="tagAssignedArray[i]">
+                    <span *ngFor="let tag of tagAssignedArray[i]; trackBy: allTagsDefaultTrack;">
+                        <div class="right" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id==null && tag.title != 'Schedule'"
+                            id="{{tag.title}}" (click)="assignTag(tag.id, email._id, tag.title, tag.default_tag, email)">
+                            <button mat-raised-button class="cyan line-height" [ngStyle]="getColor(tag.title)">
+                                <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+                            </button>
+                        </div>
+                    </span>
                 </div>
             </mat-card>
         </div>
