@@ -360,9 +360,28 @@ export class CommonService {
     jobProfile(tags,jobProfile) {
         _.forEach(tags['data'][0]['data'], (value, key) => {
             if(value.id != null && value.id !=0){
-            jobProfile.push({ title: value.title, tag_id: value.id });
-           }
-          });
-          return jobProfile;
+                jobProfile.push({ title: value.title, tag_id: value.id });
+            }
+        });
+        return jobProfile;
+    }
+    sortByJobProfileStatus(tags) {
+        let tagStatus;
+        _.forEach(tags, (tagValue, tagKey) => {
+            if (tagValue['title'] === 'candidate') {
+                tagStatus = _.groupBy(tagValue['data'], 'active_status');
+                tagValue['data'] = tagStatus['true']
+                _.forEach(tagStatus['false'], (tagData, key) => {
+                    let count = 0;
+                    _.forEach(tagData['subchild'], (subchild, keyChild) => {
+                        // to update count for false status
+                        count = count + subchild.count;
+                        tagData['count'] = count;
+                    });
+                    tagValue['data'].push(tagData)
+                });
+            }
+        });
+        return tags;
     }
 }
