@@ -15,6 +15,7 @@ export class RemoveMailsDialogComponent implements OnInit {
     showloading: boolean;
     unread: boolean;
     role: any;
+    emailChildId: any;
     constructor(public dialogRef: MatDialogRef<any>, private imapMailService: ImapMailsService) { }
 
     ngOnInit() {
@@ -28,6 +29,7 @@ export class RemoveMailsDialogComponent implements OnInit {
     removeOldEmails(data) {
         const body = {
             'tag_id': this.emailParentId,
+            'default_tag': this.emailChildId || "",
             'start': data.from,
             'end': data.to,
             'unread': data.unread !== undefined ? data.unread : false
