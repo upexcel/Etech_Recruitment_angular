@@ -3,6 +3,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { AddSubTagModalComponent } from '../add-sub-tag-modal/add-sub-tag-modal.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
+import { LocalStorageService } from './../../service/local-storage.service';
 
 import * as _ from 'lodash';
 @Component({
@@ -25,7 +26,7 @@ export class InboxSideNavComponent implements OnInit {
     @Output() getTags = new EventEmitter<any>();
     @Output() getStarredEmails = new EventEmitter<any>();
     dialogRef: MatDialogRef<any>;
-    constructor(public _apiService: ImapMailsService, public dialog: MatDialog, private _dialogService: DialogService) { }
+    constructor(public _apiService: ImapMailsService, public dialog: MatDialog, private _dialogService: DialogService, private localStorageService: LocalStorageService) { }
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
@@ -43,7 +44,7 @@ export class InboxSideNavComponent implements OnInit {
             this.showAlltag = true;
         }
     }
-    getEmail(id, parantTagId, title, parentTitle) {
+    getEmail(id, parantTagId, title, parentTitle, active_status) {
         this.parantTagId = parantTagId;
         this.selectedId = (id === 0 ? parantTagId : id);
         this.menuShow = false;
@@ -52,7 +53,7 @@ export class InboxSideNavComponent implements OnInit {
         } else if (title === 'Attachment') {
             this.getEmails.emit({ 'id': null, 'parantTagId': null, 'title': title, 'parentTitle': parentTitle, 'is_attach': true });
         } else {
-            this.getEmails.emit({ 'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle });
+            this.getEmails.emit({ 'id': id, 'parantTagId': parantTagId, 'title': title, 'parentTitle': parentTitle, 'active_status': active_status });
         }
     }
     openSubMenu(title) {
@@ -105,14 +106,16 @@ export class InboxSideNavComponent implements OnInit {
             console.log(err);
         });
     }
-    showHideMenu(id) {
-        if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
-            localStorage.removeItem('tagShowId');
-            this.showAlltag = true;
-        } else {
-            this.showAlltag = false;
-            this.showId = id;
-            localStorage.setItem('tagShowId', id);
+    showHideMenu(id, active_status) {
+        if (active_status) {
+            if (this.localStorageService.getItem('tagShowId') === id) {
+                this.localStorageService.clearItem('tagShowId');
+                this.showAlltag = true;
+            } else {
+                this.showAlltag = false;
+                this.showId = id;
+                this.localStorageService.setItem('tagShowId', id);
+            }
         }
     }
     getStarredMails() {

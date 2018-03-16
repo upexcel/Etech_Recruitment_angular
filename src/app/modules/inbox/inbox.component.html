@@ -6,8 +6,10 @@
             </div>
             <div id="rightPart" class="col-md-10 no-pad">
                 <div class="content">
-                    <!-- <button md-raised-button *ngIf="selectedTagTitle == 'All'&& emaillist && emailParentId && emaillist.data" mdTooltip="Close Job Profile" mdTooltipPosition="below" class="delete" (click)="deletedProfile()">Close Job Profile</button> -->
+
                     <div class="m-b well" *ngIf="showInboxEmailList && emaillist">
+                      <span class="right">
+                        <button mat-raised-button *ngIf="selectedTagTitle == 'All'&& emaillist && emailParentId && emaillist.data" mdTooltip="Close Job Profile" mdTooltipPosition="below" class="delete" (click)="closeProfile()">Close Job Profile</button></span>
                         <p class="bblue" *ngIf="emaillist && showInboxEmailList">{{emailParenttitle}} - {{emailChildTitle}}</p>
                         <div class="container-fluid">
                             <div class="row">

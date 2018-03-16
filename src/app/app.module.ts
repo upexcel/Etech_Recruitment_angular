@@ -197,6 +197,7 @@ import { ThankYouComponent } from './modules/thank-you/thank-you.component';
 import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.component';
 import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.component';
 import { OtppageComponent } from './modules/otppage/otppage.component';
+import { TokenExpireComponent } from './modules/token-expire/token-expire.component';
 
 @NgModule({
     declarations: [
@@ -275,7 +276,8 @@ import { OtppageComponent } from './modules/otppage/otppage.component';
         ThankYouComponent,
         ArchiveMailComponent,
         SetCallLogsComponent,
-        OtppageComponent
+        OtppageComponent,
+        TokenExpireComponent
     ],
     imports: [
         BrowserModule,
@@ -358,7 +360,8 @@ import { OtppageComponent } from './modules/otppage/otppage.component';
         RemoveMailsDialogComponent,
         ChangeTagComponent,
         ArchiveMailComponent,
-        SetCallLogsComponent
+        SetCallLogsComponent,
+        TokenExpireComponent
     ],
     bootstrap: [AppComponent]
 })
