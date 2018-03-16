@@ -9,7 +9,7 @@ import { LocalStorageService } from './../../service/local-storage.service';
 import { ViewNoteComponent } from './../view-note/view-note.component';
 import { AddNoteComponent } from './../add-note/add-note.component';
 import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
-import * as moment from 'moment'; 
+import * as moment from 'moment';
 import { config } from './../../config/config';
 
 @Component({

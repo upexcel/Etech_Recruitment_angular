@@ -590,6 +590,11 @@ export class InboxComponent implements OnInit, OnDestroy {
             width: '60%'
         });
         this.dialogRef.componentInstance.emailParentId = this.emailParentId;
+        if (this.emailParentId == this.emailChildId) {
+            this.dialogRef.componentInstance.emailChildId = "";
+        } else {
+            this.dialogRef.componentInstance.emailChildId = this.emailChildId;
+        }
         this.dialogRef.componentInstance.role = role;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
