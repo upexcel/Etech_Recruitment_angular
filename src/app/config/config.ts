@@ -4,6 +4,7 @@ export const config = {
     'mobileNoPrefix': '+91',
     'testMaxtime': 3600000,
     'timeGrace': 300000,
+    'refreshTime': 30000,
     'titles': { '/core/dashboa': 'Dashboard', '/core/setting': 'Settings', '/core/inbox': 'Inbox', '/core/inbox/e': 'Inbox', '/core/email-t': 'Email Tracking', '/core/intervi': 'Inbox'},
     'roles': { 'HR': ['/core/setting/emailtemplate', '/core/setting/createQuestion', '/core/setting/pendingCandidate', '/core/setting/candidateScore', '/core/setting/emailvariable', '/core/setting/tagsetting', '/core/setting/automaticTags', '/core/setting/jobProfileTags', '/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Guest': ['/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Interviewee': ['/core/interviewee-inbox', '/core/setting/resetPassword', '/core/dashboard']},
     'dashboardChartColor': [
@@ -67,7 +68,7 @@ export const config = {
     callStatus:"Call Status",
     createJobProfile: [{title: 'Template will be valid across all Job Profile', tag_id:0}],
     showJobProfile: [{title: 'For All Job Profiles', tag_id:0}],
-    
+
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
 export const instructions = [

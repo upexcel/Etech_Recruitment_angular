@@ -41,8 +41,10 @@
           </p>
           <button mat-raised-button color="primary" class="help-position" (click)="onHelp()" [disabled]=disabled>Call For Help</button>
         </div>
-          <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
 
+          <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
+            <h4 *ngIf="testNotAvailable" class="empty">You are assigned to Job Profile "Mails/Attachment" for which there is no test configured. Please ask HR to assign you the
+              proper job profile.</h4>
             <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
