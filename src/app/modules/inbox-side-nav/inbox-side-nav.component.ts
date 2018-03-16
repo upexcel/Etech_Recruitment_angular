@@ -20,7 +20,6 @@ export class InboxSideNavComponent implements OnInit {
     parantTagId: string;
     showId: any;
     showAlltag: boolean;
-    tempArray: any;
     @Input() tags: any[];
     menuShow: boolean;
     @Output() getEmails = new EventEmitter<any>();
