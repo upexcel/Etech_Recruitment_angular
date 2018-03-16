@@ -9,7 +9,7 @@
         <div *ngIf="tag.data">
             <div class="subenav" *ngFor="let subTag of tag.data; trackBy: tagDataTrack"  [ngClass]="{'disableJob':subTag.active_status===false}">
                 <p [class.active]="selectedId == subTag.id && i != 0" *ngIf="subTag.type == 'Automatic'">
-                    <span id="subtitle"> <a *ngIf="i == 0" class="sub-title" (dblclick)="showHideMenu(subTag.id, subTag.active_status)">{{subTag.title}}</a>
+                    <span id="subtitle"> <a *ngIf="i == 0" class="sub-title" (dblclick)="showHideMenu(subTag.id, subTag.active_status)">{{subTag.title}} <span *ngIf="subTag.active_status===false">({{subTag.unread}}/{{subTag.count}})</span></a>
                         <mat-icon id="{{subTag.id}}" *ngIf="i == 0 && subTag.active_status" class="plus" (click)="addTag(subTag.id)">add</mat-icon>
                    </span>
                     <a (click)="getEmail(0, subTag.id, subTag.title, tag.title);" *ngIf="i != 0 && subTag.type == 'Automatic'">{{subTag.title}} ({{subTag.unread}}/{{subTag.count}})</a>

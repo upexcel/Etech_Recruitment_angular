@@ -531,6 +531,12 @@ export class InboxComponent implements OnInit, OnDestroy {
                 tagStatus = _.groupBy(tagValue['data'], 'active_status');
                 tagValue['data'] = tagStatus['true']
                 _.forEach(tagStatus['false'], (tagData, key) => {
+                    let count = 0;
+                    _.forEach(tagData['subchild'], (subchild, keyChild) => {
+                        // to update count for false status
+                        count = count + subchild.count;
+                        tagData['count'] = count;
+                    });
                     tagValue['data'].push(tagData)
                 });
             }
@@ -540,7 +546,6 @@ export class InboxComponent implements OnInit, OnDestroy {
     formatTagsInArray(data: any) {
         this.tags = JSON.parse(JSON.stringify(data));
         this.sortByJobProfileStatus(this.tags);
-        console.log(this.tags)
         this.getDefaultTagOpen(this.tags);
         this._commonService.formateTags(data).then((res: any) => {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
