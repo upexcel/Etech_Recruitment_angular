@@ -523,29 +523,9 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
     }
 
-    sortByJobProfileStatus(tags) {
-        let tagStatus;
-        this.tags = tags
-        _.forEach(this.tags, (tagValue, tagKey) => {
-            if (tagValue['title'] === 'candidate') {
-                tagStatus = _.groupBy(tagValue['data'], 'active_status');
-                tagValue['data'] = tagStatus['true']
-                _.forEach(tagStatus['false'], (tagData, key) => {
-                    let count = 0;
-                    _.forEach(tagData['subchild'], (subchild, keyChild) => {
-                        // to update count for false status
-                        count = count + subchild.count;
-                        tagData['count'] = count;
-                    });
-                    tagValue['data'].push(tagData)
-                });
-            }
-        });
-    }
-
     formatTagsInArray(data: any) {
         this.tags = JSON.parse(JSON.stringify(data));
-        this.sortByJobProfileStatus(this.tags);
+        this.tags = this._commonService.sortByJobProfileStatus(this.tags);
         this.getDefaultTagOpen(this.tags);
         this._commonService.formateTags(data).then((res: any) => {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
