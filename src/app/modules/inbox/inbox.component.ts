@@ -84,8 +84,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     currentPage: any;
     isSearching = false;
     noOfMails: any;
-    activeStatus: any;
-    tempArray: any;
+    tagStatus: any;
     constructor(public _core: CoreComponent, public _location: Location, public _router: Router, public dialog: MatDialog, public getemails: ImapMailsService, public snackBar: MatSnackBar, public _localStorageService: LocalStorageService, public _commonService: CommonService, public _dialogService: DialogService) {
         this.Math = Math;
         this.fetchEmailSubscription = this.getemails.componentMehtodCalled$.subscribe(
@@ -406,7 +405,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     emaillists(emailData: any, page?: number) {
         if (emailData.active_status) {
-            this.activeStatus = emailData.active_status;
+            this.tagStatus = emailData.active_status;
         }
         this.onStarredPage = false;
         this.isSearching = false;
@@ -524,17 +523,24 @@ export class InboxComponent implements OnInit, OnDestroy {
         });
     }
 
-    formatTagsInArray(data: any) {
-        this.tags = JSON.parse(JSON.stringify(data));
+    sortByJobProfileStatus(tags) {
+        let tagStatus;
+        this.tags = tags
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'candidate') {
-                this.tempArray = _.groupBy(tagValue['data'], 'active_status');
-                tagValue['data'] = this.tempArray['true']
-                _.forEach(this.tempArray['false'], (tagData, key) => {
+                tagStatus = _.groupBy(tagValue['data'], 'active_status');
+                tagValue['data'] = tagStatus['true']
+                _.forEach(tagStatus['false'], (tagData, key) => {
                     tagValue['data'].push(tagData)
                 });
             }
         });
+    }
+
+    formatTagsInArray(data: any) {
+        this.tags = JSON.parse(JSON.stringify(data));
+        this.sortByJobProfileStatus(this.tags);
+        console.log(this.tags)
         this.getDefaultTagOpen(this.tags);
         this._commonService.formateTags(data).then((res: any) => {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
@@ -614,14 +620,14 @@ export class InboxComponent implements OnInit, OnDestroy {
         this.fetchEmailSubscription.unsubscribe();
     }
     closeProfile() {
-        if (this.activeStatus) {
-            this.activeStatus = false
+        if (this.tagStatus) {
+            this.tagStatus = false
         };
         this._dialogService.openConfirmationBox('Are you sure want to close this job profile,\n this operation cannot be undone?').then((res) => {
             if (res === 'yes') {
                 const body = {
                     id: this.selectedTag ,
-                    status: this.activeStatus
+                    status: this.tagStatus
                 };
                 this.getemails.closeJobProfile(body).subscribe((data) => {
                     this.defaultOpen();

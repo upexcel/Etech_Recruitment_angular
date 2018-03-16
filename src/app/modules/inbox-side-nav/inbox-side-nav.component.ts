@@ -3,6 +3,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { AddSubTagModalComponent } from '../add-sub-tag-modal/add-sub-tag-modal.component';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
+import { LocalStorageService } from './../../service/local-storage.service';
 
 import * as _ from 'lodash';
 @Component({
@@ -26,7 +27,7 @@ export class InboxSideNavComponent implements OnInit {
     @Output() getTags = new EventEmitter<any>();
     @Output() getStarredEmails = new EventEmitter<any>();
     dialogRef: MatDialogRef<any>;
-    constructor(public _apiService: ImapMailsService, public dialog: MatDialog, private _dialogService: DialogService) { }
+    constructor(public _apiService: ImapMailsService, public dialog: MatDialog, private _dialogService: DialogService, private localStorageService: LocalStorageService) { }
     ngOnInit() {
         _.forEach(this.tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'inbox') {
@@ -108,13 +109,13 @@ export class InboxSideNavComponent implements OnInit {
     }
     showHideMenu(id, active_status) {
         if (active_status) {
-            if (JSON.parse(localStorage.getItem('tagShowId')) === id) {
-                localStorage.removeItem('tagShowId');
+            if (this.localStorageService.getItem('tagShowId') === id) {
+                this.localStorageService.clearItem('tagShowId');
                 this.showAlltag = true;
             } else {
                 this.showAlltag = false;
                 this.showId = id;
-                localStorage.setItem('tagShowId', id);
+                this.localStorageService.setItem('tagShowId', id);
             }
         }
     }
