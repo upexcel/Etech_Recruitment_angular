@@ -43,6 +43,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     disabled:boolean;
     timeExp: boolean;
     timerMin: any;
+    testNotAvailable = false;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -151,7 +152,14 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                         })
                     })
                     this.total = res.count;
+                    this.testNotAvailable = false;
+                    this.timerstart()
                 } else {
+                    this.testNotAvailable = true;
+                    setTimeout(() => {
+                        this.start(this.selectedJob);
+                    }, config.refreshTime);
+                    clearInterval(this.interval);
                     this._mdSnackBar.open('Test not available', '', {
                         duration: 2000,
                     });
@@ -288,7 +296,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.instructionsRead = true;
         this.maxtime = config.testMaxtime;
         localStorage.setItem('sessionStart', 'true');
-        this.timerstart();
+        // this.timerstart();
         this._localStorageService.setItem('instructions',this.instructionsRead);
 
     }
