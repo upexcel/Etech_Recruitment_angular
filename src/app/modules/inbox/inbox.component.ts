@@ -524,8 +524,7 @@ export class InboxComponent implements OnInit, OnDestroy {
     }
 
     formatTagsInArray(data: any) {
-        this.tags = JSON.parse(JSON.stringify(data));
-        this.tags = this._commonService.sortByJobProfileStatus(this.tags);
+        this.tags = this._commonService.sortByJobProfileStatus(JSON.parse(JSON.stringify(data)));
         this.getDefaultTagOpen(this.tags);
         this._commonService.formateTags(data).then((res: any) => {
             this.tagsForEmailListAndModel = res.tagsForEmailListAndModel;
