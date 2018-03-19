@@ -338,8 +338,11 @@ export class CommonService {
 
     sortBydate(data) {
         let newdata = [];
-        newdata = _.sortBy(data.data, function (o) {
-            return new Date(o.date);
+        newdata = _.sortBy(data.data, function (value) {
+            if (value['body'] && value['body'].length > 0) {
+                value['body'] = value['body'].replace(/<a/g, '<a target="_blank" ').replace(/(?:\r\n|\r|\n)/g, '<br />');
+            }
+            return new Date(value.date);
         }).reverse();
         return newdata;
     }
