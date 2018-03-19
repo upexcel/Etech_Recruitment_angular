@@ -43,8 +43,7 @@ import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-cand
 export const routes: Route[] = [{
     path: '',
     pathMatch: 'full',
-    component: DashboardComponent,
-    data : { isHome : true }
+    redirectTo: 'core'
 },
     {
         path: 'candidate',
