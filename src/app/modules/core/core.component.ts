@@ -34,11 +34,11 @@ export class CoreComponent implements OnInit {
     ngOnInit(): void {
         this.access.verifyAccess().subscribe((data) => {
             if (!data.status) {
-                this.logout();
+                // this.logout();
             }
         }, (err) => {
             if (!err.status) {
-                this.logout();
+                // this.logout();
             }
         });
 
@@ -67,9 +67,10 @@ export class CoreComponent implements OnInit {
     }
 
     logout() {
+        console.log('log out')
         this.access.removeToken().then((data) => {
             if (data) {
-                this._router.navigate(['']);
+                this._router.navigate(['/login']);
             }
         });
     }

@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
     selector: 'app-token-expire',
     templateUrl: './token-expire.component.html',
     styleUrls: ['./token-expire.component.scss']
 })
-export class TokenExpireComponent implements OnInit, OnDestroy{
+export class TokenExpireComponent implements OnInit, OnDestroy {
 
-    constructor(public dialogRef: MatDialogRef<any>) {
+    constructor(public dialogRef: MatDialogRef<any>, public _matDialog: MatDialog) {
         dialogRef.disableClose = true;
     }
 
@@ -18,5 +18,9 @@ export class TokenExpireComponent implements OnInit, OnDestroy{
 
     ngOnDestroy() {
         document.getElementsByClassName('cdk-overlay-container')[0].classList.remove('backgroundExpire');
+    }
+
+    close() {
+        this._matDialog.closeAll();
     }
 }
