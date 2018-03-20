@@ -353,11 +353,7 @@ export class CommonService {
             date = moment(new Date(data['callSuccessTime'])).format('DD-MM-YYYY');
             time = moment(new Date(data['callSuccessTime'])).format('hh:mm:ss a');
         }
-        // if(data['callingStatus'] != "success") {
-            // return callToolTips[`${data['callingStatus']}`];
-        // } else {
         return callToolTips[`${data['callingStatus']}`] + ' ' + `${date} at ${time}`;
-        // }
     }
 
     jobProfile(tags,jobProfile) {
