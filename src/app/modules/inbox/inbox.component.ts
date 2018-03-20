@@ -643,8 +643,8 @@ export class InboxComponent implements OnInit, OnDestroy {
         })
     }
 
-    showReadOnly() {
-        this.data['unread'] = false;
+    showUnReadOnly() {
+        this.data['unread'] = true;
         this.getemails.getEmailList(this.data).subscribe((res)=> {
             this.addSelectedFieldInEmailList(res);
         })
