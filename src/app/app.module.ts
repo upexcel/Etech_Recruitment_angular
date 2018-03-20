@@ -40,7 +40,10 @@ import {
     MatTooltipModule,
     MatExpansionModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
 } from '@angular/material';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import {
@@ -311,7 +314,10 @@ import { TokenExpireComponent } from './modules/token-expire/token-expire.compon
         MatDatepickerModule,
         MatNativeDateModule,
         ChartsModule,
-        DragulaModule
+        DragulaModule,
+        MatTableModule,
+        MatSortModule,
+        MatPaginatorModule
     ],
     providers: [
         ImapMailsService,

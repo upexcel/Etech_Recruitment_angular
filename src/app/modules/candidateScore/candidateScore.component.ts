@@ -1,8 +1,7 @@
-import { Component, OnInit, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogRef, MatPaginator, MatSnackBar, MatTableDataSource, MatDialogConfig, MatSort } from '@angular/material'; import { Router } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
-import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import * as _ from 'lodash';
 
@@ -19,29 +18,34 @@ export class CandidateScoreComponent implements OnInit {
     end_date: any;
     detailedScore: any;
     dialogRef: MatDialogRef<any>;
-    constructor (private _getScore: ImapMailsService, private _ngzone: NgZone, private _mdSnackBar: MatSnackBar, public dialog: MatDialog) { }
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+    displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action'];
+    dataSource: any;
+    constructor(private _getScore: ImapMailsService, private _mdSnackBar: MatSnackBar, public dialog: MatDialog) { }
 
     ngOnInit() {
-        this.option = 'email' ;
+        this.option = 'email';
         const blankscore = {};
         this.getScore(blankscore);
     }
 
     getScore(data) {
         this._getScore.score(data).subscribe(res => {
-            this._ngzone.run(() => {
-                this.scores = res;
-            });
+            this.scores = res;
+            this.dataSource = new MatTableDataSource(res);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
         },
-        err => {
-        });
+            err => {
+            });
     }
-    getDetailedScore(fb_id: any) {
+    getDetailedScore(data) {
         this.dialogRef = this.dialog.open(PreviewScoreComponent, {
             height: '100%',
             width: '50%'
         });
-        this.dialogRef.componentInstance.fb_id = fb_id;
+        this.dialogRef.componentInstance.fb_id = data.fb_id;
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
         });

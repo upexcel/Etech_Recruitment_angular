@@ -23,30 +23,25 @@
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <button name="searchbtn" type="submit" mat-raised-button color=primary [disabled]="searchForm.invalid"> Search </button>
-        <button name="searchbtn" mat-raised-button  (click)="getScore('');searchForm.reset()">
-        Clear Search </button>
+        <button name="searchbtn" mat-raised-button (click)="getScore('');searchForm.reset()">
+          Clear Search </button>
       </form>
     </mat-card>
   </div>
-    <table class="col-md-12 list table">
-        <thead >
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Test Date</th>
-            <th>Score</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of scores; let id=index">
-            <td>{{data.from}}</td>
-            <td>{{data.sender_mail}}</td>
-            <td>{{data.exam_date|  date: 'medium'}}</td>
-            <td class="green">{{data.examScore}}</td>
-            <td><a class="link" (click)="getDetailedScore(data.fb_id)">View Report</a></td>
-          </tr>
-        </tbody>
-    </table>
-
+  <p *ngIf="!scores || scores.length == 0">
+    <b>No Data</b>
+  </p>
+  <mat-table #table [dataSource]="dataSource" matSort matSortActive="exam_submit_date" matSortDirection="desc">
+    <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{column | uppercase}} </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span *ngIf="column !== 'action'">{{column == 'exam_submit_date' ? (element[column] | date:'medium') : element[column]}}</span>
+        <button mat-raised-button *ngIf="column == 'action'" (click)="getDetailedScore(element)">View Report</button>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true">
+  </mat-paginator>
 </div>
