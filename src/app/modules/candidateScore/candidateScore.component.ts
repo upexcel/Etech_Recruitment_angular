@@ -1,9 +1,10 @@
-import { Component, OnInit, AfterViewInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MatPaginator, MatSnackBar, MatTableDataSource, MatDialogConfig, MatSort } from '@angular/material'; import { Router } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import * as _ from 'lodash';
+import { pageSet } from './../../config/config';
 
 @Component({
     selector: 'app-candidate-score',
@@ -15,27 +16,36 @@ export class CandidateScoreComponent implements OnInit {
     keyword: any;
     start_date: any;
     option: any;
+    paginationData: any
     end_date: any;
     detailedScore: any;
     dialogRef: MatDialogRef<any>;
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
     displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action'];
     dataSource: any;
-    constructor(private _getScore: ImapMailsService, private _mdSnackBar: MatSnackBar, public dialog: MatDialog) { }
+    pageLimit: any;
+    pageSet = pageSet;
+    pageSize: any;
+    length: any;
+    pageIndex: any;
+    constructor(private _getScore: ImapMailsService, private _mdSnackBar: MatSnackBar, public dialog: MatDialog) {
+    }
 
     ngOnInit() {
         this.option = 'email';
         const blankscore = {};
-        this.getScore(blankscore);
+        this.pageLimit = pageSet[0];
+        this.paginationData = {
+            page: 1,
+            limit: this.pageLimit
+        }
+        this.getScore(this.paginationData);
     }
 
-    getScore(data) {
-        this._getScore.score(data).subscribe(res => {
-            this.scores = res;
-            this.dataSource = new MatTableDataSource(res);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+    getScore(data, body?:any) {
+        this._getScore.score(data, body).subscribe(res => {
+            this.scores = res.data;
+            this.dataSource = res.data;
+            this.length = res.count;
         },
             err => {
             });
@@ -64,7 +74,15 @@ export class CandidateScoreComponent implements OnInit {
             if (this.option === 'date') {
                 dataS = { search_type: this.option, start_date: this.start_date, end_date: this.end_date };
             }
-            this.getScore(dataS);
+            this.getScore(this.paginationData, dataS);
         }
     }
+    onPaginateChange(data) {
+        this.paginationData = {
+            page: data.pageIndex + 1,
+            limit: data.pageSize
+        }
+        this.getScore(this.paginationData);
+    }
+
 }

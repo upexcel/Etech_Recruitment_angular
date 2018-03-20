@@ -1065,9 +1065,9 @@ export class ImapMailsService {
               return Observable.throw(error.json() || 'Server error');
           });
     }
-    score(body: any): Observable<any> {
+    score(data: any, body: any): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.post(environment['apibase'] + `exams/showExamResult`, body)
+        return this.Intercepted.post(environment['apibase'] + `exams/showExamResult/${data.page}/${data.limit}`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
