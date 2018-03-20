@@ -8,3 +8,21 @@
       <button class="mat-raised-button btn-info" (click)="changeStatus('again')">Call Again Later</button>
     </div>
 </div>
+<div class="width-history">
+  <mat-card-content class="table-responsive" *ngIf="email.callingDetails.length>0">
+    <table id="table" class="list table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr *ngFor="let data of email.callingDetails">
+          <td>{{data.callTime| date: 'medium'}}</td>
+          <td>{{data.status}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-card-content>
+</div>

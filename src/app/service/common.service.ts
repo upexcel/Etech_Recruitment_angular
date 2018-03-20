@@ -349,20 +349,20 @@ export class CommonService {
 
     callToolTips(data) {
         let date, time;
-        if(data['callSuccessTime']) {
+        if (data['callSuccessTime']) {
             date = moment(new Date(data['callSuccessTime'])).format('DD-MM-YYYY');
             time = moment(new Date(data['callSuccessTime'])).format('hh:mm:ss a');
         }
-        if(data['callingStatus'] != "success") {
-            return callToolTips[`${data['callingStatus']}`];
-        } else {
-            return callToolTips[`${data['callingStatus']}`] + `${date} at ${time}`;
-        }
+        // if(data['callingStatus'] != "success") {
+            // return callToolTips[`${data['callingStatus']}`];
+        // } else {
+        return callToolTips[`${data['callingStatus']}`] + ' ' + `${date} at ${time}`;
+        // }
     }
 
     jobProfile(tags,jobProfile) {
         _.forEach(tags['data'][0]['data'], (value, key) => {
-            if(value.id != null && value.id !=0){
+            if(value.id != null && value.id !=0) {
                 jobProfile.push({ title: value.title, tag_id: value.id });
             }
         });
