@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MatSnackBar } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
+import * as callStatus from './../../config/config';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-set-call-logs',
@@ -14,6 +16,11 @@ export class SetCallLogsComponent implements OnInit {
     ngOnInit() {
         if (this.email.callingDetails) {
             this.email.callingDetails.reverse();
+            _.forEach(this.email.callingDetails, (value, key) => {
+                if (value.status) {
+                    value.status = callStatus.callToolTips[`${value.status}`];
+                }
+            })
         }
     }
 
