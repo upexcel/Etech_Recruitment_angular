@@ -239,21 +239,21 @@ export class EmailboxComponent implements OnInit {
         }, (err) => {
         });
     }
-    callDetails() {
+    callDetails(email) {
         this.dialogRef = this.dialog.open(SetCallLogsComponent, {
             height: '30%',
             width: 'auto'
         });
-        this.dialogRef.componentInstance.id = this.email._id;
+        this.dialogRef.componentInstance.email = email;
         this.dialogRef.afterClosed().subscribe(result => {
-            if(result!=undefined) {
-                this.color=result['callingStatus'];
+            if (result != undefined) {
+                this.color = result['callingStatus'];
                 this.callTip(result);
             }
         })
     }
     callTip(data) {
-      this.callStatus = this.commonService.callToolTips(data);
+        this.callStatus = this.commonService.callToolTips(data);
     }
 
     updateEmailCallStatus(value) {

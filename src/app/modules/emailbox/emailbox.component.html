@@ -49,7 +49,7 @@
       <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" matTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
         <i class="material-icons noteicon">note</i>
       </p>
-      <p class="col-md-2 col-sm-2 col-xs-6 call" [matTooltip]="callStatus" (click)="callDetails()" *ngIf="email.default_tag != ''">
+      <p class="col-md-2 col-sm-2 col-xs-6 call" [matTooltip]="callStatus" (click)="callDetails(email)" *ngIf="email.default_tag != ''">
         <i class="material-icons phone" [ngClass]="color">phone_android</i>
       </p>
     </div>
