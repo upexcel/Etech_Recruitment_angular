@@ -5,7 +5,6 @@ import { LocalStorageService } from '../../service/local-storage.service';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
-import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
 import { config } from './../../config/config';
 import { instructions } from './../../config/config';
 import { DialogService } from '../../service/dialog.service';
