@@ -1,0 +1,25 @@
+<div>
+  <h3>Remove Old Logs</h3>
+  <form autocomplete="off" #removelogs="ngForm" (ngSubmit)="removeOldlogs(removeEmails.value)">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <mat-form-field class="width-100">
+          <input matInput name="from" type="date" placeholder="From date" #startDateValidator="ngModel" ngModel required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <mat-form-field class="width-100">
+          <input matInput name="to" type="date" placeholder="To date" #endDateValidator="ngModel" ngModel required>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 text-right">
+        <a mat-raised-button (click)="close()">Close</a>
+        <button id="save" mat-raised-button type="submit" color=primary [disabled]="startDateValidator.invalid || endDateValidator.invalid">
+          <span>Remove</span>
+        </button>
+      </div>
+    </div>
+  </form>
+  </div>
