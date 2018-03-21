@@ -987,9 +987,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    getQuesAdmin(job_profile: any): Observable<any> {
+    getQuesAdmin(type: any): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `exams/getQuestionsForAdmin/${job_profile}`)
+        return this.Intercepted.get(environment['apibase'] + `exams/getQuestionsByType/${type}`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();

@@ -8,14 +8,14 @@
     <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
     <mat-card-content>
       <div class="row">
-        <div class="col-md-6 col-sm-12" *ngIf="questionEditable">
-          <mat-select class="width-100" id="job_profile" placeholder="Select Job Profile" name="job_profile" required [(ngModel)]="job_profile">
-            <mat-option *ngFor="let tag of jobprofile_tag" [value]="tag.id">
-              {{tag.title}}
+        <!-- <div class="col-md-6 col-sm-12"  *ngIf="!subjective">
+          <mat-select class="width-100" id="questionType" placeholder="Select Question Type" name="questionType" required [(ngModel)]="questionType">
+            <mat-option *ngFor="let tag of testType" [value]="tag.type">
+              {{tag.type}}
             </mat-option>
           </mat-select>
-        </div>
-        <div class="col-md-6 col-sm-12">
+        </div> -->
+        <div class="col-md-6 col-sm-12" *ngIf="!subjective">
           <mat-select class="width-100" id="examGroup" placeholder="Select Group" name="examId" required [(ngModel)]="examId">
             <mat-option *ngFor="let tag of examgroup" [value]="tag.id">
               {{tag.exam_subject}}
@@ -27,52 +27,18 @@
       <div class="row">
         <div id="Question" class="col-md-12 col-sm-12">
           <mat-form-field class="width-100">
-            <textarea matInput name="question" placeholder="Question" required  [(ngModel)]="question" autoComplete="off"></textarea>
+            <textarea matInput name="question" [ngClass]="{'height':subjective}" placeholder="Question" required  [(ngModel)]="question" autoComplete="off"></textarea>
             <mat-error>
                 Question field is required
             </mat-error>
           </mat-form-field>
         </div>
-        <div id="decription" class="col-md-12 col-sm-12">
+        <div id="decription" class="col-md-12 col-sm-12" *ngIf="!subjective">
           <mat-form-field class="width-100">
             <textarea matInput name="desc"  placeholder="Description (Optional)" [(ngModel)]="desc" autoComplete="off"></textarea>
           </mat-form-field>
         </div>
-        <mat-radio-group>
-
-
-        <!-- <div id="option-1" class="col-md-12 col-sm-12">
-          <mat-radio-button value="1" (change)="answerRight($event)" [checked]="ans_id=='1'"></mat-radio-button>
-          <mat-form-field class="width-90">
-            <input matInput name="option1" type="text" placeholder="Option-1" required [(ngModel)]="opt1" autoComplete="off">
-            <mat-error>Option-1 Required</mat-error>
-          </mat-form-field>
-        </div> -->
-
-        <!-- <div id="option-2" class="col-md-12 col-sm-12">
-        <mat-radio-button value="2" (change)="answerRight($event)" [checked]="ans_id=='2'"></mat-radio-button>
-
-          <mat-form-field class="width-90">
-            <input matInput name="option2" type="text" placeholder="Option-2" required [(ngModel)]="opt2" autoComplete="off">
-            <mat-error>Option-2 Required</mat-error>
-          </mat-form-field>
-        </div> -->
-        <!-- <div id="option-3" class="col-md-12 col-sm-12">
-        <mat-radio-button value="3" (change)="answerRight($event)" [checked]="ans_id=='3'"></mat-radio-button>
-
-          <mat-form-field class="width-90">
-            <input matInput name="option3" type="text" placeholder="Option-3"  [(ngModel)]="opt3" autoComplete="off">
-            <mat-error>Option-3</mat-error>
-          </mat-form-field>
-        </div> -->
-        <!-- <div id="option-4" class="col-md-12 col-sm-12">
-        <mat-radio-button value="4" (change)="answerRight($event)" [checked]="ans_id=='4'"></mat-radio-button>
-
-          <mat-form-field class="width-90">
-            <input matInput name="option4" type="text" placeholder="Option-4"  [(ngModel)]="opt4" autoComplete="off">
-            <mat-error>Option-4</mat-error>
-          </mat-form-field>
-        </div> -->
+        <mat-radio-group *ngIf="!subjective">
         <div id="option-5" class="col-md-12 col-sm-12" *ngFor="let input of inputbox; let id=index;">
           <mat-radio-button value="{{input.opt_id}}" (change)="answerRight($event)" [checked]="ans_id==input.opt_id"></mat-radio-button>
 
@@ -86,7 +52,7 @@
         </div>
 
         </mat-radio-group>
-        <button style="padding-left: 10px;" mat-icon-button color=primary [disabled]="count>4" (click)="add()" matTooltip="Add more option!">
+        <button  *ngIf="!subjective" style="padding-left: 10px;" mat-icon-button color=primary [disabled]="count>4" (click)="add()" matTooltip="Add more option!">
           <i class="material-icons">add_circle_outline</i>
         </button>
         <div id="FormButton" class="col-md-12">
