@@ -9,7 +9,7 @@
     </div>
 </div>
 <div class="width-history">
-  <mat-card-content class="table-responsive" *ngIf="email.callingDetails.length>0">
+  <mat-card-content class="table-responsive" *ngIf="callHistory.length>0">
     <table id="table" class="list table">
       <thead>
         <tr>
@@ -18,9 +18,9 @@
         </tr>
       </thead>
       <tbody id="tbody">
-        <tr *ngFor="let data of email.callingDetails">
+        <tr *ngFor="let data of callHistory">
           <td>{{data.callTime| date: 'medium'}}</td>
-          <td>{{data.status}}</td>
+          <td>{{data.historyStatus}}</td>
         </tr>
       </tbody>
     </table>
