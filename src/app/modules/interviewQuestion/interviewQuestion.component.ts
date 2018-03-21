@@ -133,7 +133,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             _.forEach(this.questions, (val, key) => {
                 _.forEach(val.questions, (val1, key1) => {
                     this.totalQues.push(val1._id);
-                    console.log(val1)
                     if (val1['selected']) {
                         this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
                         ++this.questionsAttempted;
@@ -234,7 +233,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     // }
 
     savePreview() {
-        console.log(this.selectedAnswer);
         if (this.selectedAnswer.length > 0) {
         this.isSubmit = true;
         _.forEach(this.questions, (group, key2) => {
