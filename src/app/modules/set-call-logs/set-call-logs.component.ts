@@ -11,14 +11,15 @@ import * as _ from 'lodash';
 })
 export class SetCallLogsComponent implements OnInit {
     email: any;
+    callHistory = [];
     constructor(public dialogRef: MatDialogRef<any>, public imap: ImapMailsService, private _mdSnackBar: MatSnackBar) { }
 
     ngOnInit() {
         if (this.email.callingDetails) {
-            this.email.callingDetails.reverse();
-            _.forEach(this.email.callingDetails, (value, key) => {
-                if (value.status) {
-                    value.status = callStatus.callToolTips[`${value.status}`];
+            this.callHistory = this.email.callingDetails.reverse();
+            _.forEach(this.callHistory, (value, key) => {
+                if (value.status != '') {
+                    value['historyStatus'] = callStatus.callToolTips[value.status];
                 }
             })
         }
