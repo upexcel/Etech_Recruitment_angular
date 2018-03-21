@@ -4,7 +4,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import * as _ from 'lodash';
-import { pageSet } from './../../config/config';
+import { pageSet, displayedColumns } from './../../config/config';
 
 @Component({
     selector: 'app-candidate-score',
@@ -20,8 +20,8 @@ export class CandidateScoreComponent implements OnInit {
     end_date: any;
     detailedScore: any;
     dialogRef: MatDialogRef<any>;
-    displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action'];
     dataSource: any;
+    displayedColumns = displayedColumns;
     pageLimit: any;
     pageSet = pageSet;
     pageSize: any;

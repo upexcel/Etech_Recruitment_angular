@@ -84,4 +84,5 @@ export const callToolTips ={
     'success': "Talked To Candidate on ",
     'again':   "Call Again Later"
 }
-export const pageSet = ["5", "10", "20", "30", "50"];
+export const pageSet = ["5", "10", "20", "30", "50"]
+export const displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action']
