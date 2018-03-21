@@ -5,9 +5,9 @@ import { LocalStorageService } from '../../service/local-storage.service';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
-import { PreviewAnswerComponent } from '../previewAnswer/previewAnswer.component';
 import { config } from './../../config/config';
 import { instructions } from './../../config/config';
+import { DialogService } from '../../service/dialog.service';
 
 @Component({
     selector: 'app-interviewques',
@@ -28,7 +28,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     thankyou = false;
     temp: any;
     total: any;
-    questionsAttemped = 0;
+    questionsAttempted = 0;
     timer: any;
     redAlert = false;
     totalQues = [];
@@ -44,13 +44,15 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     timeExp: boolean;
     timerMin: any;
     testNotAvailable = false;
+    isSubmit: boolean;
+    totalQuestion = 0;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
     //         $event.returnValue = 'If you Reload your page, All your answers will be lost. Are you sure you want to do this?';
     //     }
     // }
-    constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private _apiService: ImapMailsService, private _router: Router, private _localStorageService: LocalStorageService) {
+    constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private _apiService: ImapMailsService, private _router: Router, private _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
         if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id) {
             this._router.navigate(['/emailtestlogin']);
@@ -133,7 +135,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.totalQues.push(val1._id);
                     if (val1['selected']) {
                         this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
-                        ++this.questionsAttemped;
+                        ++this.questionsAttempted;
                     }
                 })
             })
@@ -148,7 +150,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     _.forEach(this.questions, (val, key) => {
                         _.forEach(val.questions, (val1, key1) => {
                             this.totalQues.push(val1._id);
-                            this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
+                            // this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
                         })
                     })
                     this.total = res.count;
@@ -202,12 +204,12 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         localQuestionsWithUserAnswers['data'] = this.questions;
         this._localStorageService.clearItem('QuestionsWithUserAnswers');
         setTimeout(() => {
-            this.questionsAttemped = 0;
+            this.questionsAttempted = 0;
             _.forEach(this.questions, (val, key) => {
                 _.forEach(val.questions, (val1, key1) => {
                     if (val1['selected']) {
                         this.selectedAnswer.push({ 'Q_id': val1['_id'], 'ans_id': val1['selected'] });
-                        ++this.questionsAttemped;
+                        ++this.questionsAttempted;
                     }
                 })
             })
@@ -232,26 +234,36 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
 
     savePreview() {
         if (this.selectedAnswer.length > 0) {
-            this.dialogRef = this.dialog.open(PreviewAnswerComponent, {
-                height: '100%',
-                width: '50%'
+        this.isSubmit = true;
+        _.forEach(this.questions, (group, key2) => {
+            group['attempted'] = 0;
+            _.forEach(group.questions, (question, key3) => {
+                this.totalQuestion++;
+                _.forEach(this.selectedAnswer, (answer, key) => {
+                    if (answer.Q_id === question._id) {
+                        group['attempted']++;
+                    }
+                });
             });
-            this.dialogRef.componentInstance.selectedAnswer = this.selectedAnswer;
-            this.dialogRef.componentInstance.questionsAttemped = this.questionsAttemped;
-            this.dialogRef.componentInstance.allQuestion = this.questions;
-
-            this.dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.dialogRef = null;
-                    this.thankyou = true;
-                    this.submit();
-                }
-            });
+        });
         } else {
             this._mdSnackBar.open('Attempt atlest one Question', '', {
                 duration: 2000,
             });
         }
+    }
+    finalSubmit() {
+        this._dialogService.confirmSubmitTestBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
+            if(res == 'yes') {
+                this.submit();
+                this.thankyou = true;
+            }
+        }, (err) => {
+        });
+    }
+    goBack() {
+        this.isSubmit = false;
+        this.totalQuestion = 0;
     }
 
     scroll() {
