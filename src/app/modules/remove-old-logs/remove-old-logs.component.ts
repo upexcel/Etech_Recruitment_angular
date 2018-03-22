@@ -16,6 +16,7 @@ export class RemoveOldLogsComponent implements OnInit {
   }
 
   removeOldlogs(data) {
+    console.log(data);          
     const body = {
       'userId': this.currentUser,
       'start': new Date(data.from),
