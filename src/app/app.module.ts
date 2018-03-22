@@ -200,6 +200,7 @@ import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.compon
 import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.component';
 import { OtppageComponent } from './modules/otppage/otppage.component';
 import { TokenExpireComponent } from './modules/token-expire/token-expire.component';
+import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-logs.component';
 
 @NgModule({
     declarations: [
@@ -278,7 +279,8 @@ import { TokenExpireComponent } from './modules/token-expire/token-expire.compon
         ArchiveMailComponent,
         SetCallLogsComponent,
         OtppageComponent,
-        TokenExpireComponent
+        TokenExpireComponent,
+        RemoveOldLogsComponent
     ],
     imports: [
         BrowserModule,
@@ -364,7 +366,8 @@ import { TokenExpireComponent } from './modules/token-expire/token-expire.compon
         ChangeTagComponent,
         ArchiveMailComponent,
         SetCallLogsComponent,
-        TokenExpireComponent
+        TokenExpireComponent,
+        RemoveOldLogsComponent
     ],
     bootstrap: [AppComponent]
 })

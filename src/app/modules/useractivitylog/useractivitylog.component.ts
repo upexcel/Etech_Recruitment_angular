@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ImapMailsService } from '../../service/imapemails.service';
 import * as _ from 'lodash';
 import { LocalStorageService } from './../../service/local-storage.service';
+import { RemoveOldLogsComponent } from './../../modules/remove-old-logs/remove-old-logs.component';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 @Component({
     selector: 'app-useractivitylog',
@@ -17,7 +19,8 @@ export class UserActivityLogComponent implements OnInit {
     totalPages: number;
     selectedUserEmail: string;
     errorMessage: string;
-    constructor(public emailactivity: ImapMailsService, private _localStorageService: LocalStorageService) { }
+    dialogRef: MatDialogRef<any>;
+    constructor(public emailactivity: ImapMailsService, private _localStorageService: LocalStorageService, public dialog: MatDialog) { }
 
     ngOnInit() {
         this.selectedUserEmail = this._localStorageService.getItem('userEmail');
@@ -89,6 +92,20 @@ export class UserActivityLogComponent implements OnInit {
 
     selectUserLogActionTrack(index, data) {
         return index;
+    }
+
+    removeLogs() {
+        this.dialogRef = this.dialog.open(RemoveOldLogsComponent, {
+            height: '60%',
+            width: '60%'
+        });
+        this.dialogRef.componentInstance.currentUser = this.selectedUserEmail;
+        this.dialogRef.afterClosed().subscribe(result => {
+            if(result=="close") {
+            this.getUserLogs();                
+            }
+        })
+
     }
 
 }

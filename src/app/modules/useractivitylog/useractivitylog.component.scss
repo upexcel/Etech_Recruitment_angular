@@ -20,6 +20,7 @@
 .pagination {
     float: right;
     margin-right: 2em;
+    margin-top: 0px;
     button {
         background: transparent;
         border: none;
@@ -36,4 +37,9 @@
 }
 td {
     word-break: break-all;
+}
+.remove {
+    padding: 0px 6px;
+    line-height: 30px;
+    float: right;
 }

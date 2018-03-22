@@ -24,6 +24,7 @@
       <div class="activity">
         <span *ngIf="selectUserLog && selectUserLog.email"><b>User Email:</b> {{selectUserLog.email}}</span>
         <p class="error" *ngIf="selectUserLog && !selectUserLog.action">{{errorMessage}}</p>
+        <button mat-raised-button color="primary" class="remove" (click)="removeLogs()">Remove Logs</button>
         <span class="pagination" *ngIf="selectUserLog && selectUserLog.action">
           <button [disabled]="pageNo == 0" (click)="previous()"><i class="material-icons">keyboard_arrow_left</i></button>
            {{pageNo + 1}}/{{totalPages}} 
