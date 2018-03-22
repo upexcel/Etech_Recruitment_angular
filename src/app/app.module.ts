@@ -366,7 +366,8 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         ChangeTagComponent,
         ArchiveMailComponent,
         SetCallLogsComponent,
-        TokenExpireComponent
+        TokenExpireComponent,
+        RemoveOldLogsComponent
     ],
     bootstrap: [AppComponent]
 })

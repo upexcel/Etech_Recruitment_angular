@@ -1318,7 +1318,7 @@ export class ImapMailsService {
 
     removeOldlogs(body): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.put(environment['apibase'] + `email/tag/markAsRead`, body)
+        return this.Intercepted.delete(environment['apibase'] + `user/deleteLogs/${body['userId']}/${body['start']}/${body['end']}`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

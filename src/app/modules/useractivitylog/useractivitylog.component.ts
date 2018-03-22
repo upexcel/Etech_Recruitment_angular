@@ -100,6 +100,11 @@ export class UserActivityLogComponent implements OnInit {
             width: '60%'
         });
         this.dialogRef.componentInstance.currentUser = this.selectedUserEmail;
+        this.dialogRef.afterClosed().subscribe(result => {
+            if(result=="close") {
+            this.getUserLogs();                
+            }
+        })
 
     }
 

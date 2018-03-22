@@ -18,11 +18,11 @@ export class RemoveOldLogsComponent implements OnInit {
   removeOldlogs(data) {
     const body = {
       'userId': this.currentUser,
-      'start': data.from,
-      'end':data.to
-    }
+      'start': new Date(data.from),
+      'end': new Date(data.to)
+    }    
     this.showloading = true;
-    this.close();
+    this.dialogRef.close("close");
     this.imapMailService.removeOldlogs(body).subscribe(()=>{
       this.showloading = false;      
     }, (err)=> {
