@@ -1,13 +1,24 @@
-<mat-card>
-  <form id="testSetForm" autoComplete="off" #testSetForm="ngForm">
+<div class="bodyTestSet">
     <mat-card-title class="cardsub">
       <p>Create Test Set</p>
     </mat-card-title>
     <hr class="linespace">
+    <div class="row mar0">
+      <div class="col-md-4 col-sm-12 type">
+        <mat-select class="width-100" id="selectedType" placeholder="Select Type" name="selectedType" required [(ngModel)]="selectedType">
+          <mat-option *ngFor="let tag of testType" [value]="tag.type" (click)="setType(tag.type)">
+            {{tag.type}}
+          </mat-option>
+        </mat-select>
+      </div>
+    </div>
+  <form id="testSetForm" autoComplete="off" #testSetForm="ngForm">
+
     <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
     <mat-card-content>
       <div class="row">
-        <div id="Test Name" class="col-md-12 col-sm-12">
+
+        <div id="Test Name" class="col-md-6 col-sm-12">
           <mat-form-field class="width-100">
             <input matInput name="testName" id="testName" placeholder="Test Name" required [(ngModel)]="testName" autoComplete="off">
             <mat-error>
@@ -15,40 +26,50 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-md-12 col-sm-12 pad10">
-          <div class="col-md-6 col-sm-12 pad0">
-            <mat-select class="width-100" id="testGroupId" placeholder="Select Test Group" name="testGroupId" required [(ngModel)]="testGroupId">
-              <mat-option *ngFor="let tag of testGroup" [value]="tag.id">
-                {{tag.exam_subject}}
-              </mat-option>
-            </mat-select>
-          </div>
-          <div id="timeLimit" class="col-md-6 col-sm-12 pad0">
-            <mat-select class="width-100" id="testLimit" placeholder="Select Time Limit" name="testLimit" required [(ngModel)]="testLimit">
-              <mat-option *ngFor="let tag of limit" [value]="tag.time">
-                {{tag.time}} Min
-              </mat-option>
-            </mat-select>
+
+        <div class="col-md-6 col-sm-12 timeLimit">
+          <mat-select class="width-100" id="testLimit" placeholder="Select Time Limit" name="testLimit" required [(ngModel)]="testLimit">
+            <mat-option *ngFor="let tag of limit" [value]="tag.time">
+              {{tag.time}} Min
+            </mat-option>
+          </mat-select>
+        </div>
+
+        <div class="col-md-12 col-sm-12 pad10" *ngIf="!subjective">
+          <div class="col-md-12 col-sm-12 pad10 border">
+            <h5 style="border-bottom: 1px solid #eaeaea">Set Group Limit</h5>
+            <div *ngFor="let tag of testGroup">
+                <div class="form-group">
+                  <label class="control-label col-sm-7" for="tel">{{tag.exam_subject}}:</label>
+                  <div class="col-sm-5">
+                    <input class="form-control" name="{{tag.exam_subject}}" id="{{tag.exam_subject}}" (keypress)="disableText($event)" type="tel" placeholder="Set Limit"
+                    required ngModel autoComplete="off">
+                  </div>
+                </div>
+            </div>
           </div>
         </div>
-        <div id="limit" class="col-md-12 col-sm-12">
-          <mat-form-field class="width-100">
-            <input matInput name="quesLimit" id="quesLimit" type="tel" placeholder="Set Question Limit" required [(ngModel)]="quesLimit" autoComplete="off">
-            <mat-error>
-              Question Limit is required
-            </mat-error>
-          </mat-form-field>
-        </div>
+
+
         <div id="addQustion" class="col-md-12 col-sm-12">
           <button class="addQues" mat-icon-button color=primary (click)="add()" matTooltip="Add Question">
             <i class="material-icons">add_circle_outline</i>
           </button>
+          <span class="blink_me"><i class="material-icons" style="font-size:13px;">keyboard_backspace</i>
+             <span style="font-size:14px;">Select Questions</span> </span>
         </div>
-
-        <div id="FormButton" class="col-sm-12">
+        <div *ngIf="questions.length>0" class="col-md-12 col-sm-12 mar10">
+          <mat-card *ngFor="let question of questions;let i=index" class="paddingQues">
+              {{i+1}}. {{question.question}}
+              <button class="delete" mat-icon-button color=warn matTooltip="click to delete!" (click)="remove(i)">
+                <i class="material-icons">clear</i>
+              </button>
+          </mat-card>
+        </div>
+        <div class="col-sm-12 mar10">
           <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid" (click)="createQues(testSetForm)"> Save </button>
         </div>
       </div>
     </mat-card-content>
   </form>
-</mat-card>
+</div>

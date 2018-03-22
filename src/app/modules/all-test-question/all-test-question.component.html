@@ -1,7 +1,7 @@
 <div class="main" id="create-ques">
-    <h5>Select Questions</h5>
+    <h4>Select Questions</h4>
     <hr class="linespace">
-    <div class="row mar0">
+    <!-- <div class="row mar0">
       <div class="col-md-12 col-sm-12 type">
         <mat-select class="width-100" id="questionType" placeholder="Select Type" name="questionType" required [(ngModel)]="questionType">
           <mat-option *ngFor="let tag of testType" [value]="tag.type" (click)="getQues(tag.type)">
@@ -9,22 +9,24 @@
           </mat-option>
         </mat-select>
       </div>
-    </div>
+    </div> -->
       <div *ngIf="questionType!='Subjective'" >
         <ul *ngFor="let group of questions;let i = index"  (click)="scroll()" class="parentCl">
-          <span>
-            <mat-checkbox (change)="selectParent(group)"  [checked]="group.selected"></mat-checkbox>
-          </span>
-          <span  (click)="group.hidden=!group.hidden">
-            <span>{{group.group_name}}</span>
+          <li (click)="group.hidden=!group.hidden" class="hover">
+            <mat-checkbox (change)="selectParent(group)" (click)="$event.stopPropagation()" [checked]="group.selected"></mat-checkbox>
+          <!-- </span> -->
+            <span style="margin-left:15px;">{{group.group_name}}</span>
+            <mat-icon class="fRight" style="font-size: 24px!important;" *ngIf="!group.hidden">keyboard_arrow_down</mat-icon>
+            <mat-icon class="fRight"style="font-size: 24px!important;" *ngIf="group.hidden">keyboard_arrow_up</mat-icon>
             <span class="fRight">Total Questions: {{group.questions.length}}</span>
-          </span>
+
+        </li>
             <ul *ngIf="group.hidden" class="childCl">
-              <li  class="childLi" *ngFor="let ques of group.questions;let i = index">
+              <li class="childLi" *ngFor="let ques of group.questions;let i = index">
               <span>
                 <mat-checkbox (change)="selectChild(ques)" [checked]="ques.selected"></mat-checkbox>
               </span>
-              <span>{{i+1}}.
+              <span style="margin-left:15px;">{{i+1}}.
                   <span [innerHTML]="ques.question | safeHtml"></span>
               </span>
               </li>
@@ -36,17 +38,18 @@
           <mat-list class="pad0">
             <mat-list-item class="pad0">
               <div class="col-md-12 pad0">
-                <ul class="quesView">
-                  <li>
-                    <mat-checkbox (change)="$event ? masterToggle() : null"></mat-checkbox>
-                    <h4>{{i+1}}.
-                      <span [innerHTML]="ques.question | safeHtml"></span>
-                    </h4>
-                  </li>
-                </ul>
+                <span><mat-checkbox (change)="selectSubjective(ques)"></mat-checkbox></span>
+                <span style="margin-left:30px;">
+                  {{i+1}}. <span [innerHTML]="ques.question | safeHtml"></span>
+
+                </span>
               </div>
             </mat-list-item>
           </mat-list>
         </mat-card>
+      </div>
+      <div id="FormButton" class="col-sm-12 col-md-12">
+        <button class="btnSave" mat-raised-button color=primary (click)="getAllSelected()">
+        Select </button>
       </div>
       </div>

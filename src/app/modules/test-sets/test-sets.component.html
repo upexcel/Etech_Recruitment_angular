@@ -1,8 +1,29 @@
 <div class="main" id="create-ques">
-  <mat-card>
+    <mat-card>
     <mat-card-title class="cardsub">
-      Test Sets
+       Test Sets
     </mat-card-title>
+    <mat-card-content>
+          <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.length>0">
+            <ng-container matColumnDef="testName">
+              <mat-header-cell *matHeaderCellDef> Test Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.testName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Questions">
+              <mat-header-cell *matHeaderCellDef> No.Of Questions </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.Questions.length}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Preview">
+              <mat-header-cell *matHeaderCellDef> Preview </mat-header-cell>
+              <mat-cell *matCellDef="let element"><button mat-raised-button color=accent >View TestPaper</button></mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+    </mat-card-content>
   </mat-card>
 </div>
 <div id="addTag" class="pos-add">

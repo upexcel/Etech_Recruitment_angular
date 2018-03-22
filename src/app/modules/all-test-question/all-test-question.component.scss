@@ -2,6 +2,7 @@
 .main {
     width: 100%;
     min-height: 100%;
+    padding: 15px;
 }
 .cardsub {
     color: inherit;
@@ -59,27 +60,6 @@ ul,li{
     font-weight: bold;
 }
 
-.error{
-  text-align: center;
-  color: red;
-}
-mat-panel-description{
-  display: block;
-  flex-grow: 0;
-  float: right;
-}
-.warning{
-  text-align: center;
-    color: #828282;
-    font-weight: bold;
-    padding: 20px;
-    font-size: 20px;
-}
-
-pre{
-  border: 0px;
-}
-
 .type{
     padding: 15px;
     background: #e8e8e8;
@@ -106,4 +86,16 @@ pre{
       padding: 10px;
     background: #f1f1f1;
     margin-bottom: 2px;
+}
+.hover{
+  cursor: pointer;
+}
+#FormButton{
+    width: 200px;
+    margin: 15px 0px 15px 0px;
+    padding: 0px;
+}
+.btnSave{
+  width: 150px;
+  height: 50px;
 }
