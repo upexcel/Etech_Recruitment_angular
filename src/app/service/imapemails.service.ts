@@ -989,7 +989,7 @@ export class ImapMailsService {
     }
     getQuesAdmin(type: any): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `exams/getQuestionsByType/${type}`)
+        return this.Intercepted.get(environment['apibase'] + `exams/getAllQuestions/${type}`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();

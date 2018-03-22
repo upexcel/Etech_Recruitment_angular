@@ -1,0 +1,14 @@
+@import './../../variable.scss';
+.main {
+    width: 100%;
+    min-height: 100%;
+}
+.cardsub {
+    color: inherit;
+    font-size: 18px;
+}
+.pos-add {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+}

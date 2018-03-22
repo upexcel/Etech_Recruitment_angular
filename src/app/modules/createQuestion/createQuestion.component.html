@@ -24,7 +24,14 @@
         </div>
         <div class="col-md-12 warning" *ngIf="QueNotAvailable">{{messageQues}}</div>
       </div>
-        <mat-card class="padleft10 bodyInner2" *ngFor="let ques of questions;let i = index">
+      <mat-accordion *ngIf="questionType!='Subjective'">
+        <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+          (click)="scroll()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>{{group.group_name}} </mat-panel-title>
+          <mat-panel-description *ngIf="group.questions.length>0">Total Questions: {{group.questions.length}} </mat-panel-description>
+        </mat-expansion-panel-header>
+          <mat-card class="padleft10 bodyInner2" *ngFor="let ques of group.questions;let i = index">
             <div class="btnIcons">
                 <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
                 <button mat-icon-button color=primary matTooltip="click to edit!" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
@@ -35,16 +42,35 @@
                 <ul class="quesView">
                   <li><h4>Question {{i+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h4></li>
                   <li *ngIf="ques.description && questionType!='Subjective'"><pre [innerHTML]="ques.description | safeHtml"></pre></li>
-                  <li class="fontLi" *ngIf="questionType!='Subjective'">Options:</li>
+                  <li class="fontLi">Options:</li>
                   <ul class="padleft15" *ngFor="let opt of ques.options; let optid = index ">
-                    <li class="col-md-6 col-sm-12 fontLi" *ngIf="questionType!='Subjective'">{{optid+1}}. &#09; {{opt.option}}</li>
+                    <li class="col-md-6 col-sm-12 fontLi">{{optid+1}}. &#09; {{opt.option}}</li>
                   </ul>
                 </ul>
-                <span class="answer" *ngIf="questionType!='Subjective'">The Answer is Option Number <b>{{ques.answer}}</b></span>
+                <span class="answer" >The Answer is Option Number <b>{{ques.answer}}</b></span>
               </div>
             </mat-list-item>
             </mat-list>
           </mat-card>
+          </mat-expansion-panel>
+          </mat-accordion>
+          <div *ngIf="questionType=='Subjective'">
+          <mat-card class="pad10 bodyInner2" *ngFor="let ques of questions;let i = index">
+            <div class="btnIcons">
+                <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
+                <button mat-icon-button color=primary matTooltip="click to edit!" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
+              </div>
+            <mat-list class="pad0">
+              <mat-list-item class="pad0">
+              <div class="col-md-12 pad0">
+                <ul class="quesView">
+                  <li><h4>Question {{i+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h4></li>
+                </ul>
+              </div>
+            </mat-list-item>
+            </mat-list>
+          </mat-card>
+          </div>
     </mat-card-content>
   </mat-card>
 </div>

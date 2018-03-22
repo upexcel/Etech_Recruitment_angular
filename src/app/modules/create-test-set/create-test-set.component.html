@@ -1,0 +1,54 @@
+<mat-card>
+  <form id="testSetForm" autoComplete="off" #testSetForm="ngForm">
+    <mat-card-title class="cardsub">
+      <p>Create Test Set</p>
+    </mat-card-title>
+    <hr class="linespace">
+    <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="row">
+        <div id="Test Name" class="col-md-12 col-sm-12">
+          <mat-form-field class="width-100">
+            <input matInput name="testName" id="testName" placeholder="Test Name" required [(ngModel)]="testName" autoComplete="off">
+            <mat-error>
+               Test Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 col-sm-12 pad10">
+          <div class="col-md-6 col-sm-12 pad0">
+            <mat-select class="width-100" id="testGroupId" placeholder="Select Test Group" name="testGroupId" required [(ngModel)]="testGroupId">
+              <mat-option *ngFor="let tag of testGroup" [value]="tag.id">
+                {{tag.exam_subject}}
+              </mat-option>
+            </mat-select>
+          </div>
+          <div id="timeLimit" class="col-md-6 col-sm-12 pad0">
+            <mat-select class="width-100" id="testLimit" placeholder="Select Time Limit" name="testLimit" required [(ngModel)]="testLimit">
+              <mat-option *ngFor="let tag of limit" [value]="tag.time">
+                {{tag.time}} Min
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div id="limit" class="col-md-12 col-sm-12">
+          <mat-form-field class="width-100">
+            <input matInput name="quesLimit" id="quesLimit" type="tel" placeholder="Set Question Limit" required [(ngModel)]="quesLimit" autoComplete="off">
+            <mat-error>
+              Question Limit is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div id="addQustion" class="col-md-12 col-sm-12">
+          <button class="addQues" mat-icon-button color=primary (click)="add()" matTooltip="Add Question">
+            <i class="material-icons">add_circle_outline</i>
+          </button>
+        </div>
+
+        <div id="FormButton" class="col-sm-12">
+          <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid" (click)="createQues(testSetForm)"> Save </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</mat-card>

@@ -201,6 +201,9 @@ import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.compon
 import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.component';
 import { OtppageComponent } from './modules/otppage/otppage.component';
 import { TokenExpireComponent } from './modules/token-expire/token-expire.component';
+import { TestSetsComponent } from './modules/test-sets/test-sets.component';
+import { CreateTestSetComponent } from './modules/create-test-set/create-test-set.component';
+import { AllTestQuestionComponent } from './modules/all-test-question/all-test-question.component';
 
 @NgModule({
     declarations: [
@@ -280,7 +283,10 @@ import { TokenExpireComponent } from './modules/token-expire/token-expire.compon
         ArchiveMailComponent,
         SetCallLogsComponent,
         OtppageComponent,
-        TokenExpireComponent
+        TokenExpireComponent,
+        TestSetsComponent,
+        CreateTestSetComponent,
+        AllTestQuestionComponent
     ],
     imports: [
         BrowserModule,
@@ -367,7 +373,9 @@ import { TokenExpireComponent } from './modules/token-expire/token-expire.compon
         ChangeTagComponent,
         ArchiveMailComponent,
         SetCallLogsComponent,
-        TokenExpireComponent
+        TokenExpireComponent,
+        CreateTestSetComponent,
+        AllTestQuestionComponent
     ],
     bootstrap: [AppComponent]
 })

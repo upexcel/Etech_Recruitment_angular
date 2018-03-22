@@ -45,7 +45,7 @@ export class AddQuestionDialogComponent implements OnInit {
         this.loading = true;
         this.getExamGroup();
         if (this.questionEditable) {
-            if (this.questionType == 'Subjective') {
+            if (this.questionType === 'Subjective') {
                 this.subjective = true;
                 this.questionType = this.questionType;
                 this.questionId = this.questionEditable._id;
@@ -64,7 +64,7 @@ export class AddQuestionDialogComponent implements OnInit {
                 this.subjective = false;
             }
         } else {
-            if (this.questionType == 'Subjective') {
+            if (this.questionType === 'Subjective') {
                 this.subjective = true;
             } else {
                 this.subjective = false;
