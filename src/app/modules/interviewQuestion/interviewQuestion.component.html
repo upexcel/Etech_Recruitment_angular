@@ -1,4 +1,4 @@
-<div *ngIf="instructionsRead">
+<div *ngIf="instructionsRead && !isSubmit">
   <mat-card *ngIf="hide && !thankyou " class="col-xs-12 col-md-12 col-sm-12 bodyInner">
 
     <!-- <mat-list class="pad0"> -->
@@ -36,7 +36,7 @@
           </p>
           <p class="col-md-4 col-sm-4 col-xs-8 pad0">
             <span class="right style" *ngIf="total">Question Attempted:
-              <span class="bold">{{questionsAttemped}}/{{total}}</span>
+              <span class="bold">{{questionsAttempted}}/{{total}}</span>
             </span>
           </p>
           <button mat-raised-button color="primary" class="help-position" (click)="onHelp()" [disabled]=disabled>Call For Help</button>
@@ -67,19 +67,42 @@
             </mat-expansion-panel>
           </mat-accordion>
           <button *ngIf="questions.length>0" mat-raised-button color=primary class="flRight submitans btn-block" (click)="savePreview()">Submit</button>
-     </div>
-  <div *ngIf="thankyou">
-    <div class="col-md-12">
-      <h1>Thank You</h1>
-      <h3 class="subhead">Your response has been recorded, please contact HR for further instructions.
-        <br>You will be logged out automatically...</h3>
-    </div>
   </div>
 </div>
+  
+<div *ngIf="thankyou">
+  <div class="col-md-12">
+    <h1>Thank You</h1>
+    <h3 class="subhead">Your response has been recorded, please contact HR for further instructions.
+      <br>You will be logged out automatically...</h3>
+  </div>
+</div>
+
 <div *ngIf="!instructionsRead" class="well">
   <div class="heading">Instructions</div>
     <ol class="instructions">
         <li *ngFor="let instruction of instructions"><p [innerHTML]="instruction" ></p></li>
     </ol>
     <button  mat-raised-button color=primary class="btn-block" (click)="onRead()">Continue</button>
+</div>
+
+<div *ngIf="isSubmit && !thankyou">
+  <div class="main">
+      <h4 class="heading">Test Summary</h4>
+      <hr>
+      <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of this.question">
+          {{ques.group_name}}<span class="right">{{ques.attempted}}/{{ques.questions.length}}</span>
+      </div>
+      <div class="col-md-12 col-sm-12 bodyInner" style="margin-top: 1px;">
+        <span class="bold">Total Attempted</span>
+        <span class="right">{{questionsAttempted}}/{{totalQuestion}}</span>
+      </div>
+      <div *ngIf="totalQuestion!=questionsAttempted" class="allQues">
+        You Haven't Attempted All The Questions.
+      </div>
+      <div class="buttons-b1">
+        <button mat-raised-button color=primary class="right button-b1" (click)="finalSubmit()">Final Submit</button>
+        <button mat-raised-button  class="right grey button-b1" (click)="goBack()">Back</button>
+      </div>
+    </div>
 </div>
