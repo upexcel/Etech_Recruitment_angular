@@ -18,8 +18,8 @@ export class RemoveOldLogsComponent implements OnInit {
   removeOldlogs(data) {
     const body = {
       'userId': this.currentUser,
-      'start': new Date(data.from),
-      'end': new Date(data.to)
+      'start': data.from,
+      'end': data.to
     }    
     this.showloading = true;
     this.dialogRef.close("close");
