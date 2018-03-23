@@ -74,7 +74,6 @@ export class AllTestQuestionComponent implements OnInit {
                 }
             }
         })
-        console.log(this.selectedData)
     }
     checkDubplcateData(quest) {
         let flag = 0;
@@ -94,11 +93,9 @@ export class AllTestQuestionComponent implements OnInit {
         } else {
             this.selectedData.splice(this.selectedData.indexOf(ques), 1);
         }
-        console.log(this.selectedData);
 
     }
     getAllSelected() {
-        console.log(this.selectedData)
         this.dialogRef.close(this.selectedData);
     }
     selectSubjective(ques) {

@@ -4,7 +4,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { AllTestQuestionComponent } from './../all-test-question/all-test-question.component';
 import _ = require('lodash');
-import { config } from '../../config/config';
+import { config, limitTime } from '../../config/config';
 import { CommonService } from '../../service/common.service';
 
 @Component({
@@ -24,6 +24,8 @@ export class CreateTestSetComponent implements OnInit {
     selectedType: any;
     subjective: boolean;
     job_profile: any;
+    showmessage = false;
+    message: any;
     round: any
     private dialogRef: MatDialogRef<any>
     constructor(private _commonService: CommonService, private dialogRef2: MatDialogRef<any>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
@@ -32,10 +34,10 @@ export class CreateTestSetComponent implements OnInit {
         this.loading = true;
         this.getTestGroup();
         this.getAllTag();
-        this.limit = [{ time: 30 }, { time: 60 }, { time: 90 }, { time: 120 }, { time: 180 }, { time: 240 }];
+        this.limit = limitTime;
     }
     getAllTag() {
-        let data = JSON.parse(localStorage.getItem('allTags')).data;
+        const data = JSON.parse(localStorage.getItem('allTags')).data;
         if (data.length > 0) {
             _.forEach(data, (value, key) => {
                 if (value['title'] === 'candidate') {
@@ -45,10 +47,8 @@ export class CreateTestSetComponent implements OnInit {
         }
     }
     assignJobProfile(tag) {
-        console.log(tag)
         this.round = [];
         _.forEach(tag.subchild, (subchild, key) => {
-            console.log(subchild.id);
             if (subchild.title === 'First Round' || subchild.title === 'Second Round') {
                 this.round.push(subchild);
             }
@@ -81,7 +81,6 @@ export class CreateTestSetComponent implements OnInit {
     }
 
     createQues(form: NgForm) {
-      console.log(form.value)
         const questionId = [];
         _.forEach(this.questions, (question, key) => {
             questionId.push(question._id);
@@ -90,7 +89,7 @@ export class CreateTestSetComponent implements OnInit {
             const SubjectQuestionLimits = [];
             _.forEach(this.testGroup, (groupData, key) => {
                 _.forEach(form.value, (formvalue, formkey) => {
-                    if (groupData.exam_subject == formkey){
+                    if (groupData.exam_subject === formkey) {
                         SubjectQuestionLimits.push({'group_id' : groupData.id, 'limit': parseInt(form.value[formkey], 10)})
                     }
                 })
@@ -110,6 +109,8 @@ export class CreateTestSetComponent implements OnInit {
         this.apiCall.createTestSet(data).subscribe(response => {
             this.dialogRef2.close(response);
         }, error => {
+            this.message = error.message
+            this.showmessage = true;
             console.log(error)
         });
     }

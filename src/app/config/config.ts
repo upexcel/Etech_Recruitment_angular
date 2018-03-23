@@ -87,3 +87,4 @@ export const callToolTips ={
 }
 export const pageSet = ["5", "10", "20", "30", "50"]
 export const displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action']
+export const limitTime = [{ 'time': 30 }, { 'time': 60 }, { 'time': 90 }, { 'time': 120 }, { 'time': 180 }, { 'time': 240 }]

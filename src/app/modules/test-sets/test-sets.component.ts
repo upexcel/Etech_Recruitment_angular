@@ -56,7 +56,7 @@ export class TestSetsComponent implements OnInit {
         })
     }
     getAllTag() {
-        let data = JSON.parse(localStorage.getItem('allTags')).data;
+        const data = JSON.parse(localStorage.getItem('allTags')).data;
         if (data.length > 0) {
             _.forEach(data, (value, key) => {
                 if (value['title'] === 'candidate') {
