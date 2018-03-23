@@ -1328,6 +1328,20 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+
+    removeOldlogs(body): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.delete(environment['apibase'] + `user/deleteLogs/${body['userId']}/${body['start']}/${body['end']}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     getTestPaper(): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `exams/getTestPapers`)
@@ -1341,4 +1355,4 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-};
+}

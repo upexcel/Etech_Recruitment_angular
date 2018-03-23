@@ -186,7 +186,6 @@ import { ViewNoteComponent } from './modules/view-note/view-note.component';
 import { AddQuestionDialogComponent } from './modules/addQuestionDialog/addQuestionDialog.component';
 import { CandidateComponent } from './modules/candidate/candidate.component';
 import { InterviewQuestionComponent } from './modules/interviewQuestion/interviewQuestion.component';
-import { PreviewAnswerComponent } from './modules/previewAnswer/previewAnswer.component';
 import { PreviewScoreComponent } from './modules/previewScore/previewScore.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
@@ -204,6 +203,7 @@ import { TokenExpireComponent } from './modules/token-expire/token-expire.compon
 import { TestSetsComponent } from './modules/test-sets/test-sets.component';
 import { CreateTestSetComponent } from './modules/create-test-set/create-test-set.component';
 import { AllTestQuestionComponent } from './modules/all-test-question/all-test-question.component';
+import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-logs.component';
 
 @NgModule({
     declarations: [
@@ -269,7 +269,6 @@ import { AllTestQuestionComponent } from './modules/all-test-question/all-test-q
         AddQuestionDialogComponent,
         CandidateComponent,
         InterviewQuestionComponent,
-        PreviewAnswerComponent,
         VerifyCandidateComponent,
         CandidateScoreComponent,
         OtpdialogComponent,
@@ -284,9 +283,7 @@ import { AllTestQuestionComponent } from './modules/all-test-question/all-test-q
         SetCallLogsComponent,
         OtppageComponent,
         TokenExpireComponent,
-        TestSetsComponent,
-        CreateTestSetComponent,
-        AllTestQuestionComponent
+        RemoveOldLogsComponent
     ],
     imports: [
         BrowserModule,
@@ -365,7 +362,6 @@ import { AllTestQuestionComponent } from './modules/all-test-question/all-test-q
         AddNewSpamContactComponent,
         ViewNoteComponent,
         AddQuestionDialogComponent,
-        PreviewAnswerComponent,
         OtpdialogComponent,
         WalkinCandidateComponent,
         PreviewScoreComponent,
@@ -375,7 +371,8 @@ import { AllTestQuestionComponent } from './modules/all-test-question/all-test-q
         SetCallLogsComponent,
         TokenExpireComponent,
         CreateTestSetComponent,
-        AllTestQuestionComponent
+        AllTestQuestionComponent,
+        RemoveOldLogsComponent
     ],
     bootstrap: [AppComponent]
 })
