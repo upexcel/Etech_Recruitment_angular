@@ -5,6 +5,7 @@ import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { AllTestQuestionComponent } from './../all-test-question/all-test-question.component';
 import _ = require('lodash');
 import { config } from '../../config/config';
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-create-test-set',
@@ -22,24 +23,36 @@ export class CreateTestSetComponent implements OnInit {
     testType: any[];
     selectedType: any;
     subjective: boolean;
+    job_profile: any;
+    round: any
     private dialogRef: MatDialogRef<any>
-    constructor(private dialogRef2: MatDialogRef<any>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
+    constructor(private _commonService: CommonService, private dialogRef2: MatDialogRef<any>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
 
     ngOnInit() {
         this.loading = true;
-        this.testType = config['testType'];
         this.getTestGroup();
-        this.setType(config['testType'][0]['type']);
+        this.getAllTag();
         this.limit = [{ time: 30 }, { time: 60 }, { time: 90 }, { time: 120 }, { time: 180 }, { time: 240 }];
     }
-    setType(testType) {
-        this.questions = [];
-        this.selectedType = testType;
-        if (testType === 'Subjective') {
-            this.subjective = true
-        } else {
-            this.subjective = false
+    getAllTag() {
+        let data = JSON.parse(localStorage.getItem('allTags')).data;
+        if (data.length > 0) {
+            _.forEach(data, (value, key) => {
+                if (value['title'] === 'candidate') {
+                    this.job_profile = value.data;
+                }
+            })
         }
+    }
+    assignJobProfile(tag) {
+        console.log(tag)
+        this.round = [];
+        _.forEach(tag.subchild, (subchild, key) => {
+            console.log(subchild.id);
+            if (subchild.title === 'First Round' || subchild.title === 'Second Round') {
+                this.round.push(subchild);
+            }
+        })
     }
     getTestGroup() {
         this.apiCall.examGroup()
@@ -55,7 +68,7 @@ export class CreateTestSetComponent implements OnInit {
             height: '80%',
             width: '80%'
         });
-        this.dialogRef.componentInstance.selectedType = this.selectedType;
+        this.dialogRef.componentInstance.selectedData = this.questions;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this.questions = result
@@ -68,35 +81,29 @@ export class CreateTestSetComponent implements OnInit {
     }
 
     createQues(form: NgForm) {
-        const questionId = []
+      console.log(form.value)
+        const questionId = [];
         _.forEach(this.questions, (question, key) => {
             questionId.push(question._id);
         })
         if (form.valid) {
-            if (this.selectedType !== 'Subjective') {
-                const SubjectQuestionLimits = [];
-                _.forEach(this.testGroup, (groupData, key) => {
-                    _.forEach(form.value, (formvalue, formkey) => {
-                        if (groupData.exam_subject == formkey){
-                            SubjectQuestionLimits.push({'group_id' : groupData.id, 'limit': parseInt(form.value[formkey], 10)})
-                        }
-                    })
+            const SubjectQuestionLimits = [];
+            _.forEach(this.testGroup, (groupData, key) => {
+                _.forEach(form.value, (formvalue, formkey) => {
+                    if (groupData.exam_subject == formkey){
+                        SubjectQuestionLimits.push({'group_id' : groupData.id, 'limit': parseInt(form.value[formkey], 10)})
+                    }
                 })
-                const data = {
-                    'testName' : form.value.testName,
-                    'Questions' : questionId,
-                    'SubjectQuestionLimits' : SubjectQuestionLimits,
-                    'timeForExam' : form.value.testLimit
-                }
-                this.finalCreate(data);
-            } else {
-                const data = {
-                    'testName' : form.value.testName,
-                    'Questions' : questionId,
-                    'timeForExam' : form.value.testLimit
-                }
-                this.finalCreate(data);
+            })
+            const data = {
+                'testName' : form.value.testName,
+                'Questions' : questionId,
+                'SubjectQuestionLimits' : SubjectQuestionLimits,
+                'timeForExam' : form.value.testLimit,
+                'job_profile' : form.value.jobProfileId,
+                'round' : form.value.roundId
             }
+            this.finalCreate(data);
         }
     }
     finalCreate(data) {

@@ -283,7 +283,10 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         SetCallLogsComponent,
         OtppageComponent,
         TokenExpireComponent,
-        RemoveOldLogsComponent
+        RemoveOldLogsComponent,
+        TestSetsComponent,
+        CreateTestSetComponent,
+        AllTestQuestionComponent
     ],
     imports: [
         BrowserModule,

@@ -70,25 +70,26 @@ ul,li{
 .fRight{
   float:right
 }
-.parentCl {
+.hover {
     border-bottom: 1px solid rgba(120, 130, 140, 0.13) !important;
     position: relative  !important;
     background: #f7f7f7  !important;
     margin-bottom: 2px  !important;
     padding: 10px  !important;
+    cursor: pointer;
 }
 .childCl{
-    border-top: 1px solid rgba(120, 130, 140, 0.13) !important;
-    margin-top: 10px !important;
-    padding: 10px 15px 10px 15px !important;
+    margin-top: 0px !important;
+    border-top: none;
 }
 .childLi{
-      padding: 10px;
-    background: #f1f1f1;
+    padding: 10px;
+    background: #fbfbfb;
     margin-bottom: 2px;
 }
-.hover{
-  cursor: pointer;
+.parentCl{
+    padding: 0px !important;
+    margin-bottom: 5px;
 }
 #FormButton{
     width: 200px;

@@ -14,6 +14,14 @@
               <mat-header-cell *matHeaderCellDef> No.Of Questions </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.Questions.length}} </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="job_profileName">
+              <mat-header-cell *matHeaderCellDef>Job Profile </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.job_profileName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="testRound">
+              <mat-header-cell *matHeaderCellDef> Round </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.testRound}} </mat-cell>
+            </ng-container>
 
             <ng-container matColumnDef="Preview">
               <mat-header-cell *matHeaderCellDef> Preview </mat-header-cell>

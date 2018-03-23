@@ -3,39 +3,45 @@
       <p>Create Test Set</p>
     </mat-card-title>
     <hr class="linespace">
-    <div class="row mar0">
-      <div class="col-md-4 col-sm-12 type">
-        <mat-select class="width-100" id="selectedType" placeholder="Select Type" name="selectedType" required [(ngModel)]="selectedType">
-          <mat-option *ngFor="let tag of testType" [value]="tag.type" (click)="setType(tag.type)">
-            {{tag.type}}
-          </mat-option>
-        </mat-select>
-      </div>
-    </div>
   <form id="testSetForm" autoComplete="off" #testSetForm="ngForm">
 
     <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
     <mat-card-content>
       <div class="row">
+            <div id="Test Name" class="col-md-6 col-sm-12">
+              <mat-form-field class="width-100">
+                <input matInput name="testName" id="testName" placeholder="Test Name" required [(ngModel)]="testName" autoComplete="off">
+                <mat-error>
+                  Test Name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
 
-        <div id="Test Name" class="col-md-6 col-sm-12">
-          <mat-form-field class="width-100">
-            <input matInput name="testName" id="testName" placeholder="Test Name" required [(ngModel)]="testName" autoComplete="off">
-            <mat-error>
-               Test Name is required
-            </mat-error>
-          </mat-form-field>
+            <div class="col-md-6 col-sm-12 timeLimit">
+              <mat-select class="width-100" id="testLimit" placeholder="Select Time Limit" name="testLimit" required [(ngModel)]="testLimit">
+                <mat-option *ngFor="let tag of limit" [value]="tag.time">
+                  {{tag.time}} Min
+                </mat-option>
+              </mat-select>
+            </div>
+          <div class="col-md-12 col-sm-12 pad0">
+            <div class="col-md-6 col-sm-12 timeLimit">
+              <mat-select class="width-100" id="testLimit" placeholder="Select Job Profile" name="jobProfileId" required ngModel>
+                <mat-option *ngFor="let job of job_profile" [value]="job.id" (click)="assignJobProfile(job)">
+                  {{job.title}}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-6 col-sm-12 type" *ngIf="round">
+              <mat-select class="width-100" id="testLimit" placeholder="Select Round" name="roundId" required ngModel>
+                <mat-option *ngFor="let default_tag of round" [value]="default_tag.id">
+                  {{default_tag.title}}
+                </mat-option>
+              </mat-select>
+            </div>
         </div>
 
-        <div class="col-md-6 col-sm-12 timeLimit">
-          <mat-select class="width-100" id="testLimit" placeholder="Select Time Limit" name="testLimit" required [(ngModel)]="testLimit">
-            <mat-option *ngFor="let tag of limit" [value]="tag.time">
-              {{tag.time}} Min
-            </mat-option>
-          </mat-select>
-        </div>
-
-        <div class="col-md-12 col-sm-12 pad10" *ngIf="!subjective">
+        <div class="col-md-12 col-sm-12 pad10" >
           <div class="col-md-12 col-sm-12 pad10 border">
             <h5 style="border-bottom: 1px solid #eaeaea">Set Group Limit</h5>
             <div *ngFor="let tag of testGroup">
