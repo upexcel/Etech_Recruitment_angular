@@ -46,7 +46,7 @@
           I have added tag.parent_id==null to remove all tags which are auto generated, so that tags like Noida, Gurgoan, etc don't
           show up-->
         <span *ngFor="let tag of tagAssigned; trackBy: tagsDefaultTrack">
-              <a mat-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
+              <a mat-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null && tag.active_status==true" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
                   <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
               </a>
           </span>
@@ -54,9 +54,11 @@
       </div>
       <div class="default-tag-buttons" *ngIf="historyList.data && !selectedTag || selectedTag == -1">
           <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack">
-              <a mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
-                  <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-              </a>
+              <span *ngIf="tag.active_status==true">
+                  <a mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
+                      <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+                  </a>
+              </span>
           </span>
           <!-- <span  class="cyan" (click)="addNote()">Add Note</span> -->
           <button mat-raised-button matTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>

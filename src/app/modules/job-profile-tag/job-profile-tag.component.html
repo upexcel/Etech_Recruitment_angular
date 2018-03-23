@@ -3,15 +3,17 @@
     <hr class="linespace">
     <span [dragula]='"first-bag"' [dragulaModel]='tags.Automatic' id="ul">
     <span *ngFor="let tag of tags?.Automatic; trackBy: tagsAutomaticTrack" id="li">
-        <div class="tagbutton1" [style.background-color]="tag.color" *ngIf="tag.is_job_profile_tag">
-            <div class="taglogo" (click)="openAutomatic(tag)">
-                {{tag.title.charAt(0)}}
+        <span [ngClass]="{'not-allowed':!tag.active_status}">
+            <div class="tagbutton1" [style.background-color]="tag.color" *ngIf="tag.is_job_profile_tag" [ngClass]="{'disabled':!tag.active_status}">
+                <div class="taglogo" (click)="openAutomatic(tag)">
+                    {{tag.title.charAt(0)}}
+                </div>
+                <span class="tagname" (click)="openAutomatic(tag)">
+                    {{tag.title}}
+                </span>
+                <mat-icon id="deleteTag" class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</mat-icon>
             </div>
-            <span class="tagname" (click)="openAutomatic(tag)">
-                {{tag.title}}
-            </span>
-            <mat-icon id="deleteTag" class="iconset" (click)="removeTag(tag.id,'Automatic')">cancel</mat-icon>
-        </div>
+        </span>
     </span>
 </span>
 </div>
