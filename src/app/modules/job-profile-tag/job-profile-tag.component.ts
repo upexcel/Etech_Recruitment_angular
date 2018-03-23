@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material';
 import { DialogService } from './../../service/dialog.service';
 import { DragulaService } from 'ng2-dragula';
 import * as _ from 'lodash';
+import { LocalStorageService } from '../../service/local-storage.service';
 @Component({
     selector: 'app-job-profile-tag',
     templateUrl: './job-profile-tag.component.html',
@@ -18,7 +19,7 @@ export class JobProfileTagComponent implements OnInit {
     loading = false;
     tempList: any;
     tags: any[];
-    constructor(private dragulaService: DragulaService, private getTags: ImapMailsService, public dialog: MatDialog, public viewContainerRef: ViewContainerRef, public snackBar: MatSnackBar, private _dialogService: DialogService) {
+    constructor(private dragulaService: DragulaService, private getTags: ImapMailsService, public dialog: MatDialog, public viewContainerRef: ViewContainerRef, public snackBar: MatSnackBar, private _dialogService: DialogService, public _localStorageService: LocalStorageService) {
         dragulaService.drop.subscribe((value) => {
             this.onDrop(value.slice(1));
         });
@@ -63,6 +64,7 @@ export class JobProfileTagComponent implements OnInit {
             if (res === 'yes') {
                 this.getTags.deleteTag(id, type).subscribe((data) => {
                     this.getAllTag();
+                    this.refreshAllTags();                    
                 }, (err) => {
                     console.log(err);
                 });
@@ -95,6 +97,7 @@ export class JobProfileTagComponent implements OnInit {
             if (result === 'Added') {
                 this.dialogRef = null;
                 this.getAllTag();
+                this.refreshAllTags();
             }
         });
     }
@@ -131,5 +134,12 @@ export class JobProfileTagComponent implements OnInit {
 
     tagsAutomaticTrack(index, data) {
         return data['id'] || index;
+    }
+    
+    refreshAllTags() {
+        this.getTags.getAllTagsMain()
+        .subscribe((res) => {
+            this._localStorageService.setItem('allTags', res);
+        })
     }
 }
