@@ -357,8 +357,9 @@ export class CommonService {
     }
 
     jobProfile(tags,jobProfile) {
+        jobProfile = [jobProfile[0]];
         _.forEach(tags['data'][0]['data'], (value, key) => {
-            if(value.id != null && value.id !=0) {
+            if(value.id != null && value.id !=0 && value.active_status == true) {
                 jobProfile.push({ title: value.title, tag_id: value.id });
             }
         });
@@ -369,16 +370,21 @@ export class CommonService {
         _.forEach(tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'candidate') {
                 tagStatus = _.groupBy(tagValue['data'], 'active_status');
-                tagValue['data'] = tagStatus['true']
-                _.forEach(tagStatus['false'], (tagData, key) => {
-                    let count = 0;
-                    _.forEach(tagData['subchild'], (subchild, keyChild) => {
-                        // to update count for false status
-                        count = count + subchild.count;
-                        tagData['count'] = count;
+                if(tagStatus['true']){
+                    tagValue['data'] = tagStatus['true']
+                    _.forEach(tagStatus['false'], (tagData, key) => {
+                        let count = 0;
+                        _.forEach(tagData['subchild'], (subchild, keyChild) => {
+                            // to update count for false status
+                            count = count + subchild.count;
+                            tagData['count'] = count;
+                        });
+                        tagValue['data'].push(tagData)
                     });
-                    tagValue['data'].push(tagData)
-                });
+                } else{
+                     tagValue['data'] = tagStatus['false']
+                }
+                
             }
         });
         return tags;
