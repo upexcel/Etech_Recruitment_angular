@@ -42,7 +42,7 @@ export class AllTestQuestionComponent implements OnInit {
         _.forEach(group.questions, (value, key) => {
             value.selected = group.selected;
             if (value.selected) {
-                this.checkDubplcateData(value);
+                this.checkDuplicateData(value);
             } else {
                 if (this.selectedData.indexOf(value) !== -1) {
                     this.selectedData.splice(this.selectedData.indexOf(value), 1);
@@ -50,7 +50,7 @@ export class AllTestQuestionComponent implements OnInit {
             }
         })
     }
-    checkDubplcateData(quest) {
+    checkDuplicateData(quest) {
         let flag = 0;
         _.forEach(this.selectedData, (data, keydata) => {
             if (data._id === quest._id) {
@@ -64,7 +64,7 @@ export class AllTestQuestionComponent implements OnInit {
     selectChild(ques) {
         ques.selected = !ques.selected;
         if (ques.selected) {
-            this.checkDubplcateData(ques);
+            this.checkDuplicateData(ques);
         } else {
             this.selectedData.splice(this.selectedData.indexOf(ques), 1);
         }

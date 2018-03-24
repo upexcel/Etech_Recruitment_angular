@@ -28,6 +28,7 @@ export class CreateTestSetComponent implements OnInit {
     message: any;
     round = []
     roundId: any;
+    updateTestData: any;
     updateData: any;
     jobProfile: any;
     private dialogRef: MatDialogRef<any>
@@ -38,8 +39,8 @@ export class CreateTestSetComponent implements OnInit {
         this.getTestGroup();
         this.getAllTag();
         this.limit = limitTime;
-        if (this.updateData) {
-            this.updateData = JSON.parse(JSON.stringify(this.updateData));
+        if (this.updateTestData) {
+            this.updateData = JSON.parse(JSON.stringify(this.updateTestData));
             this.apiCall.getTestPaperById(this.updateData._id).subscribe(res => {
                 this.questions = res.data.Questions;
             }, err => {
@@ -52,21 +53,16 @@ export class CreateTestSetComponent implements OnInit {
         }
     }
     getAllTag() {
-        const data = JSON.parse(localStorage.getItem('allTags')).data;
-        if (data.length > 0) {
-            _.forEach(data, (value, key) => {
-                if (value['title'] === 'candidate') {
-                    this.job_profile = value.data;
-                    if (this.job_profile.length > 0) {
-                        _.forEach(this.job_profile[0].subchild, (subchild, key3) => {
-                            if (subchild.title === 'First Round' || subchild.title === 'Second Round') {
-                                this.round.push(subchild);
-                            }
-                        })
+        this._commonService.getAllTag().then(res => {
+            this.job_profile = res;
+            if (this.job_profile.length > 0) {
+                _.forEach(this.job_profile[0].subchild, (subchild, key3) => {
+                    if (subchild.title === 'First Round' || subchild.title === 'Second Round') {
+                        this.round.push(subchild);
                     }
-                }
-            })
-        }
+                })
+            }
+        });
     }
     getTestGroup() {
         this.apiCall.examGroup()
@@ -74,7 +70,7 @@ export class CreateTestSetComponent implements OnInit {
                 this.testGroup = data;
                 if (this.updateData) { // test group limit for edit test and update
                     _.forEach(this.testGroup, (groupData, key) => {
-                        _.forEach(this.updateData.SubjectQuestionLimits, (value, keyInner) =>{
+                        _.forEach(this.updateData.SubjectQuestionLimits, (value, keyInner) => {
                             if (groupData.id === value.group_id) {
                                 groupData.limit = value.limit
                             }

@@ -42,7 +42,7 @@
             <ng-container matColumnDef="delete">
               <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
               <mat-cell *matCellDef="let element">
-              <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delTest(element._id, element.interviewId)"><i class="material-icons">delete</i></button>
+              <button mat-icon-button color=warn matTooltip="click to delete!" (click)="deleteTest(element._id, element.interviewId)"><i class="material-icons">delete</i></button>
               </mat-cell>
             </ng-container>
 

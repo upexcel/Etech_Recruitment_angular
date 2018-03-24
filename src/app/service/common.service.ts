@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { LocalStorageService } from './local-storage.service';
 import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { promise } from 'protractor';
 
 @Injectable()
 export class CommonService {
@@ -411,5 +412,17 @@ export class CommonService {
             })
         }
         return questions
+    }
+    getAllTag() {
+        return new Promise((resolve, reolve) => {
+            const data = JSON.parse(localStorage.getItem('allTags')).data;
+            if (data.length > 0) {
+                _.forEach(data, (value, key) => {
+                    if (value['title'] === 'candidate') {
+                        resolve (value.data);
+                    }
+                })
+            }
+        })
     }
 }
