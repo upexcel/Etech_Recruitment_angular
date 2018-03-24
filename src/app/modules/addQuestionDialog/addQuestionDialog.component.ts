@@ -3,6 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import * as _ from 'lodash';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { inputBox } from '../../config/config';
 
 @Component({
     selector: 'app-addquestion-dialog',
@@ -10,7 +11,6 @@ import { ImapMailsService } from '../../service/imapemails.service';
     styleUrls: ['./addQuestionDialog.component.scss'],
 })
 export class AddQuestionDialogComponent implements OnInit {
-    loading = false;
     tags: any[];
     job_profile: any;
     question: any;
@@ -39,19 +39,14 @@ export class AddQuestionDialogComponent implements OnInit {
     constructor(private dialogRef: MatDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
-        this.inputbox = [
-            { 'option': '', 'opt_id': 1 }, { 'option': '', 'opt_id': 2 }
-        ];
-        this.loading = true;
+        this.inputbox = inputBox
         this.getExamGroup();
         if (this.questionEditable) {
             if (this.questionType === 'Subjective') {
                 this.subjective = true;
-                this.questionType = this.questionType;
                 this.questionId = this.questionEditable._id;
                 this.question = this.questionEditable.question;
             } else {
-                this.questionType = this.questionType;
                 this.questionId = this.questionEditable._id;
                 this.question = this.questionEditable.question;
                 this.answer = this.questionEditable.answer;
@@ -85,7 +80,6 @@ export class AddQuestionDialogComponent implements OnInit {
             .subscribe((data) => {
                 this.examgroup = data;
             }, (err) => {
-                this.loading = false;
             });
     }
     close() {
@@ -112,25 +106,20 @@ export class AddQuestionDialogComponent implements OnInit {
                 };
             }
         }
-        this.loading = true;
         this.showmessage = false;
         if (this.questionEditable) {
             this.getTags.updateQues(quesdata, this.questionId).subscribe(res => {
-                this.loading = false;
                 this.showmessage = false;
                 this.dialogRef.close(res);
             }, err => {
-                this.loading = false;
                 this.showmessage = true;
                 this.message = err.message;
             });
         } else {
             this.getTags.creteQues(quesdata).subscribe(res => {
-                this.loading = false;
                 this.showmessage = false;
                 this.dialogRef.close(res);
             }, err => {
-                this.loading = false;
                 this.showmessage = true;
                 this.message = err.message;
             });

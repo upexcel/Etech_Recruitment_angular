@@ -83,7 +83,7 @@ export class DialogService {
     openConfirmationBox(message) {
         return new Promise((resolve, reject) => {
             this.dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-                'height': '140px'
+                'height': '150px'
             });
             this.dialogRef.componentInstance.message = message;
             this.dialogRef.afterClosed().subscribe(result => {

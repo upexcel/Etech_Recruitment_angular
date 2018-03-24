@@ -3,6 +3,7 @@ import {config} from './../../config/config';
 import * as _ from 'lodash'
 import { ImapMailsService } from 'app/service/imapemails.service';
 import { MatDialogRef } from '@angular/material';
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-all-test-question',
@@ -17,7 +18,7 @@ export class AllTestQuestionComponent implements OnInit {
     loading: boolean;
     subjective: boolean;
     selectedData = [];
-    constructor(private dialogRef: MatDialogRef<any>, private apicall: ImapMailsService) { }
+    constructor(private dialogRef: MatDialogRef<any>, private apicall: ImapMailsService, private _commonService: CommonService) { }
 
     ngOnInit() {
         this.testType = config['testType'];
@@ -31,36 +32,10 @@ export class AllTestQuestionComponent implements OnInit {
             if (res.questionType === 'Objective') {
                 this.questions[0]['hidden'] = true;
             }
-            this.checkedItem(res.questionType);
+            this.questions = this._commonService.checkedItem(res.questionType, this.questions, this.selectedData);
         }, err => {
             this.loading = false;
         });
-    }
-    checkedItem(questionType) {
-        if (questionType === 'Objective') {
-            _.forEach(this.questions, (group, groupKey) => {
-                _.forEach(group.questions, (ques, key) => {
-                    _.forEach(this.selectedData, (data, keySelected) => {
-                        if (data._id === ques._id) {
-                            ques.selected = true;
-                            group.selected = true;
-                        }
-                    })
-                })
-            })
-        } else {
-            _.forEach(this.questions, (ques, key) => {
-                _.forEach(this.selectedData, (data, keySelected) => {
-                    if (data._id === ques._id) {
-                        ques.selected = true;
-                    }
-                })
-            })
-        }
-    }
-
-    scroll() {
-        window.scroll(0, 0);
     }
     selectParent(group) {
         group.selected = !group.selected;

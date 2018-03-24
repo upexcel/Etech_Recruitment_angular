@@ -26,7 +26,10 @@ export class CreateTestSetComponent implements OnInit {
     job_profile: any;
     showmessage = false;
     message: any;
-    round: any
+    round = []
+    roundId: any;
+    updateData: any;
+    jobProfile: any;
     private dialogRef: MatDialogRef<any>
     constructor(private _commonService: CommonService, private dialogRef2: MatDialogRef<any>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
 
@@ -35,6 +38,18 @@ export class CreateTestSetComponent implements OnInit {
         this.getTestGroup();
         this.getAllTag();
         this.limit = limitTime;
+        if (this.updateData) {
+            this.updateData = JSON.parse(JSON.stringify(this.updateData));
+            this.apiCall.getTestPaperById(this.updateData._id).subscribe(res => {
+                this.questions = res.data.Questions;
+            }, err => {
+
+            })
+            this.testName = this.updateData.testName;
+            this.testLimit = this.updateData.timeForExam;
+            this.jobProfile = this.updateData.job_profile;
+            this.roundId = this.updateData.round;
+        }
     }
     getAllTag() {
         const data = JSON.parse(localStorage.getItem('allTags')).data;
@@ -42,23 +57,34 @@ export class CreateTestSetComponent implements OnInit {
             _.forEach(data, (value, key) => {
                 if (value['title'] === 'candidate') {
                     this.job_profile = value.data;
+                    if (this.job_profile.length > 0) {
+                        _.forEach(this.job_profile[0].subchild, (subchild, key3) => {
+                            if (subchild.title === 'First Round' || subchild.title === 'Second Round') {
+                                this.round.push(subchild);
+                            }
+                        })
+                    }
                 }
             })
         }
-    }
-    assignJobProfile(tag) {
-        this.round = [];
-        _.forEach(tag.subchild, (subchild, key) => {
-            if (subchild.title === 'First Round' || subchild.title === 'Second Round') {
-                this.round.push(subchild);
-            }
-        })
     }
     getTestGroup() {
         this.apiCall.examGroup()
             .subscribe((data) => {
                 this.testGroup = data;
-                this.loading = false;
+                if (this.updateData) { // test group limit for edit test and update
+                    _.forEach(this.testGroup, (groupData, key) => {
+                        _.forEach(this.updateData.SubjectQuestionLimits, (value, keyInner) =>{
+                            if (groupData.id === value.group_id) {
+                                groupData.limit = value.limit
+                            }
+                        })
+                    })
+                } else { // test group limit for create new test
+                    _.forEach(this.testGroup, (groupData, key) => {
+                        groupData.limit = '';
+                    })
+                }
             }, (err) => {
                 console.log(err)
             });
@@ -102,11 +128,26 @@ export class CreateTestSetComponent implements OnInit {
                 'job_profile' : form.value.jobProfileId,
                 'round' : form.value.roundId
             }
-            this.finalCreate(data);
+            if (!this.updateData) {
+                this.createTest(data);
+            } else {
+                data['_id'] = this.updateData['_id'],
+                data['interviewId'] = this.updateData['interviewId']
+                this.updateTest(data);
+            }
         }
     }
-    finalCreate(data) {
+    createTest(data) {
         this.apiCall.createTestSet(data).subscribe(response => {
+            this.dialogRef2.close(response);
+        }, error => {
+            this.message = error.message
+            this.showmessage = true;
+            console.log(error)
+        });
+    }
+    updateTest(data) {
+        this.apiCall.updateTestSet(data).subscribe(response => {
             this.dialogRef2.close(response);
         }, error => {
             this.message = error.message

@@ -384,9 +384,32 @@ export class CommonService {
                 } else{
                      tagValue['data'] = tagStatus['false']
                 }
-                
+
             }
         });
         return tags;
+    }
+    checkedItem(questionType, questions, selectedData) {
+        if (questionType === 'Objective') {
+            _.forEach(questions, (group, groupKey) => {
+                _.forEach(group.questions, (ques, key) => {
+                    _.forEach(selectedData, (data, keySelected) => {
+                        if (data._id === ques._id) {
+                            ques.selected = true;
+                            group.selected = true;
+                        }
+                    })
+                })
+            })
+        } else {
+            _.forEach(questions, (ques, key) => {
+                _.forEach(selectedData, (data, keySelected) => {
+                    if (data._id === ques._id) {
+                        ques.selected = true;
+                    }
+                })
+            })
+        }
+        return questions
     }
 }

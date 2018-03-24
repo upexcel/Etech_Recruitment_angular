@@ -29,7 +29,7 @@
           (click)="scroll()">
         <mat-expansion-panel-header>
           <mat-panel-title>{{group.group_name}} </mat-panel-title>
-          <mat-panel-description *ngIf="group.questions.length>0">Total Questions: {{group.questions.length}} </mat-panel-description>
+          <mat-panel-description *ngIf="group.questions">Total Questions: {{group.questions.length}} </mat-panel-description>
         </mat-expansion-panel-header>
           <mat-card class="padleft10 bodyInner2" *ngFor="let ques of group.questions;let i = index">
             <div class="btnIcons">

@@ -22,10 +22,28 @@
               <mat-header-cell *matHeaderCellDef> Round </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.testRound}} </mat-cell>
             </ng-container>
+            <ng-container matColumnDef="timeForExam">
+              <mat-header-cell *matHeaderCellDef> Time limit </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.timeForExam}} Minute</mat-cell>
+            </ng-container>
 
             <ng-container matColumnDef="Preview">
               <mat-header-cell *matHeaderCellDef> Preview </mat-header-cell>
-              <mat-cell *matCellDef="let element"><button mat-raised-button color=accent >View TestPaper</button></mat-cell>
+              <mat-cell *matCellDef="let element"><button mat-raised-button color=accent (click)="getSingleTest(element._id)">View Test</button></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <mat-header-cell *matHeaderCellDef> Edit & Update </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button mat-icon-button color=accent matTooltip="click to edit!" (click)="editTest(element)">
+                  <i class="material-icons">mode_edit</i>
+                </button>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+              <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+              <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delTest(element._id, element.interviewId)"><i class="material-icons">delete</i></button>
+              </mat-cell>
             </ng-container>
 
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -11,13 +11,13 @@
       </div>
     </div>
       <div *ngIf="questionType!='Subjective'" >
-        <ul *ngFor="let group of questions;let i = index"  (click)="scroll()" class="parentCl">
+        <ul *ngFor="let group of questions;let i = index" class="parentCl">
           <li (click)="group.hidden=!group.hidden" class="hover">
             <mat-checkbox (change)="selectParent(group)" (click)="$event.stopPropagation()" [checked]="group.selected"></mat-checkbox>
             <span style="margin-left:15px;">{{group.group_name}}</span>
             <mat-icon class="fRight" style="font-size: 24px!important;" *ngIf="!group.hidden">keyboard_arrow_down</mat-icon>
             <mat-icon class="fRight"style="font-size: 24px!important;" *ngIf="group.hidden">keyboard_arrow_up</mat-icon>
-            <span class="fRight" *ngIf="group.questions.length">Total Questions: {{group.questions.length}}</span>
+            <span class="fRight" *ngIf="group.questions">Total Questions: {{group.questions.length}}</span>
 
         </li>
             <ul *ngIf="group.hidden" class="childCl">

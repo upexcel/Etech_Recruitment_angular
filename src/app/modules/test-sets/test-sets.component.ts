@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/
 import { CreateTestSetComponent } from './../create-test-set/create-test-set.component'
 import { ImapMailsService } from '../../service/imapemails.service';
 import _ = require('lodash');
+import { DialogService } from '../../service/dialog.service';
 
 @Component({
     selector: 'app-test-sets',
@@ -14,8 +15,8 @@ export class TestSetsComponent implements OnInit {
     dataSource = [];
     job_profile: any;
     round: any;
-    displayedColumns = ['testName', 'Questions', 'job_profileName', 'testRound', 'Preview']
-    constructor(private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
+    displayedColumns = ['testName', 'Questions', 'job_profileName', 'testRound', 'timeForExam', 'Preview', 'edit', 'delete']
+    constructor(private _dialogService: DialogService, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
 
     ngOnInit() {
         this.getAllTag();
@@ -37,7 +38,7 @@ export class TestSetsComponent implements OnInit {
         });
     }
     getTestPaper() {
-        this.apiCall.getTestPaper().subscribe(testPaper => {
+        this.apiCall.getAllTestPaper().subscribe(testPaper => {
             this.dataSource = testPaper.data;
             _.forEach(testPaper.data, (value, key) => {
                 _.forEach(this.job_profile, (job, keyJob) => {
@@ -53,6 +54,13 @@ export class TestSetsComponent implements OnInit {
             });
         }, err => {
             console.log(err)
+        })
+    }
+    getSingleTest(mongoId) {
+        this.apiCall.getTestPaperById(mongoId).subscribe(res => {
+            console.log(res)
+        }, err => {
+
         })
     }
     getAllTag() {
@@ -72,6 +80,38 @@ export class TestSetsComponent implements OnInit {
                 this.round.push(subchild);
             }
         })
+    }
+    editTest(data) {
+        this.dialogRef = this.dialog.open(CreateTestSetComponent, {
+            height: '80%',
+            width: '50%'
+        });
+        this.dialogRef.componentInstance.updateData = data;
+        this.dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this._mdSnackBar.open('TestPaper Updated Successfully', '', {
+                    duration: 2000,
+                });
+                this.dialogRef = null;
+                this.getTestPaper();
+            }
+        });
+    }
+
+    delTest (_id, interviewId) {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.apiCall.deleteTestPaper({'_id': _id, 'interviewId': interviewId}).subscribe(response => {
+                    this.getTestPaper();
+                    this._mdSnackBar.open(response.mesage, '', {
+                        duration: 2000,
+                    });
+                }, error => {
+                    console.log(error)
+                })
+            }
+        }, (err) => {
+        });
     }
 
 }

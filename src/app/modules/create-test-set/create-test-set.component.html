@@ -1,6 +1,7 @@
 <div class="bodyTestSet">
     <mat-card-title class="cardsub">
-      <p>Create Test Set</p>
+      <p *ngIf="!updateData">Create Test Set</p>
+      <p *ngIf="updateData">Edit/Update Test Set</p>
     </mat-card-title>
     <hr class="linespace">
   <form id="testSetForm" autoComplete="off" #testSetForm="ngForm">
@@ -26,14 +27,14 @@
             </div>
           <div class="col-md-12 col-sm-12 pad0">
             <div class="col-md-6 col-sm-12 timeLimit">
-              <mat-select class="width-100" id="testLimit" placeholder="Select Job Profile" name="jobProfileId" required ngModel>
-                <mat-option *ngFor="let job of job_profile" [value]="job.id" (click)="assignJobProfile(job)">
+              <mat-select class="width-100" id="testLimit" placeholder="Select Job Profile" name="jobProfileId" required [(ngModel)]="jobProfile">
+                <mat-option *ngFor="let job of job_profile" [value]="job.id">
                   {{job.title}}
                 </mat-option>
               </mat-select>
             </div>
-            <div class="col-md-6 col-sm-12 type" *ngIf="round">
-              <mat-select class="width-100" id="testLimit" placeholder="Select Round" name="roundId" required ngModel>
+            <div class="col-md-6 col-sm-12 type" >
+              <mat-select class="width-100" id="testLimit" placeholder="Select Round" name="roundId" required [(ngModel)]="roundId">
                 <mat-option *ngFor="let default_tag of round" [value]="default_tag.id">
                   {{default_tag.title}}
                 </mat-option>
@@ -49,7 +50,7 @@
                   <label class="control-label col-sm-7" for="tel">{{tag.exam_subject}}:</label>
                   <div class="col-sm-5">
                     <input class="form-control" name="{{tag.exam_subject}}" id="{{tag.exam_subject}}" (keypress)="disableText($event)" type="tel" placeholder="Set Limit"
-                    required ngModel autoComplete="off">
+                    required [(ngModel)]="tag.limit" autoComplete="off">
                   </div>
                 </div>
             </div>
@@ -73,7 +74,7 @@
           </mat-card>
         </div>
         <div class="col-sm-12 mar10">
-          <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid" (click)="createQues(testSetForm)"> Save </button>
+          <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid" (click)="createQues(testSetForm)"> Save <span *ngIf="updateData">& Update</span> </button>
         </div>
       </div>
     </mat-card-content>
