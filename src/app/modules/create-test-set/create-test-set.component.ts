@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
 import { AllTestQuestionComponent } from './../all-test-question/all-test-question.component';
-import _ = require('lodash');
+import * as _ from 'lodash';
 import { config, limitTime } from '../../config/config';
 import { CommonService } from '../../service/common.service';
 

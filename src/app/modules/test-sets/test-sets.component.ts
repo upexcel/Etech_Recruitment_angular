@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/material';
 import { CreateTestSetComponent } from './../create-test-set/create-test-set.component'
 import { ImapMailsService } from '../../service/imapemails.service';
-import _ = require('lodash');
+import * as _ from 'lodash';
 import { DialogService } from '../../service/dialog.service';
 
 @Component({
