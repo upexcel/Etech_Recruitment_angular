@@ -32,7 +32,7 @@ export class CreateTestSetComponent implements OnInit {
     updateData: any;
     jobProfile: any;
     private dialogRef: MatDialogRef<any>
-    constructor(private _commonService: CommonService, private dialogRef2: MatDialogRef<any>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
+    constructor(private _commonService: CommonService, private dialogRefTestSet: MatDialogRef<CreateTestSetComponent>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
 
     ngOnInit() {
         this.loading = true;
@@ -135,7 +135,7 @@ export class CreateTestSetComponent implements OnInit {
     }
     createTest(data) {
         this.apiCall.createTestSet(data).subscribe(response => {
-            this.dialogRef2.close(response);
+            this.dialogRefTestSet.close(response);
         }, error => {
             this.message = error.message
             this.showmessage = true;
@@ -144,7 +144,7 @@ export class CreateTestSetComponent implements OnInit {
     }
     updateTest(data) {
         this.apiCall.updateTestSet(data).subscribe(response => {
-            this.dialogRef2.close(response);
+            this.dialogRefTestSet.close(response);
         }, error => {
             this.message = error.message
             this.showmessage = true;

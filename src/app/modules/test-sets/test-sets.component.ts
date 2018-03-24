@@ -6,6 +6,7 @@ import * as _ from 'lodash';
 import { DialogService } from '../../service/dialog.service';
 import { CommonService } from '../../service/common.service';
 import { testTableHeader } from '../../config/config';
+import { ViewTestPaperComponent } from '../view-test-paper/view-test-paper.component';
 
 @Component({
     selector: 'app-test-sets',
@@ -61,22 +62,14 @@ export class TestSetsComponent implements OnInit {
             console.log(err)
         })
     }
-    getSingleTest(mongoId) {
-        this.apiCall.getTestPaperById(mongoId).subscribe(res => {
-            console.log(res)
-        }, err => {
-
-        })
+    getSingleTest(testId) {
+        this.dialogRef = this.dialog.open(ViewTestPaperComponent, {
+            height: '80%',
+            width: '50%'
+        });
+        this.dialogRef.componentInstance.testId = testId;
     }
 
-    assignJobProfile(tag) {
-        this.round = [];
-        _.forEach(tag.subchild, (subchild, key) => {
-            if (subchild.title === 'First Round' || subchild.title === 'Second Round') {
-                this.round.push(subchild);
-            }
-        })
-    }
     editTest(data) {
         this.dialogRef = this.dialog.open(CreateTestSetComponent, {
             height: '80%',

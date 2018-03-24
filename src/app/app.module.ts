@@ -204,6 +204,7 @@ import { TestSetsComponent } from './modules/test-sets/test-sets.component';
 import { CreateTestSetComponent } from './modules/create-test-set/create-test-set.component';
 import { AllTestQuestionComponent } from './modules/all-test-question/all-test-question.component';
 import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-logs.component';
+import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-paper.component';
 
 @NgModule({
     declarations: [
@@ -286,7 +287,8 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         RemoveOldLogsComponent,
         TestSetsComponent,
         CreateTestSetComponent,
-        AllTestQuestionComponent
+        AllTestQuestionComponent,
+        ViewTestPaperComponent
     ],
     imports: [
         BrowserModule,
@@ -375,7 +377,8 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         TokenExpireComponent,
         CreateTestSetComponent,
         AllTestQuestionComponent,
-        RemoveOldLogsComponent
+        RemoveOldLogsComponent,
+        ViewTestPaperComponent
     ],
     bootstrap: [AppComponent]
 })

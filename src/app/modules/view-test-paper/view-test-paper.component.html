@@ -1,0 +1,27 @@
+<div *ngIf="testPaper">
+  <h4 class="heading"> {{testPaper.testName}} Test
+    <button mat-raised-button class="closeBtn" (click)="close()" mat-mini-fab>
+      <mat-icon class="icon">close</mat-icon>
+    </button>
+  </h4>
+  <hr>
+  <div class="col-md-12 col-sm-12 paper">
+    <h5 class="col-md-6 col-sm-6" *ngIf="testPaper.testName">Test Name: <span class="bold">{{testPaper.testName}}</span></h5>
+    <h5 class="col-md-6 col-sm-6" *ngIf="testPaper.timeForExam">Time Limit: <span class="bold">{{testPaper.timeForExam}}</span> </h5>
+    <div class="col-md-12 col-sm-12" *ngIf="testPaper.SubjectQuestionLimits">
+      <h5>Max Question in Group:</h5>
+      <span class="inline" *ngFor="let group of testPaper.SubjectQuestionLimits;let i = index">
+        {{group.exam_subject}} : {{group.limit}}</span>
+    </div>
+  </div>
+  <div class="bodyInner" *ngFor="let ques of testPaper.Questions;let i = index">
+    <ul class="quesView">
+      <li><h5> <span style="font-weight:bold">{{i+1}}</span>. <span [innerHTML]="ques.question | safeHtml"></span></h5></li>
+      <li *ngIf="ques.description"><pre [innerHTML]="ques.description | safeHtml"></pre></li>
+      <li class="fontLi" *ngIf="ques.options.length">Options:</li>
+      <ul class="padleft15" *ngIf="ques.options.length">
+        <li class="col-md-6 col-sm-12 fontLi" *ngFor="let opt of ques.options; let optid = index ">{{optid+1}}. &#09; {{opt.option}}</li>
+      </ul>
+    </ul>
+  </div>
+</div>
