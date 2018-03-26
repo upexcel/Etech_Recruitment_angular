@@ -9,8 +9,8 @@
       </p>
     </mat-card-title>
     <hr class="linespace">
-  <div *ngIf="loading">
-    <mat-progress-spinner [diameter]="40" color=accent mode="indeterminate">
+  <div *ngIf="loading" class="loader">
+    <mat-progress-spinner [diameter]="40" color=accent  mode="indeterminate">
     </mat-progress-spinner>
   </div>
   <form *ngIf="!loading" id="testSetForm" autoComplete="off" #testSetForm="ngForm">

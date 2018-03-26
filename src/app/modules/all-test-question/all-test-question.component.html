@@ -54,11 +54,11 @@
           </mat-list>
         </mat-card>
       </div>
-      <div *ngIf="loading">
+      <div *ngIf="loading" class="loader">
         <mat-progress-spinner [diameter]="40" color=accent mode="indeterminate">
         </mat-progress-spinner>
       </div>
-      <div id="FormButton" class="col-sm-12 col-md-12">
+      <div *ngIf="!loading" id="FormButton" class="col-sm-12 col-md-12">
         <button class="btnSave" mat-raised-button color=primary (click)="getAllSelected()">
         Select </button>
       </div>
