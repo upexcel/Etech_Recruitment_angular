@@ -10,8 +10,8 @@
     <h5 class="col-md-6 col-sm-6" *ngIf="testPaper.timeForExam">Time Limit: <span class="bold">{{testPaper.timeForExam}}</span> </h5>
     <div class="col-md-12 col-sm-12" *ngIf="testPaper.SubjectQuestionLimits">
       <h5>Max Question in Group:</h5>
-      <span class="inline" *ngFor="let group of testPaper.SubjectQuestionLimits;let i = index">
-        {{group.exam_subject}} : {{group.limit}}</span>
+      <div class="inline" *ngFor="let group of testPaper.SubjectQuestionLimits;let i = index">
+        {{group.exam_subject}} : {{group.limit}}</div>
     </div>
   </div>
   <div class="bodyInner" *ngFor="let ques of testPaper.Questions;let i = index">

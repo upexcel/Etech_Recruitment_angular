@@ -32,7 +32,9 @@ export class CreateTestSetComponent implements OnInit {
     updateData: any;
     jobProfile: any;
     private dialogRef: MatDialogRef<any>
-    constructor(private _commonService: CommonService, private dialogRefTestSet: MatDialogRef<CreateTestSetComponent>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) { }
+    constructor(private _commonService: CommonService, private dialogRefTestSet: MatDialogRef<CreateTestSetComponent>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) {
+        dialogRefTestSet.disableClose = true;
+    }
 
     ngOnInit() {
         this.loading = true;
@@ -81,6 +83,7 @@ export class CreateTestSetComponent implements OnInit {
                         groupData.limit = '';
                     })
                 }
+                this.loading = false;
             }, (err) => {
                 console.log(err)
             });
@@ -101,7 +104,9 @@ export class CreateTestSetComponent implements OnInit {
     remove(index) {
         this.questions.splice(index, 1)
     }
-
+    close() {
+        this.dialogRefTestSet.close();
+    }
     createQues(form: NgForm) {
         const questionId = [];
         _.forEach(this.questions, (question, key) => {

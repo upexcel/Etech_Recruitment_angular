@@ -18,17 +18,24 @@ export class AllTestQuestionComponent implements OnInit {
     loading: boolean;
     subjective: boolean;
     selectedData = [];
-    constructor(private dialogRef: MatDialogRef<any>, private apicall: ImapMailsService, private _commonService: CommonService) { }
+    constructor(private dialogRef: MatDialogRef<any>, private apicall: ImapMailsService, private _commonService: CommonService) {
+        dialogRef.disableClose = true;
+    }
 
     ngOnInit() {
+        this.loading = true;
         this.testType = config['testType'];
         this.getQues(config['testType'][0]['type']);
     }
-
+    close() {
+        this.dialogRef.close();
+    }
     getQues(questionType: any) {
+        this.loading = true;
         this.questionType = questionType;
         this.apicall.getQuesAdmin(questionType).subscribe(res => {
             this.questions = res.data;
+            this.loading = false;
             if (res.questionType === 'Objective') {
                 this.questions[0]['hidden'] = true;
             }

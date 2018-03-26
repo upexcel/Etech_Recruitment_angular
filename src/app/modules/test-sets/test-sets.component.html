@@ -4,7 +4,7 @@
        Test Sets
     </mat-card-title>
     <mat-card-content>
-          <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.length>0">
+          <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.length">
             <ng-container matColumnDef="testName">
               <mat-header-cell *matHeaderCellDef> Test Name </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.testName}} </mat-cell>
@@ -49,6 +49,7 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
+          <h4 *ngIf="dataSource.length==0" class="empty-test">Test Not Available</h4>
     </mat-card-content>
   </mat-card>
 </div>

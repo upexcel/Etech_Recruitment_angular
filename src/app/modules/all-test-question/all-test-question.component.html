@@ -1,5 +1,9 @@
 <div class="main" id="create-ques">
-    <h4>Select Questions</h4>
+    <h4>Select Questions
+      <button mat-raised-button class="closeBtn" (click)="close()" mat-mini-fab>
+        <mat-icon class="icon">close</mat-icon>
+      </button>
+    </h4>
     <hr class="linespace">
     <div class="row mar0">
       <div class="col-md-4 col-sm-12 type">
@@ -10,7 +14,7 @@
         </mat-select>
       </div>
     </div>
-      <div *ngIf="questionType!='Subjective'" >
+      <div *ngIf="questionType!='Subjective' && !loading">
         <ul *ngFor="let group of questions;let i = index" class="parentCl">
           <li (click)="group.hidden=!group.hidden" class="hover">
             <mat-checkbox (change)="selectParent(group)" (click)="$event.stopPropagation()" [checked]="group.selected"></mat-checkbox>
@@ -35,7 +39,7 @@
             </ul>
           </ul>
       </div>
-      <div *ngIf="questionType=='Subjective'">
+      <div *ngIf="questionType=='Subjective' && !loading">
         <mat-card class="pad10 bodyInner2" *ngFor="let ques of questions;let i = index">
           <mat-list class="pad0">
             <mat-list-item class="pad0">
@@ -50,8 +54,12 @@
           </mat-list>
         </mat-card>
       </div>
+      <div *ngIf="loading">
+        <mat-progress-spinner [diameter]="40" color=accent mode="indeterminate">
+        </mat-progress-spinner>
+      </div>
       <div id="FormButton" class="col-sm-12 col-md-12">
         <button class="btnSave" mat-raised-button color=primary (click)="getAllSelected()">
         Select </button>
       </div>
-      </div>
+  </div>
