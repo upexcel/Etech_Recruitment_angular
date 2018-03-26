@@ -14,7 +14,7 @@
         {{group.exam_subject}} : {{group.limit}}</div>
     </div>
   </div>
-  <div class="bodyInner" *ngFor="let ques of testPaper.Questions;let i = index">
+  <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of testPaper.Questions;let i = index">
     <ul class="quesView">
       <li><h5> <span style="font-weight:bold">{{i+1}}</span>. <span [innerHTML]="ques.question | safeHtml"></span></h5></li>
       <li *ngIf="ques.description"><pre [innerHTML]="ques.description | safeHtml"></pre></li>
