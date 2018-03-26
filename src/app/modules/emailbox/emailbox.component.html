@@ -33,7 +33,7 @@
     </mat-select>
     <div class="default-tag-buttons row" *ngIf="tagAssigned">
       <span *ngFor="let tag of tagAssigned; trackBy: allTagsDefaultTrack;">
-        <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id==null && tag.active_status==true" id="{{tag.title}}"
+        <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id == null && tag.active_status != false" id="{{tag.title}}"
         (click)="assignTag(tag.id, email._id, tag.title, email)">
         <button mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
           <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
