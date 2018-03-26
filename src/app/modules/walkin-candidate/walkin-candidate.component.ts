@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class WalkinCandidateComponent implements OnInit {
     walkinData: any;
     loading: boolean;
-    
+
     constructor(private apiService: ImapMailsService, public snackBar: MatSnackBar, public _router: Router) {
         this.walkinData = JSON.parse(localStorage.getItem('walkinUser'))
     }
@@ -22,11 +22,10 @@ export class WalkinCandidateComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
+            console.log(form.value)
             this.loading = true;
             const data = form.value;
             data['sender_mail'] = this.walkinData.email;
-            data['from'] = this.walkinData.name;
-            data['fb_id'] = this.walkinData.fb_id;
             data['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no'];
             this.apiService.addWalkinCandidate(data).subscribe((res) => {
                 this.loading = false;
