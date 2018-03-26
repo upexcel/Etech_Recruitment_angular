@@ -66,24 +66,8 @@
           </div>
         </div>
 
-
-        <div id="addQustion" class="col-md-12 col-sm-12">
-          <button class="addQues" mat-icon-button color=primary (click)="add()" matTooltip="Add Question">
-            <i class="material-icons">add_circle_outline</i>
-          </button>
-          <span class="blink_me"><i class="material-icons" style="font-size:13px;">keyboard_backspace</i>
-             <span style="font-size:14px;">Select Questions</span> </span>
-        </div>
-        <div *ngIf="questions.length>0" class="col-md-12 col-sm-12 mar10">
-          <mat-card *ngFor="let question of questions;let i=index" class="paddingQues">
-              {{i+1}}. {{question.question}}
-              <button class="delete" mat-icon-button color=warn matTooltip="click to delete!" (click)="remove(i)">
-                <i class="material-icons">clear</i>
-              </button>
-          </mat-card>
-        </div>
         <div class="col-sm-12 mar10">
-          <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid || questions.length===0" (click)="createQues(testSetForm)"> Save <span *ngIf="updateData">& Update</span> </button>
+          <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid" (click)="createQues(testSetForm)"> Save <span *ngIf="updateData">& Update</span> </button>
         </div>
       </div>
     </mat-card-content>

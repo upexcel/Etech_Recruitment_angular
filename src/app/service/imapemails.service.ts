@@ -1000,9 +1000,9 @@ export class ImapMailsService {
               return Observable.throw(error.json() || 'Server error');
           });
     }
-    getQues(job_profile: any): Observable<any> {
+    getQues(fb_id: any): Observable<any> {
         this.increaseAPiCount();
-        return this.http.get(environment['apibase'] + `exams/getAllQuestions/${job_profile}`)
+        return this.http.get(environment['apibase'] + `exams/getQuestinsForCandidate/${fb_id}`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();

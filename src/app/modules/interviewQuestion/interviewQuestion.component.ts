@@ -45,6 +45,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     timerMin: any;
     testNotAvailable = false;
     isSubmit: boolean;
+    errMessage: any;
+    showMessage = false;
     totalQuestion = 0;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
@@ -65,7 +67,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
             this.selectedJob = localStorage.getItem('_idjob');
             this.hide = false;
-            this.start(this.selectedJob);
+            this.start(this.user_id);
         } else {
             this.getJobProfile();
         }
@@ -97,7 +99,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.selectedJob = res[0].id;
                     localStorage.setItem('_idjob', this.selectedJob);
                     this.hide = false;
-                    this.start(this.selectedJob);
+                    this.start(this.user_id);
                 } else {
                     this.loading = false;
                     this.notag = false;
@@ -115,7 +117,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
 
     getQues() {
         if (this.selectedJob) {
-            this.start(this.selectedJob);
+            this.start(this.user_id);
         } else {
             this._mdSnackBar.open('Please select Job profile', '', {
                 duration: 2000,
@@ -141,11 +143,13 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             })
             this.total = res.count;
         } else {
+
             this._apiService.getQues(id).subscribe(res => {
                 this.loading = false;
                 if (res.data.length > 0) {
                     this._localStorageService.setItem('QuestionsWithUserAnswers', res);
                     this.hide = false;
+                    this.showMessage = false;
                     this.questions = res.data;
                     _.forEach(this.questions, (val, key) => {
                         _.forEach(val.questions, (val1, key1) => {
@@ -159,7 +163,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 } else {
                     this.testNotAvailable = true;
                     setTimeout(() => {
-                        this.start(this.selectedJob);
+                        this.start(this.user_id);
                     }, config.refreshTime);
                     clearInterval(this.interval);
                     this._mdSnackBar.open('Test not available', '', {
@@ -167,6 +171,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     });
                 }
             }, err => {
+                console.log(err);
+                this.loading = false;
+                this.showMessage = true;
+                this.errMessage = err.message
                 this.hide = true;
             });
         }
@@ -234,18 +242,18 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
 
     savePreview() {
         if (this.selectedAnswer.length > 0) {
-        this.isSubmit = true;
-        _.forEach(this.questions, (group, key2) => {
-            group['attempted'] = 0;
-            _.forEach(group.questions, (question, key3) => {
-                this.totalQuestion++;
-                _.forEach(this.selectedAnswer, (answer, key) => {
-                    if (answer.Q_id === question._id) {
-                        group['attempted']++;
-                    }
+            this.isSubmit = true;
+            _.forEach(this.questions, (group, key2) => {
+                group['attempted'] = 0;
+                _.forEach(group.questions, (question, key3) => {
+                    this.totalQuestion++;
+                    _.forEach(this.selectedAnswer, (answer, key) => {
+                        if (answer.Q_id === question._id) {
+                            group['attempted']++;
+                        }
+                    });
                 });
             });
-        });
         } else {
             this._mdSnackBar.open('Attempt atlest one Question', '', {
                 duration: 2000,

@@ -2,7 +2,6 @@ import { Component, OnInit, group } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { MatDialogRef, MatDialog, MatSnackBar } from '@angular/material';
-import { AllTestQuestionComponent } from './../all-test-question/all-test-question.component';
 import * as _ from 'lodash';
 import { config, limitTime } from '../../config/config';
 import { CommonService } from '../../service/common.service';
@@ -19,7 +18,6 @@ export class CreateTestSetComponent implements OnInit {
     testLimit: any;
     testGroupId: any;
     testName: any;
-    questions = [];
     testType: any[];
     selectedType: any;
     subjective: boolean;
@@ -43,11 +41,6 @@ export class CreateTestSetComponent implements OnInit {
         this.limit = limitTime;
         if (this.updateTestData) {
             this.updateData = JSON.parse(JSON.stringify(this.updateTestData));
-            this.apiCall.getTestPaperById(this.updateData._id).subscribe(res => {
-                this.questions = res.data.Questions;
-            }, err => {
-
-            })
             this.testName = this.updateData.testName;
             this.testLimit = this.updateData.timeForExam;
             this.jobProfile = this.updateData.job_profile;
@@ -80,7 +73,7 @@ export class CreateTestSetComponent implements OnInit {
                     })
                 } else { // test group limit for create new test
                     _.forEach(this.testGroup, (groupData, key) => {
-                        groupData.limit = '';
+                        groupData.limit = 0;
                     })
                 }
                 this.loading = false;
@@ -88,30 +81,11 @@ export class CreateTestSetComponent implements OnInit {
                 console.log(err)
             });
     }
-    add() {
-        this.dialogRef = this.dialog.open(AllTestQuestionComponent, {
-            height: '80%',
-            width: '80%'
-        });
-        this.dialogRef.componentInstance.selectedData = this.questions;
-        this.dialogRef.afterClosed().subscribe(result => {
-            if (result) {
-                this.questions = result
-                this.dialogRef = null;
-            }
-        });
-    }
-    remove(index) {
-        this.questions.splice(index, 1)
-    }
+
     close() {
         this.dialogRefTestSet.close();
     }
     createQues(form: NgForm) {
-        const questionId = [];
-        _.forEach(this.questions, (question, key) => {
-            questionId.push(question._id);
-        })
         if (form.valid) {
             const SubjectQuestionLimits = [];
             _.forEach(this.testGroup, (groupData, key) => {
@@ -123,7 +97,6 @@ export class CreateTestSetComponent implements OnInit {
             })
             const data = {
                 'testName' : form.value.testName,
-                'Questions' : questionId,
                 'SubjectQuestionLimits' : SubjectQuestionLimits,
                 'timeForExam' : form.value.testLimit,
                 'job_profile' : form.value.jobProfileId,

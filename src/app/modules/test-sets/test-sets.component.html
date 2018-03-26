@@ -10,10 +10,6 @@
               <mat-cell *matCellDef="let element"> {{element.testName}} </mat-cell>
             </ng-container>
 
-            <ng-container matColumnDef="Questions">
-              <mat-header-cell *matHeaderCellDef> No.Of Questions </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.Questions.length}} </mat-cell>
-            </ng-container>
             <ng-container matColumnDef="job_profileName">
               <mat-header-cell *matHeaderCellDef>Job Profile </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.job_profileName}} </mat-cell>

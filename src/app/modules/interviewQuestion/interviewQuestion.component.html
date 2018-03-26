@@ -1,9 +1,9 @@
 <div *ngIf="instructionsRead && !isSubmit">
-  <mat-card *ngIf="hide && !thankyou " class="col-xs-12 col-md-12 col-sm-12 bodyInner">
+  <!-- <mat-card *ngIf="hide && !thankyou " class="col-xs-12 col-md-12 col-sm-12 bodyInner"> -->
 
     <!-- <mat-list class="pad0"> -->
       <!-- <mat-list-item class="pad0"> -->
-        <div *ngIf="!notag" class="marAuto bodyInner width400">
+        <!-- <div *ngIf="!notag" class="marAuto bodyInner width400">
           <mat-card-title>
             <h4>Select Job profile</h4>
             <hr>
@@ -17,12 +17,15 @@
           <button mat-raised-button color=primary class="flRight" (click)="getQues()">Submit</button>
           </mat-card-actions>
         </div>
-        <div class="col-md-4 col-sm-12 marAuto bodyInner" *ngIf="notag"><h4>{{contactHR}}</h4></div>
+        <div class="col-md-4 col-sm-12 marAuto bodyInner" *ngIf="notag"><h4>{{contactHR}}</h4></div> -->
       <!-- </mat-list-item> -->
     <!-- </mat-list> -->
-  </mat-card>
+  <!-- </mat-card> -->
   <div class="col-xs-12 col-md-12 col-sm-12 bodyInner" *ngIf="loading">
       <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
+  </div>
+  <div class="col-xs-12 col-md-12 col-sm-12 bodyInner" *ngIf="showMessage">
+        <div *ngIf="showMessage" class="error">{{errMessage}}</div>
   </div>
 
   <div *ngIf="!hide && !thankyou && !loading" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
@@ -35,7 +38,7 @@
             </span>
           </p>
           <p class="col-md-4 col-sm-4 col-xs-8 pad0">
-            <span class="right style" *ngIf="total">Question Attempted:
+            <span class="style" *ngIf="total">Question Attempted:
               <span class="bold">{{questionsAttempted}}/{{total}}</span>
             </span>
           </p>
@@ -69,7 +72,7 @@
           <button *ngIf="questions.length>0" mat-raised-button color=primary class="flRight submitans btn-block" (click)="savePreview()">Submit</button>
   </div>
 </div>
-  
+
 <div *ngIf="thankyou">
   <div class="col-md-12">
     <h1>Thank You</h1>
@@ -90,18 +93,18 @@
   <div class="main">
       <h4 class="heading">Test Summary</h4>
       <hr>
-      <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of this.question">
-          {{ques.group_name}}<span class="right">{{ques.attempted}}/{{ques.questions.length}}</span>
+      <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of questions">
+          {{ques.group_name}}<span class="flRight">{{ques.attempted}}/{{ques.questions.length}}</span>
       </div>
       <div class="col-md-12 col-sm-12 bodyInner" style="margin-top: 1px;">
         <span class="bold">Total Attempted</span>
-        <span class="right">{{questionsAttempted}}/{{totalQuestion}}</span>
+        <span class="flRight">{{questionsAttempted}}/{{totalQuestion}}</span>
       </div>
       <div *ngIf="totalQuestion!=questionsAttempted" class="allQues">
         You Haven't Attempted All The Questions.
       </div>
       <div class="buttons-b1">
-        <button mat-raised-button color=primary class="right button-b1" (click)="finalSubmit()">Final Submit</button>
+        <button mat-raised-button color=primary class="flRight button-b1" (click)="finalSubmit()">Final Submit</button>
         <button mat-raised-button  class="right grey button-b1" (click)="goBack()">Back</button>
       </div>
     </div>

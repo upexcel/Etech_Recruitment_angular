@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import { DialogService } from '../../service/dialog.service';
 import { CommonService } from '../../service/common.service';
 import { testTableHeader } from '../../config/config';
-import { ViewTestPaperComponent } from '../view-test-paper/view-test-paper.component';
+import { ViewTestPaperComponent } from './../view-test-paper/view-test-paper.component';
 
 @Component({
     selector: 'app-test-sets',
