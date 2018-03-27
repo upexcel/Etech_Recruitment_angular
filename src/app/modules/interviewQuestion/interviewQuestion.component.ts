@@ -273,7 +273,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 });
             });
         } else {
-            this._mdSnackBar.open('Attempt atlest one Question', '', {
+            this._mdSnackBar.open('Attempt at least one question before you submit the test ', '', {
                 duration: 2000,
             });
         }
