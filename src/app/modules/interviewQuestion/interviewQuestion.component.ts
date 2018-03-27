@@ -21,7 +21,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     job_pro: any[];
     hide = false;
     dialogRef: MatDialogRef<any>;
-    selectedJob: any;
+    job_profile: any;
     selectedAnswer = [];
     allansRecord: any;
     user_id: any;
@@ -66,17 +66,17 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }
     }
     ngOnInit() {
-        if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
-            this.selectedJob = localStorage.getItem('_idjob');
-            this.hide = false;
-            this.start(this.user_id);
-        } else {
-            this.getJobProfile();
-        }
+        // if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
+        //     this.selectedJob = localStorage.getItem('_idjob');
+        //     this.hide = false;
+        // } else {
+        //     this.getJobProfile();
+        // }
+        this.start(this.user_id);
         if (localStorage.getItem('sessionStart') && localStorage.getItem('maxtime') !== 'null') {
             this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
             this.hide = false;
-            this.selectedJob = localStorage.getItem('_idjob');
+            this.job_profile = localStorage.getItem('job_profile');
             if (localStorage.getItem('limitExpire')) {
                 this.timeExp = true;
             }
@@ -90,48 +90,51 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         clearInterval(this.interval);
     }
 
-    getJobProfile() {
-        this._apiService.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
-            if (res.status === 0) {
-                this.loading = false;
-                this.notag = true;
-                this.contactHR = res.message;
-            } else {
-                if (res.length === 1) {
-                    this.selectedJob = res[0].id;
-                    localStorage.setItem('_idjob', this.selectedJob);
-                    this.hide = false;
-                    this.start(this.user_id);
-                } else {
-                    this.loading = false;
-                    this.notag = false;
-                    this.hide = true;
-                    this.job_pro = res;
-                }
-            }
-        }, err => { });
-    }
+    // getJobProfile() {
+    //     this._apiService.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
+    //       console.log(res);
 
-    selected(job_id) {
-        this.selectedJob = job_id;
-        localStorage.setItem('_idjob', job_id);
-    }
+    //         if (res.status === 0) {
+    //             this.loading = false;
+    //             this.notag = true;
+    //             this.contactHR = res.message;
+    //         } else {
+    //             if (res.length === 1) {
+    //                 this.selectedJob = res[0].id;
+    //                 localStorage.setItem('_idjob', this.selectedJob);
+    //                 this.hide = false;
+    //                 this.start(this.user_id);
+    //             } else {
+    //                 this.loading = false;
+    //                 this.notag = false;
+    //                 this.hide = true;
+    //                 this.job_pro = res;
+    //             }
+    //         }
+    //     }, err => { });
+    // }
 
-    getQues() {
-        if (this.selectedJob) {
-            this.start(this.user_id);
-        } else {
-            this._mdSnackBar.open('Please select Job profile', '', {
-                duration: 2000,
-            });
-        }
-    }
+    // selected(job_id) {
+    //     this.selectedJob = job_id;
+    //     localStorage.setItem('_idjob', job_id);
+    // }
+
+    // getQues() {
+    //     if (this.selectedJob) {
+    //         this.start(this.user_id);
+    //     } else {
+    //         this._mdSnackBar.open('Please select Job profile', '', {
+    //             duration: 2000,
+    //         });
+    //     }
+    // }
 
     start(id: any) {
         this.selectedAnswer = [];
         if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
             this.hide = false;
             this.loading = false;
+            this.job_profile = localStorage.getItem("job_profile");
             const res = this._localStorageService.getItem('QuestionsWithUserAnswers')
             if (localStorage.getItem('roundType') === 'Subjective') {
                 this.subjective = true;
@@ -159,6 +162,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.showMessage = false;
                     this.questions = res.data;
                     this.timeForExam = res.timeForExam;
+                    this.job_profile = res.job_profile
+                    localStorage.setItem('job_profile', this.job_profile);
                     if (res.roundType === 'Subjective') {
                         this.subjective = true;
                         localStorage.setItem('roundType', res.roundType);
@@ -307,7 +312,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         const minutes = (endTime.getMinutes() - startTime.getMinutes());
         const totalMinutes = (totalHours * 60) + minutes;
         this.allansRecord = {
-            'job_profile': this.selectedJob,
+            'job_profile': this.job_profile,
             'fb_id': this.user_id,
             'answers': this.selectedAnswer,
             'questionIds': this.totalQues,
