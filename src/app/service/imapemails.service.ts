@@ -378,7 +378,7 @@ export class ImapMailsService {
         return this.Intercepted.put(environment['apibase'] + `email/mailAttachment/${id}`)
         .retryWhen(error => {
             return error.flatMap((error1: any) => {
-                console.log('error1',error1)
+                console.log('error1', error1)
                 if (error1.status === 400) {
                     return Observable.of(error1.status).delay(2000)
                 }
@@ -987,9 +987,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    getQuesAdmin(type: any): Observable<any> {
+    getQuesAdmin(): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `exams/getAllQuestions/${type}`)
+        return this.Intercepted.get(environment['apibase'] + `exams/getAllQuestions`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();
@@ -1262,9 +1262,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    setCallStatus(param,body): Observable<any> {
+    setCallStatus(param, body): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.put(environment['apibase'] + `email/candidate/${param}`,body)
+        return this.Intercepted.put(environment['apibase'] + `email/candidate/${param}`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();

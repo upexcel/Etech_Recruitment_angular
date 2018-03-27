@@ -3,7 +3,7 @@ import { MatDialogRef } from '@angular/material';
 import * as _ from 'lodash';
 import { NgForm, FormControl, Validators } from '@angular/forms';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { inputBox } from '../../config/config';
+import { inputBox, config } from '../../config/config';
 
 @Component({
     selector: 'app-addquestion-dialog',
@@ -39,13 +39,17 @@ export class AddQuestionDialogComponent implements OnInit {
     constructor(private dialogRef: MatDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
-        this.inputbox = inputBox
+        this.inputbox = JSON.parse(JSON.stringify(inputBox))
+        this.testType = config['testType'];
         this.getExamGroup();
+        console.log(this.questionType, this.questionEditable, this.inputbox);
         if (this.questionEditable) {
-            if (this.questionType === 'Subjective') {
+            if (this.questionEditable.questionType === 'Subjective') {
                 this.subjective = true;
                 this.questionId = this.questionEditable._id;
                 this.question = this.questionEditable.question;
+                this.examId = this.questionEditable.exam_subject;
+                this.questionType = this.questionEditable.questionType;
             } else {
                 this.questionId = this.questionEditable._id;
                 this.question = this.questionEditable.question;
@@ -56,6 +60,7 @@ export class AddQuestionDialogComponent implements OnInit {
                 this.editabledialog = true;
                 this.inputbox = this.questionEditable.options;
                 this.count = this.questionEditable.options.length;
+                this.questionType = this.questionEditable.questionType;
                 this.subjective = false;
             }
         } else {
@@ -70,6 +75,14 @@ export class AddQuestionDialogComponent implements OnInit {
     add() {
         this.count++;
         this.inputbox.push({ 'option': '', 'opt_id': this.count })
+    }
+    selectedType(type) {
+        this.questionType = type;
+        if (this.questionType === 'Subjective') {
+            this.subjective = true;
+        } else {
+            this.subjective = false;
+        }
     }
     remove(id) {
         this.count--;
@@ -102,7 +115,8 @@ export class AddQuestionDialogComponent implements OnInit {
             } else {
                 quesdata = {
                     'questionType': this.questionType,
-                    'question': form.value.question
+                    'question': form.value.question,
+                    'exam_subject': form.value.examId,
                 };
             }
         }

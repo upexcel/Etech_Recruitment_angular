@@ -55,6 +55,7 @@ import {
 import {
     ImapMailsService
 } from './service/imapemails.service';
+        //
 import {
     LoginService
 } from './service/login.service';
@@ -202,7 +203,6 @@ import { OtppageComponent } from './modules/otppage/otppage.component';
 import { TokenExpireComponent } from './modules/token-expire/token-expire.component';
 import { TestSetsComponent } from './modules/test-sets/test-sets.component';
 import { CreateTestSetComponent } from './modules/create-test-set/create-test-set.component';
-import { AllTestQuestionComponent } from './modules/all-test-question/all-test-question.component';
 import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-logs.component';
 import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-paper.component';
 
@@ -287,7 +287,6 @@ import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-pape
         RemoveOldLogsComponent,
         TestSetsComponent,
         CreateTestSetComponent,
-        AllTestQuestionComponent,
         ViewTestPaperComponent
     ],
     imports: [
@@ -376,7 +375,6 @@ import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-pape
         SetCallLogsComponent,
         TokenExpireComponent,
         CreateTestSetComponent,
-        AllTestQuestionComponent,
         RemoveOldLogsComponent,
         ViewTestPaperComponent
     ],

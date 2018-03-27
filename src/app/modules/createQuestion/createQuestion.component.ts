@@ -28,19 +28,16 @@ export class CreateQuestionComponent implements OnInit {
     QueNotAvailable = false;
     messageQues: any;
     testType: any;
-    questionType: any;
     constructor(private getTags: ImapMailsService, private _mdSnackBar: MatSnackBar, public dialog: MatDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
         this.loading = true;
-        this.testType = config['testType'];
-        this.getQues(this.testType[0]['type']);
+        this.getQues();
     }
 
-    getQues(questionType: any) {
+    getQues() {
         this.add = true;
-        this.questionType = questionType;
-        this.getTags.getQuesAdmin(questionType).subscribe(res => {
+        this.getTags.getQuesAdmin().subscribe(res => {
             this.questions = res.data;
             if (res.data.length === 0) {
                 this.QueNotAvailable = true;
@@ -60,14 +57,13 @@ export class CreateQuestionComponent implements OnInit {
             height: '100%',
             width: '40%'
         });
-        this.dialogRef.componentInstance.questionType = this.questionType;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this._mdSnackBar.open(result.message, '', {
                     duration: 2000,
                 });
                 this.dialogRef = null;
-                this.getQues(this.questionType);
+                this.getQues();
             }
         });
     }
@@ -79,14 +75,13 @@ export class CreateQuestionComponent implements OnInit {
                 width: '40%'
             });
             this.dialogRef.componentInstance.questionEditable = this.questionEdited;
-            this.dialogRef.componentInstance.questionType = this.questionType;
             this.dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this._mdSnackBar.open(result.mesage, '', {
                         duration: 2000,
                     });
                     this.dialogRef = null;
-                    this.getQues(this.questionType);
+                    this.getQues();
                 }
             });
         }, err => {
@@ -98,7 +93,7 @@ export class CreateQuestionComponent implements OnInit {
         this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
             if (res === 'yes') {
                 this.getTags.deleteQueByid(id).subscribe(resp => {
-                    this.getQues(this.questionType);
+                    this.getQues();
                 }, err => {
                 });
             }
@@ -115,7 +110,7 @@ export class CreateQuestionComponent implements OnInit {
                     duration: 2000
                 });
                 form.reset();
-                this.getQues(this.questionType);
+                this.getQues();
             }, err => {
                 this.message = err.message;
                 this.showmessage = true;

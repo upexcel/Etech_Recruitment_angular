@@ -38,16 +38,18 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     contactHR: any;
     loading = true;
     isSubmitted = true;
-    instructionsRead:boolean = false;
-    instructions:Array<string> = instructions;
-    disabled:boolean;
+    instructionsRead = false;
+    instructions: Array<string> = instructions;
+    disabled: boolean;
     timeExp: boolean;
     timerMin: any;
     testNotAvailable = false;
     isSubmit: boolean;
     errMessage: any;
     showMessage = false;
+    subjective: boolean;
     totalQuestion = 0;
+    timeForExam: any;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -80,7 +82,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             }
             this.timerstart();
         }
-        if(this._localStorageService.getItem('instructions')!=null) {
+        if (this._localStorageService.getItem('instructions') != null) {
             this.instructionsRead = this._localStorageService.getItem('instructions');
         }
     }
@@ -131,6 +133,11 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.hide = false;
             this.loading = false;
             const res = this._localStorageService.getItem('QuestionsWithUserAnswers')
+            if (localStorage.getItem('roundType') === 'Subjective') {
+                this.subjective = true;
+            } else {
+                this.subjective = false;
+            }
             this.questions = res.data;
             _.forEach(this.questions, (val, key) => {
                 _.forEach(val.questions, (val1, key1) => {
@@ -151,6 +158,13 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.hide = false;
                     this.showMessage = false;
                     this.questions = res.data;
+                    this.timeForExam = res.timeForExam;
+                    if (res.roundType === 'Subjective') {
+                        this.subjective = true;
+                        localStorage.setItem('roundType', res.roundType);
+                    } else {
+                        this.subjective = false;
+                    }
                     _.forEach(this.questions, (val, key) => {
                         _.forEach(val.questions, (val1, key1) => {
                             this.totalQues.push(val1._id);
@@ -183,9 +197,9 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.interval = setInterval(() => {
             this.maxtime = this.maxtime - 1000;
             localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
-            let hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
+            const hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
 
             this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
             this.timerMin = minutes + ' min ' + seconds + ' sec ';
@@ -200,7 +214,11 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     clearInterval(this.interval);
                     localStorage.removeItem('maxtime');
                     this.thankyou = true;
-                    this.submit();
+                    if (!this.subjective) {
+                        this.submit();
+                    } else {
+                        this.fblogout();
+                    }
                 }
             }
         }, 1000);
@@ -262,7 +280,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
     finalSubmit() {
         this._dialogService.confirmSubmitTestBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
-            if(res == 'yes') {
+            if (res === 'yes') {
                 this.submit();
                 this.thankyou = true;
             }
@@ -314,22 +332,21 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
     onRead() {
         this.instructionsRead = true;
-        this.maxtime = config.testMaxtime;
+        this.maxtime = this.timeForExam * 60000;
         localStorage.setItem('sessionStart', 'true');
-        // this.timerstart();
-        this._localStorageService.setItem('instructions',this.instructionsRead);
+        this._localStorageService.setItem('instructions', this.instructionsRead);
 
     }
     onHelp() {
         this.disabled = true;
-        this._apiService.helpMe({'fb_id': this.user_id,}).subscribe(res => {
-            if(res.status ==1) {
+        this._apiService.helpMe({'fb_id': this.user_id, }).subscribe(res => {
+            if (res.status === 1) {
                 this.disabled = false;
                 this._mdSnackBar.open('Please Wait! We have sent a message to HR.', '', {
                     duration: 4000,
                 });
             }
-        },err=> {
+        }, err => {
             this.disabled = false;
             this._mdSnackBar.open('Something went wrong, Please try agian.', '', {
                 duration: 4000,

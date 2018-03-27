@@ -6,14 +6,7 @@
     <hr class="linespace">
     <mat-card-content>
       <div class="row">
-        <div class="col-md-4 col-sm-12" style="padding: 15px;">
-          <mat-select class="width-100" id="questionType" placeholder="Select Type" name="questionType" required [(ngModel)]="questionType">
-            <mat-option *ngFor="let tag of testType" [value]="tag.type" (click)="getQues(tag.type)">
-              {{tag.type}}
-            </mat-option>
-          </mat-select>
-        </div>
-        <div class="col-md-5 col-sm-12 alignRight" *ngIf="questionType!='Subjective'">
+        <div class="col-md-5 col-sm-12 alignRight">
           <form #groupForm="ngForm" (ngSubmit)="createGroup(groupForm)">
             <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
               <mat-form-field>
@@ -24,7 +17,7 @@
         </div>
         <div class="col-md-12 warning" *ngIf="QueNotAvailable">{{messageQues}}</div>
       </div>
-      <mat-accordion *ngIf="questionType!='Subjective'">
+      <mat-accordion *ngIf="questions">
         <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
           (click)="scroll()">
         <mat-expansion-panel-header>
@@ -41,36 +34,19 @@
               <div class="col-md-12 pad0">
                 <ul class="quesView">
                   <li><h4>Question {{i+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h4></li>
-                  <li *ngIf="ques.description && questionType!='Subjective'"><pre [innerHTML]="ques.description | safeHtml"></pre></li>
-                  <li class="fontLi">Options:</li>
-                  <ul class="padleft15" *ngFor="let opt of ques.options; let optid = index ">
-                    <li class="col-md-6 col-sm-12 fontLi">{{optid+1}}. &#09; {{opt.option}}</li>
+                  <li *ngIf="ques.description && ques.questionType!='Subjective'"><pre [innerHTML]="ques.description | safeHtml"></pre></li>
+                  <li class="fontLi" *ngIf="ques.questionType!='Subjective'">Options:</li>
+                  <ul class="padleft15" *ngIf="ques.options && ques.questionType!='Subjective'">
+                    <li class="col-md-6 col-sm-12 fontLi"  *ngFor="let opt of ques.options; let optid = index ">{{optid+1}}. &#09; {{opt.option}}</li>
                   </ul>
                 </ul>
-                <span class="answer" >The Answer is Option Number <b>{{ques.answer}}</b></span>
+                <span class="answer" *ngIf="ques.questionType!='Subjective'">The Answer is Option Number <b>{{ques.answer}}</b></span>
               </div>
             </mat-list-item>
             </mat-list>
           </mat-card>
           </mat-expansion-panel>
           </mat-accordion>
-          <div *ngIf="questionType=='Subjective'">
-          <mat-card class="pad10 bodyInner2" *ngFor="let ques of questions;let i = index">
-            <div class="btnIcons">
-                <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
-                <button mat-icon-button color=primary matTooltip="click to edit!" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
-              </div>
-            <mat-list class="pad0">
-              <mat-list-item class="pad0">
-              <div class="col-md-12 pad0">
-                <ul class="quesView">
-                  <li><h4>Question {{i+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h4></li>
-                </ul>
-              </div>
-            </mat-list-item>
-            </mat-list>
-          </mat-card>
-          </div>
     </mat-card-content>
   </mat-card>
 </div>

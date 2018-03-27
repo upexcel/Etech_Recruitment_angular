@@ -1,75 +1,94 @@
 <div *ngIf="instructionsRead && !isSubmit">
-  <!-- <mat-card *ngIf="hide && !thankyou " class="col-xs-12 col-md-12 col-sm-12 bodyInner"> -->
-
-    <!-- <mat-list class="pad0"> -->
-      <!-- <mat-list-item class="pad0"> -->
-        <!-- <div *ngIf="!notag" class="marAuto bodyInner width400">
-          <mat-card-title>
-            <h4>Select Job profile</h4>
-            <hr>
-          </mat-card-title>
-          <mat-radio-group >
-            <div *ngFor="let option of job_pro" class="width100 padradio">
-            <mat-radio-button name="{{option.title}}" value="{{option.id}}" (click)="selected(option.id)"></mat-radio-button>{{option.title}}
-            </div>
-          </mat-radio-group>
-          <mat-card-actions>
-          <button mat-raised-button color=primary class="flRight" (click)="getQues()">Submit</button>
-          </mat-card-actions>
-        </div>
-        <div class="col-md-4 col-sm-12 marAuto bodyInner" *ngIf="notag"><h4>{{contactHR}}</h4></div> -->
-      <!-- </mat-list-item> -->
-    <!-- </mat-list> -->
-  <!-- </mat-card> -->
   <div class="col-xs-12 col-md-12 col-sm-12 bodyInner" *ngIf="loading">
-      <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
+    <mat-spinner id="loginSpinner" *ngIf="loading" class="spin"></mat-spinner>
   </div>
   <div class="col-xs-12 col-md-12 col-sm-12 bodyInner" *ngIf="showMessage">
-        <div *ngIf="showMessage" class="error">{{errMessage}}</div>
+    <div *ngIf="showMessage" class="error">{{errMessage}}</div>
+  </div>
+  <div *ngIf="!hide && !thankyou && !loading && !subjective" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
+    <div class="margin-bottom">
+      <h4>Test Questions </h4>
+      <p class="col-md-6 col-sm-6 col-xs-12 pad0">
+        <span class="left style">Remaining time:
+          <span class="timer" *ngIf="maxtime >= 0 && !timeExp"> {{timer}} </span>
+          <span class="timer" *ngIf="maxtime >= 0 && timeExp"> Time Expires in <span class="blink">{{timerMin}}</span></span>
+        </span>
+      </p>
+      <p class="col-md-4 col-sm-4 col-xs-8 pad0">
+        <span class="style" *ngIf="total">Question Attempted:
+          <span class="bold">{{questionsAttempted}}/{{total}}</span>
+        </span>
+      </p>
+      <button mat-raised-button color="primary" class="help-position" (click)="onHelp()" [disabled]=disabled>Call For Help</button>
+    </div>
+    <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
+      <h4 *ngIf="testNotAvailable" class="empty">You are assigned to Job Profile "Mails/Attachment" for which there is no test configured. Please ask HR to assign you
+        the proper job profile.
+      </h4>
+      <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{group.group_name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Total Ques: {{group.questions.length}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
+          <h3>{{id+1}}.
+            <span [innerHTML]="ques.question | safeHtml"></span>
+          </h3>
+          <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
+          <p class="pid">Options:</p>
+          <mat-radio-group class="width100 fontsize" [(ngModel)]="ques.selected">
+            <div *ngFor="let option of ques.options" class="width100 padradio">
+              <mat-radio-button name="{{ques._id}}" [value]="option.opt_id" (click)="selectedAns(ques._id,option.opt_id)">{{option.option}}</mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <button *ngIf="questions.length>0" mat-raised-button color=primary class="flRight submitans btn-block" (click)="savePreview()">Submit</button>
   </div>
 
-  <div *ngIf="!hide && !thankyou && !loading" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
-        <div class="margin-bottom"><h4>Test Questions</h4>
-
-          <p class="col-md-6 col-sm-6 col-xs-12 pad0">
-            <span class="left style">Remaining time:
-              <span class="timer" *ngIf="maxtime >= 0 && !timeExp">{{timer}}</span>
-              <span class="timer" *ngIf="maxtime >= 0 && timeExp">Time Expires in <span class="blink">{{timerMin}}</span></span>
-            </span>
-          </p>
-          <p class="col-md-4 col-sm-4 col-xs-8 pad0">
-            <span class="style" *ngIf="total">Question Attempted:
-              <span class="bold">{{questionsAttempted}}/{{total}}</span>
-            </span>
-          </p>
-          <button mat-raised-button color="primary" class="help-position" (click)="onHelp()" [disabled]=disabled>Call For Help</button>
+  <div *ngIf="!hide && !thankyou && !loading && subjective" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
+    <div *ngIf="questions" class="margin-bottom">
+      <h4>Test Questions</h4>
+      <p class="col-md-6 col-sm-6 col-xs-12 pad0">
+        <span class="left style">Remaining time:
+          <span class="timer" *ngIf="maxtime >= 0 && !timeExp">{{timer}}</span>
+          <span class="timer" *ngIf="maxtime >= 0 && timeExp">Time Expires in
+            <span class="blink">{{timerMin}}</span>
+          </span>
+        </span>
+      </p>
+      <p class="col-md-4 col-sm-4 col-xs-8 pad0">
+        <span class="style" *ngIf="total">Total Question:
+          <span class="bold">{{total}}</span>
+        </span>
+      </p>
+    </div>
+    <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
+      <h4 *ngIf="testNotAvailable" class="empty">You are assigned to Job Profile "Mails/Attachment" for which there is no test configured. Please ask HR to assign you
+        the proper job profile.
+      </h4>
+      <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{group.group_name}}
+          </mat-panel-title>
+          <mat-panel-description>
+            Total Ques: {{group.questions.length}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
+          <h3>{{id+1}}.
+            <span [innerHTML]="ques.question | safeHtml"></span>
+          </h3>
+          <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
         </div>
-
-          <mat-accordion class="col-xs-12 col-md-12 col-sm-12">
-            <h4 *ngIf="testNotAvailable" class="empty">You are assigned to Job Profile "Mails/Attachment" for which there is no test configured. Please ask HR to assign you the
-              proper job profile.</h4>
-            <mat-expansion-panel *ngFor="let group of questions;let i = index" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  {{group.group_name}}
-                </mat-panel-title>
-                <mat-panel-description>
-                  Total Ques: {{group.questions.length}}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-                <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
-                  <h3>{{id+1}}. <span [innerHTML]="ques.question | safeHtml"></span></h3>
-                  <pre *ngIf="ques.description" [innerHTML]="ques.description | safeHtml"></pre>
-                  <p class="pid">Options:</p>
-                  <mat-radio-group class="width100 fontsize" [(ngModel)]="ques.selected">
-                    <div *ngFor="let option of ques.options" class="width100 padradio">
-                      <mat-radio-button name="{{ques._id}}" [value]="option.opt_id" (click)="selectedAns(ques._id,option.opt_id)">{{option.option}}</mat-radio-button>
-                    </div>
-                  </mat-radio-group>
-                </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-          <button *ngIf="questions.length>0" mat-raised-button color=primary class="flRight submitans btn-block" (click)="savePreview()">Submit</button>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 </div>
 
@@ -77,35 +96,39 @@
   <div class="col-md-12">
     <h1>Thank You</h1>
     <h3 class="subhead">Your response has been recorded, please contact HR for further instructions.
-      <br>You will be logged out automatically...</h3>
+      <br>You will be logged out automatically...
+    </h3>
   </div>
 </div>
 
 <div *ngIf="!instructionsRead" class="well">
   <div class="heading">Instructions</div>
-    <ol class="instructions">
-        <li *ngFor="let instruction of instructions"><p [innerHTML]="instruction" ></p></li>
-    </ol>
-    <button  mat-raised-button color=primary class="btn-block" (click)="onRead()">Continue</button>
+  <ol class="instructions">
+    <li *ngFor="let instruction of instructions">
+      <p [innerHTML]="instruction"></p>
+    </li>
+  </ol>
+  <button mat-raised-button color=primary class="btn-block" (click)="onRead()">Continue</button>
 </div>
 
 <div *ngIf="isSubmit && !thankyou">
   <div class="main">
-      <h4 class="heading">Test Summary</h4>
-      <hr>
-      <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of questions">
-          {{ques.group_name}}<span class="flRight">{{ques.attempted}}/{{ques.questions.length}}</span>
-      </div>
-      <div class="col-md-12 col-sm-12 bodyInner" style="margin-top: 1px;">
-        <span class="bold">Total Attempted</span>
-        <span class="flRight">{{questionsAttempted}}/{{totalQuestion}}</span>
-      </div>
-      <div *ngIf="totalQuestion!=questionsAttempted" class="allQues">
-        You Haven't Attempted All The Questions.
-      </div>
-      <div class="buttons-b1">
-        <button mat-raised-button color=primary class="flRight button-b1" (click)="finalSubmit()">Final Submit</button>
-        <button mat-raised-button  class="right grey button-b1" (click)="goBack()">Back</button>
-      </div>
+    <h4 class="heading">Test Summary</h4>
+    <hr>
+    <div class="col-md-12 col-sm-12 bodyInner" *ngFor="let ques of questions">
+      {{ques.group_name}}
+      <span class="flRight">{{ques.attempted}}/{{ques.questions.length}}</span>
     </div>
+    <div class="col-md-12 col-sm-12 bodyInner" style="margin-top: 1px;">
+      <span class="bold">Total Attempted</span>
+      <span class="flRight">{{questionsAttempted}}/{{totalQuestion}}</span>
+    </div>
+    <div *ngIf="totalQuestion!=questionsAttempted" class="allQues">
+      You Haven't Attempted All The Questions.
+    </div>
+    <div class="buttons-b1">
+      <button mat-raised-button color=primary class="flRight button-b1" (click)="finalSubmit()">Final Submit</button>
+      <button mat-raised-button class="right grey button-b1" (click)="goBack()">Back</button>
+    </div>
+  </div>
 </div>

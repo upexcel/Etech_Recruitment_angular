@@ -8,14 +8,14 @@
     <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
     <mat-card-content>
       <div class="row">
-        <!-- <div class="col-md-6 col-sm-12"  *ngIf="!subjective">
+        <div class="col-md-6 col-sm-12">
           <mat-select class="width-100" id="questionType" placeholder="Select Question Type" name="questionType" required [(ngModel)]="questionType">
-            <mat-option *ngFor="let tag of testType" [value]="tag.type">
+            <mat-option *ngFor="let tag of testType" [value]="tag.type" (click)="selectedType(tag.type)">
               {{tag.type}}
             </mat-option>
           </mat-select>
-        </div> -->
-        <div class="col-md-6 col-sm-12" *ngIf="!subjective">
+        </div>
+        <div class="col-md-6 col-sm-12">
           <mat-select class="width-100" id="examGroup" placeholder="Select Group" name="examId" required [(ngModel)]="examId">
             <mat-option *ngFor="let tag of examgroup" [value]="tag.id">
               {{tag.exam_subject}}
