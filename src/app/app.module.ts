@@ -190,7 +190,6 @@ import { InterviewQuestionComponent } from './modules/interviewQuestion/intervie
 import { PreviewScoreComponent } from './modules/previewScore/previewScore.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
-import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove-mails-dialog.component';
@@ -272,7 +271,6 @@ import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-pape
         InterviewQuestionComponent,
         VerifyCandidateComponent,
         CandidateScoreComponent,
-        OtpdialogComponent,
         WalkinCandidateComponent,
         PreviewScoreComponent,
         PendingCandidateComponent,
@@ -366,7 +364,6 @@ import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-pape
         AddNewSpamContactComponent,
         ViewNoteComponent,
         AddQuestionDialogComponent,
-        OtpdialogComponent,
         WalkinCandidateComponent,
         PreviewScoreComponent,
         RemoveMailsDialogComponent,
