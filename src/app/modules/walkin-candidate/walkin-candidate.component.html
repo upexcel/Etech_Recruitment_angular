@@ -28,8 +28,7 @@
                         <mat-error>Required</mat-error>
                     </mat-form-field>
                     <mat-form-field class="width-100">
-                        <input matInput type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57" maxlength="10" required pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$"
-                            placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
+                        <input matInput type="tel" (keypress)="disableText($event)" maxlength="10" required placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
                         <mat-error>Invalid Mobile Number</mat-error>
                     </mat-form-field>
                 </p>

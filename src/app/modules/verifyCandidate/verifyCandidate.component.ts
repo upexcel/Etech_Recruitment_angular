@@ -38,7 +38,7 @@ export class VerifyCandidateComponent implements OnInit {
     }
     ngOnDestroy() {
         if(this.apiFire) {
-            clearInterval(this.apiFire);            
+            clearInterval(this.apiFire);
         }
     }
     addWalkinCandidate() {

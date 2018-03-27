@@ -25,6 +25,7 @@ export class WalkinCandidateComponent implements OnInit {
             console.log(form.value)
             this.loading = true;
             const data = form.value;
+            localStorage.setItem('user', form.value.from);
             data['sender_mail'] = this.walkinData.email;
             data['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no'];
             this.apiService.addWalkinCandidate(data).subscribe((res) => {
@@ -40,5 +41,8 @@ export class WalkinCandidateComponent implements OnInit {
                 });
             })
         }
+    }
+    disableText (event) {
+        return event.charCode >= 48 && event.charCode <= 57;
     }
 }
