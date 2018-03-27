@@ -6,7 +6,6 @@ import { CommonService } from '../../service/common.service';
 import { LoginService } from '../../service/login.service';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
-import { OtpdialogComponent } from '../otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from '../walkin-candidate/walkin-candidate.component';
 import { LocalStorageService } from '../../service/local-storage.service';
 
