@@ -7,7 +7,6 @@ import { config } from './../../config/config'
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
-import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
 
 @Component({
     selector: 'app-emailtestlogin',

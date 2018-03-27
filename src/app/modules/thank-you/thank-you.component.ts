@@ -3,7 +3,6 @@ import { LoginService } from '../../service/login.service';
 import { CommonService } from '../../service/common.service';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
-import { OtpdialogComponent } from '../otpdialog/otpdialog.component';
 import { Router } from '@angular/router';
 
 
@@ -30,7 +29,7 @@ export class ThankYouComponent implements OnInit {
           if (response.status === 1) {
             clearInterval(this.apiFire);
             clearInterval(this.counter);
-            this._router.navigate([`/otp/${response.fb_id}`]);            
+            this._router.navigate([`/otp/${response.fb_id}`]);
           }
       }, (err) => {
         console.log(err);
@@ -48,7 +47,7 @@ export class ThankYouComponent implements OnInit {
   ngOnDestroy(){
     if(this.apiFire) {
       clearInterval(this.apiFire);
-      clearInterval(this.counter);               
+      clearInterval(this.counter);
     }
   }
 }
