@@ -111,7 +111,6 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.openAccordian();
             this.getIntervieweeList();
             this.historyAttchement(this.historyList['data']);
-            console.log(this.selectedEmail);             
             this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle; //used to get the tag for the selected Candidate.
         })
         if (this._localStorageService.getItem('close') === undefined || this._localStorageService.getItem('close') == null || this._localStorageService.getItem('close') === 'null') {
@@ -450,9 +449,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             if(result) {
                 this.selectedEmail['tag_id'] = [result];
                 this.selectedEmail['default_tag'] = "";
-                console.log(this.selectedEmail); 
                 this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle;
-                console.log(this.currentTag); 
                 if (this._localStorageService.getItem('close')) {
                     this.close();
                 }    
