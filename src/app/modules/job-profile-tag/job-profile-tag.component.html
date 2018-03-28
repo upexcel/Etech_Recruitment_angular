@@ -3,7 +3,7 @@
     <hr class="linespace">
     <span [dragula]='"first-bag"' [dragulaModel]='tags.Automatic' id="ul">
     <span *ngFor="let tag of tags?.Automatic; trackBy: tagsAutomaticTrack" id="li">
-        <span [ngClass]="{'not-allowed':!tag.active_status}">
+        <span>
             <div class="tagbutton1" [style.background-color]="tag.color" *ngIf="tag.is_job_profile_tag" [ngClass]="{'disabled':!tag.active_status}">
                 <div class="taglogo" (click)="openAutomatic(tag)">
                     {{tag.title.charAt(0)}}

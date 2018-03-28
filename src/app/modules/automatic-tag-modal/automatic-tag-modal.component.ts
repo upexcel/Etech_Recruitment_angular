@@ -23,22 +23,26 @@ export class AutomaticTagModalComponent implements OnInit {
     selectable = true;
     removable = true;
     addOnBlur = true;
+    tagStatus: any;
     constructor(public dialogRef: MatDialogRef<any>, private tagupdate: ImapMailsService) { }
 
     ngOnInit() {
-        if (this.tag.keyword === null || this.tag.keyword === ['']) {
-            this.tags = [];
-        } else {
-            this.tags = this.tag.keyword.split(',');
-        }
-        this.originaltitle = this.tag.title;
-        this.originalcolor = this.tag.color;
-        this.temp_id = this.tag.template_id;
-        if (this.tag['from']) {
-            this.tag['from'] = moment(this.tag['from']).format('YYYY-MM-DD');
-        }
-        if (this.tag['to']) {
-            this.tag['to'] = moment(this.tag['to']).format('YYYY-MM-DD');
+        this.tagStatus = this.tag.active_status;
+        if (this.tag.active_status) {
+            if (this.tag.keyword === null || this.tag.keyword === ['']) {
+                this.tags = [];
+            } else {
+                this.tags = this.tag.keyword.split(',');
+            }
+            this.originaltitle = this.tag.title;
+            this.originalcolor = this.tag.color;
+            this.temp_id = this.tag.template_id;
+            if (this.tag['from']) {
+                this.tag['from'] = moment(this.tag['from']).format('YYYY-MM-DD');
+            }
+            if (this.tag['to']) {
+                this.tag['to'] = moment(this.tag['to']).format('YYYY-MM-DD');
+            }
         }
     }
 
@@ -78,5 +82,15 @@ export class AutomaticTagModalComponent implements OnInit {
 
     close() {
         this.dialogRef.close();
+    }
+    enableJobtag(tagStatus) {
+        if (tagStatus) {
+            const body = { id: this.tag.id, status: tagStatus };
+            this.tagupdate.closeJobProfile(body).subscribe(data => {
+                this.dialogRef.close('enabled')
+            }, err => {
+                console.log(err);
+            });
+        }
     }
 }
