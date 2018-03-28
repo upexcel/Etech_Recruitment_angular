@@ -61,13 +61,13 @@ export class ChangeTagComponent implements OnInit {
             'mongo_id': id
         };
         this.showloading = true;   
-        this.dialogRef.close('done');
         this.imapMailsService.assignTag(this.selected).subscribe((data) => {
-           this.showloading = false;
-                this.snackBar.open('Moved Successfully', '', {
-                    duration: 2000,
-                })
-                this.broadcast_send(); 
+            this.showloading = false;
+            this.snackBar.open('Moved Successfully', '', {
+                duration: 2000,
+            })
+            this.dialogRef.close(tag_id);
+                this.broadcast_send();
         }, (err) => {
             console.log(err);
         });
