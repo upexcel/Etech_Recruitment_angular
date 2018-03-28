@@ -1,0 +1,75 @@
+.bodyTestSet{
+  padding: 15px;
+}
+.mar10{
+  margin-top: 10px;
+}
+.pad10{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.pad0{
+  padding: 0px;
+}
+.addQues{
+    width: 60px;
+    background: #f5f4f4;
+    border-radius: 2px;
+    height: 60px;
+}
+.btnSave{
+    width: 100%;
+    height: 50px;
+    margin: auto;
+}
+.paddingQues{
+    padding: 10px !important;
+    line-height: 40px !important;
+    background: #f5f4f4;
+}
+.delete{
+  position: absolute;
+  right: 0;
+  z-index: 99;
+  top: 10px;
+}
+.padleft0{
+  padding-left: 0px;
+}
+#testLimit{
+    line-height: 30px !important;
+    padding: 10px 0px 10px 0px !important;
+}
+.border{
+  border:1px solid #eaeaea
+}
+label{
+  font-weight: normal;
+    line-height: 35px;
+    margin: 0px;
+}
+
+.blink_me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+.mat-card-subtitle{
+  color: red;
+}
+.closeBtn{
+  float: right;
+  margin-top:-10px;
+  padding:0px
+}
+.closeBtn .icon{
+  padding: 0px !important;
+}
+.loader{
+    margin: auto;
+    width: 50px;
+}

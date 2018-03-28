@@ -7,7 +7,6 @@ import { config } from './../../config/config'
 import { Router } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
-import { OtpdialogComponent} from '../otpdialog/otpdialog.component';
 
 @Component({
     selector: 'app-emailtestlogin',
@@ -38,7 +37,7 @@ export class EmailtestloginComponent implements OnInit {
             this.showmessage = false;
             localStorage.setItem('loginByfb', 'false');
             this.access.candidate_login(this.emailTestObj).subscribe(response => {
-            this.commonService.storeFbdata(this.emailTestObj);
+                this.commonService.storeFbdata(this.emailTestObj);
                 if (response.status === 1) {
                     this._router.navigate([`/otp/${response.fb_id}`]);
                 } else {

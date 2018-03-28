@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/
 import { DialogService } from './../../service/dialog.service';
 import { AddQuestionDialogComponent } from '../addQuestionDialog/addQuestionDialog.component';
 import * as _ from 'lodash';
+import {config} from './../../config/config';
 
 @Component({
     selector: 'app-createquestion',
@@ -17,7 +18,6 @@ export class CreateQuestionComponent implements OnInit {
     dialogRef: MatDialogRef<any>;
     tags: any[];
     questions: any[];
-    selectedJobid: any;
     showmessage = false;
     message: any;
     questionEdited: any;
@@ -27,63 +27,17 @@ export class CreateQuestionComponent implements OnInit {
     panelOpenState = false;
     QueNotAvailable = false;
     messageQues: any;
+    testType: any;
     constructor(private getTags: ImapMailsService, private _mdSnackBar: MatSnackBar, public dialog: MatDialog, private _dialogService: DialogService) { }
 
     ngOnInit() {
         this.loading = true;
-        this.getAllTag();
+        this.getQues();
     }
 
-    getAllTag() {
-        this.getTags.getAllTags()
-            .subscribe((data) => {
-                this.formatTagsInArray(data);
-            }, (err) => {
-                this.loading = false;
-            });
-    }
-
-    formatTagsInArray(data: any) {
-        this.tags = [];
-        for (let i = 0; i < data.length; i++) {
-            if (data[i].type === 'Default') {
-                if (!this.tags['Default']) {
-                    this.tags['Default'] = [];
-                    this.tags['Default'].push(data[i]);
-                } else {
-                    this.tags['Default'].push(data[i]);
-                }
-            } else if (data[i].type === 'Manual') {
-                if (!this.tags['Manual']) {
-                    this.tags['Manual'] = [];
-                    this.tags['Manual'].push(data[i]);
-                } else {
-                    this.tags['Manual'].push(data[i]);
-                }
-            } else if (data[i].type === 'Automatic') {
-                if (!this.tags['Automatic']) {
-                    this.tags['Automatic'] = [];
-                    this.tags['Automatic'].push(data[i]);
-                } else {
-                    this.tags['Automatic'].push(data[i]);
-                }
-            }
-        }
-        if (this.tags['Automatic']) {
-            _.forEach(this.tags['Automatic'], (val, key) => {
-                if (val.is_job_profile_tag) {
-                    this.jobprofile_tag.push(val);
-                };
-            })
-        }
-        this.loading = false;
-        this.selectedJobid = this.jobprofile_tag[0].id;
-        this.getQues(this.selectedJobid);
-    }
-    getQues(job_id: any) {
+    getQues() {
         this.add = true;
-        this.selectedJobid = job_id;
-        this.getTags.getQuesAdmin(job_id).subscribe(res => {
+        this.getTags.getQuesAdmin().subscribe(res => {
             this.questions = res.data;
             if (res.data.length === 0) {
                 this.QueNotAvailable = true;
@@ -103,14 +57,13 @@ export class CreateQuestionComponent implements OnInit {
             height: '100%',
             width: '40%'
         });
-        this.dialogRef.componentInstance.job_id = this.selectedJobid;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
                 this._mdSnackBar.open(result.message, '', {
                     duration: 2000,
                 });
                 this.dialogRef = null;
-                this.getQues(this.selectedJobid);
+                this.getQues();
             }
         });
     }
@@ -122,14 +75,13 @@ export class CreateQuestionComponent implements OnInit {
                 width: '40%'
             });
             this.dialogRef.componentInstance.questionEditable = this.questionEdited;
-
             this.dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     this._mdSnackBar.open(result.mesage, '', {
                         duration: 2000,
                     });
                     this.dialogRef = null;
-                    this.getQues(this.selectedJobid);
+                    this.getQues();
                 }
             });
         }, err => {
@@ -141,7 +93,7 @@ export class CreateQuestionComponent implements OnInit {
         this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
             if (res === 'yes') {
                 this.getTags.deleteQueByid(id).subscribe(resp => {
-                    this.getQues(this.selectedJobid);
+                    this.getQues();
                 }, err => {
                 });
             }
@@ -158,7 +110,7 @@ export class CreateQuestionComponent implements OnInit {
                     duration: 2000
                 });
                 form.reset();
-                this.getQues(this.selectedJobid);
+                this.getQues();
             }, err => {
                 this.message = err.message;
                 this.showmessage = true;

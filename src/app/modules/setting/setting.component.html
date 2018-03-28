@@ -54,15 +54,19 @@
                   <mat-icon>{{testingSysopen? 'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
                 </mat-list-item>
                 <mat-list *ngIf="testingSysopen">
+                  <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('candidateScore','Candidate Score')">
+                    <a mat-line> Candidate Score </a>
+                  </mat-list-item>
                   <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('pendingCandidate','PendingCandidate')">
                     <a mat-line> Pending Candidate </a>
                   </mat-list-item>
                   <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('createQuestion','CreateQuestion')">
                     <a mat-line> Create Question </a>
                   </mat-list-item>
-                  <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('candidateScore','Candidate Score')">
-                    <a mat-line> Candidate Score </a>
+                  <mat-list-item class="subnavlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('testSet','TestSet')">
+                    <a mat-line> Test Sets </a>
                   </mat-list-item>
+
                 </mat-list>
 
             </mat-list>

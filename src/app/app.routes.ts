@@ -39,6 +39,7 @@ import { EmailtestloginComponent } from './modules/emailtestlogin/emailtestlogin
 import { ThankYouComponent } from './modules/thank-you/thank-you.component';
 import { OtppageComponent } from './modules/otppage/otppage.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
+import { TestSetsComponent } from './modules/test-sets/test-sets.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -194,6 +195,10 @@ export const routes: Route[] = [{
                 }, {
                     path: 'pendingCandidate',
                     component: PendingCandidateComponent,
+                    canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'testSet',
+                    component: TestSetsComponent,
                     canActivate: [LoginRouteGuard]
                 }]
             }, {

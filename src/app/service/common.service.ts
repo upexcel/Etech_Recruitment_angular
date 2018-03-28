@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { LocalStorageService } from './local-storage.service';
 import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { promise } from 'protractor';
 
 @Injectable()
 export class CommonService {
@@ -384,9 +385,44 @@ export class CommonService {
                 } else{
                      tagValue['data'] = tagStatus['false']
                 }
-                
+
             }
         });
         return tags;
+    }
+    checkedItem(questionType, questions, selectedData) {
+        if (questionType === 'Objective') {
+            _.forEach(questions, (group, groupKey) => {
+                _.forEach(group.questions, (ques, key) => {
+                    _.forEach(selectedData, (data, keySelected) => {
+                        if (data._id === ques._id) {
+                            ques.selected = true;
+                            group.selected = true;
+                        }
+                    })
+                })
+            })
+        } else {
+            _.forEach(questions, (ques, key) => {
+                _.forEach(selectedData, (data, keySelected) => {
+                    if (data._id === ques._id) {
+                        ques.selected = true;
+                    }
+                })
+            })
+        }
+        return questions
+    }
+    getAllTag() {
+        return new Promise((resolve, reolve) => {
+            const data = JSON.parse(localStorage.getItem('allTags')).data;
+            if (data.length > 0) {
+                _.forEach(data, (value, key) => {
+                    if (value['title'] === 'candidate') {
+                        resolve (value.data);
+                    }
+                })
+            }
+        })
     }
 }

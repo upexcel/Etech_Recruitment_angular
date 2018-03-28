@@ -11,19 +11,24 @@
             <div class="main">
                 <p>
                     <mat-form-field class="width-100">
-                        <input matInput placeholder="Candidate" autoComplete="off" name="Candidate" disabled [(ngModel)]="walkinData.name">
+                        <input matInput placeholder="E Mail" autoComplete="off" name="sender_mail"  disabled [(ngModel)]="walkinData.email">
                     </mat-form-field>
                     <mat-form-field class="width-100">
-                        <input matInput placeholder="Sender Mail" autoComplete="off" name="sender_mail" pattern="^[a-z0-9](\.?[a-z0-9_-]){0,}@[a-z0-9-]+\.([a-z]{1,6}\.)?[a-z]{2,6}$"
-                            disabled [(ngModel)]="walkinData.email">
+                        <input matInput placeholder="Full Name" autoComplete="off" name="from" ngModel required>
+                        <mat-error>Full Name Required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="width-100">
+                      <mat-select class="width-100" id="gender" placeholder="Select Gender" name="gender" required ngModel>
+                            <mat-option value="male">Male</mat-option>
+                            <mat-option value="female">Female</mat-option>
+                        </mat-select>
                     </mat-form-field>
                     <mat-form-field class="width-100">
                         <input matInput placeholder="Source" autoComplete="off" name="source" required ngModel>
                         <mat-error>Required</mat-error>
                     </mat-form-field>
                     <mat-form-field class="width-100">
-                        <input matInput type="tel" onkeypress="return event.charCode >= 48 && event.charCode <=57" maxlength="10" required pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$"
-                            placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
+                        <input matInput type="tel" (keypress)="disableText($event)" maxlength="10" required placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
                         <mat-error>Invalid Mobile Number</mat-error>
                     </mat-form-field>
                 </p>

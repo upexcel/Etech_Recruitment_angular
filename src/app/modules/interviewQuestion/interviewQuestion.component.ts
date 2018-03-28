@@ -21,7 +21,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     job_pro: any[];
     hide = false;
     dialogRef: MatDialogRef<any>;
-    selectedJob: any;
+    job_profile: any;
     selectedAnswer = [];
     allansRecord: any;
     user_id: any;
@@ -38,14 +38,18 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     contactHR: any;
     loading = true;
     isSubmitted = true;
-    instructionsRead:boolean = false;
-    instructions:Array<string> = instructions;
-    disabled:boolean;
+    instructionsRead = false;
+    instructions: Array<string> = instructions;
+    disabled: boolean;
     timeExp: boolean;
     timerMin: any;
     testNotAvailable = false;
     isSubmit: boolean;
+    errMessage: any;
+    showMessage = false;
+    subjective: boolean;
     totalQuestion = 0;
+    timeForExam: any;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -62,23 +66,23 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }
     }
     ngOnInit() {
-        if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
-            this.selectedJob = localStorage.getItem('_idjob');
-            this.hide = false;
-            this.start(this.selectedJob);
-        } else {
-            this.getJobProfile();
-        }
+        // if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
+        //     this.selectedJob = localStorage.getItem('_idjob');
+        //     this.hide = false;
+        // } else {
+        //     this.getJobProfile();
+        // }
+        this.start(this.user_id);
         if (localStorage.getItem('sessionStart') && localStorage.getItem('maxtime') !== 'null') {
             this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
             this.hide = false;
-            this.selectedJob = localStorage.getItem('_idjob');
+            this.job_profile = localStorage.getItem('job_profile');
             if (localStorage.getItem('limitExpire')) {
                 this.timeExp = true;
             }
             this.timerstart();
         }
-        if(this._localStorageService.getItem('instructions')!=null) {
+        if (this._localStorageService.getItem('instructions') != null) {
             this.instructionsRead = this._localStorageService.getItem('instructions');
         }
     }
@@ -86,49 +90,57 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         clearInterval(this.interval);
     }
 
-    getJobProfile() {
-        this._apiService.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
-            if (res.status === 0) {
-                this.loading = false;
-                this.notag = true;
-                this.contactHR = res.message;
-            } else {
-                if (res.length === 1) {
-                    this.selectedJob = res[0].id;
-                    localStorage.setItem('_idjob', this.selectedJob);
-                    this.hide = false;
-                    this.start(this.selectedJob);
-                } else {
-                    this.loading = false;
-                    this.notag = false;
-                    this.hide = true;
-                    this.job_pro = res;
-                }
-            }
-        }, err => { });
-    }
+    // getJobProfile() {
+    //     this._apiService.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
+    //       console.log(res);
 
-    selected(job_id) {
-        this.selectedJob = job_id;
-        localStorage.setItem('_idjob', job_id);
-    }
+    //         if (res.status === 0) {
+    //             this.loading = false;
+    //             this.notag = true;
+    //             this.contactHR = res.message;
+    //         } else {
+    //             if (res.length === 1) {
+    //                 this.selectedJob = res[0].id;
+    //                 localStorage.setItem('_idjob', this.selectedJob);
+    //                 this.hide = false;
+    //                 this.start(this.user_id);
+    //             } else {
+    //                 this.loading = false;
+    //                 this.notag = false;
+    //                 this.hide = true;
+    //                 this.job_pro = res;
+    //             }
+    //         }
+    //     }, err => { });
+    // }
 
-    getQues() {
-        if (this.selectedJob) {
-            this.start(this.selectedJob);
-        } else {
-            this._mdSnackBar.open('Please select Job profile', '', {
-                duration: 2000,
-            });
-        }
-    }
+    // selected(job_id) {
+    //     this.selectedJob = job_id;
+    //     localStorage.setItem('_idjob', job_id);
+    // }
+
+    // getQues() {
+    //     if (this.selectedJob) {
+    //         this.start(this.user_id);
+    //     } else {
+    //         this._mdSnackBar.open('Please select Job profile', '', {
+    //             duration: 2000,
+    //         });
+    //     }
+    // }
 
     start(id: any) {
         this.selectedAnswer = [];
         if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
             this.hide = false;
             this.loading = false;
+            this.job_profile = localStorage.getItem("job_profile");
             const res = this._localStorageService.getItem('QuestionsWithUserAnswers')
+            if (localStorage.getItem('roundType') === 'Subjective') {
+                this.subjective = true;
+            } else {
+                this.subjective = false;
+            }
             this.questions = res.data;
             _.forEach(this.questions, (val, key) => {
                 _.forEach(val.questions, (val1, key1) => {
@@ -141,12 +153,23 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             })
             this.total = res.count;
         } else {
+
             this._apiService.getQues(id).subscribe(res => {
                 this.loading = false;
                 if (res.data.length > 0) {
                     this._localStorageService.setItem('QuestionsWithUserAnswers', res);
                     this.hide = false;
+                    this.showMessage = false;
                     this.questions = res.data;
+                    this.timeForExam = res.timeForExam;
+                    this.job_profile = res.job_profile
+                    localStorage.setItem('job_profile', this.job_profile);
+                    if (res.roundType === 'Subjective') {
+                        this.subjective = true;
+                        localStorage.setItem('roundType', res.roundType);
+                    } else {
+                        this.subjective = false;
+                    }
                     _.forEach(this.questions, (val, key) => {
                         _.forEach(val.questions, (val1, key1) => {
                             this.totalQues.push(val1._id);
@@ -159,7 +182,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 } else {
                     this.testNotAvailable = true;
                     setTimeout(() => {
-                        this.start(this.selectedJob);
+                        this.start(this.user_id);
                     }, config.refreshTime);
                     clearInterval(this.interval);
                     this._mdSnackBar.open('Test not available', '', {
@@ -167,6 +190,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     });
                 }
             }, err => {
+                console.log(err);
+                this.loading = false;
+                this.showMessage = true;
+                this.errMessage = err.message
                 this.hide = true;
             });
         }
@@ -175,9 +202,9 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.interval = setInterval(() => {
             this.maxtime = this.maxtime - 1000;
             localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
-            let hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
+            const hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
 
             this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
             this.timerMin = minutes + ' min ' + seconds + ' sec ';
@@ -192,7 +219,11 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     clearInterval(this.interval);
                     localStorage.removeItem('maxtime');
                     this.thankyou = true;
-                    this.submit();
+                    if (!this.subjective) {
+                        this.submit();
+                    } else {
+                        this.fblogout();
+                    }
                 }
             }
         }, 1000);
@@ -234,27 +265,27 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
 
     savePreview() {
         if (this.selectedAnswer.length > 0) {
-        this.isSubmit = true;
-        _.forEach(this.questions, (group, key2) => {
-            group['attempted'] = 0;
-            _.forEach(group.questions, (question, key3) => {
-                this.totalQuestion++;
-                _.forEach(this.selectedAnswer, (answer, key) => {
-                    if (answer.Q_id === question._id) {
-                        group['attempted']++;
-                    }
+            this.isSubmit = true;
+            _.forEach(this.questions, (group, key2) => {
+                group['attempted'] = 0;
+                _.forEach(group.questions, (question, key3) => {
+                    this.totalQuestion++;
+                    _.forEach(this.selectedAnswer, (answer, key) => {
+                        if (answer.Q_id === question._id) {
+                            group['attempted']++;
+                        }
+                    });
                 });
             });
-        });
         } else {
-            this._mdSnackBar.open('Attempt atlest one Question', '', {
+            this._mdSnackBar.open('Attempt at least one question before you submit the test ', '', {
                 duration: 2000,
             });
         }
     }
     finalSubmit() {
         this._dialogService.confirmSubmitTestBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
-            if(res == 'yes') {
+            if (res === 'yes') {
                 this.submit();
                 this.thankyou = true;
             }
@@ -281,7 +312,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         const minutes = (endTime.getMinutes() - startTime.getMinutes());
         const totalMinutes = (totalHours * 60) + minutes;
         this.allansRecord = {
-            'job_profile': this.selectedJob,
+            'job_profile': this.job_profile,
             'fb_id': this.user_id,
             'answers': this.selectedAnswer,
             'questionIds': this.totalQues,
@@ -306,22 +337,21 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
     onRead() {
         this.instructionsRead = true;
-        this.maxtime = config.testMaxtime;
+        this.maxtime = this.timeForExam * 60000;
         localStorage.setItem('sessionStart', 'true');
-        // this.timerstart();
-        this._localStorageService.setItem('instructions',this.instructionsRead);
+        this._localStorageService.setItem('instructions', this.instructionsRead);
 
     }
     onHelp() {
         this.disabled = true;
-        this._apiService.helpMe({'fb_id': this.user_id,}).subscribe(res => {
-            if(res.status ==1) {
+        this._apiService.helpMe({'fb_id': this.user_id, }).subscribe(res => {
+            if (res.status === 1) {
                 this.disabled = false;
                 this._mdSnackBar.open('Please Wait! We have sent a message to HR.', '', {
                     duration: 4000,
                 });
             }
-        },err=> {
+        }, err => {
             this.disabled = false;
             this._mdSnackBar.open('Something went wrong, Please try agian.', '', {
                 duration: 4000,
