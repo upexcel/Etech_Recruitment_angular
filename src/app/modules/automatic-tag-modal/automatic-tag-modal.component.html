@@ -1,5 +1,7 @@
 <h3 class="heading" *ngIf="tag.active_status">Edit Tag</h3>
-<h3 class="heading" *ngIf="!tag.active_status">Reopen {{tag.title}} Tag</h3>
+<h4 class="heading" *ngIf="!tag.active_status">{{tag.title}} Tag
+  <button mat-raised-button class="closeBtn" (click)="close()" mat-mini-fab><mat-icon class="icon">close</mat-icon></button>
+</h4>
 <hr>
 <div class="container-fluid edit-tag" *ngIf="tag.active_status" >
   <div class="row">
@@ -87,7 +89,7 @@
 <div *ngIf="!tag.active_status" class="padd24">
       <div class="row">
         <div class="col-md-12 col-sm-12">
-          <mat-slide-toggle [checked]="tagStatus" (change)="enableJobtag(tagStatus)" name="tagStatus"  [(ngModel)]="tagStatus">Enable</mat-slide-toggle>
+          <mat-slide-toggle [checked]="tagStatus" (change)="enableJobtag(tagStatus)" name="tagStatus"  [(ngModel)]="tagStatus">Reopen {{tag.title}} Tag</mat-slide-toggle>
         </div>
       </div>
 </div>
