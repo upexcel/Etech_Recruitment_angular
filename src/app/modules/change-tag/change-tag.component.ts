@@ -34,7 +34,7 @@ export class ChangeTagComponent implements OnInit {
         this.tagIdArray = _.uniq(this.tagIdArray);
         _.forEach(this.tagIdArray, (value1, key) => {
             _.forEach(this.tags['Automatic'], (value2, key1) => {
-                if (value1 === value2.id) {
+                if (value1 == value2.id) {
                     this.tagIdTitle.push(value2.title);
                 }
             })
