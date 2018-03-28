@@ -368,6 +368,11 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         });
         this.dialogRef.componentInstance.emailList = [this.selectedEmail['sender_mail']];
         this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
+        if(this.selectedEmail['tag_id'] == null || this.selectedEmail['tag_id'] ==0 || this.selectedEmail['tag_id'] == "null" || this.selectedEmail['tag_id'] == undefined) {
+            this.dialogRef.componentInstance.parentId = 0;
+        } else {
+            this.dialogRef.componentInstance.parentId = this.selectedEmail['tag_id'];
+        }
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
             if(result=="done") {

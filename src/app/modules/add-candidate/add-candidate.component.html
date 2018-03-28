@@ -37,11 +37,18 @@
                     <textarea matInput rows="4" name="body" type="textarea" placeholder="Email Body" ngModel required></textarea>
                     <mat-error>Body Is Required</mat-error>
                 </mat-form-field> -->
+                <label for="resume" class="resume">
+                    Resume:
+                </label>
+                <input type="file" id="resume" (change)="uploadFile($event)" />
+                <span *ngIf="errorFileType" class="error">
+                    File Type Should be pdf, doc or docx      
+                </span>
             </p>
         </div>
     </div>
     <div class="fx-pos">
         <button mat-raised-button (click)="close()">Back</button>
-        <button mat-raised-button color="accent" [disabled]="addCandidateForm.invalid" [ngClass]="diabledOnclick ?'disabled':''"  (click)="save(addCandidateForm)">Add</button>
+        <button mat-raised-button color="accent" [disabled]="addCandidateForm.invalid || errorFileType" [ngClass]="diabledOnclick ?'disabled':''"  (click)="save(addCandidateForm)">Add</button>
     </div>
 </form>
