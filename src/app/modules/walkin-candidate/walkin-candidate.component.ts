@@ -22,7 +22,6 @@ export class WalkinCandidateComponent implements OnInit {
 
     save(form: NgForm) {
         if (form.valid) {
-            console.log(form.value)
             this.loading = true;
             const data = form.value;
             localStorage.setItem('user', form.value.from);

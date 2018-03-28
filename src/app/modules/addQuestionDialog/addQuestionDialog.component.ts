@@ -42,7 +42,6 @@ export class AddQuestionDialogComponent implements OnInit {
         this.inputbox = JSON.parse(JSON.stringify(inputBox))
         this.testType = config['testType'];
         this.getExamGroup();
-        console.log(this.questionType, this.questionEditable, this.inputbox);
         if (this.questionEditable) {
             if (this.questionEditable.questionType === 'Subjective') {
                 this.subjective = true;

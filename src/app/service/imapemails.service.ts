@@ -378,7 +378,6 @@ export class ImapMailsService {
         return this.Intercepted.put(environment['apibase'] + `email/mailAttachment/${id}`)
         .retryWhen(error => {
             return error.flatMap((error1: any) => {
-                console.log('error1', error1)
                 if (error1.status === 400) {
                     return Observable.of(error1.status).delay(2000)
                 }
