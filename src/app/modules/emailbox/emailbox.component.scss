@@ -147,11 +147,17 @@
         min-height: 48px;
         h5 {
             font-size: 12px;
-            width: 50%;
+            // width: 50%;
+            margin-top: 15px;
         }
         .inline {
             font-size: 9px;
         }
+    }
+    .assign-interviewee{
+        margin-left: -10px !important;
+        width: 107% !important;
+        float: unset !important;
     }
     .default-tag-buttons {
         .cyan {
@@ -165,6 +171,56 @@
             line-height: 1px;
         }
     }
+    .spam-archive{
+        position: unset !important;
+        text-align: right !important;
+        width: auto !important;
+        display: block;
+        margin-right: 30px;
+        padding-right: 5px;
+        height: 25px;
+        padding-top: 3px;
+    }
+    .markSpam, .markArchive{
+        float: none !important;
+        vertical-align: super;
+    }
+    .mark__email{
+        right: 6px;
+        margin-top: 2px;
+        top: auto !important;
+    }
+    .iconAttach{
+        font-size: 14px;
+    }
+
+}
+@media (min-width: 480px) {
+  .spam-archive {
+      display: inline-block;
+      position: absolute;
+      top: 20px;
+      right: 35px;
+  }
+  .markSpam {
+      vertical-align: super;
+      cursor: pointer;
+  }
+  .markArchive {
+      vertical-align: super;
+      cursor: pointer;
+  }
+  #inboxTag{
+      margin-top: 5px;
+  }
+
+}
+.markSpam:hover,
+.markArchive:hover {
+    color: #bb0000;
+}
+.inlineBlock{
+  display: inline-block;
 }
 
 @media screen and (min-width: 480px) and (max-width: 767px) {
@@ -177,6 +233,10 @@
         .inline {
             font-size: 12px;
         }
+    }
+    .assign-interviewee{
+      width: 50% !important;
+      padding-left: 5px ;
     }
     .default-tag-buttons {
         .cyan {
@@ -214,13 +274,12 @@
 .markunread {
     cursor: pointer;
     padding: 0px;
-    margin-bottom: -9px;
+    margin-bottom: 0px;
 }
 
 .markunread .unreadIcon {
-    margin-top: 11px;
     color: grey;
-    font-size: 27px !important;
+    line-height: 20px;
 }
 
 .assign-interviewee {
@@ -235,17 +294,19 @@
 }
 
 .noteView .noteicon {
-    line-height: 24px;
-    font-size: 27px !important;
+    line-height: 20px;
     color: grey;
 }
 .call {
     cursor: pointer;
+        margin: 0px;
+    padding: 0px;
+    vertical-align: top;
 }
 .call .phone {
-    font-size: 23px !important;
-    vertical-align: middle;
+    font-size: 22px !important;
     color: grey;
+    margin: -2px;
 }
 .call .default {
     color:grey;
@@ -289,28 +350,6 @@
     background: #2bbbad;
 }
 
-.spam-archive {
-    display: inline-block;
-    position: absolute;
-    top: 20px;
-    right: 40px;
-    width: 10%;
-}
-
-.markSpam {
-    float: left;
-    cursor: pointer;
-}
-
-.markArchive {
-    float: right;
-    cursor: pointer;
-}
-
-.markSpam:hover,
-.markArchive:hover {
-    color: #bb0000;
-}
 p.emailbody {
     color: #336998;
     overflow: hidden !important;
