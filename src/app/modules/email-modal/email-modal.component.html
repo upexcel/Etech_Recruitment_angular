@@ -14,12 +14,12 @@
               <i class="material-icons phone" [ngClass]="color">phone_android</i>
           </span>
         </span>
-    </div>     
-    <div class="m-b">
-        <div id="topBtn" class="default-tag-buttons">
+    </div>
+    <!-- <div class="m-b">
+        <div id="topBtn" class="default-tag-buttons topbtn">
             <button mat-raised-button  mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
         </div>
-    </div>
+    </div> -->
     <div class="right"  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">
         <span>Exam Score: {{selectedEmail.examScore}},</span>
         <span>
@@ -28,8 +28,10 @@
     </div>
     <div class="m-b">
         <div id="topBtn" class="default-tag-buttons">
+            <button mat-raised-button mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
             <!--<button id="backbtn" mat-raised-button matTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>-->
             <button mat-raised-button matTooltip="Send Email" mdTooltipPosition="below" class="cyan send-email" (click)="sendEmail()">Send Email</button>
+            <button mat-raised-button matTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
         </div>
         <h4 *ngIf="error" style="color: red; text-align: center;">{{errorMessageText}}</h4>
     </div>
@@ -46,11 +48,10 @@
           I have added tag.parent_id==null to remove all tags which are auto generated, so that tags like Noida, Gurgoan, etc don't
           show up-->
         <span *ngFor="let tag of tagAssigned; trackBy: tagsDefaultTrack">
-              <a mat-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null && tag.active_status==true" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
+              <a mat-raised-button class="cyan" *ngIf="tag.id != selectedTag && tag.title != 'All' && tag.parent_id==null" [ngStyle]="getColor(tag.title)" (click)="assignTag(tag.id, selectedEmail._id, tag.title, selectedEmail)">
                   <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
               </a>
           </span>
-          <button mat-raised-button matTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
       </div>
       <div class="default-tag-buttons" *ngIf="historyList.data && !selectedTag || selectedTag == -1">
           <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack">
@@ -61,7 +62,6 @@
               </span>
           </span>
           <!-- <span  class="cyan" (click)="addNote()">Add Note</span> -->
-          <button mat-raised-button matTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>
       </div>
       <div class="closeWindow">
         <input type="checkbox" name="closeWindow" (click)="closeTab()" [(ngModel)]="closeWindow"/> Close Window on Completion

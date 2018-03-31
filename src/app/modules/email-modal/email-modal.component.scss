@@ -191,7 +191,34 @@ mat-grid-tile {
 	}
 	.accordian-icon-box {
 		font-size: 10px;
-	}
+  }
+  .p-y-img{
+    margin-right: auto !important;
+  }
+  .topbtn{
+    margin-top: 40px;
+  }
+  #topBtn button{
+    position: unset !important;
+    top: 0px;
+    right: 0px;
+    width: 48%;
+    margin: 0px 1px 0px 1px !important;
+  }
+  .default-tag-buttons {
+      margin-top: 40px !important;
+      text-align: left;
+  }
+  .mat-select {
+    width: 99% !important;
+    height: 30px;
+  }
+  .closeWindow {
+	  float: unset !important;
+  }
+  .font-300{
+    padding-top: 8px !important;
+  }
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
     .maindiv{
@@ -223,7 +250,27 @@ mat-grid-tile {
 	.accordian-close {
 		width: 57%;
 		word-break: break-all;
-	}
+  }
+  .mat-select{
+    width: 98% !important;
+  }
+  .topbtn{
+    margin-top: 40px;
+  }
+  .p-y-img{
+    margin-right: auto !important;
+  }
+  #topBtn button{
+    position: unset !important;
+    top: 0px;
+    right: 0px;
+    margin: 0px 2px 0px 2px;
+    width: 48%;
+  }
+  .default-tag-buttons {
+      margin-top: 40px !important;
+      text-align: left;
+  }
 }
 .material-icons{
         font-size: 14px!important;
@@ -398,9 +445,9 @@ a.link:hover{
 	right: 30px;
 }
 .closeWindow {
-	display: inline-block;
+	// display: inline-block;
 	width: 213px;
-	margin-left: 83%;
+	float: right;
 }
 .badge {
 	background: #2bbbad;
@@ -438,4 +485,9 @@ a.link:hover{
 }
 .again {
     color:#269abc !important;
+}
+@media screen and (min-width: 768px){
+    .mat-select{
+        width: 100px !important;
+    }
 }
