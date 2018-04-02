@@ -219,6 +219,9 @@ mat-grid-tile {
   .font-300{
     padding-top: 12px !important;
   }
+  .badge{
+    display: none !important;
+  }
 }
 @media screen and (min-width: 480px) and (max-width: 768px) {
     .maindiv{
@@ -400,7 +403,7 @@ a.link:hover{
   float: right;
 }
 .report{
-  line-height: 20px !important;
+  line-height: 12px !important;
   margin: 0px 4px 0px 4px !important;
   font-weight: bold !important;
   color: #fff !important;

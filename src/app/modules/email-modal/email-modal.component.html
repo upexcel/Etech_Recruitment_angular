@@ -13,6 +13,7 @@
           <span class="call" [matTooltip]="callStatus" (click)="callDetails()" *ngIf="selectedEmail.default_tag != ''">
               <i class="material-icons phone" [ngClass]="color">phone_android</i>
           </span>
+          <span  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">Exam Score: {{selectedEmail.examScore}},</span>
         </span>
     </div>
     <!-- <div class="m-b">
@@ -20,14 +21,12 @@
             <button mat-raised-button  mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
         </div>
     </div> -->
-    <div class="right"  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">
+    <!-- <div class="right">
         <span>Exam Score: {{selectedEmail.examScore}},</span>
-        <span>
-            <button mat-raised-button matTooltip="View Report" mdTooltipPosition="below" class="report" (click)="getDetailedScore(selectedEmail.fb_id)">Test Report</button>
-        </span>
-    </div>
+    </div> -->
     <div class="m-b">
         <div id="topBtn" class="default-tag-buttons">
+            <button mat-raised-button matTooltip="View Report" mdTooltipPosition="below" class="report" (click)="getDetailedScore(selectedEmail.fb_id)" *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">Test Report</button>
             <button mat-raised-button mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
             <!--<button id="backbtn" mat-raised-button matTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>-->
             <button mat-raised-button matTooltip="Send Email" mdTooltipPosition="below" class="cyan send-email" (click)="sendEmail()">Send Email</button>
