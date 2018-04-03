@@ -27,6 +27,7 @@ export class ScheduleInterviewComponent implements OnInit {
     minDate: any;
     maxDate: any;
     showSelectedDate = null;
+    apiFiredOnce = false;
     errorMessage: string;
     scheduleBy: string | null = config['scheduleInterviewBy'];
     constructor(private _fb: FormBuilder, private dialogRef: MatDialogRef<any>, private scheduleApi: ImapMailsService, public _commonService: CommonService) {
@@ -48,22 +49,7 @@ export class ScheduleInterviewComponent implements OnInit {
             }
         }
         this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
-        this.scheduleApi.getEmailStatus({ 'tag_id': this.tagselected, 'mongo_id': this.emailData._id, 'email': this.emailData.sender_mail }).subscribe((res) => {
-            if (res.flag) {
-                this.scheduleApi.getScheduleData().subscribe((data) => {
-                    this.scheduleData = data;
-                    // this.minDate = new Date(data[0]['date']);
-                    // this.maxDate = new Date(data[data.length - 1]['date']);
-                    this.getTemplateList();
-                }, (err) => {
-                    console.log(err);
-                });
-            } else {
-                this.errorMessage = res.message;
-            }
-        }, (err) => {
-            console.log(err)
-        });
+        this.showForm = true;
         this.interviewForm.get('selectedInterviewDate').disable();
         this.interviewForm.get('selectedInterviewTime').disable();
         this.interviewRounds = this._commonService.interviewRoundDisableCheck(this.dataForInterviewScheduleRound, this.tagselected);
@@ -72,7 +58,28 @@ export class ScheduleInterviewComponent implements OnInit {
     dateFilter = (d: Date): any => {
         return _.filter(this.scheduleData, { 'date': this._commonService.formateDate(d) }).length;
     }
-
+    onSchedule(scheduleBy) {
+        if (scheduleBy === 'scheduleByEmail' && !this.apiFiredOnce) {
+            this.showForm = false;
+            this.scheduleApi.getEmailStatus({ 'tag_id': this.tagselected, 'mongo_id': this.emailData._id, 'email': this.emailData.sender_mail }).subscribe((res) => {
+                if (res.flag) {
+                    this.scheduleApi.getScheduleData().subscribe((data) => {
+                        this.scheduleData = data;
+                        // this.minDate = new Date(data[0]['date']);
+                        // this.maxDate = new Date(data[data.length - 1]['date']);
+                        this.getTemplateList();
+                        this.apiFiredOnce = true;
+                    }, (err) => {
+                        console.log(err);
+                    });
+                } else {
+                    this.errorMessage = res.message;
+                }
+            }, (err) => {
+                console.log(err)
+            });
+        }
+    }
     changeInInterviewRound(interviewRound) {
         this.selectedInterviewRound = interviewRound;
         this.interviewForm.get('selectedInterviewDate').enable();
