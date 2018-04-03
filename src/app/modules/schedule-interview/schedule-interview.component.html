@@ -9,7 +9,7 @@
 <h5>
     <b>Email</b>: {{emailData.sender_mail}}</h5>
 <p class="error">{{errorMessage}}</p>
-<mat-radio-group [(ngModel)]="scheduleBy">
+<mat-radio-group [(ngModel)]="scheduleBy" (change)="onSchedule(scheduleBy)">
     <mat-radio-button id="scheduleByEmail" value="scheduleByEmail">Schedule Interview</mat-radio-button>
     <mat-radio-button id="scheduleByDirect" value="scheduleByDirect">Direct</mat-radio-button>
 </mat-radio-group>
