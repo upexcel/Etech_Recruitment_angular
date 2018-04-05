@@ -10,7 +10,8 @@
     <h6 class="inline">
       <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span>
       <span class="badge" *ngIf="email && isSearching && email['tagTitle']" >{{email['tagTitle']}}</span>
-      <mat-icon *ngIf="email.is_attachment" class="attach iconAttach">attach_file</mat-icon> {{email.updatedAt|date:'medium'}} <span *ngIf="email.updatedAt" >/</span> {{email.date|date:'medium'}}
+      <mat-icon *ngIf="email.is_attachment" class="attach iconAttach">attach_file</mat-icon>
+       {{email.updatedAt | date : 'medium'}} <span *ngIf="email.updatedAt" >/</span> {{email.date |date:'medium'}}
     </h6>
     <p>{{email.sender_mail}} - From {{email.from}}, Source:
       <span *ngIf="email.source">{{email.source}}</span>

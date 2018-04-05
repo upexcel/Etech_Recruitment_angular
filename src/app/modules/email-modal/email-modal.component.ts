@@ -58,9 +58,9 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     tagfilter = [];
     url: string;
     closeWindow: boolean;
-    currentTag:any; // new variable to show tag of the candidate
+    currentTag: any; // new variable to show tag of the candidate
     color: string;
-    result:any;
+    result: any;
     callStatus = config.callStatus;
     constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
@@ -88,13 +88,13 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         };
         this.tagUpdate.getCandidateHistory(this.selectedEmail['_id']).subscribe((data) => {
             this.selectedEmail = data.data[0];
-            if(this.selectedEmail.callingStatus) {
-                const data = {'callingStatus':this.selectedEmail.callingStatus};
+            if (this.selectedEmail.callingStatus) {
+                const callData = {'callingStatus': this.selectedEmail.callingStatus};
                 this.color = this.selectedEmail.callingStatus;
-                if(this.selectedEmail.callSuccessTime) {
-                    data['callSuccessTime'] = this.selectedEmail.callSuccessTime;
+                if (this.selectedEmail.callSuccessTime) {
+                    callData['callSuccessTime'] = this.selectedEmail.callSuccessTime;
                 }
-                this.callTip(data);
+                this.callTip(callData);
             }
             // this.historyList = this.commonService.formateEmailHistoryData(data, this.selectedEmail['_id']);
             this.historyList['data'] = this.commonService.sortBydate(data)
@@ -111,7 +111,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.openAccordian();
             this.getIntervieweeList();
             this.historyAttchement(this.historyList['data']);
-            this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle; //used to get the tag for the selected Candidate.
+            this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle; // used to get the tag for the selected Candidate.
         })
         if (this._localStorageService.getItem('close') === undefined || this._localStorageService.getItem('close') == null || this._localStorageService.getItem('close') === 'null') {
             this._localStorageService.setItem('close', false);
@@ -309,14 +309,14 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     }
 
     broadcast_send(value) {
-        if(value == 'updateInbox') {
+        if (value === 'updateInbox') {
             localStorage.setItem('updateInbox', this.selectedEmail['_id']);
-        } else if (value=='callStatus') {
-            const data = {'id':this.selectedEmail['_id'],'callingStatus':this.result['callingStatus']};
-            if(this.result['callSuccessTime']) {
+        } else if (value === 'callStatus') {
+            const data = {'id': this.selectedEmail['_id'], 'callingStatus': this.result['callingStatus']};
+            if (this.result['callSuccessTime']) {
                 data['callSuccessTime'] = this.result['callSuccessTime'];
             }
-            localStorage.setItem('callStatus',JSON.stringify(data));
+            localStorage.setItem('callStatus', JSON.stringify(data));
         }
     }
     close() {
@@ -368,17 +368,17 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         });
         this.dialogRef.componentInstance.emailList = [this.selectedEmail['sender_mail']];
         this.dialogRef.componentInstance.subject_for_genuine = localStorage.getItem('subject_for_genuine');
-        if(this.selectedEmail['tag_id'] == null || this.selectedEmail['tag_id'] ==0 || this.selectedEmail['tag_id'] == "null" || this.selectedEmail['tag_id'] == undefined) {
+        if (this.selectedEmail['tag_id'] == null || this.selectedEmail['tag_id'] === 0 || this.selectedEmail['tag_id'] === 'null' || this.selectedEmail['tag_id'] === undefined) {
             this.dialogRef.componentInstance.parentId = 0;
         } else {
             this.dialogRef.componentInstance.parentId = this.selectedEmail['tag_id'];
         }
         this.dialogRef.afterClosed().subscribe(result => {
             this.dialogRef = null;
-            if(result=="done") {
+            if (result === 'done') {
                 if (this._localStorageService.getItem('close')) {
-                this.close();
-                }           
+                    this.close();
+                }
             }
         });
     }
@@ -446,13 +446,13 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         this.dialogRef.componentInstance.tagIdArray = this.selectedEmail['tag_id'];
         this.dialogRef.componentInstance.id = this.selectedEmail['_id']
         this.dialogRef.afterClosed().subscribe(result => {
-            if(result) {
+            if (result) {
                 this.selectedEmail['tag_id'] = [result];
-                this.selectedEmail['default_tag'] = "";
+                this.selectedEmail['default_tag'] = '';
                 this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle;
                 if (this._localStorageService.getItem('close')) {
                     this.close();
-                }    
+                }
             }
             this.dialogRef = null;
         })
@@ -464,7 +464,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         });
         this.dialogRef.componentInstance.id = this.selectedEmail._id;
         this.dialogRef.afterClosed().subscribe(result => {
-            if(result!=undefined) {
+            if (result !== undefined) {
                 this.color = result['callingStatus'];
                 this.result = result;
                 this.broadcast_send('callStatus');

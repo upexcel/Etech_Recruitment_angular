@@ -265,10 +265,10 @@ export class CommonService {
         if (currentYear.toString() === emailYear) {
             dateFilterString = 'MMM d, h:mm a';
         }
-        email['date'] = this.datePipe.transform(email['date'], dateFilterString);
-        if (email['updatedAt']) {
-            email['updatedAt'] = this.datePipe.transform(email['updatedAt'], dateFilterString);
-        }
+        // email['date'] = this.datePipe.transform(email['date'], dateFilterString);
+        // if (email['updatedAt']) {
+        //     email['updatedAt'] = this.datePipe.transform(email['updatedAt'], dateFilterString);
+        // }
         if (email['tag_id'] && email['tag_id'].length === 0) {
             email['tagTitle'] = config['allTagTitle'];
         } else {
