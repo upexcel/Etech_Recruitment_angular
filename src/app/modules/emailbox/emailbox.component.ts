@@ -62,10 +62,10 @@ export class EmailboxComponent implements OnInit {
         if (this.emailChildTitle === config['round1'] || this.emailChildTitle === config['round2'] || this.emailChildTitle === config['round3']) {
             this.isRoundsTag = true;
         }
-        if(this.email.callingStatus) {
-            const data = {'callingStatus':this.email.callingStatus};
+        if (this.email.callingStatus) {
+            const data = {'callingStatus': this.email.callingStatus};
             this.color = this.email.callingStatus;
-            if(this.email.callSuccessTime) {
+            if (this.email.callSuccessTime) {
                 data['callSuccessTime'] = this.email.callSuccessTime;
             }
             this.callTip(data);
@@ -246,7 +246,7 @@ export class EmailboxComponent implements OnInit {
         });
         this.dialogRef.componentInstance.email = email;
         this.dialogRef.afterClosed().subscribe(result => {
-            if (result != undefined) {
+            if (result !== undefined) {
                 this.color = result['callingStatus'];
                 this.callTip(result);
             }
@@ -258,7 +258,7 @@ export class EmailboxComponent implements OnInit {
 
     updateEmailCallStatus(value) {
         const data = JSON.parse(value);
-        if(this.email._id == data.id){
+        if (this.email._id == data.id) {
             this.color = data.callingStatus;
             this.email['callingStatus'] = this.color;
             this.callTip({'callingStatus': data.callingStatus, 'callSuccessTime': data.callSuccessTime});
