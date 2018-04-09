@@ -65,6 +65,9 @@
             </div>
           </div>
         </div>
+        <div class="col-md-12 col-sm-12 pad10">
+          <mat-slide-toggle [checked]="randomQuestions"  name="random_question" [(ngModel)]="randomQuestions">Random Questions</mat-slide-toggle>
+        </div>
 
         <div class="col-sm-12 mar10">
           <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid" (click)="createQues(testSetForm)"> Save <span *ngIf="updateData">& Update</span> </button>
