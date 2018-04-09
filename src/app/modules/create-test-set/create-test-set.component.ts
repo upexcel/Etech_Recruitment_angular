@@ -29,6 +29,7 @@ export class CreateTestSetComponent implements OnInit {
     updateTestData: any;
     updateData: any;
     jobProfile: any;
+    randomQuestions: any;
     private dialogRef: MatDialogRef<any>
     constructor(private _commonService: CommonService, private dialogRefTestSet: MatDialogRef<CreateTestSetComponent>, private dialog: MatDialog, private _mdSnackBar: MatSnackBar, private apiCall: ImapMailsService) {
         dialogRefTestSet.disableClose = true;
@@ -40,11 +41,13 @@ export class CreateTestSetComponent implements OnInit {
         this.getAllTag();
         this.limit = limitTime;
         if (this.updateTestData) {
+            console.log(this.updateTestData);
             this.updateData = JSON.parse(JSON.stringify(this.updateTestData));
             this.testName = this.updateData.testName;
             this.testLimit = this.updateData.timeForExam;
             this.jobProfile = this.updateData.job_profile;
             this.roundId = this.updateData.round;
+            this.randomQuestions = this.updateData.random_question;
         }
     }
     getAllTag() {
@@ -100,7 +103,8 @@ export class CreateTestSetComponent implements OnInit {
                 'SubjectQuestionLimits' : SubjectQuestionLimits,
                 'timeForExam' : form.value.testLimit,
                 'job_profile' : form.value.jobProfileId,
-                'round' : form.value.roundId
+                'round' : form.value.roundId,
+                'random_question' : form.value.random_question
             }
             if (!this.updateData) {
                 this.createTest(data);
