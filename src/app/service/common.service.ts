@@ -357,14 +357,17 @@ export class CommonService {
         return callToolTips[`${data['callingStatus']}`] + ' ' + `${date} at ${time}`;
     }
 
-    jobProfile(tags,jobProfile) {
-        jobProfile = [jobProfile[0]];
+    jobProfile(tags, jobProfile) {
+        let jobTag = [];
+        if (jobProfile[0]) {
+            jobTag = [jobProfile[0]];
+        }
         _.forEach(tags['data'][0]['data'], (value, key) => {
-            if(value.id != null && value.id !=0 && value.active_status == true) {
-                jobProfile.push({ title: value.title, tag_id: value.id });
+            if (value.id != null && value.id !=0 && value.active_status == true) {
+                jobTag.push({ title: value.title, tag_id: value.id });
             }
         });
-        return jobProfile;
+        return jobTag;
     }
     sortByJobProfileStatus(tags) {
         let tagStatus;
