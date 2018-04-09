@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { LocalStorageService } from '../../service/local-storage.service';
 import * as _ from "lodash";
 import { CommonService } from '../../service/common.service';
+import { config } from '../../config/config';
 
 @Component({
     selector: 'app-template-edit',
@@ -22,7 +23,7 @@ export class TemplateEditComponent implements OnInit {
     temp: any;
     subject_for_genuine: string;
     tags: any;
-    jobProfile:Array<any>= [];
+    jobProfile:Array<any>= config.createJobProfile;
     tempJobProfileId:any;
     constructor(public dialogRef: MatDialogRef<any>, private getVariable: ImapMailsService, public localStorageService: LocalStorageService,public commonService: CommonService) {
     }
@@ -34,7 +35,7 @@ export class TemplateEditComponent implements OnInit {
         this.ckeditorContent = this.temp.body;
         this.subject_for_genuine = localStorage.getItem('subject_for_genuine');
         this.tags = this.localStorageService.getItem('allTags');
-        this.jobProfile = this.commonService.jobProfile(this.tags,this.jobProfile);
+        this.jobProfile = this.commonService.jobProfile(this.tags, this.jobProfile);
     }
 
     update(form: NgForm) {
