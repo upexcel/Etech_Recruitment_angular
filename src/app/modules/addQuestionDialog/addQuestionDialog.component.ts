@@ -36,6 +36,7 @@ export class AddQuestionDialogComponent implements OnInit {
     inputbox = [];
     desc: any;
     subjective: boolean;
+    difficultyLable=false;
     constructor(private dialogRef: MatDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
@@ -109,7 +110,8 @@ export class AddQuestionDialogComponent implements OnInit {
                     'description': form.value.desc,
                     'answer': parseInt(this.ans_id, 10),
                     'exam_subject': form.value.examId,
-                    'options': this.inputbox
+                    'options': this.inputbox,
+                    'hard': form.value.difficulty
                 };
             } else {
                 quesdata = {

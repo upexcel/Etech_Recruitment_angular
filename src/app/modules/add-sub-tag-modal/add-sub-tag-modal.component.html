@@ -41,6 +41,14 @@
           </mat-form-field>
         </div>
       </div>
+        <mat-radio-group name="gender" class="example-radio-group" [(ngModel)]="genderName">
+            <mat-radio-button class="example-radio-button"  value="male">
+                Male
+            </mat-radio-button>
+            <mat-radio-button class="example-radio-button"  value="female">
+                FeMale
+            </mat-radio-button>
+        </mat-radio-group>
       <div class="row">
         <div class="col-md-12 col-sm-12">
           <h4> Tag Color </h4>

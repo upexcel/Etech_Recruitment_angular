@@ -1,9 +1,19 @@
 <mat-card>
   <form id="quesForm" autoComplete="off" #quesForm="ngForm">
-    <mat-card-title class="cardsub">
-      <p *ngIf="editabledialog">Edit Questions</p>
-      <p *ngIf="!editabledialog">Create Questions</p>
-    </mat-card-title>
+      <div class="row">
+          <div class="col-md-6 col-sm-12">
+              <mat-card-title class="cardsub">
+                  <p *ngIf="editabledialog">Edit Questions</p>
+                  <p *ngIf="!editabledialog">Create Questions</p>
+              </mat-card-title>
+          </div>
+          <div class="col-md-6 col-sm-12" *ngIf="!subjective">
+              <mat-slide-toggle name="difficulty" [(ngModel)]=difficultyLable
+                  [disabled]="disabled">
+                  Hard Question
+              </mat-slide-toggle>
+          </div>
+      </div>
     <hr class="linespace">
     <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
     <mat-card-content>

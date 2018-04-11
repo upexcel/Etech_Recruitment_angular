@@ -462,7 +462,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             height: '30%',
             width: 'auto'
         });
-        this.dialogRef.componentInstance.id = this.selectedEmail._id;
+        this.dialogRef.componentInstance.email = this.selectedEmail;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
                 this.color = result['callingStatus'];
