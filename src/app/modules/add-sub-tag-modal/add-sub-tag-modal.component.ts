@@ -35,6 +35,7 @@ export class AddSubTagModalComponent implements OnInit {
         // form.value['email'] = this.emailFormControl.value;
         form.value.color = this.originalcolor;
         form.value.parent_id = this.parentid;
+        console.log("form",form.value)
         this.tagUpdate.addSubTag(form.value).subscribe((data) => {
             this.showloading = true;
             this.dialogRef.close('Added');
