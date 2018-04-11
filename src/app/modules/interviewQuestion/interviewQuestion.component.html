@@ -103,11 +103,7 @@
 
 <div *ngIf="!instructionsRead" class="well">
   <div class="heading">Instructions</div>
-  <ol class="instructions">
-    <li *ngFor="let instruction of instructions">
-      <p [innerHTML]="instruction"></p>
-    </li>
-  </ol>
+  <p [innerHTML]="instructions"></p>
   <button mat-raised-button color=primary class="btn-block" (click)="onRead()">Continue</button>
 </div>
 

@@ -6,7 +6,6 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/
 import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
 import { config } from './../../config/config';
-import { instructions } from './../../config/config';
 import { DialogService } from '../../service/dialog.service';
 
 @Component({
@@ -39,7 +38,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     loading = true;
     isSubmitted = true;
     instructionsRead = false;
-    instructions: Array<string> = instructions;
+    instructions: String;
     disabled: boolean;
     timeExp: boolean;
     timerMin: any;
@@ -83,7 +82,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.timerstart();
         }
         if (this._localStorageService.getItem('instructions') != null) {
-            this.instructionsRead = this._localStorageService.getItem('instructions');
+            this.instructions = this._localStorageService.getItem('instructions');
         }
     }
     ngOnDestroy() {
@@ -163,6 +162,8 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.questions = res.data;
                     this.timeForExam = res.timeForExam;
                     this.job_profile = res.job_profile
+                    this.instructions = res.instructions.replace(new RegExp("\n", "g"), "<br>");
+                    this._localStorageService.setItem('instructions', this.instructions);
                     localStorage.setItem('job_profile', this.job_profile);
                     if (res.roundType === 'Subjective') {
                         this.subjective = true;
@@ -339,7 +340,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.instructionsRead = true;
         this.maxtime = this.timeForExam * 60000;
         localStorage.setItem('sessionStart', 'true');
-        this._localStorageService.setItem('instructions', this.instructionsRead);
+        // this._localStorageService.setItem('instructions', this.instructionsRead);
 
     }
     onHelp() {
