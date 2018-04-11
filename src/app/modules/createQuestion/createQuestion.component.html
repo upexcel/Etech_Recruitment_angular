@@ -22,12 +22,15 @@
           (click)="scroll()">
         <mat-expansion-panel-header>
           <mat-panel-title>{{group.group_name}} </mat-panel-title>
-          <mat-panel-description *ngIf="group.questions">Total Questions: {{group.questions.length}} </mat-panel-description>
+          <mat-panel-description *ngIf="group.questions">Total Questions: {{group.questions.length}}
+             <button mat-icon-button color=warn matTooltip="click to delete!" class="delete" (click)="deleteGroup(group.groupId);$event.stopPropagation()"><i class="material-icons">delete</i></button>
+          </mat-panel-description>
+
         </mat-expansion-panel-header>
           <mat-card class="padleft10 bodyInner2" *ngFor="let ques of group.questions;let i = index">
             <div class="btnIcons">
-                <button mat-icon-button color=warn matTooltip="click to delete!" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
-                <button mat-icon-button color=primary matTooltip="click to edit!" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
+                <button mat-icon-button color=warn matTooltip="click to delete!" class="delete" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
+                <button mat-icon-button color=primary matTooltip="click to edit!" class="edit" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
               </div>
             <mat-list class="pad0">
               <mat-list-item class="pad0">

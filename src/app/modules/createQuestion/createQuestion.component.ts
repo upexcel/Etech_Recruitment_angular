@@ -120,5 +120,19 @@ export class CreateQuestionComponent implements OnInit {
             this.showmessage = true;
         }
     }
+    deleteGroup(id) {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.getTags.deleteGroup(id).subscribe(resp => {
+                    this._mdSnackBar.open('Group Deleted Sucessfully', '', {
+                        duration: 2000
+                    });
+                    this.getQues();
+                })
+            }
+        }, (err) => {
+        });
+
+    }
 
 }
