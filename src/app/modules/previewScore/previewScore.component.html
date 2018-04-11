@@ -7,8 +7,9 @@
     <div class="score col-md-12 col-sm-12">
         <p class="col-md-6 col-sm-6 scoreDet">Total Question: {{detailedData.totalQuestions}}</p>
         <p class="col-md-6 col-sm-6 scoreDet">Candidate Attempted: {{detailedData.attempted_questions}}</p>
-        <p class="col-md-6 col-sm-6 scoreDet">Right Attempted: {{detailedData.exam_score}}</p>
         <p class="col-md-6 col-sm-6 scoreDet">Wrong Attempted: {{detailedData.wrong_answers}}</p>
+        <p class="col-md-6 col-sm-6 scoreDet" *ngIf="detailedData.maxMarks">Maximum Marks: {{detailedData.maxMarks}}</p>
+        <p class="col-md-6 col-sm-6 scoreDet">Candidate Scored Marks: {{detailedData.exam_score}}</p>
         <p class="col-md-6 col-sm-6 scoreDet">Time Taken: {{hours}}h {{min}}min</p>
     </div>
     <mat-accordion class="col-xs-12 col-md-12 col-sm-12">

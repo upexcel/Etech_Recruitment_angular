@@ -34,7 +34,9 @@
             Total Ques: {{group.questions.length}}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div class="col-md-12 col-sm-12 marAuto bodyInner2" *ngFor="let ques of group.questions;let id = index">
+        <div class="col-md-12 col-sm-12 marAuto bodyInner2 difficulty" *ngFor="let ques of group.questions;let id = index">
+          <span class="level" *ngIf="ques.hard">2 Marks</span>
+          <span class="level" *ngIf="!ques.hard">1 Marks</span>
           <h3>{{id+1}}.
             <span [innerHTML]="ques.question | safeHtml"></span>
           </h3>
