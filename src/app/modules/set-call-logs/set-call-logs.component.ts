@@ -15,7 +15,7 @@ export class SetCallLogsComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<any>, public imap: ImapMailsService, private _mdSnackBar: MatSnackBar) { }
 
     ngOnInit() {
-        if (this.email.callingDetails) {
+        if (this.email && this.email.callingDetails) {
             this.callHistory = this.email.callingDetails.reverse();
             _.forEach(this.callHistory, (value, key) => {
                 if (value.status != '') {
@@ -29,7 +29,7 @@ export class SetCallLogsComponent implements OnInit {
         const body = {
             'callingStatus': value,
             'callSuccessTime' : new Date(),
-            'callingDetails' : this.email.callingDetails || []
+            'callingDetails' : this.email ? this.email.callingDetails : []
         }
         this.dialogRef.close(body);
         this.imap.setCallStatus(this.email._id, body).subscribe((res) => {
