@@ -36,7 +36,7 @@ export class AddQuestionDialogComponent implements OnInit {
     inputbox = [];
     desc: any;
     subjective: boolean;
-    difficultyLable=false;
+    difficultyLable = false;
     constructor(private dialogRef: MatDialogRef<any>, private getTags: ImapMailsService) {
     }
     ngOnInit() {
@@ -62,6 +62,7 @@ export class AddQuestionDialogComponent implements OnInit {
                 this.count = this.questionEditable.options.length;
                 this.questionType = this.questionEditable.questionType;
                 this.subjective = false;
+                this.difficultyLable = this.questionEditable.hard ? this.questionEditable.hard : false;
             }
         } else {
             if (this.questionType === 'Subjective') {
