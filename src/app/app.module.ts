@@ -204,6 +204,7 @@ import { TestSetsComponent } from './modules/test-sets/test-sets.component';
 import { CreateTestSetComponent } from './modules/create-test-set/create-test-set.component';
 import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-logs.component';
 import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-paper.component';
+import { ChangeRoundComponent } from './modules/change-round/change-round.component';
 
 @NgModule({
     declarations: [
@@ -285,7 +286,8 @@ import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-pape
         RemoveOldLogsComponent,
         TestSetsComponent,
         CreateTestSetComponent,
-        ViewTestPaperComponent
+        ViewTestPaperComponent,
+        ChangeRoundComponent
     ],
     imports: [
         BrowserModule,
@@ -373,7 +375,8 @@ import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-pape
         TokenExpireComponent,
         CreateTestSetComponent,
         RemoveOldLogsComponent,
-        ViewTestPaperComponent
+        ViewTestPaperComponent,
+        ChangeRoundComponent
     ],
     bootstrap: [AppComponent]
 })

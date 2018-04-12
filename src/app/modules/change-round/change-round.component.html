@@ -1,0 +1,30 @@
+<div class="main">
+  <h4 class="heading">Change Job Tag</h4><hr>
+      <div class="candidate" *ngIf="rounds.length">
+          <div *ngFor="let tags of rounds">
+              <span *ngIf="selectedEmail.default_tag == tags.id"> The Candidate is in <b>{{tags.title}} </b> round</span>
+          </div>
+      </div>
+      <div class="candidate" *ngIf=!rounds.length>
+        The Candidate is not assigned yet.
+      </div>
+      <div class="col-md-12 padding15">
+        <div class="col-md-4 padT18">Move Mail to:</div>
+        <div class="col-md-8">
+          <mat-form-field>
+            <mat-select placeholder="Rounds" name="selectNewRound" [(ngModel)]="selectedRound" required>
+              <mat-option *ngFor="let tags of rounds" [value]="tags.id">
+                {{ tags.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+    <div class="submit">
+      <a mat-raised-button (click)="close()">Close</a>
+      <button id="change" mat-raised-button type="button" (click)="changeRound()" color=primary [disabled]="selectedRound==selectedEmail.default_tag">
+        Change Round
+      </button>
+    </div>
+</div>
