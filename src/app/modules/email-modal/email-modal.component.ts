@@ -457,6 +457,25 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this.dialogRef = null;
         })
     }
+    changeRound() {
+        // this.dialogRef = this.dialog.open(ChangeTagComponent, {
+        //     height: '40%',
+        //     width: '40%'
+        // });
+        // this.dialogRef.componentInstance.tagIdArray = this.selectedEmail['tag_id'];
+        // this.dialogRef.componentInstance.id = this.selectedEmail['_id']
+        // this.dialogRef.afterClosed().subscribe(result => {
+        //     if (result) {
+        //         this.selectedEmail['tag_id'] = [result];
+        //         this.selectedEmail['default_tag'] = '';
+        //         this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle;
+        //         if (this._localStorageService.getItem('close')) {
+        //             this.close();
+        //         }
+        //     }
+        //     this.dialogRef = null;
+        // })
+    }
     callDetails() {
         this.dialogRef = this.dialog.open(SetCallLogsComponent, {
             height: '30%',
