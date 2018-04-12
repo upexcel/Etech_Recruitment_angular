@@ -161,8 +161,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.showMessage = false;
                     this.questions = res.data;
                     this.timeForExam = res.timeForExam;
-                    this.job_profile = res.job_profile
-                    this.instructions = res.instructions.replace(new RegExp("\n", "g"), "<br>");
+                    this.job_profile = res.job_profile;
+                    if (res.instructions) {
+                        this.instructions = res.instructions.replace(new RegExp("\n", "g"), "<br>");
+                    }
                     this._localStorageService.setItem('instructions', this.instructions);
                     localStorage.setItem('job_profile', this.job_profile);
                     if (res.roundType === 'Subjective') {
