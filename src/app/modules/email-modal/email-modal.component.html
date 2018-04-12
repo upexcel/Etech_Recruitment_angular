@@ -28,7 +28,7 @@
         <div id="topBtn" class="default-tag-buttons">
             <button mat-raised-button matTooltip="View Report" mdTooltipPosition="below" class="report" (click)="getDetailedScore(selectedEmail.fb_id)" *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">Test Report</button>
             <button mat-raised-button mdTooltipPosition="below" class="cyan switch__job__profile" (click)="changeTag()">Change Job Profile</button>
-            <button mat-raised-button mdTooltipPosition="below" class="cyan" (click)="changeRound()">Change Round</button>
+            <button mat-raised-button mdTooltipPosition="below" *ngIf="selectedEmail.tag_id.length" class="cyan" (click)="changeRound()">Change Round</button>
             <!--<button id="backbtn" mat-raised-button matTooltip="Back" mdTooltipPosition="below" class="cyan back-button" (click)="back()"><i class="material-icons">subdirectory_arrow_left</i></button>-->
             <button mat-raised-button matTooltip="Send Email" mdTooltipPosition="below" class="cyan send-email" (click)="sendEmail()">Send Email</button>
             <button mat-raised-button matTooltip="Add Note" mdTooltipPosition="below" class="cyan" (click)="addNote(selectedEmail._id)">Add Note</button>

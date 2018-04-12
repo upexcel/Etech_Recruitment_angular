@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { MatDialogRef } from '@angular/material';
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-change-round',
@@ -13,30 +14,20 @@ export class ChangeRoundComponent implements OnInit {
     allTags: any;
     selectedRound: any;
 
-    constructor(public dialogRef: MatDialogRef<any>) {
-        this.allTags = JSON.parse(localStorage.getItem('allTags')).data;
+    constructor(public dialogRef: MatDialogRef<any>, private _commonService: CommonService) {
     }
-
     ngOnInit() {
-        if (this.allTags) {
-            _.forEach(this.allTags, (value, key) => {
-                if (value.title === 'candidate') {
-                    const data = value.data[0].subchild;
-                    _.forEach(data, (tag, tagKey) => {
-                        if (tag.title !== 'All') {
-                            this.rounds.push(tag);
-                        }
-                    });
+        this._commonService.getAllTag().then(res => {
+            this.allTags = res[0].subchild;
+            _.forEach(this.allTags, (tag, tagKey) => {
+                if (tag.title !== "All") {
+                    this.rounds.push(tag);
+                }
+                if (this.selectedEmail.default_tag == tag.id) {
+                    this.selectedRound = tag.id;
                 }
             });
-        }
-        if (this.rounds) {
-            _.forEach(this.rounds, (tags, key) => {
-                if (this.selectedEmail.default_tag == tags.id) {
-                    this.selectedRound = tags.id;
-                }
-            });
-        }
+        });
     }
     changeRound() {
         this.dialogRef.close(this.selectedRound);
