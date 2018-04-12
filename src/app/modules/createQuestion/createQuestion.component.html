@@ -28,6 +28,8 @@
 
         </mat-expansion-panel-header>
           <mat-card class="padleft10 bodyInner2" *ngFor="let ques of group.questions;let i = index">
+              <span class="level" *ngIf="ques.hard">2 Marks</span>
+              <span class="level" *ngIf="!ques.hard">1 Marks</span>
             <div class="btnIcons">
                 <button mat-icon-button color=warn matTooltip="click to delete!" class="delete" (click)="delQues(ques._id)"><i class="material-icons">delete</i></button>
                 <button mat-icon-button color=primary matTooltip="click to edit!" class="edit" (click)="editQues(ques._id)"><i class="material-icons">mode_edit</i></button>
