@@ -17,6 +17,7 @@ import { PreviewScoreComponent } from '../previewScore/previewScore.component';
 import { ChangeTagComponent } from '../../modules//change-tag/change-tag.component';
 import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
 import { config } from './../../config/config';
+import { ChangeRoundComponent } from '../change-round/change-round.component';
 
 
 @Component({
@@ -458,23 +459,32 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
         })
     }
     changeRound() {
-        // this.dialogRef = this.dialog.open(ChangeTagComponent, {
-        //     height: '40%',
-        //     width: '40%'
-        // });
-        // this.dialogRef.componentInstance.tagIdArray = this.selectedEmail['tag_id'];
-        // this.dialogRef.componentInstance.id = this.selectedEmail['_id']
-        // this.dialogRef.afterClosed().subscribe(result => {
-        //     if (result) {
-        //         this.selectedEmail['tag_id'] = [result];
-        //         this.selectedEmail['default_tag'] = '';
-        //         this.currentTag = this.commonService.getTagTitle(this.selectedEmail).tagTitle;
-        //         if (this._localStorageService.getItem('close')) {
-        //             this.close();
-        //         }
-        //     }
-        //     this.dialogRef = null;
-        // })
+        this.dialogRef = this.dialog.open(ChangeRoundComponent, {
+            height: '40%',
+            width: '40%'
+        });
+        this.dialogRef.componentInstance.selectedEmail = this.selectedEmail;
+        this.dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.body = {
+                    'tag_id': result,
+                    'mongo_id': this.selectedEmail['_id']
+                };
+                this.tagUpdate.assignTag(this.body).subscribe((data) => {
+                    this.snackBar.open('Round Changed Successfully', '', {
+                        duration: 2000,
+                    });
+                    this.commonService.inboxRefreshEvent();
+                    this.broadcast_send('updateInbox');
+                    if (this._localStorageService.getItem('close')) {
+                        this.close();
+                    }
+                }, (err) => {
+                    console.log(err);
+                });
+            }
+            this.dialogRef = null;
+        })
     }
     callDetails() {
         this.dialogRef = this.dialog.open(SetCallLogsComponent, {
