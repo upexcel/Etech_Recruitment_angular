@@ -123,7 +123,8 @@ mat-expansion-panel-header{
     padding: 0 10px;
   }
   .bodyInner2{
-    padding: 10px;
+    padding: 0px;
+    padding-top: 25px
   }
   .pad0{
     padding: 0px;
@@ -220,4 +221,22 @@ mat-accordion .empty{
 }
 .button-b1 {
   width: 49%;
+}
+.error{
+  color: red;
+  text-align: center;
+}
+.heading p{
+  text-align: justify;
+}
+.difficulty span.level{
+    position: absolute;
+    right: 0px;
+    top: 4px;
+    font-size: 10px;
+    color: WHITE;
+    background: green;
+    font-weight: 700;
+    padding: 0px 5px 0px 5px;
+    border-radius: 13px;
 }

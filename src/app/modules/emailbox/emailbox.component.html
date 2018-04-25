@@ -10,7 +10,8 @@
     <h6 class="inline">
       <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span>
       <span class="badge" *ngIf="email && isSearching && email['tagTitle']" >{{email['tagTitle']}}</span>
-      <mat-icon *ngIf="email.is_attachment" class="attach">attach_file</mat-icon> {{email.updatedAt|date:'medium'}} <span *ngIf="email.updatedAt" >/</span> {{email.date|date:'medium'}}
+      <mat-icon *ngIf="email.is_attachment" class="attach iconAttach">attach_file</mat-icon>
+       {{email.updatedAt | date : 'medium'}} <span *ngIf="email.updatedAt" >/</span> {{email.date |date:'medium'}}
     </h6>
     <p>{{email.sender_mail}} - From {{email.from}}, Source:
       <span *ngIf="email.source">{{email.source}}</span>
@@ -23,14 +24,29 @@
   </div>
   <div *ngIf="email && email.candidate_star && email.candidate_star.length"  class="mark__email starred" (click)="markStarred(email.sender_mail)">
   </div>
-  <div class="spam-archive" *ngIf="email['tagTitle'] == allTagTitle" >
-    <div class="markSpam" (click)="moveToSpam(email)">Spam</div>
-    <div class="markArchive" (click)="moveToArchive(email)">Archive</div>
+  <div class="spam-archive">
+    <div class="inlineBlock markSpam"  *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToSpam(email)">Spam</div>
+    <div class="inlineBlock markArchive" *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToArchive(email)">Archive</div>
+    <p class="inlineBlock markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
+      <i class="material-icons unreadIcon">drafts</i>
+    </p>
+    <p class="inlineBlock markunread" matTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()">
+      <i class="material-icons unreadIcon">markunread</i>
+    </p>
+    <p class="inlineBlock noteView" *ngIf="email.notes.length>0" matTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
+      <i class="material-icons noteicon">note</i>
+    </p>
+    <p class="inlineBlock call" [matTooltip]="callStatus" (click)="callDetails(email)" *ngIf="email.default_tag != ''">
+      <i class="material-icons phone" [ngClass]="color">phone_android</i>
+    </p>
   </div>
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
-    <mat-select placeholder="Interviewee" *ngIf="tagselected" class="assign-interviewee" [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
+    <div class="assign-interviewee">
+    <mat-select placeholder="Interviewee" *ngIf="tagselected"  [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
       <mat-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</mat-option>
     </mat-select>
+    </div>
+
     <div class="default-tag-buttons row" *ngIf="tagAssigned">
       <span *ngFor="let tag of tagAssigned; trackBy: allTagsDefaultTrack;">
         <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id == null && tag.active_status != false" id="{{tag.title}}"
@@ -40,18 +56,7 @@
         </button>
       </div>
     </span>
-    <p class="col-md-2 col-sm-2 col-xs-6 markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
-        <i class="material-icons unreadIcon">drafts</i>
-      </p>
-      <p class="col-md-2 col-sm-2 col-xs-6 markunread" matTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()">
-        <i class="material-icons unreadIcon">markunread</i>
-      </p>
-      <p class="col-md-2 col-sm-2 col-xs-6 noteView" *ngIf="email.notes.length>0" matTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
-        <i class="material-icons noteicon">note</i>
-      </p>
-      <p class="col-md-2 col-sm-2 col-xs-6 call" [matTooltip]="callStatus" (click)="callDetails(email)" *ngIf="email.default_tag != ''">
-        <i class="material-icons phone" [ngClass]="color">phone_android</i>
-      </p>
+
     </div>
     <!-- <div class="default-tag-buttons row" *ngIf="!tagselected">
       <span *ngFor="let tag of inboxMailsTagsForEmailListAndModel.data; trackBy: inboxMailsTagsForEmailListAndModelDataTrack;">

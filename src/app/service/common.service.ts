@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import { LocalStorageService } from './local-storage.service';
 import * as moment from 'moment';
 import { DatePipe } from '@angular/common';
+import { promise } from 'protractor';
 
 @Injectable()
 export class CommonService {
@@ -264,10 +265,10 @@ export class CommonService {
         if (currentYear.toString() === emailYear) {
             dateFilterString = 'MMM d, h:mm a';
         }
-        email['date'] = this.datePipe.transform(email['date'], dateFilterString);
-        if (email['updatedAt']) {
-            email['updatedAt'] = this.datePipe.transform(email['updatedAt'], dateFilterString);
-        }
+        // email['date'] = this.datePipe.transform(email['date'], dateFilterString);
+        // if (email['updatedAt']) {
+        //     email['updatedAt'] = this.datePipe.transform(email['updatedAt'], dateFilterString);
+        // }
         if (email['tag_id'] && email['tag_id'].length === 0) {
             email['tagTitle'] = config['allTagTitle'];
         } else {
@@ -356,14 +357,17 @@ export class CommonService {
         return callToolTips[`${data['callingStatus']}`] + ' ' + `${date} at ${time}`;
     }
 
-    jobProfile(tags,jobProfile) {
-        jobProfile = [jobProfile[0]];
+    jobProfile(tags, jobProfile) {
+        let jobTag = [];
+        if (jobProfile[0]) {
+            jobTag = [jobProfile[0]];
+        }
         _.forEach(tags['data'][0]['data'], (value, key) => {
-            if(value.id != null && value.id !=0 && value.active_status == true) {
-                jobProfile.push({ title: value.title, tag_id: value.id });
+            if (value.id != null && value.id !=0 && value.active_status == true) {
+                jobTag.push({ title: value.title, tag_id: value.id });
             }
         });
-        return jobProfile;
+        return jobTag;
     }
     sortByJobProfileStatus(tags) {
         let tagStatus;
@@ -384,9 +388,44 @@ export class CommonService {
                 } else{
                      tagValue['data'] = tagStatus['false']
                 }
-                
+
             }
         });
         return tags;
+    }
+    checkedItem(questionType, questions, selectedData) {
+        if (questionType === 'Objective') {
+            _.forEach(questions, (group, groupKey) => {
+                _.forEach(group.questions, (ques, key) => {
+                    _.forEach(selectedData, (data, keySelected) => {
+                        if (data._id === ques._id) {
+                            ques.selected = true;
+                            group.selected = true;
+                        }
+                    })
+                })
+            })
+        } else {
+            _.forEach(questions, (ques, key) => {
+                _.forEach(selectedData, (data, keySelected) => {
+                    if (data._id === ques._id) {
+                        ques.selected = true;
+                    }
+                })
+            })
+        }
+        return questions
+    }
+    getAllTag() {
+        return new Promise((resolve, reolve) => {
+            const data = JSON.parse(localStorage.getItem('allTags')).data;
+            if (data.length > 0) {
+                _.forEach(data, (value, key) => {
+                    if (value['title'] === 'candidate') {
+                        resolve (value.data);
+                    }
+                })
+            }
+        })
     }
 }

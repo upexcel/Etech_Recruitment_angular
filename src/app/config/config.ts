@@ -68,22 +68,29 @@ export const config = {
     callStatus:"Call Status",
     createJobProfile: [{title: 'Template will be valid across all Job Profile', tag_id:0}],
     showJobProfile: [{title: 'For All Job Profiles', tag_id:0}],
+<<<<<<< HEAD
     fileTypes: ["application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/msword","application/pdf"],
+=======
+    testType : [{'type': 'Objective'}, {'type': 'Subjective'}]
+>>>>>>> 99b9d699824ed93a2da6d899c500973538b19576
 
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
 export const instructions = [
-    "The test consists of 3 sections <b>Aptitude, English, Logical.</b> There is a time limit of <b>1 hr.</b>",
-    "Press “Finish & Submit” only after you have completed all 3 sections.",
-    "Do not <b>close/refresh</b> the test at all in between, if you do you will might have to start your test paper from scratch.",
-    "Test is given best in landscape mode. So change your mobile display to landscape mode.",
-    "Do not open any other tabs in your browser, if you open a new tab it will get recorded."
-    ];
-export const callToolTips ={
-    'missed':  "Didn't Pickup",
-    'error':   "Call Not Connected",
-    'success': "Talked To Candidate on ",
-    'again':   "Call Again Later"
+    'The test consists of multiple sections, make sure to complete all sections.',
+    'There is time limit of the test. A time counter will start as soon as the test gets started and test will automatically be submitted when the time limit is reached.',
+    'Do not close the test all in between, if you do you will have to start from scratch.',
+    'Test is given best in landscape mode. So change your mobile display to landscape.',
+    'Do not open any other tabs in your browser, if you open a new tab it will get recorded.'
+];
+export const callToolTips = {
+    'missed':  'Didn\'t Pickup',
+    'error':   'Call Not Connected',
+    'success': 'Talked To Candidate on ',
+    'again':   'Call Again Later'
 }
-export const pageSet = ["5", "10", "20", "30", "50"]
+export const pageSet = ['5', '10', '20', '30', '50']
 export const displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action']
+export const limitTime = [{ 'time': 30 }, { 'time': 60 }, { 'time': 90 }, { 'time': 120 }, { 'time': 180 }, { 'time': 240 }]
+export const inputBox = [{ option: '', opt_id: 1 }, { option: '', opt_id: 2 }]
+export const testTableHeader = ['testName', 'job_profileName', 'testRound', 'timeForExam', 'Preview', 'edit', 'delete']

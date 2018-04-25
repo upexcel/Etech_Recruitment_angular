@@ -1,0 +1,57 @@
+<div class="main" id="create-ques">
+    <mat-card>
+    <mat-card-title class="cardsub">
+       Test Sets
+    </mat-card-title>
+    <mat-card-content>
+          <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.length">
+            <ng-container matColumnDef="testName">
+              <mat-header-cell *matHeaderCellDef> Test Name </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.testName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="job_profileName">
+              <mat-header-cell *matHeaderCellDef>Job Profile </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.job_profileName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="testRound">
+              <mat-header-cell *matHeaderCellDef> Round </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.testRound}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="timeForExam">
+              <mat-header-cell *matHeaderCellDef> Time limit </mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.timeForExam}} Minute</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="Preview">
+              <mat-header-cell *matHeaderCellDef> Preview </mat-header-cell>
+              <mat-cell *matCellDef="let element"><button mat-raised-button color=accent (click)="getSingleTest(element._id)">View Test</button></mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <mat-header-cell *matHeaderCellDef> Edit & Update </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+                <button mat-icon-button color=accent matTooltip="click to edit!" (click)="editTest(element)">
+                  <i class="material-icons">mode_edit</i>
+                </button>
+              </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+              <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+              <mat-cell *matCellDef="let element">
+              <button mat-icon-button color=warn matTooltip="click to delete!" (click)="deleteTest(element._id, element.interviewId)"><i class="material-icons">delete</i></button>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <h4 *ngIf="dataSource.length==0" class="empty-test">Test Not Available</h4>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div id="addTag" class="pos-add">
+  <button mat-fab (click)="createTest()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+

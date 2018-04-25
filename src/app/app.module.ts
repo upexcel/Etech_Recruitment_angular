@@ -55,6 +55,7 @@ import {
 import {
     ImapMailsService
 } from './service/imapemails.service';
+        //
 import {
     LoginService
 } from './service/login.service';
@@ -189,7 +190,6 @@ import { InterviewQuestionComponent } from './modules/interviewQuestion/intervie
 import { PreviewScoreComponent } from './modules/previewScore/previewScore.component';
 import { VerifyCandidateComponent } from './modules/verifyCandidate/verifyCandidate.component';
 import { CandidateScoreComponent } from './modules/candidateScore/candidateScore.component';
-import { OtpdialogComponent} from './modules/otpdialog/otpdialog.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { PendingCandidateComponent } from './modules/pendingCandidate/pendingCandidate.component';
 import { RemoveMailsDialogComponent } from './modules/remove-mails-dialog/remove-mails-dialog.component';
@@ -200,7 +200,11 @@ import { ArchiveMailComponent } from './modules/archive-mail/archive-mail.compon
 import { SetCallLogsComponent } from './modules/set-call-logs/set-call-logs.component';
 import { OtppageComponent } from './modules/otppage/otppage.component';
 import { TokenExpireComponent } from './modules/token-expire/token-expire.component';
+import { TestSetsComponent } from './modules/test-sets/test-sets.component';
+import { CreateTestSetComponent } from './modules/create-test-set/create-test-set.component';
 import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-logs.component';
+import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-paper.component';
+import { ChangeRoundComponent } from './modules/change-round/change-round.component';
 
 @NgModule({
     declarations: [
@@ -268,7 +272,6 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         InterviewQuestionComponent,
         VerifyCandidateComponent,
         CandidateScoreComponent,
-        OtpdialogComponent,
         WalkinCandidateComponent,
         PreviewScoreComponent,
         PendingCandidateComponent,
@@ -280,7 +283,11 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         SetCallLogsComponent,
         OtppageComponent,
         TokenExpireComponent,
-        RemoveOldLogsComponent
+        RemoveOldLogsComponent,
+        TestSetsComponent,
+        CreateTestSetComponent,
+        ViewTestPaperComponent,
+        ChangeRoundComponent
     ],
     imports: [
         BrowserModule,
@@ -359,7 +366,6 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         AddNewSpamContactComponent,
         ViewNoteComponent,
         AddQuestionDialogComponent,
-        OtpdialogComponent,
         WalkinCandidateComponent,
         PreviewScoreComponent,
         RemoveMailsDialogComponent,
@@ -367,7 +373,10 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
         ArchiveMailComponent,
         SetCallLogsComponent,
         TokenExpireComponent,
-        RemoveOldLogsComponent
+        CreateTestSetComponent,
+        RemoveOldLogsComponent,
+        ViewTestPaperComponent,
+        ChangeRoundComponent
     ],
     bootstrap: [AppComponent]
 })

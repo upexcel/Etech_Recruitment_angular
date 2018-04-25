@@ -35,7 +35,11 @@ ul,li{
   padding: 0px !important;
   display: inline;
 }
-
+.pad10{
+    padding-bottom: 10px;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
 .padleft15{
   padding-left: 15px;
 }
@@ -85,4 +89,20 @@ pre{
 .answer {
   font-size: 12px;
   color: #5a5a5a;
+}
+mat-expansion-panel {
+  margin-top: 5px;
+}
+.delete i, .edit i{
+  font-size: 19px;
+}
+span.level{
+  right: 0px;
+  top: 4px;
+  font-size: 10px;
+  color: WHITE;
+  background: green;
+  font-weight: 700;
+  padding: 3px 4px 3px 4px;
+  border-radius: 13px;
 }

@@ -27,14 +27,14 @@ export class ChangeTagComponent implements OnInit {
     ngOnInit() {
         this.showloading = false;
         _.forEach(this.tags['Automatic'], (value, key) => {
-            if (value.id != null && value.id !== 0) {
+            if (value.id != null && value.id !== 0 && value.active_status==true) {
                 this.jobProfile.push({ title: value.title });
             }
         })
         this.tagIdArray = _.uniq(this.tagIdArray);
         _.forEach(this.tagIdArray, (value1, key) => {
             _.forEach(this.tags['Automatic'], (value2, key1) => {
-                if (value1 === value2.id) {
+                if (value1 == value2.id) {
                     this.tagIdTitle.push(value2.title);
                 }
             })
@@ -61,13 +61,13 @@ export class ChangeTagComponent implements OnInit {
             'mongo_id': id
         };
         this.showloading = true;   
-        this.dialogRef.close('done');
         this.imapMailsService.assignTag(this.selected).subscribe((data) => {
-           this.showloading = false;
-                this.snackBar.open('Moved Successfully', '', {
-                    duration: 2000,
-                })
-                this.broadcast_send(); 
+            this.showloading = false;
+            this.snackBar.open('Moved Successfully', '', {
+                duration: 2000,
+            })
+            this.dialogRef.close(tag_id);
+                this.broadcast_send();
         }, (err) => {
             console.log(err);
         });

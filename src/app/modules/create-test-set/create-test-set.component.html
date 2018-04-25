@@ -1,0 +1,84 @@
+<div class="bodyTestSet">
+    <mat-card-title class="cardsub">
+      <p>
+        <span *ngIf="!updateData">Create Test Set</span>
+        <span *ngIf="updateData">Edit/Update Test Set</span>
+        <button mat-raised-button class="closeBtn" (click)="close()" mat-mini-fab>
+          <mat-icon class="icon">close</mat-icon>
+        </button>
+      </p>
+    </mat-card-title>
+    <hr class="linespace">
+  <div *ngIf="loading" class="loader">
+    <mat-progress-spinner [diameter]="40" color=accent  mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+  <form *ngIf="!loading" id="testSetForm" autoComplete="off" #testSetForm="ngForm">
+
+    <mat-card-subtitle class="error" *ngIf="showmessage">{{message}}</mat-card-subtitle>
+    <mat-card-content>
+      <div class="row">
+            <div id="Test Name" class="col-md-6 col-sm-12">
+              <mat-form-field class="width-100">
+                <input matInput name="testName" id="testName" placeholder="Test Name" required [(ngModel)]="testName" autoComplete="off">
+                <mat-error>
+                  Test Name is required
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-6 col-sm-12 timeLimit">
+              <mat-select class="width-100" id="testLimit" placeholder="Select Time Limit" name="testLimit" required [(ngModel)]="testLimit">
+                <mat-option *ngFor="let tag of limit" [value]="tag.time">
+                  {{tag.time}} Min
+                </mat-option>
+              </mat-select>
+            </div>
+          <div class="col-md-12 col-sm-12 pad0">
+            <div class="col-md-6 col-sm-12 timeLimit">
+              <mat-select class="width-100" id="testLimit" placeholder="Select Job Profile" name="jobProfileId" required [(ngModel)]="jobProfile">
+                <mat-option *ngFor="let job of job_profile" [value]="job.id">
+                  {{job.title}}
+                </mat-option>
+              </mat-select>
+            </div>
+            <div class="col-md-6 col-sm-12 type" >
+              <mat-select class="width-100" id="testLimit" placeholder="Select Round" name="roundId" required [(ngModel)]="roundId">
+                <mat-option *ngFor="let default_tag of round" [value]="default_tag.id">
+                  {{default_tag.title}}
+                </mat-option>
+              </mat-select>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 pad10" >
+          <div class="col-md-12 col-sm-12 pad10 border">
+            <h5 style="border-bottom: 1px solid #eaeaea">Set Group Limit</h5>
+            <div *ngFor="let tag of testGroup">
+                <div class="form-group">
+                  <label class="control-label col-sm-7" for="tel">{{tag.exam_subject}}:</label>
+                  <div class="col-sm-5">
+                    <input class="form-control" name="{{tag.exam_subject}}" id="{{tag.exam_subject}}" (keypress)="disableText($event)" type="tel" placeholder="Set Limit"
+                    required [(ngModel)]="tag.limit" autoComplete="off">
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-sm-12 pad10">
+          <mat-slide-toggle [checked]="randomQuestions"  name="random_question" [(ngModel)]="randomQuestions">Random Questions</mat-slide-toggle>
+        </div>
+        <div class="col-md-12 col-sm-12 pad10">
+          <mat-form-field class="width100">
+          <textarea matInput name="instructions" id="instructions" placeholder="Set Instructions" required [(ngModel)]="instructions"
+            autoComplete="off"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="col-sm-12 mar10">
+          <button class="btnSave" mat-raised-button color=primary [disabled]="testSetForm.invalid" (click)="createQues(testSetForm)"> Save <span *ngIf="updateData">& Update</span> </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </form>
+</div>

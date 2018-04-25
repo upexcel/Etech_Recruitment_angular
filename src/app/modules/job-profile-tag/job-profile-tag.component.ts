@@ -64,7 +64,7 @@ export class JobProfileTagComponent implements OnInit {
             if (res === 'yes') {
                 this.getTags.deleteTag(id, type).subscribe((data) => {
                     this.getAllTag();
-                    this.refreshAllTags();                    
+                    this.refreshAllTags();
                 }, (err) => {
                     console.log(err);
                 });
@@ -79,8 +79,8 @@ export class JobProfileTagComponent implements OnInit {
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
-            if (result === 'updated') {
-                this.snackBar.open('Tag Updated Successfully', '', {
+            if (result) {
+                this.snackBar.open(`Tag ${result} Successfully`, '', {
                     duration: 2000,
                 });
                 this.dialogRef = null;
@@ -135,7 +135,7 @@ export class JobProfileTagComponent implements OnInit {
     tagsAutomaticTrack(index, data) {
         return data['id'] || index;
     }
-    
+
     refreshAllTags() {
         this.getTags.getAllTagsMain()
         .subscribe((res) => {

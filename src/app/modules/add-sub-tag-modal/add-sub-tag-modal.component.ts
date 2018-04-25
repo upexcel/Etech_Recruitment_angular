@@ -21,6 +21,7 @@ export class AddSubTagModalComponent implements OnInit {
     availableColors = color_list;
     parentid: string;
     emailPattern = EMAIL_REGEX;
+    genderName:string;
     constructor(public dialogRef: MatDialogRef<any>, private tagUpdate: ImapMailsService) { }
 
     ngOnInit() {

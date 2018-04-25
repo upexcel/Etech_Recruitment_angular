@@ -378,7 +378,6 @@ export class ImapMailsService {
         return this.Intercepted.put(environment['apibase'] + `email/mailAttachment/${id}`)
         .retryWhen(error => {
             return error.flatMap((error1: any) => {
-                console.log('error1',error1)
                 if (error1.status === 400) {
                     return Observable.of(error1.status).delay(2000)
                 }
@@ -987,9 +986,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    getQuesAdmin(job_profile: any): Observable<any> {
+    getQuesAdmin(): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `exams/getQuestionsForAdmin/${job_profile}`)
+        return this.Intercepted.get(environment['apibase'] + `exams/getAllQuestions`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();
@@ -1000,9 +999,9 @@ export class ImapMailsService {
               return Observable.throw(error.json() || 'Server error');
           });
     }
-    getQues(job_profile: any): Observable<any> {
+    getQues(fb_id: any): Observable<any> {
         this.increaseAPiCount();
-        return this.http.get(environment['apibase'] + `exams/getAllQuestions/${job_profile}`)
+        return this.http.get(environment['apibase'] + `exams/getQuestinsForCandidate/${fb_id}`)
           .map((res: Response) => {
               this.decreaseAPiCount();
               return res.json();
@@ -1262,9 +1261,9 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    setCallStatus(param,body): Observable<any> {
+    setCallStatus(param, body): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.put(environment['apibase'] + `email/candidate/${param}`,body)
+        return this.Intercepted.put(environment['apibase'] + `email/candidate/${param}`, body)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
@@ -1315,10 +1314,87 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-
+    createTestSet(data: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/addTestPapers`, data)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    updateTestSet(data: any): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + `exams/updateTestPapers`, data)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
     removeOldlogs(body): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.delete(environment['apibase'] + `user/deleteLogs/${body['userId']}/${body['start']}/${body['end']}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getAllTestPaper(): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `exams/getTestPapers`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getTestPaperById(id): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `exams/getOneTestPaper/${id}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    deleteTestPaper(body): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `exams/deleteTestPapers`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    deleteGroup(groupId): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.delete(environment['apibase'] + `exams/deleteExamSubjects/${groupId}`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
