@@ -58,3 +58,14 @@ mat-card {
   color: rgba(0, 0, 0, 0.38);
   box-shadow: none;
 }
+.form {
+	position: relative;
+}
+.spin {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.resume {
+	display: block;
+}

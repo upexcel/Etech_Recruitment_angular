@@ -31,6 +31,10 @@
                         <input matInput type="tel" (keypress)="disableText($event)" maxlength="10" required placeholder="Mobile Number" autoComplete="off" name="mobile_no" ngModel>
                         <mat-error>Invalid Mobile Number</mat-error>
                     </mat-form-field>
+                    <label for="resume" class="resume">
+                        Resume:
+                    </label>
+                    <input type="file" id="resume" (change)="uploadFile($event)" />
                 </p>
             </div>
         </div>
