@@ -15,9 +15,9 @@ export class AddCandidateComponent implements OnInit {
     emailParenttitle: string;
     emailChildTitle: string;
     diabledOnclick: boolean;
+    loading: boolean;    
     formdata = new FormData();
-    validTypes = config.fileTypes;
-    errorFileType:boolean = false;
+
     constructor(public setvardialog: MatDialog, public dialogRef: MatDialogRef<any>, private apiService: ImapMailsService, public snackBar: MatSnackBar) {
         this.diabledOnclick = false;
     }
@@ -37,35 +37,35 @@ export class AddCandidateComponent implements OnInit {
                 }
             }
             form.value['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no']
-            this.formdata.append('default_tag',form.value.default_tag);
-            this.formdata.append('from',form.value.from);
-            this.formdata.append('mobile_no',form.value.mobile_no);
-            this.formdata.append('sender_mail',form.value.sender_mail);
-            this.formdata.append('source',form.value.source);
-            this.formdata.append('subject',form.value.subject);
-            this.formdata.append('tag_id',form.value.tag_id);
+            this.formdata.append('default_tag', form.value.default_tag);
+            this.formdata.append('from', form.value.from);
+            this.formdata.append('mobile_no', form.value.mobile_no);
+            this.formdata.append('sender_mail', form.value.sender_mail);
+            this.formdata.append('source', form.value.source);
+            this.formdata.append('subject', form.value.subject);
+            this.formdata.append('tag_id', form.value.tag_id);
+            this.loading = true;
             this.apiService.addNewCandidate(this.formdata).subscribe((res) => {
+                this.loading = false;
                 this.dialogRef.close();
                 this.snackBar.open('Candidate Added', '', {
                     duration: 2000,
                 });
             }, (err) => {
                 this.diabledOnclick = false;
-                console.log(err)
+                this.loading = false;                
+                console.log(err);
+                this.snackBar.open('Try Again!!', '', {
+                    duration: 2000,
+                });
             })
         }
     }
     uploadFile(event) {
-        if(event.target.files[0]) {
-        if(this.validTypes.indexOf(event.target.files[0].type)!=-1){
+        if (event.target.files[0]) {
             let resume = event.target.files[0];
-            this.formdata.append('resume',resume);
-            this.errorFileType = false;
+            this.formdata.append('file', resume);
         }
-        else {
-            this.errorFileType = true;
-        }
-    }
     }
 
     close() {

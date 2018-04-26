@@ -43,12 +43,6 @@ export class InterceptedHttp extends Http {
             options.headers = new Headers();
         }
         let subString = "addNewCandidate";
-        if(url.includes(subString)) {
-            options.headers.append('Content-Type', 'multipart/form-data');
-        } else {
-            options.headers.append('Content-Type', 'application/json');
-        }
-
         return options;
     }
 
