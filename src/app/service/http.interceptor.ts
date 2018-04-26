@@ -42,7 +42,6 @@ export class InterceptedHttp extends Http {
         if (options.headers == null) {
             options.headers = new Headers();
         }
-        let subString = "addNewCandidate";
         return options;
     }
 
