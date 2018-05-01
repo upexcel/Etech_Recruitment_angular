@@ -65,7 +65,7 @@ export class CommonService {
         let interviewRoundsDisableIndex = -1;
         _.forEach(interviewRounds, (value, key) => {
             value['id'] = dataForInterviewScheduleRound[key]['id'];
-            if (dataForInterviewScheduleRound[key]['id'] === tagselected) {
+            if (dataForInterviewScheduleRound[key]['id'] == tagselected) {
                 interviewRoundsDisableIndex = key;
             }
         });
@@ -89,7 +89,7 @@ export class CommonService {
             });
         } else {
             _.forEach(interviewRounds, (value, key) => {
-                if (key === 0) {
+                if (key == 0) {
                     value['disable'] = false;
                 } else {
                     value['disable'] = true;
