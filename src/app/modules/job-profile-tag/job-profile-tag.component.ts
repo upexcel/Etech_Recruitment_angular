@@ -75,7 +75,7 @@ export class JobProfileTagComponent implements OnInit {
     }
 
     openAutomatic(tag1: any) {
-        this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {});
+        this.dialogRef = this.dialog.open(AutomaticTagModalComponent, {panelClass: 'scrollable'});
         this.dialogRef.componentInstance.tag = tag1;
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.afterClosed().subscribe(result => {
@@ -90,7 +90,7 @@ export class JobProfileTagComponent implements OnInit {
     }
 
     addTag() {
-        this.dialogRef = this.dialog.open(AddTagModalComponent, {});
+        this.dialogRef = this.dialog.open(AddTagModalComponent, {panelClass: 'scrollable'});
         this.dialogRef.componentInstance.tempList = this.tempList;
         this.dialogRef.componentInstance.addTagType = 'jobProfile';
         this.dialogRef.afterClosed().subscribe(result => {

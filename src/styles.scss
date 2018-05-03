@@ -321,3 +321,7 @@ html::-webkit-scrollbar-thumb {
 app-useractivitylog .mat-list-item-content {
   background: #fff;
 }
+
+.scrollable {
+  overflow-y: auto !important;
+}
