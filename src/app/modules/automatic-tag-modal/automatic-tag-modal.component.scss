@@ -6,7 +6,9 @@
 	}
 }
 .chip-list {
-	width: 100%;
+  width: 100%;
+  height: 100px;
+	overflow-y: scroll;
 }
 .padd24{
   padding: 24px;
