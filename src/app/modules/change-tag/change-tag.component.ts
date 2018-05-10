@@ -27,7 +27,7 @@ export class ChangeTagComponent implements OnInit {
     ngOnInit() {
         this.showloading = false;
         _.forEach(this.tags['Automatic'], (value, key) => {
-            if (value.id != null && value.id !== 0 && value.active_status==true) {
+            if (value.id != null && value.id !== 0) {
                 this.jobProfile.push({ title: value.title });
             }
         })
