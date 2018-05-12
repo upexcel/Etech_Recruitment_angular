@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar } from '@angular/
 import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { config } from './../../config/config';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-add-candidate-temp',
@@ -62,9 +63,14 @@ export class AddCandidateComponent implements OnInit {
         }
     }
     uploadFile(event) {
-        if (event.target.files[0]) {
-            let resume = event.target.files[0];
-            this.formdata.append('file', resume);
+        if(event.target.files) {
+            let resume = event.target.files;
+            let fileNames: any = [];
+            _.forEach(resume, (value,i)=>{
+                fileNames.push(`file${i+1}`);
+                this.formdata.append(`file${i+1}`,resume[i]);
+            })
+            this.formdata.append('fileNames',JSON.stringify(fileNames));
         }
     }
 

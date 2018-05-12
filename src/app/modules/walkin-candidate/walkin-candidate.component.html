@@ -34,7 +34,7 @@
                     <label for="resume" class="resume">
                         Resume:
                     </label>
-                    <input type="file" id="resume" (change)="uploadFile($event)" />
+                    <input type="file" id="resume" (change)="uploadFile($event)" multiple [disabled]="loading"/>
                 </p>
             </div>
         </div>
