@@ -4,6 +4,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { config } from './../../config/config';
 import { Router } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-walkin-candidate-temp',
@@ -53,10 +54,10 @@ export class WalkinCandidateComponent implements OnInit {
         if(event.target.files) {
             let resume = event.target.files;
             let fileNames: any = [];
-            for(let i = 1; i <= resume.length; i++ ) {
-                fileNames.push(`file${i}`);
-                this.formdata.append(`file${i}`,resume[i-1]);
-            }
+            _.forEach(resume, (value,i)=>{
+                fileNames.push(`file${i+1}`);
+                this.formdata.append(`file${i+1}`,resume[i]);
+            })
             this.formdata.append('fileNames',JSON.stringify(fileNames));
         }
     }
