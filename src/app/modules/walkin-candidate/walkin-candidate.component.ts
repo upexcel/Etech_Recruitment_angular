@@ -50,9 +50,14 @@ export class WalkinCandidateComponent implements OnInit {
     }
 
     uploadFile(event) {
-        if(event.target.files[0]) {
-            let resume = event.target.files[0];
-            this.formdata.append('file',resume);
+        if(event.target.files) {
+            let resume = event.target.files;
+            let fileNames: any = [];
+            for(let i = 1; i <= resume.length; i++ ) {
+                fileNames.push(`file${i}`);
+                this.formdata.append(`file${i}`,resume[i-1]);
+            }
+            this.formdata.append('fileNames',JSON.stringify(fileNames));
         }
     }
 
