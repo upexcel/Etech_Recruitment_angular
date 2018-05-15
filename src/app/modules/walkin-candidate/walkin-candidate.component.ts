@@ -20,8 +20,8 @@ export class WalkinCandidateComponent implements OnInit {
         this.walkinData = JSON.parse(localStorage.getItem('walkinUser'))
     }
 
-    ngOnInit() {}
- 
+    ngOnInit() { }
+
     save(form: NgForm) {
         if (form.valid) {
             this.loading = true;
@@ -29,11 +29,11 @@ export class WalkinCandidateComponent implements OnInit {
             localStorage.setItem('user', form.value.from);
             data['sender_mail'] = this.walkinData.email;
             data['mobile_no'] = config.mobileNoPrefix + form.value['mobile_no'];
-            this.formdata.append('from',data.from);
-            this.formdata.append('gender',data.gender);
-            this.formdata.append('mobile_no',data.mobile_no);
-            this.formdata.append('sender_mail',data.sender_mail);
-            this.formdata.append('source',data.source);
+            this.formdata.append('from', data.from);
+            this.formdata.append('gender', data.gender);
+            this.formdata.append('mobile_no', data.mobile_no);
+            this.formdata.append('sender_mail', data.sender_mail);
+            this.formdata.append('source', data.source);
 
             this.apiService.addWalkinCandidate(this.formdata).subscribe((res) => {
                 this.loading = false;
@@ -51,18 +51,28 @@ export class WalkinCandidateComponent implements OnInit {
     }
 
     uploadFile(event) {
-        if(event.target.files) {
-            let resume = event.target.files;
-            let fileNames: any = [];
-            _.forEach(resume, (value,i)=>{
-                fileNames.push(`file${i+1}`);
-                this.formdata.append(`file${i+1}`,resume[i]);
+        if (event.target.files) {
+            const resume = event.target.files;
+            const fileNames: any = [];
+            const newformData = this.formdata;
+            _.forEach(resume, (value, i) => {
+                fileNames.push(`file${i + 1}`);
+                const a = new ImageCompressor(resume[i], {
+                    quality: .6,
+                    success(result) {
+                        newformData.append(`file${i + 1}`, result);
+                    },
+                    error(e) {
+                        console.log(e.message);
+                    },
+                });
             })
-            this.formdata.append('fileNames',JSON.stringify(fileNames));
+            this.formdata = newformData;
+            this.formdata.append('fileNames', JSON.stringify(fileNames));
         }
     }
 
-    disableText (event) {
+    disableText(event) {
         return event.charCode >= 48 && event.charCode <= 57;
     }
 }
