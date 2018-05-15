@@ -122,6 +122,7 @@ export class InboxComponent implements OnInit, OnDestroy {
         window.addEventListener('storage', (ev) => {
             if (ev.key === 'updateInbox') {
                 this.updateInbox(ev.newValue);
+                this.getAllTag();
             }
             if (ev.key === 'tagReassigned') {
                 this.tagReassigned(ev.newValue);

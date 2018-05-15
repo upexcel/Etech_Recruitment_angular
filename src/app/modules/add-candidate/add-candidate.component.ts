@@ -4,6 +4,7 @@ import { ImapMailsService } from '../../service/imapemails.service';
 import { NgForm } from '@angular/forms';
 import { config } from './../../config/config';
 import * as _ from 'lodash';
+import ImageCompressor from 'image-compressor.js';
 
 @Component({
     selector: 'app-add-candidate-temp',
@@ -16,7 +17,7 @@ export class AddCandidateComponent implements OnInit {
     emailParenttitle: string;
     emailChildTitle: string;
     diabledOnclick: boolean;
-    loading: boolean;    
+    loading: boolean;
     formdata = new FormData();
 
     constructor(public setvardialog: MatDialog, public dialogRef: MatDialogRef<any>, private apiService: ImapMailsService, public snackBar: MatSnackBar) {
@@ -54,7 +55,7 @@ export class AddCandidateComponent implements OnInit {
                 });
             }, (err) => {
                 this.diabledOnclick = false;
-                this.loading = false;                
+                this.loading = false;
                 console.log(err);
                 this.snackBar.open('Try Again!!', '', {
                     duration: 2000,
@@ -63,14 +64,24 @@ export class AddCandidateComponent implements OnInit {
         }
     }
     uploadFile(event) {
-        if(event.target.files) {
-            let resume = event.target.files;
-            let fileNames: any = [];
-            _.forEach(resume, (value,i)=>{
-                fileNames.push(`file${i+1}`);
-                this.formdata.append(`file${i+1}`,resume[i]);
+        if (event.target.files) {
+            const resume = event.target.files;
+            const fileNames: any = [];
+            const newformData = this.formdata;
+            _.forEach(resume, (value, i) => {
+                fileNames.push(`file${i + 1}`);
+                const a = new ImageCompressor(resume[i], {
+                    quality: .6,
+                    success(result) {
+                        newformData.append(`file${i + 1}`, result);
+                    },
+                    error(e) {
+                        console.log(e.message);
+                    },
+                });
             })
-            this.formdata.append('fileNames',JSON.stringify(fileNames));
+            this.formdata = newformData;
+            this.formdata.append('fileNames', JSON.stringify(fileNames));
         }
     }
 
