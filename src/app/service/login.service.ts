@@ -56,7 +56,7 @@ export class LoginService {
     }
 
     candidate_login(body: any): Observable < any > {
-        return this.http.post(environment['apibase'] + 'exam/signup_login_fb', body, this.options)
+        return this.http.post(environment['apibase'] + 'exams/signup_login_fb', body, this.options)
           .map((res: Response) => res.json())
           .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
