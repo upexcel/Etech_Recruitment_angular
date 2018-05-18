@@ -70,15 +70,19 @@ export class AddCandidateComponent implements OnInit {
             const newformData = this.formdata;
             _.forEach(resume, (value, i) => {
                 fileNames.push(`file${i + 1}`);
-                const a = new ImageCompressor(resume[i], {
-                    quality: .6,
-                    success(result) {
-                        newformData.append(`file${i + 1}`, result);
-                    },
-                    error(e) {
-                        console.log(e.message);
-                    },
-                });
+                if ((resume[i].type).includes('image')) {
+                    const a = new ImageCompressor(resume[i], {
+                        quality: .6,
+                        success(result) {
+                            newformData.append(`file${i + 1}`, result);
+                        },
+                        error(e) {
+                            console.log(e.message);
+                        },
+                    });
+                } else {
+                    newformData.append(`file${i + 1}`, resume[i]);
+                }
             })
             this.formdata = newformData;
             this.formdata.append('fileNames', JSON.stringify(fileNames));
