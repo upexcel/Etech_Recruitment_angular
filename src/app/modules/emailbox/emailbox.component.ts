@@ -63,7 +63,7 @@ export class EmailboxComponent implements OnInit {
             this.isRoundsTag = true;
         }
         if (this.email.callingStatus) {
-            const data = {'callingStatus': this.email.callingStatus};
+            const data = { 'callingStatus': this.email.callingStatus };
             this.color = this.email.callingStatus;
             if (this.email.callSuccessTime) {
                 data['callSuccessTime'] = this.email.callSuccessTime;
@@ -261,7 +261,43 @@ export class EmailboxComponent implements OnInit {
         if (this.email._id == data.id) {
             this.color = data.callingStatus;
             this.email['callingStatus'] = this.color;
-            this.callTip({'callingStatus': data.callingStatus, 'callSuccessTime': data.callSuccessTime});
+            this.callTip({ 'callingStatus': data.callingStatus, 'callSuccessTime': data.callSuccessTime });
         }
+    }
+
+    generateTestLink(email) {
+        this.assignEmail.generateTestLink(email['_id']).subscribe((response) => {
+            const url = `${window.location.origin}/#/candidate/interviewques/${response.data}`;
+            this.assignEmail.getBitlyURL(url).subscribe((res) => {
+                console.log(res)
+                if (res['status_code'] === 200) {
+                    this.openSnackBarForExamUrl(res['data']['url']);
+                } else {
+                    this.openSnackBarForExamUrl(url);
+                }
+            }, (err) => {
+                console.log(err)
+                this.openSnackBarForExamUrl(url);
+            })
+        }, (err) => {
+            console.log(err);
+        })
+    }
+
+    openSnackBarForExamUrl(url) {
+        const snackBarRef = this._snackBar.open(url, 'Copy', {
+            duration: 20000
+        });
+        snackBarRef.onAction().subscribe(() => {
+            const inp = document.createElement('input');
+            document.body.appendChild(inp)
+            inp.value = url;
+            inp.select();
+            document.execCommand('copy', false);
+            inp.remove();
+            this._snackBar.open(`Copied`, '', {
+                duration: 1000
+            });
+        });
     }
 }

@@ -30,6 +30,9 @@
     <p class="inlineBlock markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
       <i class="material-icons unreadIcon">drafts</i>
     </p>
+    <p class="inlineBlock markunread" matTooltip="Generate Test Link" (click)="generateTestLink(email)">
+      <i class="material-icons unreadIcon">insert_link</i>
+    </p>
     <p class="inlineBlock markunread" matTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()">
       <i class="material-icons unreadIcon">markunread</i>
     </p>

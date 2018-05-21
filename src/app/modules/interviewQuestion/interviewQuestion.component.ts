@@ -49,6 +49,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     subjective: boolean;
     totalQuestion = 0;
     timeForExam: any;
+    examUserEmail: string;
+    examUserName: string;
+    examUserRound: string;
+    examUserTestName: string;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -56,21 +60,25 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     //     }
     // }
     constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private _apiService: ImapMailsService, private _router: Router, private _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    }
+    ngOnInit() {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
-        if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id) {
-            this._router.navigate(['/emailtestlogin']);
-        }
         if (localStorage.getItem('thank') === 'true') {
             this.thankyou = true;
         }
+        if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id) {
+            this.verifyUserId();
+        } else {
+            this.startExam();
+            this.examUserName = localStorage.getItem('user');
+            this.examUserEmail = localStorage.getItem('email');
+            this.examUserRound = localStorage.getItem('round');
+            this.examUserTestName = localStorage.getItem('testName');
+        }
+
     }
-    ngOnInit() {
-        // if (!!this._localStorageService.getItem('QuestionsWithUserAnswers')) {
-        //     this.selectedJob = localStorage.getItem('_idjob');
-        //     this.hide = false;
-        // } else {
-        //     this.getJobProfile();
-        // }
+
+    startExam() {
         this.start(this.user_id);
         if (localStorage.getItem('sessionStart') && localStorage.getItem('maxtime') !== 'null') {
             this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
@@ -85,48 +93,39 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.instructions = this._localStorageService.getItem('instructions');
         }
     }
+
+    verifyUserId() {
+        this._apiService.getCandidateDetails(this.user_id).subscribe((res) => {
+            console.log(res)
+            if (!res.status) {
+                this._router.navigate(['/emailtestlogin']);
+            } else {
+                localStorage.setItem('token', 'true');
+                localStorage.setItem('role', JSON.stringify('Candidate'));
+                localStorage.setItem('user', res.data.from);
+                this.examUserName = res.data.from;
+                this.examUserEmail = res.data.sender_mail;
+                localStorage.setItem('email', res.data.sender_mail);
+                this.examUserRound = res.data.round;
+                localStorage.setItem('round', res.data.round);
+                this.examUserTestName = res.data.testName;
+                localStorage.setItem('testName', res.data.testName);
+                localStorage.setItem('user_id', res.data.fb_id);
+                localStorage.setItem('img', res.data.profile_pic);
+                localStorage.setItem('start', JSON.stringify(new Date()));
+                this.startExam();
+            }
+        }, (err) => {
+            console.log(err)
+            this._router.navigate(['/emailtestlogin']);
+            this._mdSnackBar.open(err.message, '', {
+                duration: 5000,
+            });
+        })
+    }
     ngOnDestroy() {
         clearInterval(this.interval);
     }
-
-    // getJobProfile() {
-    //     this._apiService.jobprofile({ 'fb_id': this.user_id }).subscribe(res => {
-    //       console.log(res);
-
-    //         if (res.status === 0) {
-    //             this.loading = false;
-    //             this.notag = true;
-    //             this.contactHR = res.message;
-    //         } else {
-    //             if (res.length === 1) {
-    //                 this.selectedJob = res[0].id;
-    //                 localStorage.setItem('_idjob', this.selectedJob);
-    //                 this.hide = false;
-    //                 this.start(this.user_id);
-    //             } else {
-    //                 this.loading = false;
-    //                 this.notag = false;
-    //                 this.hide = true;
-    //                 this.job_pro = res;
-    //             }
-    //         }
-    //     }, err => { });
-    // }
-
-    // selected(job_id) {
-    //     this.selectedJob = job_id;
-    //     localStorage.setItem('_idjob', job_id);
-    // }
-
-    // getQues() {
-    //     if (this.selectedJob) {
-    //         this.start(this.user_id);
-    //     } else {
-    //         this._mdSnackBar.open('Please select Job profile', '', {
-    //             duration: 2000,
-    //         });
-    //     }
-    // }
 
     start(id: any) {
         this.selectedAnswer = [];
@@ -249,22 +248,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             })
             this._localStorageService.setItem('QuestionsWithUserAnswers', localQuestionsWithUserAnswers);
         }, 100)
-        // this.temp = { 'Q_id': quesId, 'ans_id': ansId };
-        // if (this.selectedAnswer.length > 0 && this.filterdata(quesId)) {
-        //     this.selectedAnswer.push(this.temp);
-        // } else {
-        //     this.selectedAnswer.push(this.temp);
-        // }
     }
-
-    // filterdata(quesId) {
-    //     _.forEach(this.selectedAnswer, (val, key) => {
-    //         if (val.Q_id === quesId) {
-    //             this.selectedAnswer.splice(key, 1);
-    //             return false;
-    //         }
-    //     });
-    // }
 
     savePreview() {
         if (this.selectedAnswer.length > 0) {
@@ -342,12 +326,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.instructionsRead = true;
         this.maxtime = this.timeForExam * 60000;
         localStorage.setItem('sessionStart', 'true');
-        // this._localStorageService.setItem('instructions', this.instructionsRead);
-
     }
     onHelp() {
         this.disabled = true;
-        this._apiService.helpMe({'fb_id': this.user_id, }).subscribe(res => {
+        this._apiService.helpMe({ 'fb_id': this.user_id, }).subscribe(res => {
             if (res.status === 1) {
                 this.disabled = false;
                 this._mdSnackBar.open('Please Wait! We have sent a message to HR.', '', {
