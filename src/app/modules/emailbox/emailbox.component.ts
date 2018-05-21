@@ -267,22 +267,37 @@ export class EmailboxComponent implements OnInit {
 
     generateTestLink(email) {
         this.assignEmail.generateTestLink(email['_id']).subscribe((response) => {
-            const snackBarRef = this._snackBar.open(`${window.location.origin}/#/candidate/interviewques/${response.data}`, 'Copy', {
-                duration: 20000
-            });
-            snackBarRef.onAction().subscribe(() => {
-                const inp = document.createElement('input');
-                document.body.appendChild(inp)
-                inp.value = `${window.location.origin}/#/candidate/interviewques/${response.data}`;
-                inp.select();
-                document.execCommand('copy', false);
-                inp.remove();
-                this._snackBar.open(`Copied`, '', {
-                    duration: 1000
-                });
-            });
+            const url = `${window.location.origin}/#/candidate/interviewques/${response.data}`;
+            this.assignEmail.getBitlyURL(url).subscribe((res) => {
+                console.log(res)
+                if (res['status_code'] === 200) {
+                    this.openSnackBarForExamUrl(res['data']['url']);
+                } else {
+                    this.openSnackBarForExamUrl(url);
+                }
+            }, (err) => {
+                console.log(err)
+                this.openSnackBarForExamUrl(url);
+            })
         }, (err) => {
             console.log(err);
         })
+    }
+
+    openSnackBarForExamUrl(url) {
+        const snackBarRef = this._snackBar.open(url, 'Copy', {
+            duration: 20000
+        });
+        snackBarRef.onAction().subscribe(() => {
+            const inp = document.createElement('input');
+            document.body.appendChild(inp)
+            inp.value = url;
+            inp.select();
+            document.execCommand('copy', false);
+            inp.remove();
+            this._snackBar.open(`Copied`, '', {
+                duration: 1000
+            });
+        });
     }
 }

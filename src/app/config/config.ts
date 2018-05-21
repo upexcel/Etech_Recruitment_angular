@@ -5,8 +5,8 @@ export const config = {
     'testMaxtime': 3600000,
     'timeGrace': 300000,
     'refreshTime': 30000,
-    'titles': { '/core/dashboa': 'Dashboard', '/core/setting': 'Settings', '/core/inbox': 'Inbox', '/core/inbox/e': 'Inbox', '/core/email-t': 'Email Tracking', '/core/intervi': 'Inbox'},
-    'roles': { 'HR': ['/core/setting/emailtemplate', '/core/setting/createQuestion', '/core/setting/pendingCandidate', '/core/setting/candidateScore', '/core/setting/emailvariable', '/core/setting/tagsetting', '/core/setting/automaticTags', '/core/setting/jobProfileTags', '/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Guest': ['/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Interviewee': ['/core/interviewee-inbox', '/core/setting/resetPassword', '/core/dashboard']},
+    'titles': { '/core/dashboa': 'Dashboard', '/core/setting': 'Settings', '/core/inbox': 'Inbox', '/core/inbox/e': 'Inbox', '/core/email-t': 'Email Tracking', '/core/intervi': 'Inbox' },
+    'roles': { 'HR': ['/core/setting/emailtemplate', '/core/setting/createQuestion', '/core/setting/pendingCandidate', '/core/setting/candidateScore', '/core/setting/emailvariable', '/core/setting/tagsetting', '/core/setting/automaticTags', '/core/setting/jobProfileTags', '/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Guest': ['/core/inbox', '/core/setting/resetPassword', '/core/dashboard'], 'Interviewee': ['/core/interviewee-inbox', '/core/setting/resetPassword', '/core/dashboard'] },
     'dashboardChartColor': [
         { // grey
             backgroundColor: 'rgba(148,159,177,0.2)',
@@ -65,10 +65,10 @@ export const config = {
     avatarUrl: 'https://pikmail.herokuapp.com',
     emailLimit: 20,
     allTagTitle: 'Mails/Attachment',
-    callStatus:"Call Status",
-    createJobProfile: [{title: 'Template will be valid across all Job Profile', tag_id:0}],
-    showJobProfile: [{title: 'For All Job Profiles', tag_id:0}],
-    testType : [{'type': 'Objective'}, {'type': 'Subjective'}]
+    callStatus: "Call Status",
+    createJobProfile: [{ title: 'Template will be valid across all Job Profile', tag_id: 0 }],
+    showJobProfile: [{ title: 'For All Job Profiles', tag_id: 0 }],
+    testType: [{ 'type': 'Objective' }, { 'type': 'Subjective' }]
 
 }
 export const color_list = ['#cb891b', '#ef2e46', '#ff5722', '#ba21d3', '#f3b08c', '#f0793d', '#eb7303', '#db62e9', '#ffeb3b', '#3882b8'];
@@ -80,13 +80,19 @@ export const instructions = [
     'Do not open any other tabs in your browser, if you open a new tab it will get recorded.'
 ];
 export const callToolTips = {
-    'missed':  'Didn\'t Pickup',
-    'error':   'Call Not Connected',
+    'missed': 'Didn\'t Pickup',
+    'error': 'Call Not Connected',
     'success': 'Talked To Candidate on ',
-    'again':   'Call Again Later'
+    'again': 'Call Again Later'
 }
 export const pageSet = ['5', '10', '20', '30', '50']
 export const displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action']
 export const limitTime = [{ 'time': 30 }, { 'time': 60 }, { 'time': 90 }, { 'time': 120 }, { 'time': 180 }, { 'time': 240 }]
 export const inputBox = [{ option: '', opt_id: 1 }, { option: '', opt_id: 2 }]
 export const testTableHeader = ['testName', 'job_profileName', 'testRound', 'timeForExam', 'Preview', 'edit', 'delete']
+export const bitlySetup = {
+    'apiKey': 'R_8fb82b427799aa1a5082a0baa4c1ddca',
+    'login': 'o_6so222ci9c',
+    'host': 'http://api.bit.ly/v3/shorten'
+}
+// bitly is created from manisharies.iitg@gmail.com google login

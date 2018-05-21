@@ -7,11 +7,23 @@
   </div>
   <div *ngIf="!hide && !thankyou && !loading && !subjective" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
     <div class="margin-bottom">
+      <p>Email:
+        <b>{{examUserEmail}}</b>, Name:
+        <b>{{examUserName}}</b>
+        <span *ngIf="examUserRound">, Round:
+          <b>{{examUserRound}}</b>
+        </span>
+        <span *ngIf="examUserTestName">, Test :
+          <b>{{examUserTestName}}</b>
+        </span>
+      </p>
       <h4>Test Questions </h4>
       <p class="col-md-6 col-sm-6 col-xs-12 pad0">
         <span class="left style">Remaining time:
           <span class="timer" *ngIf="maxtime >= 0 && !timeExp"> {{timer}} </span>
-          <span class="timer" *ngIf="maxtime >= 0 && timeExp"> Time Expires in <span class="blink">{{timerMin}}</span></span>
+          <span class="timer" *ngIf="maxtime >= 0 && timeExp"> Time Expires in
+            <span class="blink">{{timerMin}}</span>
+          </span>
         </span>
       </p>
       <p class="col-md-4 col-sm-4 col-xs-8 pad0">
@@ -25,7 +37,8 @@
       <h4 *ngIf="testNotAvailable" class="empty">You are assigned to Job Profile "Mails/Attachment" for which there is no test configured. Please ask HR to assign you
         the proper job profile.
       </h4>
-      <mat-expansion-panel *ngFor="let group of questions;let i = index" [expanded]="questions.length==1" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
+      <mat-expansion-panel *ngFor="let group of questions;let i = index" [expanded]="questions.length==1" (opened)="panelOpenState = true; scroll()"
+        (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{group.group_name}}
@@ -74,7 +87,8 @@
       <h4 *ngIf="testNotAvailable" class="empty">You are assigned to Job Profile "Mails/Attachment" for which there is no test configured. Please ask HR to assign you
         the proper job profile.
       </h4>
-      <mat-expansion-panel *ngFor="let group of questions;let i = index" [expanded]="questions.length==1" (opened)="panelOpenState = true; scroll()" (closed)="panelOpenState = false">
+      <mat-expansion-panel *ngFor="let group of questions;let i = index" [expanded]="questions.length==1" (opened)="panelOpenState = true; scroll()"
+        (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{group.group_name}}
@@ -104,6 +118,16 @@
 </div>
 
 <div *ngIf="!instructionsRead" class="well">
+  <p>Email:
+    <b>{{examUserEmail}}</b>, Name:
+    <b>{{examUserName}}</b>
+    <span *ngIf="examUserRound">, Round:
+      <b>{{examUserRound}}</b>
+    </span>
+    <span *ngIf="examUserTestName">, Test :
+      <b>{{examUserTestName}}</b>
+    </span>
+  </p>
   <div class="heading">Instructions</div>
   <p [innerHTML]="instructions"></p>
   <button mat-raised-button color=primary class="btn-block" (click)="onRead()">Continue</button>

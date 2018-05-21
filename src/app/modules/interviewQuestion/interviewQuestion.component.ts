@@ -49,6 +49,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     subjective: boolean;
     totalQuestion = 0;
     timeForExam: any;
+    examUserEmail: string;
+    examUserName: string;
+    examUserRound: string;
+    examUserTestName: string;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -66,6 +70,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             this.verifyUserId();
         } else {
             this.startExam();
+            this.examUserName = localStorage.getItem('user');
+            this.examUserEmail = localStorage.getItem('email');
+            this.examUserRound = localStorage.getItem('round');
+            this.examUserTestName = localStorage.getItem('testName');
         }
 
     }
@@ -95,6 +103,13 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 localStorage.setItem('token', 'true');
                 localStorage.setItem('role', JSON.stringify('Candidate'));
                 localStorage.setItem('user', res.data.from);
+                this.examUserName = res.data.from;
+                this.examUserEmail = res.data.sender_mail;
+                localStorage.setItem('email', res.data.sender_mail);
+                this.examUserRound = res.data.round;
+                localStorage.setItem('round', res.data.round);
+                this.examUserTestName = res.data.testName;
+                localStorage.setItem('testName', res.data.testName);
                 localStorage.setItem('user_id', res.data.fb_id);
                 localStorage.setItem('img', res.data.profile_pic);
                 localStorage.setItem('start', JSON.stringify(new Date()));

@@ -1,12 +1,13 @@
-import {Injectable, EventEmitter, Output} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import {environment} from '../../environments/environment';
+import { Injectable, EventEmitter, Output } from '@angular/core';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {historylog, Emaillist, SystemVar} from './mock-data';
-import {InterceptedHttp} from './http.interceptor';
-import {Subject} from 'rxjs/Subject';
+import { historylog, Emaillist, SystemVar } from './mock-data';
+import { InterceptedHttp } from './http.interceptor';
+import { Subject } from 'rxjs/Subject';
+import { bitlySetup } from '../config/config';
 
 
 @Injectable()
@@ -376,16 +377,16 @@ export class ImapMailsService {
     emailAttachment(id: string): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.put(environment['apibase'] + `email/mailAttachment/${id}`)
-        .retryWhen(error => {
-            return error.flatMap((error1: any) => {
-                if (error1.status === 400) {
-                    return Observable.of(error1.status).delay(2000)
-                }
-                return Observable.throw({error: 'No retry'});
+            .retryWhen(error => {
+                return error.flatMap((error1: any) => {
+                    if (error1.status === 400) {
+                        return Observable.of(error1.status).delay(2000)
+                    }
+                    return Observable.throw({ error: 'No retry' });
+                })
+                    .take(20)
+                    .concat(Observable.throw({ error: 'Sorry, there was an error (after 5 retries)' }));
             })
-               .take(20)
-               .concat(Observable.throw({error: 'Sorry, there was an error (after 5 retries)'}));
-        })
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
@@ -989,80 +990,80 @@ export class ImapMailsService {
     getQuesAdmin(): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `exams/getAllQuestions`)
-          .map((res: Response) => {
-              this.decreaseAPiCount();
-              return res.json();
-          })
-          .catch((error: any) => {
-              this.count = 0;
-              this.apiEndEvent.emit();
-              return Observable.throw(error.json() || 'Server error');
-          });
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
     }
     getQues(fb_id: any): Observable<any> {
         this.increaseAPiCount();
         return this.http.get(environment['apibase'] + `exams/getQuestinsForCandidate/${fb_id}`)
-          .map((res: Response) => {
-              this.decreaseAPiCount();
-              return res.json();
-          })
-          .catch((error: any) => {
-              this.count = 0;
-              this.apiEndEvent.emit();
-              return Observable.throw(error.json() || 'Server error');
-          });
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
     }
     getQuesByid(quesId: any): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `exams/getQuestionById/${quesId}`)
-          .map((res: Response) => {
-              this.decreaseAPiCount();
-              return res.json();
-          })
-          .catch((error: any) => {
-              this.count = 0;
-              this.apiEndEvent.emit();
-              return Observable.throw(error.json() || 'Server error');
-          });
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
     }
     deleteQueByid(quesId: any): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(environment['apibase'] + `exams/deleteQuestion/${quesId}`)
-          .map((res: Response) => {
-              this.decreaseAPiCount();
-              return res.json();
-          })
-          .catch((error: any) => {
-              this.count = 0;
-              this.apiEndEvent.emit();
-              return Observable.throw(error.json() || 'Server error');
-          });
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
     }
     jobprofile(body: any): Observable<any> {
         this.increaseAPiCount();
         return this.http.post(environment['apibase'] + `exams/job_profile`, body)
-          .map((res: Response) => {
-              this.decreaseAPiCount();
-              return res.json();
-          })
-          .catch((error: any) => {
-              this.count = 0;
-              this.apiEndEvent.emit();
-              return Observable.throw(error.json() || 'Server error');
-          });
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
     }
     submitTest(data): Observable<any> {
         this.increaseAPiCount();
         return this.http.post(environment['apibase'] + `exams/submitExam`, data)
-          .map((res: Response) => {
-              this.decreaseAPiCount();
-              return res.json();
-          })
-          .catch((error: any) => {
-              this.count = 0;
-              this.apiEndEvent.emit();
-              return Observable.throw(error.json() || 'Server error');
-          });
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
     }
     score(data: any, body: any): Observable<any> {
         this.increaseAPiCount();
@@ -1434,6 +1435,19 @@ export class ImapMailsService {
     deleteGroup(groupId): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.delete(environment['apibase'] + `exams/deleteExamSubjects/${groupId}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    getBitlyURL(url): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(`${bitlySetup.host}?login=${bitlySetup.login}&apiKey=${bitlySetup.apiKey}&longUrl=${url}&format=json`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
