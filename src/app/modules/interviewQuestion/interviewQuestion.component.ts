@@ -81,6 +81,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     startExam() {
         this.start(this.user_id);
         if (localStorage.getItem('sessionStart') && localStorage.getItem('maxtime') !== 'null') {
+            this.instructionsRead = true;
             this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
             this.hide = false;
             this.job_profile = localStorage.getItem('job_profile');
@@ -203,7 +204,9 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     timerstart() {
         this.interval = setInterval(() => {
             this.maxtime = this.maxtime - 1000;
-            localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
+            if (this.maxtime) {
+                localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
+            }
             const hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
