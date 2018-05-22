@@ -268,7 +268,7 @@ export class EmailboxComponent implements OnInit {
     generateTestLink(email) {
         this.assignEmail.generateTestLink(email['_id']).subscribe((response) => {
             const url = `${window.location.origin}/#/candidate/interviewques/${response.data}`;
-            this.assignEmail.getBitlyURL(url).subscribe((res) => {
+            this.assignEmail.getBitlyURL(escape(url)).subscribe((res) => {
                 console.log(res)
                 if (res['status_code'] === 200) {
                     this.openSnackBarForExamUrl(res['data']['url']);

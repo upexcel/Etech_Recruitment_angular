@@ -106,10 +106,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                 this.examUserName = res.data.from;
                 this.examUserEmail = res.data.sender_mail;
                 localStorage.setItem('email', res.data.sender_mail);
-                this.examUserRound = res.data.round;
-                localStorage.setItem('round', res.data.round);
-                this.examUserTestName = res.data.testName;
-                localStorage.setItem('testName', res.data.testName);
                 localStorage.setItem('user_id', res.data.fb_id);
                 localStorage.setItem('img', res.data.profile_pic);
                 localStorage.setItem('start', JSON.stringify(new Date()));
@@ -153,6 +149,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         } else {
 
             this._apiService.getQues(id).subscribe(res => {
+                this.examUserRound = res.round;
+                localStorage.setItem('round', res.round);
+                this.examUserTestName = res.testName;
+                localStorage.setItem('testName', res.testName);
                 this.loading = false;
                 if (res.data.length > 0) {
                     this._localStorageService.setItem('QuestionsWithUserAnswers', res);

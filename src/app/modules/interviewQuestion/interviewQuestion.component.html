@@ -7,7 +7,7 @@
   </div>
   <div *ngIf="!hide && !thankyou && !loading && !subjective" class="col-xs-12 col-md-12 col-sm-12 bodyInner">
     <div class="margin-bottom">
-      <p>Email:
+      <p *ngIf="examUserName" >Email:
         <b>{{examUserEmail}}</b>, Name:
         <b>{{examUserName}}</b>
         <span *ngIf="examUserRound">, Round:
@@ -118,7 +118,7 @@
 </div>
 
 <div *ngIf="!instructionsRead" class="well">
-  <p>Email:
+  <p *ngIf="examUserName">Email:
     <b>{{examUserEmail}}</b>, Name:
     <b>{{examUserName}}</b>
     <span *ngIf="examUserRound">, Round:
