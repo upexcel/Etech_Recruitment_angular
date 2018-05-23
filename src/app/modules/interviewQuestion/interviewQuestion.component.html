@@ -130,7 +130,7 @@
   </p>
   <div class="heading">Instructions</div>
   <p [innerHTML]="instructions"></p>
-  <button mat-raised-button color=primary class="btn-block" (click)="onRead()">Continue</button>
+  <button mat-raised-button color=primary class="btn-block" [disabled]="instructionContinueButton" (click)="onRead()">Continue</button>
 </div>
 
 <div *ngIf="isSubmit && !thankyou">

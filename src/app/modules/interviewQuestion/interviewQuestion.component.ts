@@ -53,6 +53,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     examUserName: string;
     examUserRound: string;
     examUserTestName: string;
+    instructionContinueButton = false;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -96,8 +97,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
 
     verifyUserId() {
+        this.instructionContinueButton = true;
         this._apiService.getCandidateDetails(this.user_id).subscribe((res) => {
             console.log(res)
+            this.instructionContinueButton = false;
             if (!res.status) {
                 this._router.navigate(['/emailtestlogin']);
             } else {
