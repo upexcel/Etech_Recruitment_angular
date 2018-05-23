@@ -164,6 +164,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.showMessage = false;
                     this.questions = res.data;
                     this.timeForExam = res.timeForExam;
+                    this.maxtime = this.timeForExam * 60000;
                     this.job_profile = res.job_profile;
                     if (res.instructions) {
                         this.instructions = res.instructions.replace(new RegExp("\n", "g"), "<br>");
@@ -206,31 +207,33 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
     timerstart() {
         this.interval = setInterval(() => {
-            this.maxtime = this.maxtime - 1000;
-            if (this.maxtime) {
-                localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
-            }
-            const hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
+            if (localStorage.getItem('sessionStart') === 'true') {
+                this.maxtime = this.maxtime - 1000;
+                if (this.maxtime) {
+                    localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
+                }
+                const hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
 
-            this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
-            this.timerMin = minutes + ' min ' + seconds + ' sec ';
-            if (this.maxtime === 0) {
-                if (!localStorage.getItem('limitExpire')) {
-                    this._mdSnackBar.open('You time for taking the exam is over, Please submit all your questions in next 2minutes" and if in next 2mintues questions are not submitted. it will automatically submit', 'OK', {
-                    });
-                    this.maxtime = config.timeGrace;
-                    this.timeExp = true;
-                    localStorage.setItem('limitExpire', 'true');
-                } else {
-                    clearInterval(this.interval);
-                    localStorage.removeItem('maxtime');
-                    this.thankyou = true;
-                    if (!this.subjective) {
-                        this.submit();
+                this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
+                this.timerMin = minutes + ' min ' + seconds + ' sec ';
+                if (this.maxtime === 0) {
+                    if (!localStorage.getItem('limitExpire')) {
+                        this._mdSnackBar.open('You time for taking the exam is over, Please submit all your questions in next 2minutes" and if in next 2mintues questions are not submitted. it will automatically submit', 'OK', {
+                        });
+                        this.maxtime = config.timeGrace;
+                        this.timeExp = true;
+                        localStorage.setItem('limitExpire', 'true');
                     } else {
-                        this.fblogout();
+                        clearInterval(this.interval);
+                        localStorage.removeItem('maxtime');
+                        this.thankyou = true;
+                        if (!this.subjective) {
+                            this.submit();
+                        } else {
+                            this.fblogout();
+                        }
                     }
                 }
             }
@@ -321,7 +324,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         }, err => {
             this.thankyou = false;
             this.isSubmitted = false;
-            this._mdSnackBar.open('Error Occured Please Try Again!' , '', {
+            this._mdSnackBar.open('Error Occured Please Try Again!', '', {
                 duration: 2000
             });
         });
