@@ -36,7 +36,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     interval: any;
     contactHR: any;
     loading = true;
-    isSubmitted = true;
+    isSubmitted = false;
     instructionsRead = false;
     instructions: String;
     disabled: boolean;
@@ -53,6 +53,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     examUserName: string;
     examUserRound: string;
     examUserTestName: string;
+    instructionContinueButton = false;
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
@@ -81,6 +82,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     startExam() {
         this.start(this.user_id);
         if (localStorage.getItem('sessionStart') && localStorage.getItem('maxtime') !== 'null') {
+            this.instructionsRead = true;
             this.maxtime = parseInt(localStorage.getItem('maxtime'), 10);
             this.hide = false;
             this.job_profile = localStorage.getItem('job_profile');
@@ -95,8 +97,10 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
 
     verifyUserId() {
+        this.instructionContinueButton = true;
         this._apiService.getCandidateDetails(this.user_id).subscribe((res) => {
             console.log(res)
+            this.instructionContinueButton = false;
             if (!res.status) {
                 this._router.navigate(['/emailtestlogin']);
             } else {
@@ -160,6 +164,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
                     this.showMessage = false;
                     this.questions = res.data;
                     this.timeForExam = res.timeForExam;
+                    this.maxtime = this.timeForExam * 60000;
                     this.job_profile = res.job_profile;
                     if (res.instructions) {
                         this.instructions = res.instructions.replace(new RegExp("\n", "g"), "<br>");
@@ -202,29 +207,33 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     }
     timerstart() {
         this.interval = setInterval(() => {
-            this.maxtime = this.maxtime - 1000;
-            localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
-            const hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
+            if (localStorage.getItem('sessionStart') === 'true') {
+                this.maxtime = this.maxtime - 1000;
+                if (this.maxtime) {
+                    localStorage.setItem('maxtime', JSON.stringify(this.maxtime));
+                }
+                const hours = Math.floor((this.maxtime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((this.maxtime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((this.maxtime % (1000 * 60)) / 1000);
 
-            this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
-            this.timerMin = minutes + ' min ' + seconds + ' sec ';
-            if (this.maxtime === 0) {
-                if (!localStorage.getItem('limitExpire')) {
-                    this._mdSnackBar.open('You time for taking the exam is over, Please submit all your questions in next 2minutes" and if in next 2mintues questions are not submitted. it will automatically submit', 'OK', {
-                    });
-                    this.maxtime = config.timeGrace;
-                    this.timeExp = true;
-                    localStorage.setItem('limitExpire', 'true');
-                } else {
-                    clearInterval(this.interval);
-                    localStorage.removeItem('maxtime');
-                    this.thankyou = true;
-                    if (!this.subjective) {
-                        this.submit();
+                this.timer = hours + 'h ' + minutes + 'm ' + seconds + 's ';
+                this.timerMin = minutes + ' min ' + seconds + ' sec ';
+                if (this.maxtime === 0) {
+                    if (!localStorage.getItem('limitExpire')) {
+                        this._mdSnackBar.open('You time for taking the exam is over, Please submit all your questions in next 2minutes" and if in next 2mintues questions are not submitted. it will automatically submit', 'OK', {
+                        });
+                        this.maxtime = config.timeGrace;
+                        this.timeExp = true;
+                        localStorage.setItem('limitExpire', 'true');
                     } else {
-                        this.fblogout();
+                        clearInterval(this.interval);
+                        localStorage.removeItem('maxtime');
+                        this.thankyou = true;
+                        if (!this.subjective) {
+                            this.submit();
+                        } else {
+                            this.fblogout();
+                        }
                     }
                 }
             }
@@ -274,7 +283,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this._dialogService.confirmSubmitTestBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
             if (res === 'yes') {
                 this.submit();
-                this.thankyou = true;
             }
         }, (err) => {
         });
@@ -305,15 +313,18 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             'questionIds': this.totalQues,
             'taken_time_minutes': totalMinutes
         }
-        this.isSubmitted = false;
+        this.isSubmitted = true;
         this._apiService.submitTest(this.allansRecord).subscribe(res => {
             clearInterval(this.interval);
+            this.thankyou = true;
+            this.isSubmitted = false;
             setTimeout(() => {
                 this.fblogout();
             }, 5000);
         }, err => {
             this.thankyou = false;
-            this._mdSnackBar.open(err.message, '', {
+            this.isSubmitted = false;
+            this._mdSnackBar.open('Error Occured Please Try Again!', '', {
                 duration: 2000
             });
         });
