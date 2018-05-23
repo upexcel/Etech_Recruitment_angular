@@ -277,7 +277,6 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this._dialogService.confirmSubmitTestBox('You cannot change response after final Submit!  Are you sure to Continue?').then((res) => {
             if (res === 'yes') {
                 this.submit();
-                this.thankyou = true;
             }
         }, (err) => {
         });
@@ -311,12 +310,13 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         this.isSubmitted = false;
         this._apiService.submitTest(this.allansRecord).subscribe(res => {
             clearInterval(this.interval);
+            this.thankyou = true;
             setTimeout(() => {
                 this.fblogout();
             }, 5000);
         }, err => {
             this.thankyou = false;
-            this._mdSnackBar.open(err.message, '', {
+            this._mdSnackBar.open('Error Occured Please Try Again' , '', {
                 duration: 2000
             });
         });
