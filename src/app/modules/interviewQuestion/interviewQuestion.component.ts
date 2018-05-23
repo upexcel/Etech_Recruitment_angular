@@ -36,7 +36,7 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     interval: any;
     contactHR: any;
     loading = true;
-    isSubmitted = true;
+    isSubmitted = false;
     instructionsRead = false;
     instructions: String;
     disabled: boolean;
@@ -307,16 +307,18 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
             'questionIds': this.totalQues,
             'taken_time_minutes': totalMinutes
         }
-        this.isSubmitted = false;
+        this.isSubmitted = true;
         this._apiService.submitTest(this.allansRecord).subscribe(res => {
             clearInterval(this.interval);
             this.thankyou = true;
+            this.isSubmitted = false;
             setTimeout(() => {
                 this.fblogout();
             }, 5000);
         }, err => {
             this.thankyou = false;
-            this._mdSnackBar.open('Error Occured Please Try Again' , '', {
+            this.isSubmitted = false;
+            this._mdSnackBar.open('Error Occured Please Try Again!' , '', {
                 duration: 2000
             });
         });

@@ -149,7 +149,7 @@
       You Haven't Attempted All The Questions.
     </div>
     <div class="buttons-b1">
-      <button mat-raised-button color=primary class="flRight button-b1" (click)="finalSubmit()">Final Submit</button>
+      <button mat-raised-button color=primary class="flRight button-b1" [disabled]="isSubmitted" (click)="finalSubmit()">Final Submit</button>
       <button mat-raised-button class="right grey button-b1" (click)="goBack()">Back</button>
     </div>
   </div>
