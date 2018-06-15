@@ -6,7 +6,7 @@ import { LoginService } from '../../service/login.service';
 import { NgForm } from '@angular/forms';
 import { environment } from '../../../environments/environment';
 import { config } from './../../config/config';
-
+import { CommonService } from '../../service/common.service';
 @Component({
     selector: 'app-candidate',
     templateUrl: './candidate.component.html',
@@ -19,9 +19,20 @@ export class CandidateComponent implements OnInit {
     candidateName: any;
     selectedJob: any;
     img: any;
-    constructor(private _localStorageService: LocalStorageService, private getTags: ImapMailsService, private access: LoginService, private _router: Router) {
+    platform = 'web';
+    constructor(
+        private _localStorageService: LocalStorageService,
+        private getTags: ImapMailsService,
+        private access: LoginService,
+        private _router: Router,
+        private _commonService: CommonService) {
         this.candidateName = localStorage.getItem('user');
-        this.img = localStorage.getItem('img');
+        this.platform = this._commonService.getOS();
+        if (this.platform === 'Android' || this.platform === 'iOS') {
+            this.img = 'assets/logo.png';
+        } else {
+            this.img = localStorage.getItem('img');
+        }
     }
     // statusChangeCallback(response: any) {
     //     if (response.status === 'connected') {

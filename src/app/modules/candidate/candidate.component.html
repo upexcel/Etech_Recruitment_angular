@@ -3,7 +3,10 @@
     <div class="row" id="toolbar">
       <mat-toolbar id="topnav" color="accent">
         <div class="overflow">
-          <span><img class="profile_img" [src]="img" onerror="this.src='assets/user.jpg'"></span>
+          <span>
+            <img class="profile_img" [src]="img" onerror="this.src='assets/user.jpg'" *ngIf="platform == 'web'">
+            <img [src]="img" onerror="this.src='assets/user.jpg'" *ngIf="platform == 'Android' || platform == 'iOS'">
+          </span>
           <span class="name">{{candidateName}}</span>
         </div>
         <div class="mainlogo">
@@ -12,14 +15,14 @@
           <p class="mainnav">Logout</p>
         </div> -->
       </mat-toolbar>
-        <div class="content">
-          <div class="row">
-            <div class="col-md-12 pad0">
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12 pad0">
 
-              <router-outlet (update) = "fblogout()"></router-outlet>
-            </div>
+            <router-outlet (update)="fblogout()"></router-outlet>
           </div>
         </div>
+      </div>
 
     </div>
   </div>

@@ -16,6 +16,19 @@
     <p>{{email.sender_mail}} - From {{email.from}}, Source:
       <span *ngIf="email.source">{{email.source}}</span>
       <span *ngIf="!email.source">IMAP</span>
+      <span *ngFor="let cvData of email.cvData" >
+        <br />
+        <span *ngIf="cvData.dob" ><b>DOB: </b>{{cvData.dob}}, </span>
+        <span *ngIf="cvData.gender" ><b>Gender: </b>{{cvData.gender}}, </span>
+        <span *ngIf="cvData.qualification"><b>Qualification: </b></span>
+        <span *ngFor="let qualification of cvData.qualification" >
+          <span> {{qualification}}, </span>
+        </span>
+        <span *ngIf="cvData.skills"><b>Skills: </b></span>        
+        <span *ngFor="let skills of cvData.skills" >
+          <span>{{skills}}, </span>
+        </span>
+      </span>
     </p>
     <p *ngIf="email.is_attachment" class="emailbody">{{email.body}}</p>
     <p *ngIf="isRoundsTag">Interview Schedule: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}</b></p>

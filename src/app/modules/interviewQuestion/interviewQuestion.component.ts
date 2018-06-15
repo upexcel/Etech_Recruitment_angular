@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { LocalStorageService } from '../../service/local-storage.service';
@@ -7,6 +7,7 @@ import { LoginService } from '../../service/login.service';
 import * as _ from 'lodash';
 import { config } from './../../config/config';
 import { DialogService } from '../../service/dialog.service';
+import { CommonService } from '../../service/common.service';
 
 @Component({
     selector: 'app-interviewques',
@@ -14,7 +15,7 @@ import { DialogService } from '../../service/dialog.service';
     styleUrls: ['./interviewQuestion.component.scss']
 })
 
-export class InterviewQuestionComponent implements OnInit, OnDestroy {
+export class InterviewQuestionComponent implements OnInit, OnDestroy, AfterViewInit {
     questions = [];
     options: any;
     job_pro: any[];
@@ -54,29 +55,53 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
     examUserRound: string;
     examUserTestName: string;
     instructionContinueButton = false;
+    isPlatform = 'web';
     // @HostListener('window:beforeunload', ['$event'])
     // onChange($event) {
     //     if (this.isSubmitted) {
     //         $event.returnValue = 'If you Reload your page, All your answers will be lost. Are you sure you want to do this?';
     //     }
     // }
-    constructor(public dialog: MatDialog, private act_route: ActivatedRoute, private _mdSnackBar: MatSnackBar, private _apiService: ImapMailsService, private _router: Router, private _localStorageService: LocalStorageService, public _dialogService: DialogService) {
+    constructor(
+        public dialog: MatDialog,
+        private act_route: ActivatedRoute,
+        private _mdSnackBar: MatSnackBar,
+        private _apiService: ImapMailsService,
+        private _router: Router,
+        private _localStorageService: LocalStorageService,
+        public _dialogService: DialogService,
+        public _commonService: CommonService) {
     }
     ngOnInit() {
         this.user_id = this.act_route.snapshot.paramMap.get('id')
-        if (localStorage.getItem('thank') === 'true') {
-            this.thankyou = true;
-        }
-        if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id) {
-            this.verifyUserId();
+        const platform = this._commonService.getOS();
+        if (platform === 'Android' || platform === 'iOS') {
+            this.isPlatform = platform;
         } else {
-            this.startExam();
-            this.examUserName = localStorage.getItem('user');
-            this.examUserEmail = localStorage.getItem('email');
-            this.examUserRound = localStorage.getItem('round');
-            this.examUserTestName = localStorage.getItem('testName');
+            if (localStorage.getItem('thank') === 'true') {
+                this.thankyou = true;
+            }
+            if (!localStorage.getItem('token') || localStorage.getItem('user_id') !== this.user_id) {
+                this.verifyUserId();
+            } else {
+                this.startExam();
+                this.examUserName = localStorage.getItem('user');
+                this.examUserEmail = localStorage.getItem('email');
+                this.examUserRound = localStorage.getItem('round');
+                this.examUserTestName = localStorage.getItem('testName');
+            }
         }
 
+    }
+    ngAfterViewInit() {
+        if (this.isPlatform === 'Android') {
+            // const element = document.getElementById('androidLink')
+            // console.log(element)
+            // element.click()
+        } else if (this.isPlatform === 'iOS') {
+            // const element = document.getElementById('iosLink')
+            // element.click()
+        }
     }
 
     startExam() {
