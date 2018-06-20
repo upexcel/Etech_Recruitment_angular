@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
-import { config,callToolTips } from './../config/config';
+import { config, callToolTips } from './../config/config';
 import { ImapMailsService } from './imapemails.service';
 import * as _ from 'lodash';
 import { LocalStorageService } from './local-storage.service';
@@ -363,7 +363,7 @@ export class CommonService {
             jobTag = [jobProfile[0]];
         }
         _.forEach(tags['data'][0]['data'], (value, key) => {
-            if (value.id != null && value.id !=0 && value.active_status == true) {
+            if (value.id != null && value.id != 0 && value.active_status == true) {
                 jobTag.push({ title: value.title, tag_id: value.id });
             }
         });
@@ -374,7 +374,7 @@ export class CommonService {
         _.forEach(tags, (tagValue, tagKey) => {
             if (tagValue['title'] === 'candidate') {
                 tagStatus = _.groupBy(tagValue['data'], 'active_status');
-                if(tagStatus['true']){
+                if (tagStatus['true']) {
                     tagValue['data'] = tagStatus['true']
                     _.forEach(tagStatus['false'], (tagData, key) => {
                         let count = 0;
@@ -385,8 +385,8 @@ export class CommonService {
                         });
                         tagValue['data'].push(tagData)
                     });
-                } else{
-                     tagValue['data'] = tagStatus['false']
+                } else {
+                    tagValue['data'] = tagStatus['false']
                 }
 
             }
@@ -422,10 +422,21 @@ export class CommonService {
             if (data.length > 0) {
                 _.forEach(data, (value, key) => {
                     if (value['title'] === 'candidate') {
-                        resolve (value.data);
+                        resolve(value.data);
                     }
                 })
             }
         })
+    }
+
+    getOS() {
+        let OSName = 'Unknown OS';
+        if (navigator.userAgent.indexOf('Win') !== -1) { OSName = 'Windows' };
+        if (navigator.userAgent.indexOf('Mac') !== -1) { OSName = 'Macintosh' };
+        if (navigator.userAgent.indexOf('Linux') !== -1) { OSName = 'Linux' };
+        if (navigator.userAgent.indexOf('Android') !== -1) { OSName = 'Android' };
+        if (navigator.userAgent.indexOf('like Mac') !== -1) { OSName = 'iOS' };
+        console.log('Your OS: ' + OSName);
+        return OSName;
     }
 }

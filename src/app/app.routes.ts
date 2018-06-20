@@ -40,6 +40,7 @@ import { ThankYouComponent } from './modules/thank-you/thank-you.component';
 import { OtppageComponent } from './modules/otppage/otppage.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { TestSetsComponent } from './modules/test-sets/test-sets.component';
+import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -212,6 +213,10 @@ export const routes: Route[] = [{
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'app-deep-link/:id',
+        component: AppDeepLinkComponent
     },
     {
         path: 'emailtestlogin',

@@ -55,7 +55,7 @@ import {
 import {
     ImapMailsService
 } from './service/imapemails.service';
-        //
+//
 import {
     LoginService
 } from './service/login.service';
@@ -205,7 +205,7 @@ import { CreateTestSetComponent } from './modules/create-test-set/create-test-se
 import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-logs.component';
 import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-paper.component';
 import { ChangeRoundComponent } from './modules/change-round/change-round.component';
-
+import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -287,7 +287,8 @@ import { ChangeRoundComponent } from './modules/change-round/change-round.compon
         TestSetsComponent,
         CreateTestSetComponent,
         ViewTestPaperComponent,
-        ChangeRoundComponent
+        ChangeRoundComponent,
+        AppDeepLinkComponent
     ],
     imports: [
         BrowserModule,
