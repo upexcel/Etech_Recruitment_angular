@@ -306,12 +306,14 @@ export class InterviewQuestionComponent implements OnInit, OnDestroy {
         const totalHours = (endTime.getHours() - startTime.getHours());
         const minutes = (endTime.getMinutes() - startTime.getMinutes());
         const totalMinutes = (totalHours * 60) + minutes;
+        const localQuestionsWithUserAnswers = this._localStorageService.getItem('QuestionsWithUserAnswers')
         this.allansRecord = {
             'job_profile': this.job_profile,
             'fb_id': this.user_id,
             'answers': this.selectedAnswer,
             'questionIds': this.totalQues,
-            'taken_time_minutes': totalMinutes
+            'taken_time_minutes': totalMinutes,
+            'roundType': localQuestionsWithUserAnswers['roundType']
         }
         this.isSubmitted = true;
         this._apiService.submitTest(this.allansRecord).subscribe(res => {

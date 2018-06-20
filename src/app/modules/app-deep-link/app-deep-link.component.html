@@ -1,0 +1,17 @@
+<div class="outerbody">
+  <div class="logo">
+    <img class="img-responsive" src="assets/logo.png">
+  </div>
+  <div class="login-card text-center">
+    <mat-card *ngIf="isPlatform != 'web'">
+      <a id="androidLink" href="https://hrrecruit.app.link/9gvVNNaqIN?%24deeplink_path={{id}}" *ngIf="isPlatform == 'Android'">
+        <img src="https://www.macitynet.it/wp-content/uploads/2017/06/google-play-store-e1497109128920.jpg" style="width: 100px;">
+        <p>Download From PlayStore</p>
+      </a>
+      <a id="iosLink" href="https://hrrecruit.app.link/9gvVNNaqIN?%24deeplink_path={{id}}" *ngIf="isPlatform == 'iOS'">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" style="width: 100px;">
+        <p>Download From App Store</p>
+      </a>
+    </mat-card>
+  </div>
+</div>
