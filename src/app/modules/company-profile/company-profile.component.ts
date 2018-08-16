@@ -41,7 +41,7 @@ export class CompanyProfileComponent implements OnInit {
 
   updateForm(formData) {
     this.companyProfileForm = this.fb.group({
-      'company_profile': formData['company_profile'];
+      'company_profile': formData['company_profile'],
     })
   }
 
