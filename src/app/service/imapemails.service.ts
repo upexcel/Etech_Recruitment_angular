@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { historylog, Emaillist, SystemVar } from './mock-data';
 import { InterceptedHttp } from './http.interceptor';
 import { Subject } from 'rxjs/Subject';
-import { bitlySetup } from '../config/config';
+import { bitlySetup, config } from '../config/config';
 
 
 @Injectable()
@@ -1461,7 +1461,7 @@ export class ImapMailsService {
 
     getCompanyProfile(): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.get(environment['apibase'] + `tag/getCompanyProfile/1`)
+        return this.Intercepted.get(environment['apibase'] + `tag/getCompanyProfile/${config.companyProfileId}`)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
