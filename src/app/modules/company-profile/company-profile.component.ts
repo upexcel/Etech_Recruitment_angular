@@ -55,7 +55,7 @@ export class CompanyProfileComponent implements OnInit {
       })
     } else {
       this.apiService.updateCompanyProfile(this.previousContent['id'], formData).subscribe((res) => {
-        this.previousContent['company_profile'] = formData['companyProfile'];
+        this.previousContent['company_profile'] = formData['company_profile'];
         this.snackbar.open('Company Profile Updated', '', {
           duration: 2000
         })
