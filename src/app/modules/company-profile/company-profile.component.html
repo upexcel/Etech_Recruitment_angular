@@ -1,0 +1,19 @@
+<div class="container">
+  <h4>Company Profile</h4>
+  <br/>
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <form *ngIf="companyProfileForm" [formGroup]="companyProfileForm" id="companyForm" (ngSubmit)="companyProfile(companyProfileForm.value)">
+        <mat-form-field class="width-100">
+          <textarea matInput row=4 formControlName="company_profile" placeholder="Company Profile" required>
+          </textarea>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5 col-sm-6">
+      <button *ngIf="companyProfileForm" mat-raised-button color="primary" form="companyForm" [disabled]="companyProfileForm.invalid || companyProfileForm.value.company_profile == previousContent.company_profile">{{previousContent ? 'Update' : 'Submit'}}</button>
+    </div>
+  </div>
+</div>

@@ -51,6 +51,21 @@
           <mat-error>Job Description Is Required</mat-error>
         </mat-form-field>
       </div>
+
+      <div id="candidateProfile" class="col-md-6 col-sm-12" *ngIf="addTagType == 'jobProfile'">
+        <mat-form-field class="width-100">
+          <textarea matInput rows="4" name="candidate_profile" type="textarea" placeholder="Candidate Profile" ngModel required></textarea>
+          <mat-error>Candidate Profile Is Required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div id="educationDetails" class="col-md-6 col-sm-12" *ngIf="addTagType == 'jobProfile'">
+        <mat-form-field class="width-100">
+          <textarea matInput rows="4" name="education_detail" type="textarea" placeholder="Education Details" ngModel required></textarea>
+          <mat-error>Education Details Is Required</mat-error>
+        </mat-form-field>
+      </div>
+
       <div class="col-md-6 col-sm-12" *ngIf="addTagType == 'jobProfile'">
         <mat-form-field class="chip-list">
           <mat-chip-list #chipList>

@@ -1458,4 +1458,46 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+
+    getCompanyProfile(): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `tag/getCompanyProfile/1`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    addCompanyProfile(apiData): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `tag/addCompanyProfile`, apiData)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    updateCompanyProfile(id, apiData): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `tag/updateCompanyProfile/${id}`, apiData)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
 }

@@ -206,6 +206,7 @@ import { RemoveOldLogsComponent } from './modules/remove-old-logs/remove-old-log
 import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-paper.component';
 import { ChangeRoundComponent } from './modules/change-round/change-round.component';
 import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.component';
+import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -288,7 +289,8 @@ import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.comp
         CreateTestSetComponent,
         ViewTestPaperComponent,
         ChangeRoundComponent,
-        AppDeepLinkComponent
+        AppDeepLinkComponent,
+        CompanyProfileComponent
     ],
     imports: [
         BrowserModule,

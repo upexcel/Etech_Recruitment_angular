@@ -41,6 +41,7 @@ import { OtppageComponent } from './modules/otppage/otppage.component';
 import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-candidate.component';
 import { TestSetsComponent } from './modules/test-sets/test-sets.component';
 import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.component';
+import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -160,6 +161,10 @@ export const routes: Route[] = [{
                 }, {
                     path: 'jobProfileTags',
                     component: JobProfileTagComponent,
+                    canActivate: [LoginRouteGuard]
+                }, {
+                    path: 'companyProfile',
+                    component: CompanyProfileComponent,
                     canActivate: [LoginRouteGuard]
                 }, {
                     path: 'resetPassword',
