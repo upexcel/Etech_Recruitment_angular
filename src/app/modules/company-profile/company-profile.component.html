@@ -12,7 +12,7 @@
   </div>
   <div class="row">
     <div class="col-md-5 col-sm-6">
-      <button *ngIf="companyProfileForm" mat-raised-button color="primary" form="companyForm" [disabled]="companyProfileForm.invalid || companyProfileForm.value.company_profile == previousContent.company_profile">{{previousContent ? 'Update' : 'Submit'}}</button>
+      <button *ngIf="companyProfileForm" mat-raised-button color="primary" form="companyForm" [disabled]="companyProfileForm.invalid || (previousContent && companyProfileForm.value.company_profile == previousContent.company_profile)">{{previousContent ? 'Update' : 'Submit'}}</button>
     </div>
   </div>
 </div>
