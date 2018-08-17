@@ -7,7 +7,7 @@ import 'rxjs/add/operator/catch';
 import { historylog, Emaillist, SystemVar } from './mock-data';
 import { InterceptedHttp } from './http.interceptor';
 import { Subject } from 'rxjs/Subject';
-import { bitlySetup } from '../config/config';
+import { bitlySetup, config } from '../config/config';
 
 
 @Injectable()
@@ -1448,6 +1448,48 @@ export class ImapMailsService {
     getBitlyURL(url): Observable<any> {
         this.increaseAPiCount();
         return this.Intercepted.get(`${bitlySetup.host}?login=${bitlySetup.login}&apiKey=${bitlySetup.apiKey}&longUrl=${url}&format=json`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    getCompanyProfile(): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.get(environment['apibase'] + `tag/getCompanyProfile/${config.companyProfileId}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    addCompanyProfile(apiData): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `tag/addCompanyProfile`, apiData)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    updateCompanyProfile(id, apiData): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + `tag/updateCompanyProfile/${id}`, apiData)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
