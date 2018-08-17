@@ -29,6 +29,8 @@ export class CompanyProfileComponent implements OnInit {
       } else {
         this.updateForm(this.previousContent);
       }
+    },(err)=>{
+      this.createForm();
     })
   }
 
