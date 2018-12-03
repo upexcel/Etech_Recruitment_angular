@@ -21,26 +21,56 @@ export class DashboardComponent implements OnInit, OnDestroy {
     jobSelection = 'byDay';
     jobApplicationReadSelection = 'byDay';
     automaticEmailReadSelection = 'byDay';
-    // dashboardIntervalSubscription: any;
     loading = false;
+
     constructor(private access: LoginService, private _router: Router, private route: ActivatedRoute, private _apiService: ImapMailsService, private _dashboardService: DashboardService) { }
 
     ngOnInit() {
         this.subscription = this.route.data.subscribe(res => this.isHome = res.isHome);
-        this.loadDashBoardData();
-        // this.dashboardIntervalSubscription = setInterval(() => {
-        //     this.loadDashBoardData();
-        // }, config.dashboardChartRefreshTime);
+        this.getAllTags();
     }
 
-    loadDashBoardData() {
+    getAllTags() {
         this.loading = true;
+        this._apiService.getAllTags()
+            .subscribe((res) => {
+                this.loadDashBoardData(res);
+            }, (err) => {
+                console.log(err);
+                this.loading = false;
+            });
+    }
+
+    loadDashBoardData(jobTags) {
+        jobTags = jobTags.filter(o => { return !o.active_status });
+        const disabledJobTags = [];
+        disabledJobTags.forEach(element => {
+            disabledJobTags.push(element.title);
+        })
         this._apiService.getDashboardData().subscribe((res) => {
+            Object.keys(res).forEach(element => { //code to remove disabled job profile.
+                res[element].forEach(e => {
+                    if (this.isDisabled(disabledJobTags, e.label)) {
+                        _.remove(res[element], e);
+                    }
+                })
+            })
             this.dashboardData = this._dashboardService.formatChartData(res);
             this.loading = false;
         }, (err) => {
+            this.loading = false;
             console.log(err)
         });
+    }
+
+    isDisabled(disabledJobTags, label) {
+        let flag = false;
+        disabledJobTags.forEach(element => {
+            if (label.includes(element)) {
+                flag = true;
+            }
+        })
+        return flag;
     }
 
     chartClicked(e) {
