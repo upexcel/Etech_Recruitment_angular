@@ -49,11 +49,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })
         this._apiService.getDashboardData().subscribe((res) => {
             Object.keys(res).forEach(element => { //code to remove disabled job profile.
-                res[element].forEach(e => {
-                    if (this.isDisabled(disabledJobTags, e.label)) {
-                        _.remove(res[element], e);
-                    }
-                })
+                if (!(element === 'read_mail_by_user' || element === 'email_stat')) {
+                    let sortedArray = _.sortBy(res[element], [function (o) { return o.label; }]) //code to fix a bug
+                    sortedArray.forEach(e => {
+                        if (this.isDisabled(disabledJobTags, e.label)) {
+                            _.remove(res[element], e);
+                        }
+                    })
+                }
             })
             this.dashboardData = this._dashboardService.formatChartData(res);
             this.loading = false;
