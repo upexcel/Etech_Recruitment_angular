@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     loadDashBoardData(jobTags) {
         jobTags = jobTags.filter(o => { return !o.active_status });
         const disabledJobTags = [];
-        disabledJobTags.forEach(element => {
+        jobTags.forEach(element => {
             disabledJobTags.push(element.title);
         })
         this._apiService.getDashboardData().subscribe((res) => {
