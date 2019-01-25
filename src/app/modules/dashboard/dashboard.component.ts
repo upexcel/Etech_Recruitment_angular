@@ -44,16 +44,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     loadDashBoardData(jobTags) {
         jobTags = jobTags.filter(o => { return !o.active_status });
         const disabledJobTags = [];
-        disabledJobTags.forEach(element => {
+        jobTags.forEach(element => {
             disabledJobTags.push(element.title);
         })
         this._apiService.getDashboardData().subscribe((res) => {
             Object.keys(res).forEach(element => { //code to remove disabled job profile.
-                res[element].forEach(e => {
-                    if (this.isDisabled(disabledJobTags, e.label)) {
-                        _.remove(res[element], e);
-                    }
-                })
+                if (!(element === 'read_mail_by_user' || element === 'email_stat')) {
+                    res[element].forEach(e => {
+                        if (this.isDisabled(disabledJobTags, e.label)) {
+                            _.remove(res[element], e);
+                        }
+                    })
+                }
+                console.log(res);
             })
             this.dashboardData = this._dashboardService.formatChartData(res);
             this.loading = false;
