@@ -41,7 +41,7 @@
           </mat-form-field>
         </div>
       </div>
-        <mat-radio-group name="gender" class="example-radio-group" [(ngModel)]="genderName">
+        <mat-radio-group name="gender" class="example-radio-group" [(ngModel)]="genderName" #genderValidator="ngModel" required>
             <mat-radio-button class="example-radio-button"  value="male">
                 Male
             </mat-radio-button>
@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-11 col-sm-11 text-right">
           <button mat-raised-button (click)="close()">Close</button>
-          <button id="save" mat-raised-button type="submit" color=primary [disabled]="titleValidator.invalid || (emailValidator.invalid && (startDateValidator.invalid || endDateValidator.invalid) && subjectValidator.invalid) || showloading" (click)="addTag(addForm)"><span>Save </span></button>
+          <button id="save" mat-raised-button type="submit" color=primary [disabled]="titleValidator.invalid || (emailValidator.invalid && (startDateValidator.invalid || endDateValidator.invalid) && subjectValidator.invalid && genderValidator.invalid) || showloading" (click)="addTag(addForm)"><span>Save </span></button>
         </div>
       </div>
     </div>
