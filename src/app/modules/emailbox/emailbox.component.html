@@ -18,13 +18,15 @@
       <span *ngIf="!email.source">IMAP</span>
     </p>
     <p *ngIf="email.is_attachment" class="emailbody">{{email.body}}</p>
-    <p *ngIf="isRoundsTag">Interview Schedule: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}</b></p>
+    <p *ngIf="isRoundsTag">Interview Schedule: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}, By: {{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p>
   </div>
   <div *ngIf="!email.candidate_star || !email.candidate_star.length"  class="mark__email not__starred" (click)="markStarred(email.sender_mail)">
   </div>
   <div *ngIf="email && email.candidate_star && email.candidate_star.length"  class="mark__email starred" (click)="markStarred(email.sender_mail)">
   </div>
   <div class="spam-archive">
+    <p class="inlineBlock info" *ngIf="email">{{email.appInstalled ? "App Installed" : "App Not Installed"}},</p>    
+    <p class="inlineBlock info" *ngIf="email && email.mobile_no">Mob: {{email.mobile_no}},</p>
     <div class="inlineBlock markSpam"  *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToSpam(email)">Spam</div>
     <div class="inlineBlock markArchive" *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToArchive(email)">Archive</div>
     <p class="inlineBlock markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
@@ -46,6 +48,7 @@
       <i class="material-icons phone" [ngClass]="color">phone_android</i>
     </p>
   </div>
+
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
     <div class="assign-interviewee">
     <mat-select placeholder="Interviewee" *ngIf="tagselected"  [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
