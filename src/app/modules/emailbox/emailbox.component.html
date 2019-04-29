@@ -26,7 +26,7 @@
   </div>
   <div class="spam-archive">
     <p class="inlineBlock info" *ngIf="email">{{email.appInstalled ? "App Installed" : "App Not Installed"}},</p>    
-    <p class="inlineBlock info" *ngIf="email && email.mobile_no">Mob: {{email.mobile_no}},</p>
+    <p class="inlineBlock info" *ngIf="email && email.mobile_no">Mob: {{email.mobile_no}}</p>
     <div class="inlineBlock markSpam"  *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToSpam(email)">Spam</div>
     <div class="inlineBlock markArchive" *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToArchive(email)">Archive</div>
     <p class="inlineBlock markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
