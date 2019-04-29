@@ -19,7 +19,6 @@
     </p>
     <p *ngIf="email.is_attachment" class="emailbody">{{email.body}}</p>
     <p *ngIf="isRoundsTag">Interview Schedule: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}, By: {{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p>
-    <!-- <p *ngIf="isRoundsTag">Interview Scheduled By: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p> -->
   </div>
   <div *ngIf="!email.candidate_star || !email.candidate_star.length"  class="mark__email not__starred" (click)="markStarred(email.sender_mail)">
   </div>
