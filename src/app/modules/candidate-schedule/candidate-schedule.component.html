@@ -1,39 +1,44 @@
-<main>
-  <figure>
-    <img src="assets/logo.png">
-  </figure>
+<main *ngIf="scheduleData && scheduleData.length">
+  <article>
+    <figure>
+      <img src="assets/logo-high-res.png">
+    </figure>
 
-  <section class="mat-elevation-z1">
-    <h3>Schedule Your Interview</h3>
+    <section class="mat-elevation-z1">
+      <h3>Schedule Your Interview</h3>
 
-    <form [formGroup]="scheduleInterviewForm">
+      <form [formGroup]="scheduleInterviewForm" (ngSubmit)="addSchedule(scheduleInterviewForm.value)">
 
-      <mat-form-field appearance="outline">
-        <input matInput [matDatepicker]="pickerfrom" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
-          formControlName="sheduled_date">
-        <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
-        <mat-datepicker #pickerfrom></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <input matInput [matDatepicker]="pickerfrom" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
+            formControlName="shedule_date">
+          <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
+          <mat-datepicker #pickerfrom></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-select formControlName="sheduled_time">
-          <mat-option *ngFor="let time of scheduleTime" [value]="time.time">{{time.time}}</mat-option>
-        </mat-select>
-        <mat-hint align="end">Please Select Date First</mat-hint>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-select formControlName="shedule_time" placeholder="Select time">
+            <mat-option *ngFor="let time of scheduleTime" [value]="time.time">{{time.time}}</mat-option>
+          </mat-select>
+          <mat-hint align="end">Please Select Date First</mat-hint>
+        </mat-form-field>
 
-      <button mat-raised-button color="primary">Submit</button>
-    </form>
+        <button mat-raised-button color="primary" [disabled]="scheduleInterviewForm.invalid || apiInProgress">Submit
+          <div *ngIf="apiInProgress" class="loader"></div>
+        </button>
+      </form>
 
-  </section>
+    </section>
+  </article>
 
   <footer>
     <div class="info">
-      For More Info Install our Apps.
+      Want to know more about job profiles. Install our app.
     </div>
     <div class="mobile">
-      <img src="assets/google_play.png" alt="Play store">
-      <img src="assets/apple_store.png" alt="App store">
+      <a href="https://play.google.com/store/apps/details?id=com.hrrecruits&hl=en">
+        <img src="assets/google_play.png" alt="Play store">
+      </a>
     </div>
   </footer>
 </main>

@@ -234,11 +234,7 @@ export const routes: Route[] = [{
         component: ForgetPasswordComponent
     },
     {
-        path: 'candidate-schedule',
-        component: CandidateScheduleComponent
-    },
-    {
-        path: 'candidate-schedule/:notificationId',
+        path: 'candidate-schedule/:userId',
         component: CandidateScheduleComponent
     }
 ];
