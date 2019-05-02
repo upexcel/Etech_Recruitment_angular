@@ -1,0 +1,39 @@
+<main>
+  <figure>
+    <img src="assets/logo.png">
+  </figure>
+
+  <section class="mat-elevation-z1">
+    <h3>Schedule Your Interview</h3>
+
+    <form [formGroup]="scheduleInterviewForm">
+
+      <mat-form-field appearance="outline">
+        <input matInput [matDatepicker]="pickerfrom" [matDatepickerFilter]="dateFilter" placeholder="Choose a date"
+          formControlName="sheduled_date">
+        <mat-datepicker-toggle matSuffix [for]="pickerfrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerfrom></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-select formControlName="sheduled_time">
+          <mat-option *ngFor="let time of scheduleTime" [value]="time.time">{{time.time}}</mat-option>
+        </mat-select>
+        <mat-hint align="end">Please Select Date First</mat-hint>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Submit</button>
+    </form>
+
+  </section>
+
+  <footer>
+    <div class="info">
+      For More Info Install our Apps.
+    </div>
+    <div class="mobile">
+      <img src="assets/google_play.png" alt="Play store">
+      <img src="assets/apple_store.png" alt="App store">
+    </div>
+  </footer>
+</main>

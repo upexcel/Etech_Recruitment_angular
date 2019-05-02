@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     logginpage() {
         this.access.verifyAccess().subscribe((data) => {
             if (data.status) {
-                this._router.navigate(['/core/inbox']);
+                this._router.navigate(['/candidate-schedule']);
             }
         }, (error) => {
             this._router.navigate(['login']);
