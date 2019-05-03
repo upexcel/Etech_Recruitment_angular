@@ -59,7 +59,6 @@ export class EmailboxComponent implements OnInit {
         this.role = this._localStorageService.getItem('role');
         this.tagAssigned = this.commonService.filtertag(this.email);
         this.email = this.commonService.getTagTitle(this.email);
-        console.log(this.emailChildTitle);
         
         if (this.emailChildTitle === config['round1'] || this.emailChildTitle === config['round2'] || this.emailChildTitle === config['round3'] || this.emailChildTitle === config['automation']) {
             this.isRoundsTag = true;
