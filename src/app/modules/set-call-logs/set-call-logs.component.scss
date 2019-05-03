@@ -1,24 +1,36 @@
-.width {
-    padding: 5%;
-    width: 350px;
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  justify-content: space-between;
+
+  button {
+    flex: 0 0 48%;
+    align-self: center;
+    min-width: 192px;
+    max-width: 250px;
+    margin-bottom: 1em; 
+  }
 }
-.width-history{
-    padding-left: 5%;
-    padding-right: 5%;
-    width: 350px;
+
+.width-history {
+  padding-left: 5%;
+  padding-right: 5%;
+  width: 350px;
 }
+
 .tab {
-    display: inline-block;
+  display: inline-block;
 }
-.right {
- float: right;
-}
+
 .bottom {
-    margin-bottom: 5%;
+  margin-bottom: 5%;
 }
+
 button {
-    width: 100%;
+  width: 100%;
 }
-tbody td{
-  text-transform:capitalize;
+
+tbody td {
+  text-transform: capitalize;
 }

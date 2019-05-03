@@ -17,6 +17,8 @@ export class CandidateScheduleComponent implements OnInit {
   userId: any;
   notificationId: any;
   apiInProgress: boolean;
+  scheduled: boolean;
+  errorScheduled: boolean;
   constructor(
     private activatedRoute: ActivatedRoute,
     private commonService: CommonService,
@@ -50,8 +52,14 @@ export class CandidateScheduleComponent implements OnInit {
 
   createForm() {
     this.scheduleInterviewForm = this.formBuilder.group({
-      shedule_date: [null, { validators: Validators.required, updateOn: "blur" }],
-      shedule_time: [null, { validators: Validators.required, updateOn: "blur" }]
+      shedule_date: [
+        null,
+        { validators: Validators.required, updateOn: "blur" }
+      ],
+      shedule_time: [
+        null,
+        { validators: Validators.required, updateOn: "blur" }
+      ]
     });
 
     this.scheduleInterviewForm.valueChanges.subscribe(formData => {
@@ -93,17 +101,17 @@ export class CandidateScheduleComponent implements OnInit {
     this.apiInProgress = true;
     formData.notificationId = this.notificationId;
     formData.userId = this.userId;
-    formData.shedule_date = this.commonService.formateDate(formData.shedule_date);
+    formData.shedule_date = this.commonService.formateDate(
+      formData.shedule_date
+    );
     this.imapMailsService.saveCandidateDesiredSchedule(formData).subscribe(
       res => {
-        this.matSnackBar.open("Interview Scheduled Successfully!", "Close");
+        this.scheduled = true;
         this.apiInProgress = false;
-        this.createForm();
       },
       err => {
         if (err && err["scheduled"]) {
-          this.matSnackBar.open(err.message, "Close");
-          this.createForm();
+          this.errorScheduled = true;
         } else {
           this.matSnackBar.open(
             "Something Went Wrong. Reload or Contact HR!",

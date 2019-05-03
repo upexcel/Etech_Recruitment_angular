@@ -314,7 +314,7 @@
 .missed {
     color: #ac2925 !important;
 }
-.success {
+.success, .scheduledSuccess {
     color: #398439 !important;
 }
 .error {
@@ -361,5 +361,5 @@ p.emailbody {
 }
 
 .inlineBlock.info {
-    vertical-align: middle;
+    vertical-align: top;
 }

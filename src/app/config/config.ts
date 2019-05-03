@@ -62,6 +62,7 @@ export const config = {
     round1: 'First Round',
     round2: 'Second Round',
     round3: 'Third Round',
+    automation: 'automation',
     avatarUrl: 'https://pikmail.herokuapp.com',
     emailLimit: 20,
     allTagTitle: 'Mails/Attachment',
@@ -84,7 +85,8 @@ export const callToolTips = {
     'missed': 'Didn\'t Pickup',
     'error': 'Call Not Connected',
     'success': 'Talked To Candidate on ',
-    'again': 'Call Again Later'
+    'again': 'Call Again Later',
+    'scheduledSuccess': 'Talked on Scheduled Time'
 }
 export const pageSet = ['5', '10', '20', '30', '50']
 export const displayedColumns = ['from', 'sender_mail', 'exam_submit_date', 'examScore', 'action']

@@ -4,7 +4,7 @@
       <img src="assets/logo-high-res.png">
     </figure>
 
-    <section class="mat-elevation-z1">
+    <section class="mat-elevation-z1" *ngIf="!scheduled && !errorScheduled; else successMessage">
       <h3>Schedule Your Interview</h3>
 
       <form [formGroup]="scheduleInterviewForm" (ngSubmit)="addSchedule(scheduleInterviewForm.value)">
@@ -29,6 +29,10 @@
       </form>
 
     </section>
+    <ng-template #successMessage>
+      <div class="success" *ngIf="scheduled">Thank your showing your interest for interview. <br/> HR's will contact you soon.</div>
+      <div class="success" *ngIf="errorScheduled"> You have already scheduled your interview. <br/> Hr's will contact you soon.</div>
+    </ng-template>
   </article>
 
   <footer>
