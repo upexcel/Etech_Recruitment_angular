@@ -207,6 +207,7 @@ import { ViewTestPaperComponent } from './modules/view-test-paper/view-test-pape
 import { ChangeRoundComponent } from './modules/change-round/change-round.component';
 import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.component';
 import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
+import { CandidateScheduleComponent } from './modules/candidate-schedule/candidate-schedule.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -290,7 +291,8 @@ import { CompanyProfileComponent } from './modules/company-profile/company-profi
         ViewTestPaperComponent,
         ChangeRoundComponent,
         AppDeepLinkComponent,
-        CompanyProfileComponent
+        CompanyProfileComponent,
+        CandidateScheduleComponent
     ],
     imports: [
         BrowserModule,

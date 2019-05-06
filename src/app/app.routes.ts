@@ -42,6 +42,8 @@ import { WalkinCandidateComponent } from './modules/walkin-candidate/walkin-cand
 import { TestSetsComponent } from './modules/test-sets/test-sets.component';
 import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.component';
 import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
+import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
+import { CandidateScheduleComponent } from './modules/candidate-schedule/candidate-schedule.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -230,5 +232,9 @@ export const routes: Route[] = [{
     {
         path: 'forgot',
         component: ForgetPasswordComponent
+    },
+    {
+        path: 'candidate-schedule/:userId',
+        component: CandidateScheduleComponent
     }
 ];
