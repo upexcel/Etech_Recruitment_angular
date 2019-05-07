@@ -127,10 +127,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       const stats = await this._apiService.getNotificationStats().toPromise();
       const notificationStats = stats && stats["data"] ? stats["data"] : null;
       if(notificationStats) {
-          this.notificationStats = [
-            {label: 'Email Count', date: notificationStats["month_days"], data: notificationStats["respondedEmailCount"]},
-            {label: 'Text Count', date: notificationStats["month_days"], data: notificationStats["respondedTextCount"]}
-          ]
+        this.notificationStats = [
+          {label: 'Email Sent', date: notificationStats["month_days"], data: notificationStats["totalEmailCount"]},
+          {label: 'Email Viewed', date: notificationStats["month_days"], data: notificationStats["respondedEmailCount"]},
+          {label: 'Text Sent', date: notificationStats["month_days"], data: notificationStats["totalTextCount"]},
+          {label: 'Text Viewed', date: notificationStats["month_days"], data: notificationStats["respondedTextCount"]},
+          {label: 'Candidate Acknowledged', date: notificationStats["month_days"], data: notificationStats["respondedCandidate"]}
+        ]
       }
     } catch (error) {
       console.log(error);
