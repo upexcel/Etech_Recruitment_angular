@@ -87,4 +87,28 @@
       </div>
     </mat-card-content>
   </mat-card>
+
+  <mat-card *ngIf="notificationStats">
+    <mat-card-title>Notification Analytics</mat-card-title>
+    <!-- <mat-select placeholder="" class="job-selection" [(ngModel)]="automaticEmailReadSelection">
+      <mat-option value="byDay">
+        By Day
+      </mat-option>
+      <mat-option value="byProfile">
+        By Profile
+      </mat-option>
+    </mat-select> -->
+    <mat-card-content *ngIf="automaticEmailReadSelection == 'byDay';">
+      <div class="charts">
+        <canvas baseChart [datasets]="notificationStats" [labels]="notificationStats[0]['date']" [options]="dashboardChartOptions"
+          [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </mat-card-content>
+    <!-- <mat-card-content  *ngIf="automaticEmailReadSelection == 'byProfile'">
+      <div class="charts">
+        <canvas baseChart width="200" height="200" [datasets]="dashboardData.email_stat_by_job_profile" [labels]="dashboardData.email_stat_by_job_profile[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
+        [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </mat-card-content> -->
+  </mat-card>
 </div>

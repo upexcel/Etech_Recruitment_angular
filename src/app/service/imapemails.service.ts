@@ -1515,4 +1515,18 @@ export class ImapMailsService {
             });
     }
 
+    getNotificationStats(): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.get(environment['apibase'] + `notification/status`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+    
 }
