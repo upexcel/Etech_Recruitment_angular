@@ -126,14 +126,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
   async getNotifications() {
     try {
       const stats = await this._apiService.getNotificationStats().toPromise();
-      const notificationStats = stats && stats["data"] ? stats["data"] : null;
-      if(notificationStats) {
+      const dashboardStatsV2 = stats && stats["data"] ? stats["data"] : null;
+      if(dashboardStatsV2) {
         this.notificationStats = [
-          {label: 'Email Sent', date: notificationStats["month_days"], data: notificationStats["totalEmailCount"]},
-          {label: 'Email Viewed', date: notificationStats["month_days"], data: notificationStats["respondedEmailCount"]},
-          {label: 'Text Sent', date: notificationStats["month_days"], data: notificationStats["totalTextCount"]},
-          {label: 'Text Viewed', date: notificationStats["month_days"], data: notificationStats["respondedTextCount"]},
-          {label: 'Candidate Acknowledged', date: notificationStats["month_days"], data: notificationStats["respondedCandidate"]}
+          {label: 'Email Sent', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["totalEmailCount"]},
+          {label: 'Email Viewed', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["respondedEmailCount"]},
+          {label: 'Text Sent', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["totalTextCount"]},
+          {label: 'Text Viewed', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["respondedTextCount"]},
+        ]
+
+        this.callLogs = [
+          {label: 'All Calls', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["allCandidate"]},
+          {label: 'Call Again', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callAgain"]},
+          {label: 'Missed Call', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callMissed"]},
+          {label: 'Not Reachable', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callNotConnected"]},
+          {label: 'Calls on Scheduled Time', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callScheduledSuccess"]},
+          {label: 'Call Successful', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callSuccess"]},
         ]
       }
     } catch (error) {
@@ -141,3 +149,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 }
+
+
+/* 
+["totalEmailCount
+totalTextCount
+month_days
+respondedEmailCount
+respondedTextCount
+allCandidate
+callAgain
+callMissed
+callNotConnected
+callScheduledSuccess
+callSuccess"
+
+*/

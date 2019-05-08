@@ -4,7 +4,7 @@
       <img src="assets/logo-high-res.png">
     </figure>
 
-    <section class="mat-elevation-z1" *ngIf="!scheduled && !errorScheduled; else successMessage">
+    <section class="mat-elevation-z1" *ngIf="!scheduled && !errorScheduled && !notInterested && !notInterestedError; else successMessage">
       <h3>Schedule a time when HR's can contact you.</h3>
 
       <form [formGroup]="scheduleInterviewForm" (ngSubmit)="addSchedule(scheduleInterviewForm.value)">
@@ -32,6 +32,8 @@
     <ng-template #successMessage>
       <div class="success" *ngIf="scheduled">Thank you for showing your interest for interview. <br/> HR's will contact you soon.</div>
       <div class="success" *ngIf="errorScheduled"> You have already scheduled your interview. <br/> Hr's will contact you soon.</div>
+      <div class="success" *ngIf="notInterested"> You have marked yourself as not interested.</div>
+      <div class="success" *ngIf="notInterestedError"> You have already marked yourself as not interested.  <br/> Contact HR!</div>
     </ng-template>
   </article>
 

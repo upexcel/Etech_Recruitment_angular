@@ -1529,4 +1529,31 @@ export class ImapMailsService {
             });
     }
     
+    markNotInterested(userId): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.put(environment['apibase'] + `exam/candidate/notInterested/${userId}`, {})
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    addMobileNumber(body, userId): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + `email/update/userPhone/${userId}`, body)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
 }

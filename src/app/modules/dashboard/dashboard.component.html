@@ -102,7 +102,7 @@
     <mat-card-title>Call Logs</mat-card-title>
     <mat-card-content>
       <div class="charts">
-        <canvas baseChart [datasets]="notificationStats" [labels]="notificationStats[0]['date']" [options]="dashboardChartOptions"
+        <canvas baseChart [datasets]="callLogs" [labels]="callLogs[0]['date']" [options]="dashboardChartOptions"
           [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
     </mat-card-content>

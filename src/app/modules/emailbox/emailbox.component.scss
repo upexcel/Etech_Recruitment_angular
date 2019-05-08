@@ -361,5 +361,15 @@ p.emailbody {
 }
 
 .inlineBlock.info {
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+.inlineBlock.info.add-mobile {
+    cursor: pointer;
+    transition: .4s color;
+}
+.inlineBlock.info.add-mobile:hover {
+    color: #336998;
+    text-decoration: underline;
+    transition: .4s color;
 }

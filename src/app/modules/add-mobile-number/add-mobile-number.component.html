@@ -1,0 +1,17 @@
+<div class="modal-container">
+  <h3 mat-dialog-title>
+    Add Phone Number
+  </h3>
+  <mat-dialog-content *ngIf="addPhoneForm">
+    <form [formGroup]="addPhoneForm" id="addPhoneFormId" (ngSubmit)="addPhoneNumber(addPhoneForm.value)">
+      <mat-form-field class="width-100">
+        <input matInput type="text" maxlength="10" pattern="^[0][1-9]\d{9}$|^[1-9]\d{9}$" formControlName="phone" placeholder="Mobile Number">
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button type="button" mat-dialog-close>Close</button>
+    <button mat-raised-button type="submit" form="addPhoneFormId"
+      [disabled]="addPhoneForm.invalid || apiInProgress">Submit</button>
+  </mat-dialog-actions>
+</div>
