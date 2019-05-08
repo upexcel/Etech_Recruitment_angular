@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ImapMailsService } from "app/service/imapemails.service";
 import { MatSnackBar } from "@angular/material";
 import { CommonService } from "app/service/common.service";
+import { DialogService } from "app/service/dialog.service";
 
 @Component({
   selector: "app-candidate-schedule",
@@ -22,6 +23,7 @@ export class CandidateScheduleComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private commonService: CommonService,
+    private dialogService: DialogService,
     private formBuilder: FormBuilder,
     private imapMailsService: ImapMailsService,
     private matSnackBar: MatSnackBar
@@ -120,6 +122,16 @@ export class CandidateScheduleComponent implements OnInit {
         }
         this.apiInProgress = false;
       }
+    );
+  }
+
+  setNotInterested() {
+    this.dialogService.openConfirmationBox("Are you sure ?").then(
+      res => {
+        if (res === "yes") {
+        }
+      },
+      err => {}
     );
   }
 }

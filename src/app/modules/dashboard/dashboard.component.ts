@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   automaticEmailReadSelection = "byDay";
   loading = false;
   notificationStats: any;
+  callLogs: any;
 
   constructor(
     private access: LoginService,

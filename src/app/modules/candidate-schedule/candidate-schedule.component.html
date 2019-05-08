@@ -22,7 +22,7 @@
           </mat-select>
           <mat-hint align="end">Please Select Date First</mat-hint>
         </mat-form-field>
-
+        <span class="not-interested" (click)="setNotInterested()">Not Interested?</span>
         <button mat-raised-button color="primary" [disabled]="scheduleInterviewForm.invalid || apiInProgress">Submit
           <div *ngIf="apiInProgress" class="loader"></div>
         </button>
