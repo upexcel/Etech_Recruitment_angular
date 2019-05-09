@@ -73,7 +73,6 @@
                             <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId" class="right mobile-view" (click)="addCandidate()" style="margin-right: 4px;"> Add Candidate </a>
                             <a *ngIf="emaillist && this.role !== 'Guest'" class="right mobile-view" (click)="markAllRead()" style="margin-right: 4px;" > Mark All Read </a>
                             <a *ngIf="emaillist && this.role !== 'Interviewee'" class="right mobile-view" (click)="showUnReadOnly()" style="margin-right: 4px;"> Show Only UnRead </a>
-                            <!-- <a *ngIf="emaillist && this.role !== 'Guest' && emailParentId" class="right mobile-view" (click)="ParseOldCvs()" style="margin-right: 4px;" > Parse Old Cvs</a> -->
                         <a *ngIf="emaillist && (!emailParentId || emailParenttitle=='inbox') && this.role !== 'Guest'" class="right mobile-view" (click)="markAllArchive()" style="margin-right: 4px;"> Archive </a>
                     </div>
                     <div *ngIf="!loading && emaillist && showInboxEmailList && tagsForEmailListAndModel" class="col-sm-12 col-xs-12 col-md-12 pad0">
