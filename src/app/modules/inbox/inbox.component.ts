@@ -386,6 +386,17 @@ export class InboxComponent implements OnInit, OnDestroy {
             }
         })
     }
+
+    parseOldCvs() {
+        this._dialogService.openConfirmationBox('Are you sure ?').then((res) => {
+            if (res === 'yes') {
+                this.getemails.processOldCvs(this.emailParentId).subscribe((response) => {}, (err) => {
+                    console.log(err)
+                });
+            }
+        });
+    }
+    
     sendEmailToAll(notGenuine?) {
         this.dialogRef = this.dialog.open(ComposeEmailComponent, {
             height: '90%',
