@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { ImapMailsService } from "app/service/imapemails.service";
 import { MatSnackBar } from "@angular/material";
 import { CommonService } from "app/service/common.service";
+import { DialogService } from "app/service/dialog.service";
 
 @Component({
   selector: "app-candidate-schedule",
@@ -19,9 +20,12 @@ export class CandidateScheduleComponent implements OnInit {
   apiInProgress: boolean;
   scheduled: boolean;
   errorScheduled: boolean;
+  notInterested: boolean;
+  notInterestedError: boolean;
   constructor(
     private activatedRoute: ActivatedRoute,
     private commonService: CommonService,
+    private dialogService: DialogService,
     private formBuilder: FormBuilder,
     private imapMailsService: ImapMailsService,
     private matSnackBar: MatSnackBar
@@ -112,6 +116,8 @@ export class CandidateScheduleComponent implements OnInit {
       err => {
         if (err && err["scheduled"]) {
           this.errorScheduled = true;
+        } else if (err && err['scheduled'] === false){
+          this.notInterestedError = true;
         } else {
           this.matSnackBar.open(
             "Something Went Wrong. Reload or Contact HR!",
@@ -120,6 +126,24 @@ export class CandidateScheduleComponent implements OnInit {
         }
         this.apiInProgress = false;
       }
+    );
+  }
+
+  setNotInterested() {
+    this.dialogService.openConfirmationBox("Are you sure ?").then(
+      async res => {
+        this.apiInProgress = true;
+        if (res === "yes") {
+          try {
+            const response = await this.imapMailsService.markNotInterested(this.userId).toPromise();
+            if(response) this.notInterested = true;
+            this.apiInProgress = false;
+          } catch (error) {
+            this.apiInProgress = false;
+          }
+        }
+      },
+      err => {}
     );
   }
 }

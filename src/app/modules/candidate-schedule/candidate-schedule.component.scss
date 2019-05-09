@@ -47,7 +47,12 @@ main {
         .mat-raised-button {
           margin-top: 1em;
         }
-    
+        .not-interested {
+          font-size: 10px;
+          margin-right: auto;
+          color: #358c9b;
+          cursor: pointer;
+        }
         button {
           position: relative;
         }

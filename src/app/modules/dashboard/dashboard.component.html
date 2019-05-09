@@ -87,4 +87,24 @@
       </div>
     </mat-card-content>
   </mat-card>
+
+  <mat-card *ngIf="notificationStats">
+    <mat-card-title>Notification Analytics</mat-card-title>
+    <mat-card-content>
+      <div class="charts">
+        <canvas baseChart [datasets]="notificationStats" [labels]="notificationStats[0]['date']" [options]="dashboardChartOptions"
+          [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card *ngIf="callLogs">
+    <mat-card-title>Call Logs</mat-card-title>
+    <mat-card-content>
+      <div class="charts">
+        <canvas baseChart [datasets]="callLogs" [labels]="callLogs[0]['date']" [options]="dashboardChartOptions"
+          [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>

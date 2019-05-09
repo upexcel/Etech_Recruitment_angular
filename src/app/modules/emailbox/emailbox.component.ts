@@ -11,6 +11,7 @@ import { AddNoteComponent } from './../add-note/add-note.component';
 import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
 import * as moment from 'moment';
 import { config } from './../../config/config';
+import { AddMobileNumberComponent } from '../add-mobile-number/add-mobile-number.component';
 
 @Component({
     // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -300,5 +301,16 @@ export class EmailboxComponent implements OnInit {
                 duration: 1000
             });
         });
+    }
+
+    addMobile(email) {
+        const addMobileDialog = this.dialog.open(AddMobileNumberComponent, {
+            disableClose: true,
+            minWidth: '35vw'
+        });
+        addMobileDialog.componentInstance.emailData = email;
+        addMobileDialog.afterClosed().subscribe(result => {
+            if (result) email = result; 
+        })
     }
 }

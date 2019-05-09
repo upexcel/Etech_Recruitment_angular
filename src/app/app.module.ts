@@ -208,6 +208,7 @@ import { ChangeRoundComponent } from './modules/change-round/change-round.compon
 import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.component';
 import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
 import { CandidateScheduleComponent } from './modules/candidate-schedule/candidate-schedule.component';
+import { AddMobileNumberComponent } from './modules/add-mobile-number/add-mobile-number.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -292,7 +293,8 @@ import { CandidateScheduleComponent } from './modules/candidate-schedule/candida
         ChangeRoundComponent,
         AppDeepLinkComponent,
         CompanyProfileComponent,
-        CandidateScheduleComponent
+        CandidateScheduleComponent,
+        AddMobileNumberComponent
     ],
     imports: [
         BrowserModule,
@@ -381,7 +383,8 @@ import { CandidateScheduleComponent } from './modules/candidate-schedule/candida
         CreateTestSetComponent,
         RemoveOldLogsComponent,
         ViewTestPaperComponent,
-        ChangeRoundComponent
+        ChangeRoundComponent,
+        AddMobileNumberComponent
     ],
     bootstrap: [AppComponent]
 })
