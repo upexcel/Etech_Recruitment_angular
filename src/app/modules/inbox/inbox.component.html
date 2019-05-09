@@ -10,7 +10,7 @@
                     <div class="m-b well" *ngIf="showInboxEmailList && emaillist">
                       <span class="right">
                         <button mat-raised-button *ngIf="selectedTagTitle == 'All'&& emaillist && emailParentId && emaillist.data" mdTooltip="Close Job Profile" mdTooltipPosition="below" class="delete" (click)="closeProfile()">Close Job Profile</button>
-                        <button mat-raised-button *ngIf="selectedTagTitle == 'All'&& emaillist && emailParentId && emaillist.data" mdTooltip="Parse Old Cvs" mdTooltipPosition="below" class="update" (click)="ParseOldCvs()">Parse Old CVS</button></span>
+                        <button mat-raised-button *ngIf="selectedTagTitle == 'All'&& emaillist && emailParentId && emaillist.data" mdTooltip="Parse Old Cvs" mdTooltipPosition="below" class="update" (click)="parseOldCvs()">Parse Old CVS</button></span>
                         <p class="bblue" *ngIf="emaillist && showInboxEmailList">{{emailParenttitle}} - {{emailChildTitle}}</p>
                         <div class="container-fluid">
                             <div class="row">
