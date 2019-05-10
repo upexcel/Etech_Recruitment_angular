@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { ImapMailsService } from "./../../service//imapemails.service";
 import { DashboardService } from "./../../service/dashboard.service";
 import { LoginService } from "../../service/login.service";
-
 import { config } from "./../../config/config";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "lodash";
@@ -21,9 +20,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   jobSelection = "byDay";
   jobApplicationReadSelection = "byDay";
   automaticEmailReadSelection = "byDay";
+  callLogsSelection = "byDay";
   loading = false;
   notificationStats: any;
   callLogs: any;
+  callLogsPerUser: any;
+  selectedUser: any;
+  callLogsByUsers: any;
 
   constructor(
     private access: LoginService,
@@ -31,7 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private _apiService: ImapMailsService,
     private _dashboardService: DashboardService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.subscription = this.route.data.subscribe(
@@ -68,7 +71,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           //code to remove disabled job profile.
           if (!(element === "read_mail_by_user" || element === "email_stat")) {
             let sortedArray = _.sortBy(res[element], [
-              function(o) {
+              function (o) {
                 return o.label;
               }
             ]); //code to fix a bug
@@ -127,41 +130,47 @@ export class DashboardComponent implements OnInit, OnDestroy {
     try {
       const stats = await this._apiService.getNotificationStats().toPromise();
       const dashboardStatsV2 = stats && stats["data"] ? stats["data"] : null;
-      if(dashboardStatsV2) {
+      this.callLogsByUsers = dashboardStatsV2['callsPerUser'];
+      if (dashboardStatsV2) {
         this.notificationStats = [
-          {label: 'Email Sent', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["totalEmailCount"]},
-          {label: 'Email Viewed', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["respondedEmailCount"]},
-          {label: 'Text Sent', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["totalTextCount"]},
-          {label: 'Text Viewed', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["respondedTextCount"]},
+          { label: 'Email Sent', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["totalEmailCount"] },
+          { label: 'Email Viewed', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["respondedEmailCount"] },
+          { label: 'Text Sent', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["totalTextCount"] },
+          { label: 'Text Viewed', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["respondedTextCount"] },
         ]
-
         this.callLogs = [
-          {label: 'All Calls', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["allCandidate"]},
-          {label: 'Call Again', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callAgain"]},
-          {label: 'Missed Call', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callMissed"]},
-          {label: 'Not Reachable', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callNotConnected"]},
-          {label: 'Calls on Scheduled Time', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callScheduledSuccess"]},
-          {label: 'Call Successful', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callSuccess"]},
+          { label: 'All Calls', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["allCandidate"] },
+          { label: 'Call Again', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callAgain"] },
+          { label: 'Missed Call', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callMissed"] },
+          { label: 'Not Reachable', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callNotConnected"] },
+          { label: 'Calls on Scheduled Time', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callScheduledSuccess"] },
+          { label: 'Call Successful', date: dashboardStatsV2["month_days"], data: dashboardStatsV2["callSuccess"] },
         ]
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+  setCallLogFiylterType(event) {
+    if (event.value === 'byUser') this.userSelected(this.callLogsByUsers[0].label);
+  }
+
+  userSelected(event) {
+    this.callLogsByUsers.forEach(element => {
+      this.selectedUser = event;
+      if (element.label == event) {
+        this.callLogsPerUser = [
+          { label: 'All Calls', date: element.dates, data: element["allCandidate"] },
+          { label: 'Call Again', date: element.dates, data: element["callAgain"] },
+          { label: 'Missed Call', date: element.dates, data: element["callMissed"] },
+          { label: 'Not Reachable', date: element.dates, data: element["callNotConnected"] },
+          { label: 'Calls on Scheduled Time', date: element.dates, data: element["callScheduledSuccess"] },
+          { label: 'Call Successful', date: element.dates, data: element["callSuccess"] }
+        ];
+      }
+
+    });
+  }
+
 }
-
-
-/* 
-["totalEmailCount
-totalTextCount
-month_days
-respondedEmailCount
-respondedTextCount
-allCandidate
-callAgain
-callMissed
-callNotConnected
-callScheduledSuccess
-callSuccess"
-
-*/

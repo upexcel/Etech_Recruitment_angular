@@ -2,83 +2,113 @@
   padding: 10px;
   padding-top: 100px;
   background-color: #2e3e4e;
+
   mat-card {
     margin: 10px;
+
     .charts {
       canvas {
         height: 300px;
       }
     }
+
     .pie-chart {
       display: inline-block;
       min-width: 24%;
       text-align: center;
     }
   }
+
   .job-selection {
     position: absolute;
     right: 1.8em;
     top: 1.5em;
   }
+
+  .call-logs {
+    position: absolute;
+    right: 2.8em;
+    top: 1.5em;
+  }
+
+  .user-list {
+    display: inline-block;
+    right: 10em;
+    top: 1.5em;
+    position: absolute;
+    width: 150px;
+  }
+
 }
 
 @media screen and (min-width: 320px) {
-  mat-card{
+  mat-card {
     mat-card-title {
       font-size: 16px;
     }
-    mat-select{
+
+    mat-select {
       height: 22px;
       max-width: 100px;
     }
-    mat-card-content{
+
+    mat-card-content {
       text-align: center;
     }
   }
 }
+
 @media screen and (min-width: 480px) {
-  mat-card{
+  mat-card {
     mat-card-title {
       font-size: 16px;
     }
-    mat-select{
+
+    mat-select {
       height: 22px;
       max-width: 100px;
     }
-    mat-card-content{
+
+    mat-card-content {
       text-align: center;
     }
   }
 }
+
 @media screen and (min-width: 768px) {
-  mat-card{
+  mat-card {
     mat-card-title {
       font-size: 18px;
     }
-    .mat-select-trigger{
+
+    .mat-select-trigger {
       height: 22px;
     }
-    mat-card-content{
+
+    mat-card-content {
       text-align: center;
     }
   }
 }
+
 @media screen and (min-width: 900px) {
-  mat-card{
+  mat-card {
     mat-card-title {
       font-size: 20px;
     }
   }
 }
+
 @media screen and (min-width: 1024px) {
-  mat-card{
+  mat-card {
     mat-card-title {
       font-size: 22px;
     }
   }
 }
+
 @media screen and (min-width: 1200px) {
-  mat-card{
+  mat-card {
     mat-card-title {
       font-size: 24px;
     }
@@ -86,8 +116,8 @@
 }
 
 .nav {
-  background: linear-gradient(40deg,#1d3954,#45ece5);
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.16);
+  background: linear-gradient(40deg, #1d3954, #45ece5);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .16);
   height: 64px;
   width: 100%;
   color: #fff;
@@ -95,10 +125,12 @@
   position: fixed;
   top: 0px;
   z-index: 1;
+
   img {
     margin-top: 12px;
     display: inline-block;
   }
+
   p {
     display: inline-block;
     float: right;
@@ -107,10 +139,11 @@
     cursor: pointer;
   }
 }
+
 .spin {
-     height: 50px;
-     width: 50px;
-     margin: 0 auto;
-     text-align: center;
-     margin-top:100px;
-  }
+  height: 50px;
+  width: 50px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 100px;
+}

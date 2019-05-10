@@ -1,7 +1,6 @@
 <div class="nav" *ngIf="isHome">
   <img src="assets/logo.png" class="img-responsive" alt="Excellence Technologies" />
   <p (click)="logginpage()" matTooltip="Login"><i class="material-icons">power_settings_new</i></p>
-
 </div>
 <mat-spinner *ngIf="loading" class="spin"></mat-spinner>
 <div class="dashboard" [style.padding-top]="isHome ? '100px' : '0px'" *ngIf="dashboardData">
@@ -15,16 +14,18 @@
         Month Wise
       </mat-option>
     </mat-select>
-    <mat-card-content *ngIf="jobSelection == 'byDay'" >
+    <mat-card-content *ngIf="jobSelection == 'byDay'">
       <div class="charts">
-        <canvas baseChart [datasets]="dashboardData.day_wise" [labels]="dashboardData.day_wise[0]['dates']" [options]="dashboardChartOptions"
-          [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        <canvas baseChart [datasets]="dashboardData.day_wise" [labels]="dashboardData.day_wise[0]['dates']"
+          [options]="dashboardChartOptions" [legend]="lineChartLegend" [chartType]="'line'"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
     </mat-card-content>
     <mat-card-content *ngIf="jobSelection == 'byMonth'">
       <div class="charts">
-        <canvas baseChart [datasets]="dashboardData.month_wise" [labels]="dashboardData.month_wise[0]['months']" [options]="dashboardChartOptions"
-          [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        <canvas baseChart [datasets]="dashboardData.month_wise" [labels]="dashboardData.month_wise[0]['months']"
+          [options]="dashboardChartOptions" [legend]="lineChartLegend" [chartType]="'line'"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
     </mat-card-content>
   </mat-card>
@@ -34,36 +35,40 @@
       <div class="pie-chart" *ngFor="let round of dashboardData.rounds; let i = index;">
         <p><b>{{round.label}}</b></p>
         <div>
-          <canvas baseChart width="200" height="200" [data]="round.data" [labels]="round.rounds" [options]="pieChartOption" [legend]="false"
-            [chartType]="'pie'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+          <canvas baseChart width="200" height="200" [data]="round.data" [labels]="round.rounds"
+            [options]="pieChartOption" [legend]="false" [chartType]="'pie'" (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
   <mat-card>
     <mat-card-title>Jobs Application Read</mat-card-title>
-      <mat-select placeholder="" class="job-selection" [(ngModel)]="jobApplicationReadSelection">
-        <mat-option value="byDay">
-          By Day
-        </mat-option>
-        <mat-option value="byUser">
-          By User
-        </mat-option>
-      </mat-select>
-      <mat-card-content *ngIf="jobApplicationReadSelection == 'byDay'">
-        <div class="charts">
-            <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_email_data" [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
-              [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-        </div>
-      </mat-card-content>
-      <mat-card-content *ngIf="jobApplicationReadSelection == 'byUser'">
-        <div class="charts">
-            <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_mail_by_user" [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
-              [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-        </div>
-      </mat-card-content>
+    <mat-select placeholder="" class="job-selection" [(ngModel)]="jobApplicationReadSelection">
+      <mat-option value="byDay">
+        By Day
+      </mat-option>
+      <mat-option value="byUser">
+        By User
+      </mat-option>
+    </mat-select>
+    <mat-card-content *ngIf="jobApplicationReadSelection == 'byDay'">
+      <div class="charts">
+        <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_email_data"
+          [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions"
+          [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </mat-card-content>
+    <mat-card-content *ngIf="jobApplicationReadSelection == 'byUser'">
+      <div class="charts">
+        <canvas baseChart width="200" height="200" [datasets]="dashboardData.read_mail_by_user"
+          [labels]="dashboardData.read_email_data[0]['dates']" [options]="dashboardChartOptions"
+          [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </mat-card-content>
   </mat-card>
-
   <mat-card>
     <mat-card-title>Automatic Email</mat-card-title>
     <mat-select placeholder="" class="job-selection" [(ngModel)]="automaticEmailReadSelection">
@@ -76,34 +81,60 @@
     </mat-select>
     <mat-card-content *ngIf="automaticEmailReadSelection == 'byDay'">
       <div class="charts">
-        <canvas baseChart [datasets]="dashboardData.email_stat" [labels]="dashboardData.email_stat[0]['dates']" [options]="dashboardChartOptions"
-          [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        <canvas baseChart [datasets]="dashboardData.email_stat" [labels]="dashboardData.email_stat[0]['dates']"
+          [options]="dashboardChartOptions" [legend]="lineChartLegend" [chartType]="'bar'"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
     </mat-card-content>
-    <mat-card-content  *ngIf="automaticEmailReadSelection == 'byProfile'">
+    <mat-card-content *ngIf="automaticEmailReadSelection == 'byProfile'">
       <div class="charts">
-        <canvas baseChart width="200" height="200" [datasets]="dashboardData.email_stat_by_job_profile" [labels]="dashboardData.email_stat_by_job_profile[0]['dates']" [options]="dashboardChartOptions" [legend]="lineChartLegend"
-        [chartType]="'line'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        <canvas baseChart width="200" height="200" [datasets]="dashboardData.email_stat_by_job_profile"
+          [labels]="dashboardData.email_stat_by_job_profile[0]['dates']" [options]="dashboardChartOptions"
+          [legend]="lineChartLegend" [chartType]="'line'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
       </div>
     </mat-card-content>
   </mat-card>
-
   <mat-card *ngIf="notificationStats">
     <mat-card-title>Notification Analytics</mat-card-title>
     <mat-card-content>
       <div class="charts">
-        <canvas baseChart [datasets]="notificationStats" [labels]="notificationStats[0]['date']" [options]="dashboardChartOptions"
-          [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+        <canvas baseChart [datasets]="notificationStats" [labels]="notificationStats[0]['date']"
+          [options]="dashboardChartOptions" [legend]="lineChartLegend" [chartType]="'bar'"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
     </mat-card-content>
   </mat-card>
-
   <mat-card *ngIf="callLogs">
     <mat-card-title>Call Logs</mat-card-title>
-    <mat-card-content>
+    <div class="user-list" *ngIf="callLogsSelection == 'byUser'">
+      <mat-select placeholder=" Select User" (change)="userSelected($event.value)" [(ngModel)]="selectedUser">
+        <mat-option *ngFor="let user of callLogsByUsers" [value]="user.label">
+          {{user.label}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <mat-select placeholder="" class="call-logs" [(ngModel)]="callLogsSelection"
+      (selectionChange)="setCallLogFiylterType($event)">
+      <mat-option value="byDay">
+        By Day
+      </mat-option>
+      <mat-option value="byUser">
+        By User
+      </mat-option>
+    </mat-select>
+    <mat-card-content *ngIf="callLogsSelection == 'byDay'">
       <div class="charts">
         <canvas baseChart [datasets]="callLogs" [labels]="callLogs[0]['date']" [options]="dashboardChartOptions"
-          [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+          [legend]="lineChartLegend" [chartType]="'bar'" (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </mat-card-content>
+    <mat-card-content *ngIf="callLogsSelection == 'byUser' && callLogsPerUser && callLogsPerUser.length">
+      <div class="charts">
+        <canvas baseChart [datasets]="callLogsPerUser" [labels]="callLogsPerUser[0]['date']"
+          [options]="dashboardChartOptions" [legend]="lineChartLegend" [chartType]="'line'"
+          (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
       </div>
     </mat-card-content>
   </mat-card>
