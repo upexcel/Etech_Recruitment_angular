@@ -107,7 +107,7 @@
   </mat-card>
   <mat-card *ngIf="callLogs">
     <mat-card-title>Call Logs</mat-card-title>
-    <div class="user-list" *ngIf="callLogsSelection == 'byUser'">
+    <div class="user-list" *ngIf="callLogsSelection == 'byUser' && callLogsPerUser && callLogsPerUser.length">
       <mat-select placeholder=" Select User" (change)="userSelected($event.value)" [(ngModel)]="selectedUser">
         <mat-option *ngFor="let user of callLogsByUsers" [value]="user.label">
           {{user.label}}
@@ -115,7 +115,7 @@
       </mat-select>
     </div>
     <mat-select placeholder="" class="call-logs" [(ngModel)]="callLogsSelection"
-      (selectionChange)="setCallLogFiylterType($event)">
+      (selectionChange)="setCallLogFilterType($event)">
       <mat-option value="byDay">
         By Day
       </mat-option>

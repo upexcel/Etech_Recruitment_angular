@@ -5,6 +5,7 @@ import { LoginService } from "../../service/login.service";
 import { config } from "./../../config/config";
 import { ActivatedRoute, Router } from "@angular/router";
 import * as _ from "lodash";
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
@@ -33,7 +34,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private _router: Router,
     private route: ActivatedRoute,
     private _apiService: ImapMailsService,
-    private _dashboardService: DashboardService
+    private _dashboardService: DashboardService,
+    public snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -152,8 +154,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  setCallLogFiylterType(event) {
-    if (event.value === 'byUser') this.userSelected(this.callLogsByUsers[0].label);
+  setCallLogFilterType(event) {
+    if (event.value == 'byUser') {
+      if (this.callLogsByUsers && this.callLogsByUsers.length) {
+        this.userSelected(this.callLogsByUsers[0].label);
+      } else {
+        this.snackBar.open("No user found", "", {
+          duration: 2000
+        });
+      }
+    }
+
+
   }
 
   userSelected(event) {
@@ -169,7 +181,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
           { label: 'Call Successful', date: element.dates, data: element["callSuccess"] }
         ];
       }
-
     });
   }
 
