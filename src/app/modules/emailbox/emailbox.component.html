@@ -19,13 +19,15 @@
     </p>
     <p *ngIf="email.is_attachment" class="emailbody">{{email.body}}</p>
     <p *ngIf="isRoundsTag">Interview Schedule: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}, By: {{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p>
-    <div *ngIf="email.cvData && email.cvData.length"> 
-      <span *ngIf="email.cvData[0].skills && email.cvData[0].skills.length">Skills: {{email.cvData[0].skills.join()}} </span>  
-      <span *ngIf="email.cvData[0].gender && email.cvData[0].gender != ''">Gender: {{email.cvData[0].gender}}</span>
-      <span *ngIf="email.cvData[0].traning_status && email.cvData[0].traning_status.length">Traning Status: {{email.cvData[0].traning_status.join()}}</span>
-      <span *ngIf="email.cvData[0].qualification && email.cvData[0].qualification.length">qualification: {{email.cvData[0].qualification.join()}}</span>
-      <span *ngIf="email.cvData[0].dob && email.cvData[0].dob.length">DOB: {{email.cvData[0].dob.join()}}</span>
-    </div>
+      <div *ngIf="email"> 
+        <span *ngIf="email.location">Location: {{email.location}}</span>
+        <span *ngIf="email.experience">Experience: {{email.experience}}</span>
+        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].skills && email.cvData[0].skills.length">Skills: {{email.cvData[0].skills.join()}} </span>  
+        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].gender && email.cvData[0].gender != ''">Gender: {{email.cvData[0].gender}}</span>
+        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].traning_status && email.cvData[0].traning_status.length">Traning Status: {{email.cvData[0].traning_status.join()}}</span>
+        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].qualification && email.cvData[0].qualification.length">qualification: {{email.cvData[0].qualification.join()}}</span>
+        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].dob && email.cvData[0].dob.length">DOB: {{email.cvData[0].dob.join()}}</span>
+      </div>
   </div>
   <div *ngIf="!email.candidate_star || !email.candidate_star.length"  class="mark__email not__starred" (click)="markStarred(email.sender_mail)">
   </div>

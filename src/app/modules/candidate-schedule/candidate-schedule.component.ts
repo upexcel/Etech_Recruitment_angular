@@ -42,7 +42,7 @@ export class CandidateScheduleComponent implements OnInit {
   getScheduledTime() {
     this.imapMailsService.getScheduleData().subscribe(
       data => {
-        this.scheduleData = data;
+        this.scheduleData = data.splice(0, 7);
         this.createForm();
       },
       err => {
