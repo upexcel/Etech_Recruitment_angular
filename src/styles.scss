@@ -276,12 +276,13 @@ app-core {
   position: absolute;
   left: 0;
   top: 9px;
-  min-height: 40px;
-  min-width: 40px;
-  img {
-      border-radius: 50%;
-      height: 40px;
-      width: 40px;
+  height: 40px;
+  width: 40px;
+  background: #efefef;
+  text-align: center;
+  border-radius: 50px;
+  div {
+    padding-top: 10px; 
   }
 }
 .mat-dialog-container {
