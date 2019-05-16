@@ -1,0 +1,43 @@
+@import './../../variable.scss';
+
+.width-100 {
+  width: 100%;
+}
+
+.modal-body {
+  padding: 2em;
+}
+
+.heading {
+  margin: 0px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.text-err {
+  color: red;
+  margin: 0px 0px 0px 76px;
+}
+
+.add-param {
+  margin-top: 20px;
+}
+
+.row-1 {
+  margin-bottom: 20px;
+  height: 40px;
+}
+
+.row {
+  margin-top: 30px;
+}
+
+.read-only {
+  cursor: not-allowed;
+  user-select: none;
+}
+
+.btn-panel {
+  margin-top: 10px;
+}

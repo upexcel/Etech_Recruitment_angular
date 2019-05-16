@@ -209,6 +209,8 @@ import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.comp
 import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
 import { CandidateScheduleComponent } from './modules/candidate-schedule/candidate-schedule.component';
 import { AddMobileNumberComponent } from './modules/add-mobile-number/add-mobile-number.component';
+import { JobProfileParameterComponent } from './modules/job-profile-parameter/job-profile-parameter.component';
+import { AddParameterModalComponent } from './modules/add-parameter-modal/add-parameter-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -227,6 +229,7 @@ import { AddMobileNumberComponent } from './modules/add-mobile-number/add-mobile
         TagSettingComponent,
         AutomaticTagComponent,
         JobProfileTagComponent,
+        JobProfileParameterComponent,
         ActionsComponent,
         ManageUsersComponent,
         InboxSideNavComponent,
@@ -294,7 +297,8 @@ import { AddMobileNumberComponent } from './modules/add-mobile-number/add-mobile
         AppDeepLinkComponent,
         CompanyProfileComponent,
         CandidateScheduleComponent,
-        AddMobileNumberComponent
+        AddMobileNumberComponent,
+        AddParameterModalComponent
     ],
     imports: [
         BrowserModule,
@@ -384,7 +388,8 @@ import { AddMobileNumberComponent } from './modules/add-mobile-number/add-mobile
         RemoveOldLogsComponent,
         ViewTestPaperComponent,
         ChangeRoundComponent,
-        AddMobileNumberComponent
+        AddMobileNumberComponent,
+        AddParameterModalComponent
     ],
     bootstrap: [AppComponent]
 })

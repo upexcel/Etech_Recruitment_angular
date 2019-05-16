@@ -1528,7 +1528,7 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
-    
+
     markNotInterested(userId): Observable<any> {
         this.increaseAPiCount();
         return this.http.put(environment['apibase'] + `exam/candidate/notInterested/${userId}`, {})
@@ -1570,4 +1570,62 @@ export class ImapMailsService {
                 return Observable.throw(error.json() || 'Server error');
             });
     }
+
+    addJobProfileParameter(apiData): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.post(environment['apibase'] + 'JobProfileParameters/add', apiData)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+
+    getJobProfileParameters(): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.get(environment['apibase'] + 'JobProfileParameters/getAll')
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    updateJobProfileParameters(apiData): Observable<any> {
+        this.increaseAPiCount();
+        return this.Intercepted.put(environment['apibase'] + 'JobProfileParameters/update/' + apiData.JobProfileParametersId, apiData)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
+    deleteJobProfilrParameter(id) : Observable<any>{
+        this.increaseAPiCount();
+        return this.Intercepted.delete(environment['apibase'] + 'JobProfileParameters/delete/'+id)
+        .map((res : Response)=> {
+            this.decreaseAPiCount();
+            return res.json();
+        })
+        .catch((error : any) => {
+            this.count = 0;
+            this.apiEndEvent.emit();
+            return Observable.throw(error.json() || 'Server error');  
+        })
+    }
+
 }

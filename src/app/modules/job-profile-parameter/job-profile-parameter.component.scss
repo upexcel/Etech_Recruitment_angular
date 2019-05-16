@@ -1,0 +1,24 @@
+@import './../../variable.scss';
+
+.main-form {
+    margin-bottom: 10px;
+    background-color: $white;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.font-18 {
+	font-size: 18px;
+    margin: 5px 0px;
+}
+
+.linespace {
+	opacity: 0.5;
+    margin-bottom: 15px;
+}
+
+.pos-add {
+    position: fixed;
+    right: 10px;
+    bottom: 20px;
+}
