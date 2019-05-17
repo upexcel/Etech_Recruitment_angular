@@ -1602,7 +1602,7 @@ export class ImapMailsService {
 
     updateJobProfileParameters(apiData): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.put(environment['apibase'] + 'JobProfileParameters/update/' + apiData.JobProfileParametersId, apiData)
+        return this.Intercepted.put(environment['apibase'] + `JobProfileParameters/update/${apiData.tagId}`, apiData)
             .map((res: Response) => {
                 this.decreaseAPiCount();
                 return res.json();
@@ -1614,18 +1614,18 @@ export class ImapMailsService {
             });
     }
 
-    deleteJobProfilrParameter(id) : Observable<any>{
+    deleteJobProfileParameter(id): Observable<any> {
         this.increaseAPiCount();
-        return this.Intercepted.delete(environment['apibase'] + 'JobProfileParameters/delete/'+id)
-        .map((res : Response)=> {
-            this.decreaseAPiCount();
-            return res.json();
-        })
-        .catch((error : any) => {
-            this.count = 0;
-            this.apiEndEvent.emit();
-            return Observable.throw(error.json() || 'Server error');  
-        })
+        return this.Intercepted.delete(environment['apibase'] + `JobProfileParameters/delete/${id}`)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            })
     }
 
 }

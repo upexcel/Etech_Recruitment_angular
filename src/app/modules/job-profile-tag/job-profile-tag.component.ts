@@ -31,9 +31,9 @@ export class JobProfileTagComponent implements OnInit {
             apiData.push({ 'id': value['id'], 'priority': (key + 1) })
         })
         this.getTags.updatePriority(apiData).subscribe((res) => {
-            console.log(res)
+            console.error(res)
         }, (err) => {
-            console.log(err)
+            console.error(err)
         })
     }
 
@@ -46,7 +46,7 @@ export class JobProfileTagComponent implements OnInit {
         this.getTags.getTemplate().subscribe((data) => {
             this.tempList = data;
         }, (err) => {
-            console.log(err);
+            console.error(err);
         });
     }
     getAllTag() {
@@ -54,7 +54,7 @@ export class JobProfileTagComponent implements OnInit {
             .subscribe((data) => {
                 this.formatTagsInArray(data);
             }, (err) => {
-                console.log(err);
+                console.error(err);
                 this.loading = false;
             });
     }
@@ -66,11 +66,11 @@ export class JobProfileTagComponent implements OnInit {
                     this.getAllTag();
                     this.refreshAllTags();
                 }, (err) => {
-                    console.log(err);
+                    console.error(err);
                 });
             }
         }, (err) => {
-            console.log(err);
+            console.error(err);
         });
     }
 

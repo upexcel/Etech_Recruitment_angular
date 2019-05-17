@@ -1,6 +1,7 @@
 <mat-card class="emailstyle  {{email.unread ? 'unchecked': 'checked'}}" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
-  <div class="avatar-image" (click)="email.selected = !email.selected; emailSelection()">
-    <div>{{email.weightage}}</div>
+  <div class="avatar-image" (click)="email.selected = !email.selected; emailSelection()" 
+  [ngClass]="{'weightage-color-green': (email.weightage > 6), 'weightage-color-orange': (email.weightage <= 6 && email.weightage > 3), 'weightage-color-red': email.weightage <= 6}">
+    <div class ="avatar-font">{{email.weightage}}</div>
   </div>
   <div class="emailcheckbox" *ngIf="role !== 'Guest'" [style.visibility]="email.selected ? 'visible' : 'hidden'">
     <mat-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></mat-checkbox>
