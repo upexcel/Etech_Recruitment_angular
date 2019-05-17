@@ -1,8 +1,8 @@
 <div id="jobProfile" class="main-form">
   <p class="font-18">Create Job Parameter</p>
   <hr class="linespace">
-  <div class = "paramlist" *ngIf="parameterList && parameterList.length">
-    <div  *ngFor="let parameter of parameterList">
+  <div class="paramlist" *ngIf="parameterList && parameterList.length">
+    <div *ngFor="let parameter of parameterList">
       <div class="tagbutton1">
         <div class="tagname" (click)="editParameter(parameter)">
           {{parameter.jobProfile}}

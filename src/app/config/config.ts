@@ -98,4 +98,11 @@ export const bitlySetup = {
     'login': 'o_6so222ci9c',
     'host': 'http://api.bit.ly/v3/shorten'
 }
+export const jobProfileParameters = [
+    {name : 'Experience', value: 'experience'},
+    {name : 'Gender', value: 'gender'},
+    {name : 'Location', value: 'location'},
+    {name : 'Skill', value: 'skill'},
+    {name: 'Training', value: 'training'}
+]
 // bitly is created from manisharies.iitg@gmail.com google login

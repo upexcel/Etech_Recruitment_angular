@@ -4,48 +4,59 @@
   </div>
   <mat-dialog-content>
     <form *ngIf="paramForm" class="add-param " id="add_param" [formGroup]="paramForm">
-      <div class="row-1 ">
-        <mat-select class="width-100" placeholder="Select Job Profile" formControlName="tagId"> 
+      <div class="row-1">
+        <mat-select class="width-100" placeholder="Select Job Profile" formControlName="tagId">
           <mat-option class="dropdown-options" *ngFor="let item of tempList?.Automatic" [value]=item.id>
             {{item.title}}
           </mat-option>
         </mat-select>
       </div>
       <div *ngIf="paramForm.value.tagId">
-        <div class="row" formArrayName="parameters"
+        <div class="row mt-30" formArrayName="parameters"
           *ngFor="let param of paramForm.get('parameters').controls; let i=index">
-          <div [formGroupName]="i">
-            <div class="col-sm-3">
-              <mat-form-field>
-                <input matInput [ngClass]="{'read-only' : paramForm.value.parameters.length != i+1 && !formData}" name="name"
-                  id='name' autocomplete="off" placeholder="Name" formControlName="parameterName"
-                  [readonly]="paramForm.value.parameters.length != i+1 && !formData">
-                <mat-error>Name Is Required</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <mat-form-field>
-                <input matInput [ngClass]="{'read-only' : paramForm.value.parameters.length != i+1 && !formData}" name="value"
-                  autocomplete="off" id="value" placeholder="Value" formControlName="parameterValue"
-                  [readonly]="paramForm.value.parameters.length != i+1 && !formData">
-                <mat-error>Value Is Required</mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-3">
-              <mat-form-field>
-                <input matInput type="number" min="1" max="10"
-                  [ngClass]="{'read-only' : paramForm.value.parameters.length != i+1 && !formData}" name="weightage" id="weightage"
-                  placeholder="Weightage" formControlName="parameterWeight"
-                  [readonly]="paramForm.value.parameters.length != i+1 && !formData" >
-                <mat-error *ngIf="paramForm.controls.parameters.controls[i]['controls']['parameterWeight'].hasError('max')">Max value = 10</mat-error>
-                <mat-error *ngIf="paramForm.controls.parameters.controls[i]['controls']['parameterWeight'].hasError('required')">Weightage is required</mat-error>
-              </mat-form-field>
-            </div>
-            <div id="tagBtn" class="col-sm-3 text-right" *ngIf="paramForm.value.parameters.length == i+1">
-              <button mat-raised-button id="add" color=primary [disabled]="paramForm.invalid" (click)="addForms(i)">
-                <span>Add Another</span>
-                
-              </button>
+          <div class="col-sm-1">
+            <mat-icon *ngIf="paramForm.value.parameters.length != i+1" class="delete-icon"
+              (click)="removeParameterRow(i)">delete</mat-icon>
+          </div>
+          <div [formGroupName]="i" class="col-sm-11">
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <mat-select class="width-100" placeholder="Name" formControlName="parameterName">
+                    <mat-option class="dropdown-options" *ngFor="let item of jobProfileParameters" [value]=item.value>
+                      {{item.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>Name Is Required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <input matInput [ngClass]="{'read-only' : paramForm.value.parameters.length != i+1 && !formData}"
+                    name="value" autocomplete="off" id="value" placeholder="Value" formControlName="parameterValue"
+                    [readonly]="paramForm.value.parameters.length != i+1 && !formData">
+                  <mat-error>Value Is Required</mat-error>
+                </mat-form-field>
+              </div>
+              <div class="col-sm-3">
+                <mat-form-field>
+                  <input matInput type="number" min="1" max="10"
+                    [ngClass]="{'read-only' : paramForm.value.parameters.length != i+1 && !formData}" name="weightage"
+                    id="weightage" placeholder="Weightage" formControlName="parameterWeight"
+                    [readonly]="paramForm.value.parameters.length != i+1 && !formData">
+                  <mat-error
+                    *ngIf="paramForm.controls.parameters.controls[i]['controls']['parameterWeight'].hasError('max')">Max
+                    value = 10</mat-error>
+                  <mat-error
+                    *ngIf="paramForm.controls.parameters.controls[i]['controls']['parameterWeight'].hasError('required')">
+                    Weightage is required</mat-error>
+                </mat-form-field>
+              </div>
+              <div id="tagBtn" class="col-sm-3 text-right" *ngIf="paramForm.value.parameters.length == i+1">
+                <button mat-raised-button id="add" color=primary [disabled]="paramForm.invalid" (click)="addForms(i)">
+                  <span>Add Another</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

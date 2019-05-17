@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatChipInputEvent } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
+import { jobProfileParameters } from '../../config/config';
 @Component({
     selector: 'app-add-param-modal',
     templateUrl: './add-parameter-modal.component.html',
@@ -9,11 +10,11 @@ import { ImapMailsService } from '../../service/imapemails.service';
 })
 export class AddParameterModalComponent implements OnInit {
 
-    tempList: any[];
+    formData: any;
+    jobProfileParameters = jobProfileParameters;
     parameters: FormArray;
     paramForm: FormGroup;
-    formData: any;
-
+    tempList: any[];
     constructor(public dialogRef: MatDialogRef<any>, public _snackBar: MatSnackBar, private _fb: FormBuilder, private imapMailService: ImapMailsService) { }
 
     ngOnInit() {
@@ -93,14 +94,13 @@ export class AddParameterModalComponent implements OnInit {
 
     onSubmit(formData) {
         formData['parameters'].forEach(param => {
-            param['parameterName'] = param['parameterName'].toLowerCase();
+            param['parameterName'] = param['parameterName'];
             param['parameterValue'] = param['parameterValue'].toLowerCase();
             param['tagId'] = formData['tagId']
         });
         const apiData = { bulkData: formData['parameters'], tagId: formData['tagId'] };
         if (this.formData) {
-            this.imapMailService.updateJobProfileParameters(formData).subscribe(data => {
-                console.log(data)
+            this.imapMailService.updateJobProfileParameters(apiData).subscribe(data => {
                 this._snackBar.open('Job Profile Parameter Successfully Updated', '', {
                     duration: 2000
                 });
@@ -127,6 +127,11 @@ export class AddParameterModalComponent implements OnInit {
                 console.error(err)
             });
         }
+    }
+
+    removeParameterRow(i) {
+        let control = <FormArray>this.paramForm.controls.parameters;
+        control.removeAt(i);
     }
 
     close(data?) {

@@ -34,7 +34,7 @@ export class JobProfileParameterComponent implements OnInit {
 
     addParam() {
         this.dialogRef = this.dialog.open(AddParameterModalComponent, {
-            width: "60vw"
+            width: "65vw"
         });
         this.dialogRef.afterClosed().subscribe(res => {
             if (res === 'success') {
@@ -63,13 +63,11 @@ export class JobProfileParameterComponent implements OnInit {
     }
 
     editParameter(parameter: any) {
-        this.dialogRef = this.dialog.open(AddParameterModalComponent, { width: '60vw' });
+        this.dialogRef = this.dialog.open(AddParameterModalComponent, { width: '65vw' });
         this.dialogRef.componentInstance.formData = parameter;
         this.dialogRef.afterClosed().subscribe(result => {
             if (result) {
-                this.snackBar.open(`Form Open Successfully`, '', {
-                    duration: 2000,
-                });
+                this.getJobProfileParameters();
             }
         });
     }
