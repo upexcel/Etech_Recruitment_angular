@@ -34,6 +34,9 @@
                 <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileTags','Job Profile Tag')">
                     <a mat-line> Job Profile </a>
                 </mat-list-item>
+                <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('jobProfileParameter','Job Profile Parameter')">
+                    <a mat-line> Job Profile Parameter </a>
+                </mat-list-item>
                 <mat-list-item class="navlist" *ngIf="role == 'Admin' || role == 'HR'" (click)="goto('companyProfile','Company Profile')">
                     <a mat-line> Company Profile </a>
                 </mat-list-item>

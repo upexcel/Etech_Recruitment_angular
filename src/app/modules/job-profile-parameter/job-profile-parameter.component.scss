@@ -1,0 +1,78 @@
+@import './../../variable.scss';
+
+.main-form {
+  margin-bottom: 10px;
+  background-color: $white;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.font-18 {
+  font-size: 18px;
+  margin: 5px 0px;
+}
+
+.linespace {
+  opacity: 0.5;
+  margin-bottom: 15px;
+}
+
+.pos-add {
+  position: fixed;
+  right: 10px;
+  bottom: 20px;
+}
+
+.tagbutton1 {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2),
+    0 2px 2px 0 rgba(0, 0, 0, .14),
+    0 1px 5px 0 rgba(0, 0, 0, .12);
+  box-sizing: border-box;
+  display: inline-block;
+  font-family: Roboto, sans-serif;
+  cursor: pointer;
+  background: #efefef;
+  margin: 4px;
+  padding: 5px;
+  outline: none;
+  border-radius: 16px;
+  width: -webkit-fit-content;
+ margin-right: 10px;
+
+}
+
+.taglogo {
+  color: $white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+  margin-right: -4px;
+  -webkit-user-select: none;
+}
+
+.tagname {
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 32px;
+  padding-left: 12px;
+  padding-right: 12px;
+  opacity: 0.8;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  display: inline-block;
+}
+
+.paramlist {
+  display: flex;
+}
+
+.iconset {
+  margin: 0px 4px 0px -8px;
+  opacity: 0.5;
+  position: relative;
+  top: 5px;
+}

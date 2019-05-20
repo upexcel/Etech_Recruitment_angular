@@ -44,6 +44,7 @@ import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.comp
 import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
 import { ScheduleInterviewComponent } from './modules/schedule-interview/schedule-interview.component';
 import { CandidateScheduleComponent } from './modules/candidate-schedule/candidate-schedule.component';
+import { JobProfileParameterComponent } from'./modules/job-profile-parameter/job-profile-parameter.component';
 
 export const routes: Route[] = [{
     path: '',
@@ -208,6 +209,10 @@ export const routes: Route[] = [{
                     path: 'testSet',
                     component: TestSetsComponent,
                     canActivate: [LoginRouteGuard]
+                } , {
+                    path : 'jobProfileParameter',
+                    component : JobProfileParameterComponent,
+                    canActivate : [LoginRouteGuard]
                 }]
             }, {
                 path: 'changepassword',

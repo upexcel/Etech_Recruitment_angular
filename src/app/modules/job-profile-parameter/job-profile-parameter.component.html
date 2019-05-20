@@ -1,0 +1,20 @@
+<div id="jobProfile" class="main-form">
+  <p class="font-18">Create Job Parameter</p>
+  <hr class="linespace">
+  <div class="paramlist" *ngIf="parameterList && parameterList.length">
+    <div *ngFor="let parameter of parameterList">
+      <div class="tagbutton1">
+        <div class="tagname" (click)="editParameter(parameter)">
+          {{parameter.jobProfile}}
+        </div>
+        <mat-icon id="deleteTag" class="iconset" (click)="deleteParameter(parameter.tagId)">cancel</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="pos-add">
+  <button mat-fab (click)="addParam()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
