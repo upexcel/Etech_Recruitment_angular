@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatChipInputEvent } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
-import { jobProfileParameters } from '../../config/config';
+import { jobProfileParameters, jobParameterValues } from '../../config/config';
+import { element } from 'protractor';
 @Component({
     selector: 'app-add-param-modal',
     templateUrl: './add-parameter-modal.component.html',
@@ -11,14 +12,19 @@ import { jobProfileParameters } from '../../config/config';
 export class AddParameterModalComponent implements OnInit {
 
     formData: any;
+    flag = [];
     jobProfileParameters = jobProfileParameters;
+    jobParameterList: any[];
     parameters: FormArray;
     paramForm: FormGroup;
-    tempList: any[];
+    parameterValueOption: any[] = [];
+    parameterDropdown: Array<any> = [];
+
     constructor(public dialogRef: MatDialogRef<any>, public _snackBar: MatSnackBar, private _fb: FormBuilder, private imapMailService: ImapMailsService) { }
 
     ngOnInit() {
         this.getJobProfileParameterData();
+        this.flag = [];
     }
 
     getJobProfileParameterData() {
@@ -31,14 +37,14 @@ export class AddParameterModalComponent implements OnInit {
     }
 
     filterParameterData(data: any) {
-        this.tempList = [];
+        this.jobParameterList = [];
         for (let i = 0; i < data.length; i++) {
-            if (data[i].type === 'Automatic') {
-                if (!this.tempList['Automatic']) {
-                    this.tempList['Automatic'] = [];
-                    this.tempList['Automatic'].push(data[i]);
+            if (data[i].type === 'Automatic' && data[i]['active_status']) {
+                if (!this.jobParameterList['Automatic']) {
+                    this.jobParameterList['Automatic'] = [];
+                    this.jobParameterList['Automatic'].push(data[i]);
                 } else {
-                    this.tempList['Automatic'].push(data[i]);
+                    this.jobParameterList['Automatic'].push(data[i]);
                 }
             }
         }
@@ -54,6 +60,7 @@ export class AddParameterModalComponent implements OnInit {
             tagId: [''],
             parameters: this._fb.array([this.addParam()])
         });
+        this.flag.push({ value: false });
     }
 
     createFormData() {
@@ -80,17 +87,32 @@ export class AddParameterModalComponent implements OnInit {
         formData.parameters.forEach(parameter => {
             control.push(this._fb.group(parameter));
         });
+
+        this.createEditData(this.formData.data)
+    }
+
+    createEditData(formData) {
+        for (var i = 0; i < formData.length; i++) {
+            this.parameterDropdown.push({ id: i, name: formData[i].parameterName, values: jobParameterValues[formData[i].parameterName] })
+            this.flag.push({ value: true })
+        }
     }
 
     addParam(): FormGroup {
         return this._fb.group({
             parameterName: ['', Validators.required],
             parameterValue: ['', Validators.required],
-            parameterWeight: ['', Validators.compose([Validators.required, Validators.max(10), Validators.min(1), Validators.maxLength(2)])]
+            parameterWeight: ['', Validators.compose([Validators.required, Validators.max(10), Validators.min(-10), Validators.maxLength(2)])]
         })
     }
 
-    addForms(i): void { (<FormArray>this.paramForm.get('parameters')).push(this.addParam()); }
+    addForms(i): void {
+        (<FormArray>this.paramForm.get('parameters')).push(this.addParam());
+        this.flag.forEach(element => {
+            element.value = true;
+        })
+        this.flag.push({ value: false })
+    }
 
     onSubmit(formData) {
         formData['parameters'].forEach(param => {
@@ -132,6 +154,37 @@ export class AddParameterModalComponent implements OnInit {
     removeParameterRow(i) {
         let control = <FormArray>this.paramForm.controls.parameters;
         control.removeAt(i);
+        this.flag.splice(i, 1)
+    }
+
+    editParameterRow(index) {
+        console.log(index);
+        this.flag[index].value = !this.flag[index].value;
+        console.log(this.flag);
+
+    }
+
+    selectParameterName(event, i) {
+        const selected = this.parameterDropdown.findIndex(parameter => parameter.id === i);
+        // if (event.value === 'dob' || event.value === 'location' || event.value === 'skill') {
+        //     if(selected != -1) this.parameterDropdown.splice(selected, 1);
+        //     return false;
+        // };
+        if (selected == -1) {
+            this.parameterDropdown.push({ id: i, name: event.value, values: jobParameterValues[event.value] });
+        } else {
+            // debugger
+            if (event.value === 'dob' || event.value === 'location' || event.value === 'skill') {
+                let control = <FormArray>this.paramForm.controls.parameters;
+                control['controls'][i].patchValue({
+                    parameterValue: "",
+                    parameterWeight: ""
+                });
+            }
+            this.parameterDropdown.splice(selected, 1, { id: i, name: event.value, values: jobParameterValues[event.value] });
+        }
+        console.log(this.parameterDropdown);
+
     }
 
     close(data?) {

@@ -1,5 +1,5 @@
 <mat-card class="emailstyle  {{email.unread ? 'unchecked': 'checked'}}" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
-  <div class="avatar-image" (click)="email.selected = !email.selected; emailSelection()" 
+  <div  *ngIf="!(email.weightage == null)"   class="avatar-image" (click)="email.selected = !email.selected; emailSelection()" 
   [ngClass]="{'weightage-color-green': (email.weightage > 6), 'weightage-color-orange': (email.weightage <= 6 && email.weightage > 3), 'weightage-color-red': email.weightage <= 6}">
     <div class ="avatar-font">{{email.weightage}}</div>
   </div>
@@ -19,7 +19,7 @@
       <span *ngIf="!email.source">IMAP</span>
     </p>
     <p *ngIf="email.is_attachment" class="emailbody">{{email.body}}</p>
-    <p *ngIf="isRoundsTag">Interview Schedule: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}, By: {{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p>
+    <p *ngIf="email['shedule_date']">Interview Schedule: <b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}, By: {{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p>
       <div *ngIf="email"> 
         <span *ngIf="email.location">Location: {{email.location}}</span>
         <span *ngIf="email.experience">Experience: {{email.experience}}</span>

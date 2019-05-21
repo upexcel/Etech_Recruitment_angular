@@ -99,10 +99,31 @@ export const bitlySetup = {
     'host': 'http://api.bit.ly/v3/shorten'
 }
 export const jobProfileParameters = [
-    {name : 'Experience', value: 'experience'},
-    {name : 'Gender', value: 'gender'},
-    {name : 'Location', value: 'location'},
-    {name : 'Skill', value: 'skill'},
-    {name: 'Training', value: 'training'}
+    { name: 'Experience', value: 'experience' },
+    { name: 'Gender', value: 'gender' },
+    { name: 'Location', value: 'location' },
+    { name: 'Skill', value: 'skill' },
+    { name: 'Training', value: 'training' },
+    { name: 'Year of Birth', value: 'dob' }
 ]
+
+export const jobParameterValues = {
+        experience: [
+            { name: 'Fresher', value: '0' },
+            { name: '0.0-0.5 Year', value: '0.0-0.5' },
+            { name: '0.5-1 Year', value: '0.5-1' },
+            { name: '1-2 Year', value: '1-2' }
+        ],
+        gender: [
+            { name: 'Male', value: 'male' },
+            { name: 'Female', value: 'female' }
+        ],
+        training: [
+            { name: 'True', value: 'true' },
+            { name: 'False', value: 'false' }
+        ]
+    }
+
+
+
 // bitly is created from manisharies.iitg@gmail.com google login
