@@ -1,7 +1,9 @@
-<mat-card class="emailstyle  {{email.unread ? 'unchecked': 'checked'}}" [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
-  <div class="avatar-image" (click)="email.selected = !email.selected; emailSelection()" 
-  [ngClass]="{'weightage-color-green': (email.weightage > 6), 'weightage-color-orange': (email.weightage <= 6 && email.weightage > 3), 'weightage-color-red': email.weightage <= 6}">
-    <div class ="avatar-font">{{email.weightage}}</div>
+<mat-card class="emailstyle  {{email.unread ? 'unchecked': 'checked'}}"
+  [ngClass]="{'bleftblue': email.is_automatic_email_send, 'bleftwhite': !email.is_automatic_email_send}">
+  <div *ngIf="!(email.weightage == null)" class="avatar-image"
+    (click)="email.selected = !email.selected; emailSelection()"
+    [ngClass]="{'weightage-color-green': (email.weightage > 6), 'weightage-color-orange': (email.weightage <= 6 && email.weightage > 3), 'weightage-color-red': email.weightage <= 6}">
+    <div class="avatar-font">{{email.weightage}}</div>
   </div>
   <div class="emailcheckbox" *ngIf="role !== 'Guest'" [style.visibility]="email.selected ? 'visible' : 'hidden'">
     <mat-checkbox (change)="emailSelection()" [(ngModel)]="email.selected"></mat-checkbox>
@@ -10,49 +12,66 @@
     <h5>{{countEmailSubject(email.subject)}}</h5>
     <h6 class="inline">
       <span *ngIf="email.examScore || email.examScore ==0">Exam Score: {{email.examScore}},</span>
-      <span class="badge" *ngIf="email && isSearching && email['tagTitle']" >{{email['tagTitle']}}</span>
+      <span class="badge" *ngIf="email && isSearching && email['tagTitle']">{{email['tagTitle']}}</span>
       <mat-icon *ngIf="email.is_attachment" class="attach iconAttach">attach_file</mat-icon>
-       {{email.updatedAt | date : 'medium'}} <span *ngIf="email.updatedAt" >/</span> {{email.date |date:'medium'}}
+      {{email.updatedAt | date : 'medium'}} <span *ngIf="email.updatedAt">/</span> {{email.date |date:'medium'}}
     </h6>
-    <p>{{email.sender_mail}} <br/> From {{email.from}}, Source:
+    <p>{{email.sender_mail}} <br /> From {{email.from}}, Source:
       <span *ngIf="email.source">{{email.source}}</span>
       <span *ngIf="!email.source">IMAP</span>
     </p>
     <p *ngIf="email.is_attachment" class="emailbody">{{email.body}}</p>
-    <p *ngIf="isRoundsTag">Interview Schedule: <b *ngIf="!email['shedule_date']">Direct</b><b *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}}, {{email.shedule_time}}, By: {{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p>
-      <div *ngIf="email"> 
-        <span *ngIf="email.location">Location: {{email.location}}</span>
-        <span *ngIf="email.experience">Experience: {{email.experience}}</span>
-        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].skills && email.cvData[0].skills.length">Skills: {{email.cvData[0].skills.join()}} </span>  
-        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].gender && email.cvData[0].gender != ''">Gender: {{email.cvData[0].gender}}</span>
-        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].traning_status && email.cvData[0].traning_status.length">Traning Status: {{email.cvData[0].traning_status.join()}}</span>
-        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].qualification && email.cvData[0].qualification.length">qualification: {{email.cvData[0].qualification.join()}}</span>
-        <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].dob && email.cvData[0].dob.length">DOB: {{email.cvData[0].dob.join()}}</span>
-      </div>
+    <p *ngIf="email['shedule_date']">Interview Schedule: <b
+        *ngIf="email['shedule_time'] || email['shedule_date']">{{email.shedule_date | date:'d MMM'}},
+        {{email.shedule_time}}, By: {{email['scheduledByCandidate'] ? "Candidate" : "Admin/HR"}}</b></p>
+    <div *ngIf="email">
+      <span *ngIf="email.location">Location: {{email.location}}</span>
+      <span *ngIf="email.experience">Experience: {{email.experience}}</span>
+      <span
+        *ngIf="email.cvData && email.cvData.length && email.cvData[0].skills && email.cvData[0].skills.length">Skills:
+        {{email.cvData[0].skills.join()}} </span>
+      <span
+        *ngIf="email.cvData && email.cvData.length && email.cvData[0].gender && email.cvData[0].gender != ''">Gender:
+        {{email.cvData[0].gender}}</span>
+      <span
+        *ngIf="email.cvData && email.cvData.length && email.cvData[0].traning_status && email.cvData[0].traning_status.length">Traning
+        Status: {{email.cvData[0].traning_status.join()}}</span>
+      <span
+        *ngIf="email.cvData && email.cvData.length && email.cvData[0].qualification && email.cvData[0].qualification.length">qualification:
+        {{email.cvData[0].qualification.join()}}</span>
+      <span *ngIf="email.cvData && email.cvData.length && email.cvData[0].dob && email.cvData[0].dob.length">DOB:
+        {{email.cvData[0].dob.join()}}</span>
+    </div>
   </div>
-  <div *ngIf="!email.candidate_star || !email.candidate_star.length"  class="mark__email not__starred" (click)="markStarred(email.sender_mail)">
+  <div *ngIf="!email.candidate_star || !email.candidate_star.length" class="mark__email not__starred"
+    (click)="markStarred(email.sender_mail)">
   </div>
-  <div *ngIf="email && email.candidate_star && email.candidate_star.length"  class="mark__email starred" (click)="markStarred(email.sender_mail)">
+  <div *ngIf="email && email.candidate_star && email.candidate_star.length" class="mark__email starred"
+    (click)="markStarred(email.sender_mail)">
   </div>
   <div class="spam-archive">
-    <p class="inlineBlock info" *ngIf="email">{{email.appInstalled ? "App Installed" : "App Not Installed"}},</p>    
+    <p class="inlineBlock info" *ngIf="email">{{email.appInstalled ? "App Installed" : "App Not Installed"}},</p>
     <p class="inlineBlock info" *ngIf="email && email.mobile_no">Mob: {{email.mobile_no}},</p>
     <p class="inlineBlock info add-mobile" *ngIf="email && !email.mobile_no" (click)="addMobile(email)">Add Mobile</p>
-    <div class="inlineBlock markSpam"  *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToSpam(email)">Spam</div>
-    <div class="inlineBlock markArchive" *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToArchive(email)">Archive</div>
+    <div class="inlineBlock markSpam" *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToSpam(email)">Spam</div>
+    <div class="inlineBlock markArchive" *ngIf="email['tagTitle'] == allTagTitle" (click)="moveToArchive(email)">Archive
+    </div>
     <p class="inlineBlock markunread" matTooltip=" Mark As Unread" *ngIf="!email.unread" (click)="markReadUnread()">
       <i class="material-icons unreadIcon">drafts</i>
     </p>
-    <p class="inlineBlock markunread" matTooltip="Generate Test Link For Mobile" (click)="generateTestLink(email, 'app-deep-link')">
+    <p class="inlineBlock markunread" matTooltip="Generate Test Link For Mobile"
+      (click)="generateTestLink(email, 'app-deep-link')">
       <i class="material-icons unreadIcon">insert_link</i>
     </p>
-    <p class="inlineBlock markunread" matTooltip="Generate Test Link For Web" (click)="generateTestLink(email, 'candidate/interviewques')">
+    <p class="inlineBlock markunread" matTooltip="Generate Test Link For Web"
+      (click)="generateTestLink(email, 'candidate/interviewques')">
       <i class="material-icons unreadIcon">insert_link</i>
     </p>
     <p class="inlineBlock markunread" matTooltip=" Mark As Read" *ngIf="email.unread" (click)="markReadUnread()">
       <i class="material-icons unreadIcon">markunread</i>
     </p>
-    <p class="inlineBlock noteView" *ngIf="email.notes.length>0" matTooltip="Click to view Note" (click)="emailNoteView(email.notes)">
+    <p class="inlineBlock noteView" *ngIf="email.notes.length>0" matTooltip="Click to view Note"
+      (click)="emailNoteView(email.notes)">
       <i class="material-icons noteicon">note</i>
     </p>
     <p class="inlineBlock call" [matTooltip]="callStatus" (click)="callDetails(email)" *ngIf="email.default_tag != ''">
@@ -62,20 +81,23 @@
 
   <div id="inboxTag" *ngIf="role !== 'Guest'" class="container-fluid">
     <div class="assign-interviewee">
-    <mat-select placeholder="Interviewee" *ngIf="tagselected"  [(ngModel)]="email.interviewee" (ngModelChange)="assignInterviewee(email.interviewee)">
-      <mat-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}</mat-option>
-    </mat-select>
+      <mat-select placeholder="Interviewee" *ngIf="tagselected" [(ngModel)]="email.interviewee"
+        (ngModelChange)="assignInterviewee(email.interviewee)">
+        <mat-option *ngFor="let interviewee of intervieweeList" [value]="interviewee.id">{{ interviewee.email }}
+        </mat-option>
+      </mat-select>
     </div>
 
     <div class="default-tag-buttons row" *ngIf="tagAssigned">
       <span *ngFor="let tag of tagAssigned; trackBy: allTagsDefaultTrack;">
-        <div class="col-md-2 col-sm-2 col-xs-6" *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id == null && tag.active_status != false" id="{{tag.title}}"
-        (click)="assignTag(tag.id, email._id, tag.title, email)">
-        <button mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
-          <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
-        </button>
-      </div>
-    </span>
+        <div class="col-md-2 col-sm-2 col-xs-6"
+          *ngIf="tag.id != tagselected && tag.title != 'All' && tag.parent_id == null && tag.active_status != false"
+          id="{{tag.title}}" (click)="assignTag(tag.id, email._id, tag.title, email)">
+          <button mat-raised-button class="cyan" [ngStyle]="getColor(tag.title)">
+            <i class="material-icons">{{getIcon(tag.title)}}</i> {{tag.title}}
+          </button>
+        </div>
+      </span>
 
     </div>
     <!-- <div class="default-tag-buttons row" *ngIf="!tagselected">

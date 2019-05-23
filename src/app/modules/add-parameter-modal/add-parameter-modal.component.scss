@@ -36,7 +36,14 @@
 .read-only {
   cursor: not-allowed;
   user-select: none;
+  pointer-events: none;
 }
+
+.read-only-input {
+  cursor: not-allowed;
+  user-select: none;
+}
+
 
 .btn-panel {
   margin-top: 10px;
@@ -46,4 +53,14 @@
   color: #e74c3c;
   padding-top: 12px;
   cursor: pointer;
+}
+
+.edit-icon {
+  padding-top: 12px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+.col-sm-1 {
+  display: inline-flex;
 }
