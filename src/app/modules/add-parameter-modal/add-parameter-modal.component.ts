@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar, MatChipInputEvent } from '@angular/material';
 import { ImapMailsService } from '../../service/imapemails.service';
 import { jobProfileParameters, jobParameterValues } from '../../config/config';
-import { element } from 'protractor';
 @Component({
     selector: 'app-add-param-modal',
     templateUrl: './add-parameter-modal.component.html',
@@ -32,7 +31,7 @@ export class AddParameterModalComponent implements OnInit {
             .subscribe((data) => {
                 this.filterParameterData(data);
             }, (err) => {
-                console.log(err);
+                console.error(err);
             });
     }
 
@@ -158,22 +157,14 @@ export class AddParameterModalComponent implements OnInit {
     }
 
     editParameterRow(index) {
-        console.log(index);
         this.flag[index].value = !this.flag[index].value;
-        console.log(this.flag);
-
     }
 
     selectParameterName(event, i) {
         const selected = this.parameterDropdown.findIndex(parameter => parameter.id === i);
-        // if (event.value === 'dob' || event.value === 'location' || event.value === 'skill') {
-        //     if(selected != -1) this.parameterDropdown.splice(selected, 1);
-        //     return false;
-        // };
         if (selected == -1) {
             this.parameterDropdown.push({ id: i, name: event.value, values: jobParameterValues[event.value] });
         } else {
-            // debugger
             if (event.value === 'dob' || event.value === 'location' || event.value === 'skill') {
                 let control = <FormArray>this.paramForm.controls.parameters;
                 control['controls'][i].patchValue({
@@ -183,8 +174,6 @@ export class AddParameterModalComponent implements OnInit {
             }
             this.parameterDropdown.splice(selected, 1, { id: i, name: event.value, values: jobParameterValues[event.value] });
         }
-        console.log(this.parameterDropdown);
-
     }
 
     close(data?) {
