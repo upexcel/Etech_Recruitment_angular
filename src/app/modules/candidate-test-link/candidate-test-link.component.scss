@@ -1,0 +1,32 @@
+.main {
+    width: 100%;
+    text-align: center;
+}
+
+img {
+    width : 20%;
+    margin-left: 25px;
+    position: relative;
+    top : 100px;
+}
+
+.btn-label {
+    width : 50%;
+}
+.test-link {
+    background-color: #007BAF;
+    background: #0f99a9;
+    border-radius: 6px;
+    margin : 0 auto;
+    width : 20%;
+    height:70px;  
+    font-size: 30px;
+    color: white; 
+    position: relative;
+    top:200px;
+}
+
+
+@media screen and (max-width : 385px) {
+
+}
