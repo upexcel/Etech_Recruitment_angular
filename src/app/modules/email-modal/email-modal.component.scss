@@ -457,8 +457,8 @@ a.link:hover{
 	float: right;
 }
 .badge {
-	background: #2bbbad;
-	display: inline-block;
+	  background: #2bbbad;
+	  display: inline-block;
     min-width: 10px;
     padding: 4px 12px;
     font-size: 16px;
@@ -470,6 +470,36 @@ a.link:hover{
     vertical-align: middle;
     border-radius: 10px;
 }
+
+.weightage {
+	  display: inline-block;
+    min-width: 10px;
+    padding: 4px 12px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    background:orange;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+.weightage-color-red {
+  background:#ea2424;
+}
+
+.weightage-color-orange {
+  background:orange;
+}
+
+.weightage-color-green {
+  background:green;
+}
+
+
+
 .call {
     cursor: pointer;
 }
