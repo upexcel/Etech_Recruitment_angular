@@ -13,7 +13,7 @@
           <span class="call" [matTooltip]="callStatus" (click)="callDetails()" *ngIf="selectedEmail.default_tag != ''">
               <i class="material-icons phone" [ngClass]="color">phone_android</i>
           </span>
-          <span  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">Exam Score: {{selectedEmail.examScore}}</span>
+          <span  *ngIf="(selectedEmail.fb_id && selectedEmail.fb_id !== 'false') && selectedEmail.examScore">Exam Score: {{selectedEmail.examScore}}</span>
         </span>
     </div>
     <!-- <div class="m-b">
