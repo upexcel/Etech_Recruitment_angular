@@ -14,10 +14,10 @@
               <i class="material-icons phone" [ngClass]="color">phone_android</i>
           </span>
           <span  *ngIf="selectedEmail.fb_id && selectedEmail.fb_id !== 'false'">Exam Score: {{selectedEmail.examScore}}</span>
-          <span class ="weightage">
-          Weightage : 4 </span>
+          <span *ngIf="selectedEmail.weightage || selectedEmail.weightage == 0"  class ="weightage" [ngClass]="{'weightage-color-green': (selectedEmail.weightage > 6), 'weightage-color-orange': (selectedEmail.weightage <= 6 && selectedEmail.weightage > 3), 'weightage-color-red': selectedEmail.weightage <= 6}">
+             Weightage : {{selectedEmail.weightage}} </span>
         </span>
-        <!--  [ngClass]="{'weightage-color-green': (email.weightage > 6), 'weightage-color-orange': (email.weightage <= 6 && email.weightage > 3), 'weightage-color-red': email.weightage <= 6}"  -->
+
 
     </div>
     <!-- <div class="m-b">
