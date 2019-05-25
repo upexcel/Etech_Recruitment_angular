@@ -2,5 +2,6 @@
         <div class="logo">
             <img src="assets/logo-high-res.png">
         </div>
-      <button mat-button class="test-link" (click) = "generateTestLink()"><span class = "btn-label">Generate Test</span></button>
+      <button mat-button class="test-link" (click) = "generateTestLink('app-deep-link')"><span class = "btn-label">Generate Test</span></button>
+      <mat-spinner class="commonSpinner2"  *ngIf="spinner" ></mat-spinner>
     </div>

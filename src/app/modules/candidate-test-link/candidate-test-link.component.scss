@@ -24,9 +24,23 @@ img {
     color: white; 
     position: relative;
     top:200px;
+    cursor: pointer; 
 }
 
-
-@media screen and (max-width : 385px) {
-
+.Spinner {
+    width: 30px!important;
+    height: 30px!important;
+    position: absolute;
+    top:350px;
+    left:45%;
+    svg {
+        width: 30px!important;
+        height: 30px!important;
+    }
+    circle {
+        stroke: #fff;
+    }
+        path {
+            stroke: black;
+        }
 }
