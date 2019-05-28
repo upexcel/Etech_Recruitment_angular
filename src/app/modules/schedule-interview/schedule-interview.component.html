@@ -1,76 +1,85 @@
 <div class="header">
-    <p class="h-text">Schedule Interview</p>
-    <div style="float: right" *ngIf="!showForm && !errorMessage">
-        <mat-spinner class="commonSpinner1" ></mat-spinner>
-    </div>
+  <p class="h-text">Schedule Interview</p>
+  <div style="float: right" *ngIf="!showForm && !errorMessage">
+    <mat-spinner class="commonSpinner1"></mat-spinner>
+  </div>
 </div>
 <h4>
-    <b>Name</b>: {{emailData.from}}</h4>
+  <b>Name</b>: {{emailData.from}}</h4>
 <h5>
-    <b>Email</b>: {{emailData.sender_mail}}</h5>
+  <b>Email</b>: {{emailData.sender_mail}}</h5>
 <p class="error">{{errorMessage}}</p>
 <mat-radio-group [(ngModel)]="scheduleBy" (change)="onSchedule(scheduleBy)">
-    <mat-radio-button id="scheduleByEmail" value="scheduleByEmail">Schedule Interview</mat-radio-button>
-    <mat-radio-button id="scheduleByDirect" value="scheduleByDirect">Direct</mat-radio-button>
+  <mat-radio-button id="scheduleByEmail" value="scheduleByEmail">Schedule Interview</mat-radio-button>
+  <mat-radio-button id="scheduleByDirect" value="scheduleByDirect">Direct</mat-radio-button>
 </mat-radio-group>
 
-<form   autoComplete="off" [formGroup]="interviewForm" *ngIf="(showForm && (scheduleBy == 'scheduleByEmail')) && interviewForm" class="schedule-form">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <mat-select placeholder="Interview Round" class="width-100" [formControl]="interviewForm.controls['selectedInterviewRound']"
-                           (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
-                    <mat-option *ngFor="let interview of interviewRounds; trackBy: interviewRoundsTrack;" [value]="interview" [disabled]="interview.disable">{{ interview.name }}</mat-option>
-                </mat-select>
-            </div>
-            <div class="col-md-6 col-sm-12 no-mar">
-                <mat-form-field>
-                    <input matInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'" (focus)="picker.open()" [ngModelOptions]="{standalone: true}"
-                           [disabled]="!selectedInterviewRound">
-                           <!-- Removed  [min]="minDate" [max]="maxDate" [matDatepickerFilter]="dateFilter" to remove the restriction from date Picker -->
-                           <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Select Date"
-                           [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
-                           <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="!selectedInterviewRound"></mat-datepicker-toggle>
-                </mat-form-field>
-                <mat-datepicker #picker (selectedChanged)="changeInDate($event)"></mat-datepicker>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <mat-select placeholder="Select Time" class="width-100" [formControl]="interviewForm.controls['selectedInterviewTime']">
-                    <!-- Removed [disabled] to enable the time dropdown -->
-                    <mat-option *ngFor="let timeData of timeListData; trackBy: timeListDataTrack;" [value]="timeData.time">{{ timeData.time }}</mat-option>
-                </mat-select>
-            </div>
-            <div class="col-md-6 col-sm-12">
-                <mat-select placeholder="Select Template" class="width-100" [formControl]="interviewForm.controls['selectedInterviewTemplate']">
-                    <mat-option *ngFor="let template of templateData; trackBy: templateDataTrack;" [value]="template.id">{{ template.templateName }}</mat-option>
-                </mat-select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-12">
-                <mat-form-field class="width-100">
-                    <input matInput type="number" placeholder="Mobile No" [formControl]="interviewForm.controls['mobile_no']">
-                </mat-form-field>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-12 pull-right text-right">
-                <button mat-raised-button (click)="close()">Back</button>
-                <button mat-raised-button type="submit" color="accent" (click)="scheduleInterview(interviewForm)" [disabled]="!interviewForm.valid">Schedule</button>
-            </div>
-        </div>
+<form autoComplete="off" [formGroup]="interviewForm"
+  *ngIf="(showForm && (scheduleBy == 'scheduleByEmail')) && interviewForm" class="schedule-form">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <mat-select placeholder="Interview Round" class="width-100"
+          [formControl]="interviewForm.controls['selectedInterviewRound']"
+          (change)="changeInInterviewRound(interviewForm.value.selectedInterviewRound)">
+          <mat-option *ngFor="let interview of interviewRounds; trackBy: interviewRoundsTrack;" [value]="interview"
+            [disabled]="interview.disable">{{ interview.name }}</mat-option>
+        </mat-select>
+      </div>
+      <div class="col-md-6 col-sm-12 no-mar">
+        <mat-form-field>
+          <input matInput placeholder="Select Date" [ngModel]="showSelectedDate | date:'dd-MMMM-y'"
+            (focus)="picker.open()" [ngModelOptions]="{standalone: true}" [disabled]="!selectedInterviewRound">
+          <!-- Removed  [min]="minDate" [max]="maxDate" [matDatepickerFilter]="dateFilter" to remove the restriction from date Picker -->
+          <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Select Date"
+            [formControl]="interviewForm.controls['selectedInterviewDate']" [hidden]='true'>
+          <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="!selectedInterviewRound"></mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #picker (selectedChanged)="changeInDate($event)"></mat-datepicker>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <mat-select placeholder="Select Time" class="width-100"
+          [formControl]="interviewForm.controls['selectedInterviewTime']">
+          <!-- Removed [disabled] to enable the time dropdown -->
+          <mat-option *ngFor="let timeData of timeListData; trackBy: timeListDataTrack;" [value]="timeData.time">
+            {{ timeData.time }}</mat-option>
+        </mat-select>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <mat-select placeholder="Select Template" class="width-100"
+          [formControl]="interviewForm.controls['selectedInterviewTemplate']">
+          <mat-option *ngFor="let template of templateData; trackBy: templateDataTrack;" [value]="template.id">
+            {{ template.templateName }}</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <mat-form-field class="width-100">
+          <input matInput type="number" placeholder="Mobile No" [formControl]="interviewForm.controls['mobile_no']">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 pull-right text-right">
+        <button mat-raised-button (click)="close()">Back</button>
+        <button mat-raised-button type="submit" color="accent" (click)="scheduleInterview(interviewForm)"
+          [disabled]="!interviewForm.valid">Schedule</button>
+      </div>
+    </div>
+  </div>
 </form>
 <div class="default-tag-buttons row" *ngIf="showForm && scheduleBy == 'scheduleByDirect'">
-    <!-- <div class="col-md-3 col-sm-3 col-xs-3"></div> -->
-    <div class="col-md-12 col-sm-12 col-xs-12">
-        <h3>Select Round</h3>
-    </div>
-    <div (click)="scheduleInterviewDirect(interview)" *ngFor="let interview of interviewRounds" class="col-md-3 col-sm-3 col-xs-3">
-        <button mat-raised-button class="cyan" [ngStyle]="getColor(interview.name)">
-            <i class="material-icons">{{getIcon(interview.name)}}</i> {{interview.name}}
-        </button>
-    </div>
+  <!-- <div class="col-md-3 col-sm-3 col-xs-3"></div> -->
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <h3>Select Round</h3>
+  </div>
+  <div (click)="scheduleInterviewDirect(interview)" *ngFor="let interview of interviewRounds"
+    class="col-md-3 col-sm-3 col-xs-3">
+    <button mat-raised-button class="cyan" [ngStyle]="getColor(interview.name)">
+      <i class="material-icons">{{getIcon(interview.name)}}</i> {{interview.name}}
+    </button>
+  </div>
 </div>
