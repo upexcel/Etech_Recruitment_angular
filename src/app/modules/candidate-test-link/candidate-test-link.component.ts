@@ -27,7 +27,7 @@ export class CandidateTestLinkComponent implements OnInit {
   generateTestLink(pageUrl) {
     this.spinner = true;
     this.imapmailservice.generateTestLinkByCandidate(this.userId).subscribe((response) => {
-      const url = `${window.location.origin}/#/${pageUrl}/${response.data}`;
+      const url = `${window.location.origin}/#/app-deep-link/${response.data}`;
       window.location.replace(url)
       this.spinner == false;
     }, (err) => {
