@@ -270,7 +270,7 @@ export class EmailboxComponent implements OnInit {
     generateTestLink(email, pageUrl) {
         this.assignEmail.generateTestLink(email['_id']).subscribe((response) => {
             const url = `${window.location.origin}/#/${pageUrl}/${response.data}`;
-            console.log(url);
+            
             
             this.assignEmail.getBitlyURL(escape(url)).subscribe((res) => {
                 console.log(res)
