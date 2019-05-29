@@ -1,46 +1,66 @@
 .main {
-    width: 100%;
-    text-align: center;
+  width: 100%;
+  text-align: center;
 }
 
 img {
-    width : 20%;
-    margin-left: 25px;
-    position: relative;
-    top : 100px;
+  width: 50%;
+  margin-left: 25px;
+  position: relative;
+  top: 100px;
 }
 
-.btn-label {
-    width : 50%;
-}
+
 .test-link {
-    background-color: #007BAF;
-    background: #0f99a9;
-    border-radius: 6px;
-    margin : 0 auto;
-    width : 20%;
-    height:70px;  
-    font-size: 30px;
-    color: white; 
-    position: relative;
-    top:200px;
-    cursor: pointer; 
+  background-color: #007BAF;
+  background: #0f99a9;
+  border-radius: 6px;
+  margin: 0 auto;
+  font-size: 30px;
+  color: white;
+  position: relative;
+  top: 200px;
+  cursor: pointer;
 }
 
 .Spinner {
-    width: 30px!important;
-    height: 30px!important;
-    position: absolute;
-    top:350px;
-    left:45%;
-    svg {
-        width: 30px!important;
-        height: 30px!important;
-    }
-    circle {
-        stroke: #fff;
-    }
-        path {
-            stroke: black;
-        }
+  width: 30px !important;
+  height: 30px !important;
+  position: absolute;
+  top: 350px;
+  left: 45%;
+
+  svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  circle {
+    stroke: #fff;
+  }
+
+  path {
+    stroke: black;
+  }
 }
+
+
+@media only screen and (min-width :481px) {
+  img {
+    width: 52%;
+  }
+}
+
+@media only screen and (min-width: 641px) {
+  img {
+    width: 42%;
+  }
+}
+
+@media only screen and (min-width: 961px) {
+  img {
+    width: 28%;
+  }
+}
+
+

@@ -26,7 +26,7 @@ export class CandidateTestLinkComponent implements OnInit {
 
   generateTestLink(pageUrl) {
     this.spinner = true;
-    this.imapmailservice.generateTestLink(this.userId).subscribe((response) => {
+    this.imapmailservice.generateTestLinkByCandidate(this.userId).subscribe((response) => {
       const url = `${window.location.origin}/#/${pageUrl}/${response.data}`;
       window.location.replace(url)
       this.spinner == false;
