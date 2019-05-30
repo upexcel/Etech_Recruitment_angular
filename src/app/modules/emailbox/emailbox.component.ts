@@ -60,7 +60,9 @@ export class EmailboxComponent implements OnInit {
         this.role = this._localStorageService.getItem('role');
         this.tagAssigned = this.commonService.filtertag(this.email);
         this.email = this.commonService.getTagTitle(this.email);
-        
+        if (this.email.mobile_no && this.email.mobile_no.length > 10) {
+            this.email.mobile_no = this.email.mobile_no.substr(3, this.email.mobile_no.length);
+        }
         if (this.emailChildTitle === config['round1'] || this.emailChildTitle === config['round2'] || this.emailChildTitle === config['round3'] || this.emailChildTitle === config['automation']) {
             this.isRoundsTag = true;
         }
@@ -310,7 +312,7 @@ export class EmailboxComponent implements OnInit {
         });
         addMobileDialog.componentInstance.emailData = email;
         addMobileDialog.afterClosed().subscribe(result => {
-            if (result) email = result; 
+            if (result) email = result;
         })
     }
 }

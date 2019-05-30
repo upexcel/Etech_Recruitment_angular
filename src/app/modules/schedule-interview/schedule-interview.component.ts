@@ -42,11 +42,8 @@ export class ScheduleInterviewComponent implements OnInit {
 
     ngOnInit() {
         this.minDate = new Date();
-        if (this.emailData.mobile_no && this.emailData.mobile_no.length > 0) {
-            this.emailData.mobile_no = this.emailData.mobile_no.substr(3, this.emailData.mobile_no.length);
-            if (this.emailData.mobile_no === 'undefined') {
-                this.emailData.mobile_no = '';
-            }
+        if (this.emailData.mobile_no === 'undefined') {
+            this.emailData.mobile_no = '';
         }
         this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
         this.showForm = true;
