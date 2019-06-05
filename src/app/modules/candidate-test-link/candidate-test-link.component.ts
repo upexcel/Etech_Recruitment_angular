@@ -25,7 +25,7 @@ export class CandidateTestLinkComponent implements OnInit {
     })
   }
 
-  generateTestLink(pageUrl) {
+  generateTestLink() {
     this.spinner = true;
     this.imapmailservice.getexamAutomation(this.userId, this.notificationId).subscribe(res => {
     }, (err) => {
