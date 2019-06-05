@@ -667,13 +667,19 @@ export class InboxComponent implements OnInit, OnDestroy {
             width: "60vw"
         });
         this.dialogRef.componentInstance.getWeightageValue.subscribe((value) => {
-            const apiData = { userId: [] };
+            const apiData = { userIds: [] };
             this.emaillist.data.forEach(e => {
                 if (e.weightage > value || e.weightage == value) {
-                    apiData['userId'].push(e._id)
+                    apiData['userIds'].push(e._id)
                 }
             });
-        })
+            this.getemails.sendShortListedUserId(apiData).subscribe(res => {
+                if (res == 'success') {
+                    this.refresh();
+                }
+            }, (err) => {
+                console.log(err);
+            });
+        });
     }
-
 }

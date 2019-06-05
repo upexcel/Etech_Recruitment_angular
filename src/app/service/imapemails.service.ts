@@ -1641,4 +1641,18 @@ export class ImapMailsService {
             })
     }
 
+    sendShortListedUserId(apiData): Observable<any> {
+        this.increaseAPiCount();
+        return this.http.post(environment['apibase'] + `exam/autoShortList`, apiData)
+            .map((res: Response) => {
+                this.decreaseAPiCount();
+                return res.json();
+            })
+            .catch((error: any) => {
+                this.count = 0;
+                this.apiEndEvent.emit();
+                return Observable.throw(error.json() || 'Server error');
+            });
+    }
+
 }
