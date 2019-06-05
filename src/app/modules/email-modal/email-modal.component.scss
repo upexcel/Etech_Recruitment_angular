@@ -387,15 +387,20 @@ mat-grid-tile {
 .childdiv:hover{
     cursor:pointer;
 }
-.avatar-image img {
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
-    top: 10px;
-    position: absolute;
-}
-.avatar-image{
-  height: 30px;
+
+.avatar-img {
+  position: absolute;
+  left: 7px;
+  top: 15px;
+  height: 40px;
+  width: 40px;
+  background: #efefef;
+  text-align: center;
+  border-radius: 50px;
+  div {
+    padding-top: 10px; 
+  }
+
 }
 a.link:hover{
     cursor: pointer;
@@ -437,9 +442,9 @@ a.link:hover{
   margin: 0px;
 }
 .p-y-img{
-    margin-left: 60px;
+    margin-left: 30px;
     position: absolute;
-    margin-right: 130px;
+    margin-right: 110px;
 }
 @media (max-width:500px){
   .hidexs{
@@ -457,8 +462,8 @@ a.link:hover{
 	float: right;
 }
 .badge {
-	background: #2bbbad;
-	display: inline-block;
+	  background: #2bbbad;
+	  display: inline-block;
     min-width: 10px;
     padding: 4px 12px;
     font-size: 16px;
@@ -470,6 +475,36 @@ a.link:hover{
     vertical-align: middle;
     border-radius: 10px;
 }
+
+.weightage {
+	  display: inline-block;
+    min-width: 10px;
+    padding: 4px 12px;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    background:orange;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+.weightage-color-red {
+  background:#ea2424;
+}
+
+.weightage-color-orange {
+  background:orange;
+}
+
+.weightage-color-green {
+  background:green;
+}
+
+
+
 .call {
     cursor: pointer;
 }

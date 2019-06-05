@@ -44,7 +44,7 @@ import { AppDeepLinkComponent } from './modules/app-deep-link/app-deep-link.comp
 import { CompanyProfileComponent } from './modules/company-profile/company-profile.component';
 import { CandidateScheduleComponent } from './modules/candidate-schedule/candidate-schedule.component';
 import { JobProfileParameterComponent } from './modules/job-profile-parameter/job-profile-parameter.component';
-import { CandidateTestLinkComponent } from './modules/candidate-test-link/candidate-test-link.component'; 
+import { CandidateTestLinkComponent } from './modules/candidate-test-link/candidate-test-link.component';
 
 export const routes: Route[] = [
     {
@@ -244,7 +244,7 @@ export const routes: Route[] = [
         component: CandidateScheduleComponent
     },
     {
-        path : 'candidate-test/:userId',
+        path: 'candidate-test/:userId',
         component: CandidateTestLinkComponent
     }
 ];

@@ -11,6 +11,7 @@ import { LocalStorageService } from '../../service/local-storage.service';
 })
 export class CandidateTestLinkComponent implements OnInit {
 
+  notificationId: any;
   userId: any;
   urlId: any;
   spinner: boolean;
@@ -18,14 +19,18 @@ export class CandidateTestLinkComponent implements OnInit {
 
   ngOnInit() {
     this.spinner = false;
-    this.route.params.subscribe(param => {
-      // code to get id from url
-      this.userId = param.userId
+    this.userId = this.route.snapshot.params.userId;
+    this.route.queryParamMap.subscribe(param => {
+      this.notificationId = param.get('notificationId')
     })
   }
 
   generateTestLink(pageUrl) {
     this.spinner = true;
+    this.imapmailservice.getexamAutomation(this.userId, this.notificationId).subscribe(res => {
+    }, (err) => {
+      console.log(err);
+    });
     this.imapmailservice.generateTestLinkByCandidate(this.userId).subscribe((response) => {
       const url = `${window.location.origin}/#/app-deep-link/${response.data}`;
       window.location.replace(url)
@@ -35,3 +40,4 @@ export class CandidateTestLinkComponent implements OnInit {
     })
   }
 }
+
