@@ -112,7 +112,8 @@ export const jobParameterValues = {
             { name: 'Fresher', value: '0' },
             { name: '0.0-0.5 Year', value: '0.0-0.5' },
             { name: '0.5-1 Year', value: '0.5-1' },
-            { name: '1-2 Year', value: '1-2' }
+            { name: '1-2 Year', value: '1-2' },
+            { name: '2+ Year', value: '2-10' },
         ],
         gender: [
             { name: 'Male', value: 'male' },
