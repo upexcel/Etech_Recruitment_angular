@@ -44,6 +44,10 @@ export class ScheduleInterviewComponent implements OnInit {
         this.minDate = new Date();
         if (this.emailData.mobile_no === 'undefined') {
             this.emailData.mobile_no = '';
+        } else if(this.emailData.mobile_no.length) {
+            if(this.emailData.mobile_no.includes('+91')) {
+                this.emailData.mobile_no = this.emailData.mobile_no.slice(3);
+            }
         }
         this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
         this.showForm = true;
