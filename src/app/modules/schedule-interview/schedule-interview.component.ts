@@ -38,22 +38,24 @@ export class ScheduleInterviewComponent implements OnInit {
             'selectedInterviewTime': [{ value: null, disabled: false }, Validators.compose([Validators.required])],
             'mobile_no': [null, Validators.compose([Validators.minLength(10), Validators.maxLength(10), Validators.pattern(/^\d+$/)])],
         });
-        this.afterFormInit()
     }
 
     ngOnInit() {
+        this.afterFormInit()
     }
 
     afterFormInit() {
         this.minDate = new Date();
-        if (this.emailData.mobile_no === 'undefined') {
-            this.emailData.mobile_no = '';
-        } else if (this.emailData.mobile_no.length) {
-            if (this.emailData.mobile_no.includes('+91')) {
-                this.emailData.mobile_no = this.emailData.mobile_no.slice(3);
+        if (this.emailData) {
+            if (this.emailData.mobile_no === 'undefined') {
+                this.emailData.mobile_no = '';
+            } else if (this.emailData.mobile_no.length) {
+                if (this.emailData.mobile_no.includes('+91')) {
+                    this.emailData.mobile_no = this.emailData.mobile_no.slice(3);
+                }
             }
+            this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
         }
-        this.interviewForm.get('mobile_no').setValue(this.emailData.mobile_no);
         this.showForm = true;
         this.interviewForm.get('selectedInterviewDate').disable();
         this.interviewForm.get('selectedInterviewTime').disable();
