@@ -9,6 +9,7 @@ import { DialogService } from './../../service/dialog.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { AddNoteComponent } from './../add-note/add-note.component';
+import { environment } from 'environments/environment';
 
 @Component({
     selector: 'app-interviewee-candidate',
@@ -41,6 +42,7 @@ export class IntervieweeCandidateComponent implements OnInit, OnDestroy {
     updatedData: any
     user: any;
     mongoid: any;
+    apiEndPoint: any;
     constructor(private route: ActivatedRoute, public setvardialog: MatDialog, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.email = this._localStorageService.getItem('email');
     }
@@ -68,6 +70,7 @@ export class IntervieweeCandidateComponent implements OnInit, OnDestroy {
                 document.getElementsByClassName('mat-sidenav-content')[0].scrollTo(0, 0);
             }, 100);
         }
+        this.apiEndPoint = environment.apibase;
     }
 
     ngOnDestroy() {}

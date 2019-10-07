@@ -122,7 +122,10 @@
                     <a class="attach-click">
                         <i>View</i>
                     </a>
-                    <iframe id="IframeId" class="selectedEmail-attachment" [src]="attach.link | safeUrl">
+                    <iframe *ngIf="attach.link.includes('http')" id="IframeId" class="selectedEmail-attachment" [src]="attach.link | safeUrl">
+                        <p>Your browser does not support iframes.</p>
+                    </iframe>
+                    <iframe *ngIf="!attach.link.includes('http')" id="IframeId" class="selectedEmail-attachment" [src]="apiEndPoint + attach.link | safeUrl">
                         <p>Your browser does not support iframes.</p>
                     </iframe>
                     <div class="at-hd">

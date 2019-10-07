@@ -1,6 +1,9 @@
 <a mat-mini-fab class="cyan" (click)="close()">
     <mat-icon>close</mat-icon>
 </a>
-<iframe class="ifset" [src]="link | safeUrl">
+<iframe *ngIf="link.includes('http')" class="ifset" [src]="link | safeUrl">
   <p>Your browser does not support iframes.</p>
+</iframe>
+<iframe *ngIf="!link.includes('http')" class="ifset" [src]="apiEndPoint + link | safeUrl">
+    <p>Your browser does not support iframes.</p>
 </iframe>

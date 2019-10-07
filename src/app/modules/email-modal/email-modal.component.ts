@@ -18,6 +18,7 @@ import { ChangeTagComponent } from '../../modules//change-tag/change-tag.compone
 import { SetCallLogsComponent } from './../set-call-logs/set-call-logs.component';
 import { config } from './../../config/config';
 import { ChangeRoundComponent } from '../change-round/change-round.component';
+import { environment } from 'environments/environment';
 
 
 @Component({
@@ -63,6 +64,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
     color: string;
     result: any;
     callStatus = config.callStatus;
+    apiEndPoint: any;
     constructor(public snackBar: MatSnackBar, public _location: Location, private route: ActivatedRoute, private router: Router, public setvardialog: MatDialog, private ngZone: NgZone, sanitizer: DomSanitizer, private tagUpdate: ImapMailsService, public dialog: MatDialog, public commonService: CommonService, public _localStorageService: LocalStorageService, public _dialogService: DialogService) {
         this.tags = this._localStorageService.getItem('tags');
         this.dataForInterviewScheduleRound = this._localStorageService.getItem('dataForInterviewScheduleRound');
@@ -118,7 +120,7 @@ export class EmailModalComponent implements OnInit, OnDestroy, AfterContentInit 
             this._localStorageService.setItem('close', false);
         }
         this.closeWindow = this._localStorageService.getItem('close');
-
+        this.apiEndPoint = environment.apibase;
     }
 
     getIntervieweeList() {
