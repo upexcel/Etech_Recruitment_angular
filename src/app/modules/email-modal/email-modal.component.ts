@@ -27,10 +27,10 @@ import { environment } from 'environments/environment';
     styleUrls: ['./email-modal.component.scss'],
     animations: [
         trigger('collapseChange', [
-            state('true',
-                style({ height: '0', overflow: 'hidden' }),
-            ),
             state('false',
+                style({ height: '0'}),
+            ),
+            state('true',
                 style({ height: '*' })
             ),
             transition('* => *', animate('.25s ease-in'))
