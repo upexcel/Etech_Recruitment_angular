@@ -25,7 +25,6 @@ import { environment } from 'environments/environment';
     selector: 'app-email-modal',
     templateUrl: './email-modal.component.html',
     styleUrls: ['./email-modal.component.scss'],
-    encapsulation: ViewEncapsulation.Native,
     animations: [
         trigger('collapseChange', [
             state('true',
